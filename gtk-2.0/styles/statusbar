@@ -1,0 +1,41 @@
+
+
+style "statusbar"	= "default"	
+{
+#	xthickness = 1
+#	ythickness = 1
+        
+	engine "pixmap" 
+	{
+	    image
+	    {
+	     	function		= RESIZE_GRIP
+		recolorable	= TRUE
+		#state			= NORMAL
+		detail		= "statusbar"
+		overlay_file	= "Handles/resize-grip.png"
+		
+		overlay_border	= {0,0,0,0 }
+		overlay_stretch	= FALSE
+	    }
+      }
+}
+
+
+class "GtkStatusbar" style "statusbar"
+
+# Firefox handles this a little differently... it needs to be applied to GtkWindow and have no other details...
+style "FirefoxGrip"
+{
+	engine "pixmap"
+	{
+		image
+		{
+			function		= RESIZE_GRIP
+			overlay_file	= "Handles/resize-grip.png"
+
+		}
+	} 
+} 
+
+class "GtkWindow" style "FirefoxGrip"

@@ -1,0 +1,20 @@
+style "tooltips"	= "default"
+{
+  engine "pixmap"
+	{
+		image
+		{
+			function 		= FLAT_BOX
+                        detail		= "tooltip"
+			recolorable     = TRUE
+			file            = "/Others/tooltip.png"
+			border			= { 2, 2, 2, 2 }
+			stretch 		= TRUE
+		}
+	} 	
+}
+
+widget "gtk-tooltip*"  			style "tooltips"
+class 		"*GtkTooltips*"		style "tooltips"
+widget_class 	"*Tooltips*"		style "tooltips"
+widget "*.nautilus-extra-view-widget" style:highest "tooltips"

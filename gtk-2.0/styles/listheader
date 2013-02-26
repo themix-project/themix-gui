@@ -1,0 +1,91 @@
+style "list-header"
+{
+  fg[NORMAL] = "#666666"
+  fg[PRELIGHT] = "#444444"
+  fg[SELECTED] = @selected_fg_color
+  fg[ACTIVE] = @selected_fg_color
+  fg[INSENSITIVE] = "#b0b0b0"
+
+
+   #Comment out the ythickness setting below for thicker column headers.
+ ythickness = 3
+	GtkTreeView::odd_row_color  = "#eeeeee"
+	GtkTreeView::even_row_color = "#eeeeee"
+	GtkTreeView::odd_col_color = "#eeeeee"
+	GtkTreeView::even_col_color = "#eeeeee"	
+
+   engine "pixmap" 
+	{
+
+	#This image is used to draw the headers of columns in list views when they are
+	#not selected.
+    	image
+      		{
+        		function        	= BOX
+			recolorable    	= TRUE
+			state				= NORMAL
+			file            		= "ListHeaders/list_header.png"
+			border          	= { 1, 1, 1, 1 }
+			stretch         	= TRUE
+      		}
+
+	#This image is used to draw the column headers in list views when they are
+	#clicked.
+    	image
+      		{
+        		function        	= BOX
+			recolorable    	= TRUE
+			state				= PRELIGHT
+			file            		= "ListHeaders/list_header-prelight.png"
+			border          	= { 10, 10, 10, 10 }
+			stretch         	= TRUE
+      		}
+
+
+
+	image
+      		{
+        		function        	= BOX
+			recolorable    	= TRUE
+			state				= ACTIVE
+			file					= "ListHeaders/list_header-pressed.png"
+			border          	= { 10, 10, 10, 10 }
+			stretch         	= TRUE
+      		}
+	image
+      		{
+        		function        	= BOX
+			recolorable    	= TRUE
+			state				= SELECTED
+			file					= "ListHeaders/list_header-prelight.png"
+			border          	= { 10, 10, 10, 10 }
+			stretch         	= TRUE
+      		}
+	image
+      		{
+        		function        	= BOX
+			recolorable    	= TRUE
+			state				= INSENSITIVE
+			file					= "ListHeaders/list_header-insens.png"
+			border          	= { 1, 1, 1, 1 }
+			stretch         	= TRUE
+      	}
+	image
+	{
+		function 			= FLAT_BOX
+		state    			= SELECTED
+		border			= {2,2,2,2}
+                stretch         	= TRUE
+		file				= "ListHeaders/tree.png"
+	}
+  	}
+}
+
+widget_class "*List" style "list-header"
+widget_class "*GtkTree*" style "list-header"
+widget_class "*GtkCList*" style "list-header"
+widget_class "*GtkCTree*" style "list-header"
+widget_class "*GtkList*" style "list-header"
+widget_class "*.ETree.*" style "list-header"
+class "GtkTreeView" style "list-header"
+

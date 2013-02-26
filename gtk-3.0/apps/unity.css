@@ -1,0 +1,27 @@
+UnityPanelWidget,
+.unity-panel {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: @panel_bg_color;
+    background-image: none;
+    background-color: @panel_bg_color;
+    color: @panel_fg_color;
+}
+
+.unity-panel.menubar,
+.unity-panel .menubar {
+}
+
+.unity-panel.menuitem,
+.unity-panel .menuitem {
+    border-width: 0 1px;
+    color: @panel_fg_color;
+}
+
+.unity-panel.menubar.menuitem:hover,
+.unity-panel.menubar .menuitem *:hover {
+    border-color: mix(@menubar_bg_color, @theme_bg_color, 0.23);
+    background-image: none;
+    background-color: mix(@menubar_bg_color, @theme_bg_color, 0.21);
+    color: mix(@menubar_fg_color, @theme_base_color, 0.8);
+}

@@ -1,0 +1,22 @@
+style "murrinestyle"
+{
+#remove the ugly stipple effect that the pixmap engine causes
+#remove the ugly distortion that the pixmap engine causes on disabled text
+	engine "murrine" {}
+}
+
+class "GtkImage" style "murrinestyle"
+class "GtkLabel" style "murrinestyle"
+class "GtkComboBox" style "murrinestyle"
+class "GtkCellView" style "murrinestyle"
+widget_class "*.<GtkButton>.<GtkLabel>" style "murrinestyle"
+widget_class "*.<GtkComboBox>.<GtkCellView>" style "murrinestyle"
+widget_class "*<GtkImage>*" style "murrinestyle"
+widget_class "*.<GtkLabel>" style:highest "murrinestyle"
+widget_class "*.<GtkMenuItem>.*" style:highest "murrinestyle"
+widget_class	"*<GtkMenuBar>*<GtkLabel>*" style:highest "murrinestyle"
+widget_class "*CPUFreqApplet*" style:highest "murrinestyle"
+widget_class	"*<GtkToolbar>*<GtkButton>*<GtkLabel>*" style:highest "murrinestyle"
+widget_class	"*<GtkToolbar>*<GtkLabel>*" style:highest "murrinestyle"
+widget_class	"*<GtkButton>*<GtkLabel>*" style:highest "murrinestyle"
+

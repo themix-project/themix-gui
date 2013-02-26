@@ -1,0 +1,176 @@
+style "notebook"
+{    
+
+  xthickness            			= 2
+  ythickness            			= 2
+  engine "pixmap" 
+    {
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	state				= ACTIVE
+	file					= "Tabs/tab-bottom.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= TOP
+      }
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	state				= ACTIVE
+	file					= "Tabs/tab-top.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= BOTTOM
+      }
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	state				= ACTIVE
+	file					= "Tabs/tab-left.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= RIGHT
+      }
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	state				= ACTIVE
+	file					= "Tabs/tab-right.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= LEFT
+      }	
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	file					= "Tabs/tab-top-active.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= BOTTOM
+      }
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	file					= "Tabs/tab-bottom-active.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= TOP
+      }
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	file					= "Tabs/tab-left-active.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= RIGHT
+      }
+    image 
+      {
+     function			= EXTENSION
+	recolorable		= TRUE
+	file					= "Tabs/tab-right-active.png"
+	border			= { 10, 10, 10, 10 }
+	stretch			= TRUE
+	gap_side			= LEFT
+      }
+
+# How to draw boxes with a gap on one side (ie the page of a notebook)
+
+    image 
+      {
+     function				= BOX_GAP
+	recolorable			= TRUE
+	file				= "Tabs/notebook-top.png" 
+	border				= { 10, 10, 10, 10 }
+	stretch				= TRUE
+	gap_file			= "Tabs/gap-top.png"
+	gap_border     			= { 10, 10, 10, 10 }
+	gap_start_file			= "Tabs/gap-top-left.png"
+	gap_start_border		= { 10, 10, 10, 10 }
+	gap_end_file			= "Tabs/gap-top-right.png"
+	gap_end_border			= { 10, 10, 10, 10 }
+	gap_side			= TOP
+      }
+    image 
+      {
+     function				= BOX_GAP
+	recolorable			= TRUE
+	file				= "Tabs/notebook-bottom.png"
+	border				= { 10, 10, 10, 10 }
+	stretch				= TRUE
+	gap_file			= "Tabs/gap-bottom.png"
+	gap_border			= { 10, 10, 10, 10 }
+	gap_start_file			= "Tabs/gap-bottom-left.png"
+	gap_start_border		= { 10, 10, 10, 10 }
+	gap_end_file			= "Tabs/gap-bottom-right.png"
+	gap_end_border			= { 10, 10, 10, 10 }
+	gap_side			= BOTTOM
+      }
+    image 
+      {
+     function				= BOX_GAP
+	recolorable			= TRUE
+	file				= "Tabs/notebook.png"
+	border				= { 10, 10, 10, 10 }
+	stretch				= TRUE
+	gap_file			= "Tabs/gap-left.png"
+	gap_border			= { 10, 10, 10, 10 }
+	gap_start_file			= "Tabs/gap-top-left.png"
+	gap_start_border		= { 10, 10, 10, 10 }
+	gap_end_file			= "Tabs/gap-bottom-left.png"
+	gap_end_border			= { 10, 10, 10, 10 }
+	gap_side			= LEFT
+      }
+    image 
+      {
+     function				= BOX_GAP
+	recolorable			= TRUE
+	file				= "Tabs/notebook.png" 
+	border				= { 10, 10, 10, 10 }
+	stretch				= TRUE
+	gap_file			= "Tabs/gap-right.png"
+	gap_border			= { 10, 10, 10, 10 }
+	gap_start_file			= "Tabs/gap-top-right.png"
+	gap_start_border		= { 10, 10, 10, 10 }
+	gap_end_file			= "Tabs/gap-bottom-right.png"
+	gap_end_border			= { 10, 10, 10, 10 }
+	gap_side			= RIGHT
+      }
+
+# How to draw the box of a notebook when it isnt attached to a tab
+
+    image 
+      {
+     function			= BOX
+	recolorable		= TRUE
+	file					= "Tabs/notebook.png"
+	border			= { 6,6,6,6 }
+	stretch			= TRUE
+      }
+  }
+}
+style "notebook-close" { stock["gtk-close"] = {{ "Others/close.png", *, *, * }} } 
+
+class "GtkNotebook"     style "notebook"
+widget_class "*.GtkNotebook.*GtkEventBox" style "notebook"
+widget_class "*.GtkNotebook.*GtkViewport" style "notebook"
+widget_class "*<GtkNotebook>*<GtkDrawingArea>" style "notebook"
+widget_class "*<GtkNotebook>*<GtkLayout>" style "notebook"
+widget_class "*<GtkNotebook>*"	style "notebook-close"
+style "notebook-text"
+{
+  fg[NORMAL] = "#666666"
+  fg[ACTIVE] = @fg_color
+}
+widget_class "GeditWindow*<GtkNotebook>*GeditTab*<GtkLabel>"	style "notebook-text"
+widget_class "*.<GtkNotebook>.<GtkLabel>"			style "notebook-text"
+widget_class "*.<GtkNotebook>.<GtkHBox>.<GtkLabel>"		style "notebook-text"
+widget_class "*.<GtkNotebook>.*<GtkEventBox>*<GtkLabel>" 	style "notebook-text"

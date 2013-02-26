@@ -1,0 +1,22 @@
+UnityPanelWidget,
+.unity-panel {
+	background-color: @menubar_color;
+	border-style: none;
+	border-width: 0;
+}
+
+.unity-panel.menubar,
+.unity-panel .menubar {
+	color: @dark_fg_color;
+}
+.unity-panel.menuitem:hover,
+.unity-panel .menuitem:hover {
+
+    background-color: @theme_bg_color; 
+}
+
+.unity-panel.menubar.menuitem:hover,
+.unity-panel.menubar .menuitem *:hover {
+    background-color: @menubar_menuitem_color; 
+    color: @dark_hover_fg_color;
+}

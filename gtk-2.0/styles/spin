@@ -1,0 +1,138 @@
+style "spinbutton"	= "default"
+{
+  xthickness = 3
+  ythickness = 3
+  GtkWidget::interior_focus	= 0
+  base[SELECTED] = "#d8d8d8"
+  base[ACTIVE] = "#d8d8d8"
+  base[INSENSITIVE] = @bg_color
+
+  engine "pixmap"
+  {
+    image
+    {
+      function			= ARROW
+    }
+
+############################# UP ######################xx
+    image
+    {
+      function			= BOX
+      state 			= NORMAL
+      detail			= "spinbutton_up"
+      recolorable		= TRUE
+      file			= "Spin/spin-up-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-up.png"
+      overlay_stretch		= FALSE
+    }
+    image
+    {
+      function			= BOX
+      state 			= PRELIGHT
+      detail			= "spinbutton_up"
+      recolorable		= TRUE
+      file			= "Spin/spin-up-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-up-prelight.png"
+      overlay_stretch		= FALSE
+    }
+    image
+    {
+      function			= BOX
+      state 			= INSENSITIVE
+      detail			= "spinbutton_up"
+      recolorable		= TRUE
+      file			= "Spin/spin-up-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-up-disable.png"
+      overlay_stretch		= FALSE
+    }
+    image
+    {
+      function			= BOX
+      state 			= ACTIVE
+      detail			= "spinbutton_up"
+      recolorable		= TRUE
+      file			= "Spin/spin-up-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-up-active.png"
+      overlay_stretch		= FALSE
+    }
+
+########################x DOWN ########################
+    image
+    {
+      function			= BOX
+      state 			= NORMAL
+      detail			= "spinbutton_down"
+      recolorable		= TRUE
+      file			= "Spin/spin-down-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-down.png"
+      overlay_stretch		= FALSE
+    }
+    image
+    {
+      function			= BOX
+      state 			= PRELIGHT
+      detail			= "spinbutton_down"
+      recolorable		= TRUE
+      file			= "Spin/spin-down-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-down-prelight.png"
+      overlay_stretch		= FALSE
+    }
+    image
+    {
+      function			= BOX
+      state 			= INSENSITIVE
+      detail			= "spinbutton_down"
+      recolorable		= TRUE
+      file			= "Spin/spin-down-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-down-disable.png"
+      overlay_stretch		= FALSE
+    }
+    image
+    {
+      function			= BOX
+      state 			= ACTIVE
+      detail			= "spinbutton_down"
+      recolorable		= TRUE
+      file			= "Spin/spin-down-bg.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+      overlay_file		= "Spin/arrow-down-active.png"
+      overlay_stretch		= FALSE
+    }
+########################## SPIN ENTRY ###########################
+    image
+    {
+      function			= FOCUS
+      recolorable		= TRUE
+      file			= "Spin/text-entry-focus.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+    }	
+    image
+    {
+      function			= SHADOW
+      detail			= "entry"
+      shadow			= IN
+      recolorable		= FALSE
+      file			= "Spin/text-entry.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+    }
+  }
+}
+
+class "GtkSpinButton"   	 	style "spinbutton"

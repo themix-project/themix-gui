@@ -1,0 +1,257 @@
+/***********************
+ * fallback mode panel *
+ ***********************/
+PanelWidget,
+PanelApplet,
+PanelToplevel {
+    padding: 0;
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(@panel_bg_color, 1.1)),
+                                     to (shade(@panel_bg_color, 0.9)));
+
+    color: @panel_fg_color;
+}
+
+PanelApplet {
+    border-width: 0;
+}
+
+PanelSeparator {
+    border-width: 0;
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(@panel_bg_color, 1.1)),
+                                     to (shade(@panel_bg_color, 0.9)));
+
+    color: @panel_fg_color;
+}
+
+.gnome-panel-menu-bar,
+PanelApplet > GtkMenuBar.menubar,
+PanelApplet > GtkMenuBar.menubar.menuitem,
+PanelMenuBar.menubar,
+PanelMenuBar.menubar.menuitem {
+    -PanelMenuBar-icon-visible: true;
+
+    border-width: 0;
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(@panel_bg_color, 1.1)),
+                                     to (shade(@panel_bg_color, 0.9)));
+}
+
+PanelAppletFrame {
+    border-width: 0;
+    background-color: @panel_bg_color; 
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(@panel_bg_color, 1.1)),
+                                     to (shade(@panel_bg_color, 0.9)));
+}
+
+PanelApplet .button {
+    -GtkButton-inner-border: 2;
+
+    border-width: 0 1px;
+    border-radius: 0;
+    border-color: transparent;
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(@panel_bg_color, 1.1)),
+                                     to (shade(@panel_bg_color, 0.9)));
+
+    color: @panel_fg_color;
+}
+
+PanelApplet .button:active {
+    border-width: 0 1px;
+    border-radius: 0;
+    border-color: shade(@panel_bg_color, 0.8);
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(shade(@panel_bg_color, 1.02), 0.9)),
+                                     to (shade(shade(@panel_bg_color, 1.02), 0.95)));
+}
+
+PanelApplet .button:prelight {
+    border-color: transparent;
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(@panel_bg_color, 1.2)),
+                                     to (shade(@panel_bg_color, 1.0)));
+}
+
+PanelApplet .button:active:prelight {
+    border-color: shade(@panel_bg_color, 0.8);
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (shade(shade(@panel_bg_color, 1.02), 1.0)),
+                                     to (shade(shade(@panel_bg_color, 1.02), 1.05)));
+}
+
+WnckPager, WnckTasklist {
+    background-color: @panel_bg_color;
+}
+
+/************
+ * nautilus *
+ ************/
+.nautilus-canvas-item {
+    border-radius: 2px;
+}
+
+.nautilus-desktop.nautilus-canvas-item {
+    color: #fff;
+    text-shadow: 1px 1px #000;
+}
+
+.nautilus-desktop.nautilus-canvas-item:active {
+    background-color: alpha(@theme_bg_color, 0.8);
+    background-image: none;
+    color: @theme_fg_color;
+}
+
+.nautilus-desktop.nautilus-canvas-item:selected {
+    background-color: alpha(@theme_selected_bg_color, 0.8);
+    background-image: none;
+    color: @theme_selected_fg_color;
+}
+
+.nautilus-desktop.nautilus-canvas-item:active,
+.nautilus-desktop.nautilus-canvas-item:prelight,
+.nautilus-desktop.nautilus-canvas-item:selected {
+    text-shadow: none;
+}
+
+NautilusWindow .sidebar .frame {
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    border-radius: 0;
+}
+
+NautilusWindow > GtkGrid > .pane-separator {
+    border-width: 1px 1px 0 0;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    background-color: @theme_bg_color;
+}
+
+NautilusView.frame,
+NautilusNotebook.notebook {
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+NautilusNotebook .frame {
+    border-width: 1px 0 0 0;
+}
+
+NautilusQueryEditor .primary-toolbar.toolbar {
+    padding: 4px;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+}
+
+NautilusQueryEditor .primary-toolbar.toolbar .button {
+    padding: 0;
+}
+
+NautilusQueryEditor .toolbar {
+    padding: 4px 4px 3px 4px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: @theme_bg_color;
+    background-color: mix(@theme_bg_color, @theme_base_color, 0.5);
+}
+
+NautilusQueryEditor .toolbar:nth-child(2) {
+    border-color: shade(@theme_bg_color, 0.8);
+}
+
+NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar {
+    border-top-width: 0;
+}
+
+NautilusNotebook.notebook NautilusQueryEditor .toolbar:last-child,
+NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar:only-child {
+    border-bottom-width: 1px;
+    border-bottom-color: shade(@theme_bg_color, 0.8);
+}
+
+.toolbar NautilusPathBar .button {
+    padding: 1px 5px;
+}
+
+/******************
+ * gnome terminal *
+ ******************/
+TerminalScreen {
+    -TerminalScreen-background-darkness: 0.9;
+
+    background-color: #2D2D2D;
+    color: #eee;
+}
+
+TerminalWindow GtkNotebook.notebook {
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+TerminalWindow .scrollbars-junction,
+TerminalWindow .scrollbar.trough {
+    background-color: #2D2D2D;
+}
+
+TerminalWindow .scrollbar.button,
+TerminalWindow .scrollbar.button:active,
+TerminalWindow .scrollbar.button:active:hover {
+    color: shade(#2D2D2D, 0.6);
+}
+
+/*********
+ * gedit *
+ *********/
+GeditWindow .pane-separator, 
+GeditWindow .pane-separator:hover {
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    background-color: shade(@theme_bg_color, 1.02);
+    color: shade(@theme_bg_color, 0.8);
+}
+
+GeditPanel.title GtkLabel {
+    padding: 5px 0;
+}
+
+GeditPanel .toolbar {
+    border-style: none;
+    background-color: transparent;
+}
+
+GeditDocumentsPanel .view {
+    background-color: shade(@theme_bg_color, 1.02);
+}
+
+GeditPanel .notebook {
+    padding: 0;
+    border-width: 1px 0;
+}
+
+GeditWindow .notebook {
+    border-width: 1px 0;
+}
+
+GeditPanel .notebook tab,
+GeditWindow .notebook tab {
+    border-width: 0;
+}
+
+GeditFloatingSlider .not-found {
+    background-color: @error_bg_color;
+    background-image: none;
+    color: @error_fg_color;
+}
+
+/***********************
+ * gnome control center *
+ ***********************/
+CcShellItemView.view {
+    background-color: @theme_bg_color;
+}
