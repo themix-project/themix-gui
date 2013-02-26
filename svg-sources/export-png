@@ -1,0 +1,9 @@
+#!/bin/bash
+source_dir="gtk-3.0/assets"
+target_dir="./../gtk-3.0/assets/"
+
+cd $source_dir;
+for i in *; 
+do inkscape $i --export-png=`echo $target_dir$i | sed -e 's/svg$/png/'`; 
+done
+
