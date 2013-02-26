@@ -112,18 +112,3 @@
 .menuitem.radio:active:insensitive {
     background-image: url("assets/menuitem-radio-checked-insensitive.png");
 }
-
-/***************
- * progressbar *
- ***************/
-.progressbar,
-.progressbar row,
-.progressbar row:hover,
-.progressbar row:selected,
-.progressbar row:selected:focus {
-    background-image: url("assets/progress.png");
-}
-
-.progressbar.vertical {
-    background-image: url("assets/progress-vertical.png");
-}

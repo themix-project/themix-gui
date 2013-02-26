@@ -6,7 +6,7 @@
 @define-color selected_bg_color #d64937;
 @define-color selected_fg_color #f9f9f9;
 @define-color tooltip_bg_color #2D2D2D;
-@define-color tooltip_fg_color #888888;
+@define-color tooltip_fg_color #f9f9f9;
 
 /* colormap actually used by the theme, to be overridden in other css files */
 @define-color theme_bg_color @bg_color;

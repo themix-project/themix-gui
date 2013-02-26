@@ -91,11 +91,11 @@
 	<!-- title -->
 
 <draw_ops name="title_focused">
-	<title color="#888888" x="3 `max` (width-title_width)/2" y="0 `max` ((height-title_height)/2)"/>
+	<title color="#dcdcdc" x="3 `max` (width-title_width)/2" y="0 `max` ((height-title_height)/2)"/>
 </draw_ops>
 
 <draw_ops name="title_unfocused">
-	<title color="#444444" x="3 `max` (width-title_width)/2" y="0 `max` ((height-title_height)/2)"/>
+	<title color="#888888" x="3 `max` (width-title_width)/2" y="0 `max` ((height-title_height)/2)"/>
 </draw_ops>
 
 	<!-- window decorations -->
