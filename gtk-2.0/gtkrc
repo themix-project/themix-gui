@@ -178,8 +178,8 @@ style "default"
 
   GtkHTML::cite_color 				= @selected_fg_color 
 
-  GtkWidget::link-color = @selected_fg_color
-  GtkWidget::visited-link-color = @selected_fg_color
+  GtkWidget::link-color = @selected_bg_color
+  GtkWidget::visited-link-color = @selected_bg_color
   #GtkWidget::cursor-aspect-ratio                = 0.05
   GtkWidget::focus-line-width                   = 0
   #GtkWidget::scroll-arrow-hlength               = 16
