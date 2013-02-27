@@ -727,11 +727,11 @@ GtkInfoBar {
 .floating-bar {
     border-width: 1px;
     border-style: solid;
-    border-color: alpha(@theme_selected_bg_color, 0.3);
+    border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
-    background-color: mix(@theme_base_color, @theme_selected_bg_color, 0.1);
+    background-color: @theme_bg_color;
     background-image: none;
-    color: alpha(@theme_selected_bg_color, 0.7);
+    color: @theme_fg_color;
 }
 
 .floating-bar.top {
