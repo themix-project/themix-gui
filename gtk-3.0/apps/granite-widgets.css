@@ -2,7 +2,7 @@
  * dynamic notebooks *
  *********************/
 .dynamic-notebook {
-    background-color: shade(@theme_bg_color, 1.02);
+    background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
 }
 
@@ -32,7 +32,7 @@
     border-width: 1px;
     border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 1.02);
+    background-color: shade(@theme_bg_color, 1.08);
     color: @theme_fg_color;
 }
 
@@ -59,17 +59,16 @@
 .content-view-window {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);    
+    border-color: shade(@theme_bg_color, 0.8);
     border-radius: 5px;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (@theme_base_color),
-                                     to (shade(@theme_base_color, 0.97)));
+    background-color:shade(@theme_bg_color, 1.08);
+    color: @theme_fg_color;
 }
 
 .content-view .entry {
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@theme_base_color, 0.97)),
-                                     to (@theme_base_color));
+    background-color: @theme_base_color;
+    background-image: none;
+    color: @theme_text_color;
 }
 
 .content-view .title,
@@ -92,13 +91,13 @@
 
 .content-view .button:active,
 .content-view .button:active:hover {
-    background-color: alpha(@theme_bg_color, 0.5);
     background-image: none;
+    background-color: alpha(@theme_bg_color, 0.5);
 }
 
 .content-view .button:insensitive {
-    background-color: alpha(@theme_base_color, 0.0);
     background-image: none;
+    background-color: alpha(@theme_base_color, 0.0);
 }
 
 .content-view .help_button * {
@@ -110,9 +109,9 @@
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@theme_bg_color, 0.96)),
-                                     to (shade(@theme_bg_color, 0.94)));
+    background-image: none;
+    background-color: @theme_bg_color;
+
     -GtkWidget-window-dragging: true;
 }
 
@@ -152,10 +151,8 @@
  *************/
 GraniteWidgetsStatusBar {
     padding: 1px;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(shade(@theme_bg_color, 1.02), 1.1)),
-                                     to (shade(shade(@theme_bg_color, 1.02), 0.9)));
-
+    background-color: @theme_bg_color;
+    background-image: none;
     box-shadow: inset 0 1px shade(@theme_bg_color, 0.8);
 }
 
@@ -177,9 +174,8 @@ GraniteWidgetsPopOver {
 
 .popover_bg {
     background-color: transparent;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-			         from (shade(@menu_bg_color, 1.02)),
-			         to (shade(@menu_bg_color, 1.0)));
+    background-color: @menu_bg_color;
+    background-image: none;
 }
 
 GraniteWidgetsPopOver .sidebar.view,
@@ -202,10 +198,8 @@ GraniteWidgetsPopOver .button:hover:active {
 }
 
 GraniteWidgetsPopOver .entry {
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@theme_base_color, 0.97)),
-                                     to (@theme_base_color));
-
+    background-color: @theme_base_color;
+    background-image: none;
     color: @theme_text_color;
 }
 
@@ -216,10 +210,9 @@ GraniteWidgetsPopOver .entry {
 
 .app:hover,
 .app:focus {
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@theme_selected_bg_color, 1.1)),
-                                     to (shade(@theme_selected_bg_color, 0.9)));
-
+    border-color: shade(@theme_selected_bg_color, 0.90);
+    background-color: @theme_selected_bg_color;
+    background-image: none;
     color: @theme_selected_fg_color;
 }
 
@@ -260,7 +253,7 @@ GraniteWidgetsPopOver .entry {
     border-width: 1px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: @theme_base_color;
     color: @theme_text_color;
 }
