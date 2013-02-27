@@ -5,8 +5,8 @@ GTK 2 theme progress - there isn't one. Not gonna even bother to describe what's
 GTK 3 theme: 
  - [done] The focused element colour should be our red (d64937) and not dark grey 
  - [done] Menubar text colour should be our light rey
- - [needs discussion] Active tab bg colour should be f9f9f9 and inactive our light grey. The active one should not go bigger than the inactive one
- - [needs discussion] Joined buttons 0 should look like the one Google uses
- - [needs discussion] JInline toolbar has that huge grey border over it that needs exterminating. The joined buttons in it should look like the ones Google uses
+ - [done] Active tab bg colour should be f9f9f9 and inactive our light grey. The active one should not go bigger than the inactive one
+ - [won't fix] Joined buttons 0 should look like the one Google uses
+ - [won't fix] Inline toolbar has that huge grey border over it that needs exterminating. The joined buttons in it should look like the ones Google uses
  - [done] Our srollbars are SUPER SEXY (legacy and overlay - both). Or in British - I am quite found of the look of how the scrolling widgets look.
  - <add more here>
