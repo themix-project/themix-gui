@@ -1628,6 +1628,8 @@ GtkTextView {
 .primary-toolbar .button:hover,
 .toolbar .button:hover {
     border-color: shade(@toolbar_bg_color, 0.7);
+    background-image: none;
+    background-color: shade(@toolbar_bg_color, 1.10);
     color: shade(@toolbar_fg_color, 0.7);
 }
 
