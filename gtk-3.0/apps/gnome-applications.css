@@ -5,10 +5,8 @@ PanelWidget,
 PanelApplet,
 PanelToplevel {
     padding: 0;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@panel_bg_color, 1.1)),
-                                     to (shade(@panel_bg_color, 0.9)));
-
+    background-image: none;
+    background-color: @panel_bg_color;
     color: @panel_fg_color;
 }
 
@@ -18,32 +16,28 @@ PanelApplet {
 
 PanelSeparator {
     border-width: 0;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@panel_bg_color, 1.1)),
-                                     to (shade(@panel_bg_color, 0.9)));
-
+    background-image: none;
+    background-color: @panel_bg_color;
     color: @panel_fg_color;
 }
 
 .gnome-panel-menu-bar,
-PanelApplet > GtkMenuBar.menubar,
-PanelApplet > GtkMenuBar.menubar.menuitem,
-PanelMenuBar.menubar,
-PanelMenuBar.menubar.menuitem {
-    -PanelMenuBar-icon-visible: true;
+PanelApplet > Gtkpanel.panel,
+PanelApplet > Gtkpanel.panel.menuitem,
+Panelpanel.panel,
+Panelpanel.panel.menuitem {
+    -Panelpanel-icon-visible: true;
 
     border-width: 0;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@panel_bg_color, 1.1)),
-                                     to (shade(@panel_bg_color, 0.9)));
+    background-image: none;
+    background-color: @panel_bg_color;
 }
 
 PanelAppletFrame {
     border-width: 0;
-    background-color: @panel_bg_color; 
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@panel_bg_color, 1.1)),
-                                     to (shade(@panel_bg_color, 0.9)));
+    background-color: @panel_bg_color;
+    background-image: none;
+    background-color: @panel_bg_color;
 }
 
 PanelApplet .button {
@@ -52,34 +46,35 @@ PanelApplet .button {
     border-width: 0 1px;
     border-radius: 0;
     border-color: transparent;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@panel_bg_color, 1.1)),
-                                     to (shade(@panel_bg_color, 0.9)));
-
+    background-image: none;
+    background-color: @panel_bg_color;
     color: @panel_fg_color;
 }
 
 PanelApplet .button:active {
     border-width: 0 1px;
     border-radius: 0;
-    border-color: shade(@panel_bg_color, 0.8);
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(shade(@panel_bg_color, 1.02), 0.9)),
-                                     to (shade(shade(@panel_bg_color, 1.02), 0.95)));
+    border-color: mix(@panel_bg_color, @theme_bg_color, 0.23);
+    border-color: mix(@panel_bg_color, @theme_bg_color, 0.23);
+    background-image: none;
+    background-color: mix(@panel_bg_color, @theme_bg_color, 0.21);
+    color: mix(@panel_fg_color, @theme_base_color, 0.8);
 }
 
 PanelApplet .button:prelight {
     border-color: transparent;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(@panel_bg_color, 1.2)),
-                                     to (shade(@panel_bg_color, 1.0)));
+    border-color: mix(@panel_bg_color, @theme_bg_color, 0.13);
+    background-image: none;
+    background-color: mix(@panel_bg_color, @theme_bg_color, 0.11);
+    color: mix(@panel_fg_color, @theme_base_color, 0.8);
 }
 
 PanelApplet .button:active:prelight {
-    border-color: shade(@panel_bg_color, 0.8);
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (shade(shade(@panel_bg_color, 1.02), 1.0)),
-                                     to (shade(shade(@panel_bg_color, 1.02), 1.05)));
+    border-color: mix(@panel_bg_color, @theme_bg_color, 0.33);
+    border-color: mix(@panel_bg_color, @theme_bg_color, 0.33);
+    background-image: none;
+    background-color: mix(@panel_bg_color, @theme_bg_color, 0.31);
+    color: mix(@panel_fg_color, @theme_base_color, 0.8);
 }
 
 WnckPager, WnckTasklist {
@@ -184,7 +179,7 @@ TerminalScreen {
     -TerminalScreen-background-darkness: 0.9;
 
     background-color: @menubar_bg_color;
-    color: #eee;
+    color: @menubar_fg_color;
 }
 
 TerminalWindow GtkNotebook.notebook {
