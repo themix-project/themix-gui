@@ -1674,7 +1674,7 @@ GtkTextView {
 .inline-toolbar.toolbar {
     -GtkToolbar-button-relief: normal;
 
-    padding: 3px;
+    padding: 1px;
     border-width: 1px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
