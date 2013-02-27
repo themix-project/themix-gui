@@ -1,8 +1,8 @@
 /* Default color scheme */ 
-@define-color bg_color #dddddd;
-@define-color fg_color #888888;
-@define-color base_color #eeeeee;
-@define-color text_color #888888;
+@define-color bg_color #dedede;
+@define-color fg_color #555555;
+@define-color base_color #f1f1f1;
+@define-color text_color #555555;
 @define-color selected_bg_color #d64937;
 @define-color selected_fg_color #f9f9f9;
 @define-color tooltip_bg_color #2d2d2d;
@@ -31,7 +31,7 @@
 @define-color question_bg_color rgb (214, 73, 55);
 @define-color error_fg_color rgb (255, 255, 255);
 @define-color error_bg_color rgb (237, 54, 54);
-@define-color link_color #569be4;
+@define-color link_color #d64937;
 @define-color success_color #4e9a06;
 @define-color error_color #cc0000;
 
