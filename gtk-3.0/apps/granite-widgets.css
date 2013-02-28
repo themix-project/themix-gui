@@ -220,7 +220,7 @@ GraniteWidgetsPopOver .entry {
  * wingpanel *
  *************/
 .panel {
-    background-color: alpha (#000, 0.6);
+    background-color: alpha(#000, 0.6);
     color: #fff;
 }
 
