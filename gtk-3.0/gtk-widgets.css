@@ -846,13 +846,13 @@ GtkComboBox .menu {
 
 .menubar.menuitem:hover,
 .menubar .menuitem:hover {
-    border-color: mix(@menubar_bg_color, @theme_bg_color, 0.23);
-    background-color: mix(@menubar_bg_color, @theme_bg_color, 0.21);
+    border-color: mix(@menubar_bg_color, @menubar_fg_color, 0.23);
+    background-color: mix(@menubar_bg_color, @menubar_fg_color, 0.21);
     background-image: none;
 }
 
 .menubar .menuitem *:hover {
-    color: mix(@menubar_fg_color, @theme_base_color, 0.8);
+    color: shade(@menubar_fg_color, 1.08);
 }
 
 /************

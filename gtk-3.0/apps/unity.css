@@ -20,8 +20,8 @@ UnityPanelWidget,
 
 .unity-panel.panel.menuitem:hover,
 .unity-panel.panel .menuitem *:hover {
-    border-color: mix(@panel_bg_color, @theme_bg_color, 0.23);
-    background-color: mix(@panel_bg_color, @theme_bg_color, 0.21);
+    border-color: mix(@panel_bg_color, @panel_fg_color, 0.23);
+    background-color: mix(@panel_bg_color, @panel_fg_color, 0.21);
     background-image: none;
-    color: mix(@panel_fg_color, @theme_base_color, 0.8);
+    color: shade(@panel_fg_color, 1.08);
 }
