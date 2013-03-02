@@ -67,6 +67,7 @@
 
 .content-view .entry {
     background-color: @theme_base_color;
+    background-image: none;
     color: @theme_text_color;
 }
 
@@ -90,13 +91,13 @@
 
 .content-view .button:active,
 .content-view .button:active:hover {
-    background-color: alpha(@theme_bg_color, 0.5);
     background-image: none;
+    background-color: alpha(@theme_bg_color, 0.5);
 }
 
 .content-view .button:insensitive {
-    background-color: alpha(@theme_base_color, 0.0);
     background-image: none;
+    background-color: alpha(@theme_base_color, 0.0);
 }
 
 .content-view .help_button * {
@@ -152,6 +153,8 @@ GraniteWidgetsStatusBar {
     padding: 1px;
     background-image: none;
     background-color: @theme_bg_color;
+    background-color: @theme_bg_color;
+    background-image: none;
     box-shadow: inset 0 1px shade(@theme_bg_color, 0.8);
 }
 
@@ -173,8 +176,13 @@ GraniteWidgetsPopOver {
 
 .popover_bg {
     background-color: transparent;
+<<<<<<< HEAD
     background-image: none;
     background-color: @menu_bg_color;
+=======
+    background-color: @menu_bg_color;
+    background-image: none;
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
 }
 
 GraniteWidgetsPopOver .sidebar.view,
@@ -197,8 +205,13 @@ GraniteWidgetsPopOver .button:hover:active {
 }
 
 GraniteWidgetsPopOver .entry {
+<<<<<<< HEAD
     background-image: none;
     background-color: @theme_base_color;
+=======
+    background-color: @theme_base_color;
+    background-image: none;
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
     color: @theme_text_color;
 }
 
@@ -210,8 +223,13 @@ GraniteWidgetsPopOver .entry {
 .app:hover,
 .app:focus {
     border-color: shade(@theme_selected_bg_color, 0.90);
+<<<<<<< HEAD
     background-image: none;
     background-color: @theme_selected_bg_color;
+=======
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
     color: @theme_selected_fg_color;
 }
 
@@ -219,7 +237,7 @@ GraniteWidgetsPopOver .entry {
  * wingpanel *
  *************/
 .panel {
-    background-color: alpha (#000, 0.6);
+    background-color: alpha(#000, 0.6);
     color: #fff;
 }
 
@@ -252,7 +270,7 @@ GraniteWidgetsPopOver .entry {
     border-width: 1px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: @theme_base_color;
     color: @theme_text_color;
 }
