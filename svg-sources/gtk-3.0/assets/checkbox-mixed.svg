@@ -55,17 +55,6 @@
        id="radialGradient3006"
        xlink:href="#linearGradient3802"
        inkscape:collect="always" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3802"
-       id="radialGradient3784"
-       cx="8"
-       cy="8"
-       fx="8.522295"
-       fy="8.6830006"
-       r="7"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.8571429,-6.3176109e-8,6.3176109e-8,1.8571429,-6.8571438,-6.8571423)" />
     <filter
        color-interpolation-filters="sRGB"
        inkscape:collect="always"
@@ -93,7 +82,7 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1280"
+     inkscape:window-width="1366"
      inkscape:window-height="711"
      inkscape:window-x="0"
      inkscape:window-y="25"
@@ -124,7 +113,7 @@
      id="layer1"
      transform="translate(0,-1036.3622)">
     <rect
-       style="fill:url(#radialGradient3784);fill-opacity:1;stroke:none"
+       style="fill:#f9f9f9;fill-opacity:1;stroke:none"
        id="rect3757"
        width="14"
        height="14"
@@ -138,13 +127,6 @@
        d="M 2 0 C 0.892 0 3.2526065e-18 0.892 0 2 L 0 14 C 0 15.108 0.892 16 2 16 L 14 16 C 15.108 16 16 15.108 16 14 L 16 2 C 16 0.892 15.108 3.2526065e-18 14 0 L 2 0 z M 2 1 L 14 1 C 14.554 1 15 1.446 15 2 L 15 14 C 15 14.554 14.554 15 14 15 L 2 15 C 1.446 15 1 14.554 1 14 L 1 2 C 1 1.446 1.446 1 2 1 z "
        transform="translate(0,1036.3622)"
        id="rect3752" />
-    <rect
-       style="fill:#555753;fill-opacity:1;stroke:none;filter:url(#filter3971)"
-       id="rect3931-1"
-       width="8"
-       height="2"
-       x="4"
-       y="1043.4515" />
     <rect
        style="fill:#d64937;fill-opacity:1;stroke:none"
        id="rect3931"

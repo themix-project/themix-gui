@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="radio-selected.svg">
+   sodipodi:docname="menuitem-radio-checked.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -66,7 +66,7 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1280"
+     inkscape:window-width="1366"
      inkscape:window-height="711"
      inkscape:window-x="0"
      inkscape:window-y="25"
@@ -87,7 +87,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -96,16 +96,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1036.3622)">
-    <path
-       transform="translate(0,1036.6146)"
-       sodipodi:type="arc"
-       style="fill:#555753;fill-opacity:1;stroke:none;filter:url(#filter3881)"
-       id="path3833-0"
-       sodipodi:cx="8"
-       sodipodi:cy="8"
-       sodipodi:rx="3"
-       sodipodi:ry="3"
-       d="M 11,8 C 11,9.6568542 9.6568542,11 8,11 6.3431458,11 5,9.6568542 5,8 5,6.3431458 6.3431458,5 8,5 c 1.6568542,0 3,1.3431458 3,3 z" />
     <path
        sodipodi:type="arc"
        style="fill:#d64937;fill-opacity:1;stroke:none"

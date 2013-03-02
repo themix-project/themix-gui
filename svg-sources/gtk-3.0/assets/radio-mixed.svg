@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16"
@@ -33,17 +32,6 @@
          offset="1"
          id="stop3806" />
     </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3802"
-       id="radialGradient3810"
-       cx="8"
-       cy="8"
-       fx="7.9579105"
-       fy="8.8488083"
-       r="7"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.5714285,1.411262e-8,-1.411262e-8,1.5714286,-4.5714281,-4.5714287)" />
     <filter
        inkscape:collect="always"
        id="filter3971"
@@ -70,7 +58,7 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1280"
+     inkscape:window-width="1366"
      inkscape:window-height="711"
      inkscape:window-x="0"
      inkscape:window-y="25"
@@ -102,7 +90,7 @@
      transform="translate(0,-1036.3622)">
     <path
        sodipodi:type="arc"
-       style="fill:url(#radialGradient3810);fill-opacity:1;stroke:none"
+       style="fill:#f9f9f9;fill-opacity:1;stroke:none"
        id="path3800"
        sodipodi:cx="8"
        sodipodi:cy="8"
