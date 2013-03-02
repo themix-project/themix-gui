@@ -55,17 +55,6 @@
        id="radialGradient3006"
        xlink:href="#linearGradient3802"
        inkscape:collect="always" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3802"
-       id="radialGradient3784"
-       cx="8"
-       cy="8"
-       fx="8.522295"
-       fy="8.6830006"
-       r="7"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.8571429,-6.3176109e-8,6.3176109e-8,1.8571429,-6.8571438,-6.8571423)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -80,7 +69,7 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1280"
+     inkscape:window-width="1366"
      inkscape:window-height="711"
      inkscape:window-x="0"
      inkscape:window-y="25"
@@ -111,7 +100,7 @@
      id="layer1"
      transform="translate(0,-1036.3622)">
     <rect
-       style="fill:url(#radialGradient3784);fill-opacity:1;stroke:none"
+       style="fill:#f9f9f9;fill-opacity:1;stroke:none"
        id="rect3757"
        width="14"
        height="14"
