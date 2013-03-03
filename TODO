@@ -1,3 +1,6 @@
+DEPRECATED
+lets use Issues instead
+
 Graphical assets - the current ones are fat and round. We must avoid round (for everything but radios) and fat. They have to be with very think square border (or REALLY super tiny rounded one). Also - we miss assets for anything, but GTK 3.
 
 GTK 2 theme progress - there isn't one. Not gonna even bother to describe what's left to do there.
@@ -10,3 +13,5 @@ GTK 3 theme:
  - [won't fix] Inline toolbar has that huge grey border over it that needs exterminating. The joined buttons in it should look like the ones Google uses
  - [done] Our srollbars are SUPER SEXY (legacy and overlay - both). Or in British - I am quite found of the look of how the scrolling widgets look.
  - <add more here>
+
+
