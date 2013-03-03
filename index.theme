@@ -5,6 +5,6 @@ Comment=Low contrast and simple light theme
 Encoding=UTF-8
 
 [X-GNOME-Metatheme]
-GtkTheme=Numix
-MetacityTheme=Numix
+GtkTheme=numix-gtk-theme
+MetacityTheme=numix-gtk-theme
 ButtonLayout=:minimize,maximize,close
