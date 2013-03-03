@@ -449,7 +449,11 @@ GtkDrawingArea {
 }
 
 GtkDrawingArea:insensitive {
+<<<<<<< HEAD
+    background-color: shade(@theme_bg_color, 0.90);
+=======
     background-color: shade(@theme_bg_color, 0.9);
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
 }
 
 /************
@@ -955,6 +959,10 @@ GtkTreeMenu .menuitem * {
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 0.9);
     background-image: none;
+<<<<<<< HEAD
+    background-color: shade(@theme_bg_color, 0.90);
+=======
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
 }
 
 .notebook tab:active {
@@ -1178,6 +1186,10 @@ GtkScale.trough {
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 0.85);
     background-image: none;
+<<<<<<< HEAD
+    background-color: shade(@theme_bg_color, 0.85);
+=======
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
 }
 
 GtkScale.trough.vertical {
@@ -1186,6 +1198,10 @@ GtkScale.trough.vertical {
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 0.85);
     background-image: none;
+<<<<<<< HEAD
+    background-color: shade(@theme_bg_color, 0.85);
+=======
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
 }
 
 .menubar .menuitem .scale.highlight.left,

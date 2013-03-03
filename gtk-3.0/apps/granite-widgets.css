@@ -151,6 +151,8 @@
  *************/
 GraniteWidgetsStatusBar {
     padding: 1px;
+    background-image: none;
+    background-color: @theme_bg_color;
     background-color: @theme_bg_color;
     background-image: none;
     box-shadow: inset 0 1px shade(@theme_bg_color, 0.8);
@@ -174,8 +176,13 @@ GraniteWidgetsPopOver {
 
 .popover_bg {
     background-color: transparent;
+<<<<<<< HEAD
+    background-image: none;
+    background-color: @menu_bg_color;
+=======
     background-color: @menu_bg_color;
     background-image: none;
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
 }
 
 GraniteWidgetsPopOver .sidebar.view,
@@ -198,8 +205,13 @@ GraniteWidgetsPopOver .button:hover:active {
 }
 
 GraniteWidgetsPopOver .entry {
+<<<<<<< HEAD
+    background-image: none;
+    background-color: @theme_base_color;
+=======
     background-color: @theme_base_color;
     background-image: none;
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
     color: @theme_text_color;
 }
 
@@ -211,8 +223,13 @@ GraniteWidgetsPopOver .entry {
 .app:hover,
 .app:focus {
     border-color: shade(@theme_selected_bg_color, 0.90);
+<<<<<<< HEAD
+    background-image: none;
+    background-color: @theme_selected_bg_color;
+=======
     background-color: @theme_selected_bg_color;
     background-image: none;
+>>>>>>> d2566a7a46b2a1fbf7f5e4ccbf384e0a7dace5f3
     color: @theme_selected_fg_color;
 }
 
