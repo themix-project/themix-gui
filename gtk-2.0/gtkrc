@@ -1,6 +1,6 @@
 # Numix GTK Theme
 
-gtk_color_scheme = "base_color:#f9f9f9\nbg_color:#dedede\ntooltip_bg_color:#2d2d2d\nselected_bg_color:#d64937\ntext_color:#555555\nfg_color:#555555\ntooltip_fg_color:#f9f9f9\nselected_fg_color:#f9f9f9\nlink_color:#d64937"
+gtk_color_scheme = "base_color:#f9f9f9\nbg_color:#dedede\ntooltip_bg_color:#2d2d2d\nselected_bg_color:#d64937\ntext_color:#555555\nfg_color:#555555\ntooltip_fg_color:#f9f9f9\nselected_fg_color:#f9f9f9\nmenubar_bg_color:#2d2d2d\nmenubar_fg_color:#dcdcdc\ntoolbar_bg_color:#dedede\ntoolbar_fg_color:#555555\nmenu_bg_color:#f9f9f9\nmenu_fg_color:#555555\npanel_bg_color:#2d2d2d\npanel_fg_color:#dcdcdc\nlink_color:#d64937"
 
 gtk-icon-sizes = "panel=16,16:gtk-button=16,16" # Icon sizes
 gtk-button-images = 0 # Disables icons in buttons
@@ -122,16 +122,16 @@ style "murrine-default" {
 		arrowstyle = 1 # 0 = normal arrows, 1 = filled arrows
 		colorize_scrollbar = FALSE		
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
-		contrast = 0.7
+		contrast = 0.8
 		focusstyle = 3 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
 		glazestyle = 0 # 0 = flat highlight, 1 = curved highlight, 2 = concave, 3 = top curved highlight, 4 = beryl highlight
 		gradient_shades = { 1.0, 1.0, 1.0, 1.0 }
 		highlight_shade = 1.0
 		lightborder_shade = 1.0
 		lightborderstyle = 0 # 0 = lightborder on top side, 1 = lightborder on all sides
-		listviewheaderstyle = 1 # 0 = flat, 1 = glassy, 2 = raised
+		listviewheaderstyle = 0 # 0 = flat, 1 = glassy, 2 = raised
 		listviewstyle = 0 # 0 = none, 1 = dotted, 2 = line
-		menubaritemstyle = 1 # 0 = menuitem look, 1 = button look
+		menubaritemstyle = 0 # 0 = menuitem look, 1 = button look
 		menubarstyle = 0 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
 		menuitemstyle = 0 # 0 = flat, 1 = glassy, 2 = striped
 		menustyle = 0 # 0 = none, 1 = vertical striped
@@ -141,7 +141,7 @@ style "murrine-default" {
 		scrollbarstyle = 0 # 0 = none, 1 = circles, 2 = handles, 3 = diagonal stripes, 4 = diagonal stripes and handles, 5 = horizontal stripes, 6 = horizontal stripes and handles
 		sliderstyle = 0	# 0 = none, 1 = handles
 		stepperstyle = 0 # 0 = standard, 1 = integrated stepper handles
-		toolbarstyle = 1 # 0 = flat, 1 = glassy, 2 = gradient
+		toolbarstyle = 0 # 0 = flat, 1 = glassy, 2 = gradient
    }
 }
 
@@ -306,26 +306,23 @@ style "murrine-vscrollbar" = "murrine-scrollbar" { }
 
 # Menus
 
-style "murrine-menu" {
-	ythickness = 0
-	xthickness = 0
-	
+style "murrine-menu" {	
 	bg[SELECTED] = @selected_bg_color
-	bg[NORMAL] = @bg_color
+	bg[NORMAL] = @menu_bg_color
 	bg[PRELIGHT] = @selected_bg_color
-	bg[ACTIVE] = @bg_color
-	bg[INSENSITIVE] = @bg_color
-	fg[NORMAL] = @fg_color
+	bg[ACTIVE] = @menu_bg_color
+	bg[INSENSITIVE] = @menu_bg_color
+	fg[NORMAL] = @menu_fg_color
 	fg[PRELIGHT] = @selected_fg_color
 	fg[SELECTED] = @selected_fg_color
 	fg[ACTIVE] = @selected_fg_color
-	fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
+	fg[INSENSITIVE] = mix (0.5, @menu_bg_color, @menu_fg_color)
 	text[NORMAL] = @text_color
-	base[NORMAL] = @fg_color
+	base[NORMAL] = @menu_fg_color
 	text[PRELIGHT] = @selected_fg_color
 	text[SELECTED] = @selected_fg_color
 	text[ACTIVE] = @selected_fg_color
-	text[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
+	text[INSENSITIVE] = mix (0.5, @menu_bg_color, @menu_fg_color)
 
 	engine "murrine" {
 		roundness = 0
@@ -352,33 +349,73 @@ style "murrine-separator-menu-item" {
 }
 
 style "murrine-menubar" {
-	ythickness = 0
+	fg[NORMAL] = @menubar_fg_color
+	fg[PRELIGHT] = shade (1.08, @menubar_fg_color)
+	fg[SELECTED] = shade (1.08, @menubar_fg_color)
+	fg[ACTIVE] = @menubar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @menubar_bg_color, @menubar_fg_color)
 
-	bg[SELECTED] = @selected_bg_color
-	bg[NORMAL] = @bg_color
-	bg[PRELIGHT] = @selected_bg_color
-	bg[ACTIVE] = @bg_color
-	bg[INSENSITIVE] = @bg_color
-	fg[NORMAL] = @fg_color
-	fg[PRELIGHT] = @selected_fg_color
-	fg[SELECTED] = @selected_fg_color
-	fg[ACTIVE] = @selected_fg_color
-	fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
-	text[NORMAL] = @text_color
-	text[PRELIGHT] = @selected_fg_color
-	text[SELECTED] = @selected_fg_color
-	text[ACTIVE] = @selected_fg_color
-	text[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
+	bg[NORMAL] = @menubar_bg_color
+	bg[PRELIGHT] =  mix (0.21, @menubar_fg_color, @menubar_bg_color)
+	bg[SELECTED] =  mix (0.21, @menubar_fg_color, @menubar_bg_color)
+	bg[INSENSITIVE] = @menubar_bg_color
+	bg[ACTIVE] = shade (0.9, @menubar_bg_color)
 
 	engine "murrine" {
 		roundness = 0
 	}
 }
 
+style "murrine-menubar-item" {
+	fg[NORMAL] = @menubar_fg_color
+	fg[PRELIGHT] = shade (1.08, @menubar_fg_color)
+	fg[SELECTED] = shade (1.08, @menubar_fg_color)
+	fg[ACTIVE] = @menubar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @menubar_bg_color, @menubar_fg_color)
+
+	bg[NORMAL] = @menubar_bg_color
+	bg[PRELIGHT] =  mix (0.21, @menubar_fg_color, @menubar_bg_color)
+	bg[SELECTED] =  mix (0.21, @menubar_fg_color, @menubar_bg_color)
+	bg[INSENSITIVE] = @menubar_bg_color
+	bg[ACTIVE] = shade (0.9, @menubar_bg_color)
+
+	engine "murrine" {
+		roundness = 0
+		border_shades = { 0.8, 0.8 }
+	}
+}
+
 # Toolbars
 
 style "murrine-toolbar" = "murrine-default" {
-	bg[NORMAL] = @bg_color
+	fg[NORMAL] = @toolbar_fg_color
+	fg[PRELIGHT] = @toolbar_fg_color
+	fg[SELECTED] = @selected_fg_color
+	fg[ACTIVE] = @toolbar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
+
+	bg[NORMAL] = @toolbar_bg_color
+	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
+	bg[SELECTED] = @selected_bg_color
+	bg[INSENSITIVE] = @toolbar_bg_color
+	bg[ACTIVE] = shade (0.9, @toolbar_bg_color)
+
+	engine "murrine" {
+	}
+}
+
+style "murrine-toolbutton" = "murrine-button" {
+	fg[NORMAL] = @toolbar_fg_color
+	fg[PRELIGHT] = @toolbar_fg_color
+	fg[SELECTED] = @selected_fg_color
+	fg[ACTIVE] = @toolbar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
+
+	bg[NORMAL] = @toolbar_bg_color
+	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
+	bg[SELECTED] = @selected_bg_color
+	bg[INSENSITIVE] = @toolbar_bg_color
+	bg[ACTIVE] = shade (0.9, @toolbar_bg_color)
 
 	engine "murrine" {
 	}
@@ -577,11 +614,17 @@ widget_class "*<GtkProgressBar>" style "murrine-progressbar"
 widget_class "*<GtkComboBoxEntry>*" style "murrine-comboboxentry"
 widget_class "*<GtkCombo>*" style "murrine-comboboxentry"
 
-widget_class "*<GtkMenuBar>*" style "murrine-menubar"
 widget_class "*<GtkMenu>*" style "murrine-menu"
 widget_class "*<GtkMenuItem>*" style "murrine-menu-item"
 widget_class "*<GtkSeparatorMenuItem>*" style "murrine-separator-menu-item"
 widget_class "*Menu*.*Sepa*"  style "murrine-separator-menu-item"
+widget_class "*<GtkMenuBar>*" style "murrine-menubar"
+widget_class "*<GtkMenuBar>*<GtkMenuItem>*" style "murrine-menubaritem"
+
+widget_class "*GtkToolButton*" style "murrine-toolbutton"
+widget_class "*GtkToggleToolButton*" style "murrine-toolbutton"
+widget_class "*GtkMenuToolButton*" style "murrine-toolbutton"
+widget_class "*GtkToolbar*Button" style "murrine-toolbutton"
 
 widget_class "*.<GtkFrame>.<GtkLabel>" style "murrine-frame-title"
 
