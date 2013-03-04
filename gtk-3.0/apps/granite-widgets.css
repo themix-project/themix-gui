@@ -151,6 +151,8 @@
  *************/
 GraniteWidgetsStatusBar {
     padding: 1px;
+    background-image: none;
+    background-color: @theme_bg_color;
     background-color: @theme_bg_color;
     background-image: none;
     box-shadow: inset 0 1px shade(@theme_bg_color, 0.8);
@@ -174,6 +176,8 @@ GraniteWidgetsPopOver {
 
 .popover_bg {
     background-color: transparent;
+    background-image: none;
+    background-color: @menu_bg_color;
     background-color: @menu_bg_color;
     background-image: none;
 }
@@ -198,8 +202,8 @@ GraniteWidgetsPopOver .button:hover:active {
 }
 
 GraniteWidgetsPopOver .entry {
-    background-color: @theme_base_color;
     background-image: none;
+    background-color: @theme_base_color;
     color: @theme_text_color;
 }
 
