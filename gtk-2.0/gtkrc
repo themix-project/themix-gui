@@ -556,21 +556,21 @@ style "chromium-toolbar-button" {
 
 style "chrome-gtk-frame"
 {
-	ChromeGtkFrame::frame-color = @bg_color
-	ChromeGtkFrame::inactive-frame-color = @bg_color
+	ChromeGtkFrame::frame-color = @menubar_bg_color
+	ChromeGtkFrame::inactive-frame-color = @menubar_bg_color
 
-	ChromeGtkFrame::frame-gradient-size = 16
-	ChromeGtkFrame::frame-gradient-color = @bg_color
+	ChromeGtkFrame::frame-gradient-size = 0
+	ChromeGtkFrame::frame-gradient-color = @menubar_bg_color
 
-	ChromeGtkFrame::incognito-frame-color = shade (0.97, @bg_color)
-	ChromeGtkFrame::incognito-inactive-frame-color = shade (0.97, @bg_color)
+	ChromeGtkFrame::incognito-frame-color = @menubar_bg_color
+	ChromeGtkFrame::incognito-inactive-frame-color = @menubar_bg_color
 
-	ChromeGtkFrame::incognito-frame-gradient-size = 16
-	ChromeGtkFrame::incognito-frame-gradient-color = shade (0.97, @bg_color)
+	ChromeGtkFrame::incognito-frame-gradient-size = 0
+	ChromeGtkFrame::incognito-frame-gradient-color = @menubar_bg_color
 
-	ChromeGtkFrame::scrollbar-trough-color = shade (0.97, @bg_color)
-	ChromeGtkFrame::scrollbar-slider-prelight-color = shade (1.02, @bg_color)
-	ChromeGtkFrame::scrollbar-slider-normal-color = shade (1.12, @bg_color)
+	ChromeGtkFrame::scrollbar-trough-color = @bg_color
+	ChromeGtkFrame::scrollbar-slider-prelight-color = shade (0.8, @bg_color)
+	ChromeGtkFrame::scrollbar-slider-normal-color = shade (0.9, @bg_color)
 }
 
 class "ChromeGtkFrame" style "chrome-gtk-frame"
