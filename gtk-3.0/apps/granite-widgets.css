@@ -177,7 +177,7 @@ GraniteWidgetsPopOver {
     background-image: -gtk-gradient(linear,
                      left top, left bottom,
                      from (@menu_bg_color),
-                     to (@menu_bg_color);
+                     to (@menu_bg_color));
 }
 
 GraniteWidgetsPopOver .sidebar.view,
