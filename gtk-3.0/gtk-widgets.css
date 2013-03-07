@@ -822,7 +822,6 @@ GtkComboBox .menu {
     background-color: @menu_bg_color;
     background-image: none;
 }
-
 /***********
  * menubar *
  ***********/
@@ -936,7 +935,6 @@ GtkTreeMenu .menuitem * {
 .menuitem .accelerator:insensitive {
     color: alpha(mix(@menu_fg_color, @menu_bg_color, 0.5), 0.6);
 }
-
 /************
  * notebook *
  ************/
@@ -1340,6 +1338,11 @@ GtkScrolledWindow GtkViewport.frame {
     -GtkMenuItem-horizontal-padding: 0;
     -GtkWidget-separator-height: 1;
 
+    border-image: -gtk-gradient(linear,
+                     left top, left bottom,
+                     from (shade(@menu_bg_color, 0.9)),
+                     to (shade(@menu_bg_color, 0.9))) 1;
+
     border-color: shade(@menu_bg_color, 0.9);
     color: shade(@menu_bg_color, 0.9);
 }
@@ -1634,10 +1637,10 @@ GtkTextView {
 }
 
 .primary-toolbar GtkComboBox,
+.primary-toolbar GtkComboBox .cell 
 .primary-toolbar .button *,
 .primary-toolbar .button,
-.toolbar GtkComboBox,
-.toolbar GtkComboBox * {
+.toolbar GtkComboBox .cell {
     padding: 2px;
     border-width: 1px;
     border-color: transparent;
@@ -1658,7 +1661,7 @@ GtkTextView {
 
 .primary-toolbar .button:hover,
 .toolbar .button:hover,
-.toolbar GtkComboBox *:hover {
+.toolbar GtkComboBox .cell:hover {
     border-color: shade(@toolbar_bg_color, 0.7);
     background-color: shade(@toolbar_bg_color, 1.10);
     background-image: none;

@@ -670,16 +670,6 @@ style "murrine-nautilus-location" {
 
 widget "*.nautilus-extra-view-widget" style : highest "murrine-nautilus-location"
 
-style "menuitem-text-is-fg-color-workaround" {
-	text[NORMAL] = @text_color
-	text[PRELIGHT] = @selected_fg_color
-	text[SELECTED] = @selected_fg_color
-	text[ACTIVE] = @fg_color
-	text[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
-}
-
-widget "*.gtk-combobox-popup-menu.*" style "menuitem-text-is-fg-color-workaround"
-
 style "text-is-fg-color-workaround" {
 	text[NORMAL] = @text_color
 	text[PRELIGHT] = @fg_color
