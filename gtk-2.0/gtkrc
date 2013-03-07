@@ -410,11 +410,12 @@ style "murrine-toolbar" = "murrine-default" {
 }
 
 style "murrine-toolbutton" = "murrine-button" {
-	bg[NORMAL] = @toolbar_bg_color
-	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
+
+	bg[NORMAL] = shade (1.08, @toolbar_bg_color)
+	bg[PRELIGHT] = shade (1.10, @toolbar_bg_color)
 	bg[SELECTED] = @selected_bg_color
 	bg[INSENSITIVE] = @toolbar_bg_color
-	bg[ACTIVE] = shade (0.9, @toolbar_bg_color)
+	bg[ACTIVE] = shade (0.80, @toolbar_bg_color)
 
 	fg[NORMAL] = @toolbar_fg_color
 	fg[PRELIGHT] = @toolbar_fg_color
