@@ -1174,17 +1174,17 @@ GtkScale.mark {
 
 GtkScale.trough {
     margin: 6px 0;
-    border-color: shade(@theme_bg_color, 0.85);
+    border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 0.85);
+    background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
 }
 
 GtkScale.trough.vertical {
     margin: 0 6px;
-    border-color: shade(@theme_bg_color, 0.85);
+    border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 0.85);
+    background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
 }
 
