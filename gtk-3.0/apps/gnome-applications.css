@@ -147,12 +147,12 @@ NautilusQueryEditor .toolbar {
     padding: 4px 4px 3px 4px;
     border-width: 1px 0 0 0;
     border-style: solid;
-    border-color: @theme_bg_color;
-    background-color: mix(@theme_bg_color, @theme_base_color, 0.5);
+    border-color: @toolbar_bg_color;
+    background-color: shade(@toolbar_bg_color, 0.9);
 }
 
 NautilusQueryEditor .toolbar:nth-child(2) {
-    border-color: shade(@theme_bg_color, 0.8);
+    border-color: shade(@toolbar_bg_color, 0.8);
 }
 
 NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar {
@@ -162,7 +162,7 @@ NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar {
 NautilusNotebook.notebook NautilusQueryEditor .toolbar:last-child,
 NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar:only-child {
     border-bottom-width: 1px;
-    border-bottom-color: shade(@theme_bg_color, 0.8);
+    border-bottom-color: shade(@toolbar_bg_color, 0.8);
 }
 
 .toolbar NautilusPathBar .button {
