@@ -1058,16 +1058,16 @@ GtkProgressBar {
 /* level bars as used for password quality or remaining power */
 GtkLevelBar {
     -GtkLevelBar-min-block-width: 34;
-    -GtkLevelBar-min-block-height: 3;
+    -GtkLevelBar-min-block-height: 2;
 }
 
 GtkLevelBar.vertical {
-    -GtkLevelBar-min-block-width: 3;
+    -GtkLevelBar-min-block-width: 2;
     -GtkLevelBar-min-block-height: 34;
 }
 
 .level-bar.trough {
-    padding: 2px;
+    padding: 1px;
     border-radius: 2px;
 }
 
@@ -1079,7 +1079,7 @@ GtkLevelBar.vertical {
 }
 
 .level-bar.indicator-continuous.fill-block {
-    padding: 2px;
+    padding: 1px;
     border-radius: 2px;
 }
 
@@ -1137,13 +1137,13 @@ GtkLevelBar.vertical {
 }
 
 GtkScale {
-    -GtkRange-slider-width: 14;
+    -GtkRange-slider-width: 15;
     -GtkRange-trough-border: 1;
-    -GtkScale-slider-length: 14;
+    -GtkScale-slider-length: 15;
 }
 
 GtkScale.vertical {
-    -GtkScale-slider-length: 14;
+    -GtkScale-slider-length: 15;
 }
 
 GtkScale.slider {
@@ -1173,7 +1173,7 @@ GtkScale.mark {
 }
 
 GtkScale.trough {
-    margin: 7px 0;
+    margin: 6px 0;
     border-color: shade(@theme_bg_color, 0.85);
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 0.85);
@@ -1181,7 +1181,7 @@ GtkScale.trough {
 }
 
 GtkScale.trough.vertical {
-    margin: 0 7px;
+    margin: 0 6px;
     border-color: shade(@theme_bg_color, 0.85);
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 0.85);
@@ -1193,6 +1193,11 @@ GtkScale.trough.vertical {
     border-color: @theme_selected_bg_color;
     background-color: @theme_selected_bg_color;
     background-image: none;
+}
+
+.menubar .menuitem .scale.highlight.left:hover {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+    background-color: shade(@theme_selected_bg_color, 0.8);
 }
 
 .scale.highlight.bottom {
@@ -1652,7 +1657,8 @@ GtkTextView {
 }
 
 .primary-toolbar .button:hover,
-.toolbar .button:hover {
+.toolbar .button:hover,
+.toolbar GtkComboBox *:hover {
     border-color: shade(@toolbar_bg_color, 0.7);
     background-color: shade(@toolbar_bg_color, 1.10);
     background-image: none;
