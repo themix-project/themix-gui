@@ -481,6 +481,10 @@ GtkCalendar {
     padding: 3px;
 }
 
+GtkCalendar:inconsistent {
+    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
+}
+
 GtkCalendar.view,
 GtkCalendar.header,
 GtkCalendar.button,
@@ -905,6 +909,10 @@ GtkTreeMenu .menuitem * {
 .menuitem.radio:active {
     border-style: none;
     background-color: transparent;
+}
+
+.menuitem GtkCalendar:inconsistent {
+    color: mix(@menu_fg_color, @menu_bg_color, 0.5);
 }
 
 .menuitem GtkCalendar.button {
