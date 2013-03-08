@@ -509,8 +509,8 @@ style "xfdesktop-windowlist" {
 
 style "xfdesktop-icon-view" {
     font_name = "normal"
-    XfdesktopIconView::label-alpha = 30
-    XfdesktopIconView::selected-label-alpha = 60
+    XfdesktopIconView::label-alpha = 90
+    XfdesktopIconView::selected-label-alpha = 90
     XfdesktopIconView::shadow-color = shade (1.05, @fg_color)
     XfdesktopIconView::selected-shadow-color = @fg_color
     XfdesktopIconView::shadow-x-offset = -1
@@ -518,37 +518,41 @@ style "xfdesktop-icon-view" {
     XfdesktopIconView::shadow-y-offset = -1
     XfdesktopIconView::selected-shadow-y-offset = -1
 
-    fg[NORMAL] = @selected_fg_color
-    fg[ACTIVE] = @selected_fg_color
+	base[NORMAL] = @panel_bg_color
+	base[ACTIVE] = @selected_bg_color
 
-    engine "murrine" {
-	textstyle = 0
-	text_shade = 0.05
-    }
+	fg[NORMAL] = @panel_fg_color
+	fg[ACTIVE] = @selected_fg_color
+
+	engine "murrine" {
+		textstyle = 0
+		text_shade = 0.05
+	}
 }
 
 style "xfwm-tabwin" {
 	Xfwm4TabwinWidget::border-width = 1
 	Xfwm4TabwinWidget::icon-size = 64
+
 	engine "murrine" {
 		focusstyle = 0
 	}
 }
 
 style "xfsm-logout" {
+
 	engine "murrine" {
-			highlight_shade = 1.0
         }	
 }
 
 widget "*Xfce*Panel*" style "murrine-panel"
 class "*Xfce*Panel*" style "murrine-panel"
 
-widget_class "*XfceHeading*"			style "xfce-header"
-widget_class "*XfceDesktop*"			style "xfdesktop-windowlist"
-widget_class "*XfdesktopIconView*"		style "xfdesktop-icon-view"
-widget "xfwm4-tabwin*"				style "xfwm-tabwin"
-widget_class "*XfsmLogoutDialog*"		style "xfsm-logout"
+widget_class "*XfceHeading*" style "xfce-header"
+widget_class "*XfceDesktop*" style "xfdesktop-windowlist"
+widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
+widget "xfwm4-tabwin*" style "xfwm-tabwin"
+widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 
 # Google Chrome/Chromium Styles (requires 9.0.597 or newer)
 
@@ -644,29 +648,6 @@ widget_class "*<GtkScrolledWindow>*<OsScrollbar>" style "murrine-overlay-scrollb
 
 # Workarounds and Non-Standard Styling
 
-style "evolution-hack" = "murrine-default" {
-	bg[NORMAL] = shade (1.08, @bg_color)
-	bg[PRELIGHT] = shade (1.18, @bg_color)
-	bg[ACTIVE] = shade (0.75, @bg_color)
-	bg[SELECTED] = @selected_bg_color
-	fg[ACTIVE] = @selected_fg_color
-	fg[SELECTED] = @selected_fg_color
-}
-
-widget_class "*.ETable.ECanvas" style "murrine-treeview-header"
-widget_class "*.ETree.ECanvas" style "murrine-treeview-header"
-widget_class "*GtkCTree*" style "evolution-hack"
-widget_class "*GtkList*" style "evolution-hack"
-widget_class "*GtkCList*" style "evolution-hack"
-widget_class "*.ETree.*" style "evolution-hack"
-widget_class "*EInfoLabel*" style "evolution-hack"
-
-style "murrine-nautilus-location" {
-	bg[NORMAL] = shade (1.25, @selected_bg_color)
-}
-
-widget "*.nautilus-extra-view-widget" style : highest "murrine-nautilus-location"
-
 style "text-is-fg-color-workaround" {
 	text[NORMAL] = @text_color
 	text[PRELIGHT] = @fg_color
@@ -734,9 +715,9 @@ style "performance-fix" {
 	}
 }
 
-widget_class "*gtkmm__GtkWindow*"	style "performance-fix" # Inkscape
-widget_class "*GimpDisplayShell*"	style "performance-fix" # Gimp
-widget_class "*GimpToolbox*"		style "performance-fix"
-widget_class "*GimpMenuDock*"		style "performance-fix"
-widget "*OOoFixed*"			style "performance-fix" # Openoffice/Libreoffice
-widget_class "*MozContainer*"		style "performance-fix" # Firefox (Not sure if this one does anything though.)
+widget_class "*gtkmm__GtkWindow*" style "performance-fix" # Inkscape
+widget_class "*GimpDisplayShell*" style "performance-fix" # Gimp
+widget_class "*GimpToolbox*" style "performance-fix"
+widget_class "*GimpMenuDock*" style "performance-fix"
+widget "*OOoFixed*" style "performance-fix" # Openoffice/Libreoffice
+widget_class "*MozContainer*" style "performance-fix" # Firefox (Not sure if this one does anything though.)
