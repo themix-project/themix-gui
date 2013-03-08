@@ -481,13 +481,10 @@ GtkCalendar {
     padding: 3px;
 }
 
-GtkCalendar:inconsistent {
-    color: alpha(@theme_fg_color, 0.6);
-}
-
 GtkCalendar.view,
 GtkCalendar.header,
 GtkCalendar.button,
+GtkCalendar.button:hover,
 GtkCalendar.button:insensitive {
     border-width: 0;
     background-color: transparent;
@@ -498,7 +495,6 @@ GtkCalendar.button:insensitive {
 GtkCalendar.highlight {
     border-width: 0;
     background-color: transparent;
-    color: shade(@theme_fg_color, 0.6);
 }
 
 /******************
