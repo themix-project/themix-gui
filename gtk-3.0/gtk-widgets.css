@@ -443,7 +443,6 @@ column-header:last-child .button {
 /****************
  * drawing area *
  ****************/
-
 GtkDrawingArea {
     background-color: transparent;
 }
@@ -822,6 +821,7 @@ GtkComboBox .menu {
     background-color: @menu_bg_color;
     background-image: none;
 }
+
 /***********
  * menubar *
  ***********/
@@ -939,6 +939,7 @@ GtkTreeMenu .menuitem * {
 .menuitem .accelerator:insensitive {
     color: alpha(mix(@menu_fg_color, @menu_bg_color, 0.5), 0.6);
 }
+
 /************
  * notebook *
  ************/
@@ -1245,8 +1246,8 @@ GtkScale.trough.vertical:insensitive,
     border-color: transparent;
     border-radius: 0;
     background-color: transparent;
-    color: shade(@theme_bg_color, 0.6);
     background-image: none;
+    color: shade(@theme_bg_color, 0.6);
 }
 
 .scrollbar.slider {
