@@ -334,10 +334,13 @@ style "murrine-menu" {
 style "murrine-menu-item" = "murrine-wider" {
 	bg[PRELIGHT]	= @selected_bg_color
 	bg[SELECTED]	= @selected_bg_color
+	bg[ACTIVE]	= @selected_bg_color
 
 	fg[NORMAL]	= @menu_fg_color # Fix for XFCE menu text
 	fg[PRELIGHT]	= @selected_fg_color
 	fg[SELECTED]	= @selected_fg_color
+	fg[ACTIVE]	= @selected_fg_color
+	fg[INSENSITIVE] = mix (0.5, @menu_bg_color, @menu_fg_color)
 
 	engine "murrine" {
 		textstyle = 0
