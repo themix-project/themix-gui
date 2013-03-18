@@ -5,6 +5,6 @@ Comment=A flat and light theme with a modern look
 Encoding=UTF-8
 
 [X-GNOME-Metatheme]
-GtkTheme=numix-gtk-theme
-MetacityTheme=numix-gtk-theme
+GtkTheme=Numix
+MetacityTheme=Numix
 ButtonLayout=:minimize,maximize,close
