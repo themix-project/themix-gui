@@ -60,8 +60,8 @@
     border-width: 1px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 5px;
-    background-color:shade(@theme_bg_color, 1.08);
+    border-radius: 2px;
+    background-color:@theme_bg_color;
     color: @theme_fg_color;
 }
 
@@ -84,20 +84,20 @@
 .content-view .button {
     border-style: solid;
     border-radius: 2px;
-    background-color: alpha(@theme_bg_color, 0.0);
+    background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
     color: @theme_fg_color;
 }
 
 .content-view .button:active,
 .content-view .button:active:hover {
+    background-color: shade(@theme_bg_color, 1.10);
     background-image: none;
-    background-color: alpha(@theme_bg_color, 0.5);
 }
 
 .content-view .button:insensitive {
+    background-color: shade(@theme_bg_color, 0.9);
     background-image: none;
-    background-color: alpha(@theme_base_color, 0.0);
 }
 
 .content-view .help_button * {
@@ -109,8 +109,8 @@
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    background-image: none;
     background-color: @theme_bg_color;
+    background-image: none;
 
     -GtkWidget-window-dragging: true;
 }
@@ -188,21 +188,34 @@ GraniteWidgetsPopOver * {
 
 GraniteWidgetsPopOver .button {
     border-color: shade(@menu_bg_color, 0.8);
-    background-color: transparent;
+    background-color: shade(@menu_bg_color, 1.08);
     background-image: none;
     color: @menu_fg_color;
 }
 
+GraniteWidgetsPopOver .button:hover {
+    border-color: shade(@menu_bg_color, 0.7);
+    background-color: shade(@menu_bg_color, 1.10);
+    background-image: none;
+}
+
 GraniteWidgetsPopOver .button:active,
 GraniteWidgetsPopOver .button:hover:active {
-    background-color: @menu_bg_color;
+    border-color: shade(@menu_bg_color, 0.8);
+    background-color: shade(@menu_bg_color, 0.95);
     background-image: none;
 }
 
 GraniteWidgetsPopOver .entry {
-    background-color: @theme_base_color;
+    border-color: shade(@menu_bg_color, 0.7);
+    background-color: @menu_bg_color;
     background-image: none;
-    color: @theme_text_color;
+    color: @menu_fg_color;
+}
+
+GraniteWidgetsPopOver .entry:active,
+GraniteWidgetsPopOver .entry:focus {
+    border-color: shade(@menu_bg_color, 0.7);
 }
 
 .button.app {

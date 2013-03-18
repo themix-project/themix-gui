@@ -929,6 +929,11 @@ GtkTreeMenu .menuitem * {
     color: @menu_fg_color;
 }
 
+.menuitem .entry:active,
+.menuitem .entry:focus {
+    border-color: shade(@menu_bg_color, 0.7);
+}
+
 .menuitem .accelerator {
     color: alpha(@menu_fg_color, 0.6);
 }
