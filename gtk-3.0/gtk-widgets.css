@@ -498,6 +498,7 @@ GtkCalendar.button:insensitive {
 GtkCalendar.highlight {
     border-width: 0;
     background-color: transparent;
+    color: @selected_bg_color;
 }
 
 /******************
