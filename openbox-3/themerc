@@ -1,127 +1,110 @@
-!! http://na12.deviantart.com
+# Name: Numix Openbox theme
+# Author: Satyajit Sahoo <satyajit.happy@gmail.com>
+# License: GPL-3.0+
 
-!! menu title
-menu.title.bg: flat solid
-menu.title.bg.color:  #141414
+### Menu
+menu.border.color: #2d2d2d
 
-menu.title.text.color:#888888
-menu.title.text.justify: center
+menu.title.bg: Flat Solid
+menu.title.bg.color: #2d2d2d
+menu.title.bg.border.color: #2d2d2d
+menu.title.text.color: #dcdcdc
+menu.title.text.justify: Center
 
-menu.separator.color:#D6D6D6
-menu.border.color: #cccccc
-menu.border.width: 0
+menu.items.bg: Flat Solid
+menu.items.bg.color: #2d2d2d
+menu.items.text.color: #dcdcdc
+menu.items.disabled.text.color: #888888
 
-!! menu items
-menu.items.bg: flat solid
-menu.items.bg.color:#eeeeee
+menu.items.active.bg: Flat Solid
+menu.items.active.bg.color: #d64937
+menu.items.active.text.color: #f9f9f9
 
-menu.items.text.color:#888888
-menu.items.justify: left
-menu.items.disabled.text.color: #bbbbbb 
-menu.items.active.bg: flat solid
-menu.items.active.bg.color:#dddddd
-menu.items.active.text.color:#222222
-
-
-!! window title
-window.active.title.bg: flat solid
-window.active.title.bg.color: #141414
-
-window.inactive.title.bg: flat solid
-window.inactive.title.bg.color:  #141414
+menu.separator.color: #262626
+menu.separator.width: 1
+menu.separator.padding.width: 2
+menu.separator.padding.height: 4
 
 
-!! window text
-window.label.text.justify: center
-window.active.label.bg: parentrelative
-window.active.label.bg.color: #141414
-window.active.label.text.color:#888888
-window.inactive.label.bg: parentrelative
-window.inactive.label.bg.color: #141414
-window.inactive.label.text.color: #444444
+### Window active
+window.active.title.bg: Flat Border Solid
+window.active.title.bg.color: #2d2d2d
+window.active.title.bg.border.color: #2d2d2d
+window.active.title.separator.color: #2d2d2d
+window.active.text.justify: center
 
-!! window borders etc
-window.active.client.color: #cccccc
-window.inactive.client.color: #cccccc
+window.active.label.bg: Parentrelative
+window.active.label.text.color: #dcdcdc
 
+window.active.handle.bg: Flat Border Solid
+window.active.handle.bg.color: #2d2d2d
+window.active.handle.bg.border.color: #2d2d2d
 
+window.active.grip.bg: Flat Border Solid
+window.active.grip.bg.color: #2d2d2d
+window.active.grip.bg.border.color: #2d2d2d
 
-window.active.title.separator.color:  #141414
-window.inactive.title.separator.color: #141414
+window.active.button.unpressed.bg: Flat Border Solid
+window.active.button.unpressed.bg.color: #2d2d2d
+window.active.button.unpressed.bg.border.color: #2d2d2d
+window.active.button.unpressed.image.color: #dcdcdc
 
-!! window buttons
-window.active.button.unpressed.bg: parentrelative
-window.active.button.unpressed.image.color: #777777
+window.active.button.pressed.bg: Flat Border Solid
+window.active.button.pressed.bg.color: #2d2d2d
+window.active.button.pressed.bg.border.color: #2d2d2d
+window.active.button.pressed.image.color: #d64937
 
-window.active.button.pressed.bg: parentrelative
-window.active.button.pressed.image.color: #777777
-
-window.active.button.disabled.bg: parentrelative
-window.active.button.disabled.bg.color: #cccccc
-window.active.button.disabled.image.color: #333333
-
-
-window.active.button.hover.bg: parentrelative
-window.active.button.hover.bg.color: #cccccc
-window.active.button.hover.image.color: #cccccc
-
-window.active.button.toggled.bg: parentrelative
-window.active.button.toggled.image.color: #777777
-
-window.active.button.toggled.unpressed.bg: parentrelative
-window.active.button.toggled.unpressed.image.color: #777777
-
-window.active.button.toggled.pressed.bg: parentrelative
-window.active.button.toggled.pressed.image.color: #777777
-window.active.button.toggled.hover.bg: parentrelative
-window.active.button.toggled.hover.image.color: #cccccc
-
-window.inactive.button.unpressed.bg: parentrelative
-window.inactive.button.unpressed.image.color: #444444
-
-window.inactive.button.pressed.bg: parentrelative
-window.inactive.button.pressed.image.color: #444444
-
-window.inactive.button.disabled.bg: parentrelative
-window.inactive.button.disabled.image.color: #222222
+window.active.button.disabled.bg: Flat Border Solid
+window.active.button.disabled.bg.color: #2d2d2d
+window.active.button.disabled.bg.border.color: #2d2d2d
+window.active.button.disabled.image.color: #888888
 
 
-window.inactive.button.hover.bg: parentrelative
-window.inactive.button.hover.image.color: #999999
+### Window inactive
+window.inactive.title.bg: Flat Border Solid
+window.inactive.title.bg.color: #2d2d2d
+window.inactive.title.bg.border.color: #2d2d2d
+window.inactive.title.separator.color: #2d2d2d
+window.inactive.text.justify: center
 
-window.inactive.button.toggled.bg: parentrelative
-window.inactive.button.toggled.image.color: #444444
-window.inactive.button.toggled.unpressed.bg: parentrelative
-window.inactive.button.toggled.unpressed.image.color: #444444
+window.inactive.label.bg: Parentrelative
+window.inactive.label.text.color: #888888
 
-window.inactive.button.toggled.pressed.bg: parentrelative
-window.inactive.button.toggled.pressed.image.color: #444444
-window.inactive.button.toggled.hover.bg: parentrelative
-window.inactive.button.toggled.hover.image.color: #999999
+window.inactive.handle.bg: Flat Border Solid
+window.inactive.handle.bg.color: #2d2d2d
+window.inactive.handle.bg.border.color: #2d2d2d
 
-!! misc settings
-border.color: #cccccc
-border.width: 0
-padding.width: 5
-padding.height: 3
+window.inactive.grip.bg: Flat Border Solid
+window.inactive.grip.bg.color: #2d2d2d
+window.inactive.grip.bg.border.color: #2d2d2d
+
+window.inactive.button.unpressed.bg: Flat Border Solid
+window.inactive.button.unpressed.bg.color: #2d2d2d
+window.inactive.button.unpressed.bg.border.color: #2d2d2d
+window.inactive.button.unpressed.image.color: #888888
+
+window.inactive.button.pressed.bg: Flat Border Solid
+window.inactive.button.pressed.bg.color: #2d2d2d
+window.inactive.button.pressed.bg.border.color: #2d2d2d
+window.inactive.button.pressed.image.color: #d64937
+
+window.inactive.button.disabled.bg: Flat Border Solid
+window.inactive.button.disabled.bg.color: #2d2d2d
+window.inactive.button.disabled.bg.border.color: #2d2d2d
+window.inactive.button.disabled.image.color: #888888
+
+
+### Everything else
+border.width: 1
+padding.width: 4
+window.handle.width: 1
 window.client.padding.width: 0
-window.client.padding.height: 0
-window.handle.width: 0
-menu.overlap.x: 1
-menu.overlap.y: 0
-osd.border.width: 2
-osd.border.color:  #dddddd
+window.label.text.justify: center
+window.active.border.color: #2d2d2d
+window.inactive.border.color: #2d2d2d
 
-osd.bg: flat solid
-osd.bg.color: #dddddd
-osd.hilight.bg: flat solid border
-osd.hilight.bg.color: #141414
-osd.hilight.bg.border.color: #dddddd
-
-osd.unhilight.bg: flat solid border
-osd.unhilight.bg.color: #eeeeee
-osd.unhilight.bg.border.color: #dddddd
-
-osd.label.bg: Parentrelative
-osd.label.text.color: #888888
-
+### Fonts
+window.active.label.text.font:shadow=n
+window.inactive.label.text.font:shadow=n
+menu.items.font:shadow=n
+menu.title.text.font:shadow=n
