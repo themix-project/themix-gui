@@ -515,8 +515,8 @@ style "xfdesktop-icon-view" {
     font_name = "normal"
     XfdesktopIconView::label-alpha = 90
     XfdesktopIconView::selected-label-alpha = 90
-    XfdesktopIconView::shadow-color = shade (1.05, @fg_color)
-    XfdesktopIconView::selected-shadow-color = @fg_color
+    XfdesktopIconView::shadow-color = shade (1.05, @panel_bg_color)
+    XfdesktopIconView::selected-shadow-color = @panel_bg_color
     XfdesktopIconView::shadow-x-offset = -1
     XfdesktopIconView::selected-shadow-x-offset = -1
     XfdesktopIconView::shadow-y-offset = -1
