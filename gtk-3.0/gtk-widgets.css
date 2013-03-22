@@ -378,8 +378,6 @@ GtkAssistant .sidebar {
 .cell {
     border-width: 0;
     border-radius: 0;
-    background-color: @theme_base_color;
-    color: @theme_text_color;
 }
 
 .cell:selected,
@@ -591,10 +589,6 @@ GtkComboBox.combobox-entry .button:insensitive {
 /************
  * iconview *
  ************/
-GtkIconView {
-    background-color: transparent;
-}
-
 GtkIconView.view.cell:selected,
 GtkIconView.view.cell:selected:focus {
     border-width: 1px;
@@ -1655,10 +1649,8 @@ GtkTextView {
 }
 
 .primary-toolbar GtkComboBox,
-.primary-toolbar GtkComboBox .cell 
 .primary-toolbar .button *,
-.primary-toolbar .button,
-.toolbar GtkComboBox .cell {
+.primary-toolbar .button {
     padding: 2px;
     border-width: 1px;
     border-color: transparent;
@@ -1670,6 +1662,7 @@ GtkTextView {
 
 .primary-toolbar .raised .button,
 .primary-toolbar .raised.button,
+.toolbar GtkComboBox,
 .toolbar .button {
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: shade(@toolbar_bg_color, 1.08);
@@ -1678,8 +1671,7 @@ GtkTextView {
 }
 
 .primary-toolbar .button:hover,
-.toolbar .button:hover,
-.toolbar GtkComboBox .cell:hover {
+.toolbar .button:hover {
     border-color: shade(@toolbar_bg_color, 0.7);
     background-color: shade(@toolbar_bg_color, 1.10);
     background-image: none;
@@ -1948,10 +1940,6 @@ GtkTreeView .entry {
 /************
  * viewport *
  ************/
-GtkViewport {
-    background-color: transparent;
-}
-
 GtkViewport.frame {
     border-width: 0;
 }
