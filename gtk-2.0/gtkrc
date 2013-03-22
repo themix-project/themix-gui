@@ -500,6 +500,10 @@ widget "*gimmie*" style "bold-panel-item"
 
 # XFCE Styles
 
+style "workspace-switcher" = "murrine-panel" {
+	bg[SELECTED]  = @selected_bg_color
+}
+
 style "xfce-header" {
 	bg[NORMAL]	 = shade (0.9, @bg_color)
 	base[NORMAL]	 = shade (1.18, @bg_color)
@@ -548,6 +552,8 @@ style "xfsm-logout" {
 	engine "murrine" {
         }	
 }
+
+widget "*WnckPager*" style "workspace-switcher"
 
 widget "*Xfce*Panel*" style "murrine-panel"
 class "*Xfce*Panel*" style "murrine-panel"
