@@ -1695,7 +1695,6 @@ GtkTextView {
 }
 
 .primary-toolbar GtkComboBox,
-.primary-toolbar .button *,
 .primary-toolbar .button {
     padding: 2px;
     border-width: 1px;
