@@ -424,18 +424,62 @@ column-header .button:active {
 }
 
 column-header .button {
-    border-color: shade(@theme_bg_color, 0.8);
-    background-color: shade(@theme_bg_color, 1.08);
+    border-color: shade(@theme_base_color, 0.8);
+    background-color: shade(@theme_base_color, 0.95);
     background-image: none;
 }
 
 column-header .button:hover {
-    background-color: shade(@theme_bg_color, 1.10);
+    border-color: shade(@theme_base_color, 0.7);
+    background-color: shade(@theme_base_color, 0.97);
     background-image: none;
 }
 
 column-header:last-child .button {
     border-width: 0 0 1px 0;
+}
+
+/****************
+ * content view *
+ ****************/
+.content-view.view {
+    background-color: @theme_base_color;
+}
+
+.content-view.view:prelight {
+    background-color: alpha(@theme_selected_bg_color, 0.6);
+}
+
+.content-view.view:selected,
+.content-view.view:active {
+    background-color: @theme_selected_bg_color;
+}
+
+.content-view.view:insensitive {
+    background-color: shade(@theme_base_color, 0.9);
+}
+
+GdMainIconView.content-view {
+    -GdMainIconView-icon-size: 40;
+}
+
+GtkIconView.content-view.check {
+    background-color: transparent;
+}
+
+GtkIconView.content-view.check:active {
+    background-color: transparent;
+}
+
+.content-view.view.check,
+.content-view.view.check:active {
+    background-color: transparent;
+}
+
+GtkIconView.content-view.check:prelight,
+GtkIconView.content-view.check:insensitive,
+GtkIconView.content-view.check:selected {
+    background-color: transparent;
 }
 
 /****************
@@ -496,7 +540,7 @@ GtkCalendar.button:insensitive {
 GtkCalendar.highlight {
     border-width: 0;
     background-color: transparent;
-    color: @selected_bg_color;
+    color: @theme_selected_bg_color;
 }
 
 /******************
@@ -595,8 +639,10 @@ GtkIconView.view.cell:selected:focus {
     border-style: solid;
     border-color: shade(@theme_selected_bg_color, 0.9);
     border-radius: 2px;
-    background-color: @theme_selected_bg_color;
-    background-image: none;
+    background-image: -gtk-gradient(linear, left top, left bottom,
+                                     from (@theme_selected_bg_color),
+                                     to (@theme_selected_bg_color));
+
     color: @theme_selected_fg_color;
 }
 
@@ -774,7 +820,7 @@ GtkInfoBar {
 
 .dim-label:selected,
 .dim-label:selected:focus {
-    color: mix(@theme_selected_fg_color, @theme_bg_color, 0.5);
+    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.5);
 }
 
 .dnd {
