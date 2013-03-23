@@ -1,9 +1,14 @@
-/*********************
- * dynamic notebooks *
- *********************/
+/********************
+ * dynamic notebook *
+ ********************/
 .dynamic-notebook {
     background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
+}
+
+.dynamic-notebook GtkLabel,
+.dynamic-notebook GtkImage {
+    color: alpha(@theme_fg_color, 0.5);
 }
 
 .dynamic-notebook .notebook {
@@ -11,17 +16,17 @@
     -GtkNotebook-initial-gap: 5px;
 
     border-width: 1px 0 0 0;
+    border-color: shade(@theme_bg_color, 0.8);
     border-radius: 0;
+    padding: 1px 0 0 0;
 }
 
 .dynamic-notebook .notebook tab {
-    padding: 2px 3px 0 3px;
-    border-width: 0 1px 0 0;
-    border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 0;
-    background-color: transparent;
+    padding: 3px;
+    border-color: shade(@theme_bg_color, 0.85);
+    border-radius: 2px;
+    background-color: shade(@theme_bg_color, 0.9);
     background-image: none;
-    color: @theme_fg_color;
 }
 
 .dynamic-notebook .notebook tab:nth-child(first) {
@@ -36,26 +41,30 @@
     color: @theme_fg_color;
 }
 
-.dynamic-notebook .button,
+.dynamic-notebook .notebook tab .entry {
+    border-radius: 2px;
+    padding: 4px 3px;
+}
+
 .dynamic-notebook .button:hover,
 .dynamic-notebook .button:hover:active,
 .dynamic-notebook .notebook .button,
 .dynamic-notebook .notebook .button:hover,
 .dynamic-notebook .notebook .button:hover:active {
-    padding: 0;
-    background-color: transparent;
+    border-color: shade(@theme_bg_color, 0.7);
+    background-color: shade(@theme_bg_color, 1.10);
     background-image: none;
+}
+
+.dynamic-notebook .button:hover:active,
+.dynamic-notebook .notebook .button:hover:active {
+    border-color: shade(@theme_bg_color, 0.7);
+    color: shade(@theme_fg_color, 0.7);
 }
 
 /****************
  * content view *
  ****************/
-.content-view,
-.content-view *,
-.content-view GtkViewport {
-    background-color: @theme_base_color;
-}
-
 .content-view-window {
     border-width: 1px;
     border-style: solid;
@@ -65,34 +74,46 @@
     color: @theme_fg_color;
 }
 
+.content-view,
+.content-view GtkViewport {
+    background-color: @theme_base_color;
+}
+
+.content-view * {
+    background-color: transparent;
+    background-image: none;
+}
+
 .content-view .entry {
     background-color: @theme_base_color;
     background-image: none;
     color: @theme_text_color;
 }
 
-.content-view .title,
-.content-view .option-title {
-    color: @theme_text_color;
-}
-
-.content-view .subtitle,
-.content-view .option-description {
-    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
-}
-
 .content-view .button {
     border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
     color: @theme_fg_color;
 }
 
-.content-view .button:active,
-.content-view .button:active:hover {
+.content-view .button:hover {
+    border-color: shade(@theme_bg_color, 0.7);
     background-color: shade(@theme_bg_color, 1.10);
     background-image: none;
+}
+
+.content-view .button:active {
+    border-color: shade(@theme_bg_color, 0.8);
+    background-color: shade(@theme_bg_color, 0.95);
+    background-image: none;
+}
+
+.content-view .button:active:hover {
+    border-color: shade(@theme_bg_color, 0.7);
+    color: shade(@theme_fg_color, 0.7);
 }
 
 .content-view .button:insensitive {
@@ -101,49 +122,56 @@
 }
 
 .content-view .help_button * {
-    color: @theme_text_color;
+    color: @theme_fg_color;
 }   
 
 .content-view .toolbar {
+    -GtkWidget-window-dragging: true;
+
     padding: 1px;
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
     background-color: @theme_bg_color;
     background-image: none;
-
-    -GtkWidget-window-dragging: true;
 }
 
-/*******************
- * album list view *
- *******************/
-.album-list-view,
-.album-list-view * {
-    border-color: shade(@theme_bg_color, 0.8);
+/**************
+ * sourcelist *
+ *************/
+.source-list,
+.source-list.view {
     border-radius: 0;
-    background-color: @theme_base_color;
-    color: @theme_fg_color;
+    background-color: @theme_bg_color;
+    color: mix(@theme_fg_color, @theme_bg_color, 0.1);
 }
- 
-.album-list-view GtkTreeView {
+
+.source-list {
+    -GtkTreeView-horizontal-separator: 1;
     -GtkTreeView-vertical-separator: 1;
-    -GtkTreeView-grid-line-width: 0;
-
-    background-color: @theme_base_color;
-    color: @theme_fg_color;
 }
 
-.album-list-view GtkTreeView row:nth-child(even) {
-    border-width: 0;
-    border-style: none;
-    background-color: shade(@theme_base_color, 0.97);
+.source-list.view:selected,
+.source-list.view:prelight:selected {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
 }
 
-.album-list-view GtkTreeView row:nth-child(odd) {
+.source-list.view:prelight {
+    background-color: shade(@theme_bg_color, 1.08);
+}
+
+.source-list.badge,
+.source-list.badge:prelight,
+.source-list.badge:selected,
+.source-list.badge:prelight:selected {
+    margin: 0 3px;
+    padding: 0 6px;
     border-width: 0;
-    border-style: none;
-    background-color: shade(@theme_base_color, 1.0);
+    border-radius: 10px;
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+    color: @theme_selected_fg_color;
 }
 
 /*************
@@ -158,13 +186,13 @@ GraniteWidgetsStatusBar {
 
 /***********
  * popover *
- ***********/
+ **********/
 GraniteWidgetsPopOver {
-    -GraniteWidgetsPopOver-arrow-width: 24;
+    -GraniteWidgetsPopOver-arrow-width: 21;
     -GraniteWidgetsPopOver-arrow-height: 12;
-    -GraniteWidgetsPopOver-border-radius: 5px;
+    -GraniteWidgetsPopOver-border-radius: 2px;
     -GraniteWidgetsPopOver-border-width: 1;
-    -GraniteWidgetsPopOver-shadow-size: 15;
+    -GraniteWidgetsPopOver-shadow-size: 12;
 
     margin: 0;
     border-style: solid;
@@ -186,24 +214,38 @@ GraniteWidgetsPopOver * {
     color: @menu_fg_color;
 }
 
+GraniteWidgetsPopOver .sidebar.view:selected,
+GraniteWidgetsPopOver .sidebar.view:selected:focus,
+GraniteWidgetsPopOver *:selected,
+GraniteWidgetsPopOver *:selected:focus {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
 GraniteWidgetsPopOver .button {
     border-color: shade(@menu_bg_color, 0.8);
     background-color: shade(@menu_bg_color, 1.08);
     background-image: none;
     color: @menu_fg_color;
+
 }
 
 GraniteWidgetsPopOver .button:hover {
     border-color: shade(@menu_bg_color, 0.7);
     background-color: shade(@menu_bg_color, 1.10);
     background-image: none;
+    color: shade(@menu_fg_color, 0.7);
 }
 
-GraniteWidgetsPopOver .button:active,
-GraniteWidgetsPopOver .button:hover:active {
+GraniteWidgetsPopOver .button:active {
     border-color: shade(@menu_bg_color, 0.8);
     background-color: shade(@menu_bg_color, 0.95);
     background-image: none;
+}
+
+GraniteWidgetsPopOver .button:active:hover {
+    border-color: shade(@menu_bg_color, 0.7);
+    color: shade(@menu_fg_color, 0.7);
 }
 
 GraniteWidgetsPopOver .entry {
@@ -218,25 +260,125 @@ GraniteWidgetsPopOver .entry:focus {
     border-color: shade(@menu_bg_color, 0.7);
 }
 
+GraniteWidgetsPopOver *.separator {
+    border-color: shade(@menu_bg_color, 0.9);
+    color: transparent;
+}
+
 .button.app {
     border-width: 0;
     border-radius: 2px;
+    background-color: transparent;
 }
 
-.app:hover,
-.app:focus {
-    border-color: shade(@theme_selected_bg_color, 0.90);
+.button.app:hover {
+    border-color: shade(@theme_selected_bg_color, 0.9);
     background-color: @theme_selected_bg_color;
     background-image: none;
     color: @theme_selected_fg_color;
 }
 
-/*************
- * wingpanel *
- *************/
+.button.app:focus {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+    color: @theme_selected_fg_color;
+}
+
+/********
+ * gala *
+ *******/
+.gala-workspaces-background {
+    border-width: 1px 0 0 0;
+    border-color: shade(@panel_bg_color, 0.8);
+    background-color: @panel_bg_color;
+    background-image: none;
+}
+
+.gala-workspace-selected {
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+}
+
+/*********
+ * files *
+ ********/
+.files-overlay-bar {
+    margin: 3px;
+    padding: 3px 6px;
+    border-width: 0;
+    border-radius: 2px;
+    background-color: @theme_tooltip_bg_color;
+}
+
+.files-overlay-bar* {
+    color: @theme_tooltip_fg_color;
+}
+
+/*********
+ * noise *
+ ********/
+.album-list-view,
+.album-list-view * {
+    border-color: shade(@theme_bg_color, 0.8);
+    border-radius: 0;
+    background-color: @theme_base_color;
+    color: @theme_fg_color;
+}
+
+.album-list-view GtkTreeView {
+    -GtkTreeView-vertical-separator: 1;
+    -GtkTreeView-grid-line-width: 0;
+
+    background-color: @theme_base_color;
+    color: @theme_fg_color;
+}
+
+.album-list-view GtkTreeView row:nth-child(even) {
+    border-width: 0;
+    border-style: none;
+    background-color: shade(@theme_base_color, 0.97);
+}
+
+
+.album-list-view GtkTreeView row:nth-child(odd) {
+    border-width: 0;
+    border-style: none;
+    background-color: shade(@theme_base_color, 1.0);
+}
+
+.album-list-view GtkTreeView row:selected {
+    background-color: @selected_bg_color;
+	color: @selected_fg_color;
+}
+
+/**********
+ * notify *
+ *********/
+.notify {
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@theme_base_color, 0.7);
+    border-radius: 2px;
+    background-color: @theme_base_color;
+    color: @theme_text_color;
+}
+
+.notify .low {
+}
+
+.notify .critical {
+}
+
+/*********
+ * panel *
+ ********/
 .panel {
-    background-color: alpha(#000, 0.6);
-    color: #fff;
+    background-color: @panel_bg_color;
+    color: @panel_fg_color;
 }
 
 .shadow {
@@ -252,29 +394,11 @@ GraniteWidgetsPopOver .entry:focus {
 .wingpanel-indicator-button {
     padding: 0 2px;
     background-color: transparent;
-    color: #fff;
+    color: @panel_fg_color;
 }
 
 .composited-indicator.menuitem:active,
 .composited-indicator.menuitem:prelight {
     border-style: none;
     background-image: none;
-}
-
-/**********
- * notify *
- **********/
-.notify {
-    border-width: 1px;
-    border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 2px;
-    background-color: @theme_base_color;
-    color: @theme_text_color;
-}
-
-.notify .low {
-}
-
-.notify .critical {
 }
