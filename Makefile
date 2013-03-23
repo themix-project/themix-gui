@@ -56,9 +56,9 @@ install: all
 	mkdir -p $(DESTDIR)/usr/share/themes/$(THEME)/
 	mkdir -p $(DESTDIR)/usr/share/themes/$(LIGHTTHEME)/
 	mkdir -p $(DESTDIR)/usr/share/themes/$(DARKTHEME)/
-	$(INSTALL) * $(DESTDIR)/usr/share/themes/$(THEME)/
-	$(INSTALL) $(LIGHTDIR)/* $(DESTDIR)/usr/share/themes/$(LIGHTTHEME)/
-	$(INSTALL) $(DARKDIR)/* $(DESTDIR)/usr/share/themes/$(DARKTHEME)/
+	$(INSTALL) gtk-2.0 gtk-3.0 metacity-1 openbox-3 unity xfwm4 index.theme README $(DESTDIR)/usr/share/themes/$(THEME)/
+	$(INSTALL) $(LIGHTDIR)/gtk-2.0 $(LIGHTDIR)/gtk-3.0 $(LIGHTDIR)/metacity-1 $(LIGHTDIR)/index.theme $(DESTDIR)/usr/share/themes/$(LIGHTTHEME)/
+	$(INSTALL) $(DARKDIR)/gtk-2.0 $(DARKDIR)/gtk-3.0 $(DARKDIR)/index.theme $(DESTDIR)/usr/share/themes/$(DARKTHEME)/
 
 uninstall:
 	$(CLEAN) $(DESTDIR)/usr/share/themes/$(THEME)
