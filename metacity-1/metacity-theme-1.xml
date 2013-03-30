@@ -65,17 +65,18 @@
 </draw_ops>
 
 <!-- ::: BORDER OUTLINE ::: -->
-<draw_ops name="border">
-	<line color="#2d2d2d" x1="0" y1="0" x2="width" y2="0"/>
-	<line color="#2d2d2d" x1="4" y1="1" x2="width-1" y2="1"/>
-	<line color="#2d2d2d" x1="0" y1="0" x2="0" y2="height"/>
-	<line color="#2d2d2d" x1="width-1" y1="0" x2="width-1" y2="height"/>
-	<line color="#2d2d2d" x1="0" y1="height-1" x2="width" y2="height-1"/>
+<draw_ops name="border_focused">
+	<line color="#484848" x1="0" y1="0" x2="width" y2="0"/>
+	<line color="#484848" x1="0" y1="0" x2="0" y2="height"/>
+	<line color="#484848" x1="width-1" y1="0" x2="width-1" y2="height"/>
+	<line color="#484848" x1="0" y1="height-1" x2="width" y2="height-1"/>
 </draw_ops>
 
-<draw_ops name="maxed_border">
-	<line color="#2d2d2d" x1="0" y1="0" x2="width" y2="0"/>
-	<line color="#2d2d2d" x1="0" y1="height-1" x2="width" y2="height-1"/>
+<draw_ops name="border_unfocused">
+	<line color="#393939" x1="0" y1="0" x2="width" y2="0"/>
+	<line color="#393939" x1="0" y1="0" x2="0" y2="height"/>
+	<line color="#393939" x1="width-1" y1="0" x2="width-1" y2="height"/>
+	<line color="#393939" x1="0" y1="height-1" x2="width" y2="height-1"/>
 </draw_ops>
 
 <!-- ::: TITLEBAR ::: -->
@@ -89,33 +90,31 @@
 
 <draw_ops name="titlebar_maximized">
 	<include name="titlebar_gradient"/>
-	<include name="maxed_border"/>
 </draw_ops>
 
 <draw_ops name="titlebar_maximized_unfocused">
 	<include name="titlebar_gradient_unfocused"/>
-	<include name="maxed_border"/>
 </draw_ops>
 
 <draw_ops name="round_titlebar">
 	<include name="titlebar_gradient"/>
-	<include name="border"/>
+	<include name="border_focused"/>
 	<include name="corners_outline"/>
 </draw_ops>
 
 <draw_ops name="round_titlebar_unfocused">
 	<include name="titlebar_gradient_unfocused"/>
-	<include name="border"/>
+	<include name="border_unfocused"/>
 	<include name="corners_outline"/>
 </draw_ops>
 
 <draw_ops name="titlebar_shaded">
-	<include name="border"/>
+	<include name="border_focused"/>
 	<line color="#2d2d2d" x1="0" y1="height-1" x2="width" y2="height-1"/>
 </draw_ops>
 
 <draw_ops name="round_titlebar_shaded">
-	<include name="border"/>
+	<include name="border_focused"/>
 	<include name="corners_outline"/>
 	<line color="#2d2d2d" x1="5" y1="height-1" x2="width-6" y2="height-1"/>
 </draw_ops>
@@ -330,7 +329,7 @@
 </frame_style>
 
 <frame_style name="border" geometry="border" parent="normal">
-	<piece position="entire_background" draw_ops="border"/>
+	<piece position="entire_background" draw_ops="border_focused"/>
 	<piece position="title" draw_ops="blank"/>
 </frame_style>
 

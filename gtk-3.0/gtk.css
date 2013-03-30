@@ -54,8 +54,8 @@
 @define-color wm_bg #2d2d2d;
 @define-color wm_title_focused #dcdcdc;
 @define-color wm_title_unfocused #888888;
-@define-color wm_border_focused #2d2d2d;
-@define-color wm_border_unfocused #2d2d2d;
+@define-color wm_border_focused #484848;
+@define-color wm_border_unfocused #393939;
 
 @import url("gtk-widgets.css");
 @import url("gtk-widgets-assets.css");
