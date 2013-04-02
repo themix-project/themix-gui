@@ -11,7 +11,7 @@ sudo apt-get update && sudo apt-get install numix-gtk-theme
 
 Installation Instructions for other distros:
 
-Extract the zip file to the themes directory i.e. "~/.themes/" or "/usr/share/themes/"
+Extract the zip file to the themes directory i.e. "/usr/share/themes/"
 
 Use Gnome Tweak tool to choose the theme, or run the following commands in Terminal,
 

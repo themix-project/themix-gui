@@ -61,9 +61,9 @@ style "murrine-default" {
 	GtkScrollbar::has-forward-stepper = 0
 	GtkScrollbar::has-secondary-backward-stepper = 0
 	GtkScrollbar::has-secondary-forward-stepper = 0
-	GtkScrollbar::min-slider-length = 30
+	GtkScrollbar::min-slider-length = 100
 	GtkScrollbar::slider-width = 10
-	GtkScrollbar::trough-border = 1
+	GtkScrollbar::trough-border = 0
 
 	GtkScrolledWindow::scrollbar-spacing = 0
 	GtkScrolledWindow::scrollbars-within-bevel = 1
@@ -183,7 +183,7 @@ style "murrine-button" = "murrine-wider" {
 	}
 }
 
-style "murrine-scrollbar" = "murrine-button" {
+style "murrine-scrollbar" {
 	bg[NORMAL] = shade (0.90, @bg_color)
 	bg[PRELIGHT] = shade (0.80, @bg_color)
 	bg[ACTIVE] = @selected_bg_color
