@@ -60,7 +60,6 @@ PanelApplet .button:active {
 }
 
 PanelApplet .button:prelight {
-    border-color: transparent;
     border-color: mix(@panel_bg_color, @panel_fg_color, 0.13);
     background-color: mix(@panel_bg_color, @panel_fg_color, 0.11);
     background-image: none;
@@ -91,14 +90,10 @@ WnckPager, WnckTasklist {
 }
 
 .nautilus-desktop.nautilus-canvas-item:active {
-    background-color: alpha(@theme_bg_color, 0.8);
-    background-image: none;
     color: @theme_fg_color;
 }
 
 .nautilus-desktop.nautilus-canvas-item:selected {
-    background-color: alpha(@theme_selected_bg_color, 0.8);
-    background-image: none;
     color: @theme_selected_fg_color;
 }
 
