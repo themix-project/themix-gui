@@ -210,8 +210,8 @@ style "murrine-scale" = "murrine-default" {
 
 	bg[NORMAL] = @bg_color
 	bg[ACTIVE] = @bg_color
-	bg[SELECTED]	= @selected_bg_color
-	bg[INSENSITIVE]	= shade (0.95, @bg_color)
+	bg[SELECTED] = @selected_bg_color
+	bg[INSENSITIVE] = shade (0.95, @bg_color)
 	
 	engine "murrine" {
 		roundness = 7
@@ -332,14 +332,14 @@ style "murrine-menu" {
 }
 
 style "murrine-menu-item" = "murrine-wider" {
-	bg[PRELIGHT]	= @selected_bg_color
-	bg[SELECTED]	= @selected_bg_color
-	bg[ACTIVE]	= @selected_bg_color
+	bg[PRELIGHT] = @selected_bg_color
+	bg[SELECTED] = @selected_bg_color
+	bg[ACTIVE] = @selected_bg_color
 
-	fg[NORMAL]	= @menu_fg_color # Fix for XFCE menu text
-	fg[PRELIGHT]	= @selected_fg_color
-	fg[SELECTED]	= @selected_fg_color
-	fg[ACTIVE]	= @selected_fg_color
+	fg[NORMAL] = @menu_fg_color # Fix for XFCE menu text
+	fg[PRELIGHT] = @selected_fg_color
+	fg[SELECTED] = @selected_fg_color
+	fg[ACTIVE] = @selected_fg_color
 	fg[INSENSITIVE] = mix (0.5, @menu_bg_color, @menu_fg_color)
 
 	engine "murrine" {
@@ -436,7 +436,8 @@ class "GtkHandleBox" style "murrine-toolbar"
 # Panels
 
 style "murrine-panel" {
-	xthickness = 2
+	xthickness = 1
+	ythickness = 1
 
 	bg[NORMAL] = @panel_bg_color
 	bg[PRELIGHT] =  mix (0.21, @panel_fg_color, @panel_bg_color)
@@ -501,12 +502,12 @@ widget "*gimmie*" style "bold-panel-item"
 # XFCE Styles
 
 style "workspace-switcher" = "murrine-panel" {
-	bg[SELECTED]  = @selected_bg_color
+	bg[SELECTED] = @selected_bg_color
 }
 
 style "xfce-header" {
-	bg[NORMAL]	 = shade (0.9, @bg_color)
-	base[NORMAL]	 = shade (1.18, @bg_color)
+	bg[NORMAL] = shade (0.9, @bg_color)
+	base[NORMAL] = shade (1.18, @bg_color)
 }
 
 style "xfdesktop-windowlist" {
@@ -516,30 +517,26 @@ style "xfdesktop-windowlist" {
 }
 
 style "xfdesktop-icon-view" {
-    font_name = "normal"
-    XfdesktopIconView::label-alpha = 90
-    XfdesktopIconView::selected-label-alpha = 90
-    XfdesktopIconView::shadow-color = shade (1.05, @panel_bg_color)
-    XfdesktopIconView::selected-shadow-color = @panel_bg_color
-    XfdesktopIconView::shadow-x-offset = -1
-    XfdesktopIconView::selected-shadow-x-offset = -1
-    XfdesktopIconView::shadow-y-offset = -1
-    XfdesktopIconView::selected-shadow-y-offset = -1
+	XfdesktopIconView::label-alpha = 0
+	XfdesktopIconView::selected-label-alpha = 60
+	XfdesktopIconVIew::ellipsize-icon-labels = 1
 
-	base[NORMAL] = @panel_bg_color
+	base[NORMAL] = @selected_bg_color
+	base[SELECTED] = @selected_bg_color
 	base[ACTIVE] = @selected_bg_color
 
-	fg[NORMAL] = @panel_fg_color
+	fg[NORMAL] = @selected_fg_color
+	fg[SELECTED] = @selected_fg_color
 	fg[ACTIVE] = @selected_fg_color
 
 	engine "murrine" {
-		textstyle = 0
+		textstyle = 5
 		text_shade = 0.05
 	}
 }
 
 style "xfwm-tabwin" {
-	Xfwm4TabwinWidget::border-width = 1
+	Xfwm4TabwinWidget::border-width = 0
 	Xfwm4TabwinWidget::icon-size = 64
 
 	engine "murrine" {
@@ -550,7 +547,7 @@ style "xfwm-tabwin" {
 style "xfsm-logout" {
 
 	engine "murrine" {
-        }	
+		}	
 }
 
 widget "*WnckPager*" style "workspace-switcher"
@@ -690,8 +687,8 @@ widget_class "EShellWindow.GtkVBox.BonoboDock.BonoboDockBand.BonoboDockItem*" st
 
 style "inkscape-toolbar-fix" {
 	engine "murrine" {
-                gradient_shades = { 1.0, 1.0, 1.0, 1.0 }
-                highlight_shade = 1.0
+		gradient_shades = { 1.0, 1.0, 1.0, 1.0 }
+		highlight_shade = 1.0
 	}
 }
 
