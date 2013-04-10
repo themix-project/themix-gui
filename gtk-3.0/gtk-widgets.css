@@ -1686,7 +1686,7 @@ GtkTextView {
     -GtkWidget-window-dragging: true;
 
     padding: 3px;
-    border-width: 1px 0 1px 0;
+    border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: @toolbar_bg_color;
