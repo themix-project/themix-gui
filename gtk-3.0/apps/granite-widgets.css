@@ -13,12 +13,12 @@
 
 .dynamic-notebook .notebook {
     -GtkNotebook-tab-overlap: 3px;
-    -GtkNotebook-initial-gap: 5px;
+    -GtkNotebook-initial-gap: 12px;
 
     border-width: 1px 0 0 0;
     border-color: shade(@theme_bg_color, 0.8);
     border-radius: 0;
-    padding: 1px 0 0 0;
+    padding: 0;
 }
 
 .dynamic-notebook .notebook tab {

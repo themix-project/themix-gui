@@ -70,33 +70,13 @@
  * base states *
  ***************/
 GtkWindow {
-    color: @theme_fg_color;
+    color: @fg_color;
 }
 
 * {
-    background-color: @theme_bg_color;
+    /* inherit the color from parent by default */
     color: inherit;
-}
-
-*:insensitive,
-*:insensitive:insensitive {
-    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
-}
-
-*:active {
-    background-color: shade(@theme_bg_color, 0.85);
-}
-
-*:active:hover:insensitive {
-}
-
-*:active:insensitive {
-}
-
-*:hover {
-}
-
-*:hover:insensitive {
+    background-color: @bg_color;
 }
 
 *:selected,
@@ -105,9 +85,56 @@ GtkWindow {
     color: @theme_selected_fg_color;
 }
 
+*:active {
+    background-color: shade(@theme_bg_color, 0.85);
+}
+
+*:insensitive,
+*:insensitive:insensitive {
+    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
+}
+
 .background {
     color: @theme_fg_color;
     background-color: @theme_bg_color;
+}
+
+.background.client-decorated {
+    background-color: transparent;
+}
+
+.background.window-content {
+    background-color: @theme_bg_color;
+}
+
+GtkClutterOffscreen {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback:prelight {
+    background-color: shade(@theme_bg_color, 1.1);
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback:active {
+    background-color: shade(@theme_bg_color, 0.9);
+    color: @theme_fg_color;
+}
+
+.gtkstyle-fallback:insensitive {
+    background-color: shade(shade(@theme_bg_color, 0.95), 1.05);
+    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
+}
+
+.gtkstyle-fallback:selected {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
 }
 
 /******************
@@ -172,14 +199,6 @@ GtkAssistant .sidebar {
     border-radius: 0;
     background-color: @theme_bg_color;
     color: mix(@theme_fg_color, @theme_bg_color, 0.1);
-}
-
-/**************
- * background *
- **************/
-.background {
-    border-width: 0;
-    background-color: @theme_bg_color;
 }
 
 /**********
@@ -717,34 +736,6 @@ GtkInfoBar {
     color: @error_fg_color;
 }
 
-/************
- * gtkstyle *
- ************/
-.gtkstyle-fallback {
-    background-color: @theme_bg_color;
-    color: @theme_fg_color;
-}
-
-.gtkstyle-fallback:prelight {
-    background-color: shade(@theme_bg_color, 1.1);
-    color: @theme_fg_color;
-}
-
-.gtkstyle-fallback:active {
-    background-color: shade(@theme_bg_color, 0.9);
-    color: @theme_fg_color;
-}
-
-.gtkstyle-fallback:insensitive {
-    background-color: shade(shade(@theme_bg_color, 0.95), 1.05);
-    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
-}
-
-.gtkstyle-fallback:selected {
-    background-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-}
-
 /*******************
  * symbolic images *
  *******************/
@@ -869,7 +860,7 @@ GtkComboBox .menu {
 .menubar {
     -GtkWidget-window-dragging: true;
 
-    border-width: 0;
+    border-style: none;
     background-color: @menubar_bg_color;
     background-image: none;
     color: @menubar_fg_color;
@@ -880,8 +871,13 @@ GtkComboBox .menu {
  ***************/
 .menubar.menuitem,
 .menubar .menuitem {
-    padding: 3px;
-    border-width: 1px 1px 0 1px;
+    padding: 3px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+    background-color: @menubar_bg_color;
+    background-image: none;
+    color: @menubar_fg_color;
 }
 
 .menubar.menuitem:hover,
@@ -910,15 +906,18 @@ GtkTreeMenu .menuitem * {
 .menuitem,
 .menu .menuitem {
     padding: 3px;
-    border-width: 1px;
     border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
     border-radius: 0;
+    background-color: @menu_bg_color;
+    background-image: none;
+    color: @menu_fg_color;
 }
 
 .menu .menuitem:active,
 .menu .menuitem:hover {
     border-color: shade(@theme_selected_bg_color, 0.9);
-    border-radius: 0;
     background-color: @theme_selected_bg_color;
     background-image: none;
 }
@@ -1389,6 +1388,8 @@ GtkScrolledWindow GtkViewport.frame {
     -GtkMenuItem-horizontal-padding: 0;
     -GtkWidget-separator-height: 1;
 
+    padding: 0;
+
     border-image: -gtk-gradient(linear,
                      left top, left bottom,
                      from (shade(@menu_bg_color, 0.9)),
@@ -1686,7 +1687,7 @@ GtkTextView {
     -GtkWidget-window-dragging: true;
 
     padding: 3px;
-    border-width: 1px 0 1px 0;
+    border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: @toolbar_bg_color;
