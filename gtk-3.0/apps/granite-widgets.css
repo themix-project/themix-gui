@@ -68,10 +68,10 @@
 .content-view-window {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
+    border-color: shade(@theme_base_color, 0.8);
     border-radius: 2px;
-    background-color:@theme_bg_color;
-    color: @theme_fg_color;
+    background-color:@theme_base_color;
+    color: @theme_text_color;
 }
 
 .content-view,
@@ -92,37 +92,37 @@
 
 .content-view .button {
     border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
+    border-color: shade(@theme_base_color, 0.8);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 1.08);
+    background-color: shade(@theme_base_color, 1.08);
     background-image: none;
-    color: @theme_fg_color;
+    color: @theme_text_color;
 }
 
 .content-view .button:hover {
-    border-color: shade(@theme_bg_color, 0.7);
-    background-color: shade(@theme_bg_color, 1.10);
+    border-color: shade(@theme_base_color, 0.7);
+    background-color: shade(@theme_base_color, 1.10);
     background-image: none;
 }
 
 .content-view .button:active {
-    border-color: shade(@theme_bg_color, 0.8);
-    background-color: shade(@theme_bg_color, 0.95);
+    border-color: shade(@theme_base_color, 0.8);
+    background-color: shade(@theme_base_color, 0.95);
     background-image: none;
 }
 
 .content-view .button:active:hover {
-    border-color: shade(@theme_bg_color, 0.7);
-    color: shade(@theme_fg_color, 0.7);
+    border-color: shade(@theme_base_color, 0.7);
+    color: shade(@theme_text_color, 0.7);
 }
 
 .content-view .button:insensitive {
-    background-color: shade(@theme_bg_color, 0.9);
+    background-color: shade(@theme_base_color, 0.9);
     background-image: none;
 }
 
 .content-view .help_button * {
-    color: @theme_fg_color;
+    color: @theme_text_color;
 }   
 
 .content-view .toolbar {
@@ -131,8 +131,8 @@
     padding: 1px;
     border-width: 0 0 1px 0;
     border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
-    background-color: @theme_bg_color;
+    border-color: shade(@theme_base_color, 0.8);
+    background-color: @theme_base_color;
     background-image: none;
 }
 
@@ -186,7 +186,7 @@ GraniteWidgetsStatusBar {
 
 /***********
  * popover *
- **********/
+ ***********/
 GraniteWidgetsPopOver {
     -GraniteWidgetsPopOver-arrow-width: 21;
     -GraniteWidgetsPopOver-arrow-height: 12;
@@ -357,7 +357,7 @@ GraniteWidgetsPopOver *.separator {
 
 /**********
  * notify *
- *********/
+ **********/
 .notify {
     border-width: 1px;
     border-style: solid;
