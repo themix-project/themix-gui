@@ -91,6 +91,7 @@
 }
 
 .content-view .button {
+    border-width: 1px;
     border-style: solid;
     border-color: shade(@theme_base_color, 0.8);
     border-radius: 2px;
