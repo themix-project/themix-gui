@@ -505,6 +505,9 @@ row:selected:focus {
     background-color: @theme_selected_bg_color;
     background-image: none;
     color: @theme_selected_fg_color;
+
+    -GtkWidget-focus-padding: 1;
+    -GtkWidget-focus-line-width: 0;
 }
 
 /*******************
@@ -2263,8 +2266,7 @@ GtkColorButton.button {
  ************/
 GtkTreeView {
     -GtkTreeView-vertical-separator: 0;
-
-    -GtkWidget-focus-line-width: 1;
+    -GtkWidget-focus-line-width: 0;
     -GtkWidget-focus-padding: 1;
 }
 
