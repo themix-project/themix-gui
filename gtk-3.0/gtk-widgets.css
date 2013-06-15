@@ -56,8 +56,8 @@
  * base states *
  ***************/
 .background {
-    color: @theme_fg_color;
     background-color: @theme_bg_color;
+    color: @theme_fg_color;
 }
 
 .background.client-decorated {
@@ -505,6 +505,9 @@ row:selected:focus {
     background-color: @theme_selected_bg_color;
     background-image: none;
     color: @theme_selected_fg_color;
+
+    -GtkWidget-focus-padding: 1;
+    -GtkWidget-focus-line-width: 0;
 }
 
 /*******************
@@ -1104,29 +1107,34 @@ GtkTreeMenu .menuitem * {
     padding: 0;
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
+    border-color: shade(@theme_base_color, 0.7);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 1.08);
+    background-color: @theme_base_color;
     background-image: none;
     background-clip: border-box;
 }
 
+.notebook GtkViewport {
+    background-color: @theme_base_color;
+    color: @theme_text_color;
+}
+
 .notebook tab {
     padding: 3px;
-    border-color: shade(@theme_bg_color, 0.85);
+    border-color: shade(@theme_base_color, 0.75);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 0.9);
+    background-color: shade(@theme_base_color, 0.85);
     background-image: none;
 }
 
 .notebook tab:active {
-    border-color: shade(@theme_bg_color, 0.8);
-    background-color:shade(@theme_bg_color, 1.08);
+    border-color: shade(@theme_base_color, 0.7);
+    background-color: @theme_base_color;
     background-image: none;
 }
 
 .notebook tab GtkLabel {
-    color: @theme_fg_color;
+    color: @theme_text_color;
 }
 
 .notebook tab.top {
@@ -1728,6 +1736,7 @@ GtkComboBox .separator {
                       -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
                       -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
                       -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent));
+
     background-position: 14% 14%, 0% 50%, 14% 86%, 50% 100%, 86% 86%, 100% 50%, 86% 14%, 50% 0%;
     background-size: 15% 15%;
     background-repeat: no-repeat;
@@ -1742,6 +1751,7 @@ GtkComboBox .separator {
                       -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.250)), to(transparent)),
                       -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.125)), to(transparent)),
                       -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent));
+
     animation: spinner 1s infinite linear;
 }
 
@@ -1810,8 +1820,8 @@ GtkSwitch.trough {
 }
 
 GtkSwitch.trough:active {
-    border-color: shade(@theme_selected_bg_color, 0.9);
-    background-color: @theme_selected_bg_color;
+    border-color: shade(@success_color, 0.9);
+    background-color: @success_color;
     background-image: none;
     color: @theme_selected_fg_color;
 }
@@ -2261,8 +2271,7 @@ GtkColorButton.button {
  ************/
 GtkTreeView {
     -GtkTreeView-vertical-separator: 0;
-
-    -GtkWidget-focus-line-width: 1;
+    -GtkWidget-focus-line-width: 0;
     -GtkWidget-focus-padding: 1;
 }
 
@@ -2289,6 +2298,12 @@ GtkViewport.frame {
 .view {
     background-color: @theme_base_color;
     color: @theme_text_color;
+}
+
+.view:insensitive,
+.view:insensitive:insensitive {
+    background-color: shade(@theme_base_color, 0.9);
+    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
 }
 
 .view:selected,

@@ -22,10 +22,10 @@ PanelSeparator {
 }
 
 .gnome-panel-menu-bar,
-PanelApplet > Gtkpanel.panel,
-PanelApplet > Gtkpanel.panel.menuitem,
-Panelpanel.panel,
-Panelpanel.panel.menuitem {
+PanelApplet > GtkMenuBar.menubar,
+PanelApplet > GtkMenuBar.menubar.menuitem,
+PanelMenuBar.menubar,
+PanelMenuBar.menubar.menuitem {
     -Panelpanel-icon-visible: true;
 
     border-width: 0;
