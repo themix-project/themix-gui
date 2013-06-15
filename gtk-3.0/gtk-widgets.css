@@ -1109,7 +1109,7 @@ GtkTreeMenu .menuitem * {
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 1.08);
+    background-color: @theme_base_color;
     background-image: none;
     background-clip: border-box;
 }
@@ -1121,20 +1121,20 @@ GtkTreeMenu .menuitem * {
 
 .notebook tab {
     padding: 3px;
-    border-color: shade(@theme_bg_color, 0.85);
+    border-color: shade(@theme_base_color, 0.75);
     border-radius: 2px;
-    background-color: shade(@theme_bg_color, 0.9);
+    background-color: shade(@theme_base_color, 0.85);
     background-image: none;
 }
 
 .notebook tab:active {
-    border-color: shade(@theme_bg_color, 0.8);
-    background-color:shade(@theme_bg_color, 1.08);
+    border-color: shade(@theme_base_color, 0.8);
+    background-color: @theme_base_color;
     background-image: none;
 }
 
 .notebook tab GtkLabel {
-    color: @theme_fg_color;
+    color: @theme_text_color;
 }
 
 .notebook tab.top {
