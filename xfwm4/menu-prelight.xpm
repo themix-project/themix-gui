@@ -1,5 +1,5 @@
 /* XPM */
-static char * menu_active_xpm[] = {
+static char * menu_prelight_xpm[] = {
 "16 16 2 1",
 " 	c None",
 ".	c #2D2D2D",
