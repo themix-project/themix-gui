@@ -330,7 +330,7 @@ GtkAssistant .sidebar {
     border-left-width: 0;
 }
 
-/*leftmost button */
+/* leftmost button */
 .linked .entry:first-child,
 .linked .button:first-child,
 .linked .button:active:first-child,

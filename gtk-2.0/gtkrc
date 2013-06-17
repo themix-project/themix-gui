@@ -118,7 +118,7 @@ style "murrine-default" {
 		colorize_scrollbar = FALSE		
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
 		contrast = 0.8
-		focusstyle = 3 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
+		focusstyle = 1 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
 		glazestyle = 0 # 0 = flat highlight, 1 = curved highlight, 2 = concave, 3 = top curved highlight, 4 = beryl highlight
 		glowstyle = 0
 		gradient_shades = { 1.0, 1.0, 1.0, 1.0 }
