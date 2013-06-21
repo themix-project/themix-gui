@@ -727,3 +727,5 @@ widget_class "*GimpToolbox*" style "performance-fix"
 widget_class "*GimpMenuDock*" style "performance-fix"
 widget "*OOoFixed*" style "performance-fix" # Openoffice/Libreoffice
 widget_class "*MozContainer*" style "performance-fix" # Firefox (Not sure if this one does anything though.)
+
+include "apps/thunar.rc"
