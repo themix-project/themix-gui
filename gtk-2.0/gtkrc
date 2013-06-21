@@ -539,13 +539,33 @@ style "xfwm-tabwin" {
 	Xfwm4TabwinWidget::border-width = 0
 	Xfwm4TabwinWidget::icon-size = 64
 
+	bg[NORMAL]	= @menu_bg_color
+	fg[NORMAL]	= @menu_fg_color
+
 	engine "murrine" {
 		focusstyle = 0
 	}
 }
 
 style "xfsm-logout" {
+	bg[NORMAL]	= @menu_bg_color
+	bg[ACTIVE]	= @menu_bg_color
+	bg[PRELIGHT]	= shade (1.1, @menu_bg_color)
+	bg[SELECTED]	= shade (0.5, @menu_bg_color)
+	bg[INSENSITIVE]	= shade (1.3, @menu_bg_color)
 
+	fg[NORMAL]	= @menu_fg_color
+	fg[PRELIGHT]	= @menu_fg_color
+
+	text[NORMAL]	= @menu_fg_color
+
+	engine "murrine" {
+		}	
+}
+
+style "xfsm-logout-button" {
+	bg[NORMAL]	= shade (1.2, @menu_bg_color)
+	bg[PRELIGHT]	= shade (1.4, @menu_bg_color)
 	engine "murrine" {
 		}	
 }
@@ -554,12 +574,6 @@ widget "*WnckPager*" style "workspace-switcher"
 
 widget "*Xfce*Panel*" style "murrine-panel"
 class "*Xfce*Panel*" style "murrine-panel"
-
-widget_class "*XfceHeading*" style "xfce-header"
-widget_class "*XfceDesktop*" style "xfdesktop-windowlist"
-widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
-widget "xfwm4-tabwin*" style "xfwm-tabwin"
-widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 
 # Google Chrome/Chromium Styles (requires 9.0.597 or newer)
 
@@ -727,5 +741,12 @@ widget_class "*GimpToolbox*" style "performance-fix"
 widget_class "*GimpMenuDock*" style "performance-fix"
 widget "*OOoFixed*" style "performance-fix" # Openoffice/Libreoffice
 widget_class "*MozContainer*" style "performance-fix" # Firefox (Not sure if this one does anything though.)
+
+widget_class "*XfceHeading*" style "xfce-header"
+widget_class "*XfceDesktop*" style "xfdesktop-windowlist"
+widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
+widget "xfwm4-tabwin*" style "xfwm-tabwin"
+widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
+widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
 
 include "apps/thunar.rc"
