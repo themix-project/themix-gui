@@ -296,7 +296,7 @@ style "metacity-frame" = "murrine-default" {
 }
 
 style "murrine-statusbar" { }
-style "murrine-comboboxentry" = "murrine-entry" { }
+style "murrine-comboboxentry" = "murrine-entry" { ythickness = 1 }
 style "murrine-hscale" = "murrine-scale" { }
 style "murrine-vscale" = "murrine-scale" { }
 style "murrine-hscrollbar" = "murrine-scrollbar" { }
