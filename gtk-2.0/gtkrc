@@ -154,12 +154,8 @@ style "murrine-wider" {
 # Notebook
 
 style "murrine-notebook-bg" {
-	bg[NORMAL] = shade (1.08, @bg_color)
-	bg[ACTIVE] = shade (0.90, @bg_color)
-
-	engine "murrine" {
-		border_shades = { 0.8, 0.8 }
-	}
+	bg[NORMAL] = @base_color
+	bg[ACTIVE] = shade (0.87, @base_color)
 }
 
 style "murrine-notebook" = "murrine-notebook-bg" {
