@@ -560,20 +560,39 @@ style "xfsm-logout" {
 	text[NORMAL]	= @menu_fg_color
 
 	engine "murrine" {
-		}	
+	}
 }
 
 style "xfsm-logout-button" {
 	bg[NORMAL]	= shade (1.2, @menu_bg_color)
 	bg[PRELIGHT]	= shade (1.4, @menu_bg_color)
+
 	engine "murrine" {
-		}	
+	}
 }
 
 widget "*WnckPager*" style "workspace-switcher"
 
 widget "*Xfce*Panel*" style "murrine-panel"
 class "*Xfce*Panel*" style "murrine-panel"
+
+# Thunar Styles
+
+style "sidepane" {
+	base[NORMAL] = @bg_color
+	base[INSENSITIVE] = mix (0.4, shade (1.35, @selected_bg_color), shade (0.9, @base_color))
+	bg[NORMAL] = @bg_color
+	text[NORMAL] = mix (0.9, @fg_color, @bg_color)
+}
+
+widget_class "*ThunarShortcutsView*" style "sidepane"
+widget_class "*ThunarTreeView*" style "sidepane"
+widget_class "*ThunarLocationEntry*" style "murrine-entry"
+
+# Gtk2 Open-File Dialog
+
+widget_class "*GtkFileChooserWidget.GtkFileChooserDefault.GtkVBox.GtkHPaned.GtkVBox.GtkScrolledWindow.GtkTreeView*" style "sidepane"
+widget_class "*GtkFileChooserWidget.GtkFileChooserDefault.GtkVBox.GtkHPaned.GtkVBox.GtkScrolledWindow.<GtkTreeView>.<GtkButton>" style "murrine-treeview-header"
 
 # Google Chrome/Chromium Styles (requires 9.0.597 or newer)
 
@@ -606,7 +625,7 @@ class "ChromeGtkFrame" style "chrome-gtk-frame"
 
 widget_class "*Chrom*Button*" style "chromium-toolbar-button"
 
-# General Style Application
+# General Styles
 
 class "GtkWidget" style "murrine-default"
 
@@ -748,5 +767,3 @@ widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
 widget "xfwm4-tabwin*" style "xfwm-tabwin"
 widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
-
-include "apps/thunar.rc"
