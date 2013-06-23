@@ -253,9 +253,30 @@ GeditFloatingSlider .not-found {
     color: @error_fg_color;
 }
 
-/***********************
+/************************
  * gnome control center *
- ***********************/
+ ************************/
 CcShellItemView.view {
     background-color: @theme_bg_color;
+}
+
+/***************
+ * font-viewer *
+ ***************/
+SushiFontWidget {
+    padding: 6px 12px;
+}
+
+/*************
+ * gucharmap *
+ *************/
+GucharmapChartable {
+    background-color: @theme_base_color;
+}
+
+GucharmapChartable:active,
+GucharmapChartable:focus,
+GucharmapChartable:selected {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
 }

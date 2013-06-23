@@ -33,6 +33,7 @@
 @define-color error_bg_color rgb (237, 54, 54);
 @define-color link_color #fc6f5d;
 @define-color success_color #53a93f;
+@define-color warning_color #f57900;
 @define-color error_color #cc0000;
 
 /* widget colors */
