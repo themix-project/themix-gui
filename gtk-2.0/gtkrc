@@ -74,7 +74,6 @@ style "murrine-default" {
 	GtkTreeView::vertical-separator = 0
 
 	GtkWidget::focus-padding = 2
-	GtkWidget::new-tooltip-style = 0
 
 	GtkWidget::wide-separators = 1
 	GtkWidget::separator-width = 1
@@ -283,7 +282,7 @@ style "murrine-radiocheck" = "murrine-default" {
 
 style "murrine-entry" = "murrine-wider" {
 	engine "murrine" {
-		border_shades = { 1.2, 1.2 }
+		border_shades = { 1.15, 1.15 }
 	}
 }
 
