@@ -169,7 +169,7 @@ style "murrine-notebook" = "murrine-notebook-bg" {
 
 # Various Standard Widgets
 
-style "murrine-button" = "murrine-wider" {
+style "murrine-button" = "murrine-wide" {
 	bg[NORMAL] = shade (1.08, @bg_color)
 	bg[PRELIGHT] = shade (1.10, @bg_color)
 	bg[ACTIVE] = shade (0.95, @bg_color)
@@ -283,7 +283,7 @@ style "murrine-radiocheck" = "murrine-default" {
 
 style "murrine-entry" = "murrine-wider" {
 	engine "murrine" {
-		border_shades = { 1.3, 1.3 }
+		border_shades = { 1.2, 1.2 }
 	}
 }
 
@@ -292,7 +292,7 @@ style "metacity-frame" = "murrine-default" {
 }
 
 style "murrine-statusbar" { }
-style "murrine-comboboxentry" = "murrine-entry" { ythickness = 1 }
+style "murrine-comboboxentry" = "murrine-entry" { }
 style "murrine-hscale" = "murrine-scale" { }
 style "murrine-vscale" = "murrine-scale" { }
 style "murrine-hscrollbar" = "murrine-scrollbar" { }
