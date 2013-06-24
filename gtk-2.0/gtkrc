@@ -136,7 +136,7 @@ style "murrine-default" {
 		roundness = 2
 		scrollbarstyle = 0 # 0 = none, 1 = circles, 2 = handles, 3 = diagonal stripes, 4 = diagonal stripes and handles, 5 = horizontal stripes, 6 = horizontal stripes and handles
 		sliderstyle = 0	# 0 = none, 1 = handles
-		stepperstyle = 0 # 0 = standard, 1 = integrated stepper handles
+		stepperstyle = 1 # 0 = standard, 1 = integrated stepper handles
 		toolbarstyle = 0 # 0 = flat, 1 = glassy, 2 = gradient
    }
 }
