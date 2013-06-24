@@ -185,9 +185,10 @@ style "murrine-scrollbar" {
 
 	engine "murrine" {
 		roundness = 0
-		border_shades = { 1.1, 1.1 }
-		trough_shades = { 1.0, 1.0 }
-		trough_border_shades = { 1.0, 1.0 }
+		border_shades = { 0.9, 0.9 }
+		trough_shades = { 0.97, 0.97 }
+		contrast = 0.00
+		trough_border_shades = { 1.2, 1.2 }
 	}
 }
 
