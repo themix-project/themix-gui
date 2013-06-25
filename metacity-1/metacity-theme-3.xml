@@ -21,9 +21,9 @@
 	<distance name="bottom_height" value="1" />
 	<distance name="left_titlebar_edge" value="4" />
 	<distance name="right_titlebar_edge" value="4" />
-	<distance name="title_vertical_pad" value="0" />
+	<distance name="title_vertical_pad" value="8" />
 	<aspect_ratio name="button" value="1.0" />
-	<border name="title_border" left="10" right="10" top="4" bottom="4" />
+	<border name="title_border" left="0" right="0" top="0" bottom="0" />
 	<border name="button_border" left="0" right="0" top="0" bottom="0" />
 </frame_geometry>
 
@@ -44,12 +44,15 @@
 </frame_geometry>
 
 <frame_geometry name="small" title_scale="small" parent="normal" rounded_top_left="false" rounded_top_right="false">
-	<distance name="title_vertical_pad" value="2" />
-	<border name="title_border" left="10" right="10" top="4" bottom="4" />
+	<distance name="title_vertical_pad" value="8" />
+	<border name="title_border" left="0" right="0" top="0" bottom="0" />
 	<border name="button_border" left="0" right="0" top="0" bottom="0"  />
 </frame_geometry>
 
-<frame_geometry name="small_unfocused" parent="small" />
+<frame_geometry name="small_unfocused" parent="small">
+	<distance name="left_titlebar_edge" value="1"/>
+	<distance name="right_titlebar_edge" value="1"/>
+</frame_geometry>
 
 <frame_geometry name="nobuttons" hide_buttons="true" parent="normal" />
 
@@ -57,6 +60,8 @@
 	<distance name="left_width" value="1" />
 	<distance name="right_width" value="1" />
 	<distance name="bottom_height" value="1" />
+	<border name="title_border" left="0" right="0" top="0" bottom="0" />
+	<border name="button_border" left="0" right="0" top="0" bottom="0"/>
 	<distance name="title_vertical_pad" value="0" />
 </frame_geometry>
 
@@ -64,6 +69,7 @@
 	<distance name="left_width" value="0" />
 	<distance name="right_width" value="0" />
 	<distance name="bottom_height" value="0" />
+	<distance name="title_vertical_pad" value="0" />
 	<border name="title_border" left="0" right="0" top="0" bottom="0" />
 	<border name="button_border" left="0" right="0" top="0" bottom="0" />
 </frame_geometry>
