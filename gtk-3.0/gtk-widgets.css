@@ -73,6 +73,13 @@ GtkClutterOffscreen {
     color: @theme_fg_color;
 }
 
+
+* {
+    /* inherit colors from parent */
+    color: inherit;
+    background-color: inherit;
+}
+
 *:selected,
 *:selected:focus {
     background-color: @theme_selected_bg_color;
