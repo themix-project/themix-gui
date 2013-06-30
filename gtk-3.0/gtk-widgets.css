@@ -73,7 +73,6 @@ GtkClutterOffscreen {
     color: @theme_fg_color;
 }
 
-
 * {
     /* inherit colors from parent */
     color: inherit;
@@ -1576,8 +1575,8 @@ GtkSwitch.trough {
 }
 
 GtkSwitch.trough:active {
-    border-color: shade(@success_color, 0.9);
-    background-color: @success_color;
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: @theme_selected_bg_color;
     background-image: none;
     color: @theme_selected_fg_color;
 }
