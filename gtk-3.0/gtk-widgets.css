@@ -503,6 +503,22 @@ GtkComboBox.combobox-entry .button:insensitive {
     border-radius: 0;
 }
 
+/*******************
+ * scrolled window *
+ *******************/
+GtkScrolledWindow.frame {
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    border-radius: 0;
+}
+
+/* avoid double borders when a viewport is 
+ * packed into a GtkScrolledWindow */
+GtkScrolledWindow GtkViewport.frame {
+    border-style: none;
+}
+
 /************
  * iconview *
  ************/
@@ -1198,22 +1214,6 @@ OsScrollbar:insensitive {
     background-color: shade(@theme_bg_color, 0.9);
 }
 
-/*******************
- * scrolled window *
- *******************/
-GtkScrolledWindow.frame {
-    border-width: 1px;
-    border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 0;
-}
-
-/* avoid double borders when a viewport is 
- * packed into a GtkScrolledWindow */
-GtkScrolledWindow GtkViewport.frame {
-    border-style: none;
-}
-
 /*************
  * separator *
  *************/
@@ -1692,6 +1692,25 @@ GtkColorButton.button {
     padding: 2px;
 }
 
+/**************
+ * header-bar *
+ **************/
+.header-bar {
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    padding: 0 2px;
+    background-color: @theme_bg_color;
+}
+
+.header-bar .button.text-button {
+    padding: 2px 4px;
+}
+
+.header-bar .button.image-button {
+    padding: 4px 3px 3px 4px;
+}
+
 /***********
  * toolbar *
  ***********/
@@ -1702,7 +1721,32 @@ GtkColorButton.button {
     background-image: none;
 }
 
-/* primary-toolbar */
+.toolbar .button {
+    padding: 2px;
+}
+
+.toolbar .button.text-button {
+    padding: 2px 4px;
+}
+
+.toolbar .button.image-button {
+    padding: 4px 3px 3px 4px;
+}
+
+.toolbar:insensitive {
+    color: alpha (@theme_fg_color, 0.6);
+    background-color: shade(@toolbar_bg_color, 0.9);
+}
+
+
+/* menubar toolbars */
+.toolbar.menubar {
+    -GtkToolbar-button-relief: normal;
+}
+
+/*******************
+ * primary-toolbar *
+ *******************/
 .primary-toolbar,
 .primary-toolbar .toolbar,
 .primary-toolbar.toolbar {
