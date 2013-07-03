@@ -112,3 +112,11 @@
 .menuitem.radio:active:insensitive {
     background-image: url("assets/menuitem-radio-checked-insensitive.png");
 }
+
+GtkIconView.content-view.cell.check {
+    background-image: url("assets/grid-selection-unchecked-dark.png");
+}
+
+GtkIconView.content-view.cell.check:active {
+    background-image: url("assets/grid-selection-checked-dark.png");
+}
