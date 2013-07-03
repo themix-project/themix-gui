@@ -1517,13 +1517,150 @@ GtkComboBox .separator {
 /*******
  * osd *
  *******/
-GtkWindow.osd {
-    background-color: @osd_bg;
+.background.osd {
     color: @osd_fg;
+    background-color: @osd_bg;
 }
 
 GtkOverlay.osd {
     background-color: transparent;
+}
+
+.osd.frame {
+    background-clip: border-box;
+    background-origin: border-box;
+}
+
+.osd.button,
+.osd .button {
+    padding: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@osd_bg, 0.8);
+    border-radius: 2px;
+    background-color: shade(@osd_bg, 1.08);
+    background-image: none;
+    color: @osd_fg;
+}
+
+.osd.button:prelight,
+.osd.button:hover,
+.osd .button:hover {
+    border-color: shade(@osd_bg, 0.7);
+    background-color: shade(@osd_bg, 1.10);
+    background-image: none;
+}
+
+.osd.button:active,
+.osd .button:active,
+.osd GtkMenuButton.button:active {
+    border-color: shade(@osd_bg, 0.8);
+    background-color: shade(@osd_bg, 0.95);
+    background-image: none;
+}
+
+.osd.button:active:hover,
+.osd .button:active:hover,
+.osd GtkMenuButton.button:active:hover {
+    border-color: shade(@osd_bg, 0.7);
+}
+
+.osd.button:insensitive,
+.osd .button:insensitive {
+    border-color: shade(@osd_bg, 0.85);
+    background-color: shade(@osd_bg, 0.9);
+    background-image: none;
+}
+
+.osd.button:active:insensitive,
+.osd .button:active:insensitive {
+    background-color: shade(@osd_bg, 0.80);
+    background-image: none;
+}
+
+.osd.toolbar {
+    -GtkToolbar-button-relief: normal;
+
+    padding: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: shade(@osd_bg, 0.8);
+    background-color: @osd_bg;
+    background-image: none;
+    color: @osd_fg;
+}
+
+.osd.toolbar .button {
+    padding: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@osd_bg, 0.8);
+    border-radius: 2px;
+    background-color: shade(@osd_bg, 1.08);
+    background-image: none;
+    color: @osd_fg;
+}
+
+.osd.toolbar .button:hover {
+    border-color: shade(@osd_bg, 0.7);
+    background-color: shade(@osd_bg, 1.10);
+    background-image: none;
+}
+
+.osd.toolbar .button:active {
+    border-color: shade(@osd_bg, 0.8);
+    background-color: shade(@osd_bg, 0.95);
+    background-image: none;
+}
+
+.osd.toolbar .button:active:hover {
+    border-color: shade(@osd_bg, 0.7);
+}
+
+.osd.toolbar .button:focus,
+.osd.toolbar .button:hover:focus,
+.osd.toolbar .button:active:focus,
+.osd.toolbar .button:active:hover:focus {
+    border-color: shade(@osd_bg, 0.7);
+}
+
+.osd.toolbar .button:insensitive {
+    border-color: shade(@osd_bg, 0.85);
+    background-color: shade(@osd_bg, 0.9);
+    background-image: none;
+}
+
+.osd.toolbar .button:active:insensitive {
+    border-color: shade(@osd_bg, 0.75);
+    background-color: shade(@osd_bg, 0.80);
+    background-image: none;
+}
+
+.osd.toolbar .button:first-child {
+    border-radius: 2px 0 0 2px;
+    border-width: 1px 0 1px 1px;
+    box-shadow: inset -1px 0 shade(@osd_bg, 0.9);
+}
+
+.osd.toolbar .button:last-child {
+    box-shadow: none;
+    border-radius: 0 2px 2px 0;
+    border-width: 1px 1px 1px 0;
+}
+
+.osd.toolbar .button:only-child,
+.osd.toolbar GtkToolButton .button,
+.osd.toolbar GtkToolButton:only-child .button,
+.osd.toolbar GtkToolButton:last-child .button,
+.osd.toolbar GtkToolButton:first-child .button {
+    border-width: 1px;
+    border-radius: 2px;
+    border-style: solid;
+}
+
+.osd.toolbar .separator {
+    color: shade(@osd_bg, 0.9);
 }
 
 /* used by gnome-settings-daemon's media-keys OSD */
@@ -1533,6 +1670,122 @@ GtkOverlay.osd {
 
 .osd.progressbar {
     background-color: @osd_fg;
+}
+
+.osd .scale.slider {
+    border-radius: 7px;
+    background-color: shade(@osd_bg, 1.08);
+    background-image: none;
+    /* we will draw the border using box shadow for now */
+    box-shadow: inset 1px 0 shade(@osd_bg, 0.8),
+                inset 0 1px shade(@osd_bg, 0.8),
+                inset -1px 0 shade(@osd_bg, 0.8),
+                inset 0 -1px shade(@osd_bg, 0.8);
+}
+
+.osd .scale.slider:hover {
+    box-shadow: inset 1px 0 shade(@osd_bg, 0.7),
+                inset 0 1px shade(@osd_bg, 0.7),
+                inset -1px 0 shade(@osd_bg, 0.7),
+                inset 0 -1px shade(@osd_bg, 0.7);
+}
+
+.osd .scale.slider:insensitive {
+    background-color: shade(@osd_bg, 0.9);
+    background-image: none;
+    box-shadow: inset 1px 0 shade(@osd_bg, 0.85),
+                inset 0 1px shade(@osd_bg, 0.85),
+                inset -1px 0 shade(@osd_bg, 0.85),
+                inset 0 -1px shade(@osd_bg, 0.85);
+}
+
+.osd .scale.trough {
+    border-color: shade(@osd_bg, 0.8);
+    background-color: shade(@osd_bg, 1.08);
+    background-image: none;
+}
+
+.osd .scale.trough.highlight {
+    border-color: @theme_selected_bg_color;
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+}
+
+.osd .scale.trough:insensitive,
+.osd .scale.trough.highlight:insensitive {
+    border-color: shade(@osd_bg, 0.85);
+    background-color: shade(@osd_bg, 0.9);
+    background-image: none;
+}
+
+.osd GtkProgressBar,
+GtkProgressBar.osd {
+    padding: 0;
+    -GtkProgressBar-xspacing: 0;
+    -GtkProgressBar-yspacing: 2px;
+    -GtkProgressBar-min-horizontal-bar-height: 2px;
+}
+
+.osd GtkProgressBar.trough,
+GtkProgressBar.osd.trough {
+    padding: 0;
+    border-style: none;
+    border-radius: 0;
+    background-image: none;
+    background-color: transparent;
+}
+
+.osd GtkProgressBar.progressbar,
+GtkProgressBar.osd.progressbar {
+    border-style: none;
+    border-radius: 0;    
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+}
+
+.osd .view,
+.osd.view {
+    background-color: @osd_base;
+}
+
+.osd .scrollbar.trough {
+    background-color: @osd_bg;
+}
+
+.osd .scrollbar.slider {
+    border-width: 1px;
+    border-color: shade(@osd_bg, 0.8);
+    border-radius: 0;
+    background-color: shade(@osd_bg, 0.9);
+}
+
+.osd .scrollbar.slider:hover {
+    border-color: shade(@osd_bg, 0.7);
+    background-color: shade(@osd_bg, 0.8);
+}
+
+.osd .scrollbar.slider:active {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: @theme_selected_bg_color;
+}
+
+.osd GtkIconView.cell:selected,
+.osd GtkIconView.cell:selected:focus {
+    background-color: transparent;
+    border-style: solid;
+    border-radius: 2px;
+    border-width: 3px;
+    border-color: @osd_fg;
+    outline-color: transparent;
+}
+
+/* used by Documents */
+.osd .page-thumbnail {
+    border-style: solid;
+    border-width: 1px;
+    border-color: shade(@osd_bg, 0.9);
+    /* when there's no pixbuf yet */
+    background-color: @osd_bg;
 }
 
 /******************
@@ -1927,7 +2180,6 @@ GtkColorButton.button {
     border-color: shade(@toolbar_bg_color, 0.7);
     background-color: shade(@toolbar_bg_color, 1.10);
     background-image: none;
-    color: shade(@toolbar_fg_color, 0.7);
 }
 
 .primary-toolbar .button:active,
