@@ -1545,6 +1545,141 @@ GtkOverlay.osd {
     background-color: @osd_fg;
 }
 
+/******************
+ * selection mode *
+ ******************/
+.selection-mode.header-bar,
+.selection-mode.toolbar {
+    border-style: solid;
+    border-color: @theme_selected_bg_color;
+    background-color: shade(@theme_selected_bg_color, 1.6);
+    background-image: none;
+    color: @theme_selected_bg_color;
+}
+
+.selection-mode.header-bar {
+    border-top-color: shade(@theme_selected_bg_color, 1.6);
+    border-bottom-color: @theme_selected_bg_color;
+}
+
+.selection-mode.toolbar {
+    padding: 4px;
+}
+
+/* regular button */
+.selection-mode.header-bar .button,
+.selection-mode.toolbar .button,
+.selection-mode.toolbar GtkToolButton .button {
+    padding: 3px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: @theme_selected_bg_color;
+    border-radius: 2px;
+    background-color: shade(@theme_selected_bg_color, 1.68);
+    background-image: none;
+    color: shade(@theme_selected_bg_color, 0.8);
+}
+
+.selection-mode.header-bar .button:hover,
+.selection-mode.toolbar .button:hover,
+.selection-mode.toolbar GtkToolButton .button:hover {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: shade(@theme_selected_bg_color, 1.70);
+    background-image: none;
+}
+
+.selection-mode.header-bar .button:active,
+.selection-mode.toolbar .button:active,
+.selection-mode.toolbar GtkToolButton .button:active {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: shade(@theme_selected_bg_color, 1.55);
+    background-image: none;
+}
+
+.selection-mode.header-bar .button:hover:active,
+.selection-mode.toolbar .button:hover:active,
+.selection-mode.toolbar GtkToolButton .button:hover:active {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+}
+
+/* suggested button */
+.selection-mode.header-bar .suggested-action.button,
+.selection-mode.toolbar .suggested-action.button,
+.selection-mode.toolbar GtkToolButton.suggested-action .button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    border-radius: 2px;
+    background-color: shade(@theme_selected_bg_color, 1.18);
+    background-image: none;
+    color: @theme_selected_fg_color;
+}
+
+.selection-mode.header-bar .suggested-action.button:hover,
+.selection-mode.toolbar .suggested-action.button:hover,
+.selection-mode.toolbar GtkToolButton.suggested-action .button:hover {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+    background-color: shade(@theme_selected_bg_color, 1.20);
+    background-image: none;
+}
+
+.selection-mode.header-bar .suggested-action.button:active,
+.selection-mode.toolbar .suggested-action.button:active,
+.selection-mode.toolbar GtkToolButton.suggested-action:active {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: shade(@theme_selected_bg_color, 1.05);
+    background-image: none;
+}
+
+.selection-mode.header-bar .suggested-action.button:hover:active,
+.selection-mode.toolbar .suggested-action.button:hover:active,
+.selection-mode.toolbar GtkToolButton.suggested-action .button:hover:active {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+}
+
+/* menu button */
+.selection-mode.header-bar .selection-menu.button,
+.selection-mode.toolbar .selection-menu.button {
+    border-style: none;
+    background-color: transparent;
+    background-image: none;
+    color: shade(@theme_selected_bg_color, 0.8);
+}
+
+.selection-mode.toolbar .dim-label,
+.selection-mode.toolbar .selection-menu.button .dim-label {
+    color: shade(@theme_selected_bg_color, 0.7);
+}
+
+.selection-mode.header-bar .selection-menu.button:hover,
+.selection-mode.toolbar .dim-label:hover,
+.selection-mode.toolbar .selection-menu.button:hover,
+.selection-mode.toolbar .selection-menu.button .dim-label:hover {
+    color: shade(@theme_selected_bg_color, 0.7);
+}
+
+.selection-mode.header-bar .selection-menu.button:active,
+.selection-mode.toolbar .selection-menu.button:active {
+    color: shade(@theme_selected_bg_color, 0.8);
+    box-shadow: none;
+}
+
+/*************************
+ * touch text selections *
+ *************************/
+GtkBubbleWindow {
+    border-radius: 2px;
+    background-clip: border-box;
+}
+
+GtkBubbleWindow.osd.background {
+    background-color: @osd_bg;
+}
+
+GtkBubbleWindow .toolbar {
+    background-color: transparent;
+}
+
 /*************
  * statusbar *
  *************/
