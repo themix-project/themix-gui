@@ -167,9 +167,7 @@ NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar:only-chil
 /******************
  * gnome terminal *
  ******************/
-TerminalScreen {
-    -TerminalScreen-background-darkness: 0.9;
-
+VteTerminal {
     background-color: @osd_base;
     color: @osd_fg;
 }
