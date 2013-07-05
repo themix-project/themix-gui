@@ -185,10 +185,10 @@ style "murrine-scrollbar" {
 
 	engine "murrine" {
 		roundness = 0
+		contrast = 0.00
 		border_shades = { 0.9, 0.9 }
 		trough_shades = { 0.97, 0.97 }
-		contrast = 0.00
-		trough_border_shades = { 1.2, 1.2 }
+		trough_border_shades = { 1.0, 1.0 }
 	}
 }
 
@@ -391,7 +391,6 @@ style "murrine-menubaritem" {
 # Toolbars
 
 style "murrine-toolbar" = "murrine-default" {
-
 	bg[NORMAL] = @toolbar_bg_color
 	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
 	bg[SELECTED] = @selected_bg_color
@@ -409,7 +408,6 @@ style "murrine-toolbar" = "murrine-default" {
 }
 
 style "murrine-toolbutton" = "murrine-button" {
-
 	bg[NORMAL] = shade (1.08, @toolbar_bg_color)
 	bg[PRELIGHT] = shade (1.10, @toolbar_bg_color)
 	bg[SELECTED] = @selected_bg_color
