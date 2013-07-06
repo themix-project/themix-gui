@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="checkbox-mixed-insensitive.svg">
+   sodipodi:docname="checkbox-mixed-insensitive-dark.svg">
   <defs
      id="defs4">
     <radialGradient
@@ -75,7 +75,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="15.839192"
-     inkscape:cx="-13.46381"
+     inkscape:cx="12.610752"
      inkscape:cy="6.1944703"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -101,7 +101,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -110,6 +110,12 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1036.3622)">
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#e6e6e6;fill-opacity:1;stroke:none"
+       d="m 1.6753082,1036.9203 12.6493838,0 c 0.583979,0 1.054115,0.4721 1.054115,1.0586 l 0,12.7034 c 0,0.5865 -0.470136,1.0587 -1.054115,1.0587 l -12.6493838,0 c -0.58398,0 -1.0541154,-0.4722 -1.0541154,-1.0587 l 0,-12.7034 c 0,-0.5865 0.4701354,-1.0586 1.0541154,-1.0586 z"
+       id="rect3752-9"
+       sodipodi:nodetypes="sssssssss" />
     <path
        style="fill:#211f1e;fill-opacity:1;stroke:none"
        d="M 2 0 C 0.892 0 3.2526065e-18 0.892 0 2 L 0 14 C 0 15.108 0.892 16 2 16 L 14 16 C 15.108 16 16 15.108 16 14 L 16 2 C 16 0.892 15.108 3.2526065e-18 14 0 L 2 0 z M 2 1 L 14 1 C 14.554 1 15 1.446 15 2 L 15 14 C 15 14.554 14.554 15 14 15 L 2 15 C 1.446 15 1 14.554 1 14 L 1 2 C 1 1.446 1.446 1 2 1 z "

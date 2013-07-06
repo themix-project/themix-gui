@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="radio-selected-insensitive.svg">
+   sodipodi:docname="radio-selected-insensitive-dark.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -67,7 +67,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -77,13 +77,19 @@
      id="layer1"
      transform="translate(0,-1036.3622)">
     <path
+       inkscape:connector-curvature="0"
+       style="fill:#e6e6e6;fill-opacity:1;stroke:none"
+       d="m 8.0631345,1037.1097 c 4.1449385,0 7.5050765,3.247 7.5050765,7.2525 0,4.0055 -3.360138,7.2525 -7.5050765,7.2525 -4.1449391,0 -7.50507624,-3.247 -7.50507624,-7.2525 0,-4.0055 3.36013714,-7.2525 7.50507624,-7.2525 z"
+       id="path3008-9"
+       sodipodi:nodetypes="sssss" />
+    <path
        style="opacity:1;fill:#211f1e;fill-opacity:1;stroke:none"
        d="M 8 0 C 3.581722 8.8817842e-16 -3.006854e-17 3.581722 0 8 C 0 12.418278 3.581722 16 8 16 C 12.418278 16 16 12.418278 16 8 C 16 3.581722 12.418278 -1.8064254e-15 8 0 z M 8 1 C 11.865993 1 15 4.1340068 15 8 C 15 11.865993 11.865993 15 8 15 C 4.1340068 15 1 11.865993 1 8 C 1 4.1340068 4.1340068 1 8 1 z "
        transform="translate(0,1036.3622)"
        id="path3008" />
     <path
        sodipodi:type="arc"
-       style="fill:#211f1e;fill-opacity:1;stroke:none"
+       style="fill:#211f1e;fill-opacity:1;stroke:none;opacity:0.8"
        id="path3833"
        sodipodi:cx="8"
        sodipodi:cy="8"

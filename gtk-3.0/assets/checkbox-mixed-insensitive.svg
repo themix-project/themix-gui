@@ -66,19 +66,6 @@
        r="7"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.8571429,-6.3176109e-8,6.3176109e-8,1.8571429,-6.8571438,-6.8571423)" />
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter3971"
-       x="-0.045000002"
-       width="1.09"
-       y="-0.18000001"
-       height="1.36">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.15"
-         id="feGaussianBlur3973" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -94,9 +81,9 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1366"
-     inkscape:window-height="711"
+     inkscape:window-height="712"
      inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -123,6 +110,12 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1036.3622)">
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#e6e6e6;fill-opacity:1;stroke:none"
+       d="m 1.7339331,1037.2359 12.5952689,0 c 0.581481,0 1.049605,0.4581 1.049605,1.0271 l 0,12.3247 c 0,0.569 -0.468124,1.027 -1.049605,1.027 l -12.5952689,0 c -0.5814816,0 -1.04960577,-0.458 -1.04960577,-1.027 l 0,-12.3247 c 0,-0.569 0.46812417,-1.0271 1.04960577,-1.0271 z"
+       id="rect3752-1"
+       sodipodi:nodetypes="sssssssss" />
     <path
        style="fill:#ada9a8;fill-opacity:1;stroke:none"
        d="M 2 0 C 0.892 0 3.2526065e-18 0.892 0 2 L 0 14 C 0 15.108 0.892 16 2 16 L 14 16 C 15.108 16 16 15.108 16 14 L 16 2 C 16 0.892 15.108 3.2526065e-18 14 0 L 2 0 z M 2 1 L 14 1 C 14.554 1 15 1.446 15 2 L 15 14 C 15 14.554 14.554 15 14 15 L 2 15 C 1.446 15 1 14.554 1 14 L 1 2 C 1 1.446 1.446 1 2 1 z "
