@@ -118,15 +118,15 @@ GtkClutterOffscreen {
  ******************/
 /* transitions */
 .button {
-    transition: background 150ms ease-in-out;
+    transition: border 100ms ease-in-out;
 }
 
 .entry {
-    transition: all 150ms ease-out;
+    transition: border 100ms ease-out;
 }
 
 .entry:focus {
-    transition: all 150ms ease-in;
+    transition: border 100ms ease-in;
 }
 
 /* inset shadows */
