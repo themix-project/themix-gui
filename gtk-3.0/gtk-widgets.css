@@ -117,6 +117,10 @@ GtkClutterOffscreen {
  * visual effects *
  ******************/
 /* transitions */
+.button {
+    transition: background 150ms ease-in-out;
+}
+
 .entry {
     transition: all 150ms ease-out;
 }
