@@ -44,18 +44,6 @@
        r="7"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.5714285,1.411262e-8,-1.411262e-8,1.5714286,-4.5714281,-4.5714287)" />
-    <filter
-       inkscape:collect="always"
-       id="filter3971"
-       x="-0.045"
-       width="1.09"
-       y="-0.18"
-       height="1.36">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.15"
-         id="feGaussianBlur3973" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -65,15 +53,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="22.4"
-     inkscape:cx="5.7866595"
+     inkscape:cx="-1.2669119"
      inkscape:cy="10.758851"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1366"
-     inkscape:window-height="712"
+     inkscape:window-height="717"
      inkscape:window-x="0"
-     inkscape:window-y="27"
+     inkscape:window-y="26"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true">
@@ -104,7 +92,7 @@
      transform="translate(0,-1036.3622)">
     <path
        inkscape:connector-curvature="0"
-       style="fill:#e6e6e6;fill-opacity:1;stroke:none"
+       style="fill:#d3d3d3;fill-opacity:1;stroke:none"
        d="m 8.0669643,1037.1836 c 4.0755647,0 7.3794647,3.224 7.3794647,7.2009 0,3.9769 -3.3039,7.2009 -7.3794647,7.2009 -4.0755656,0 -7.3794643,-3.224 -7.3794643,-7.2009 0,-3.9769 3.3038987,-7.2009 7.3794643,-7.2009 z"
        id="path3008-5"
        sodipodi:nodetypes="sssss" />
