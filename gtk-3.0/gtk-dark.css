@@ -1,12 +1,12 @@
 /* Default color scheme */
 @define-color base_color #333333;
 @define-color bg_color #2d2d2d;
-@define-color text_color #eeeeee;
+@define-color text_color #dedede;
 @define-color fg_color #dcdcdc;
 @define-color selected_bg_color #d64937;
 @define-color selected_fg_color #f9f9f9;
 @define-color tooltip_bg_color #2d2d2d;
-@define-color tooltip_fg_color #f9f9f9;
+@define-color tooltip_fg_color #dedede;
 
 /* colormap actually used by the theme, to be overridden in other css files */
 @define-color theme_bg_color @bg_color;
