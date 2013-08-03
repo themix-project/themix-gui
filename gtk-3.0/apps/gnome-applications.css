@@ -85,8 +85,8 @@ WnckPager, WnckTasklist {
 }
 
 .nautilus-desktop.nautilus-canvas-item {
-    color: #fff;
-    text-shadow: 1px 1px #000;
+    color: white;
+    text-shadow: 1px 1px black;
 }
 
 .nautilus-desktop.nautilus-canvas-item:active {
