@@ -9,10 +9,11 @@
 </info>
 
 <!-- ::: CONSTANTS ::: -->
+<constant name="C_titlebar" value="gtk:custom(wm_bg,#2d2d2d)" />
 <constant name="C_border_focused" value="gtk:custom(wm_border_focused,#484848)" />
 <constant name="C_border_unfocused" value="gtk:custom(wm_border_unfocused,#393939)" />
 <constant name="C_title_focused" value="gtk:custom(wm_title_focused,#dcdcdc)" />
-<constant name="C_title_unfocused" value="gtk:custom(wm_title_unfocused,#393939)" />
+<constant name="C_title_unfocused" value="gtk:custom(wm_title_unfocused,#888888)" />
 
 <!-- ::: GEOMETRY ::: -->
 <frame_geometry name="normal" title_scale="medium" rounded_top_left="1" rounded_top_right="1">
@@ -107,7 +108,7 @@
 
 <!-- ::: WINDOW DECORATIONS ::: -->
 <draw_ops name="entire_background_focused">
-	<rectangle color="gtk:custom(wm_bg,#2d2d2d)" x="0" y="0" width="width" height="height" filled="true" />
+	<rectangle color="C_titlebar" x="0" y="0" width="width" height="height" filled="true" />
 </draw_ops>
 
 <draw_ops name="entire_background_unfocused">
@@ -115,7 +116,7 @@
 </draw_ops>
 
 <draw_ops name="titlebar_fill_focused">
-	<rectangle color="gtk:custom(wm_bg,#2d2d2d)" x="0" y="0" width="width" height="height" filled="true" />
+	<rectangle color="C_titlebar" x="0" y="0" width="width" height="height" filled="true" />
 </draw_ops>
 
 <draw_ops name="titlebar_fill_attached_focused">
@@ -123,7 +124,7 @@
 </draw_ops>
 
 <draw_ops name="titlebar_fill_unfocused">
-	<rectangle color="gtk:custom(wm_bg,#2d2d2d)" x="0" y="0" width="width" height="height" filled="true" />
+	<rectangle color="C_titlebar" x="0" y="0" width="width" height="height" filled="true" />
 </draw_ops>
 
 <draw_ops name="titlebar_focused">
