@@ -64,6 +64,7 @@ style "murrine-default" {
 	GtkScrolledWindow::scrollbars-within-bevel = 1
 
 	GtkToolbar::internal-padding = 0
+	GtkToolbar::shadow-type = GTK_SHADOW_NONE
 
 	GtkTreeView::expander-size = 11
 	GtkTreeView::vertical-separator = 0
