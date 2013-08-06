@@ -1749,7 +1749,9 @@ GtkColorButton.button {
 .primary-toolbar .raised .button,
 .primary-toolbar .raised.button,
 .toolbar GtkComboBox,
-.toolbar .button {
+.toolbar .button,
+.header-bar GtkComboBox,
+.header-bar .button {
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: shade(@toolbar_bg_color, 1.08);
     background-image: none;
@@ -1757,21 +1759,24 @@ GtkColorButton.button {
 }
 
 .primary-toolbar .button:hover,
-.toolbar .button:hover {
+.toolbar .button:hover,
+.header-bar .button:hover {
     border-color: shade(@toolbar_bg_color, 0.7);
     background-color: shade(@toolbar_bg_color, 1.10);
     background-image: none;
 }
 
 .primary-toolbar .button:active,
-.toolbar .button:active {
+.toolbar .button:active,
+.header-bar .button:active {
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: shade(@toolbar_bg_color, 0.95);
     background-image: none;
 }
 
 .primary-toolbar .button:active:hover,
-.toolbar .button:active:hover {
+.toolbar .button:active:hover,
+.header-bar .button:active:hover {
     border-color: shade(@toolbar_bg_color, 0.7);
 }
 
@@ -1782,19 +1787,25 @@ GtkColorButton.button {
 .toolbar .button:focus,
 .toolbar .button:hover:focus,
 .toolbar .button:active:focus,
-.toolbar .button:active:hover:focus {
+.toolbar .button:active:hover:focus,
+.header-bar .button:focus,
+.header-bar .button:hover:focus,
+.header-bar .button:active:focus,
+.header-bar .button:active:hover:focus {
     border-color: shade(@toolbar_bg_color, 0.7);
 }
 
 .primary-toolbar .button:insensitive,
-.toolbar .button:insensitive {
+.toolbar .button:insensitive,
+.header-bar .button:insensitive {
     border-color: shade(@toolbar_bg_color, 0.85);
     background-color: shade(@toolbar_bg_color, 0.9);
     background-image: none;
 }
 
 .primary-toolbar .button:active:insensitive,
-.toolbar .button:active:insensitive {
+.toolbar .button:active:insensitive,
+.header-bar .button:active:insensitive {
     border-color: shade(@toolbar_bg_color, 0.75);
     background-color: shade(@toolbar_bg_color, 0.80);
     background-image: none;
