@@ -1820,12 +1820,18 @@ GtkColorButton.button {
     background-image: none;
 }
 
-.primary-toolbar .entry {
+.primary-toolbar .entry,
+.toolbar .entry,
+.header-bar .entry {
     border-color: shade(@toolbar_bg_color, 0.8);
 }
 
 .primary-toolbar .entry:active,
-.primary-toolbar .entry:focus {
+.primary-toolbar .entry:focus,
+.toolbar .entry:active,
+.toolbar .entry:focus,
+.header-bar .entry:active,
+.header-bar .entry:focus {
     border-color: shade(@toolbar_bg_color, 0.7);
 }
 
