@@ -4,11 +4,11 @@
 
 active_text_color=#dcdcdc
 inactive_text_color=#888888
-button_offset=4
-button_spacing=4
+button_offset=6
+button_spacing=6
 show_app_icon=true
 full_width_title=true
-maximized_offset=4
+maximized_offset=6
 title_horizontal_offset=6
 title_shadow_active=false
 title_shadow_inactive=false
