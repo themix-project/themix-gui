@@ -711,7 +711,7 @@ GtkComboBox .menu {
 .toolbar .menu,
 .toolbar .primary-toolbar .menu,
 .header-bar .menu,
-.header-bar .primary-header-bar .menu,
+.header-bar .primary-toolbar .menu,
 .menu {
     padding: 0;
     border-radius: 0;
@@ -1285,7 +1285,8 @@ GtkComboBox .separator {
  ***********/
 .sidebar,
 .sidebar.view,
-.sidebar .view {
+.sidebar .view,
+.sidebar GtkScrolledWindow {
     background-color: @theme_bg_color;
     color: mix(@theme_fg_color, @theme_bg_color, 0.1);
 }
