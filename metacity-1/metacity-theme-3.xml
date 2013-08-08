@@ -316,15 +316,19 @@
 
 <!-- shade icon -->
 <draw_ops name="shade_focused">
+	<image filename="shade_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="shade_focused_prelight">
+	<image filename="shade_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="shade_focused_pressed">
+	<image filename="shade_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="shade_unfocused">
+	<image filename="shade_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="shade_unfocused_prelight">
@@ -337,15 +341,19 @@
 
 <!-- unshade icon -->
 <draw_ops name="unshade_focused">
+	<image filename="unshade_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="unshade_focused_prelight">
+	<image filename="unshade_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="unshade_focused_pressed">
+	<image filename="unshade_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="unshade_unfocused">
+	<image filename="unshade_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
 </draw_ops>
 
 <draw_ops name="unshade_unfocused_prelight">
