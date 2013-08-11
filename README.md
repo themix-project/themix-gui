@@ -15,7 +15,7 @@ To set the theme in Xfce, run the following commands in Terminal,
 
 ```
 xfconf-query -c xsettings -p /Net/ThemeName -s "Numix"
-xfconf-query -c xfwm4 -p '/general/theme' -s "Numix"
+xfconf-query -c xfwm4 -p /general/theme -s "Numix"
 ```
 
 ### Requirements

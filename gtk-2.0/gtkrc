@@ -5,15 +5,14 @@ gtk_color_scheme = "base_color:#f9f9f9\nbg_color:#dedede\ntooltip_bg_color:#2d2d
 # Default Style
 
 style "murrine-default" {
-	xthickness = 1
-	ythickness = 1
-
 	GtkArrow::arrow-scaling= 0.6
 
 	GtkButton::child-displacement-x = 0
 	GtkButton::child-displacement-y = 0
 
 	GtkButton::default-border = { 0, 0, 0, 0 }
+
+	GtkButtonBox::child-min-height = 26
 
 	GtkCheckButton::indicator-size = 16
 
@@ -32,7 +31,6 @@ style "murrine-default" {
 
 	GtkMenuBar::internal-padding = 0
 	GtkMenuBar::window-dragging = 1
-	GtkMenuBar::shadow-type = GTK_SHADOW_NONE
 
 	GtkMenuItem::arrow-scaling= 0.5
 
@@ -64,12 +62,12 @@ style "murrine-default" {
 	GtkScrolledWindow::scrollbars-within-bevel = 1
 
 	GtkToolbar::internal-padding = 0
-	GtkToolbar::shadow-type = GTK_SHADOW_NONE
 
 	GtkTreeView::expander-size = 11
 	GtkTreeView::vertical-separator = 0
 
-	GtkWidget::focus-padding = 2
+	GtkWidget::focus-line-width = 1
+	GtkWidget::focus-padding = 0 # Prevents the Firefox tabs from jumping a few pixels when you create a new tab
 
 	GtkWidget::wide-separators = 1
 	GtkWidget::separator-width = 1
@@ -80,8 +78,18 @@ style "murrine-default" {
 
 	WnckTasklist::fade-overlay-rect = 0
 
+	GnomeHRef::link_color = @link_color	
+	GtkHTML::link-color = @link_color
+ 	GtkIMHtmlr::hyperlink-color = @link_color
+	GtkIMHtml::hyperlink-color = @link_color
 	GtkWidget::link-color = @link_color
 	GtkWidget::visited-link-color = @text_color
+	
+	GtkToolbar::shadow-type = GTK_SHADOW_NONE # Makes toolbars flat and unified
+	GtkMenuBar::shadow-type = GTK_SHADOW_NONE # Makes menubars flat and unified
+
+	xthickness = 1
+	ythickness = 1
 
 	fg[NORMAL] = @fg_color
 	fg[PRELIGHT] = @fg_color
@@ -110,16 +118,18 @@ style "murrine-default" {
 	engine "murrine" {
 		animation = FALSE
 		arrowstyle = 1 # 0 = normal arrows, 1 = filled arrows
+		border_shades = { 1.0, 1.0 } # gradient to draw on border
 		colorize_scrollbar = FALSE		
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
-		contrast = 0.8
+		contrast = 0.8 # overal contast with borders
 		focusstyle = 1 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
 		glazestyle = 0 # 0 = flat highlight, 1 = curved highlight, 2 = concave, 3 = top curved highlight, 4 = beryl highlight
-		glowstyle = 0
-		gradient_shades = { 1.0, 1.0, 1.0, 1.0 }
-		highlight_shade = 1.0
-		lightborder_shade = 1.0
-		lightborderstyle = 0 # 0 = lightborder on top side, 1 = lightborder on all sides
+		glowstyle = 0 # 0 = glow on top, 1 = glow on bottom, 2 = glow on top and bottom, 3 = glow on middle vertically, 4 = glow on middle horizontally, 5 = glow on all sides
+		glow_shade = 1.0 # amount of glow
+		gradient_shades = { 1.0, 1.0, 1.0, 1.0 } # gradient to draw on widgets
+		highlight_shade = 1.0 # amount of highlight
+		lightborder_shade = 1.0 # amount of inset light border
+		lightborderstyle = 1 # 0 = lightborder on top side, 1 = lightborder on all sides
 		listviewheaderstyle = 0 # 0 = flat, 1 = glassy, 2 = raised
 		listviewstyle = 0 # 0 = none, 1 = dotted, 2 = line
 		menubaritemstyle = 0 # 0 = menuitem look, 1 = button look
@@ -128,7 +138,7 @@ style "murrine-default" {
 		menustyle = 0 # 0 = none, 1 = vertical striped
 		progressbarstyle = 0 # 0 = none, 1 = diagonal striped, 2 = vertical striped
 		reliefstyle = 0 # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
-		roundness = 2
+		roundness = 2 # roundness of widgets
 		scrollbarstyle = 0 # 0 = none, 1 = circles, 2 = handles, 3 = diagonal stripes, 4 = diagonal stripes and handles, 5 = horizontal stripes, 6 = horizontal stripes and handles
 		sliderstyle = 0	# 0 = none, 1 = handles
 		stepperstyle = 1 # 0 = standard, 1 = integrated stepper handles
@@ -144,6 +154,11 @@ style "murrine-wide" {
 style "murrine-wider" {
 	xthickness = 3
 	ythickness = 3
+}
+
+style "murrine-thin" {
+	xthickness = 0
+	ythickness = 0
 }
 
 # Notebook
@@ -164,7 +179,7 @@ style "murrine-notebook" = "murrine-notebook-bg" {
 
 # Various Standard Widgets
 
-style "murrine-button" {
+style "murrine-button"  = "murrine-wider" {
 	bg[NORMAL] = shade (1.08, @bg_color)
 	bg[PRELIGHT] = shade (1.10, @bg_color)
 	bg[ACTIVE] = shade (0.95, @bg_color)
@@ -196,10 +211,7 @@ style "murrine-overlay-scrollbar" {
 	base[INSENSITIVE] = shade (0.85, @base_color)
 }
 
-style "murrine-scale" = "murrine-default" {
-	xthickness = 0
-	ythickness = 0
-
+style "murrine-scale" = "murrine-thin" {
 	bg[NORMAL] = @bg_color
 	bg[ACTIVE] = @bg_color
 	bg[SELECTED] = @selected_bg_color
@@ -214,10 +226,7 @@ style "murrine-scale" = "murrine-default" {
 	}
 }
 
-style "murrine-progressbar" = "murrine-default" {
-	xthickness = 0
-	ythickness = 0
-
+style "murrine-progressbar" = "murrine-thin" {
 	bg[NORMAL] = @bg_color
 	bg[ACTIVE] = shade (1.08, @bg_color)
 
@@ -231,9 +240,6 @@ style "murrine-progressbar" = "murrine-default" {
 }
 
 style "murrine-treeview-header" = "murrine-button" {
-	xthickness = 0
-	ythickness = 0
-
   	engine "murrine" {
 		roundness = 0
 	}
@@ -249,7 +255,7 @@ style "murrine-frame-title" {
 	fg[NORMAL] = lighter (@fg_color)
 }
 
-style "murrine-tooltips" = "murrine-wider" {
+style "murrine-tooltips" {
 	xthickness = 5
 	ythickness = 5
 
@@ -296,10 +302,7 @@ style "murrine-vscrollbar" = "murrine-scrollbar" { }
 
 # Menus
 
-style "murrine-menu" {
-	ythickness = 0
-	xthickness = 0
-
+style "murrine-menu" = "murrine-thin" {
 	bg[NORMAL] = @menu_bg_color
 	bg[PRELIGHT] = @selected_bg_color
 	bg[SELECTED] = @selected_bg_color
@@ -385,7 +388,7 @@ style "murrine-menubaritem" {
 
 # Toolbars
 
-style "murrine-toolbar" = "murrine-default" {
+style "murrine-toolbar" = "murrine-thin" {
 	bg[NORMAL] = @toolbar_bg_color
 	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
 	bg[SELECTED] = @selected_bg_color
