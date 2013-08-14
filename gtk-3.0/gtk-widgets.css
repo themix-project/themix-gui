@@ -25,7 +25,7 @@
     -GtkPaned-handle-size: 3;
     -GtkProgressBar-min-horizontal-bar-height: 12;
     -GtkProgressBar-min-vertical-bar-width: 12;
-    -GtkRange-slider-width: 10;
+    -GtkRange-slider-width: 12;
     -GtkRange-stepper-spacing: 0;
     -GtkRange-trough-border: 0;
     -GtkRange-trough-under-steppers: 1;
@@ -1721,7 +1721,6 @@ GtkColorButton.button {
     color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.5);
     background-color: shade(@toolbar_bg_color, 0.9);
 }
-
 
 /* menubar toolbars */
 .toolbar.menubar {
