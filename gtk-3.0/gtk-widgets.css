@@ -31,7 +31,7 @@
     -GtkRange-trough-under-steppers: 1;
     -GtkScrollbar-has-backward-stepper: false;
     -GtkScrollbar-has-forward-stepper: false;
-    -GtkScrollbar-min-slider-length: 100;
+    -GtkScrollbar-min-slider-length: 80;
     -GtkScrolledWindow-scrollbar-spacing: 0;
     -GtkScrolledWindow-scrollbars-within-bevel: 1;
     -GtkStatusbar-shadow-type: none;

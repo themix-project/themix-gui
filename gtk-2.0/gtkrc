@@ -40,8 +40,8 @@ style "murrine-default" {
 	GtkProgressBar::min-vertical-bar-width = 12
 
 	GtkRange::trough-border = 0
-	GtkRange::slider-width = 10
-	GtkRange::stepper-size = 10
+	GtkRange::slider-width = 12
+	GtkRange::stepper-size = 12
 	GtkRange::stepper_spacing = 0
 	GtkRange::trough-under-steppers = 1
 
@@ -54,7 +54,7 @@ style "murrine-default" {
 	GtkScrollbar::has-forward-stepper = 0
 	GtkScrollbar::has-secondary-backward-stepper = 0
 	GtkScrollbar::has-secondary-forward-stepper = 0
-	GtkScrollbar::min-slider-length = 100
+	GtkScrollbar::min-slider-length = 80
 	GtkScrollbar::slider-width = 12
 	GtkScrollbar::trough-border = 0
 
