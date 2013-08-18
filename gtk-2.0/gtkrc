@@ -427,7 +427,7 @@ class "GtkHandleBox" style "murrine-toolbar"
 # Panels
 
 style "murrine-panel" = "murrine-thin" {
-	xthickness = 4
+	xthickness = 2
 
 	bg[NORMAL] = @panel_bg_color
 	bg[PRELIGHT] =  mix (0.21, @panel_fg_color, @panel_bg_color)
