@@ -1114,6 +1114,15 @@ GtkLevelBar.vertical {
                 inset 0 -1px shade(@theme_bg_color, 0.85);
 }
 
+.scale.slider.fine-tune:active,
+.scale.slider.fine-tune:active:hover,
+.scale.slider.fine-tune.horizontal:active,
+.scale.slider.fine-tune.horizontal:active:hover {
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+}
+
 .scale.mark {
     border-color: shade(@theme_bg_color, 0.8);
 }
@@ -1199,6 +1208,12 @@ GtkLevelBar.vertical {
 .scrollbar.slider.vertical:active {
     border-color: shade(@theme_selected_bg_color, 0.9);
     background-color: @theme_selected_bg_color;
+}
+
+.scrollbar.slider.fine-tune:prelight:active {
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
 }
 
 /* overlay scrollbar */
