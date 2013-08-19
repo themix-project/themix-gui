@@ -731,6 +731,10 @@ GtkComboBox .menu {
     background-image: none;
 }
 
+.context-menu {
+    font: regular;
+}
+
 /***********
  * menubar *
  ***********/
