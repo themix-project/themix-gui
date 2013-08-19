@@ -535,6 +535,7 @@ GtkIconView.view.cell:selected:focus {
     color: @theme_selected_fg_color;
 }
 
+.content-view.view.rubberband,
 .view.rubberband,
 .rubberband {
     border-width: 1px;
