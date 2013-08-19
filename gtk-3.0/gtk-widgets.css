@@ -868,6 +868,10 @@ GtkTreeMenu .menuitem * {
     color: alpha(mix(@menu_fg_color, @menu_bg_color, 0.5), 0.6);
 }
 
+GtkModelMenuItem GtkBox GtkImage {
+    padding-right: 4px;
+}
+
 /************
  * notebook *
  ************/
