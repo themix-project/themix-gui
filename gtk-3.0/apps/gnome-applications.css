@@ -191,14 +191,14 @@ TerminalWindow .scrollbar.button:active:hover {
 }
 
 TerminalWindow .scrollbar.slider {
-    border-color: shade(@osd_base, 0.8);
-    background-color: shade(@osd_base, 0.9);
+    border-color: mix(shade(@osd_base, 0.9), @osd_fg, 0.15);
+    background-color: mix(@osd_base, @osd_fg, 0.15);
 }
 
 TerminalWindow .scrollbar.slider:hover,
 TerminalWindow .scrollbar.slider.vertical:hover {
-    border-color: shade(@osd_base, 0.7);
-    background-color: shade(@osd_base, 0.8);
+    border-color: mix(shade(@osd_base, 0.9), @osd_fg, 0.21);
+    background-color: mix(@osd_base, @osd_fg, 0.21);
 }
 
 TerminalWindow .scrollbar.slider:active,

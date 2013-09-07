@@ -1269,15 +1269,15 @@ GtkLevelBar.vertical {
 
 .scrollbar.slider {
     border-width: 1px;
-    border-color: shade(@theme_bg_color, 0.8);
+    border-color: mix(shade(@theme_bg_color, 0.9), @theme_fg_color, 0.15);
     border-radius: 0;
-    background-color: shade(@theme_bg_color, 0.9);
+    background-color: mix(@theme_bg_color, @theme_fg_color, 0.15);
 }
 
 .scrollbar.slider:hover,
 .scrollbar.slider.vertical:hover {
-    border-color: shade(@theme_bg_color, 0.7);
-    background-color: shade(@theme_bg_color, 0.8);
+    border-color: mix(shade(@theme_bg_color, 0.9), @theme_fg_color, 0.21);
+    background-color: mix(@theme_bg_color, @theme_fg_color, 0.21);
 }
 
 .scrollbar.slider:active,
@@ -2735,14 +2735,14 @@ GtkProgressBar.osd.progressbar {
 
 .osd .scrollbar.slider {
     border-width: 1px;
-    border-color: shade(@osd_bg, 0.8);
+    border-color: mix(shade(@osd_base, 0.9), @osd_fg, 0.15);
     border-radius: 0;
-    background-color: shade(@osd_bg, 0.9);
+    background-color: mix(@osd_base, @osd_fg, 0.15);
 }
 
 .osd .scrollbar.slider:hover {
-    border-color: shade(@osd_bg, 0.7);
-    background-color: shade(@osd_bg, 0.8);
+    border-color: mix(shade(@osd_base, 0.9), @osd_fg, 0.21);
+    background-color: mix(@osd_base, @osd_fg, 0.21);
 }
 
 .osd .scrollbar.slider:active {
