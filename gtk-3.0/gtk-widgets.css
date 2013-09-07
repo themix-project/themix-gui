@@ -780,6 +780,7 @@ GtkComboBox .menu {
     background-color: @menu_bg_color;
 }
 
+.primary-toolbar .menu,
 .primary-toolbar .button .menu,
 .toolbar .menu,
 .toolbar .primary-toolbar .menu,
