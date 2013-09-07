@@ -194,8 +194,8 @@ style "murrine-button"  = "murrine-wider" {
 }
 
 style "murrine-scrollbar" {
-	bg[NORMAL] = shade (0.90, @bg_color)
-	bg[PRELIGHT] = shade (0.80, @bg_color)
+	bg[NORMAL] = mix (0.21, @fg_color, @bg_color)
+	bg[PRELIGHT] = mix (0.31, @fg_color, @bg_color)
 	bg[ACTIVE] = @selected_bg_color
 
 	engine "murrine" {
@@ -607,8 +607,8 @@ style "chrome-gtk-frame" {
 	ChromeGtkFrame::incognito-frame-gradient-color = @menubar_bg_color
 
 	ChromeGtkFrame::scrollbar-trough-color = @bg_color
-	ChromeGtkFrame::scrollbar-slider-prelight-color = shade (0.8, @bg_color)
-	ChromeGtkFrame::scrollbar-slider-normal-color = shade (0.9, @bg_color)
+	ChromeGtkFrame::scrollbar-slider-normal-color =  mix (0.21, @fg_color, @bg_color)
+	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @fg_color, @bg_color)
 }
 
 class "ChromeGtkFrame" style "chrome-gtk-frame"
