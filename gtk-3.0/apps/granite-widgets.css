@@ -36,7 +36,8 @@
 .dynamic-notebook .notebook tab:active {
     border-width: 1px;
     border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 2px;
+    border-top-color: @theme_selected_bg_color;
+    border-radius: 0;
     background-color: shade(@theme_bg_color, 1.08);
     color: @theme_fg_color;
 }

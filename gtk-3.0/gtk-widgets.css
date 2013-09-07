@@ -984,6 +984,7 @@ GtkModelMenuItem GtkBox GtkImage {
 
 .notebook tab:active {
     border-color: shade(@theme_base_color, 0.7);
+    border-radius: 0;
     background-color: @theme_base_color;
     background-image: none;
 }
@@ -999,6 +1000,7 @@ GtkModelMenuItem GtkBox GtkImage {
 }
 
 .notebook tab.top:active {
+    border-top-color: @theme_selected_bg_color;
 }
 
 .notebook tab.right {
@@ -1008,6 +1010,7 @@ GtkModelMenuItem GtkBox GtkImage {
 }
 
 .notebook tab.right:active {
+    border-right-color: @theme_selected_bg_color;
 }
 
 .notebook tab.bottom {
@@ -1017,6 +1020,7 @@ GtkModelMenuItem GtkBox GtkImage {
 }
 
 .notebook tab.bottom:active {
+    border-bottom-color: @theme_selected_bg_color;
 }
 
 .notebook tab.left {
@@ -1026,6 +1030,7 @@ GtkModelMenuItem GtkBox GtkImage {
 }
 
 .notebook tab.left:active {
+    border-left-color: @theme_selected_bg_color;
 }
 
 /******************
