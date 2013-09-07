@@ -835,7 +835,7 @@ GtkComboBox .menu {
 
 .menubar.menuitem:hover,
 .menubar .menuitem:hover {
-    border-color: mix(@menubar_bg_color, @menubar_fg_color, 0.23);
+    border-color: mix(@menubar_bg_color, @menubar_fg_color, 0.21);
     background-color: mix(@menubar_bg_color, @menubar_fg_color, 0.21);
     background-image: none;
 }
@@ -1269,15 +1269,15 @@ GtkLevelBar.vertical {
 
 .scrollbar.slider {
     border-width: 1px;
-    border-color: mix(shade(@theme_bg_color, 0.9), @theme_fg_color, 0.15);
+    border-color: mix(shade(@theme_bg_color, 0.87), @theme_fg_color, 0.21);
     border-radius: 0;
-    background-color: mix(@theme_bg_color, @theme_fg_color, 0.15);
+    background-color: mix(@theme_bg_color, @theme_fg_color, 0.21);
 }
 
 .scrollbar.slider:hover,
 .scrollbar.slider.vertical:hover {
-    border-color: mix(shade(@theme_bg_color, 0.9), @theme_fg_color, 0.21);
-    background-color: mix(@theme_bg_color, @theme_fg_color, 0.21);
+    border-color: mix(shade(@theme_bg_color, 0.87), @theme_fg_color, 0.31);
+    background-color: mix(@theme_bg_color, @theme_fg_color, 0.31);
 }
 
 .scrollbar.slider:active,
@@ -2735,14 +2735,14 @@ GtkProgressBar.osd.progressbar {
 
 .osd .scrollbar.slider {
     border-width: 1px;
-    border-color: mix(shade(@osd_base, 0.9), @osd_fg, 0.15);
+    border-color: mix(shade(@osd_base, 0.87), @osd_fg, 0.21);
     border-radius: 0;
-    background-color: mix(@osd_base, @osd_fg, 0.15);
+    background-color: mix(@osd_base, @osd_fg, 0.21);
 }
 
 .osd .scrollbar.slider:hover {
-    border-color: mix(shade(@osd_base, 0.9), @osd_fg, 0.21);
-    background-color: mix(@osd_base, @osd_fg, 0.21);
+    border-color: mix(shade(@osd_base, 0.87), @osd_fg, 0.31);
+    background-color: mix(@osd_base, @osd_fg, 0.31);
 }
 
 .osd .scrollbar.slider:active {
