@@ -24,7 +24,7 @@
 .dynamic-notebook .notebook tab {
     padding: 3px;
     border-color: shade(@theme_bg_color, 0.85);
-    border-radius: 2px;
+    border-radius: 0;
     background-color: shade(@theme_bg_color, 0.9);
     background-image: none;
 }
@@ -37,7 +37,6 @@
     border-width: 1px;
     border-color: shade(@theme_bg_color, 0.8);
     border-top-color: @theme_selected_bg_color;
-    border-radius: 0;
     background-color: shade(@theme_bg_color, 1.08);
     color: @theme_fg_color;
 }
