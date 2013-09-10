@@ -1790,10 +1790,10 @@ GtkColorButton.button {
  * header-bar *
  **************/
 .header-bar {
+    padding: 4px;
     border-width: 0 0 1px;
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
-    padding: 4px;
     background-color: @toolbar_bg_color;
 }
 

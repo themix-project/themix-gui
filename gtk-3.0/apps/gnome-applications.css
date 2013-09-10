@@ -103,44 +103,42 @@ WnckPager, WnckTasklist {
     text-shadow: none;
 }
 
-NautilusWindow .sidebar .frame {
-    border-width: 1px 0 0 0;
+NautilusWindow .toolbar {
+    border-width: 0 0 1px;
     border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 0;
+    border-color: shade(@toolbar_bg_color, 0.8);
+}
+
+NautilusWindow .sidebar .frame {
+    border-style: none;
 }
 
 NautilusWindow > GtkGrid > .pane-separator,
 NautilusWindow > GtkGrid > .pane-separator:hover {
-    border-width: 1px 1px 0 0;
+    border-width: 0 1px 0 0;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
     background-color: @theme_bg_color;
 }
 
-NautilusView.frame,
 NautilusNotebook.notebook {
     border-right-width: 0;
-    border-bottom-width: 0;
     border-left-width: 0;
+    border-bottom-width: 0;
 }
 
 NautilusNotebook .frame {
-    border-width: 1px 0 0 0;
+    border-width: 0;
 }
 
 NautilusQueryEditor .primary-toolbar.toolbar {
-    padding: 4px;
-    border-top-width: 1px;
+    border-top-width: 0;
     border-bottom-width: 0;
 }
 
-NautilusQueryEditor .primary-toolbar.toolbar .button {
-    padding: 0;
-}
-
 NautilusQueryEditor .toolbar {
-    padding: 4px 4px 3px 4px;
+    padding-top: 3px;
+    padding-bottom: 2px;
     border-width: 1px 0 0 0;
     border-style: solid;
     border-color: @toolbar_bg_color;
@@ -151,18 +149,10 @@ NautilusQueryEditor .toolbar:nth-child(2) {
     border-color: shade(@toolbar_bg_color, 0.8);
 }
 
-NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar {
-    border-top-width: 0;
-}
-
-NautilusNotebook.notebook NautilusQueryEditor .toolbar:last-child,
-NautilusNotebook.notebook NautilusQueryEditor .primary-toolbar.toolbar:only-child {
+NautilusQueryEditor .toolbar:last-child,
+NautilusQueryEditor .primary-toolbar.toolbar:only-child {
     border-bottom-width: 1px;
     border-bottom-color: shade(@toolbar_bg_color, 0.8);
-}
-
-.toolbar NautilusPathBar .button {
-    padding: 1px 5px;
 }
 
 /******************
