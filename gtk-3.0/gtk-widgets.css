@@ -1805,6 +1805,14 @@ GtkColorButton.button {
     padding: 4px 3px 3px 4px;
 }
 
+.header-bar .title {
+    font: bold;
+}
+
+.header-bar .subtitle {
+    font: smaller;
+}
+
 /***********
  * toolbar *
  ***********/
