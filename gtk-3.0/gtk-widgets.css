@@ -2790,6 +2790,35 @@ GtkProgressBar.osd.progressbar {
     background-color: @osd_bg;
 }
 
+/******************************
+ * destructive action buttons *
+ ******************************/
+.destructive-action.button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@error_color, 0.8);
+    border-radius: 2px;
+    background-color: @error_color;
+    background-image: none;
+    color: mix(@theme_selected_fg_color, @error_color, 0.1);
+}
+
+.destructive-action.button:hover {
+    border-color: shade(@error_color, 0.7);
+    background-color: shade(@error_color, 1.12);
+    background-image: none;
+}
+
+.destructive-action.button:active {
+    border-color: shade(@error_color, 0.8);
+    background-color: shade(@error_color, 0.87);
+    background-image: none;
+}
+
+.destructive-action.button:hover:active {
+    border-color: shade(@error_color, 0.7);
+}
+
 /******************
  * selection mode *
  ******************/
