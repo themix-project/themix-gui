@@ -1153,11 +1153,11 @@ GtkLevelBar.vertical {
 }
 
 .level-bar.fill-block.level-low {
-    border-color: shade(@warning_bg_color, 0.80);
+    border-color: shade(@warning_color, 0.80);
     background-image: linear-gradient(to bottom,
-                                      shade(@warning_bg_color, 1.3),
-                                      @warning_bg_color 75%,
-                                      shade(@warning_bg_color, 0.9)
+                                      shade(@warning_color, 1.3),
+                                      @warning_color 75%,
+                                      shade(@warning_color, 0.9)
                                       );
 }
 
