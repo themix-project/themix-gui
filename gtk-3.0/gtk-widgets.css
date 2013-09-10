@@ -815,7 +815,7 @@ GtkComboBox .menu {
 }
 
 .context-menu {
-    font: regular;
+    font: initial;
 }
 
 /* ubuntu software center menu */
