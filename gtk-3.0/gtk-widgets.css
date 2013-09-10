@@ -271,6 +271,7 @@ GtkAssistant .sidebar {
 }
 
 row:selected,
+row:selected:hover,
 row:selected:focus {
     border-width: 1px 0;
     border-style: solid;
@@ -757,7 +758,7 @@ GtkInfoBar {
 
 .view.dim-label,
 .dim-label {
-	color: alpha(currentColor, 0.5);
+    color: alpha(currentColor, 0.5);
 }
 
 .dnd {
@@ -1399,6 +1400,34 @@ GtkComboBox .separator {
 .sidebar GtkScrolledWindow {
     background-color: @theme_bg_color;
     color: mix(@theme_fg_color, @theme_bg_color, 0.1);
+}
+
+.sidebar row:selected,
+.sidebar row:selected:hover,
+.sidebar row:selected:focus,
+.sidebar .view row:selected,
+.sidebar .view row:selected:hover,
+.sidebar .view row:selected:focus {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+    color: @theme_selected_fg_color;
+}
+
+.sidebar row:prelight,
+.sidebar .view row:prelight {
+    border-color: shade(@theme_bg_color, 1.05);
+    background-color: shade(@theme_bg_color, 1.05);
+    background-image: none;
+    color: @theme_fg_color;
+}
+
+.sidebar row:selected:prelight,
+.sidebar .view row:selected:prelight {
+    border-color: shade(@theme_selected_bg_color, 1.05);
+    background-color: shade(@theme_selected_bg_color, 1.05);
+    background-image: none;
+    color: @theme_selected_fg_color;
 }
 
 .sidebar .frame {
