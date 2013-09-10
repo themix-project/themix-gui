@@ -22,7 +22,7 @@
     -GtkMenu-horizontal-padding: 0;
     -GtkMenu-vertical-padding: 0;
     -GtkNotebook-initial-gap: 0;
-    -GtkPaned-handle-size: 3;
+    -GtkPaned-handle-size: 4;
     -GtkProgressBar-min-horizontal-bar-height: 12;
     -GtkProgressBar-min-vertical-bar-width: 12;
     -GtkRange-slider-width: 12;
@@ -3004,6 +3004,7 @@ GtkBubbleWindow .toolbar {
     color: shade(@theme_selected_bg_color, 0.9);
 }
 
+/*
 .titlebar .right .titlebutton:first-child {
     border-left: 1px solid shade(@theme_bg_color, 0.9);
 }
@@ -3017,6 +3018,7 @@ GtkBubbleWindow .toolbar {
 
 .titlebar .left .titlebutton:first-child {
 }
+*/
 
 .titlebar .titlebutton:backdrop {
     background-image: none;
