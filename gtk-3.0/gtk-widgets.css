@@ -173,7 +173,7 @@ GtkAssistant .sidebar .highlight {
 }
 
 GtkAssistant .sidebar {
-    padding: 3px;
+    padding: 4px;
     border-width: 0 1px 0 0;
     border-style: solid;
     border-right-color: shade(@theme_bg_color, 0.8);
@@ -189,7 +189,7 @@ GtkAssistant .sidebar {
     -GtkWidget-focus-padding: 1;
     -GtkWidget-focus-line-width: 0;
 
-    padding: 3px 2px;
+    padding: 3px;
     border-width: 1px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
@@ -400,7 +400,7 @@ GtkHTML {
 * calendar *
 ************/
 GtkCalendar {
-    padding: 3px;
+    padding: 4px;
 }
 
 GtkCalendar:inconsistent {
@@ -978,7 +978,7 @@ GtkModelMenuItem GtkBox GtkImage {
 }
 
 .notebook tab {
-    padding: 3px;
+    padding: 4px;
     border-color: shade(@theme_base_color, 0.75);
     border-radius: 0;
     background-color: shade(@theme_base_color, 0.85);
@@ -1628,7 +1628,7 @@ GtkComboBox .separator {
  * statusbar *
  *************/
 GtkStatusbar {
-    padding: 3px;
+    padding: 4px;
     color: @theme_fg_color;
 }
 
@@ -1793,7 +1793,7 @@ GtkColorButton.button {
     border-width: 0 0 1px;
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
-    padding: 0 2px;
+    padding: 4px;
     background-color: @toolbar_bg_color;
 }
 
@@ -1817,7 +1817,7 @@ GtkColorButton.button {
  * toolbar *
  ***********/
 .toolbar {
-    padding: 3px;
+    padding: 4px;
     border-style: none;
     background-color: @toolbar_bg_color;
     background-image: none;
@@ -1853,7 +1853,7 @@ GtkColorButton.button {
 .primary-toolbar.toolbar {
     -GtkWidget-window-dragging: true;
 
-    padding: 3px;
+    padding: 4px;
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
@@ -2845,7 +2845,7 @@ GtkProgressBar.osd.progressbar {
 .selection-mode.header-bar .button,
 .selection-mode.toolbar .button,
 .selection-mode.toolbar GtkToolButton .button {
-    padding: 3px 2px;
+    padding: 3px;
     border-width: 1px;
     border-style: solid;
     border-color: @theme_selected_bg_color;
@@ -2989,7 +2989,7 @@ GtkBubbleWindow .toolbar {
     border-style: solid;
     border-color: transparent;
     border-radius: 2px;
-    padding: 5px 5px 6px 5px;
+    padding: 4px 4px 5px 4px;
     background: none;
     color: @theme_fg_color;
 }
