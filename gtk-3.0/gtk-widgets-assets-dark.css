@@ -120,3 +120,18 @@ GtkIconView.content-view.cell.check {
 GtkIconView.content-view.cell.check:active {
     background-image: url("assets/grid-selection-checked-dark.svg");
 }
+
+/******************
+ * pane separator *
+ ******************/
+.pane-separator.horizontal {
+    background-image: url("assets/pane-handle.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.pane-separator.vertical {
+    background-image: url("assets/pane-handle-vertical.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
