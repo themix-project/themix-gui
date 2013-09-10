@@ -756,15 +756,8 @@ GtkInfoBar {
 }
 
 .view.dim-label,
-.dim-label,
-.dim-label:hover,
-.dim-label:focus {
-    color: mix(@theme_fg_color, @theme_bg_color, 0.5);
-}
-
-.dim-label:selected,
-.dim-label:selected:focus {
-    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.5);
+.dim-label {
+	color: alpha(currentColor, 0.55);
 }
 
 .dnd {
