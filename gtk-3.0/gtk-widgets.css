@@ -3014,13 +3014,14 @@ GtkBubbleWindow .toolbar {
 }
 
 .titlebar .titlebutton {
-    border-style: none;
     padding: 4px;
+    border-style: none;
     background: none;
-    color: @theme_fg_color;
+    color: mix(@theme_fg_color, @theme_bg_color, 0.4);
 }
 
-.titlebar .titlebutton:hover {
+.titlebar .titlebutton:hover,
+.titlebar .titlebutton:hover:focus {
     background: none;
     color: @theme_selected_bg_color;
 }
@@ -3050,14 +3051,14 @@ GtkBubbleWindow .toolbar {
 
 .titlebar .titlebutton:backdrop {
     background-image: none;
-    color: alpha(@theme_fg_color, 0.7);
+    color: mix(@theme_fg_color, @theme_bg_color, 0.6);
 }
 
 .window-frame {
     border-style: none;
     border-radius: 2px 2px 0 0;
     box-shadow: 0 0 0 1px alpha(black, 0.2),
-                0 3px 6px alpha(black, 0.7);
+                0 3px 7px alpha(black, 0.7);
 
     /* this is used for the resize cursor area */
     margin: 10px;
@@ -3065,5 +3066,5 @@ GtkBubbleWindow .toolbar {
 
 .window-frame:backdrop {
     box-shadow: 0 0 0 1px alpha(black, 0.2),
-                0 3px 4px alpha(black, 0.5);
+                0 3px 5px alpha(black, 0.5);
 }
