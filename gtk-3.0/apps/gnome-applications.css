@@ -119,7 +119,6 @@ NautilusWindow > GtkGrid > .pane-separator:hover {
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
     background-color: @theme_bg_color;
-    box-shadow: inset -1px 0 alpha(@dark_shadow, 0.05);
 }
 
 NautilusNotebook.notebook {
