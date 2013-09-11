@@ -11,7 +11,7 @@ XfceHeading {
 
 .xfce4-panel .button {
     border-radius: 0;
-    padding: 1;
+    padding: 1px;
 }
 
 .xfce4-panel .button:active {
