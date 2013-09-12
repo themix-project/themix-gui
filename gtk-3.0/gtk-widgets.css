@@ -863,10 +863,6 @@ GtkTreeMenu .menuitem {
     border-width: 0;
 }
 
-GtkTreeMenu .menuitem * {
-    color: @menu_fg_color;
-}
-
 .menuitem,
 .menu .menuitem {
     padding: 3px;
