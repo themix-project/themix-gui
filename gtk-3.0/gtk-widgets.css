@@ -3067,7 +3067,7 @@ GtkBubbleWindow .toolbar {
     padding: 4px;
     border-style: none;
     background: none;
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.4);
+    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.1);
     icon-shadow: none;
 }
 
@@ -3102,7 +3102,7 @@ GtkBubbleWindow .toolbar {
 
 .titlebar .titlebutton:backdrop {
     background-image: none;
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.6);
+    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.4);
     icon-shadow: none;
 }
 
