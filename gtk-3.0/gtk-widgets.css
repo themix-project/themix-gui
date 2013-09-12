@@ -2986,7 +2986,7 @@ GtkBubbleWindow .toolbar {
 .titlebar {
     border-radius: 2px 2px 0 0;
     background-image: none;
-    background-color: @theme_bg_color;
+    background-color: @toolbar_bg_color;
     text-shadow: none;
 }
 
@@ -3005,7 +3005,7 @@ GtkBubbleWindow .toolbar {
 
 .titlebar:backdrop {
     background-image: none;
-    background-color: @theme_bg_color;
+    background-color: @toolbar_bg_color;
     text-shadow: none;
 }
 
@@ -3013,7 +3013,7 @@ GtkBubbleWindow .toolbar {
     padding: 4px;
     border-style: none;
     background: none;
-    color: mix(@theme_fg_color, @theme_bg_color, 0.4);
+    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.4);
 }
 
 .titlebar .titlebutton:hover,
@@ -3031,14 +3031,14 @@ GtkBubbleWindow .toolbar {
 
 /*
 .titlebar .right .titlebutton:first-child {
-    border-left: 1px solid shade(@theme_bg_color, 0.9);
+    border-left: 1px solid shade(@toolbar_bg_color, 0.9);
 }
 
 .titlebar .right .titlebutton:last-child {
 }
 
 .titlebar .left .titlebutton:last-child {
-    border-right: 1px solid shade(@theme_bg_color, 0.9);
+    border-right: 1px solid shade(@toolbar_bg_color, 0.9);
 }
 
 .titlebar .left .titlebutton:first-child {
@@ -3047,7 +3047,7 @@ GtkBubbleWindow .toolbar {
 
 .titlebar .titlebutton:backdrop {
     background-image: none;
-    color: mix(@theme_fg_color, @theme_bg_color, 0.6);
+    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.6);
 }
 
 .window-frame {
@@ -3058,9 +3058,4 @@ GtkBubbleWindow .toolbar {
 
     /* this is used for the resize cursor area */
     margin: 10px;
-}
-
-.window-frame:backdrop {
-    box-shadow: 0 0 0 1px alpha(black, 0.2),
-                0 3px 5px alpha(black, 0.5);
 }
