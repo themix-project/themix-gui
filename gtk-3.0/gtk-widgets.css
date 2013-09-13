@@ -849,6 +849,7 @@ GtkComboBox .menu {
     border-color: mix(@menubar_bg_color, @menubar_fg_color, 0.21);
     background-color: mix(@menubar_bg_color, @menubar_fg_color, 0.21);
     background-image: none;
+    color: shade(@menubar_fg_color, 1.08);
 }
 
 .menubar .menuitem *:hover {
