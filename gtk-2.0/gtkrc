@@ -423,6 +423,7 @@ style "murrine-toolbutton" = "murrine-button" {
 
 class "GtkToolbar" style "murrine-toolbar"
 class "GtkHandleBox" style "murrine-toolbar"
+widget_class "*Toolbar*.*Separator*" style "murrine-toolbar"
 
 # Panels
 
@@ -621,11 +622,13 @@ class "GtkWidget" style "murrine-default"
 
 class "GtkFrame" style "murrine-wide"
 class "MetaFrames" style "metacity-frame"
-class "GtkSeparator" style "murrine-wide"
 class "GtkWindow" style "metacity-frame"
+
+class "GtkSeparator" style "murrine-wide"
 class "GtkCalendar" style "murrine-wide"
 
 class "GtkSpinButton" style "murrine-spinbutton"
+
 class "GtkScale" style "murrine-scale"
 class "GtkVScale" style "murrine-vscale"
 class "GtkHScale" style "murrine-hscale"
