@@ -386,10 +386,10 @@ GraniteWidgetsPopOver {
 
 .popover_bg {
     background-color: transparent;
-    background-image: -gtk-gradient(linear,
-                     left top, left bottom,
-                     from (@menu_bg_color),
-                     to (@menu_bg_color));
+    background-image: linear-gradient(to bottom,
+                                      @menu_bg_color,
+                                      @menu_bg_color
+                                      );
 }
 
 GraniteWidgetsPopOver .sidebar.view,
@@ -622,10 +622,10 @@ BirdieWidgetsTweetList * {
 
 .shadow {
     background-color: transparent;
-    background-image: -gtk-gradient(linear,
-                     left top, left bottom,
-                     from (rgba(0, 0, 0, 0.3)),
-                     to (transparent));
+    background-image: linear-gradient(to bottom,
+                                      rgba(0, 0, 0, 0.3),
+                                      transparent
+                                      );
 }
 
 .composited-indicator,

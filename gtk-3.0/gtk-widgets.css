@@ -539,10 +539,8 @@ GtkIconView.view.cell:selected:focus {
     border-style: solid;
     border-color: shade(@theme_selected_bg_color, 0.9);
     border-radius: 2px;
-    background-image: -gtk-gradient(linear, left top, left bottom,
-                                     from (@theme_selected_bg_color),
-                                     to (@theme_selected_bg_color));
-
+    background-color: @theme_selected_bg_color;
+    background-image: none;
     color: @theme_selected_fg_color;
 }
 
