@@ -205,7 +205,7 @@ GeditWindow .pane-separator:hover {
     border-width: 0 1px 1px 1px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    background-color: shade(@theme_bg_color, 1.02);
+    background-color: @theme_bg_color;
     color: shade(@theme_bg_color, 0.8);
 }
 
@@ -224,7 +224,7 @@ GeditPanel .toolbar {
 }
 
 GeditDocumentsPanel .view {
-    background-color: @theme_bg_color;
+    background-color: @theme_base_color;
 }
 
 GeditPanel.vertical .notebook {
