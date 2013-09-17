@@ -27,6 +27,7 @@
     border-radius: 0;
     background-color: shade(@theme_bg_color, 0.9);
     background-image: none;
+    color: @theme_fg_color;
 }
 
 .dynamic-notebook .notebook tab:nth-child(first) {
@@ -38,6 +39,7 @@
     border-color: shade(@theme_bg_color, 0.8);
     border-top-color: @theme_selected_bg_color;
     background-color: shade(@theme_bg_color, 1.08);
+    background-image: none;
     color: @theme_fg_color;
 }
 
@@ -75,12 +77,14 @@
     border-color: shade(@theme_base_color, 0.8);
     border-radius: 2px;
     background-color:@theme_base_color;
+    background-image: none;
     color: @theme_text_color;
 }
 
 .content-view,
 .content-view GtkViewport {
     background-color: @theme_base_color;
+    background-image: none;
 }
 
 .content-view * {
@@ -146,6 +150,7 @@
     border-radius: 0;
     border-style: none;
     background-color: @menu_bg_color;
+    background-image: none;
     color: @menu_fg_color;
 }
 
@@ -156,6 +161,7 @@
 .source-list.view {
     border-radius: 0;
     background-color: @theme_bg_color;
+    background-image: none;
     color: mix(@theme_fg_color, @theme_bg_color, 0.1);
 }
 
@@ -167,11 +173,13 @@
 .source-list.view:selected,
 .source-list.view:prelight:selected {
     background-color: @theme_selected_bg_color;
+    background-image: none;
     color: @theme_selected_fg_color;
 }
 
 .source-list.view:prelight {
     background-color: shade(@theme_bg_color, 1.08);
+    background-image: none;
 }
 
 .source-list.badge,
@@ -194,6 +202,7 @@
 .content-view .button.noundo {
     border-color: shade(@error_bg_color, 0.8);
     background-color: shade(@error_bg_color, 1.08);
+    background-image: none;
     color: @error_fg_color;
 }
 
@@ -201,18 +210,21 @@
 .content-view .button.noundo:hover {
     border-color: shade(@error_bg_color, 0.7);
     background-color: @error_bg_color;
+    background-image: none;
 }
 
 .button.noundo:active,
 .content-view .button.noundo:active {
     border-color: shade(@error_bg_color, 0.8);
     background-color: shade(@error_bg_color, 0.95);
+    background-image: none;
 }
 
 .button.noundo:active:hover,
 .content-view .button.noundo:active:hover {
     border-color: shade(@error_bg_color, 0.7);
     background-color: shade(@error_bg_color, 0.97);
+    background-image: none;
 }
 
 .button.noundo GtkLabel,
@@ -227,6 +239,7 @@
 .content-view .button.affirmative {
     border-color: shade(@theme_selected_bg_color, 0.8);
     background-color: shade(@theme_selected_bg_color, 1.08);
+    background-image: none;
     color: @theme_selected_fg_color;
 }
 
@@ -234,18 +247,21 @@
 .content-view .button.affirmative:hover {
     border-color: shade(@theme_selected_bg_color, 0.7);
     background-color: @theme_selected_bg_color;
+    background-image: none;
 }
 
 .button.affirmative:active,
 .content-view .button.affirmative:active {
     border-color: shade(@theme_selected_bg_color, 0.8);
     background-color: shade(@theme_selected_bg_color, 0.95);
+    background-image: none;
 }
 
 .button.affirmative:active:hover,
 .content-view .button.affirmative:active:hover {
     border-color: shade(@theme_selected_bg_color, 0.7);
     background-color: shade(@theme_selected_bg_color, 0.97);
+    background-image: none;
 }
 
 .button.affirmative GtkLabel,
@@ -395,6 +411,7 @@ GraniteWidgetsPopOver {
 GraniteWidgetsPopOver .sidebar.view,
 GraniteWidgetsPopOver * {
     background-color: transparent;
+    background-image: none;
     color: @menu_fg_color;
 }
 
@@ -403,6 +420,7 @@ GraniteWidgetsPopOver .sidebar.view:selected:focus,
 GraniteWidgetsPopOver *:selected,
 GraniteWidgetsPopOver *:selected:focus {
     background-color: @theme_selected_bg_color;
+    background-image: none;
     color: @theme_selected_fg_color;
 }
 
@@ -434,18 +452,18 @@ GraniteWidgetsPopOver .button:active:hover {
 
 /* linked buttons */
 GraniteWidgetsPopOver .linked .button {
-    box-shadow: inset -1px 0 shade(@menu_bg, 0.9);
+    box-shadow: inset -1px 0 shade(@menu_bg_color, 0.9);
 }
 
 GraniteWidgetsPopOver .linked .button:active {
-    box-shadow: inset -1px 0 shade(@menu_bg, 0.9),
+    box-shadow: inset -1px 0 shade(@menu_bg_color, 0.9),
                 inset 1px 0 alpha(@dark_shadow, 0.07),
                 inset 0 1px alpha(@dark_shadow, 0.08),
                 inset 0 -1px alpha(@dark_shadow, 0.05);
 }
 
 GraniteWidgetsPopOver .linked .button:insensitive {
-    box-shadow: inset -1px 0 shade(@menu_bg, 0.9);
+    box-shadow: inset -1px 0 shade(@menu_bg_color, 0.9);
 }
 
 /* remove box shadow from last-child and only-child */
@@ -487,6 +505,7 @@ GraniteWidgetsPopOver *.separator {
     border-width: 0;
     border-radius: 2px;
     background-color: transparent;
+    background-image: none;
 }
 
 .button.app:hover {
@@ -531,6 +550,7 @@ GraniteWidgetsPopOver *.separator {
     border-color: shade(@theme_base_color, 0.7);
     border-radius: 2px;
     background-color: @theme_base_color;
+    background-image: none;
 }
 
 .files-overlay-bar GtkLabel {
@@ -545,6 +565,7 @@ GraniteWidgetsPopOver *.separator {
     border-color: shade(@theme_base_color, 0.7);
     border-radius: 0;
     background-color: @theme_base_color;
+    background-image: none;
     color: @theme_text_color;
 }
 
@@ -553,6 +574,7 @@ GraniteWidgetsPopOver *.separator {
     -GtkTreeView-grid-line-width: 0;
 
     background-color: @theme_base_color;
+    background-image: none;
     color: @theme_text_color;
 }
 
@@ -560,6 +582,7 @@ GraniteWidgetsPopOver *.separator {
     border-width: 0;
     border-style: none;
     background-color: shade(@theme_base_color, 0.97);
+    background-image: none;
 }
 
 
@@ -567,10 +590,12 @@ GraniteWidgetsPopOver *.separator {
     border-width: 0;
     border-style: none;
     background-color: shade(@theme_base_color, 1.0);
+    background-image: none;
 }
 
 .album-list-view GtkTreeView row:selected {
     background-color: @selected_bg_color;
+    background-image: none;
     color: @selected_fg_color;
 }
 
@@ -578,8 +603,8 @@ GraniteWidgetsPopOver *.separator {
  * birdie *
  **********/
 BirdieWidgetsTweetList * {
-    background-image: none;
     background-color: transparent;
+    background-image: none;
 }
 
 /*********
@@ -598,6 +623,7 @@ BirdieWidgetsTweetList * {
     border-color: shade(@theme_base_color, 0.7);
     border-radius: 2px;
     background-color: @theme_base_color;
+    background-image: none;
     color: @theme_text_color;
 }
 
@@ -612,6 +638,7 @@ BirdieWidgetsTweetList * {
  *********/
 .panel {
     background-color: @panel_bg_color;
+    background-image: none;
     color: @panel_fg_color;
     font: bold;
 }
@@ -633,6 +660,7 @@ BirdieWidgetsTweetList * {
 .wingpanel-indicator-button {
     padding: 0 2px;
     background-color: transparent;
+    background-image: none;
     color: @panel_fg_color;
 }
 
