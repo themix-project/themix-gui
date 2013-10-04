@@ -7,29 +7,32 @@ XfceHeading {
 
 .xfce4-panel {
     background-color: @panel_bg_color;
+    font: normal;
 }
 
 .xfce4-panel .button {
     border-radius: 0;
     padding: 1px;
     color: @panel_fg_color;
+    border-width: 1px;
 }
 
 .xfce4-panel .button:active {
-    border-width: 0 1px;
     border-radius: 0;
-    border-color: mix(@panel_bg_color, @panel_fg_color, 0.21);
-    background-color: mix(@panel_bg_color, @panel_fg_color, 0.21);
+    border-color: shade(@panel_bg_color, 0.8);
+    background-color: shade(@panel_bg_color, 0.9);
     background-image: none;
     color: shade(@panel_fg_color, 1.08);
+    transition: none;
 }
 
 .xfce4-panel .button:hover,
 .xfce4-panel .button:active:hover {
-    border-color: mix(@panel_bg_color, @panel_fg_color, 0.31);
+    border-color: mix(@panel_bg_color, @panel_fg_color, 0.21);
     background-color: mix(@panel_bg_color, @panel_fg_color, 0.31);
     background-image: none;
     color: shade(@panel_fg_color, 1.08);
+    transition: none;
 }
 
 /* menu-styling, e.g. for indicators */
