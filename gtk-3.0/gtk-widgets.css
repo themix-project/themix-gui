@@ -2752,7 +2752,6 @@ GtkOverlay.osd {
 }
 
 .osd .scale.slider {
-    border-radius: 7px;
     background-color: shade(@osd_bg, 1.08);
     background-image: none;
     /* we will draw the border using box shadow for now */
