@@ -45,8 +45,8 @@ style "murrine-default" {
 	GtkRange::stepper_spacing = 0
 	GtkRange::trough-under-steppers = 1
 
-	GtkScale::slider-length = 15
-	GtkScale::slider-width = 15
+	GtkScale::slider-length = 16
+	GtkScale::slider-width = 16
 	GtkScale::trough-side-details = 1
 
 	GtkScrollbar::activate-slider = 1
@@ -222,7 +222,7 @@ style "murrine-scale" = "murrine-thin" {
 	bg[INSENSITIVE] = shade (0.95, @bg_color)
 
 	engine "murrine" {
-		roundness = 7
+		roundness = 8
 		gradient_shades = { 1.08, 1.08, 1.08, 1.08 }
 		border_shades = { 1.0, 1.0 }
 		trough_shades = { 1.08, 1.08 }
