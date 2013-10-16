@@ -1168,13 +1168,13 @@ GtkLevelBar.vertical {
     border-width: 1px;
     border-radius: 2px;
 
-    -GtkRange-slider-width: 15;
+    -GtkRange-slider-width: 16;
     -GtkRange-trough-border: 1;
-    -GtkScale-slider-length: 15;
+    -GtkScale-slider-length: 16;
 }
 
 .scale.slider {
-    border-radius: 7px;
+    border-radius: 8px;
     background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
     /* we will draw the border using box shadow for now */
@@ -1214,7 +1214,7 @@ GtkLevelBar.vertical {
 }
 
 .scale.trough {
-    margin: 6px 0;
+    margin: 7px 0;
     border-color: shade(@theme_bg_color, 0.8);
     border-radius: 2px;
     background-color: shade(@theme_bg_color, 1.08);
@@ -1222,17 +1222,17 @@ GtkLevelBar.vertical {
 }
 
 .scale.trough.vertical {
-    margin: 0 6px;
+    margin: 0 7px;
 }
 
-.menubar .menuitem .scale.highlight.left,
+.menuitem .scale.highlight.left,
 .scale.highlight.left {
     border-color: @theme_selected_bg_color;
     background-color: @theme_selected_bg_color;
     background-image: none;
 }
 
-.menubar .menuitem .scale.highlight.left:hover {
+.menuitem .scale.highlight.left:hover {
     border-color: shade(@theme_selected_bg_color, 0.8);
     background-color: shade(@theme_selected_bg_color, 0.8);
 }
