@@ -1349,7 +1349,7 @@ OsScrollbar:insensitive {
 .primary-toolbar .separator:insensitive,
 .toolbar GtkSeparatorToolItem,
 .toolbar .separator,
-.toolbar .separator:insensitive
+.toolbar .separator:insensitive,
 .header-bar GtkSeparatorToolItem,
 .header-bar .separator,
 .header-bar .separator:insensitive {
