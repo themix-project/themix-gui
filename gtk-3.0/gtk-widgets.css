@@ -2579,6 +2579,20 @@ GtkViewport.frame {
     color: @theme_selected_fg_color;
 }
 
+/***************
+ * search bars *
+ ***************/
+.search-bar {
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    background-color: shade(@theme_bg_color, 0.98);
+}
+
+.search-bar .button.close-button {
+    padding: 4px;
+}
+
 /*********************
  * app notifications *
  *********************/
