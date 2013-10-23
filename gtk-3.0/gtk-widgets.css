@@ -191,9 +191,9 @@ GtkAssistant .sidebar {
 
     padding: 3px;
     border-width: 1px;
+    border-radius: 2px;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 2px;
     background-color: shade(@theme_bg_color, 1.08);
     background-image: none;
     color: @theme_fg_color;
@@ -968,7 +968,37 @@ GtkModelMenuItem GtkBox GtkImage {
     background-clip: border-box;
 }
 
+.notebook.frame {
+    border-width: 1px;
+}
+
+.notebook.header {
+    border-width: 0;
+    background-color: shade(@theme_base_color, 0.95);
+}
+
+.notebook.header.frame {
+    border-color: shade(@theme_base_color, 0.75);
+}
+
+.notebook.header.frame.top {
+    border-width: 1px 1px 0 1px;
+}
+
+.notebook.header.frame.right {
+    border-width: 1px 1px 1px 0;
+}
+
+.notebook.header.frame.bottom {
+    border-width: 0 1px 1px 1px;
+}
+
+.notebook.header.frame.left {
+    border-width: 1px 0 1px 1px;
+}
+
 .notebook GtkViewport {
+    border-width: 0;
     background-color: @theme_base_color;
     color: @theme_text_color;
 }
@@ -985,10 +1015,6 @@ GtkModelMenuItem GtkBox GtkImage {
     border-color: shade(@theme_base_color, 0.7);
     background-color: @theme_base_color;
     background-image: none;
-}
-
-.notebook tab GtkLabel {
-    color: @theme_text_color;
 }
 
 .notebook tab.top {
@@ -1029,6 +1055,40 @@ GtkModelMenuItem GtkBox GtkImage {
 
 .notebook tab.left:active {
     border-left-color: @theme_selected_bg_color;
+}
+
+.notebook tab GtkLabel {
+    color: mix(@theme_text_color, @theme_base_color, 0.3);
+}
+
+.notebook .active-page,
+.notebook tab .active-page GtkLabel {
+    color: @theme_text_color;
+}
+
+/* close button styling */
+.notebook tab .button,
+.notebook tab .button:active,
+.notebook tab .button:hover {
+    padding: 1px;
+    border-width: 1px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: transparent;
+    background-image: none;
+    background-color: transparent;
+    color: mix(@theme_text_color, @theme_base_color, 0.5);
+}
+
+.notebook tab .button:hover {
+    color: @theme_text_color;
+    border-color: shade(@theme_base_color, 0.8);
+}
+
+.notebook tab .button:active,
+.notebook tab .button:active:hover {
+    border-color: shade(@theme_base_color, 0.7);
+    background-color: shade(@theme_base_color, 0.95);
 }
 
 /******************
