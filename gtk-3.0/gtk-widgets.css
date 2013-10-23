@@ -3041,6 +3041,14 @@ GtkBubbleWindow .toolbar {
     text-shadow: none;
 }
 
+.tiled .titlebar {
+    border-radius: 0;
+}
+
+.maximized .titlebar {
+    border-radius: 0;
+}
+
 /* this is the default titlebar that is added by GTK
  * when client-side decorations are in use and the application
  * did not set a custom titlebar.
@@ -3112,6 +3120,10 @@ GtkBubbleWindow .toolbar {
 
     /* this is used for the resize cursor area */
     margin: 10px;
+}
+
+.window-frame.tiled {
+    border-radius: 0;
 }
 
 .window-frame:backdrop {
