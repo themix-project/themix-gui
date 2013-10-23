@@ -317,3 +317,11 @@ EPreviewPane .entry {
     background-color: @theme_base_color;
     color: @theme_text_color;
 }
+
+/******************
+ * gnome calendar *
+ ******************/
+.calendar-view {
+    background-color: shade(@theme_base_color, 0.95);
+    color: @theme_text_color;
+}

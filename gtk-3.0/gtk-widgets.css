@@ -2994,7 +2994,6 @@ GtkProgressBar.osd.progressbar {
 .selection-mode.header-bar .button,
 .selection-mode.toolbar .button,
 .selection-mode.toolbar GtkToolButton .button {
-    padding: 3px;
     border-width: 1px;
     border-style: solid;
     border-color: @theme_selected_bg_color;
