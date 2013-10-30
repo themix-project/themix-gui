@@ -637,9 +637,9 @@ BirdieWidgetsTweetList * {
  * panel *
  *********/
 .panel {
-    background-color: @panel_bg_color;
+    background-color: @osd_base;
     background-image: none;
-    color: @panel_fg_color;
+    color: @osd_fg;
     font: bold;
 }
 
@@ -661,7 +661,7 @@ BirdieWidgetsTweetList * {
     padding: 0 2px;
     background-color: transparent;
     background-image: none;
-    color: @panel_fg_color;
+    color: @osd_fg;
 }
 
 .composited-indicator.menuitem:active,
