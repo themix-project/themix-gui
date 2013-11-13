@@ -637,9 +637,9 @@ BirdieWidgetsTweetList * {
  * panel *
  *********/
 .panel {
-    background-color: @osd_base;
+    background-color: @panel_bg_color;
     background-image: none;
-    color: @osd_fg;
+    color: @panel_fg_color;
     font: bold;
 }
 
