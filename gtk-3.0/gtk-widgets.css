@@ -1881,7 +1881,7 @@ GtkColorButton.button {
  **************/
 .header-bar {
     padding: 4px;
-    border-width: 0 0 1px;
+    border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: @toolbar_bg_color;
@@ -2643,7 +2643,7 @@ GtkViewport.frame {
  * search bars *
  ***************/
 .search-bar {
-    border-width: 0 0 1px;
+    border-width: 0 0 1px 0;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
     background-color: shade(@theme_bg_color, 0.98);
