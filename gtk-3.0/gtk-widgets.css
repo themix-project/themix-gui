@@ -95,6 +95,11 @@ GtkClutterOffscreen {
     -gtk-image-effect: highlight;
 }
 
+*:link,
+*:visited {
+    color: @link_color;
+}
+
 .gtkstyle-fallback {
     background-color: @theme_bg_color;
     color: @theme_fg_color;
