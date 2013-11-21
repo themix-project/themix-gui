@@ -3,8 +3,6 @@
 
 /* default */
 * {
-    engine: none;
-
     background-clip: padding-box;
 
     -GtkArrow-arrow-scaling: 0.5;
