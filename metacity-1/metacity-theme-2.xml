@@ -4,7 +4,7 @@
 	<name>Numix</name>
 	<author>Satyajit Sahoo</author>
 	<copyright>GPL-3.0+</copyright>
-	<date>4 August 2013</date>
+	<date>11 December 2013</date>
 	<description>Numix Metacity Theme</description>
 </info>
 
@@ -14,6 +14,12 @@
 <constant name="C_border_unfocused" value="#393939" />
 <constant name="C_title_focused" value="#dcdcdc" />
 <constant name="C_title_unfocused" value="#888888" />
+<constant name="C_icons_focused" value="#dcdcdc" />
+<constant name="C_icons_focused_prelight" value="#d64937" />
+<constant name="C_icons_focused_pressed" value="#b63e2e" />
+<constant name="C_icons_unfocused" value="#888888" />
+<constant name="C_icons_unfocused_prelight" value="#d64937" />
+<constant name="C_icons_unfocused_pressed" value="#b63e2e" />
 
 <!-- ::: GEOMETRY ::: -->
 <frame_geometry name="normal" title_scale="medium" rounded_top_left="1" rounded_top_right="1">
@@ -168,22 +174,22 @@
 
 <draw_ops name="border_right_unfocused">
 	<line
-		x1="width-1" y1="0" 
-		x2="width-1" y2="height" 
+		x1="width-1" y1="0"
+		x2="width-1" y2="height"
 		color="C_border_unfocused" />
 </draw_ops>
 
 <draw_ops name="border_left_focused">
 	<line
-		x1="0" y1="0" 
-		x2="0" y2="height" 
+		x1="0" y1="0"
+		x2="0" y2="height"
 		color="C_border_focused" />
 </draw_ops>
 
 <draw_ops name="border_left_unfocused">
 	<line
-		x1="0" y1="0" 
-		x2="0" y2="height" 
+		x1="0" y1="0"
+		x2="0" y2="height"
 		color="C_border_unfocused" />
 </draw_ops>
 
@@ -191,19 +197,111 @@
 <!-- note: negative values in x or y causes gnome-shell to crash -->
 <!-- close icon -->
 <draw_ops name="close_focused">
-	<image filename="close_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+2" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+2" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused" />
 </draw_ops>
 
 <draw_ops name="close_focused_prelight">
-	<image filename="close_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+2" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+2" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
 </draw_ops>
 
 <draw_ops name="close_focused_pressed">
-	<image filename="close_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+2" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+2" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused_pressed" />
 </draw_ops>
 
 <draw_ops name="close_unfocused">
-	<image filename="close_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="width-(width-width%3)/3-2" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+2" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-3"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+2" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-2" y2="height-(height-height%3)/3-3"
+		color="C_icons_unfocused" />
 </draw_ops>
 
 <draw_ops name="close_unfocused_prelight">
@@ -216,19 +314,47 @@
 
 <!-- maximize icon -->
 <draw_ops name="maximize_focused">
-	<image filename="maximize_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused" />
 </draw_ops>
 
 <draw_ops name="maximize_focused_prelight">
-	<image filename="maximize_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
 </draw_ops>
 
 <draw_ops name="maximize_focused_pressed">
-	<image filename="maximize_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused_pressed" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
 </draw_ops>
 
 <draw_ops name="maximize_unfocused">
-	<image filename="maximize_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_unfocused" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_unfocused" />
 </draw_ops>
 
 <draw_ops name="maximize_unfocused_prelight">
@@ -241,19 +367,47 @@
 
 <!-- unmaximize icon -->
 <draw_ops name="unmaximize_focused">
-	<image filename="unmaximize_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused" />
 </draw_ops>
 
 <draw_ops name="unmaximize_focused_prelight">
-	<image filename="unmaximize_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
 </draw_ops>
 
 <draw_ops name="unmaximize_focused_pressed">
-	<image filename="unmaximize_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused_pressed" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
 </draw_ops>
 
 <draw_ops name="unmaximize_unfocused">
-	<image filename="unmaximize_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+1" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_unfocused" />
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_unfocused" />
 </draw_ops>
 
 <draw_ops name="unmaximize_unfocused_prelight">
@@ -266,19 +420,31 @@
 
 <!-- minimize icon -->
 <draw_ops name="minimize_focused">
-	<image filename="minimize_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+2" y="height-(height-height%3)/3-5"
+		width="width-2*(width-width%3)/3-2" height="2" filled="true"
+		color="C_icons_focused" />
 </draw_ops>
 
 <draw_ops name="minimize_focused_prelight">
-	<image filename="minimize_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+2" y="height-(height-height%3)/3-5"
+		width="width-2*(width-width%3)/3-2" height="2" filled="true"
+		color="C_icons_focused_prelight" />
 </draw_ops>
 
 <draw_ops name="minimize_focused_pressed">
-	<image filename="minimize_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+2" y="height-(height-height%3)/3-5"
+		width="width-2*(width-width%3)/3-2" height="2" filled="true"
+		color="C_icons_focused_pressed" />
 </draw_ops>
 
 <draw_ops name="minimize_unfocused">
-	<image filename="minimize_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
+	<rectangle
+		x="(width-width%3)/3+2" y="height-(height-height%3)/3-5"
+		width="width-2*(width-width%3)/3-2" height="2" filled="true"
+		color="C_icons_unfocused" />
 </draw_ops>
 
 <draw_ops name="minimize_unfocused_prelight">
@@ -290,33 +456,197 @@
 </draw_ops>
 
 <!-- menu icon -->
-<draw_ops name="menu_focused"></draw_ops>
+<draw_ops name="menu_focused">
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused" />
+	<rectangle
+		x="(width-width%3)/3+3" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused" />
+	<rectangle
+		x="(width-width%3)/3+5" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="2" filled="true"
+		color="C_icons_focused" />
+</draw_ops>
 
-<draw_ops name="menu_focused_prelight"></draw_ops>
+<draw_ops name="menu_focused_prelight">
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
+	<rectangle
+		x="(width-width%3)/3+3" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
+	<rectangle
+		x="(width-width%3)/3+5" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="2" filled="true"
+		color="C_icons_focused_prelight" />
+</draw_ops>
 
-<draw_ops name="menu_focused_pressed"></draw_ops>
+<draw_ops name="menu_focused_pressed">
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_focused_pressed" />
+	<rectangle
+		x="(width-width%3)/3+3" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<rectangle
+		x="(width-width%3)/3+5" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="2" filled="true"
+		color="C_icons_focused_pressed" />
+</draw_ops>
 
-<draw_ops name="menu_unfocused"></draw_ops>
+<draw_ops name="menu_unfocused">
+	<rectangle
+		x="(width-width%3)/3+2" y="(height-height%3)/3+1"
+		width="width-2*(width-width%3)/3-3" height="height-2*(height-height%3)/3-3"
+		color="C_icons_unfocused" />
+	<rectangle
+		x="(width-width%3)/3+3" y="(height-height%3)/3+2"
+		width="width-2*(width-width%3)/3-5" height="height-2*(height-height%3)/3-5"
+		color="C_icons_unfocused" />
+	<rectangle
+		x="(width-width%3)/3+5" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="2" filled="true"
+		color="C_icons_unfocused" />
+</draw_ops>
 
-<draw_ops name="menu_unfocused_prelight"></draw_ops>
+<draw_ops name="menu_unfocused_prelight">
+	<include name="menu_focused_prelight" />
+</draw_ops>
 
-<draw_ops name="menu_unfocused_pressed"></draw_ops>
+<draw_ops name="menu_unfocused_pressed">
+	<include name="menu_focused_pressed" />
+</draw_ops>
 
 <!-- shade icon -->
 <draw_ops name="shade_focused">
-	<image filename="shade_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused" />
+	<line
+		x1="width-(width-width%3)/3-7" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-4" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+4" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_focused" />
 </draw_ops>
 
 <draw_ops name="shade_focused_prelight">
-	<image filename="shade_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="width-(width-width%3)/3-7" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-4" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+4" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused_prelight" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_focused_prelight" />
 </draw_ops>
 
 <draw_ops name="shade_focused_pressed">
-	<image filename="shade_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="width-(width-width%3)/3-7" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-4" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+4" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused_pressed" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_focused_pressed" />
 </draw_ops>
 
 <draw_ops name="shade_unfocused">
-	<image filename="shade_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-5"
+		color="C_icons_unfocused" />
+	<line
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-5"
+		color="C_icons_unfocused" />
+	<line
+		x1="width-(width-width%3)/3-7" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-6"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-5"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-4" y2="height-(height-height%3)/3-5"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+4" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-6"
+		color="C_icons_unfocused" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-2"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_unfocused" />
 </draw_ops>
 
 <draw_ops name="shade_unfocused_prelight">
@@ -329,19 +659,127 @@
 
 <!-- unshade icon -->
 <draw_ops name="unshade_focused">
-	<image filename="unshade_focused_normal.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+4"
+		x2="(width-width%3)/3+3" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+5"
+		x2="(width-width%3)/3+4" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="width-(width-width%3)/3-4" y1="(height-height%3)/3+4"
+		x2="(width-width%3)/3+3" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3" y1="(height-height%3)/3+4"
+		x2="width-(width-width%3)/3-6" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3" y1="(height-height%3)/3+5"
+		x2="width-(width-width%3)/3-7" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+4"
+		x2="width-(width-width%3)/3-6" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-4"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_focused" />
 </draw_ops>
 
 <draw_ops name="unshade_focused_prelight">
-	<image filename="unshade_focused_prelight.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+4"
+		x2="(width-width%3)/3+3" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+5"
+		x2="(width-width%3)/3+4" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="width-(width-width%3)/3-4" y1="(height-height%3)/3+4"
+		x2="(width-width%3)/3+3" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3" y1="(height-height%3)/3+4"
+		x2="width-(width-width%3)/3-6" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3" y1="(height-height%3)/3+5"
+		x2="width-(width-width%3)/3-7" y2="height-(height-height%3)/3-2"
+		color="C_icons_focused_prelight" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+4"
+		x2="width-(width-width%3)/3-6" y2="height-(height-height%3)/3-3"
+		color="C_icons_focused_prelight" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-4"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_focused_prelight" />
 </draw_ops>
 
 <draw_ops name="unshade_focused_pressed">
-	<image filename="unshade_focused_pressed.png" x="0" y="1" width="object_width" height="object_height" />
+	<line 
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line 
+		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+2"
+		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line 
+		x1="width-(width-width%3)/3-7" y1="(height-height%3)/3+1"
+		x2="(width-width%3)/3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line 
+		x1="(width-width%3)/3+3" y1="(height-height%3)/3+2"
+		x2="width-(width-width%3)/3-4" y2="height-(height-height%3)/3-5"
+		color="C_icons_focused_pressed" />
+	<line
+		x1="(width-width%3)/3+4" y1="(height-height%3)/3+1"
+		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-6"
+		color="C_icons_focused_pressed" /> 
+	<rectangle 
+		x="(width-width%3)/3+3" y="height/2-2" 
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_focused_pressed" />
 </draw_ops>
 
 <draw_ops name="unshade_unfocused">
-	<image filename="unshade_unfocused.png" x="0" y="1" width="object_width" height="object_height" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+4"
+		x2="(width-width%3)/3+3" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="width-(width-width%3)/3-3" y1="(height-height%3)/3+5"
+		x2="(width-width%3)/3+4" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="width-(width-width%3)/3-4" y1="(height-height%3)/3+4"
+		x2="(width-width%3)/3+3" y2="height-(height-height%3)/3-3"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3" y1="(height-height%3)/3+4"
+		x2="width-(width-width%3)/3-6" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3" y1="(height-height%3)/3+5"
+		x2="width-(width-width%3)/3-7" y2="height-(height-height%3)/3-2"
+		color="C_icons_unfocused" />
+	<line
+		x1="(width-width%3)/3+1" y1="(height-height%3)/3+4"
+		x2="width-(width-width%3)/3-6" y2="height-(height-height%3)/3-3"
+		color="C_icons_unfocused" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-4"
+		width="width-2*(width-width%3)/3-8" height="6" filled="true"
+		color="C_icons_unfocused" />
 </draw_ops>
 
 <draw_ops name="unshade_unfocused_prelight">

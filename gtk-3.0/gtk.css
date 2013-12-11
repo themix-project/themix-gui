@@ -53,10 +53,16 @@
 
 /* window manager colors */
 @define-color wm_bg #2d2d2d;
-@define-color wm_title_focused #dcdcdc;
-@define-color wm_title_unfocused #888888;
 @define-color wm_border_focused #484848;
 @define-color wm_border_unfocused #393939;
+@define-color wm_title_focused #dcdcdc;
+@define-color wm_title_unfocused #888888;
+@define-color wm_icons_focused #dcdcdc;
+@define-color wm_icons_focused_prelight #d64937;
+@define-color wm_icons_focused_pressed #b63e2e;
+@define-color wm_icons_unfocused #888888;
+@define-color wm_icons_unfocused_prelight #d64937;
+@define-color wm_icons_unfocused_pressed #b63e2e;
 
 @import url("gtk-widgets.css");
 @import url("gtk-widgets-assets.css");
