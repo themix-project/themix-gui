@@ -15,11 +15,11 @@
 <constant name="C_title_focused" value="gtk:custom(wm_title_focused,#dcdcdc)" />
 <constant name="C_title_unfocused" value="gtk:custom(wm_title_unfocused,#888888)" />
 <constant name="C_icons_focused" value="gtk:custom(wm_icons_focused,#dcdcdc)" />
-<constant name="C_icons_focused_prelight" value="gtk:custom(wm_icons_focused_prelight,#d64937)" />
-<constant name="C_icons_focused_pressed" value="gtk:custom(wm_icons_focused_pressed,#b63e2e)" />
+<constant name="C_icons_focused_prelight" value="gtk:custom(wm_icons_focused_prelight,gtk:bg[SELECTED])" />
+<constant name="C_icons_focused_pressed" value="gtk:custom(wm_icons_focused_pressed,shade/gtk:bg[SELECTED]/0.8)" />
 <constant name="C_icons_unfocused" value="gtk:custom(wm_icons_unfocused,#888888)" />
-<constant name="C_icons_unfocused_prelight" value="gtk:custom(wm_icons_focused_prelight,#d64937)" />
-<constant name="C_icons_unfocused_pressed" value="gtk:custom(wm_icons_focused_pressed,#b63e2e)" />
+<constant name="C_icons_unfocused_prelight" value="gtk:custom(wm_icons_focused_prelight,gtk:bg[SELECTED])" />
+<constant name="C_icons_unfocused_pressed" value="gtk:custom(wm_icons_focused_pressed,shade/gtk:bg[SELECTED]/0.8)" />
 
 <!-- ::: GEOMETRY ::: -->
 <frame_geometry name="normal" title_scale="medium" rounded_top_left="1" rounded_top_right="1">

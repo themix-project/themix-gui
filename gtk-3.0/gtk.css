@@ -6,7 +6,11 @@
 @define-color selected_bg_color #d64937;
 @define-color selected_fg_color #f9f9f9;
 @define-color tooltip_bg_color #2d2d2d;
-@define-color tooltip_fg_color #dedede;
+@define-color tooltip_fg_color #dcdcdc;
+
+/* dark color scheme */
+@define-color dark_bg_color #2d2d2d;
+@define-color dark_fg_color #dcdcdc;
 
 /* colormap actually used by the theme, to be overridden in other css files */
 @define-color theme_bg_color @bg_color;
@@ -37,18 +41,18 @@
 @define-color error_color #cc0000;
 
 /* widget colors */
-@define-color menubar_bg_color #2d2d2d;
-@define-color menubar_fg_color #dcdcdc;
-@define-color toolbar_bg_color #dedede;
-@define-color toolbar_fg_color #555555;
-@define-color menu_bg_color #2d2d2d;
-@define-color menu_fg_color #dcdcdc;
-@define-color panel_bg_color #2d2d2d;
-@define-color panel_fg_color #dcdcdc;
+@define-color menubar_bg_color @dark_bg_color;
+@define-color menubar_fg_color @dark_fg_color;
+@define-color toolbar_bg_color @theme_bg_color;
+@define-color toolbar_fg_color @theme_fg_color;
+@define-color menu_bg_color @dark_bg_color;
+@define-color menu_fg_color @dark_fg_color;
+@define-color panel_bg_color @dark_bg_color;
+@define-color panel_fg_color @dark_fg_color;
 
 /* osd */
-@define-color osd_base #2d2d2d;
-@define-color osd_fg #dcdcdc;
+@define-color osd_base @dark_bg_color;
+@define-color osd_fg @dark_fg_color;
 @define-color osd_bg alpha(@osd_base, 0.8);
 
 /* window manager colors */
@@ -58,11 +62,11 @@
 @define-color wm_title_focused #dcdcdc;
 @define-color wm_title_unfocused #888888;
 @define-color wm_icons_focused #dcdcdc;
-@define-color wm_icons_focused_prelight #d64937;
-@define-color wm_icons_focused_pressed #b63e2e;
+@define-color wm_icons_focused_prelight @selected_bg_color;
+@define-color wm_icons_focused_pressed shade(@selected_bg_color, 0.8);
 @define-color wm_icons_unfocused #888888;
-@define-color wm_icons_unfocused_prelight #d64937;
-@define-color wm_icons_unfocused_pressed #b63e2e;
+@define-color wm_icons_unfocused_prelight @selected_bg_color;
+@define-color wm_icons_unfocused_pressed shade(@selected_bg_color, 0.8);
 
 @import url("gtk-widgets.css");
 @import url("gtk-widgets-assets.css");

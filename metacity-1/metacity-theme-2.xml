@@ -15,11 +15,11 @@
 <constant name="C_title_focused" value="#dcdcdc" />
 <constant name="C_title_unfocused" value="#888888" />
 <constant name="C_icons_focused" value="#dcdcdc" />
-<constant name="C_icons_focused_prelight" value="#d64937" />
-<constant name="C_icons_focused_pressed" value="#b63e2e" />
+<constant name="C_icons_focused_prelight" value="gtk:bg[SELECTED])" />
+<constant name="C_icons_focused_pressed" value="shade/gtk:bg[SELECTED]/0.8" />
 <constant name="C_icons_unfocused" value="#888888" />
-<constant name="C_icons_unfocused_prelight" value="#d64937" />
-<constant name="C_icons_unfocused_pressed" value="#b63e2e" />
+<constant name="C_icons_unfocused_prelight" value="gtk:bg[SELECTED])" />
+<constant name="C_icons_unfocused_pressed" value="shade/gtk:bg[SELECTED]/0.8" />
 
 <!-- ::: GEOMETRY ::: -->
 <frame_geometry name="normal" title_scale="medium" rounded_top_left="1" rounded_top_right="1">
