@@ -325,3 +325,16 @@ EPreviewPane .entry {
     background-color: shade(@theme_base_color, 0.95);
     color: @theme_text_color;
 }
+
+/*******************
+/* gnome-bluetooth *
+ *******************/
+GtkEntry.entry.pin-entry {
+	font: regular 50;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+GtkLabel.pin-label {
+	font: regular 50;
+}
