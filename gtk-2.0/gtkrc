@@ -388,34 +388,34 @@ style "murrine-menubaritem" {
 # Toolbars
 
 style "murrine-toolbar" = "murrine-thin" {
-	bg[NORMAL] = @toolbar_bg_color
-	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
+	bg[NORMAL] = @bg_color
+	bg[PRELIGHT] = shade (1.02, @bg_color)
 	bg[SELECTED] = @selected_bg_color
-	bg[ACTIVE] = shade (0.9, @toolbar_bg_color)
-	bg[INSENSITIVE] = @toolbar_bg_color
+	bg[ACTIVE] = shade (0.9, @bg_color)
+	bg[INSENSITIVE] = @bg_color
 
-	fg[NORMAL] = @toolbar_fg_color
-	fg[PRELIGHT] = @toolbar_fg_color
+	fg[NORMAL] = @fg_color
+	fg[PRELIGHT] = @fg_color
 	fg[SELECTED] = @selected_fg_color
-	fg[ACTIVE] = @toolbar_fg_color
-	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
+	fg[ACTIVE] = @fg_color
+	fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
 
 	engine "murrine" {
 	}
 }
 
 style "murrine-toolbutton" = "murrine-button" {
-	bg[NORMAL] = shade (1.08, @toolbar_bg_color)
-	bg[PRELIGHT] = shade (1.10, @toolbar_bg_color)
+	bg[NORMAL] = shade (1.08, @bg_color)
+	bg[PRELIGHT] = shade (1.10, @bg_color)
 	bg[SELECTED] = @selected_bg_color
-	bg[ACTIVE] = shade (0.95, @toolbar_bg_color)
-	bg[INSENSITIVE] = shade (0.85, @toolbar_bg_color)
+	bg[ACTIVE] = shade (0.95, @bg_color)
+	bg[INSENSITIVE] = shade (0.85, @bg_color)
 
-	fg[NORMAL] = @toolbar_fg_color
-	fg[PRELIGHT] = @toolbar_fg_color
+	fg[NORMAL] = @fg_color
+	fg[PRELIGHT] = @fg_color
 	fg[SELECTED] = @selected_fg_color
-	fg[ACTIVE] = @toolbar_fg_color
-	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
+	fg[ACTIVE] = @fg_color
+	fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
 
 	engine "murrine" {
 	}
@@ -595,17 +595,17 @@ style "chromium-toolbar-button" {
 }
 
 style "chrome-gtk-frame" {
-	ChromeGtkFrame::frame-color = @menubar_bg_color
-	ChromeGtkFrame::inactive-frame-color = @menubar_bg_color
+	ChromeGtkFrame::frame-color = @toolbar_bg_color
+	ChromeGtkFrame::inactive-frame-color = @toolbar_bg_color
 
 	ChromeGtkFrame::frame-gradient-size = 0
-	ChromeGtkFrame::frame-gradient-color = @menubar_bg_color
+	ChromeGtkFrame::frame-gradient-color = @toolbar_bg_color
 
-	ChromeGtkFrame::incognito-frame-color = @menubar_bg_color
-	ChromeGtkFrame::incognito-inactive-frame-color = @menubar_bg_color
+	ChromeGtkFrame::incognito-frame-color = @toolbar_bg_color
+	ChromeGtkFrame::incognito-inactive-frame-color = @toolbar_bg_color
 
 	ChromeGtkFrame::incognito-frame-gradient-size = 0
-	ChromeGtkFrame::incognito-frame-gradient-color = @menubar_bg_color
+	ChromeGtkFrame::incognito-frame-gradient-color = @toolbar_bg_color
 
 	ChromeGtkFrame::scrollbar-trough-color = @bg_color
 	ChromeGtkFrame::scrollbar-slider-normal-color =  mix (0.21, @fg_color, @bg_color)
