@@ -1901,10 +1901,12 @@ GtkColorButton.button {
 
 .header-bar .title {
     font: bold;
+    padding: 0 12px;
 }
 
 .header-bar .subtitle {
     font: smaller;
+    padding: 0 12px;
 }
 
 /***********
