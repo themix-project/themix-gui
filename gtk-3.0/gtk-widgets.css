@@ -1416,7 +1416,10 @@ OsScrollbar:insensitive {
 .toolbar .separator:insensitive,
 .header-bar GtkSeparatorToolItem,
 .header-bar .separator,
-.header-bar .separator:insensitive {
+.header-bar .separator:insensitive,
+.titlebar GtkSeparatorToolItem,
+.titlebar .separator,
+.titlebar .separator:insensitive {
     border-color: shade(@toolbar_bg_color, 0.95);
     color: shade(@toolbar_bg_color, 0.95);
 }
