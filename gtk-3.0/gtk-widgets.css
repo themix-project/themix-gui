@@ -1889,6 +1889,8 @@ GtkColorButton.button {
     border-style: solid;
     border-color: shade(@toolbar_bg_color, 0.8);
     background-color: @toolbar_bg_color;
+    background-image: none;
+    color: @toolbar_fg_color;
 }
 
 .header-bar .button.text-button {
@@ -1933,8 +1935,8 @@ GtkColorButton.button {
 }
 
 .toolbar:insensitive {
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.5);
     background-color: shade(@toolbar_bg_color, 0.9);
+    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.5);
 }
 
 /* menubar toolbars */
