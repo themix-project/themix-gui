@@ -2108,10 +2108,17 @@ GtkColorButton.button {
     border-color: shade(@theme_bg_color, 0.7);
 }
 
-.inline-toolbar.toolbar .button *:insensitive,
+.inline-toolbar.toolbar .button:insensitive,
 .inline-toolbar.toolbar GtkToolButton .button:insensitive {
     border-color: shade(@theme_bg_color, 0.85);
     background-color: shade(@theme_bg_color, 0.9);
+    background-image: none;
+}
+
+.inline-toolbar.toolbar .button:active *:insensitive
+.inline-toolbar.toolbar GtkToolButton .button:active *:insensitive {
+    border-color: shade(@theme_bg_color, 0.75);
+    background-color: shade(@theme_bg_color, 0.80);
     background-image: none;
 }
 
@@ -2140,7 +2147,7 @@ GtkColorButton.button {
 .inline-toolbar.toolbar .button:insensitive,
 .inline-toolbar.toolbar GtkToolButton .button:insensitive,
 .inline-toolbar.toolbar GtkToolButton > .button:insensitive {
-    box-shadow: inset -1px 0 shade(@theme_bg_color, 0.9);
+    box-shadow: inset -1px 0 shade(@theme_bg_color, 0.85);
 }
 
 /* remove box shadow from last-child and only-child */
@@ -2268,7 +2275,7 @@ GtkColorButton.button {
 .linked.vertical .button:insensitive,
 .inline-toolbar.toolbar.vertical .button:insensitive,
 .inline-toolbar.toolbar.vertical GtkToolButton > .button:insensitive {
-    box-shadow: inset 0 -1px shade(@theme_bg_color, 0.9);
+    box-shadow: inset 0 -1px shade(@theme_bg_color, 0.85);
 }
 
 /* remove box shadow from last-child and only-child */
@@ -2387,7 +2394,7 @@ GtkColorButton.button {
 .header-bar .button.raised.linked:insensitive,
 .header-bar .raised.linked .button:insensitive,
 .header-bar .linked .button:insensitive {
-    box-shadow: inset -1px 0 shade(@toolbar_bg_color, 0.9);
+    box-shadow: inset -1px 0 shade(@toolbar_bg_color, 0.85);
 }
 
 /* remove box shadow from last-child and only-child */
