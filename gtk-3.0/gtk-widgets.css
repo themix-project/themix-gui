@@ -58,14 +58,6 @@
     color: @theme_fg_color;
 }
 
-.background.client-decorated {
-    background-color: transparent;
-}
-
-.background.window-content {
-    background-color: @theme_bg_color;
-}
-
 GtkClutterOffscreen {
     background-color: @theme_bg_color;
     color: @theme_fg_color;
@@ -380,11 +372,11 @@ GtkIconView.content-view.check:selected {
  * drawing area *
  ****************/
 GtkDrawingArea {
-    background-color: transparent;
+    background-color: @theme_base_color;
 }
 
 GtkDrawingArea:insensitive {
-    background-color: shade(@theme_bg_color, 0.9);
+    background-color: shade(@theme_base_color, 0.9);
 }
 
 /***********
