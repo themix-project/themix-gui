@@ -1,0 +1,108 @@
+/***********************
+ * lightdm gtk greeter *
+ ***********************/
+#login_window,
+#panel_window,
+#panel_window .menubar,
+#panel_window .menubar > .menuitem,
+#restart_dialog,
+#shutdown_dialog,
+#login_window,
+#login_window #user_combobox .arrow {
+    background-color: @dark_bg_color;
+    background-image: none;
+    color: @dark_fg_color;
+}
+
+#panel_window .menubar > .menuitem:hover {
+    border-color: mix(@dark_bg_color, @dark_fg_color, 0.21);
+    background-color: mix(@dark_bg_color, @dark_fg_color, 0.21);
+    background-image: none;
+    color: shade(@dark_fg_color, 1.08);
+}
+
+#restart_dialog,
+#shutdown_dialog,
+#login_window {
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@dark_bg_color, 0.8);
+    border-radius: 2px;
+}
+
+#login_window .button,
+#restart_dialog .button,
+#shutdown_dialog .button,
+#user_image {
+    border-color: shade(@dark_bg_color, 0.8);
+    background-color: shade(@dark_bg_color, 1.08);
+    background-image: none;
+    color: @dark_fg_color;
+    border-radius: 2px;
+}
+
+#cancel_button,
+#login_button,
+#shutdown_button,
+#restart_button {
+    padding: 4px 16px;
+}
+
+#user_image {
+    padding: 4px;
+}
+
+#login_window .button.default,
+#restart_dialog .button.default,
+#shutdown_dialog .button.default,
+#login_window .button:focus,
+#restart_dialog .button:focus,
+#shutdown_dialog .button:focus {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+    background-color: shade(@theme_selected_bg_color, 1.08);
+    color: @theme_selected_fg_color;
+}
+
+#login_window .button.default:hover,
+#restart_dialog .button.default:hover,
+#shutdown_dialog .button.default:hover {
+    border-color: shade(@theme_selected_bg_color, 0.7);
+    background-color: @theme_selected_bg_color;
+}
+
+#login_window .button.default:active,
+#restart_dialog .button.default:active,
+#shutdown_dialog .button.default:active {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+    background-color: shade(@theme_selected_bg_color, 0.95);
+}
+
+#login_window .button.default:hover,
+#restart_dialog .button.default:hover,
+#shutdown_dialog .button.default:hover {
+    border-color: shade(@theme_selected_bg_color, 0.7);
+    background-color: shade(@theme_selected_bg_color, 0.97);
+}
+
+#login_window .button:hover,
+#restart_dialog .button:hover,
+#shutdown_dialog .button:hover {
+    border-color: shade(@dark_bg_color, 0.7);
+    background-color: shade(@dark_bg_color, 1.10);
+    background-image: none;
+}
+
+#login_button.button:hover {
+    border-color: shade(@success_color, 0.7);
+    background-color: @success_color;
+}
+
+#shutdown_button.button:hover {
+    border-color: shade(@error_color, 0.7);
+    background-color: @error_color;
+}
+
+#restart_button.button:hover {
+    border-color: shade(@warning_color, 0.7);
+    background-color: @warning_color;
+}
