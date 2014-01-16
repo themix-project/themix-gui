@@ -1000,6 +1000,11 @@ GtkModelMenuItem GtkBox GtkImage {
     background-image: none;
 }
 
+.notebook tab:hover {
+    background-color: shade(@theme_base_color, 0.95);
+    background-image: none;
+}
+
 .notebook tab:active {
     background-color: shade(@theme_base_color, 0.85);
     background-image: none;
