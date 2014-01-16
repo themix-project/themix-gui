@@ -282,7 +282,7 @@ GeditViewFrame .gedit-search-slider .not-found:selected {
     color: @theme_selected_fg_color;
 }
 
-GeditFileBrowserWidget .primary-toolbar.toolbar  {
+GeditFileBrowserWidget .toolbar  {
     padding: 2px;
     border-top: none;
     background-color: @theme_bg_color;
