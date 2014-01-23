@@ -579,22 +579,46 @@ GtkInfoBar {
     color: @info_fg_color;
 }
 
+.info .button {
+    border-top-color: shade(@info_bg_color, 0.8);
+    border-right-color: shade(@info_bg_color, 0.72);
+    border-left-color: shade(@info_bg_color, 0.72);
+    border-bottom-color: shade(@info_bg_color, 0.7);
+    background-color: shade(@info_bg_color, 1.08);
+    color: @info_fg_color;
+}
+
+.info .button:hover {
+    border-top-color: shade(@info_bg_color, 0.85);
+    border-right-color: shade(@info_bg_color, 0.78);
+    border-left-color: shade(@info_bg_color, 0.78);
+    border-bottom-color: shade(@info_bg_color, 0.7);
+    background-color: shade(@info_bg_color, 1.10);
+}
+
+.info .button:active {
+    border-color: shade(@info_bg_color, 0.6);
+    background-color: shade(@info_bg_color, 0.95);
+}
+
+.info .button:active:hover {
+    border-top-color: shade(@info_bg_color, 0.85);
+    border-right-color: shade(@info_bg_color, 0.78);
+    border-left-color: shade(@info_bg_color, 0.78);
+    border-bottom-color: shade(@info_bg_color, 0.7);
+}
+
 .info .button.close {
     color: @info_fg_color;
 }
 
 .info .button.close:hover {
-    background-image: linear-gradient(to bottom,
-                                      alpha(white, 0.3),
-                                      alpha(white, 0.2) 30%,
-                                      alpha(black, 0.02));
+    background-color: alpha(white, 0.2);
 }
 
 .info .button.close:active {
     color: @info_fg_color;
-    background-image: linear-gradient(to bottom,
-                                      alpha(black, 0.1),
-                                      transparent);
+    background-color: alpha(black, 0.1);
 }
 
 .warning {
@@ -606,22 +630,46 @@ GtkInfoBar {
     color: @warning_fg_color;
 }
 
+.warning .button {
+    border-top-color: shade(@warning_bg_color, 0.8);
+    border-right-color: shade(@warning_bg_color, 0.72);
+    border-left-color: shade(@warning_bg_color, 0.72);
+    border-bottom-color: shade(@warning_bg_color, 0.7);
+    background-color: shade(@warning_bg_color, 1.08);
+    color: @warning_fg_color;
+}
+
+.warning .button:hover {
+    border-top-color: shade(@warning_bg_color, 0.85);
+    border-right-color: shade(@warning_bg_color, 0.78);
+    border-left-color: shade(@warning_bg_color, 0.78);
+    border-bottom-color: shade(@warning_bg_color, 0.7);
+    background-color: shade(@warning_bg_color, 1.10);
+}
+
+.warning .button:active {
+    border-color: shade(@warning_bg_color, 0.6);
+    background-color: shade(@warning_bg_color, 0.95);
+}
+
+.warning .button:active:hover {
+    border-top-color: shade(@warning_bg_color, 0.85);
+    border-right-color: shade(@warning_bg_color, 0.78);
+    border-left-color: shade(@warning_bg_color, 0.78);
+    border-bottom-color: shade(@warning_bg_color, 0.7);
+}
+
 .warning .button.close {
     color: @warning_fg_color;
 }
 
 .warning .button.close:hover {
-    background-image: linear-gradient(to bottom,
-                                      alpha(white, 0.3),
-                                      alpha(white, 0.2) 30%,
-                                      alpha(black, 0.02));
+    background-color: alpha(white, 0.2);
 }
 
 .warning .button.close:active {
     color: @warning_fg_color;
-    background-image: linear-gradient(to bottom,
-                                      alpha(black, 0.1),
-                                      transparent);
+    background-color: alpha(black, 0.1);
 }
 
 .question {
@@ -633,22 +681,46 @@ GtkInfoBar {
     color: @question_fg_color;
 }
 
+.question .button {
+    border-top-color: shade(@question_bg_color, 0.8);
+    border-right-color: shade(@question_bg_color, 0.72);
+    border-left-color: shade(@question_bg_color, 0.72);
+    border-bottom-color: shade(@question_bg_color, 0.7);
+    background-color: shade(@question_bg_color, 1.08);
+    color: @question_fg_color;
+}
+
+.question .button:hover {
+    border-top-color: shade(@question_bg_color, 0.85);
+    border-right-color: shade(@question_bg_color, 0.78);
+    border-left-color: shade(@question_bg_color, 0.78);
+    border-bottom-color: shade(@question_bg_color, 0.7);
+    background-color: shade(@question_bg_color, 1.10);
+}
+
+.question .button:active {
+    border-color: shade(@question_bg_color, 0.6);
+    background-color: shade(@question_bg_color, 0.95);
+}
+
+.question .button:active:hover {
+    border-top-color: shade(@question_bg_color, 0.85);
+    border-right-color: shade(@question_bg_color, 0.78);
+    border-left-color: shade(@question_bg_color, 0.78);
+    border-bottom-color: shade(@question_bg_color, 0.7);
+}
+
 .question .button.close {
     color: @question_fg_color;
 }
 
 .question .button.close:hover {
-    background-image: linear-gradient(to bottom,
-                                      alpha(white, 0.3),
-                                      alpha(white, 0.2) 30%,
-                                      alpha(black, 0.02));
+    background-color: alpha(white, 0.2);
 }
 
 .question .button.close:active {
     color: @question_fg_color;
-    background-image: linear-gradient(to bottom,
-                                      alpha(black, 0.1),
-                                      transparent);
+    background-color: alpha(black, 0.1);
 }
 
 .error {
@@ -660,22 +732,46 @@ GtkInfoBar {
     color: @error_fg_color;
 }
 
+.error .button {
+    border-top-color: shade(@error_bg_color, 0.8);
+    border-right-color: shade(@error_bg_color, 0.72);
+    border-left-color: shade(@error_bg_color, 0.72);
+    border-bottom-color: shade(@error_bg_color, 0.7);
+    background-color: shade(@error_bg_color, 1.08);
+    color: @error_fg_color;
+}
+
+.error .button:hover {
+    border-top-color: shade(@error_bg_color, 0.85);
+    border-right-color: shade(@error_bg_color, 0.78);
+    border-left-color: shade(@error_bg_color, 0.78);
+    border-bottom-color: shade(@error_bg_color, 0.7);
+    background-color: shade(@error_bg_color, 1.10);
+}
+
+.error .button:active {
+    border-color: shade(@error_bg_color, 0.6);
+    background-color: shade(@error_bg_color, 0.95);
+}
+
+.error .button:active:hover {
+    border-top-color: shade(@error_bg_color, 0.85);
+    border-right-color: shade(@error_bg_color, 0.78);
+    border-left-color: shade(@error_bg_color, 0.78);
+    border-bottom-color: shade(@error_bg_color, 0.7);
+}
+
 .error .button.close {
     color: @error_fg_color;
 }
 
 .error .button.close:hover {
-    background-image: linear-gradient(to bottom,
-                                      alpha(white, 0.3),
-                                      alpha(white, 0.2) 30%,
-                                      alpha(black, 0.02));
+    background-color: alpha(white, 0.2);
 }
 
 .error .button.close:active {
     color: @error_fg_color;
-    background-image: linear-gradient(to bottom,
-                                      alpha(black, 0.1),
-                                      transparent);
+    background-color: alpha(black, 0.1);
 }
 
 /*******************
@@ -2717,7 +2813,7 @@ GtkTreeView {
 GtkTreeView.dnd {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@theme_selected_bg_color, 0.9);
+    border-color: @theme_selected_bg_color;
     border-radius: 0;
 }
 
@@ -2756,7 +2852,7 @@ GtkViewport.frame {
  **************/
 .action-bar {
     padding: 4px;
-    border-width: 1px 0 0;
+    border-width: 1px 0 0 0;
     border-style: solid;
     border-color: shade(@theme_bg_color, 0.8);
     background-color: @theme_bg_color;
@@ -3289,7 +3385,7 @@ GtkBubbleWindow .toolbar {
     padding: 4px;
     border-style: none;
     background: none;
-    color: mix(@titlebar_fg_color, @titlebar_bg_color, 0.4);
+    color: mix(@titlebar_fg_color, @titlebar_bg_color, 0.1);
     icon-shadow: none;
 }
 
