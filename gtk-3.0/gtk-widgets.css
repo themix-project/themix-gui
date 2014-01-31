@@ -882,6 +882,11 @@ GtkComboBox .menu {
     color: @menu_fg_color;
 }
 
+/* Hover-effect on play-button in ubuntu soundmenu */
+.menu:selected {
+    background-color: @selected_bg_color;
+}
+
 .menu.button:hover,
 .menu.button:active,
 .menu.button:active *:insensitive,
