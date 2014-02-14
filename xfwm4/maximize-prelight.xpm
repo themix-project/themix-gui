@@ -4,7 +4,7 @@ static char *maximize_prelight[] = {
 "22 25 3 1 ",
 "  c #2D2D2D2D2D2D",
 ". c #484848484848",
-"X c #D6D649493737",
+"X c #D6D649493737 s active_color_1",
 /* pixels */
 "......................",
 "                      ",
