@@ -75,42 +75,173 @@
 }
 
 .menuitem.check:active {
-    background-image: url("assets/menuitem-checkbox-checked.svg");
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_bg_color), to(transparent)),
+                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_bg_color), to(transparent)),
+                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_bg_color), to(transparent)),
+                      linear-gradient(45deg, 
+                                      transparent,
+                                      transparent 30%,
+                                      @theme_selected_bg_color 30%,
+                                      @theme_selected_bg_color 70%,
+                                      transparent 70%,
+                                      transparent),
+                      linear-gradient(-45deg,
+                                      transparent,
+                                      transparent 37%,
+                                      @theme_selected_bg_color 37%,
+                                      @theme_selected_bg_color 62%,
+                                      transparent 62%,
+                                      transparent);
+
+    background-position: 16% 48%, 42% 74%, 88% 28%, 24% 64%, 76% 48%;
+    background-size: 16% 16%, 16% 16%, 16% 16%, 30% 30%, 50% 50%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.check:active:hover {
-    background-image: url("assets/menuitem-checkbox-checked-hover.svg");
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_fg_color), to(transparent)),
+                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_fg_color), to(transparent)),
+                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_fg_color), to(transparent)),
+                      linear-gradient(45deg, 
+                                      transparent,
+                                      transparent 30%,
+                                      @theme_selected_fg_color 30%,
+                                      @theme_selected_fg_color 70%,
+                                      transparent 70%,
+                                      transparent),
+                      linear-gradient(-45deg,
+                                      transparent,
+                                      transparent 37%,
+                                      @theme_selected_fg_color 37%,
+                                      @theme_selected_fg_color 62%,
+                                      transparent 62%,
+                                      transparent);
+
+    background-position: 16% 48%, 42% 74%, 88% 28%, 24% 64%, 76% 48%;
+    background-size: 16% 16%, 16% 16%, 16% 16%, 30% 30%, 50% 50%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.check:active:insensitive {
-    background-image: url("assets/menuitem-checkbox-checked-insensitive.svg");
-}
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(mix(@menu_fg_color, @menu_bg_color, 0.5)), to(transparent)),
+                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(mix(@menu_fg_color, @menu_bg_color, 0.5)), to(transparent)),
+                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(mix(@menu_fg_color, @menu_bg_color, 0.5)), to(transparent)),
+                      linear-gradient(45deg, 
+                                      transparent,
+                                      transparent 30%,
+                                      mix(@menu_fg_color, @menu_bg_color, 0.5) 30%,
+                                      mix(@menu_fg_color, @menu_bg_color, 0.5) 70%,
+                                      transparent 70%,
+                                      transparent),
+                      linear-gradient(-45deg,
+                                      transparent,
+                                      transparent 37%,
+                                      mix(@menu_fg_color, @menu_bg_color, 0.5) 37%,
+                                      mix(@menu_fg_color, @menu_bg_color, 0.5) 62%,
+                                      transparent 62%,
+                                      transparent);
 
-.menuitem.check:inconsistent:hover,
-.menuitem.radio:inconsistent:hover {
-    background-image: url("assets/menuitem-checkbox-mixed-hover.svg");
+    background-position: 16% 48%, 42% 74%, 88% 28%, 24% 64%, 76% 48%;
+    background-size: 16% 16%, 16% 16%, 16% 16%, 30% 30%, 50% 50%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.check:inconsistent,
 .menuitem.radio:inconsistent {
-    background-image: url("assets/menuitem-checkbox-mixed.svg");
+    background-image: linear-gradient(to bottom,
+                                      @theme_selected_bg_color,
+                                      @theme_selected_bg_color
+                                      );
+
+    background-position: center center;
+    background-size: 60% 16%;
+    background-repeat: no-repeat;
+}
+
+.menuitem.check:inconsistent:hover,
+.menuitem.radio:inconsistent:hover {
+    background-image: linear-gradient(to bottom,
+                                      @theme_selected_fg_color,
+                                      @theme_selected_fg_color
+                                      );
+
+    background-position: center center;
+    background-size: 60% 16%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.check:inconsistent:insensitive,
 .menuitem.radio:inconsistent:insensitive {
-    background-image: url("assets/menuitem-checkbox-mixed-insensitive.svg");
+    background-image: linear-gradient(to bottom,
+                                      mix(@menu_fg_color, @menu_bg_color, 0.5),
+                                      mix(@menu_fg_color, @menu_bg_color, 0.5)
+                                      );
+
+    background-position: center center;
+    background-size: 60% 16%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.radio:active {
-    background-image: url("assets/menuitem-radio-checked.svg");
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_bg_color), to(transparent));
+    background-position: center center;
+    background-size: 40% 40%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.radio:active:hover {
-    background-image: url("assets/menuitem-radio-checked-hover.svg");
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(@theme_selected_fg_color), to(transparent));
+    background-position: center center;
+    background-size: 40% 40%;
+    background-repeat: no-repeat;
 }
 
 .menuitem.radio:active:insensitive {
-    background-image: url("assets/menuitem-radio-checked-insensitive.svg");
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(mix(@menu_fg_color, @menu_bg_color, 0.5)), to(transparent));
+    background-position: center center;
+    background-size: 40% 40%;
+    background-repeat: no-repeat;
+}
+
+/******************
+ * pane separator *
+ ******************/
+.pane-separator.horizontal {
+    background-image: linear-gradient(to bottom,
+                                      shade(@theme_bg_color, 0.8) 0%,
+                                      shade(@theme_bg_color, 0.8) 20%,
+                                      transparent 20%,
+                                      transparent 40%,
+                                      shade(@theme_bg_color, 0.8) 40%,
+                                      shade(@theme_bg_color, 0.8) 60%,
+                                      transparent 60%,
+                                      transparent 80%,
+                                      shade(@theme_bg_color, 0.8) 80%,
+                                      shade(@theme_bg_color, 0.8)
+                                      );
+
+    background-size: 4px 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.pane-separator.vertical {
+    background-image: linear-gradient(to right,
+                                      shade(@theme_bg_color, 0.8) 0%,
+                                      shade(@theme_bg_color, 0.8) 20%,
+                                      transparent 20%,
+                                      transparent 40%,
+                                      shade(@theme_bg_color, 0.8) 40%,
+                                      shade(@theme_bg_color, 0.8) 60%,
+                                      transparent 60%,
+                                      transparent 80%,
+                                      shade(@theme_bg_color, 0.8) 80%,
+                                      shade(@theme_bg_color, 0.8)
+                                      );
+
+    background-size: 10px 4px;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 GtkIconView.content-view.cell.check {
@@ -119,19 +250,4 @@ GtkIconView.content-view.cell.check {
 
 GtkIconView.content-view.cell.check:active {
     background-image: url("assets/grid-selection-checked.svg");
-}
-
-/******************
- * pane separator *
- ******************/
-.pane-separator.horizontal {
-    background-image: url("assets/pane-handle.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-.pane-separator.vertical {
-    background-image: url("assets/pane-handle-vertical.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
 }
