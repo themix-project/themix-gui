@@ -58,15 +58,15 @@
 @define-color osd_bg alpha(@osd_base, 0.8);
 
 /* window manager colors */
-@define-color wm_bg #2d2d2d;
-@define-color wm_border_focused #484848;
-@define-color wm_border_unfocused #393939;
-@define-color wm_title_focused #dcdcdc;
-@define-color wm_title_unfocused #888888;
-@define-color wm_icons_focused #dcdcdc;
+@define-color wm_bg @titlebar_bg_color;
+@define-color wm_border_focused mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.21);
+@define-color wm_border_unfocused mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.12);
+@define-color wm_title_focused mix(@titlebar_fg_color, @titlebar_bg_color, 0.1);
+@define-color wm_title_unfocused mix(@titlebar_fg_color, @titlebar_bg_color, 0.4);
+@define-color wm_icons_focused mix(@titlebar_fg_color, @titlebar_bg_color, 0.1);
 @define-color wm_icons_focused_prelight @selected_bg_color;
 @define-color wm_icons_focused_pressed shade(@selected_bg_color, 0.8);
-@define-color wm_icons_unfocused #888888;
+@define-color wm_icons_unfocused mix(@titlebar_fg_color, @titlebar_bg_color, 0.4);
 @define-color wm_icons_unfocused_prelight @selected_bg_color;
 @define-color wm_icons_unfocused_pressed shade(@selected_bg_color, 0.8);
 
