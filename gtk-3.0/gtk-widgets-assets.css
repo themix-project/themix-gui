@@ -203,9 +203,18 @@
     background-repeat: no-repeat;
 }
 
+GtkIconView.content-view.cell.check {
+    background-image: url("assets/grid-selection-unchecked.svg");
+}
+
+GtkIconView.content-view.cell.check:active {
+    background-image: url("assets/grid-selection-checked.svg");
+}
+
 /******************
  * pane separator *
  ******************/
+.pane-separator,
 .pane-separator.horizontal {
     background-image: linear-gradient(to bottom,
                                       shade(@theme_bg_color, 0.8) 0%,
@@ -242,12 +251,4 @@
     background-size: 10px 4px;
     background-repeat: no-repeat;
     background-position: center center;
-}
-
-GtkIconView.content-view.cell.check {
-    background-image: url("assets/grid-selection-unchecked.svg");
-}
-
-GtkIconView.content-view.cell.check:active {
-    background-image: url("assets/grid-selection-checked.svg");
 }
