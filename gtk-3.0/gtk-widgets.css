@@ -1508,6 +1508,8 @@ OsScrollbar:insensitive {
 .toolbar .separator:insensitive {
     border-color: shade(@toolbar_bg_color, 0.95);
     color: shade(@toolbar_bg_color, 0.95);
+
+    -GtkWidget-window-dragging: true;
 }
 
 .header-bar GtkSeparatorToolItem,
@@ -1518,6 +1520,8 @@ OsScrollbar:insensitive {
 .titlebar .separator:insensitive {
     border-color: shade(@titlebar_bg_color, 0.95);
     color: shade(@titlebar_bg_color, 0.95);
+
+    -GtkWidget-window-dragging: true;
 }
 
 .primary-toolbar .button .separator,
