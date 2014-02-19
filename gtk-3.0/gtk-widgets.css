@@ -263,15 +263,15 @@ GtkAssistant .sidebar {
 row:selected,
 row:selected:hover,
 row:selected:focus {
+    -GtkWidget-focus-padding: 1;
+    -GtkWidget-focus-line-width: 0;
+
     border-width: 1px 0;
     border-style: solid;
     border-color: shade(@theme_selected_bg_color, 0.9);
     background-color: @theme_selected_bg_color;
     background-image: none;
     color: @theme_selected_fg_color;
-
-    -GtkWidget-focus-padding: 1;
-    -GtkWidget-focus-line-width: 0;
 }
 
 /*******************
@@ -514,7 +514,7 @@ GtkScrolledWindow.frame {
     border-radius: 0;
 }
 
-/* avoid double borders when a viewport is 
+/* avoid double borders when a viewport is
  * packed into a GtkScrolledWindow */
 GtkScrolledWindow GtkViewport.frame {
     border-style: none;
@@ -955,6 +955,8 @@ GtkTreeMenu .menuitem {
 
 .menuitem,
 .menu .menuitem {
+    -GtkMenuItem-arrow-scaling: 0.5;
+
     padding: 3px;
     border-width: 1px;
     border-style: solid;
@@ -963,8 +965,6 @@ GtkTreeMenu .menuitem {
     background-color: transparent;
     background-image: none;
     color: @menu_fg_color;
-
-    -GtkMenuItem-arrow-scaling: 0.5;
 }
 
 .menu .menuitem:active,
@@ -1320,13 +1320,13 @@ GtkLevelBar.vertical {
 }
 
 .scale {
-    padding: 0;
-    border-width: 1px;
-    border-radius: 2px;
-
     -GtkRange-slider-width: 16;
     -GtkRange-trough-border: 1;
     -GtkScale-slider-length: 16;
+
+    padding: 0;
+    border-width: 1px;
+    border-radius: 2px;
 }
 
 .scale.slider {
@@ -1506,10 +1506,10 @@ OsScrollbar:insensitive {
 .toolbar GtkSeparatorToolItem,
 .toolbar .separator,
 .toolbar .separator:insensitive {
+    -GtkWidget-window-dragging: true;
+
     border-color: shade(@toolbar_bg_color, 0.95);
     color: shade(@toolbar_bg_color, 0.95);
-
-    -GtkWidget-window-dragging: true;
 }
 
 .header-bar GtkSeparatorToolItem,
@@ -1518,10 +1518,10 @@ OsScrollbar:insensitive {
 .titlebar GtkSeparatorToolItem,
 .titlebar .separator,
 .titlebar .separator:insensitive {
+    -GtkWidget-window-dragging: true;
+
     border-color: shade(@titlebar_bg_color, 0.95);
     color: shade(@titlebar_bg_color, 0.95);
-
-    -GtkWidget-window-dragging: true;
 }
 
 .primary-toolbar .button .separator,
@@ -1561,12 +1561,13 @@ OsScrollbar:insensitive {
 }
 
 GtkComboBox .separator {
-    border-style: none;
-
     /* always disable separators */
     -GtkWidget-wide-separators: true;
     -GtkWidget-horizontal-separator: 0;
     -GtkWidget-vertical-separator: 0;
+
+    border-style: none;
+
 }
 
 /***********
@@ -3073,10 +3074,11 @@ GtkOverlay.osd {
 
 .osd GtkProgressBar,
 GtkProgressBar.osd {
-    padding: 0;
     -GtkProgressBar-xspacing: 0;
     -GtkProgressBar-yspacing: 2px;
     -GtkProgressBar-min-horizontal-bar-height: 2px;
+
+    padding: 0;
 }
 
 .osd GtkProgressBar.trough,
@@ -3091,7 +3093,7 @@ GtkProgressBar.osd.trough {
 .osd GtkProgressBar.progressbar,
 GtkProgressBar.osd.progressbar {
     border-style: none;
-    border-radius: 0;    
+    border-radius: 0;
     background-color: @theme_selected_bg_color;
     background-image: none;
 }
