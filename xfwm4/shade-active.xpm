@@ -1,9 +1,9 @@
 /* XPM */
-static char * shade_active_xpm[] = {
+static char * shade_prelight_xpm[] = {
 "24 24 3 1",
 " 	c None",
 ".	c #2D2D2D",
-"+	c #DBDBDB",
+"+	c #DCDCDC",
 "........................",
 "........................",
 "........................",
