@@ -3212,6 +3212,35 @@ GtkProgressBar.osd.progressbar {
     border-color: shade(@error_color, 0.7);
 }
 
+/******************************
+ * suggested action buttons *
+ ******************************/
+.suggested-action.button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    border-radius: 2px;
+    background-color: shade(@theme_selected_bg_color, 1.18);
+    background-image: none;
+    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
+}
+
+.suggested-action.button:hover {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+    background-color: shade(@theme_selected_bg_color, 1.20);
+    background-image: none;
+}
+
+.suggested-action.button:active {
+    border-color: shade(@theme_selected_bg_color, 0.9);
+    background-color: shade(@theme_selected_bg_color, 1.05);
+    background-image: none;
+}
+
+.suggested-action.button:hover:active {
+    border-color: shade(@theme_selected_bg_color, 0.8);
+}
+
 /******************
  * selection mode *
  ******************/
@@ -3278,7 +3307,7 @@ GtkProgressBar.osd.progressbar {
     border-radius: 2px;
     background-color: shade(@theme_selected_bg_color, 1.18);
     background-image: none;
-    color: @theme_selected_fg_color;
+    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
 }
 
 .selection-mode.header-bar .suggested-action.button:hover,
