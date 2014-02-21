@@ -129,7 +129,7 @@ GtkGrid:insensitive {
     transition: border 100ms ease-in;
 }
 
-entry.image.left {
+.entry.image.left {
     padding-right: 4px;
 }
 
