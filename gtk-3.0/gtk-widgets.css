@@ -127,6 +127,10 @@ GtkClutterOffscreen {
     transition: border 100ms ease-in;
 }
 
+entry.image.left {
+    padding-right: 4px;
+}
+
 .notebook tab GtkLabel,
 .notebook .prelight-page,
 .notebook .prelight-page GtkLabel,
