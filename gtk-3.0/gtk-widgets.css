@@ -63,10 +63,6 @@
     color: @theme_selected_fg_color;
 }
 
-*:active {
-    background-color: shade(@theme_bg_color, 0.85);
-}
-
 *:insensitive,
 *:insensitive:insensitive {
     color: mix(@theme_fg_color, @theme_bg_color, 0.5);
@@ -104,6 +100,17 @@
 .gtkstyle-fallback:selected {
     background-color: @theme_selected_bg_color;
     color: @theme_selected_fg_color;
+}
+
+GtkImage,
+GtkImage:insensitive,
+GtkLabel,
+GtkLabel:insensitive,
+GtkBox,
+GtkBox:insensitive,
+GtkGrid,
+GtkGrid:insensitive {
+    background-color: transparent;
 }
 
 /******************
@@ -549,24 +556,6 @@ GtkIconView.view.cell:selected:focus {
     border-color: shade(@theme_selected_bg_color, 0.9);
     border-radius: 0;
     background-color: alpha(@theme_selected_bg_color, 0.3);
-}
-
-/*********
- * image *
- *********/
-GtkImage,
-GtkImage:active,
-GtkImage:insensitive {
-    background-color: transparent;
-}
-
-/*********
- * label *
- *********/
-GtkLabel,
-GtkLabel:active,
-GtkLabel:insensitive {
-    background-color: transparent;
 }
 
 /***********
