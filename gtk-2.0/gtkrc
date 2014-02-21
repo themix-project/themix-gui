@@ -200,7 +200,7 @@ style "murrine-scrollbar" {
 
 	engine "murrine" {
 		roundness = 0
-		contrast = 0.00
+		contrast = 0.0
 		border_shades = { 0.9, 0.9 }
 		trough_shades = { 0.97, 0.97 }
 		trough_border_shades = { 1.0, 1.0 }
@@ -433,7 +433,7 @@ style "murrine-panel" = "murrine-thin" {
 	bg[NORMAL] = @panel_bg_color
 	bg[PRELIGHT] =  mix (0.21, @panel_fg_color, @panel_bg_color)
 	bg[SELECTED] =  mix (0.21, @panel_fg_color, @panel_bg_color)
-	bg[ACTIVE] = shade (0.9, @panel_bg_color)
+	bg[ACTIVE] = shade (0.8, @panel_bg_color)
 	bg[INSENSITIVE] = @panel_bg_color
 
 	fg[NORMAL] = @panel_fg_color
@@ -456,6 +456,7 @@ style "murrine-panel" = "murrine-thin" {
 
 	engine "murrine" {
 		roundness = 0
+		contrast = 0.0
 	}
 }
 
