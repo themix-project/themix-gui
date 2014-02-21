@@ -2967,6 +2967,25 @@ GtkMessageDialog,
     padding: 0;
 }
 
+/********************
+ * various choosers *
+ ********************/
+GtkFontButton .separator,
+GtkFileChooserButton .separator {
+    /* always disable separators */
+    -GtkWidget-wide-separators: true;
+    -GtkWidget-horizontal-separator: 0;
+    -GtkWidget-vertical-separator: 0;
+}
+
+GtkFontButton GtkLabel:last-child {
+    color: alpha(currentColor, 0.7);
+}
+
+GtkFileChooserButton GtkImage:last-child {
+    color: alpha(currentColor, 0.7);
+}
+
 /*********************
  * app notifications *
  *********************/
