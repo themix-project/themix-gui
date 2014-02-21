@@ -512,6 +512,23 @@ GtkComboBox.combobox-entry .button:insensitive {
     color: alpha(currentColor, 0.9);
 }
 
+/**************
+ * list boxes *
+ **************/
+.list {
+    background-color: shade(@theme_bg_color, 0.97);
+    color: @theme_fg_color;
+}
+
+.list-row:hover {
+    background-color: shade(@theme_bg_color, 1.02);
+}
+
+.list-row:selected {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
 /*********
  * frame *
  *********/
