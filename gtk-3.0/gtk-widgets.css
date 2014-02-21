@@ -1559,9 +1559,8 @@ GtkLevelBar.vertical {
 }
 
 .scrollbar.slider.fine-tune:prelight:active {
-      background-size: 50%;
-      background-repeat: no-repeat;
-      background-position: center;
+      border-width: 2px;
+      border-color: transparent;
 }
 
 /* overlay scrollbar */
