@@ -3,8 +3,6 @@
 
 /* default */
 * {
-    background-clip: padding-box;
-
     -GtkArrow-arrow-scaling: 0.5;
     -GtkButton-child-displacement-x: 0;
     -GtkButton-child-displacement-y: 0;
@@ -19,7 +17,6 @@
     -GtkIMHtml-hyperlink-color: @link_color;
     -GtkMenu-horizontal-padding: 0;
     -GtkMenu-vertical-padding: 0;
-    -GtkNotebook-initial-gap: 0;
     -GtkPaned-handle-size: 4;
     -GtkProgressBar-min-horizontal-bar-height: 12;
     -GtkProgressBar-min-vertical-bar-width: 12;
@@ -45,6 +42,8 @@
     -GtkWindow-resize-grip-width: 0;
     -WnckTasklist-fade-overlay-rect: 0;
 
+    background-clip: padding-box;
+    
     outline-color: alpha(@theme_selected_bg_color, 0.5);
     outline-style: solid;
     outline-offset: 0;
@@ -128,11 +127,20 @@ GtkClutterOffscreen {
     transition: border 100ms ease-in;
 }
 
+.notebook tab GtkLabel,
+.notebook .prelight-page,
+.notebook .prelight-page GtkLabel,
+.notebook .active-page,
+.notebook .active-page GtkLabel {
+    transition: all 200ms ease-in;
+}
+
 /* inset shadows */
 .button:active,
 .primary-toolbar .button:active,
 .toolbar .button:active,
-.header-bar .button:active {
+.header-bar .button:active,
+.notebook.header {
     box-shadow: inset 1px 0 alpha(@dark_shadow, 0.07),
                 inset 0 1px alpha(@dark_shadow, 0.08),
                 inset -1px 0 alpha(@dark_shadow, 0.07),
@@ -856,7 +864,7 @@ GtkInfoBar {
 }
 
 .arrow {
-    color: alpha(@theme_fg_color, 0.7);
+    color: alpha(currentColor, 0.7);
 }
 
 /********
@@ -1003,10 +1011,6 @@ GtkTreeMenu .menuitem {
     background-color: transparent;
 }
 
-.menuitem.arrow {
-    color: alpha(@menu_fg_color, 0.6);
-}
-
 .menuitem GtkCalendar:inconsistent {
     color: mix(@menu_fg_color, @menu_bg_color, 0.5);
 }
@@ -1050,13 +1054,16 @@ GtkModelMenuItem GtkBox GtkImage {
  ************/
 .notebook {
     padding: 0;
-    border-width: 1px;
+    border-width: 1px 0 0 0;
     border-style: solid;
     border-color: shade(@theme_base_color, 0.7);
     border-radius: 0;
     background-color: @theme_base_color;
     background-image: none;
     background-clip: border-box;
+
+    -GtkNotebook-initial-gap: 0;
+    -GtkNotebook-has-tab-gap: false;
 }
 
 .notebook.frame {
@@ -1095,47 +1102,59 @@ GtkModelMenuItem GtkBox GtkImage {
 }
 
 .notebook tab {
-    padding: 4px;
-    border-style: none;
-    background-color: shade(@theme_base_color, 0.85);
-    background-image: none;
-}
-
-.notebook tab:hover {
-    background-color: shade(@theme_base_color, 0.95);
+    padding: 4px 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+    background-color: transparent;
     background-image: none;
 }
 
 .notebook tab:active {
-    background-color: shade(@theme_base_color, 0.85);
+    background-color: transparent;
     background-image: none;
 }
 
 .notebook tab.top {
+    border-bottom-width: 2px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
+.notebook tab.top:hover {
+    border-bottom-color: alpha(@theme_selected_bg_color, 0.3);
+}
+
 .notebook tab.top:active {
-    box-shadow:inset 0 -2px @theme_selected_bg_color;
+    border-bottom-color: @theme_selected_bg_color;
 }
 
 .notebook tab.right {
+    border-left-width: 2px;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
 }
 
+.notebook tab.right:hover {
+    border-left-color: alpha(@theme_selected_bg_color, 0.3);
+}
+
 .notebook tab.right:active {
-    box-shadow:inset 2px 0 @theme_selected_bg_color;
+    border-left-color: @theme_selected_bg_color;
 }
 
 .notebook tab.bottom {
+    border-top-width: 2px;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
 }
 
+.notebook tab.bottom:hover {
+    border-top-color: alpha(@theme_selected_bg_color, 0.3);
+}
+
 .notebook tab.bottom:active {
-    box-shadow:inset 0 2px @theme_selected_bg_color;
+    border-top-color: @theme_selected_bg_color;
 }
 
 .notebook tab.left {
@@ -1143,17 +1162,38 @@ GtkModelMenuItem GtkBox GtkImage {
     border-bottom-right-radius: 0;
 }
 
+.notebook tab.left:hover {
+    border-right-color: alpha(@theme_selected_bg_color, 0.3);
+}
+
 .notebook tab.left:active {
-    box-shadow:inset -2px 0 @theme_selected_bg_color;
+    border-right-color: @theme_selected_bg_color;
 }
 
 .notebook tab GtkLabel {
     color: mix(@theme_text_color, @theme_base_color, 0.3);
 }
 
+.notebook .prelight-page,
+.notebook .prelight-page GtkLabel {
+    color: mix (@theme_text_color, @theme_base_color, 0.15);
+}
+
 .notebook .active-page,
-.notebook tab .active-page GtkLabel {
+.notebook .active-page GtkLabel {
     color: @theme_text_color;
+}
+
+.notebook tab.reorderable-page:hover {
+    background-color: shade(@theme_base_color, 0.85);
+    border-left: 1px solid shade(@theme_base_color, 0.7);
+    border-right: 1px solid shade(@theme_base_color, 0.7);
+}
+
+.notebook tab.reorderable-page:active {
+    background-color: shade(@theme_base_color, 0.90);
+    border-left: 1px solid shade(@theme_base_color, 0.75);
+    border-right: 1px solid shade(@theme_base_color, 0.75);
 }
 
 /* close button styling */
@@ -2820,7 +2860,7 @@ GtkViewport.frame {
     border-color: shade(@theme_bg_color, 0.8);
     background-color: @theme_bg_color;
     background-image: none;
-    color: @theme_bg_color;
+    color: @theme_fg_color;
 }
 
 .action-bar .button.text-button {
