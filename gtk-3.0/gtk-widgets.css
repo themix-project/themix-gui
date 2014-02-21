@@ -773,18 +773,24 @@ GtkInfoBar {
 /*******************
  * symbolic images *
  *******************/
-.image,
-.view.image {
-    color: alpha(@theme_fg_color, 0.5);
+.image {
+    color: alpha(currentColor, 0.5);
 }
 
-.image:hover,
-.view.image:hover {
-    color: @theme_fg_color;
+.image:hover {
+    color: alpha(currentColor, 0.9);
 }
 
 .image:selected,
-.image:selected:hover,
+.image:selected:hover {
+    color: @theme_selected_fg_color;
+}
+
+.view.image,
+.view.image:hover {
+    color: alpha(currentColor, 0.9);
+}
+
 .view.image:selected,
 .view.image:selected:hover {
     color: @theme_selected_fg_color;
