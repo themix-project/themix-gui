@@ -344,6 +344,7 @@ SushiFontWidget {
  *************/
 GucharmapChartable {
     background-color: @theme_base_color;
+    color: @theme_text_color;
 }
 
 GucharmapChartable:active,
