@@ -2041,7 +2041,7 @@ GtkColorButton.button {
     border-color: shade(@titlebar_bg_color, 0.8);
     background-color: @titlebar_bg_color;
     background-image: none;
-    color: @titlebar_bg_color;
+    color: @titlebar_fg_color;
 }
 
 .header-bar .button.text-button {
