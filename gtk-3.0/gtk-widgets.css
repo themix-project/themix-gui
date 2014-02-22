@@ -1236,6 +1236,7 @@ GtkModelButton.button:selected {
 }
 
 .notebook tab.left {
+    border-right-width: 2px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
