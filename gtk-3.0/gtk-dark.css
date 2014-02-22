@@ -71,7 +71,7 @@
 @define-color wm_icons_unfocused_pressed shade(@selected_bg_color, 0.8);
 
 @import url("gtk-widgets.css");
-@import url("gtk-widgets-assets-dark.css");
+@import url("gtk-widgets-assets.css");
 @import url("apps/gnome-applications.css");
 @import url("apps/granite-widgets.css");
 @import url("apps/unity.css");
