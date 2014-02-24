@@ -43,7 +43,7 @@
     -WnckTasklist-fade-overlay-rect: 0;
 
     background-clip: padding-box;
-    
+
     outline-color: alpha(@theme_selected_bg_color, 0.5);
     outline-style: solid;
     outline-offset: 0;
@@ -1651,7 +1651,6 @@ GtkComboBox .separator {
     -GtkWidget-vertical-separator: 0;
 
     border-style: none;
-
 }
 
 /***********

@@ -114,7 +114,7 @@
     background-color: shade(@lightdm_bg_color, 0.9);
     background-image: none;
     color: @lightdm_fg_color;
-                                      
+
     box-shadow: none;
     transition: all 150ms ease-out;
 }

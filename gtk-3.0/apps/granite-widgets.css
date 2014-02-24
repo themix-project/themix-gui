@@ -131,7 +131,7 @@
 
 .content-view .help_button * {
     color: @theme_text_color;
-}   
+}
 
 .content-view .toolbar {
     -GtkWidget-window-dragging: true;
@@ -655,7 +655,7 @@ BirdieWidgetsTweetList * {
 }
 
 .composited-indicator,
-.wingpanel-app-button, 
+.wingpanel-app-button,
 .wingpanel-indicator-button {
     padding: 0 2px;
     background-color: transparent;
