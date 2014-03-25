@@ -503,15 +503,18 @@ GtkComboBox.combobox-entry .button:insensitive {
  * expander *
  ************/
 .expander {
-    color: alpha(currentColor, 0.7);
+	color: alpha(currentColor, 0.7);
+	border: alpha(currentColor, 0.7);
 }
 
 .expander:hover {
-    color: alpha(currentColor, 0.8);
+	color: alpha(currentColor, 0.8);
+	border-color: alpha(currentColor, 0.8);
 }
 
 .expander:active {
-    color: alpha(currentColor, 0.9);
+	color: alpha(currentColor, 0.9);
+	border-color: alpha(currentColor, 0.9);
 }
 
 /**************
