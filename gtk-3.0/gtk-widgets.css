@@ -1903,8 +1903,12 @@ GtkComboBox .separator {
 }
 
 .menu.spinner,
+.menu .spinner,
+.menu .spinner:hover,
 .primary-toolbar .spinner {
     color: @theme_selected_bg_color;
+    border: none;
+    box-shadow: none;
 }
 
 /*************
