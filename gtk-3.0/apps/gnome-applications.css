@@ -26,7 +26,7 @@ PanelApplet > GtkMenuBar.menubar,
 PanelApplet > GtkMenuBar.menubar.menuitem,
 PanelMenuBar.menubar,
 PanelMenuBar.menubar.menuitem {
-    -Panelpanel-icon-visible: true;
+    -PanelMenuBar-icon-visible: true;
 
     border-width: 0;
     background-color: @panel_bg_color;
