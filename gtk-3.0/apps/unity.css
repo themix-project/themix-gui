@@ -73,3 +73,7 @@ UnityPanelWidget,
     background-image: none;
     color: shade(@panel_fg_color, 1.08);
 }
+
+SheetStyleDialog.unity-force-quit {
+    background-color: @theme_bg_color;
+}
