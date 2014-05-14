@@ -36,19 +36,25 @@
     -GtkToolButton-icon-spacing: 6;
     -GtkToolItemGroup-expander-size: 8;
     -GtkTreeView-expander-size: 8;
-    -GtkWidget-focus-line-width: 1;
-    -GtkWidget-focus-padding: 0;
     -GtkWidget-link-color: @link_color;
     -GtkWidget-visited-link-color: @link_color;
     -GtkWindow-resize-grip-height: 0;
     -GtkWindow-resize-grip-width: 0;
     -WnckTasklist-fade-overlay-rect: 0;
 
+    /* Legacy only */
+    -GtkWidget-focus-line-width: 1;
+    -GtkWidget-focus-padding: 0;
+
     background-clip: padding-box;
 
+    /*
     outline-color: alpha(@theme_selected_bg_color, 0.5);
-    outline-style: solid;
-    outline-offset: 0;
+    outline-style: dashed;
+    outline-width: 1px;
+    outline-offset: -2px;
+    outline-radius: 2px;
+    */
 }
 
 /***************
@@ -57,6 +63,11 @@
 .background {
     background-color: @theme_bg_color;
     color: @theme_fg_color;
+}
+
+.background:backdrop {
+    text-shadow: none;
+    icon-shadow: none;
 }
 
 *:selected,
@@ -308,6 +319,11 @@ GtkCheckButton:selected:focus {
     background-color: transparent;
 }
 
+GtkCheckButton {
+    outline-offset: 0;
+    padding: 3px;
+}
+
 /*****************
  * column-header *
  *****************/
@@ -344,6 +360,11 @@ column-header:last-child .button {
 /****************
  * content view *
  ****************/
+.content-view.subtitle {
+    font: smaller;
+    padding: 0 12px;
+}
+
 .content-view.view {
     background-color: @theme_base_color;
 }
@@ -408,6 +429,7 @@ GtkHTML {
 ************/
 GtkCalendar {
     padding: 4px;
+    outline-offset: -1px;
 }
 
 GtkCalendar:inconsistent {
@@ -501,7 +523,12 @@ GtkComboBox.combobox-entry .button:insensitive {
 
 /************
  * expander *
- ************/
+************/
+GtkExpander {
+    padding: 3px;
+    outline-offset: 1px;
+}
+
 .expander {
 	color: alpha(currentColor, 0.7);
 	border: alpha(currentColor, 0.7);
@@ -525,6 +552,10 @@ GtkComboBox.combobox-entry .button:insensitive {
     color: @theme_fg_color;
 }
 
+.list-row {
+    padding: 3px;
+}
+
 .list-row:hover {
     background-color: shade(@theme_bg_color, 1.02);
 }
@@ -532,6 +563,14 @@ GtkComboBox.combobox-entry .button:insensitive {
 .list-row:selected {
     background-color: @theme_selected_bg_color;
     color: @theme_selected_fg_color;
+}
+
+/**************
+* flow boxes *
+**************/
+
+.grid-child {
+    padding: 3px;
 }
 
 /*********
@@ -894,6 +933,7 @@ GtkTreeMenu.menu,
 GtkMenuToolButton.menu,
 GtkComboBox .menu {
     background-color: @menu_bg_color;
+    margin: 3px;
 }
 
 .primary-toolbar .menu,
@@ -1085,6 +1125,10 @@ GtkPopover {
     box-shadow: 0 2px 3px alpha(black, 0.5);
 }
 
+GtkPopover:backdrop {
+    box-shadow: none;
+}
+
 GtkPopover.osd {
     box-shadow: 0 2px 7px 3px alpha(black, 0.5);
 }
@@ -1110,10 +1154,14 @@ GtkPopover .separator {
     font-weight: bold;
 }
 
-GtkModelButton.button,
-GtkModelButton.button:active,
-GtkModelButton.button:insensitive,
-GtkModelButton.button:active:insensitive {
+.menuitem.button {
+    color: @theme_fg_color;
+}
+
+.menuitem.button,
+.menuitem.button:active,
+.menuitem.button:insensitive,
+.menuitem.button:active:insensitive {
     background-color: transparent;
     background-image: none;
     border-color: transparent;
@@ -1122,9 +1170,9 @@ GtkModelButton.button:active:insensitive {
     color: @theme_fg_color;
 }
 
-GtkModelButton.button:active:hover,
-GtkModelButton.button:hover,
-GtkModelButton.button:selected {
+.menuitem.button:active:hover,
+.menuitem.button:hover,
+.menuitem.button:selected {
     border-width: 0;
     border-color: transparent;
     background-color: @theme_selected_bg_color;
@@ -1145,7 +1193,10 @@ GtkModelButton.button:selected {
     background-image: none;
     background-clip: border-box;
 
-    -GtkNotebook-initial-gap: 0;
+    -GtkNotebook-initial-gap: 10;
+    -GtkNotebook-arrow-spacing: 5;
+    -GtkNotebook-tab-curvature: 0;
+    -GtkNotebook-tab-overlap: 1;
     -GtkNotebook-has-tab-gap: false;
 }
 
@@ -1270,14 +1321,19 @@ GtkModelButton.button:selected {
 
 .notebook tab.reorderable-page:hover {
     background-color: shade(@theme_base_color, 0.85);
-    border-left: 1px solid shade(@theme_base_color, 0.7);
-    border-right: 1px solid shade(@theme_base_color, 0.7);
+    border-left: 0;
+    border-right: 0;
+    /* using box shadows instead of borders due to slanted edges */
+    box-shadow: inset 0 3px alpha(black, 0.03), inset 0 2px alpha(black, 0.03), inset 0 1px alpha(black, 0.03),
+                inset 1px 0 shade(@theme_base_color, 0.7), inset -1px 0 shade(@theme_base_color, 0.7);
 }
 
 .notebook tab.reorderable-page:active {
     background-color: shade(@theme_base_color, 0.90);
-    border-left: 1px solid shade(@theme_base_color, 0.75);
-    border-right: 1px solid shade(@theme_base_color, 0.75);
+    border-left: 0;
+    border-right: 0;
+    box-shadow: inset 0 3px alpha(black, 0.03), inset 0 2px alpha(black, 0.03), inset 0 1px alpha(black, 0.03),
+                inset 1px 0 shade(@theme_base_color, 0.75), inset -1px 0 shade(@theme_base_color, 0.75);
 }
 
 /* close button styling */
@@ -1320,6 +1376,8 @@ GtkProgressBar {
     padding: 0;
     border-width: 1px;
     border-radius: 2px;
+    font-size: smaller;
+    color: alpha(@theme_fg_color, 0.6);
 }
 
 .progressbar,
@@ -1451,6 +1509,7 @@ GtkLevelBar.vertical {
     padding: 0;
     border-width: 1px;
     border-radius: 2px;
+    outline-offset: -1px;
 }
 
 .scale.slider {
@@ -1926,6 +1985,7 @@ GtkSwitch {
     padding: 0;
     border-radius: 2px;
     font: bold condensed;
+    outline-offset: -4px;
 }
 
 GtkSwitch.slider {
@@ -2895,8 +2955,8 @@ GtkColorButton.button {
  ************/
 GtkTreeView {
     -GtkTreeView-vertical-separator: 0;
-    -GtkWidget-focus-line-width: 1;
-    -GtkWidget-focus-padding: 1;
+
+    outline-offset: -1px;
 }
 
 GtkTreeView.dnd {
@@ -3011,6 +3071,22 @@ GtkFontButton GtkLabel:last-child {
 
 GtkFileChooserButton GtkImage:last-child {
     color: alpha(currentColor, 0.7);
+}
+
+GtkFileChooser .pane-separator,
+GtkFileChooser .pane-separator:hover {
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.8);
+    background-color: @theme_bg_color;
+    color: shade(@theme_bg_color, 0.9);
+}
+
+/* for fallback when header bar not used */
+GtkFileChooser .dialog-action-box {
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: shade(@theme_bg_color, 0.7);
 }
 
 /*********************

@@ -230,6 +230,10 @@ GeditWindow .pane-separator:hover {
     color: @theme_selected_fg_color;
 }
 
+.gedit-document-panel .list-row {
+    padding: 4px;
+}
+
 .gedit-document-panel .list-row .button {
     padding: 1px;
     border-image: none;
@@ -245,19 +249,31 @@ GeditWindow .pane-separator:hover {
 
 .gedit-document-panel .prelight-row .button  {
     border-color: alpha(black, 0.1);
-    color: mix(@theme_text_color, @theme_base_color, 0.5);
+    color: alpha(white, 0.8);
 }
 
 .gedit-document-panel .list-row .button:hover,
 .gedit-document-panel .prelight-row .button:hover {
-    color: @theme_text_color;
     border-color: alpha(black, 0.1);
+    color: white;
 }
 
 .gedit-document-panel .prelight-row .button:active {
-    color: @theme_text_color;
-    background-color: alpha(black, 0.08);
     border-color: alpha(black, 0.2);
+    background-color: alpha(black, 0.08);
+    color: white;
+}
+
+.gedit-document-panel-dragged-row {
+    border: 1px solid alpha(black, 0.1);
+    background-color: alpha(black, 0.5);
+    color: white;
+}
+
+.gedit-document-panel-placeholder-row {
+    border: none;
+    background-color: alpha(black, 0.08);
+    transition: all 200ms ease-in;
 }
 
 GeditStatusbar {
