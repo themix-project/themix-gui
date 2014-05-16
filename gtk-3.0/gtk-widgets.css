@@ -15,8 +15,6 @@
     -GtkCheckButton-indicator-size: 16;
     -GtkCheckMenuItem-indicator-size: 14;
     -GtkExpander-expander-size: 8;
-    -GtkHTML-link-color: @link_color;
-    -GtkIMHtml-hyperlink-color: @link_color;
     -GtkMenu-horizontal-padding: 0;
     -GtkMenu-vertical-padding: 0;
     -GtkPaned-handle-size: 4;
@@ -36,13 +34,11 @@
     -GtkToolButton-icon-spacing: 6;
     -GtkToolItemGroup-expander-size: 8;
     -GtkTreeView-expander-size: 8;
-    -GtkWidget-link-color: @link_color;
-    -GtkWidget-visited-link-color: @link_color;
     -GtkWindow-resize-grip-height: 0;
     -GtkWindow-resize-grip-width: 0;
     -WnckTasklist-fade-overlay-rect: 0;
 
-    /* Legacy only */
+    /* legacy only */
     -GtkWidget-focus-line-width: 1;
     -GtkWidget-focus-padding: 0;
 
@@ -124,6 +120,21 @@ GtkBox:insensitive,
 GtkGrid,
 GtkGrid:insensitive {
     background-color: transparent;
+}
+
+/**************
+ * hyperlinks *
+ **************/
+* {
+    -GtkHTML-link-color: @link_color;
+    -GtkIMHtml-hyperlink-color: @link_color;
+    -GtkWidget-link-color: @link_color;
+    -GtkWidget-visited-link-color: @link_color;
+}
+
+*:link,
+*:visited {
+    color: @link_color;
 }
 
 /******************
