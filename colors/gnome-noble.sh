@@ -1,0 +1,8 @@
+NAME="Gnome Noble"
+BG=d8d8d8
+FG=101010
+SEL=ad7fa8
+TXT_BG=ffffff
+TXT_FG=1a1a1a
+MENU_BG=3c3c3c
+MENU_FG=e6e6e6
