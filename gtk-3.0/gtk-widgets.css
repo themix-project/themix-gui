@@ -1003,7 +1003,7 @@ GtkModelMenuItem GtkBox GtkImage {
        linear,
        center top,
        center bottom,
-       from (shade(@theme_bg_color, 1.2)),
+       from (shade(@theme_bg_color, 1.1)),
        color-stop (0.3, @theme_bg_color),
        to (@theme_bg_color)
     );
@@ -1022,8 +1022,8 @@ GtkModelMenuItem GtkBox GtkImage {
        linear,
        right center,
        left center,
-       from (shade(@theme_bg_color, 1.2)),
-       color-stop (0.4, @theme_bg_color),
+       from (shade(@theme_bg_color, 1.1)),
+       color-stop (0.2, @theme_bg_color),
        to (@theme_bg_color)
     );
 }
@@ -1041,7 +1041,7 @@ GtkModelMenuItem GtkBox GtkImage {
        linear,
        center bottom,
        center top,
-       from (shade(@theme_bg_color, 1.2)),
+       from (shade(@theme_bg_color, 1.1)),
        color-stop (0.3, @theme_bg_color),
        to (@theme_bg_color)
     );
@@ -1060,8 +1060,8 @@ GtkModelMenuItem GtkBox GtkImage {
        linear,
        left center,
        right center,
-       from (shade(@theme_bg_color, 1.2)),
-       color-stop (0.4, @theme_bg_color),
+       from (shade(@theme_bg_color, 1.1)),
+       color-stop (0.2, @theme_bg_color),
        to (@theme_bg_color)
     );
 }
