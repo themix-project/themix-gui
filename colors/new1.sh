@@ -1,0 +1,8 @@
+   NAME="new1"
+     BG=222222
+     FG=eeeeec
+    SEL=3e2f4f
+ TXT_BG=888888
+ TXT_FG=000000
+MENU_BG=222222
+MENU_FG=eeeeec
