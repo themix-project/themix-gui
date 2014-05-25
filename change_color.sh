@@ -4,7 +4,7 @@ test -z "$1" &&
   echo 'usage: ./change_color.sh PRESET_NAME' &&
   exit 1
 
-SRC_PATH=./
+SRC_PATH=$(dirname $0)
 DEST_PATH=~/.themes/ncc_current
 
 replace () {
