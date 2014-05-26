@@ -8,7 +8,7 @@ SRC_PATH=$(dirname $0)
 DEST_PATH=~/.themes/ncc_current
 
 replace () {
-  grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$2"'/'"$3"'/g'
+  grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g'
 }
 
 (
@@ -33,12 +33,12 @@ OLD_MENU_BG=$(sed -n '6p' < current_colors.txt) &&
 OLD_MENU_FG=$(sed -n '7p' < current_colors.txt) &&
 
 cd $DEST_PATH &&
-replace $OLD_BG $OLD_BG $BG &&
-replace $OLD_FG $OLD_FG $FG &&
-replace $OLD_SEL $OLD_SEL $SEL &&
-replace $OLD_TXT_BG $OLD_TXT_BG $TXT_BG &&
-replace $OLD_TXT_FG $OLD_TXT_FG $TXT_FG &&
-replace $OLD_MENU_BG $OLD_MENU_BG $MENU_BG &&
-replace $OLD_MENU_FG $OLD_MENU_FG $MENU_FG &&
+replace $OLD_BG $BG &&
+replace $OLD_FG $FG &&
+replace $OLD_SEL $SEL &&
+replace $OLD_TXT_BG $TXT_BG &&
+replace $OLD_TXT_FG $TXT_FG &&
+replace $OLD_MENU_BG $MENU_BG &&
+replace $OLD_MENU_FG $MENU_FG &&
 
 exit 0
