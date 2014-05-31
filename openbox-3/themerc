@@ -44,10 +44,9 @@ window.active.grip.bg.colorTo: #00FF00
 window.active.button.unpressed.bg: Parentrelative
 window.active.button.unpressed.image.color: #ee66ee66ee66
 
-window.active.button.pressed.bg: Flat Gradient Vertical
-window.active.button.pressed.bg.color: #989898
-window.active.button.pressed.bg.colorTo: #6c6c6c
-window.active.button.pressed.image.color: #ee66ee66ee66
+window.active.button.pressed.bg: Solid Flat
+window.active.button.pressed.bg.color: #ec7584
+window.active.button.pressed.image.color: #33cc33cc33cc
 
 window.active.button.disabled.bg: Parentrelative
 window.active.button.disabled.image.color: #9b9b9b
@@ -95,7 +94,7 @@ osd.bg: Solid Flat
 osd.bg.color: #33cc33cc33cc
 osd.bg.shadow: 0
 
-osd.border.width: 0
+osd.border.width: 2
 
 osd.hilight.bg: Solid Flat
 osd.hilight.bg.color: #ffff33337777
