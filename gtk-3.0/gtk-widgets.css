@@ -1388,8 +1388,8 @@ OsScrollbar:insensitive {
 .header-bar GtkSeparatorToolItem,
 .header-bar .separator,
 .header-bar .separator:insensitive {
-    border-color: shade(@toolbar_bg_color, 0.95);
-    color: shade(@toolbar_bg_color, 0.95);
+    border-color: shade(@menubar_bg_color, 0.95);
+    color: shade(@menubar_bg_color, 0.95);
 }
 
 .primary-toolbar .button .separator,
@@ -1398,7 +1398,7 @@ OsScrollbar:insensitive {
 .toolbar .button.separator,
 .header-bar .button .separator,
 .header-bar .button.separator {
-    border-color: shade(@toolbar_bg_color, 0.95);
+    border-color: shade(@menubar_bg_color, 0.95);
 }
 
 .primary-toolbar .button .separator:insensitive,
@@ -1407,7 +1407,7 @@ OsScrollbar:insensitive {
 .toolbar .button.separator:insensitive,
 .header-bar .button .separator:insensitive,
 .header-bar .button.separator:insensitive {
-    border-color: shade(@toolbar_bg_color, 0.85);
+    border-color: shade(@menubar_bg_color, 0.85);
 }
 
 .menuitem.separator {
@@ -1856,10 +1856,7 @@ GtkColorButton.button {
  **************/
 .header-bar {
     padding: 4px;
-    border-width: 0 0 1px;
-    border-style: solid;
-    border-color: shade(@toolbar_bg_color, 0.8);
-    background-color: @toolbar_bg_color;
+    background-color: @menubar_bg_color;
 }
 
 .header-bar .button.text-button {
@@ -1944,32 +1941,32 @@ GtkColorButton.button {
 .toolbar .button,
 .header-bar GtkComboBox,
 .header-bar .button {
-    border-color: shade(@toolbar_bg_color, 0.8);
-    background-color: shade(@toolbar_bg_color, 1.08);
+    border-color: shade(@menubar_bg_color, 0.8);
+    background-color: shade(@menubar_bg_color, 1.08);
     background-image: none;
-    color: @toolbar_fg_color;
+    color: @menubar_fg_color;
 }
 
 .primary-toolbar .button:hover,
 .toolbar .button:hover,
 .header-bar .button:hover {
-    border-color: shade(@toolbar_bg_color, 0.7);
-    background-color: shade(@toolbar_bg_color, 1.10);
+    border-color: shade(@menubar_bg_color, 0.7);
+    background-color: shade(@menubar_bg_color, 1.10);
     background-image: none;
 }
 
 .primary-toolbar .button:active,
 .toolbar .button:active,
 .header-bar .button:active {
-    border-color: shade(@toolbar_bg_color, 0.8);
-    background-color: shade(@toolbar_bg_color, 0.95);
+    border-color: shade(@menubar_bg_color, 0.8);
+    background-color: shade(@menubar_bg_color, 0.95);
     background-image: none;
 }
 
 .primary-toolbar .button:active:hover,
 .toolbar .button:active:hover,
 .header-bar .button:active:hover {
-    border-color: shade(@toolbar_bg_color, 0.7);
+    border-color: shade(@menubar_bg_color, 0.7);
 }
 
 .primary-toolbar .button:focus,
@@ -1984,29 +1981,29 @@ GtkColorButton.button {
 .header-bar .button:hover:focus,
 .header-bar .button:active:focus,
 .header-bar .button:active:hover:focus {
-    border-color: shade(@toolbar_bg_color, 0.7);
+    border-color: shade(@menubar_bg_color, 0.7);
 }
 
 .primary-toolbar .button:insensitive,
 .toolbar .button:insensitive,
 .header-bar .button:insensitive {
-    border-color: shade(@toolbar_bg_color, 0.85);
-    background-color: shade(@toolbar_bg_color, 0.9);
+    border-color: shade(@menubar_bg_color, 0.85);
+    background-color: shade(@menubar_bg_color, 0.9);
     background-image: none;
 }
 
 .primary-toolbar .button:active *:insensitive,
 .toolbar .button:active *:insensitive,
 .header-bar .button:active *:insensitive {
-    border-color: shade(@toolbar_bg_color, 0.75);
-    background-color: shade(@toolbar_bg_color, 0.80);
+    border-color: shade(@menubar_bg_color, 0.75);
+    background-color: shade(@menubar_bg_color, 0.80);
     background-image: none;
 }
 
 .primary-toolbar .entry,
 .toolbar .entry,
 .header-bar .entry {
-    border-color: shade(@toolbar_bg_color, 0.8);
+    border-color: shade(@menubar_bg_color, 0.8);
 }
 
 .primary-toolbar .entry:active,
@@ -2015,7 +2012,7 @@ GtkColorButton.button {
 .toolbar .entry:focus,
 .header-bar .entry:active,
 .header-bar .entry:focus {
-    border-color: shade(@toolbar_bg_color, 0.7);
+    border-color: shade(@menubar_bg_color, 0.7);
 }
 
 /* inline-toolbar */
@@ -2325,7 +2322,7 @@ GtkColorButton.button {
 .header-bar .button.raised.linked,
 .header-bar .raised.linked .button,
 .header-bar .linked .button {
-    box-shadow: inset -1px 0 shade(@toolbar_bg_color, 0.9);
+    box-shadow: inset -1px 0 shade(@menubar_bg_color, 0.9);
 }
 
 .primary-toolbar .button.raised.linked:active,
@@ -3071,8 +3068,8 @@ GtkBubbleWindow .toolbar {
 .titlebar {
     border-radius: 2px 2px 0 0;
     background-image: none;
-    background-color: @toolbar_bg_color;
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.1);
+    background-color: @menubar_bg_color;
+    color: mix(@menubar_fg_color, @menubar_bg_color, 0.1);
     text-shadow: none;
 }
 
@@ -3091,8 +3088,8 @@ GtkBubbleWindow .toolbar {
 
 .titlebar:backdrop {
     background-image: none;
-    background-color: @toolbar_bg_color;
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.4);
+    background-color: @menubar_bg_color;
+    color: mix(@menubar_fg_color, @menubar_bg_color, 0.4);
     text-shadow: none;
 }
 
@@ -3100,7 +3097,7 @@ GtkBubbleWindow .toolbar {
     padding: 4px;
     border-style: none;
     background: none;
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.1);
+    color: mix(@menubar_fg_color, @menubar_bg_color, 0.1);
     icon-shadow: none;
 }
 
@@ -3119,14 +3116,14 @@ GtkBubbleWindow .toolbar {
 
 /*
 .titlebar .right .titlebutton:first-child {
-    border-left: 1px solid shade(@toolbar_bg_color, 0.9);
+    border-left: 1px solid shade(@menubar_bg_color, 0.9);
 }
 
 .titlebar .right .titlebutton:last-child {
 }
 
 .titlebar .left .titlebutton:last-child {
-    border-right: 1px solid shade(@toolbar_bg_color, 0.9);
+    border-right: 1px solid shade(@menubar_bg_color, 0.9);
 }
 
 .titlebar .left .titlebutton:first-child {
@@ -3135,7 +3132,7 @@ GtkBubbleWindow .toolbar {
 
 .titlebar .titlebutton:backdrop {
     background-image: none;
-    color: mix(@toolbar_fg_color, @toolbar_bg_color, 0.4);
+    color: mix(@menubar_fg_color, @menubar_bg_color, 0.4);
     icon-shadow: none;
 }
 
@@ -3143,7 +3140,7 @@ GtkBubbleWindow .toolbar {
     border-style: none;
     border-radius: 2px 2px 0 0;
     box-shadow: 0 3px 7px 1px alpha(black, 0.7),
-                0 0 0 1px mix(shade(@toolbar_bg_color, 0.7), @toolbar_fg_color, 0.21);
+                0 0 0 1px mix(shade(@menubar_bg_color, 0.7), @menubar_fg_color, 0.21);
 
     /* this is used for the resize cursor area */
     margin: 10px;
@@ -3151,5 +3148,14 @@ GtkBubbleWindow .toolbar {
 
 .window-frame:backdrop {
     box-shadow: 0 3px 5px 1px alpha(black, 0.5),
-                0 0 0 1px mix(shade(@toolbar_bg_color, 0.7), @toolbar_fg_color, 0.12);
+                0 0 0 1px mix(shade(@menubar_bg_color, 0.7), @menubar_fg_color, 0.12);
 }
+/*
+.header-bar {
+    padding: 4px;
+    border-style: solid;
+    border-color: shade(@menubar_bg_color, 0.8);
+    background-color: @menubar_bg_color;
+    background-color: green !important;
+    color: red !important;
+}*/
