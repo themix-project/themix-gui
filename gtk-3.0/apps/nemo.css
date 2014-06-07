@@ -1,3 +1,29 @@
+/*****************
+ * desktop icons *
+ *****************/
+.nemo-canvas-item {
+    border-radius: 2px;
+}
+
+.nemo-desktop.nemo-canvas-item {
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+.nemo-desktop.nemo-canvas-item:active {
+    color: @theme_fg_color;
+}
+
+.nemo-desktop.nemo-canvas-item:selected {
+    color: @theme_selected_fg_color;
+}
+
+.nemo-desktop.nemo-canvas-item:active,
+.nemo-desktop.nemo-canvas-item:prelight,
+.nemo-desktop.nemo-canvas-item:selected {
+    text-shadow: none;
+}
+
 /***********************
  * pathbar breadcrumbs *
  ***********************/
