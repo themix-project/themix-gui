@@ -1191,6 +1191,52 @@ GtkPopover .separator {
     color: @theme_selected_fg_color;
 }
 
+GtkModelButton.button
+{
+    color: @theme_fg_color;
+}
+
+GtkModelButton.button:active,
+GtkModelButton.button:insensitive,
+GtkModelButton.button:active:insensitive,
+GtkModelButton.button {
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    border-image: none;
+    border-style: none;
+    box-shadow: none;
+}
+
+GtkModelButton.button:backdrop,
+GtkModelButton.button:hover:backdrop,
+GtkModelButton.button:insensitive:backdrop,
+GtkModelButton.button:active:insensitive:backdrop,
+GtkModelButton.button:active:backdrop,
+GtkModelButton.button:active:hover:backdrop,
+GtkModelButton.button:active:selected:backdrop {
+    text-shadow: none;
+    icon-shadow: none;
+    color: @theme_selected_fg_color;
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    border-image: none;
+    border-style: none;
+    box-shadow: none;
+}
+
+GtkModelButton.button:active:hover,
+GtkModelButton.button:hover,
+GtkModelButton.button:selected {
+    background-image: none;
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+    text-shadow: none;
+    border-width: 0;
+    border-color: transparent;
+}
+
 /************
  * notebook *
  ************/
