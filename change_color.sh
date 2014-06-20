@@ -5,7 +5,7 @@ test -z "$1" &&
   exit 1
 
 SRC_PATH=$(dirname $0)
-DEST_PATH=~/.themes/ncc_current
+DEST_PATH=~/.themes/oomox_current
 
 replace () {
   grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g'
