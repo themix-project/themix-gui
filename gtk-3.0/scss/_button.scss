@@ -1,0 +1,105 @@
+@import "functions";
+
+@mixin linked_button($bg, $shadow) {
+	border-width: 1px;
+	border-radius: 0;
+	border-right-width: 0;
+	border-left-width: 0;
+	box-shadow: inset -1px 0 border_normal($bg);
+
+	&:first-child {
+		border-width: 1px;
+		border-radius: $roundness;
+		border-right-width: 0;
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+	}
+
+	&:last-child {
+		border-width: 1px;
+		border-radius: $roundness;
+		border-left-width: 0;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
+
+	&:only-child {
+		border-width: 1px;
+		border-radius: $roundness;
+	}
+
+	&:focus, &:hover { box-shadow: inset -1px 0 border_focus($bg); }
+
+	&:active, &:active:hover,
+	&:active:focus, &:active:hover:focus {
+		box-shadow: inset -1px 0 border_active($bg),
+					inset 1px 0 alpha($shadow, .07),
+					inset 0 1px alpha($shadow, .08),
+					inset 0 -1px alpha($shadow, .05);
+	}
+
+	&:insensitive { box-shadow: inset -1px 0 border_insensitive($bg); }
+
+	&:last-child, &:only-child,
+	&:insensitive:last-child, &:insensitive:only-child,
+	&:active *:insensitive:last-child, &:active *:insensitive:only-child { box-shadow: none; }
+
+	&:active:last-child, &:active:only-child {
+		box-shadow: inset 1px 0 alpha($shadow, .07),
+					inset 0 1px alpha($shadow, .08),
+					inset -1px 0 alpha($shadow, .07);
+	}
+}
+
+@mixin button($bg, $fg) {
+	@include linear-gradient(shade($bg, 1.05));
+	@include border(shade($bg, 1.05));
+
+	padding: ($spacing - 1px) ($spacing + 1px);
+	border-width: 1px;
+	border-radius: $roundness;
+	border-style: solid;
+	color: $fg;
+	transition: 100ms ease;
+
+	-GtkWidget-focus-padding: 1;
+	-GtkWidget-focus-line-width: 0;
+
+	&:focus, &:hover { @include linear-gradient(shade($bg, 1.1)); }
+
+	&:active {
+		@include linear-gradient(shade($bg, .95));
+
+		box-shadow: inset 1px 0 alpha($dark_shadow, .07),
+					inset 0 1px alpha($dark_shadow, .08),
+					inset -1px 0 alpha($dark_shadow, .07),
+					inset 0 -1px alpha($dark_shadow, .05);
+	}
+
+	&:insensitive {
+		@include linear-gradient(shade($bg, .95));
+
+		color: mix($bg, $fg, .5);
+	}
+
+	&:active *:insensitive {
+		@include linear-gradient(shade($bg, .8));
+
+		box-shadow: none;
+	}
+
+	&.separator, .separator {
+		color: shade($bg, .95);
+		border: 1px solid currentColor;
+
+		&:insensitive { color: shade($bg, .85); }
+	}
+
+	&.linked, &.raised.linked, .linked & { @include linked_button(shade($bg, 1.05), $dark_shadow); }
+}
+
+.button {
+	@include button($bg_color, $fg_color);
+
+	&.default { @include button($selected_bg_color, $selected_fg_color); }
+}

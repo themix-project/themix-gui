@@ -1,0 +1,43 @@
+/* default color scheme */
+$bg_color: #dedede;
+$fg_color: #555555;
+$base_color: #f9f9f9;
+$text_color: #2d2d2d;
+$selected_bg_color: #d64937;
+$selected_fg_color: #f9f9f9;
+$tooltip_bg_color: #2d2d2d;
+$tooltip_fg_color: #dedede;
+
+/* dark colors */
+$dark_bg_color: #2d2d2d;
+$dark_fg_color: #dedede;
+
+/* shadows */
+$dark_shadow: #000;
+$light_shadow: #fff;
+
+/* misc colors used by gtk+ */
+$info_fg_color: rgb (58, 135, 173);
+$info_bg_color: rgb (217, 237, 247);
+$warning_fg_color: rgb (192, 152, 83);
+$warning_bg_color: rgb (252, 248, 227);
+$question_fg_color: rgb (214, 73, 55);
+$question_bg_color: rgb (252, 229, 213);
+$error_fg_color: rgb (185, 74, 72);
+$error_bg_color: rgb (242, 222, 222);
+$link_color: #fc6f5d;
+$success_color: #53a93f;
+$warning_color: #f57900;
+$error_color: #cc0000;
+
+$titlebar_bg_color: $dark_bg_color;
+$titlebar_fg_color: $dark_fg_color;
+
+$menu_bg_color: $dark_bg_color;
+$menu_fg_color: $dark_fg_color;
+
+/* widget styles */
+$roundness: 2px;
+$spacing: 5px;
+$gradient: 0;
+$contrast: .7;
