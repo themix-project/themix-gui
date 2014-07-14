@@ -1,11 +1,13 @@
 #!/bin/bash
 
 test -z "$1" &&
-  echo 'usage: ./change_color.sh PRESET_NAME' &&
+  echo 'usage: ./change_color.sh PRESET_NAME [OUTPUT_THEME_NAME]' &&
   exit 1
 
 SRC_PATH=$(dirname $0)
-DEST_PATH=~/.themes/oomox2_current
+OUTPUT_THEME_NAME="$2"
+test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox2_current
+DEST_PATH=~/.themes/"$OUTPUT_THEME_NAME"
 
 replace () {
   grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g'
