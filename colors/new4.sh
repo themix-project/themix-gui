@@ -1,8 +1,0 @@
-   NAME="new4"
-     BG=555555
-     FG=dddddb
-    SEL=5e468c
- TXT_BG=888888
- TXT_FG=000000
-MENU_BG=555555
-MENU_FG=dddddb

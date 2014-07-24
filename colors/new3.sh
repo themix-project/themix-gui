@@ -1,8 +1,0 @@
-   NAME="new3"
-     BG=333333
-     FG=eeeeec
-    SEL=5e468c
- TXT_BG=888888
- TXT_FG=000000
-MENU_BG=333333
-MENU_FG=eeeeec
