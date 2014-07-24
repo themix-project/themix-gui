@@ -1,0 +1,11 @@
+NAME="Gnome Colors Noble Dark"
+BG=3c3c3c
+FG=d4d4d4
+TXT_BG=4c4c4c
+TXT_FG=$FG
+MENU_BG=$BG
+MENU_FG=$FG
+SEL_BG=75507b
+SEL_FG=$FG
+BTN_BG=$BG
+BTN_FG=$FG
