@@ -124,7 +124,7 @@ style "murrine-default" {
 		animation = FALSE
 		arrowstyle = 1 # 0 = normal arrows, 1 = filled arrows
 		border_shades = { 1.0, 1.0 } # gradient to draw on border
-		colorize_scrollbar = TRUE
+		colorize_scrollbar = FALSE
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
 		contrast = 0.8 # overal contrast with borders
 		focusstyle = 1 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
@@ -204,8 +204,8 @@ style "murrine-button"  = "murrine-wider" {
 }
 
 style "murrine-scrollbar" {
-	bg[NORMAL] = mix (0.21, @fg_color, @bg_color)
-	bg[PRELIGHT] = mix (0.31, @fg_color, @bg_color)
+	bg[NORMAL] = @btn_bg_color
+	bg[PRELIGHT] = mix (0.31, @selected_bg_color, @btn_bg_color)
 	bg[ACTIVE] = @selected_bg_color
 
 	engine "murrine" {
