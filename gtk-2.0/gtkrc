@@ -60,7 +60,7 @@ style "murrine-default" {
 	GtkScrollbar::trough-border = 0
 
 	GtkScrolledWindow::scrollbar-spacing = 0
-	GtkScrolledWindow::scrollbars-within-bevel = 1
+	GtkScrolledWindow::scrollbars-within-bevel = 0
 
 	GtkSeparatorMenuItem::horizontal-padding = 0
 
@@ -617,9 +617,9 @@ style "chrome-gtk-frame" {
 	ChromeGtkFrame::incognito-frame-gradient-size = 0
 	ChromeGtkFrame::incognito-frame-gradient-color = @menubar_bg_color
 
-	ChromeGtkFrame::scrollbar-trough-color = @bg_color
-	ChromeGtkFrame::scrollbar-slider-normal-color =  mix (0.21, @fg_color, @bg_color)
-	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @fg_color, @bg_color)
+	ChromeGtkFrame::scrollbar-trough-color = @btn_bg_color
+	ChromeGtkFrame::scrollbar-slider-normal-color =  @selected_bg_color
+	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @selected_bg_color, @btn_bg_color)
 }
 
 class "ChromeGtkFrame" style "chrome-gtk-frame"
