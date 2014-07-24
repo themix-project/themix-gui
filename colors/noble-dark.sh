@@ -1,8 +1,0 @@
-NAME="Gnome Noble Dark"
-BG=3c3c3c
-FG=d4d4d4
-SEL=75507b
-TXT_BG=4c4c4c
-TXT_FG=d4d4d4
-MENU_BG=3c3c3c
-MENU_FG=d4d4d4
