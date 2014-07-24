@@ -1,6 +1,7 @@
 # Numix GTK Theme
 
-gtk-color-scheme = "base_color:#999999999999\nbg_color:#777777777777\ntooltip_bg_color:#777777777777\nselected_bg_color:#ffff33337777\ntext_color:#222222222222\nfg_color:#111111111111\ntooltip_fg_color:#111111111111\nselected_fg_color:#111111111111\nmenubar_bg_color:#33cc33cc33cc\nmenubar_fg_color:#ee66ee66ee66\ntoolbar_bg_color:#777777777777\ntoolbar_fg_color:#111111111111\nmenu_bg_color:#33cc33cc33cc\nmenu_fg_color:#ee66ee66ee66\npanel_bg_color:#777777777777\npanel_fg_color:#111111111111\nlink_color:#fc6f5d"
+gtk-color-scheme =
+"base_color:#999999999999\nbg_color:#777777777777\ntooltip_bg_color:#777777777777\nselected_bg_color:#ffff33337777\ntext_color:#222222222222\nfg_color:#111111111111\ntooltip_fg_color:#111111111111\nselected_fg_color:#ffeeffeeffee\nmenubar_bg_color:#33cc33cc33cc\nmenubar_fg_color:#ee66ee66ee66\ntoolbar_bg_color:#777777777777\ntoolbar_fg_color:#111111111111\nmenu_bg_color:#33cc33cc33cc\nmenu_fg_color:#ee66ee66ee66\npanel_bg_color:#777777777777\npanel_fg_color:#111111111111\nlink_color:#fc6f5d\nbtn_bg_color:#66cc33cc99cc\nbtn_fg_color:#dd55dd55dd55"
 
 # Default Style
 
@@ -59,7 +60,7 @@ style "murrine-default" {
 	GtkScrollbar::trough-border = 0
 
 	GtkScrolledWindow::scrollbar-spacing = 0
-	GtkScrolledWindow::scrollbars-within-bevel = 1
+	GtkScrolledWindow::scrollbars-within-bevel = 0
 
 	GtkSeparatorMenuItem::horizontal-padding = 0
 
@@ -182,20 +183,29 @@ style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 }
 
 # Various Standard Widgets
-
 style "murrine-button"  = "murrine-wider" {
-	bg[NORMAL] = shade (1.08, @bg_color)
-	bg[PRELIGHT] = shade (1.10, @bg_color)
-	bg[ACTIVE] = shade (0.95, @bg_color)
-	bg[INSENSITIVE] = shade (0.85, @bg_color)
+	fg[NORMAL] = @btn_fg_color
+	fg[PRELIGHT] = @btn_fg_color
+	fg[ACTIVE] = @btn_fg_color
+	fg[INSENSITIVE] = @btn_fg_color
+
+	bg[NORMAL] = @btn_bg_color
+	bg[PRELIGHT] = shade (1.10, @btn_bg_color)
+	bg[ACTIVE] = shade (0.95, @btn_bg_color)
+	bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
+
+	#bg[NORMAL] = shade (1.08, @btn_bg_color)
+	#bg[PRELIGHT] = shade (1.10, @btn_bg_color)
+	#bg[ACTIVE] = shade (0.95, @btn_bg_color)
+	#bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
 
   	engine "murrine" {
 	}
 }
 
 style "murrine-scrollbar" {
-	bg[NORMAL] = mix (0.21, @fg_color, @bg_color)
-	bg[PRELIGHT] = mix (0.31, @fg_color, @bg_color)
+	bg[NORMAL] = @btn_bg_color
+	bg[PRELIGHT] = mix (0.31, @selected_bg_color, @btn_bg_color)
 	bg[ACTIVE] = @selected_bg_color
 
 	engine "murrine" {
@@ -607,9 +617,9 @@ style "chrome-gtk-frame" {
 	ChromeGtkFrame::incognito-frame-gradient-size = 0
 	ChromeGtkFrame::incognito-frame-gradient-color = @menubar_bg_color
 
-	ChromeGtkFrame::scrollbar-trough-color = @bg_color
-	ChromeGtkFrame::scrollbar-slider-normal-color =  mix (0.21, @fg_color, @bg_color)
-	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @fg_color, @bg_color)
+	ChromeGtkFrame::scrollbar-trough-color = @btn_bg_color
+	ChromeGtkFrame::scrollbar-slider-normal-color =  @selected_bg_color
+	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @selected_bg_color, @btn_bg_color)
 }
 
 class "ChromeGtkFrame" style "chrome-gtk-frame"
