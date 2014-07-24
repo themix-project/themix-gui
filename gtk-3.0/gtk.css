@@ -17,6 +17,8 @@
 @define-color theme_selected_fg_color @selected_fg_color;
 @define-color theme_tooltip_bg_color @tooltip_bg_color;
 @define-color theme_tooltip_fg_color @tooltip_fg_color;
+@define-color theme_button_bg_color #66cc33cc99cc;
+@define-color theme_button_fg_color #dd55dd55dd55;
 
 /* shadow effects */
 @define-color light_shadow #fff;
