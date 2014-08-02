@@ -16,3 +16,5 @@ next select oomox_current in your appearance config tool (for example, _lxappear
 also u can generate the theme in web UI: http://actionless.github.io/oomox/
 
 ![Screenshot](http://fc09.deviantart.net/fs71/f/2014/145/7/9/oomox___change_numix_colorscheme_by_actionless-d7jo5ul.png "Screenshot")
+
+![Web UI](http://i.imgur.com/yE5k7Xa.png "Web UI")
