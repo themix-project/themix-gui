@@ -1,0 +1,167 @@
+body, input{
+  font-family: 'Source Sans Pro', sans;
+}
+
+.block
+{
+  float: left;
+  padding: 5px;
+  background: lightgray;
+  width: 140px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.palette
+{
+  label
+  {
+    font-size: 14px;
+    text-align: right;
+    display: block;
+    input
+    {
+      font-size: inherit;
+      margin: 0;
+      margin-left: 2px;
+      width: 60px;
+      padding: 2px;
+      border: 1px gray solid;
+      border-bottom-width: 0;
+    }
+  }
+}
+
+.output
+{
+  float: left;
+  .label{
+    font-size: 10px;
+    width: 140px;
+    margin: 0;
+  }
+  pre{
+    background: lightgray;
+  }
+}
+
+.preview
+{
+  float: left;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+
+  height: 230px;
+  width: 375px;
+
+  padding: 20px;
+  background: #333;
+  font-size: 14px;
+
+  .window
+  {
+    height: 200px;
+    width: 350px;
+    padding: 2px;
+    .menubar
+    {
+      padding-left: 5px;
+      .item
+      {
+        padding: 4px;
+        float: left;
+      }
+      .item:last-child
+      {
+	float: none;
+      }
+    }
+    .notebook
+    {
+      margin: 7px;
+      .tabs
+      {
+        .tab
+	{
+          padding: 5px;
+          float: left;
+          border-style: solid;
+          border-left-width: 1px;
+          border-top-width: 3px;
+          border-right-width: 1px;
+          border-bottom-width: 0;
+        }
+        .tab:last-child
+	{
+	  float: left;
+	}
+      }
+      .tabs:after
+      {
+	content: '';
+	float: none;
+	display: block;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	height: 30px;
+      }
+      .content
+      {
+        border-width: 1px;
+        border-top-width: 0;
+        border-style: solid;
+        padding: 5px;
+	section
+	{
+	  float: left;
+	  border-radius: 3%;
+	  margin: 5px;
+	  padding: 6px;
+	  border-style: solid;
+	  border-width: 1px;
+	  width: 145px;
+	  input, button
+	  {
+	    width: 135px;
+	    border-radius: 5%;
+	    margin: 5px;
+	    padding: 5px;
+	    border: 1px gray solid;
+	  }
+	}
+	.scrolllist{
+	  float: left;
+	  margin: 5px;
+	  ul
+	  {
+	    float: left;
+	    margin: 0;
+	    padding: 0;
+	    width: 130px;
+	    border-style: solid;
+	    border-width: 1px;
+	    li
+	    {
+	      display: block;
+	      padding: 3px;
+	    }
+	  }
+	  .scrollbar
+	  {
+	    float: left;
+	    width: 10px;
+	    height: 68px;
+	  }
+        }
+      }
+      .content:after
+      {
+	content: "";
+	display: table;
+	clear: both;
+      }
+    }
+  }
+}
