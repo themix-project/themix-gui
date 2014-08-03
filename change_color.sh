@@ -7,7 +7,7 @@ test -z "$1" &&
 SRC_PATH=$(readlink -e $(dirname $0))
 OUTPUT_THEME_NAME="$2"
 
-test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox2_current
+test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox_current
 DEST_PATH=~/.themes/"$OUTPUT_THEME_NAME"
 
 FILELIST=(
@@ -20,12 +20,11 @@ FILELIST=(
 replace () {
 	for FILE in "${FILELIST[@]}";
 	do
-		echo "$FILE";
+		sed -i -e 's/'"$1"'/'"$2"'/g' "$FILE";
 	done;
-  #grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g'
 }
 
-test "$SRC_PATH" = "$DEST_PATH" && (echo "can't do that" && exit 1) ||
+test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
 (
   rm -r $DEST_PATH ;
   mkdir -p $DEST_PATH ;
