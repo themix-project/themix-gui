@@ -546,6 +546,8 @@ style "xfwm-tabwin" {
 }
 
 style "xfwm-tabwin-button" {
+        font_name = "bold"
+
 	bg[SELECTED] = @selected_bg_color
 }
 
@@ -769,6 +771,6 @@ widget_class "*XfceHeading*" style "xfce-header"
 widget_class "*XfceDesktop*" style "xfdesktop-windowlist"
 widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
 widget "xfwm4-tabwin*" style "xfwm-tabwin"
-widget "xfwm4-tabwin*GtkButton" style "xfwm-tabwin-button"
+widget "xfwm4-tabwin*GtkButton*" style "xfwm-tabwin-button"
 widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
