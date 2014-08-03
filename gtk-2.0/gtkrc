@@ -1,8 +1,7 @@
-# Numix GTK Theme
+# Oomox GTK Theme (Numix Fork)
 
 gtk-color-scheme =
-"base_color:#999999999999\nbg_color:#777777777777\ntooltip_bg_color:#777777777777\nselected_bg_color:#ffff33337777\ntext_color:#222222222222\nfg_color:#111111111111\ntooltip_fg_color:#111111111111\nselected_fg_color:#ffeeffeeffee\nmenubar_bg_color:#33cc33cc33cc\nmenubar_fg_color:#ee66ee66ee66\ntoolbar_bg_color:#777777777777\ntoolbar_fg_color:#111111111111\nmenu_bg_color:#33cc33cc33cc\nmenu_fg_color:#ee66ee66ee66\npanel_bg_color:#777777777777\npanel_fg_color:#111111111111\nlink_color:#fc6f5d\nbtn_bg_color:#66cc33cc99cc\nbtn_fg_color:#dd55dd55dd55"
-
+"base_color:#999999999999\nbg_color:#777777777777\ntooltip_bg_color:#777777777777\nselected_bg_color:#ffff33337777\ntext_color:#222222222222\nfg_color:#111111111111\ntooltip_fg_color:#111111111111\nselected_fg_color:#ffeeffeeffee\nmenubar_bg_color:#33cc33cc33cc\nmenubar_fg_color:#ee66ee66ee66\ntoolbar_bg_color:#777777777777\ntoolbar_fg_color:#111111111111\nmenu_bg_color:#33cc33cc33cc\nmenu_fg_color:#ee66ee66ee66\npanel_bg_color:#777777777777\npanel_fg_color:#111111111111\nlink_color:#fc6f5d\nbtn_bg_color:#66cc33cc99cc\nbtn_fg_color:#dd55dd55dd55\ntitlebar_bg_color:#33cc33cc33cc\ntitlebar_fg_color:#ee66ee66ee66\n"
 # Default Style
 
 style "murrine-default" {
@@ -60,7 +59,7 @@ style "murrine-default" {
 	GtkScrollbar::trough-border = 0
 
 	GtkScrolledWindow::scrollbar-spacing = 0
-	GtkScrolledWindow::scrollbars-within-bevel = 0
+	GtkScrolledWindow::scrollbars-within-bevel = 1
 
 	GtkSeparatorMenuItem::horizontal-padding = 0
 
@@ -183,6 +182,7 @@ style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 }
 
 # Various Standard Widgets
+
 style "murrine-button"  = "murrine-wider" {
 	fg[NORMAL] = @btn_fg_color
 	fg[PRELIGHT] = @btn_fg_color
@@ -193,11 +193,6 @@ style "murrine-button"  = "murrine-wider" {
 	bg[PRELIGHT] = shade (1.10, @btn_bg_color)
 	bg[ACTIVE] = shade (0.95, @btn_bg_color)
 	bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
-
-	#bg[NORMAL] = shade (1.08, @btn_bg_color)
-	#bg[PRELIGHT] = shade (1.10, @btn_bg_color)
-	#bg[ACTIVE] = shade (0.95, @btn_bg_color)
-	#bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
 
   	engine "murrine" {
 	}
@@ -210,7 +205,7 @@ style "murrine-scrollbar" {
 
 	engine "murrine" {
 		roundness = 0
-		contrast = 0.00
+		contrast = 0.0
 		border_shades = { 0.9, 0.9 }
 		trough_shades = { 0.97, 0.97 }
 		trough_border_shades = { 1.0, 1.0 }
@@ -443,7 +438,7 @@ style "murrine-panel" = "murrine-thin" {
 	bg[NORMAL] = @panel_bg_color
 	bg[PRELIGHT] =  mix (0.21, @panel_fg_color, @panel_bg_color)
 	bg[SELECTED] =  mix (0.21, @panel_fg_color, @panel_bg_color)
-	bg[ACTIVE] = shade (0.9, @panel_bg_color)
+	bg[ACTIVE] = shade (0.8, @panel_bg_color)
 	bg[INSENSITIVE] = @panel_bg_color
 
 	fg[NORMAL] = @panel_fg_color
@@ -466,6 +461,7 @@ style "murrine-panel" = "murrine-thin" {
 
 	engine "murrine" {
 		roundness = 0
+		contrast = 0.0
 	}
 }
 
@@ -512,9 +508,9 @@ style "xfce-header" {
 }
 
 style "xfdesktop-windowlist" {
-	bg[NORMAL] = @bg_color
-	fg[INSENSITIVE] = shade (0.95, @bg_color)
-	text[INSENSITIVE] = shade (0.95, @bg_color)
+	bg[NORMAL] = @base_color
+	fg[INSENSITIVE] = shade (0.95, @base_color)
+	text[INSENSITIVE] = shade (0.95, @base_color)
 }
 
 style "xfdesktop-icon-view" {
@@ -537,15 +533,25 @@ style "xfdesktop-icon-view" {
 }
 
 style "xfwm-tabwin" {
-	Xfwm4TabwinWidget::border-width = 0
+	Xfwm4TabwinWidget::border-width = 1
+        Xfwm4TabwinWidget::border-alpha = 1.0
 	Xfwm4TabwinWidget::icon-size = 64
+        Xfwm4TabwinWidget::alpha = 1.0
+        Xfwm4TabwinWidget::border-radius = 2
 
 	bg[NORMAL] = @menu_bg_color
+	bg[SELECTED] = @menu_bg_color
+
 	fg[NORMAL] = @menu_fg_color
 
 	engine "murrine" {
-		focusstyle = 0
+		contrast = 0.0
+		border_shades = { 0.9, 0.9 }
 	}
+}
+
+style "xfwm-tabwin-button" {
+	bg[SELECTED] = @selected_bg_color
 }
 
 style "xfsm-logout" {
@@ -605,21 +611,21 @@ style "chromium-toolbar-button" {
 }
 
 style "chrome-gtk-frame" {
-	ChromeGtkFrame::frame-color = @menubar_bg_color
-	ChromeGtkFrame::inactive-frame-color = @menubar_bg_color
+	ChromeGtkFrame::frame-color = @titlebar_bg_color
+	ChromeGtkFrame::inactive-frame-color = @titlebar_bg_color
 
 	ChromeGtkFrame::frame-gradient-size = 0
-	ChromeGtkFrame::frame-gradient-color = @menubar_bg_color
+	ChromeGtkFrame::frame-gradient-color = @titlebar_bg_color
 
-	ChromeGtkFrame::incognito-frame-color = @menubar_bg_color
-	ChromeGtkFrame::incognito-inactive-frame-color = @menubar_bg_color
+	ChromeGtkFrame::incognito-frame-color = @titlebar_bg_color
+	ChromeGtkFrame::incognito-inactive-frame-color = @titlebar_bg_color
 
 	ChromeGtkFrame::incognito-frame-gradient-size = 0
-	ChromeGtkFrame::incognito-frame-gradient-color = @menubar_bg_color
+	ChromeGtkFrame::incognito-frame-gradient-color = @titlebar_bg_color
 
-	ChromeGtkFrame::scrollbar-trough-color = @btn_bg_color
-	ChromeGtkFrame::scrollbar-slider-normal-color =  @selected_bg_color
-	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @selected_bg_color, @btn_bg_color)
+	ChromeGtkFrame::scrollbar-trough-color = @bg_color
+	ChromeGtkFrame::scrollbar-slider-normal-color =  mix (0.21, @fg_color, @bg_color)
+	ChromeGtkFrame::scrollbar-slider-prelight-color =  mix (0.31, @fg_color, @bg_color)
 }
 
 class "ChromeGtkFrame" style "chrome-gtk-frame"
@@ -768,5 +774,6 @@ widget_class "*XfceHeading*" style "xfce-header"
 widget_class "*XfceDesktop*" style "xfdesktop-windowlist"
 widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
 widget "xfwm4-tabwin*" style "xfwm-tabwin"
+widget "xfwm4-tabwin*GtkButton" style "xfwm-tabwin-button"
 widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
