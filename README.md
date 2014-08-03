@@ -1,33 +1,16 @@
-Numix is a modern flat theme with a combination of light and dark elements. It supports Gnome, Unity, XFCE and Openbox.
+oomox
+=====
 
-Numix is a part of the [Numix Project](http://numixproject.org).
+### numix fork with color changing script
 
-### Manual installation
 
-Extract the zip file to the themes directory i.e. `/usr/share/themes/`
-
-To set the theme in Gnome, run the following commands in Terminal,
-
+##### usage:
+```sh
+git clone https://github.com/actionless/oomox.git
+cd oomox
+ls colors
+./color_changer.sh gnome-noble  # or other theme from above
 ```
-gsettings set org.gnome.desktop.interface gtk-theme "Numix"
-gsettings set org.gnome.desktop.wm.preferences theme "Numix"
-```
+next select oomox_current in your appearance config tool (for example, _lxappearance_)
 
-To set the theme in Xfce, run the following commands in Terminal,
-
-```
-xfconf-query -c xsettings -p /Net/ThemeName -s "Numix"
-xfconf-query -c xfwm4 -p /general/theme -s "Numix"
-```
-
-### Requirements
-
-GTK+ 3.6 or above
-
-Murrine theme engine
-
-### Code and license
-
-Report bugs or contribute at [GitHub](https://github.com/shimmerproject/Numix)
-
-License: GPL-3.0+
+![Screenshot](http://fc09.deviantart.net/fs71/f/2014/145/7/9/oomox___change_numix_colorscheme_by_actionless-d7jo5ul.png "Screenshot")

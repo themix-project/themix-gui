@@ -1,0 +1,11 @@
+NAME="Gnome Colors Noble"
+BG=d8d8d8
+FG=101010
+SEL_BG=ad7fa8
+SEL_FG=e6e6e6
+TXT_BG=ffffff
+TXT_FG=1a1a1a
+MENU_BG=3c3c3c
+MENU_FG=e6e6e6
+BTN_BG=e6e6e6
+BTN_FG=3c3c3c
