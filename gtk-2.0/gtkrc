@@ -1,7 +1,7 @@
-# Numix GTK Theme
+# Oomox GTK Theme (Numix Fork)
 
-gtk-color-scheme = "bg_color:#dedede\nfg_color:#555555\nbase_color:#f9f9f9\ntext_color:#333333\nselected_bg_color:#d64937\nselected_fg_color:#f9f9f9\ntooltip_bg_color:#2d2d2d\ntooltip_fg_color:#dedede\ntitlebar_bg_color:#2d2d2d\ntitlebar_fg_color:#dcdcdc\nmenubar_bg_color:#2d2d2d\nmenubar_fg_color:#dcdcdc\ntoolbar_bg_color:#dedede\ntoolbar_fg_color:#555555\nmenu_bg_color:#2d2d2d\nmenu_fg_color:#dcdcdc\npanel_bg_color:#2d2d2d\npanel_fg_color:#dcdcdc\nlink_color:#fc6f5d"
-
+gtk-color-scheme =
+"base_color:#999999999999\nbg_color:#777777777777\ntooltip_bg_color:#777777777777\nselected_bg_color:#ffff33337777\ntext_color:#222222222222\nfg_color:#111111111111\ntooltip_fg_color:#111111111111\nselected_fg_color:#ffeeffeeffee\nmenubar_bg_color:#33cc33cc33cc\nmenubar_fg_color:#ee66ee66ee66\ntoolbar_bg_color:#777777777777\ntoolbar_fg_color:#111111111111\nmenu_bg_color:#33cc33cc33cc\nmenu_fg_color:#ee66ee66ee66\npanel_bg_color:#777777777777\npanel_fg_color:#111111111111\nlink_color:#fc6f5d\nbtn_bg_color:#66cc33cc99cc\nbtn_fg_color:#dd55dd55dd55\ntitlebar_bg_color:#33cc33cc33cc\ntitlebar_fg_color:#ee66ee66ee66\n"
 # Default Style
 
 style "murrine-default" {
@@ -167,35 +167,40 @@ style "murrine-thin" {
 
 # Notebook
 
-style "murrine-notebook-bg" {
-	bg[NORMAL] = @base_color
-	bg[ACTIVE] = shade (0.87, @base_color)
+style "clearlooks-notebook-bg" {
+	bg[NORMAL] = @bg_color
+	bg[ACTIVE] = shade (0.80, @bg_color)
 }
 
-style "murrine-notebook" = "murrine-notebook-bg" {
+style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 	xthickness = 2
 	ythickness = 2
 
-	engine "murrine" {
-		roundness = 2
+	engine "clearlooks" {
+		radius = 0.0
 	}
 }
 
 # Various Standard Widgets
 
 style "murrine-button"  = "murrine-wider" {
-	bg[NORMAL] = shade (1.08, @bg_color)
-	bg[PRELIGHT] = shade (1.10, @bg_color)
-	bg[ACTIVE] = shade (0.95, @bg_color)
-	bg[INSENSITIVE] = shade (0.85, @bg_color)
+	fg[NORMAL] = @btn_fg_color
+	fg[PRELIGHT] = @btn_fg_color
+	fg[ACTIVE] = @btn_fg_color
+	fg[INSENSITIVE] = @btn_fg_color
+
+	bg[NORMAL] = @btn_bg_color
+	bg[PRELIGHT] = shade (1.10, @btn_bg_color)
+	bg[ACTIVE] = shade (0.95, @btn_bg_color)
+	bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
 
   	engine "murrine" {
 	}
 }
 
 style "murrine-scrollbar" {
-	bg[NORMAL] = mix (0.21, @fg_color, @bg_color)
-	bg[PRELIGHT] = mix (0.31, @fg_color, @bg_color)
+	bg[NORMAL] = @btn_bg_color
+	bg[PRELIGHT] = mix (0.31, @selected_bg_color, @btn_bg_color)
 	bg[ACTIVE] = @selected_bg_color
 
 	engine "murrine" {
@@ -211,8 +216,8 @@ style "murrine-overlay-scrollbar" {
 	bg[ACTIVE] = shade (0.8, @bg_color)
 	bg[INSENSITIVE] = shade (0.97, @bg_color)
 
-	base[SELECTED] = shade (0.6, @base_color)
-	base[INSENSITIVE] = shade (0.85, @base_color)
+	base[SELECTED] = shade (0.6, @bg_color)
+	base[INSENSITIVE] = shade (0.85, @bg_color)
 }
 
 style "murrine-scale" = "murrine-thin" {
@@ -281,7 +286,7 @@ style "murrine-spinbutton" = "murrine-button" {
 }
 
 style "murrine-radiocheck" = "murrine-default" {
-	bg[SELECTED] = @base_color
+	bg[SELECTED] = @bg_color
 
 	text[NORMAL] = @selected_bg_color
 	text[PRELIGHT] = @selected_bg_color
@@ -388,34 +393,34 @@ style "murrine-menubaritem" {
 # Toolbars
 
 style "murrine-toolbar" = "murrine-thin" {
-	bg[NORMAL] = @bg_color
-	bg[PRELIGHT] = shade (1.02, @bg_color)
+	bg[NORMAL] = @toolbar_bg_color
+	bg[PRELIGHT] = shade (1.02, @toolbar_bg_color)
 	bg[SELECTED] = @selected_bg_color
-	bg[ACTIVE] = shade (0.9, @bg_color)
-	bg[INSENSITIVE] = @bg_color
+	bg[ACTIVE] = shade (0.9, @toolbar_bg_color)
+	bg[INSENSITIVE] = @toolbar_bg_color
 
-	fg[NORMAL] = @fg_color
-	fg[PRELIGHT] = @fg_color
+	fg[NORMAL] = @toolbar_fg_color
+	fg[PRELIGHT] = @toolbar_fg_color
 	fg[SELECTED] = @selected_fg_color
-	fg[ACTIVE] = @fg_color
-	fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
+	fg[ACTIVE] = @toolbar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
 
 	engine "murrine" {
 	}
 }
 
 style "murrine-toolbutton" = "murrine-button" {
-	bg[NORMAL] = shade (1.08, @bg_color)
-	bg[PRELIGHT] = shade (1.10, @bg_color)
+	bg[NORMAL] = shade (1.08, @toolbar_bg_color)
+	bg[PRELIGHT] = shade (1.10, @toolbar_bg_color)
 	bg[SELECTED] = @selected_bg_color
-	bg[ACTIVE] = shade (0.95, @bg_color)
-	bg[INSENSITIVE] = shade (0.85, @bg_color)
+	bg[ACTIVE] = shade (0.95, @toolbar_bg_color)
+	bg[INSENSITIVE] = shade (0.85, @toolbar_bg_color)
 
-	fg[NORMAL] = @fg_color
-	fg[PRELIGHT] = @fg_color
+	fg[NORMAL] = @toolbar_fg_color
+	fg[PRELIGHT] = @toolbar_fg_color
 	fg[SELECTED] = @selected_fg_color
-	fg[ACTIVE] = @fg_color
-	fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
+	fg[ACTIVE] = @toolbar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
 
 	engine "murrine" {
 	}
@@ -652,11 +657,11 @@ class "GtkCheck*" style "murrine-radiocheck"
 
 class "GtkEntry" style "murrine-entry"
 
-widget_class "*<GtkNotebook>" style "murrine-notebook"
-widget_class "*<GtkNotebook>*<GtkEventBox>" style "murrine-notebook-bg"
-widget_class "*<GtkNotebook>*<GtkDrawingArea>" style "murrine-notebook-bg"
-widget_class "*<GtkNotebook>*<GtkLayout>" style "murrine-notebook-bg"
-widget_class "*.GtkNotebook.*.GtkViewport" style "murrine-notebook"
+widget_class "*<GtkNotebook>" style "clearlooks-notebook"
+widget_class "*<GtkNotebook>*<GtkEventBox>" style "clearlooks-notebook-bg"
+widget_class "*<GtkNotebook>*<GtkDrawingArea>" style "clearlooks-notebook-bg"
+widget_class "*<GtkNotebook>*<GtkLayout>" style "clearlooks-notebook-bg"
+widget_class "*.GtkNotebook.*.GtkViewport" style "clearlooks-notebook"
 
 widget_class "*<GtkButton>" style "murrine-button"
 widget_class "*<GtkStatusbar>*" style "murrine-statusbar"
