@@ -4,15 +4,28 @@ test -z "$1" &&
   echo 'usage: ./change_color.sh PRESET_NAME [OUTPUT_THEME_NAME]' &&
   exit 1
 
-SRC_PATH=$(dirname $0)
+SRC_PATH=$(readlink -e $(dirname $0))
 OUTPUT_THEME_NAME="$2"
+
 test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox2_current
 DEST_PATH=~/.themes/"$OUTPUT_THEME_NAME"
 
+FILELIST=(
+	'openbox-3/themerc'
+	'gtk-2.0/gtkrc'
+	'gtk-3.0/gtk.css'
+)
+
+
 replace () {
-  grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g'
+	for FILE in "${FILELIST[@]}";
+	do
+		echo "$FILE";
+	done;
+  #grep -lZR $1 * | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g'
 }
 
+test "$SRC_PATH" = "$DEST_PATH" && (echo "can't do that" && exit 1) ||
 (
   rm -r $DEST_PATH ;
   mkdir -p $DEST_PATH ;
