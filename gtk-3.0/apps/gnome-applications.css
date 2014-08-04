@@ -80,10 +80,6 @@ WnckPager, WnckTasklist {
 /************
  * nautilus *
  ************/
-.nautilus-canvas-item {
-    border-radius: 0px;
-}
-
 .nautilus-desktop.nautilus-canvas-item {
     color: white;
     text-shadow: 1px 1px black;

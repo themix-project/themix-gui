@@ -1127,12 +1127,12 @@ GtkPopover {
     margin: 10px;
     padding: 2px;
     border-radius: 2px;
-    border-color: shade(@theme_bg_color, 0.8);
+    border-color: shade(@menu_bg_color, 0.8);
     border-width: 1px;
     border-style: solid;
     background-clip: border-box;
-    background-color: @theme_bg_color;
-    color: @theme_fg_color;
+    background-color: @menu_bg_color;
+    color: @menu_fg_color;
     box-shadow: 0 2px 3px alpha(black, 0.5);
 }
 
@@ -1160,13 +1160,13 @@ GtkPopover.osd > .toolbar .button {
 GtkPopover .separator {
     border: 0;
     background-color: transparent;
-    color: alpha(currentColor, 0.5);
+    color: alpha(currentColor, 0.1);
     font-size: 80%;
     font-weight: bold;
 }
 
 .menuitem.button {
-    color: @theme_fg_color;
+    color: @menu_fg_color;
 }
 
 .menuitem.button,
@@ -1178,7 +1178,7 @@ GtkPopover .separator {
     border-color: transparent;
     border-style: none;
     box-shadow: none;
-    color: @theme_fg_color;
+    color: @menu_fg_color;
 }
 
 .menuitem.button:active:hover,
@@ -1191,9 +1191,8 @@ GtkPopover .separator {
     color: @theme_selected_fg_color;
 }
 
-GtkModelButton.button
-{
-    color: @theme_fg_color;
+GtkModelButton.button {
+    color: @menu_fg_color;
 }
 
 GtkModelButton.button:active,
@@ -1235,6 +1234,7 @@ GtkModelButton.button:selected {
     text-shadow: none;
     border-width: 0;
     border-color: transparent;
+    border-radius: 2px;
 }
 
 /************
@@ -1250,7 +1250,7 @@ GtkModelButton.button:selected {
     background-image: none;
     background-clip: border-box;
 
-    -GtkNotebook-initial-gap: 10;
+    -GtkNotebook-initial-gap: 0;
     -GtkNotebook-arrow-spacing: 5;
     -GtkNotebook-tab-curvature: 0;
     -GtkNotebook-tab-overlap: 1;
