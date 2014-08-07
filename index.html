@@ -6,15 +6,19 @@
 </head>
 
 <body>
-<script type="text/javascript" src="third-party/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="third-party/knockout-3.1.0.js"></script>
-<script type="text/javascript" src="third-party/jscolor/jscolor.js"></script>
 
 <div class='greeting'>
   <a href="https://github.com/actionless/oomox">oomox</a>
 </div>
 
-<section class="block" data-bind="palette: colors"></section>
+<!-- ko foreach: {data: colors, as: 'colors'} -->
+  <section class="palette block" data-bind="foreach: { data: Object.keys(colors), as: 'color_name' }">
+    <label>
+      <span data-bind="text: color_name"></span>
+      <input class="color {hash:true}" data-bind="value: colors[color_name]" />
+    </label>
+  </section>
+<!-- /ko -->
 
 <section class="preview">
   <div class="window" data-bind="style: {
@@ -32,65 +36,70 @@
     </section>
 
     <section class="notebook">
+
       <div class="tabs">
-	<div class="tab active" data-bind="style: {
-	  background: colors.bg,
-	  borderLeftColor: border_color,
-	  borderTopColor: colors.sel_bg,
-	  borderRightColor: border_color
-	}">
-	  Page1
-	</div>
-	<div class="tab" data-bind="style: {
-	  background: border_color,
-	  borderLeftColor: border_color,
-	  borderTopColor: colors.bg,
-	  borderRightColor: border_color
-	}">
-	  Page2
-	</div>
-      </div><!--tabs-->
+          <div class="tab active" data-bind="style: {
+                background: colors.bg,
+                borderLeftColor: border_color,
+                borderTopColor: colors.sel_bg,
+                borderRightColor: border_color
+              }">
+              Page1
+          </div>
+          <div class="tab" data-bind="style: {
+                background: border_color,
+                borderLeftColor: border_color,
+                borderTopColor: colors.bg,
+                borderRightColor: border_color
+              }">
+              Page2
+          </div>
+      </div>
+      <!--tabs-->
 
       <div class="content" data-bind="style: {
-	borderColor: border_color
-      }">
+                  borderColor: border_color
+            }">
 
-	<section data-bind="style: {
-	  borderColor: border_color
-	}">
-	  <input class="input" data-bind="style: {
-	    borderColor: border_color,
-	    background: colors.txt_bg,
-	    color: colors.txt_fg
-	  }" value="Input"></input>
-	  <button data-bind="style: {
-	    borderColor: border_color,
-	    background: colors.btn_bg,
-	    color: colors.btn_fg
-	  }">Button</button>
-	</section>
+        <section data-bind="style: {
+                  borderColor: border_color
+                }">
+            <input class="input" data-bind="style: {
+                      borderColor: border_color,
+                      background: colors.txt_bg,
+                      color: colors.txt_fg
+                    }" value="Input"></input>
+            <button data-bind="style: {
+                      borderColor: border_color,
+                      background: colors.btn_bg,
+                      color: colors.btn_fg
+                    }">
+                Button</button>
+        </section>
 
-	<div class="scrolllist">
-	  <ul data-bind="style: {
-	    borderColor: border_color,
-	    background: colors.txt_bg,
-	    color: colors.txt_fg
-	  }">
-	    <li data-bind="style: {
-	      background: colors.btn_bg,
-	      color: colors.btn_fg
-	    }">List Header</li>
-	    <li>List Item 1</li>
-	    <li data-bind="style: {
-	      background: colors.sel_bg,
-	      color: colors.sel_fg
-	    }">List Item 2</li>
-	    <li>List Item 3</li>
-	  </ul>
-	  <div class="scrollbar" data-bind="style: {
-	    background: colors.btn_bg  
-	  }"></div>
-	</div>
+        <div class="scrolllist">
+            <ul data-bind="style: {
+                      borderColor: border_color,
+                      background: colors.txt_bg,
+                      color: colors.txt_fg
+                    }">
+                <li data-bind="style: {
+                        background: colors.btn_bg,
+                        color: colors.btn_fg
+                      }">
+                    List Header</li>
+                <li>List Item 1</li>
+                <li data-bind="style: {
+                        background: colors.sel_bg,
+                        color: colors.sel_fg
+                      }">
+                    List Item 2</li>
+                <li>List Item 3</li>
+            </ul>
+            <div class="scrollbar" data-bind="style: {
+                      background: colors.btn_bg  
+                    }"></div>
+        </div>
 
       </div><!--content-->
 
@@ -104,75 +113,9 @@
   <pre class="block" data-bind='text: output'></pre>
 </section>
 
-<!-- SCRIPT STARTS HERE: -->
-  <script type="text/javascript">
-
-  function cleanHexStr(str) {
-    return str.replace(/^#/, '')
-  }
-
-  function strToHex(str) {
-    return parseInt(cleanHexStr(str), 16)
-  }
-
-  ko.bindingHandlers.palette = {
-    init: function(element, valueAccessor) {
-      $(element).addClass("palette");
-      $.map(
-        valueAccessor(),
-        function(value, key) {
-          $("<input>")
-          .attr(
-            "data-bind",
-            "value: colors." + key)
-          .addClass("color {hash:true}")
-          .appendTo(
-            $("<label>")
-            .text(key)
-            .appendTo(element)
-          );
-        }
-      )
-    }
-  }
-
-  var ViewModel = function() {
-    var self = this;
-
-    self.colors = {
-      bg: ko.observable("#c7c9c2"),
-      fg: ko.observable("#0e0021"),
-      menu_bg: ko.observable("#0e0021"),
-      menu_fg: ko.observable("#888a85"),
-      sel_bg: ko.observable("#1a617a"),
-      sel_fg: ko.observable("#e6e6e6"),
-      txt_bg: ko.observable("#c0bbbb"),
-      txt_fg: ko.observable("#000000"),
-      btn_bg: ko.observable("#77a8a5"),
-      btn_fg: ko.observable("#0e0021")
-    }
-
-    self.border_color = ko.computed(function(){
-      return '#' +
-        (strToHex(self.colors.bg()) - 0x222222)
-        .toString(16)
-    })
-
-    self.output = ko.computed(function(){
-      return 'NAME="custom"\n' +
-        $.map(
-          self.colors,
-          function(value, key) {
-            return key.toUpperCase() + "=" + cleanHexStr(value())
-          }
-        ).join("\n")
-    })
-
-  };
-
-  ko.applyBindings(new ViewModel());
-
-  </script>
-
+<script type="text/javascript" src="third-party/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="third-party/knockout-3.1.0.js"></script>
+<script type="text/javascript" src="third-party/jscolor/jscolor.js"></script>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
