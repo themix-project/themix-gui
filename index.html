@@ -11,14 +11,12 @@
   <a href="https://github.com/actionless/oomox">oomox</a>
 </div>
 
-<!-- ko foreach: {data: colors, as: 'colors'} -->
-  <section class="palette block" data-bind="foreach: { data: Object.keys(colors), as: 'color_name' }">
-    <label>
-      <span data-bind="text: color_name"></span>
-      <input class="color {hash:true}" data-bind="value: colors[color_name]" />
-    </label>
-  </section>
-<!-- /ko -->
+<section class="palette block" data-bind="foreachprop: colors">
+  <label>
+    <span data-bind="text: key"></span>
+    <input class="color {hash:true}" data-bind="value: value" />
+  </label>
+</section>
 
 <section class="preview">
   <div class="window" data-bind="style: {
