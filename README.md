@@ -9,7 +9,7 @@ oomox
 git clone https://github.com/actionless/oomox.git
 cd oomox
 ls colors
-./color_changer.sh gnome-noble  # or other theme from above
+./change_color.sh gnome-noble  # or other theme from above
 ```
 next select oomox_current in your appearance config tool (for example, _lxappearance_)
 
