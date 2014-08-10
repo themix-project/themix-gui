@@ -76,8 +76,7 @@ input {
 .preview .window .notebook .tabs .tab:last-child {
   float: left;
 }
-.preview .window .notebook .tabs:after {
-  content: '';
+.preview .window .notebook .tabs .background {
   float: none;
   display: block;
   border-bottom-width: 1px;
