@@ -55,7 +55,7 @@
 
     self.border_color = ko.computed(function() {
       var borderColor = strToHex(self.colors.bg()) - 0x222222;
-      if (borderColor < 0) {
+      if (borderColor <= 0) {
         return '#000000' }
       else {
         return '#' + borderColor.toString(16);
