@@ -54,9 +54,12 @@
     };
 
     self.border_color = ko.computed(function() {
-      return '#' +
-        (strToHex(self.colors.bg()) - 0x222222)
-        .toString(16);
+      var borderColor = strToHex(self.colors.bg()) - 0x222222;
+      if (borderColor < 0) {
+        return '#000000' }
+      else {
+        return '#' + borderColor.toString(16);
+      };
     });
 
     self.output = ko.computed(function() {
