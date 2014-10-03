@@ -61,7 +61,7 @@
     @include linear-gradient($titlebar_bg_color);
 
     border-radius: $roundness $roundness 0 0;
-    color: mix($titlebar_fg_color, $titlebar_bg_color, .9);
+    color: mix($titlebar_fg_color, $titlebar_bg_color, .1);
 
     &:backdrop {
         @include linear-gradient($titlebar_bg_color);
@@ -102,19 +102,4 @@
             icon-shadow: none;
         }
     }
-}
-
-.window-frame {
-    margin: 10px;
-    border-style: none;
-    border-radius: $roundness $roundness 0 0;
-    box-shadow: 0 3px 7px 1px fade-out(black, .3),
-                0 0 0 1px mix($titlebar_fg_color, $titlebar_bg_color, 21%);
-
-    &:backdrop {
-        box-shadow: 0 3px 5px 1px fade-out(black, 0.5),
-                    0 0 0 1px mix($titlebar_fg_color, $titlebar_bg_color, 12%);
-    }
-
-    &.tiled { border-radius: 0; }
 }

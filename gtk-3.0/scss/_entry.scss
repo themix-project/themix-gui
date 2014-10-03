@@ -40,7 +40,8 @@
 	box-shadow: inset 1px 0 alpha($dark_shadow, .1),
 				inset 0 1px alpha($dark_shadow, .12),
 				inset -1px 0 alpha($dark_shadow, .1),
-				inset 0 -1px alpha($dark_shadow, .05);
+				inset 0 -1px alpha($dark_shadow, .05),
+				0 1px 2px -1px shade($bg_color, 1.4);
 
 	&:selected, &:selected:focus {
 		background-color: $selected_bg_color;
@@ -65,8 +66,4 @@
 	&.image.left { padding-right: $spacing; }
 }
 
-.entry {
-	@include entry($base_color, $text_color);
-
-	.linked & { @include linked_entry($base_color); }
-}
+.entry { @include entry($base_color, $text_color); }

@@ -29,15 +29,15 @@
 }
 
 @function border_focus($color) {
-	@return shade($color, ($contrast - .1));
+	@return shade($color, ($contrast - .05));
 }
 
 @function border_active($color) {
-	@return shade($color, ($contrast - .15));
+	@return shade($color, ($contrast - .10));
 }
 
 @function border_insensitive($color) {
-	@return shade($color, ($contrast + .05));
+	@return shade($color, ($contrast + .1));
 }
 
 @mixin linear-gradient($color, $direction: to bottom) {

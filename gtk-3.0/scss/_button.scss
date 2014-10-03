@@ -1,26 +1,39 @@
 @import "functions";
 
 @mixin linked_button($bg, $shadow) {
-	border-width: 1px;
+	border: 1px solid border_normal($bg);
 	border-radius: 0;
-	border-right-width: 0;
-	border-left-width: 0;
-	box-shadow: inset -1px 0 border_normal($bg);
+	border-right-style: none;
+	border-left-style: none;
+	box-shadow: inset -1px 0 border_normal($bg),
+				0 1px 2px -1px alpha($dark_shadow, .3);
 
 	&:first-child {
 		border-width: 1px;
 		border-radius: $roundness;
-		border-right-width: 0;
-		border-bottom-right-radius: 0;
+		border-left-style: solid;
+		border-right-style: none;
 		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+
+		&:dir(rtl) {
+			border-left-style: none;
+			border-right-style: solid;
+		}
 	}
 
 	&:last-child {
 		border-width: 1px;
 		border-radius: $roundness;
-		border-left-width: 0;
-		border-bottom-left-radius: 0;
+		border-left-style: none;
+		border-right-style: solid;
 		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+
+		&:dir(rtl) {
+			border-left-style: solid;
+			border-right-style: none;
+		}
 	}
 
 	&:only-child {
@@ -28,7 +41,10 @@
 		border-radius: $roundness;
 	}
 
-	&:focus, &:hover { box-shadow: inset -1px 0 border_focus($bg); }
+	&:focus, &:hover {
+		box-shadow: inset -1px 0 border_focus($bg),
+					0 1px 2px -1px alpha($dark_shadow, .3);
+	}
 
 	&:active, &:active:hover,
 	&:active:focus, &:active:hover:focus {
@@ -61,11 +77,16 @@
 	border-style: solid;
 	color: $fg;
 	transition: 100ms ease;
+	box-shadow: 0 1px 2px -1px alpha($dark_shadow, .3);
 
 	-GtkWidget-focus-padding: 1;
 	-GtkWidget-focus-line-width: 0;
 
-	&:focus, &:hover { @include linear-gradient(shade($bg, 1.1)); }
+	&:focus, &:hover {
+		@include linear-gradient(shade($bg, 1.1));
+
+		box-shadow: 0 1px 3px -1px alpha($dark_shadow, .5);
+	}
 
 	&:active {
 		@include linear-gradient(shade($bg, .95));
@@ -80,6 +101,7 @@
 		@include linear-gradient(shade($bg, .95));
 
 		color: mix($bg, $fg, .5);
+		box-shadow: none;
 	}
 
 	&:active *:insensitive {
@@ -94,8 +116,6 @@
 
 		&:insensitive { color: shade($bg, .85); }
 	}
-
-	&.linked, &.raised.linked, .linked & { @include linked_button(shade($bg, 1.05), $dark_shadow); }
 }
 
 .button {
