@@ -1,4 +1,5 @@
 @import "functions";
+@import "global";
 
 * {
 	-GtkArrow-arrow-scaling: 0.5;
@@ -40,24 +41,25 @@
 	-GtkWidget-focus-line-width: 1;
 	-GtkWidget-focus-padding: 0;
 
-	/*
 	outline-color: alpha($selected_bg_color, 0.5);
 	outline-style: dashed;
 	outline-width: 1px;
 	outline-offset: -2px;
 	outline-radius: 2px;
-	*/
 }
 
 /***************
-* base states *
-***************/
-* {
-	&:selected,
-	&:selected:focus {
+ * base states *
+ ***************/
+%selected_items {
+	&, &:focus {
 		background-color: $selected_bg_color;
 		color: $selected_fg_color;
 	}
+}
+
+* {
+	&:selected { @extend %selected_items; }
 
 	&:insensitive,
 	&:insensitive:insensitive { color: mix($fg_color, $bg_color, 50%); }
@@ -65,6 +67,14 @@
 	&:insensitive { -gtk-image-effect: dim; }
 
 	&:hover { -gtk-image-effect: highlight;	}
+
+	/* hyperlinks */
+	-GtkHTML-link-color: $link_color;
+	-GtkIMHtml-hyperlink-color: $link_color;
+	-GtkWidget-link-color: $link_color;
+	-GtkWidget-visited-link-color: $link_color;
+
+	&:link, &:visited { color: $link_color; }
 }
 
 .background {
@@ -96,24 +106,98 @@
 		color: mix($fg_color, $bg_color, 50%);
 	}
 
-	&:selected {
-		background-color: $selected_bg_color;
-		color: $selected_fg_color;
-	}
+	&:selected { @extend %selected_items; }
 }
 
 GtkImage, GtkLabel, GtkBox, GtkGrid {
 	&, &:insensitive { background-color: transparent; }
 }
 
-/**************
-* hyperlinks *
-**************/
-* {
-	-GtkHTML-link-color: $link_color;
-	-GtkIMHtml-hyperlink-color: $link_color;
-	-GtkWidget-link-color: $link_color;
-	-GtkWidget-visited-link-color: $link_color;
+GtkLabel {
+	&.separator {
+		color: $fg_color;
 
-	&:link, &:visited { color: $link_color; }
+		@extend .dim-label;
+	}
+
+	&:selected { @extend %selected_items; }
+
+	&:insensitive { color: mix($fg_color, $bg_color, 50%); }
+}
+
+.dim-label {
+	opacity: 0.5;
+	text-shadow: none;
+}
+
+.view {
+	color: $text_color;
+	background-color: $base_color;
+
+	&:selected { @extend %selected_items; }
+}
+
+.rubberband {
+	border: 1px solid $selected_bg_color;
+	background-color: alpha($selected_bg_color, 0.2);
+}
+
+/* used by GtkScrolledWindow, shown when content is touch-dragged past boundaries. */
+.overshoot { background-color: alpha($selected_bg_color, 0.2); }
+
+GtkAssistant {
+	.sidebar {
+		background-color: $base_color;
+		border-top: 1px solid border_normal($base_color);
+
+		&:dir(ltr) { border-right: 1px solid border_normal($base_color); }
+		&:dir(rtl) { border-left: 1px solid border_normal($base_color); }
+
+		GtkLabel {
+			padding: $spacing ($spacing * 2);
+
+			&.highlight { background-color: mix($bg_color, $fg_color, 80%); }
+		}
+	}
+
+	&.csd .sidebar { border-top-style: none; }
+}
+
+GtkTextView {
+	/* this will get overridden by .view, needed by gedit line numbers */
+	background-color: mix($bg_color, $base_color, 50%);
+}
+
+
+GtkFlowBox .grid-child {
+	padding: 3px;
+	border-radius: 3px;
+
+	&:selected {
+		@extend %selected_items;
+
+		outline-offset: -2px;
+	}
+}
+
+/*********************
+ * spinner animation *
+ *********************/
+@keyframes spin {
+	to { -gtk-icon-transform: rotate(1turn); }
+}
+
+.spinner {
+	background-image: none;
+	background-color: blue;
+	opacity: 0; // non spinning spinner makes no sense
+
+	-gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+
+	&:active {
+		opacity: 1;
+		animation: spin 1s linear infinite;
+
+		&:insensitive { opacity: 0.5; }
+	}
 }
