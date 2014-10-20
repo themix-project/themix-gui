@@ -315,24 +315,78 @@ row:selected:focus {
 /*******************
  * check and radio *
  *******************/
-.check,
-.radio,
-.check:insensitive,
-.radio:insensitive {
-    border-style: none;
-    background-color: transparent;
-}
-
-GtkCheckButton:hover,
-GtkCheckButton:active:hover,
-GtkCheckButton:selected,
-GtkCheckButton:selected:focus {
-    background-color: transparent;
-}
-
-GtkCheckButton {
+GtkCheckButton.text-button,
+GtkRadioButton.text-button {
+    padding: 1px;
     outline-offset: 0;
-    padding: 3px;
+}
+
+.check {
+    color: shade(@theme_fg_color, 1.2);
+    background-image: none;
+
+    -gtk-icon-source: -gtk-icontheme("checkbox-symbolic");
+}
+.check:hover {
+    color: shade(@theme_fg_color, 1.1);
+}
+
+.check:checked,
+.check:active {
+    -gtk-icon-source: -gtk-icontheme("checkbox-checked-symbolic");
+
+    color: @theme_fg_color;
+}
+.check:checked:hover,
+.check:active:hover {
+    color: shade(@theme_fg_color, 1.1);
+}
+
+.check:checked:insensitive,
+.check:active:insensitive {
+    color: shade(@theme_fg_color, 1.1);
+}
+
+.check:insensitive {
+    color: shade(@theme_fg_color, 1.8);
+}
+
+.check:inconsistent {
+    -gtk-icon-source: -gtk-icontheme("checkbox-mixed-symbolic");
+}
+
+.radio {
+    color: shade(@theme_fg_color, 1.2);
+    background-image: none;
+
+    -gtk-icon-source: -gtk-icontheme("radio-symbolic");
+}
+.radio:hover {
+    color: shade(@theme_fg_color, 1.1);
+}
+
+.radio:checked,
+.radio:active {
+    -gtk-icon-source: -gtk-icontheme("radio-checked-symbolic");
+
+    color: @theme_fg_color;
+}
+
+.radio:checked:hover,
+.radio:active:hover {
+    color: shade(@theme_fg_color, 1.1);
+}
+.radio:checked:insensitive,
+.radio:active:insensitive {
+    color: shade(@theme_fg_color, 1.1);
+}
+
+.radio:insensitive {
+    color: shade(@theme_fg_color, 1.8);
+}
+
+.radio:inconsistent {
+    -gtk-icon-source: -gtk-icontheme("radio-mixed-symbolic");
 }
 
 /*****************
@@ -1953,70 +2007,24 @@ GtkComboBox .separator {
 /***********
  * spinner *
  ***********/
-@keyframes spinner {
-    00.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.70)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.40)), to(transparent)); }
-
-    10.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.80)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.90)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.60)), to(transparent)); }
-
-    20.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.60)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.90)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.80)), to(transparent)); }
-
-    30.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.40)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.70)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)); }
-
-    40.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.20)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.50)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.80)), to(transparent)); }
-
-    50.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(transparent), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.30)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.60)), to(transparent)); }
-
-    60.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.20)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.10)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.40)), to(transparent)); }
-
-    70.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.40)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.10)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.20)), to(transparent)); }
-
-    80.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.60)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.30)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(transparent), to(transparent)); }
-
-    90.0% { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.80)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.50)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.20)), to(transparent)); }
-
-    100%  { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.70)), to(transparent)),
-                              -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.40)), to(transparent)); }
+@keyframes spin {
+    to { -gtk-icon-transform: rotate(1turn); }
 }
 
 .spinner {
-    background-color: transparent;
-    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
-                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
-                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent));
+    background-image: none;
+    background-color: blue;
+    opacity: 0;
 
-    background-position: 0% 70%, 33% 70%, 70% 70%;
-    background-size: 30% 30%;
-    background-repeat: no-repeat;
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
 }
 
 .spinner:active {
-    background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(currentColor), to(transparent)),
-                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.70)), to(transparent)),
-                      -gtk-gradient(radial, center center, 0, center center, 0.5, to(alpha(currentColor, 0.40)), to(transparent));
-
-    animation: spinner 1s infinite linear;
+    opacity: 1;
+    animation: spin 1s linear infinite;
 }
+
+.spinner:active:insensitive { opacity: 0.5; }
 
 .menu.spinner,
 .menu .spinner,
