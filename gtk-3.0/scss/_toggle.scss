@@ -1,0 +1,40 @@
+/*************************
+ * Check and Radio items *
+ *************************/
+@mixin toggle($type, $bg, $fg) {
+	color: $fg;
+	background-image: none;
+	-gtk-icon-source: -gtk-icontheme('#{$type}-symbolic');
+
+	&:checked, &:active {
+	    -gtk-icon-source: -gtk-icontheme('#{$type}-checked-symbolic');
+	}
+
+	&:inconsistent {
+	    -gtk-icon-source: -gtk-icontheme('#{$type}-mixed-symbolic');
+	}
+
+	&:focus, &:hover {
+	    color: shade($fg, 1.2);
+	}
+
+	&:active {
+	    color: shade($fg, 0.8);
+	}
+
+	&:insensitive {
+	    color: mix($bg, $fg, .5);
+	}
+
+	&:active *:insensitive {
+	    color: mix($bg, $fg, .8);
+	}
+
+}
+
+.radio {
+	@include toggle("radio", $bg_color, $fg_color);
+}
+.check {
+	@include toggle("checkbox", $bg_color, $fg_color);
+}

@@ -62,7 +62,7 @@
 	&:selected { @extend %selected_items; }
 
 	&:insensitive,
-	&:insensitive:insensitive { color: mix($fg_color, $bg_color, 50%); }
+	&:insensitive:insensitive { color: mix($fg_color, $bg_color, 0.50); }
 
 	&:insensitive { -gtk-image-effect: dim; }
 
@@ -103,7 +103,7 @@
 
 	&:insensitive {
 		background-color: shade(shade($bg_color, 0.95), 1.05);
-		color: mix($fg_color, $bg_color, 50%);
+		color: mix($fg_color, $bg_color, 0.50);
 	}
 
 	&:selected { @extend %selected_items; }
@@ -122,7 +122,7 @@ GtkLabel {
 
 	&:selected { @extend %selected_items; }
 
-	&:insensitive { color: mix($fg_color, $bg_color, 50%); }
+	&:insensitive { color: mix($fg_color, $bg_color, 0.50); }
 }
 
 .dim-label {
@@ -156,7 +156,7 @@ GtkAssistant {
 		GtkLabel {
 			padding: $spacing ($spacing * 2);
 
-			&.highlight { background-color: mix($bg_color, $fg_color, 80%); }
+			&.highlight { background-color: mix($bg_color, $fg_color, 0.80); }
 		}
 	}
 
@@ -165,7 +165,7 @@ GtkAssistant {
 
 GtkTextView {
 	/* this will get overridden by .view, needed by gedit line numbers */
-	background-color: mix($bg_color, $base_color, 50%);
+	background-color: mix($bg_color, $base_color, 0.50);
 }
 
 
