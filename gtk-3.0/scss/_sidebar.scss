@@ -1,0 +1,54 @@
+@import "functions";
+
+.sidebar {
+    &, &.view, & .view, & GtkScrolledWindow {
+        background-color: $bg_color;
+        color: mix($fg_color, $bg_color, 0.1);
+
+        &.separator {
+            border-width: 1px;
+            border-style: solid;
+            border-color: shade($bg_color, 0.9);
+            color: shade($bg_color, 0.9);
+        }
+    }
+
+    row, .view row {
+       &:selected {
+           &, &:hover, &:focus {
+               border-color: border_normal($selected_bg_color);
+               background-color: $selected_bg_color;
+               background-image: none;
+               color: $selected_fg_color;
+           }
+
+           &:prelight {
+               border-color: border_focus($selected_bg_color);
+               background-color: shade($selected_bg_color, 1.05);
+               background-image: none;
+               color: $selected_fg_color;
+           }
+       }
+
+        &:prelight {
+            border-color: shade($bg_color, 1.05);
+            background-color: shade($bg_color, 1.05);
+            background-image: none;
+            color: $fg_color;
+        }
+    }
+
+    .frame { border-width: 0; }
+
+    GtkAssistant & {
+        padding: 4px;
+        border-width: 0 1px 0 0;
+        border-style: solid;
+        border-right-color: border_normal($bg_color);
+        border-radius: 0;
+        background-color: $bg_color;
+        color: mix($fg_color, $bg_color, 0.1);
+
+        .highlight { font: bold; }
+    }
+}

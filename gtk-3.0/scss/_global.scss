@@ -30,11 +30,17 @@ $success_color: #53a93f;
 $warning_color: #f57900;
 $error_color: #cc0000;
 
+$toolbar_bg_color: $bg_color;
+$toolbar_fg_color: $fg_color;
+
 $titlebar_bg_color: $dark_bg_color;
 $titlebar_fg_color: $dark_fg_color;
 
 $menu_bg_color: $dark_bg_color;
 $menu_fg_color: $dark_fg_color;
+
+$menubar_bg_color: $dark_bg_color;
+$menubar_fg_color: $dark_fg_color;
 
 /* widget styles */
 $roundness: 2px;
