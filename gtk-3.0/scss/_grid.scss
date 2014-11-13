@@ -1,0 +1,29 @@
+@import "functions";
+
+.list {
+    background-color: shade($bg_color, 0.97);
+    color: $fg_color;
+
+    &-row {
+        border: none;
+        border-radius: 0;
+        padding: 3px;
+        background-image: none;
+        background-color: transparent;
+
+        &:hover {
+            background-image: none;
+            background-color: shade($bg_color, 1.02);
+        }
+
+        &:selected {
+            &, &:hover, &:focus {
+                background-image: none;
+                background-color: $selected_bg_color;
+                color: $selected_fg_color;
+            }
+        }
+    }
+}
+
+.grid-child { padding: $spacing; }

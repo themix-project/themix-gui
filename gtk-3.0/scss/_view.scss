@@ -1,0 +1,103 @@
+@import "functions";
+
+.cell {
+    border-width: 0;
+    border-radius: 0;
+
+    &:selected, &:selected:focus {
+        background-color: $selected_bg_color;
+        color: $selected_fg_color;
+    }
+}
+
+row {
+    &:selected {
+        &, &:hover, &:focus {
+            -GtkWidget-focus-padding: 1;
+            -GtkWidget-focus-line-width: 0;
+
+            border-width: 1px 0;
+            border-style: solid;
+            border-color: border_normal($selected_bg_color);
+            background-color: $selected_bg_color;
+            background-image: none;
+            color: $selected_fg_color;
+        }
+    }
+}
+
+column-header {
+    .button {
+        &, &:active {
+            border-width: 0 1px 1px 0;
+            border-radius: 0;
+        }
+
+        &, &:active, &:focus, &:active:focus {
+            border-color: shade($base_color, 0.9);
+            border-bottom-color: shade($base_color, 0.8);
+            background-color: shade($base_color, 0.97);
+            background-image: none;
+        }
+
+        &:hover, &:active:hover, &:hover:focus, &:active:hover:focus {
+            border-color: shade($base_color, 0.9);
+            border-bottom-color: shade($base_color, 0.8);
+            background-color: shade($base_color, 0.99);
+            background-image: none;
+        }
+
+        &:last-child .button { border-width: 0 0 1px 0; }
+    }
+}
+
+.content-view {
+    &.view {
+        background-color: $base_color;
+
+        &:prelight { background-color: alpha($selected_bg_color, 0.6); }
+
+        &:selected, &:active { background-color: $selected_bg_color; }
+
+        &:insensitive { background-color: shade($base_color, 0.9); }
+
+        &.check {
+            &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
+        }
+    }
+
+    .subtitle {
+        font: smaller;
+        padding: 0 12px;
+    }
+}
+
+GtkIconView {
+    &.content-view.check {
+        &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
+    }
+
+    &.view.cell {
+        &:selected, &:selected:focus {
+            border-width: 1px;
+            border-style: solid;
+            border-color: border_normal($selected_bg_color);
+            border-radius: 2px;
+            background-color: $selected_bg_color;
+            background-image: none;
+            color: $selected_fg_color;
+        }
+    }
+}
+
+.rubberband {
+    &, &.view, &.content-view.view {
+        border-width: 1px;
+        border-style: solid;
+        border-color: $selected_bg_color;
+        border-radius: 0;
+        background-color: alpha($selected_bg_color, 0.3);
+    }
+}
+
+GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }

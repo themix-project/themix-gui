@@ -16,20 +16,20 @@
 
     .title {
         font: bold;
-        padding: 0 12px;
+        padding: 0 ($spacing * 2);
     }
 
     .subtitle {
         font: smaller;
-        padding: 0 12px;
+        padding: 0 ($spacing * 2);
     }
 
     .button { @include button($bg, $fg); }
 
     GtkComboBox, .button {
-        padding: 2px;
+        padding: $spacing - 1px;
 
-        &.text-button { padding:  4px; }
+        &.text-button { padding:  $spacing; }
 
         &.image-button { padding: $spacing ($spacing - 1px) ($spacing - 1px) $spacing; }
     }
@@ -84,10 +84,12 @@
         border: none;
         background: none;
         color: mix($titlebar_fg_color, $titlebar_bg_color, 0.90);
+        box-shadow: none;
 
         &:hover, &:hover:focus {
             background: none;
             color: $selected_bg_color;
+            box-shadow: none;
         }
 
         &:active, &:active:hover {
@@ -97,7 +99,7 @@
         }
 
         &:backdrop {
-            background-image: none;
+            background: none;
             color: mix($titlebar_fg_color, $titlebar_bg_color, 0.60);
             icon-shadow: none;
         }
