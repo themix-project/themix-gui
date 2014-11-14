@@ -82,25 +82,28 @@
     .titlebutton {
         padding: $spacing;
         border: none;
-        background: none;
-        color: mix($titlebar_fg_color, $titlebar_bg_color, 0.90);
+        background-image: none;
+        background-color: transparent;
+        color: mix($titlebar_fg_color, $titlebar_bg_color, .1);
         box-shadow: none;
 
         &:hover, &:hover:focus {
-            background: none;
+            background-image: none;
+            background-color: transparent;
             color: $selected_bg_color;
             box-shadow: none;
         }
 
         &:active, &:active:hover {
-            background: none;
+            background-image: none;
+            background-color: transparent;
             color: darken($selected_bg_color, 10%);
             box-shadow: none;
         }
 
         &:backdrop {
             background: none;
-            color: mix($titlebar_fg_color, $titlebar_bg_color, 0.60);
+            color: mix($titlebar_fg_color, $titlebar_bg_color, .6);
             icon-shadow: none;
         }
     }

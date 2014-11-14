@@ -35,10 +35,9 @@ GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
     }
 
     &, .menu & {
+        margin: $spacing;
         padding: $spacing;
-        border-width: 1px;
-        border-style: solid;
-        border-color: transparent;
+        border: none;
         border-radius: 0;
         background-color: transparent;
         background-image: none;
@@ -46,7 +45,7 @@ GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
         -GtkMenuItem-arrow-scaling: 0.5;
 
         &:active, &:hover {
-            border-color: shade($selected_bg_color, .9);
+            border: none;
             background-color: $selected_bg_color;
             background-image: none;
             color: $selected_fg_color;

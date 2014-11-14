@@ -16,9 +16,7 @@ row {
             -GtkWidget-focus-padding: 1;
             -GtkWidget-focus-line-width: 0;
 
-            border-width: 1px 0;
-            border-style: solid;
-            border-color: border_normal($selected_bg_color);
+            border: none;
             background-color: $selected_bg_color;
             background-image: none;
             color: $selected_fg_color;
@@ -79,9 +77,7 @@ GtkIconView {
 
     &.view.cell {
         &:selected, &:selected:focus {
-            border-width: 1px;
-            border-style: solid;
-            border-color: border_normal($selected_bg_color);
+            border: none;
             border-radius: 2px;
             background-color: $selected_bg_color;
             background-image: none;
