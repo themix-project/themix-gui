@@ -6,34 +6,36 @@
         color: mix($fg_color, $bg_color, 0.1);
 
         &.separator {
-            border-width: 1px;
-            border-style: solid;
-            border-color: shade($bg_color, 0.9);
-            color: shade($bg_color, 0.9);
+            &, &:hover, &:focus {
+                border-width: 1px;
+                border-style: solid;
+                border-color: shade($bg_color, 0.9);
+                color: shade($bg_color, 0.9);
+            }
         }
     }
 
     row, .view row {
        &:selected {
            &, &:hover, &:focus {
-               border-color: border_normal($selected_bg_color);
-               background-color: $selected_bg_color;
+               border: none;
                background-image: none;
+               background-color: $selected_bg_color;
                color: $selected_fg_color;
            }
 
            &:prelight {
-               border-color: border_focus($selected_bg_color);
-               background-color: shade($selected_bg_color, 1.05);
+               border: none;
                background-image: none;
+               background-color: shade($selected_bg_color, 1.05);
                color: $selected_fg_color;
            }
        }
 
         &:prelight {
-            border-color: shade($bg_color, 1.05);
-            background-color: shade($bg_color, 1.05);
+            border: none;
             background-image: none;
+            background-color: shade($bg_color, 0.95);
             color: $fg_color;
         }
     }
