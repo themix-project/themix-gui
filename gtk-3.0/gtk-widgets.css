@@ -1779,7 +1779,9 @@ OsScrollbar:insensitive {
 /*************
  * separator *
  *************/
+.sidebar.separator,
 .sidebar.view.separator,
+.sidebar .view.separator,
 .view.separator,
 .separator {
     border-width: 1px;
