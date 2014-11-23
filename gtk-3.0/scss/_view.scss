@@ -1,4 +1,17 @@
 @import "functions";
+@import "global";
+
+
+/***************
+ ! Generic views
+****************/
+
+.view {
+    color: $text_color;
+    background-color: $base_color;
+
+    &:selected { @extend %selected_items; }
+}
 
 .cell {
     border-width: 0;
@@ -24,6 +37,68 @@ row {
     }
 }
 
+.content-view {
+    &.view {
+        background-color: $base_color;
+
+        &:prelight { background-color: alpha($selected_bg_color, 0.6); }
+
+        &:selected, &:active { background-color: $selected_bg_color; }
+
+        &:insensitive { background-color: shade($base_color, 0.9); }
+
+        &.check {
+            &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
+        }
+    }
+
+    .subtitle {
+        font: smaller;
+        padding: 0 12px;
+    }
+}
+
+GtkIconView {
+    &.content-view.check { @extend .content-view.check; }
+
+    &.view.cell {
+        &:selected, &:selected:focus {
+            border: none;
+            border-radius: 2px;
+            background-image: none;
+            background-color: $selected_bg_color;
+            color: $selected_fg_color;
+        }
+    }
+}
+
+.rubberband {
+    &, &.view, &.content-view.view {
+        border: 1px solid $selected_bg_color;
+        border-radius: 0;
+        background-color: alpha($selected_bg_color, 0.3);
+    }
+}
+
+/* used by GtkScrolledWindow, shown when content is touch-dragged past boundaries. */
+.overshoot { background-color: alpha($selected_bg_color, 0.3); }
+
+GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }
+
+/* this will get overridden by .view, needed by gedit line numbers */
+GtkTextView { background-color: mix($bg_color, $base_color, 0.50); }
+
+GtkDrawingArea, GtkHTML {
+    @extend .view;
+
+    &:insensitive { background-color: shade($base_color, 0.9); }
+}
+
+
+/*********************
+ ! Column view headers
+**********************/
+
 column-header {
     .button {
         &, &:active {
@@ -48,52 +123,3 @@ column-header {
         &:last-child .button { border-width: 0 0 1px 0; }
     }
 }
-
-.content-view {
-    &.view {
-        background-color: $base_color;
-
-        &:prelight { background-color: alpha($selected_bg_color, 0.6); }
-
-        &:selected, &:active { background-color: $selected_bg_color; }
-
-        &:insensitive { background-color: shade($base_color, 0.9); }
-
-        &.check {
-            &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
-        }
-    }
-
-    .subtitle {
-        font: smaller;
-        padding: 0 12px;
-    }
-}
-
-GtkIconView {
-    &.content-view.check {
-        &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
-    }
-
-    &.view.cell {
-        &:selected, &:selected:focus {
-            border: none;
-            border-radius: 2px;
-            background-color: $selected_bg_color;
-            background-image: none;
-            color: $selected_fg_color;
-        }
-    }
-}
-
-.rubberband {
-    &, &.view, &.content-view.view {
-        border-width: 1px;
-        border-style: solid;
-        border-color: $selected_bg_color;
-        border-radius: 0;
-        background-color: alpha($selected_bg_color, 0.3);
-    }
-}
-
-GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }

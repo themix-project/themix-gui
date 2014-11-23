@@ -1,4 +1,10 @@
 @import "functions";
+@import "global";
+
+
+/*******
+ ! Entry
+********/
 
 @mixin linked_entry($bg) {
 	border-width: 1px;

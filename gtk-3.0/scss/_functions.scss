@@ -1,5 +1,14 @@
 @import "global";
 
+$modules: () !default;
+
+@mixin exports($name) {
+	@if (not index($modules, $name)) {
+		$modules: append($modules, $name) !global;
+		@content;
+	}
+}
+
 @function alpha($color, $amount) {
 	@if type-of($color) == "color" {
 		@return fade-out($color, (1 - $amount));

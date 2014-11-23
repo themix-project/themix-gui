@@ -1,6 +1,16 @@
-/*************************
- * Check and Radio items *
- *************************/
+@import "functions";
+@import "global";
+
+
+/***********************
+ ! Check and Radio items
+************************/
+
+* {
+	-GtkCheckButton-indicator-size: 16;
+	-GtkCheckMenuItem-indicator-size: 14;
+}
+
 @mixin toggle($type, $bg, $fg) {
 	color: $fg;
 	background-image: none;
@@ -32,9 +42,46 @@
 
 }
 
-.radio {
-	@include toggle("radio", $bg_color, $fg_color);
-}
-.check {
-	@include toggle("checkbox", $bg_color, $fg_color);
+.radio { @include toggle("radio", $bg_color, $fg_color); }
+
+.check { @include toggle("checkbox", $bg_color, $fg_color); }
+
+
+/********
+ ! Switch
+*********/
+
+GtkSwitch {
+	padding: 0;
+	border-radius: $roundness;
+	font: bold condensed;
+	outline-offset: -4px;
+
+	&.slider {
+		border: 1px solid shade($bg_color, 0.8);
+		background-color: shade($bg_color, 1.08);
+
+		&:insensitive {
+			border-color: shade($bg_color, 0.85);
+			background-color: shade($bg_color, 0.9);
+		}
+	}
+
+	&.trough {
+		border-color: shade($bg_color, 0.8);
+		background-color: shade($bg_color, 0.95);
+		color: $fg_color;
+
+		&:active {
+			border-color: shade($selected_bg_color, 0.9);
+			background-color: $selected_bg_color;
+			color: $selected_fg_color;
+		}
+
+		&:insensitive {
+			border-color: shade($bg_color, 0.85);
+			background-color: shade($bg_color, 0.9);
+			color: mix($fg_color, $bg_color, 0.5);
+		}
+	}
 }

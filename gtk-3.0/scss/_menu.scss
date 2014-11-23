@@ -1,5 +1,11 @@
 @import "functions";
+@import "global";
 @import "entry";
+
+
+/******
+ ! Menu
+*******/
 
 GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
     &.menu, .menu {
@@ -112,6 +118,11 @@ GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
 }
 
 GtkModelMenuItem GtkBox GtkImage { padding-right: $spacing; }
+
+
+/*********
+ ! Popover
+**********/
 
 GtkPopover {
 	@include border($menu_bg_color);

@@ -1,5 +1,10 @@
 @import "functions";
+@import "global";
 @import "button";
+
+/*********
+ ! Toolbar
+**********/
 
 @mixin toolbar($bg, $fg) {
     @include linear-gradient($bg);

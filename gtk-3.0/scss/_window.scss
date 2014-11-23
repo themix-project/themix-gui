@@ -1,3 +1,11 @@
+@import "functions";
+@import "global";
+
+
+/**************
+ ! Window frame
+***************/
+
 .window-frame {
 	border: none;
 	border-radius: $roundness $roundness 0 0;

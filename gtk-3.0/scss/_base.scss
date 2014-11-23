@@ -1,6 +1,11 @@
 @import "functions";
 @import "global";
 
+
+/**************
+ ! GTK settings
+***************/
+
 * {
 	-GtkArrow-arrow-scaling: 0.5;
 	-GtkButton-child-displacement-x: 0;
@@ -11,8 +16,6 @@
 	-GtkButton-interior-focus: true;
 	-GtkButtonBox-child-min-height: 24;
 	-GtkButtonBox-child-internal-pad-y: 1;
-	-GtkCheckButton-indicator-size: 16;
-	-GtkCheckMenuItem-indicator-size: 14;
 	-GtkExpander-expander-size: 8;
 	-GtkMenu-horizontal-padding: 0;
 	-GtkMenu-vertical-padding: 0;
@@ -37,10 +40,6 @@
 	-GtkWindow-resize-grip-width: 0;
 	-WnckTasklist-fade-overlay-rect: 0;
 
-	/* legacy stuff */
-	-GtkWidget-focus-line-width: 1;
-	-GtkWidget-focus-padding: 0;
-
 	outline-color: alpha($selected_bg_color, 0.5);
 	outline-style: dashed;
 	outline-width: 1px;
@@ -48,9 +47,11 @@
 	outline-radius: 2px;
 }
 
-/***************
- * base states *
- ***************/
+
+/*************
+ ! Base states
+ *************/
+
 %selected_items {
 	&, &:focus {
 		background-color: $selected_bg_color;
@@ -88,7 +89,7 @@
 }
 
 .gtkstyle-fallback {
-	background-color: $bg_color;
+	background-color: alpha($bg_color, .5);
 	color: $fg_color;
 
 	&:prelight {
@@ -128,76 +129,4 @@ GtkLabel {
 .dim-label {
 	opacity: 0.5;
 	text-shadow: none;
-}
-
-.view {
-	color: $text_color;
-	background-color: $base_color;
-
-	&:selected { @extend %selected_items; }
-}
-
-.rubberband {
-	border: 1px solid $selected_bg_color;
-	background-color: alpha($selected_bg_color, 0.2);
-}
-
-/* used by GtkScrolledWindow, shown when content is touch-dragged past boundaries. */
-.overshoot { background-color: alpha($selected_bg_color, 0.2); }
-
-GtkAssistant {
-	.sidebar {
-		background-color: $base_color;
-		border-top: 1px solid border_normal($base_color);
-
-		&:dir(ltr) { border-right: 1px solid border_normal($base_color); }
-		&:dir(rtl) { border-left: 1px solid border_normal($base_color); }
-
-		GtkLabel {
-			padding: $spacing ($spacing * 2);
-
-			&.highlight { background-color: mix($bg_color, $fg_color, 0.80); }
-		}
-	}
-
-	&.csd .sidebar { border-top-style: none; }
-}
-
-GtkTextView {
-	/* this will get overridden by .view, needed by gedit line numbers */
-	background-color: mix($bg_color, $base_color, 0.50);
-}
-
-
-GtkFlowBox .grid-child {
-	padding: 3px;
-	border-radius: 3px;
-
-	&:selected {
-		@extend %selected_items;
-
-		outline-offset: -2px;
-	}
-}
-
-/*********************
- * spinner animation *
- *********************/
-@keyframes spin {
-	to { -gtk-icon-transform: rotate(1turn); }
-}
-
-.spinner {
-	background-image: none;
-	background-color: blue;
-	opacity: 0; // non spinning spinner makes no sense
-
-	-gtk-icon-source: -gtk-icontheme("process-working-symbolic");
-
-	&:active {
-		opacity: 1;
-		animation: spin 1s linear infinite;
-
-		&:insensitive { opacity: 0.5; }
-	}
 }

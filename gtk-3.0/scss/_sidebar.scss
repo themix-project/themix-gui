@@ -1,4 +1,10 @@
 @import "functions";
+@import "global";
+
+
+/*********
+ ! Sidebar
+**********/
 
 .sidebar {
     &, &.view, & .view, & GtkScrolledWindow {
@@ -50,6 +56,17 @@
         border-radius: 0;
         background-color: $bg_color;
         color: mix($fg_color, $bg_color, 0.1);
+
+        &:dir(ltr) { border-width: 0 1px 0 0; }
+        &:dir(rtl) { border-width: 0 0 0 1px; }
+
+        GtkLabel {
+            padding: $spacing ($spacing * 2);
+
+            &.highlight { background-color: mix($bg_color, $fg_color, 0.80); }
+        }
+
+        &.csd .sidebar { border-top-style: none; }
 
         .highlight { font: bold; }
     }

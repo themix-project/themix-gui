@@ -1,4 +1,10 @@
 @import "functions";
+@import "global";
+
+
+/******************
+ ! Grid and flowbox
+*******************/
 
 .list {
     background-color: shade($bg_color, 0.97);
@@ -26,4 +32,15 @@
     }
 }
 
-.grid-child { padding: $spacing; }
+.grid-child {
+    &, GtkFlowBox & {
+        padding: $spacing;
+        border-radius: $roundness;
+
+        &:selected {
+            @extend %selected_items;
+
+            outline-offset: -2px;
+        }
+    }
+}
