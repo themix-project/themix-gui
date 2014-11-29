@@ -10,7 +10,12 @@
     color: $text_color;
     background-color: $base_color;
 
-    &:selected { @extend %selected_items; }
+    &:insensitive, &:insensitive:insensitive {
+        background-color: shade($base_color, 0.9);
+        color: mix($text_color, $base_color, 0.5);
+    }
+
+    &:selected, &:selected:focus { @extend %selected_items; }
 }
 
 .cell {
@@ -72,6 +77,16 @@ GtkIconView {
     }
 }
 
+.dim-label {
+    &, &.view { color: alpha(currentColor, 0.5); }
+}
+
+.dnd { border: 1px solid $selected_bg_color; }
+
+.grip { background-color: transparent; }
+
+.arrow { color: alpha(currentColor, 0.7); }
+
 .rubberband {
     &, &.view, &.content-view.view {
         border: 1px solid $selected_bg_color;
@@ -92,6 +107,25 @@ GtkDrawingArea, GtkHTML {
     @extend .view;
 
     &:insensitive { background-color: shade($base_color, 0.9); }
+}
+
+
+/************
+ ! Treeview *
+*************/
+
+GtkTreeView {
+    -GtkTreeView-vertical-separator: 0;
+
+    outline-offset: -1px;
+
+    &.dnd { border: 1px solid $selected_bg_color; }
+
+    .entry {
+        border-radius: 0;
+        background-color: $base_color;
+        background-image: none;
+    }
 }
 
 
@@ -174,4 +208,14 @@ GtkExpander {
     &:hover { color: alpha(currentColor, 0.9); }
 
     &:selected, &:selected:hover { color: $selected_fg_color; }
+}
+
+
+/******************
+ ! Pane separator *
+*******************/
+
+.pane-separator {
+    background-color: $bg_color;
+    color: transparent;
 }
