@@ -2796,7 +2796,7 @@ GtkColorButton.button {
 .inline-toolbar.toolbar.vertical GtkToolButton:only-child > .button:active,
 .linked.vertical .button:checked:last-child,
 .linked.vertical .button:checked:only-child,
-.inline-toolbar.toolbar.vertical .button:checkede:last-child,
+.inline-toolbar.toolbar.vertical .button:checked:last-child,
 .inline-toolbar.toolbar.vertical .button:checked:only-child,
 .inline-toolbar.toolbar.vertical GtkToolButton:last-child > .button:checked,
 .inline-toolbar.toolbar.vertical GtkToolButton:only-child > .button:checked {
