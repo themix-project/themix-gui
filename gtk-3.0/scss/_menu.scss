@@ -3,6 +3,38 @@
 @import "entry";
 
 
+/*********
+ ! Menubar
+**********/
+
+.menubar {
+    -GtkWidget-window-dragging: true;
+
+    border: none;
+    background-color: $menubar_bg_color;
+    background-image: none;
+    color: $menubar_fg_color;
+
+
+    &.menuitem, .menuitem {
+        padding: $spacing ($spacing * 2);
+        border: 1px solid transparent;
+        background-color: transparent;
+        background-image: none;
+        color: $menubar_fg_color;
+
+        &:hover {
+            border-color: mix($menubar_bg_color, $menubar_fg_color, 0.21);
+            background-color: mix($menubar_bg_color, $menubar_fg_color, 0.21);
+            background-image: none;
+            color: shade($menubar_fg_color, 1.08);
+        }
+
+        & *:hover { color: shade($menubar_fg_color, 1.08); }
+    }
+}
+
+
 /******
  ! Menu
 *******/
@@ -80,7 +112,7 @@ GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
     }
 
     &.button {
-        &, &:active, &:insensitive, &:active:insensitive {
+        &, &:focus, &:active, &:insensitive, &:active:insensitive {
             background-color: transparent;
             background-image: none;
             border-color: transparent;
@@ -89,7 +121,7 @@ GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
             color: currentColor;
         }
 
-        &:hover, &:active:hover, &:selected {
+        &:hover, &:focus:hover, &:active:hover, &:selected {
             background-color: $selected_bg_color;
             background-image: none;
             color: $selected_fg_color;
@@ -134,8 +166,15 @@ GtkPopover {
     border-style: solid;
     background-clip: border-box;
     background-color: $menu_bg_color;
+    background-image: none;
     color: $menu_fg_color;
     box-shadow: 0 2px 3px alpha(black, .5);
+
+    &.background {
+        background-image: none;
+        background-color: $menu_bg_color;
+        color: $menu_fg_color;
+    }
 
     &:backdrop { box-shadow: none; }
 
@@ -158,5 +197,27 @@ GtkPopover {
         color: alpha($menu_bg_color, .5);
         font-size: 80%;
         font-weight: bold;
+    }
+}
+
+GtkModelButton.button {
+    &, &:focus, &:active, &:insensitive, &:active:insensitive {
+        &, &:backdrop {
+            background-color: transparent;
+            background-image: none;
+            border-color: transparent;
+            border-image: none;
+            border-style: none;
+            box-shadow: none;
+            color: $menu_fg_color;
+        }
+    }
+
+    &:focus:hover, &:active:hover, &:hover, &:selected {
+        background-image: none;
+        background-color: $selected_bg_color;
+        color: $selected_fg_color;
+        border: none;
+        border-radius: 2px;
     }
 }

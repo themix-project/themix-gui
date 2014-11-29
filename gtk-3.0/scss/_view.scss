@@ -123,3 +123,55 @@ column-header {
         &:last-child .button { border-width: 0 0 1px 0; }
     }
 }
+
+
+/**********
+ ! Frames *
+***********/
+
+.frame { border: none; }
+
+GtkScrolledWindow {
+    &.frame { border: 1px solid border_normal($bg_color); }
+
+    /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
+    GtkViewport.frame { border: none; }
+}
+
+
+/*************
+ ! Expanders *
+**************/
+
+GtkExpander {
+    padding: $spacing;
+    outline-offset: 1px;
+}
+
+.expander {
+    color: alpha(currentColor, 0.7);
+    border: alpha(currentColor, 0.7);
+
+    &:hover {
+        color: alpha(currentColor, 0.8);
+        border-color: alpha(currentColor, 0.8);
+    }
+
+    &:active {
+        color: alpha(currentColor, 0.9);
+        border-color: alpha(currentColor, 0.9);
+    }
+}
+
+
+/*******************
+ ! Symbolic images *
+********************/
+
+.image {
+    color: alpha(currentColor, 0.5);
+
+    &:hover { color: alpha(currentColor, 0.9); }
+
+    &:selected, &:selected:hover { color: $selected_fg_color; }
+}
