@@ -1,0 +1,205 @@
+@import "functions";
+@import "global";
+
+
+/*****************
+ ! Progress bars *
+******************/
+
+* {
+	-GtkProgressBar-min-horizontal-bar-height: 12;
+	-GtkProgressBar-min-vertical-bar-width: 12;
+}
+
+GtkProgressBar {
+	padding: 0;
+	border-radius: 2px;
+	font-size: smaller;
+	color: alpha($fg_color, 0.6);
+
+	&.osd {
+		-GtkProgressBar-xspacing: 0;
+		-GtkProgressBar-yspacing: 0;
+		-GtkProgressBar-min-horizontal-bar-height: 3;
+	}
+
+	&.trough {
+		border: 1px solid shade($bg_color, 0.8);
+		background-color: shade($bg_color, 1.08);
+		background-image: none;
+	}
+}
+
+.progressbar {
+	background-image: none;
+	background-color: $selected_bg_color;
+	border-radius: 0;
+	box-shadow: none;
+
+	&.left {
+		border-top-left-radius: $roundness;
+		border-bottom-left-radius: $roundness;
+	}
+
+	&.right {
+		border-top-right-radius: $roundness;
+		border-bottom-right-radius: $roundness;
+	}
+
+	&.left.right { box-shadow: none; }
+
+	&.vertical {
+		background-image: none;
+		background-color: $selected_bg_color;
+
+		&.bottom {
+			border-bottom-left-radius: $roundness;
+			border-bottom-right-radius: $roundness;
+		}
+
+		&.top {
+			border-top-left-radius: $roundness;
+			border-top-right-radius: $roundness;
+		}
+	}
+}
+
+GtkLevelBar {
+	-GtkLevelBar-min-block-width: 34;
+	-GtkLevelBar-min-block-height: 3;
+
+	&.vertical {
+		-GtkLevelBar-min-block-width: 3;
+		-GtkLevelBar-min-block-height: 34;
+	}
+}
+
+.level-bar {
+	&.trough {
+		border: 1px solid shade($bg_color, 0.8);
+		background-color: shade($bg_color, 1.08);
+		background-image: none;
+	}
+
+	&.fill-block {
+		// FIXME: it would be nice to set make fill blocks bigger, but we'd need
+		// :nth-child working on discrete indicators
+		border: 1px shade($selected_bg_color, 5%));
+		background-color: $selected_bg_color;
+		box-shadow: 0 1px transparentize(black, 0.9);
+		border-radius: 1px;
+		&:backdrop {
+			border-color: $selected_bg_color;
+			box-shadow: none;
+		}
+		&.indicator-discrete {
+			&.horizontal { margin: 0 1px; }
+			&.vertical { margin: 1px 0; }
+		}
+		&.level-high {
+			border-color: darken($success_color,10%);
+			background-color: $success_color;
+			&:backdrop { border-color: $success_color; }
+		}
+		&.level-low {
+			border-color: darken($warning_color,10%);
+			background-color: $warning_color;
+			&:backdrop { border-color: $warning_color; };
+		}
+		&.empty-fill-block {
+			background-color: transparent;
+			border-color: if($variant=='light', transparentize($fg_color,0.8),
+				transparentize($fg_color,0.9));
+			box-shadow: none;
+			&:backdrop { border-color: transparentize($backdrop_fg_color,0.85); }
+		}
+	}
+}
+
+.scale {
+	-GtkRange-slider-width: 16;
+	-GtkRange-trough-border: 1;
+	-GtkScale-slider-length: 16;
+
+	padding: 0;
+	border-width: 1px;
+	border-radius: 2px;
+	outline-offset: -1px;
+}
+
+.scale.slider {
+	border-radius: 8px;
+	background-color: shade($bg_color, 1.08);
+	background-image: none;
+	/* we will draw the border using box shadow for now */
+	box-shadow: inset 1px 0 shade($bg_color, 0.8),
+		inset 0 1px shade($bg_color, 0.8),
+		inset -1px 0 shade($bg_color, 0.8),
+		inset 0 -1px shade($bg_color, 0.8);
+}
+
+.scale.slider:hover {
+	box-shadow: inset 1px 0 shade($bg_color, 0.7),
+		inset 0 1px shade($bg_color, 0.7),
+		inset -1px 0 shade($bg_color, 0.7),
+		inset 0 -1px shade($bg_color, 0.7);
+}
+
+.scale.slider:insensitive {
+	background-color: shade($bg_color, 0.9);
+	background-image: none;
+	box-shadow: inset 1px 0 shade($bg_color, 0.85),
+		inset 0 1px shade($bg_color, 0.85),
+		inset -1px 0 shade($bg_color, 0.85),
+		inset 0 -1px shade($bg_color, 0.85);
+}
+
+.scale.slider.fine-tune:active,
+.scale.slider.fine-tune:active:hover,
+.scale.slider.fine-tune.horizontal:active,
+.scale.slider.fine-tune.horizontal:active:hover {
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.scale.mark {
+	border-color: shade($bg_color, 0.8);
+}
+
+.scale.trough {
+	margin: 7px 0;
+	border-color: shade($bg_color, 0.8);
+	border-radius: 2px;
+	background-color: shade($bg_color, 1.08);
+	background-image: none;
+}
+
+.scale.trough.vertical {
+	margin: 0 7px;
+}
+
+.menuitem .scale.highlight.left,
+.scale.highlight.left {
+	border-color: $selected_bg_color;
+	background-color: $selected_bg_color;
+	background-image: none;
+}
+
+.menuitem .scale.highlight.left:hover {
+	border-color: shade($selected_bg_color, 0.8);
+	background-color: shade($selected_bg_color, 0.8);
+}
+
+.scale.highlight.bottom {
+	border-color: $selected_bg_color;
+	background-color: $selected_bg_color;
+	background-image: none;
+}
+
+.scale.trough:insensitive,
+.scale.highlight.left:insensitive {
+	border-color: shade($bg_color, 0.85);
+	background-color: shade($bg_color, 0.9);
+	background-image: none;
+}

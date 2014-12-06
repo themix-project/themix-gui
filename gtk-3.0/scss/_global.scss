@@ -1,4 +1,4 @@
-/* default color scheme */
+// default color scheme
 $bg_color: #eee;
 $fg_color: #444;
 $base_color: #fff;
@@ -8,15 +8,15 @@ $selected_fg_color: #fff;
 $tooltip_bg_color: #444;
 $tooltip_fg_color: #eee;
 
-/* dark colors */
+// dark colors
 $dark_bg_color: #444;
 $dark_fg_color: #eee;
 
-/* shadows */
+// shadows
 $dark_shadow: #000;
 $light_shadow: #fff;
 
-/* misc colors used by gtk+ */
+// misc colors used by gtk+
 $info_fg_color: #3986ac;
 $info_bg_color: #d9edf7;
 $warning_fg_color: #c09853;
@@ -42,7 +42,7 @@ $menu_fg_color: $dark_fg_color;
 $menubar_bg_color: $dark_bg_color;
 $menubar_fg_color: $dark_fg_color;
 
-/* widget styles */
+// widget styles
 $roundness: 2px;
 $spacing: 5px;
 $gradient: 0;

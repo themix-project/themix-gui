@@ -12,7 +12,7 @@
 	border-right-style: none;
 	border-left-style: none;
 	box-shadow: inset -1px 0 border_normal($bg),
-				0 1px 2px -1px alpha($dark_shadow, .3);
+				0 1px 2px -1px alpha($shadow, .3);
 
 	&:first-child {
 		border-width: 1px;
@@ -49,7 +49,7 @@
 
 	&:focus, &:hover {
 		box-shadow: inset -1px 0 border_focus($bg),
-					0 1px 2px -1px alpha($dark_shadow, .3);
+					0 1px 2px -1px alpha($shadow, .3);
 	}
 
 	&:active, &:active:hover,
@@ -121,12 +121,28 @@
 		box-shadow: none;
 	}
 
+	&.flat {
+		color: inherit;
+
+		&, &:hover, &:focus,
+		&:active, &:active:hover, &:active:focus,
+		&:checked, &:checked:hover, &:checked:focus {
+			border: none;
+			background-color: transparent;
+			background-image: none;
+		}
+
+		// TODO
+	}
+
 	&.separator, .separator {
 		color: shade($bg, .95);
 		border: 1px solid currentColor;
 
 		&:insensitive { color: shade($bg, .85); }
 	}
+
+	.linked & { @include linked_button($bg, $dark_shadow); }
 }
 
 .button {
