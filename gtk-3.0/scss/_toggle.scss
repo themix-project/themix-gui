@@ -11,40 +11,57 @@
 	-GtkCheckMenuItem-indicator-size: 14;
 }
 
-@mixin toggle($type, $bg, $fg) {
-	color: $fg;
+@mixin toggle($type) {
 	background-image: none;
-	-gtk-icon-source: -gtk-icontheme('#{$type}-symbolic');
+
+	-gtk-icon-source: url('../assets/#{$type}-unchecked.svg');
+
+	&:insensitive { -gtk-icon-source: url('../assets/#{$type}-unchecked-insensitive.svg'); }
 
 	&:checked, &:active {
-	    -gtk-icon-source: -gtk-icontheme('#{$type}-checked-symbolic');
+		-gtk-icon-source: url('../assets/#{$type}-checked.svg');
+
+		&:insensitive { -gtk-icon-source: url('../assets/#{$type}-checked-insensitive.svg'); }
 	}
 
 	&:inconsistent {
-	    -gtk-icon-source: -gtk-icontheme('#{$type}-mixed-symbolic');
+		-gtk-icon-source: url('../assets/#{$type}-mixed.svg');
+
+		&:insensitive { -gtk-icon-source: url('../assets/#{$type}-mixed-insensitive.svg'); }
 	}
 
-	&:focus, &:hover {
-	    color: shade($fg, 1.2);
-	}
+	&.menuitem {
+		-gtk-icon-source: none;
 
-	&:active {
-	    color: shade($fg, 0.8);
-	}
+		&:insensitive { -gtk-icon-source: none; }
 
-	&:insensitive {
-	    color: mix($bg, $fg, .5);
-	}
+		&:checked, &:active {
+			-gtk-icon-source: url('../assets/menuitem-#{$type}-checked.svg');
 
-	&:active *:insensitive {
-	    color: mix($bg, $fg, .8);
-	}
+			&:hover { -gtk-icon-source: url('../assets/menuitem-#{$type}-checked-hover.svg'); }
 
+			&:insensitive { -gtk-icon-source: url('../assets/menuitem-#{$type}-checked-insensitive.svg'); }
+		}
+
+		&:inconsistent {
+			-gtk-icon-source: url('../assets/menuitem-#{$type}-mixed.svg');
+
+			&:hover { -gtk-icon-source: url('../assets/menuitem-#{$type}-mixed-hover.svg'); }
+
+			&:insensitive { -gtk-icon-source: url('../assets/menuitem-#{$type}-mixed-insensitive.svg'); }
+		}
+	}
 }
 
-.radio { @include toggle("radio", $bg_color, $fg_color); }
+.radio { @include toggle("radio"); }
 
-.check { @include toggle("checkbox", $bg_color, $fg_color); }
+.check { @include toggle("checkbox"); }
+
+GtkIconView.content-view.cell.check {
+	-gtk-icon-source: url("assets/grid-selection-unchecked.svg");
+
+	&:active { -gtk-icon-source: url("assets/grid-selection-checked.svg"); }
+}
 
 
 /********

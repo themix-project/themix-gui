@@ -71,3 +71,48 @@
         .highlight { font: bold; }
     }
 }
+
+
+/***************
+! Pane separator
+****************/
+
+.pane-separator {
+    &, &.horizontal {
+        background-image: linear-gradient(to bottom,
+                            shade($bg_color, 0.8) 0%,
+                            shade($bg_color, 0.8) 20%,
+                            transparent 20%,
+                            transparent 45%,
+                            shade($bg_color, 0.8) 45%,
+                            shade($bg_color, 0.8) 55%,
+                            transparent 55%,
+                            transparent 80%,
+                            shade($bg_color, 0.8) 80%,
+                            shade($bg_color, 0.8)
+                        );
+
+        background-size: 4px 10px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    &.vertical {
+        background-image: linear-gradient(to right,
+                            shade($bg_color, 0.8) 0%,
+                            shade($bg_color, 0.8) 20%,
+                            transparent 20%,
+                            transparent 45%,
+                            shade($bg_color, 0.8) 45%,
+                            shade($bg_color, 0.8) 55%,
+                            transparent 55%,
+                            transparent 80%,
+                            shade($bg_color, 0.8) 80%,
+                            shade($bg_color, 0.8)
+                        );
+
+        background-size: 10px 4px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+}
