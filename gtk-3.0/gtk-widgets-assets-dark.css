@@ -1,0 +1,86 @@
+/*******************
+* check and radio *
+*******************/
+/* draw regular check and radio items using our assets */
+.check,
+.check:focus,
+.check row:selected,
+.check row:selected:focus {
+	-gtk-icon-source: url("assets/checkbox-unchecked-dark.svg");
+}
+
+.check:insensitive,
+.check row:selected:insensitive,
+.check row:selected:focus:insensitive {
+	-gtk-icon-source: url("assets/checkbox-unchecked-insensitive-dark.svg");
+}
+
+.check:active,
+.check:checked,
+.check row:selected:active,
+.check row:selected:focus:active {
+	-gtk-icon-source: url("assets/checkbox-checked-dark.svg");
+}
+
+.check:active:insensitive,
+.check row:selected:active:insensitive,
+.check row:selected:focus:active:insensitive {
+	-gtk-icon-source: url("assets/checkbox-checked-insensitive-dark.svg");
+}
+
+.check:inconsistent,
+.check row:selected:inconsistent,
+.check row:selected:focus:inconsistent {
+	-gtk-icon-source: url("assets/checkbox-mixed-dark.svg");
+}
+
+.check:inconsistent:insensitive,
+.check row:selected:inconsistent:insensitive,
+.check row:selected:focus:inconsistent:insensitive {
+	-gtk-icon-source: url("assets/checkbox-mixed-insensitive-dark.svg");
+}
+
+.radio,
+.radio row:selected,
+.radio row:selected:focus {
+	-gtk-icon-source: url("assets/radio-unselected-dark.svg");
+}
+
+.radio:insensitive,
+.radio row:selected:insensitive,
+.radio row:selected:focus:insensitive {
+	-gtk-icon-source: url("assets/radio-unselected-insensitive-dark.svg");
+}
+
+.radio:active,
+.radio:checked,
+.radio row:selected:active,
+.radio row:selected:focus:active {
+	-gtk-icon-source: url("assets/radio-selected-dark.svg");
+}
+
+.radio:active:insensitive,
+.radio row:selected:active:insensitive,
+.radio row:selected:focus:active:insensitive {
+	-gtk-icon-source: url("assets/radio-selected-insensitive-dark.svg");
+}
+
+.radio:inconsistent,
+.radio row:selected:inconsistent,
+.radio row:selected:focus:inconsistent {
+	-gtk-icon-source: url("assets/radio-mixed-dark.svg");
+}
+
+.radio:inconsistent:insensitive,
+.radio row:selected:inconsistent:insensitive,
+.radio row:selected:focus:inconsistent:insensitive {
+	-gtk-icon-source: url("assets/radio-mixed-insensitive-dark.svg");
+}
+
+GtkIconView.content-view.cell.check {
+	-gtk-icon-source: url("assets/grid-selection-unchecked-dark.svg");
+}
+
+GtkIconView.content-view.cell.check:active {
+	-gtk-icon-source: url("assets/grid-selection-checked-dark.svg");
+}
