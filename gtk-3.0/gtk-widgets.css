@@ -635,8 +635,8 @@ GtkExpander {
  * list boxes *
  **************/
 .list {
-    background-color: shade(@theme_bg_color, 0.97);
-    color: @theme_fg_color;
+    background-image: none;
+    background-color: transparent;
 }
 
 .list-row {
@@ -644,6 +644,7 @@ GtkExpander {
     border-radius: 0;
     padding: 3px;
     background-image: none;
+    background-color: transparent;
 }
 
 .list-row:hover {
@@ -668,12 +669,7 @@ GtkExpander {
 /*********
  * frame *
  *********/
-.frame {
-    border-width: 1px;
-    border-style: solid;
-    border-color: shade(@theme_bg_color, 0.8);
-    border-radius: 0;
-}
+.frame { border: none; }
 
 /*******************
  * scrolled window *
