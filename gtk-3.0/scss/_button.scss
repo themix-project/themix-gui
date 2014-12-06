@@ -66,8 +66,8 @@
 
 	&:last-child, &:only-child,
 	&:insensitive:last-child, &:insensitive:only-child,
-	&:active *:insensitive:last-child, &:active *:insensitive:only-child,
-	&:checked *:insensitive:last-child, &:checked *:insensitive:only-child { box-shadow: none; }
+	&:active:insensitive:last-child, &:active:insensitive:only-child,
+	&:checked:insensitive:last-child, &:checked:insensitive:only-child { box-shadow: none; }
 
 	&:active:last-child, &:active:only-child,
 	&:checked:last-child, &:checked:only-child {
@@ -114,8 +114,8 @@
 		box-shadow: none;
 	}
 
-	&:active *:insensitive,
-	&:checked *:insensitive {
+	&:active:insensitive,
+	&:checked:insensitive {
 		@include linear-gradient(shade($bg, .8));
 
 		box-shadow: none;
