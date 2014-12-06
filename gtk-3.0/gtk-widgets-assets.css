@@ -109,7 +109,7 @@
 }
 
 .menuitem.radio {
-    -gtk-icon-source: url("assets/menuitem-radio-checked.svg");
+    -gtk-icon-source: none;
 }
 
 .menuitem.radio:active {

@@ -77,6 +77,14 @@
 	-gtk-icon-source: url("assets/radio-mixed-insensitive-dark.svg");
 }
 
+.menuitem.check {
+	-gtk-icon-source: none;
+}
+
+.menuitem.radio {
+	-gtk-icon-source: none;
+}
+
 GtkIconView.content-view.cell.check {
 	-gtk-icon-source: url("assets/grid-selection-unchecked-dark.svg");
 }
