@@ -1174,6 +1174,34 @@ GtkPopover > .toolbar {
     background-color: transparent;
 }
 
+GtkPopover .list-row {
+    color: @menu_fg_color;
+}
+
+GtkPopover .list-row:hover {
+    background-image: none;
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+GtkPopover .frame {
+    border: 1px solid mix(@menu_bg_color, @menu_fg_color, 0.12);
+    border-radius: 2px;
+}
+
+GtkPopover .entry {
+    border-color: mix(@menu_bg_color, @menu_fg_color, 0.12);
+    background-color: @menu_bg_color;
+    background-image: none;
+    color: @menu_fg_color;
+}
+
+GtkPopover .entry:hover,
+GtkPopover .entry:focus,
+GtkPopover .entry:active  {
+    border-color: mix(@menu_bg_color, @menu_fg_color, 0.21);
+}
+
 GtkPopover.osd > .toolbar .button {
     border-radius: 0;
     border-width: 0;
@@ -1201,8 +1229,7 @@ GtkPopover .separator {
 .menuitem.button:checked:insensitive {
     background-color: transparent;
     background-image: none;
-    border-color: transparent;
-    border-style: none;
+    border: none;
     box-shadow: none;
     color: @menu_fg_color;
 }
@@ -1211,8 +1238,7 @@ GtkPopover .separator {
 .menuitem.button:checked:hover,
 .menuitem.button:hover,
 .menuitem.button:selected {
-    border-width: 0;
-    border-color: transparent;
+    border: none;
     background-color: @theme_selected_bg_color;
     background-image: none;
     color: @theme_selected_fg_color;
@@ -1222,15 +1248,19 @@ GtkModelButton.button {
     color: @menu_fg_color;
 }
 
+
+GtkModelButton.button:focus,
+GtkModelButton.button:active:focus,
+GtkModelButton.button:checked:focus,
 GtkModelButton.button:active,
 GtkModelButton.button:checked,
-GtkModelButton.button:insensitive,
+GtkModelButton.button:insensitive:insensitive,
 GtkModelButton.button:active:insensitive,
 GtkModelButton.button:checked:insensitive,
 GtkModelButton.button {
     background-color: transparent;
     background-image: none;
-    border: transparent;
+    border-color: transparent;
     border-image: none;
     border-style: none;
     box-shadow: none;
