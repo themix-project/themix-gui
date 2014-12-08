@@ -1,5 +1,6 @@
 @import "functions";
 @import "global";
+@import "button";
 
 
 /*********
@@ -30,26 +31,7 @@ GtkInfoBar {
 			.button {
 				@include button($bg_color, $fg_color);
 
-				&.close {
-					border: 1px solid transparent;
-					background-color: transparent;
-					background-image: none;
-					box-shadow: none;
-
-					&:focus, &:hover {
-						border: 1px solid alpha(black, 0.3);
-						background-color: alpha(white, 0.2);
-						background-image: none;
-						box-shadow: none;
-					}
-
-					&:active, &:checked, &:active:hover, &:checked:hover  {
-						border: 1px solid alpha(black, 0.3);
-						background-color: alpha(black, 0.1);
-						background-image: none;
-						box-shadow: none;
-					}
-				}
+				&.close { @extend %close_button; }
 			}
 		}
 	}
