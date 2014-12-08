@@ -6,69 +6,71 @@
  ! Sidebar
 **********/
 
-.sidebar {
-    &, &.view, & .view, & GtkScrolledWindow {
-        background-color: $bg_color;
-        color: mix($fg_color, $bg_color, 0.1);
+@include exports("sidebar") {
+    .sidebar {
+        &, &.view, & .view, & GtkScrolledWindow {
+            background-color: $bg_color;
+            color: mix($fg_color, $bg_color, 0.1);
 
-        &.separator {
-            &, &:hover, &:focus {
-                border-width: 1px;
-                border-style: solid;
-                border-color: shade($bg_color, 0.9);
-                color: shade($bg_color, 0.9);
+            &.separator {
+                &, &:hover, &:focus {
+                    border-width: 1px;
+                    border-style: solid;
+                    border-color: shade($bg_color, 0.9);
+                    color: shade($bg_color, 0.9);
+                }
             }
         }
-    }
 
-    row, .view row {
-       &:selected {
-           &, &:hover, &:focus {
-               border: none;
-               background-image: none;
-               background-color: $selected_bg_color;
-               color: $selected_fg_color;
+        row, .view row {
+           &:selected {
+               &, &:hover, &:focus {
+                   border: none;
+                   background-image: none;
+                   background-color: $selected_bg_color;
+                   color: $selected_fg_color;
+               }
+
+               &:prelight {
+                   border: none;
+                   background-image: none;
+                   background-color: shade($selected_bg_color, 1.05);
+                   color: $selected_fg_color;
+               }
            }
 
-           &:prelight {
-               border: none;
-               background-image: none;
-               background-color: shade($selected_bg_color, 1.05);
-               color: $selected_fg_color;
-           }
-       }
-
-        &:prelight {
-            border: none;
-            background-image: none;
-            background-color: shade($bg_color, 0.95);
-            color: $fg_color;
-        }
-    }
-
-    .frame { border-width: 0; }
-
-    GtkAssistant & {
-        padding: 4px;
-        border-width: 0 1px 0 0;
-        border-style: solid;
-        border-right-color: border_normal($bg_color);
-        border-radius: 0;
-        background-color: $bg_color;
-        color: mix($fg_color, $bg_color, 0.1);
-
-        &:dir(ltr) { border-width: 0 1px 0 0; }
-        &:dir(rtl) { border-width: 0 0 0 1px; }
-
-        GtkLabel {
-            padding: $spacing ($spacing * 2);
-
-            &.highlight { background-color: mix($bg_color, $fg_color, 0.80); }
+            &:prelight {
+                border: none;
+                background-image: none;
+                background-color: shade($bg_color, 0.95);
+                color: $fg_color;
+            }
         }
 
-        &.csd .sidebar { border-top-style: none; }
+        .frame { border-width: 0; }
 
-        .highlight { font: bold; }
+        GtkAssistant & {
+            padding: 4px;
+            border-width: 0 1px 0 0;
+            border-style: solid;
+            border-right-color: border_normal($bg_color);
+            border-radius: 0;
+            background-color: $bg_color;
+            color: mix($fg_color, $bg_color, 0.1);
+
+            &:dir(ltr) { border-width: 0 1px 0 0; }
+            &:dir(rtl) { border-width: 0 0 0 1px; }
+
+            GtkLabel {
+                padding: $spacing ($spacing * 2);
+
+                &.highlight { background-color: mix($bg_color, $fg_color, 0.80); }
+            }
+
+            &.csd .sidebar { border-top-style: none; }
+
+            .highlight { font: bold; }
+        }
     }
 }
 
@@ -77,42 +79,47 @@
 ! Pane separator
 ****************/
 
-.pane-separator {
-    &, &.horizontal {
-        background-image: linear-gradient(to bottom,
-                            shade($bg_color, 0.8) 0%,
-                            shade($bg_color, 0.8) 20%,
-                            transparent 20%,
-                            transparent 45%,
-                            shade($bg_color, 0.8) 45%,
-                            shade($bg_color, 0.8) 55%,
-                            transparent 55%,
-                            transparent 80%,
-                            shade($bg_color, 0.8) 80%,
-                            shade($bg_color, 0.8)
-                        );
+@include exports("paneseparator") {
+    .pane-separator {
+        background-color: $bg_color;
+        color: transparent;
 
-        background-size: 4px 10px;
-        background-repeat: no-repeat;
-        background-position: center center;
-    }
+        &, &.horizontal {
+            background-image: linear-gradient(to bottom,
+                                shade($bg_color, 0.8) 0%,
+                                shade($bg_color, 0.8) 20%,
+                                transparent 20%,
+                                transparent 45%,
+                                shade($bg_color, 0.8) 45%,
+                                shade($bg_color, 0.8) 55%,
+                                transparent 55%,
+                                transparent 80%,
+                                shade($bg_color, 0.8) 80%,
+                                shade($bg_color, 0.8)
+                            );
 
-    &.vertical {
-        background-image: linear-gradient(to right,
-                            shade($bg_color, 0.8) 0%,
-                            shade($bg_color, 0.8) 20%,
-                            transparent 20%,
-                            transparent 45%,
-                            shade($bg_color, 0.8) 45%,
-                            shade($bg_color, 0.8) 55%,
-                            transparent 55%,
-                            transparent 80%,
-                            shade($bg_color, 0.8) 80%,
-                            shade($bg_color, 0.8)
-                        );
+            background-size: 4px 10px;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
 
-        background-size: 10px 4px;
-        background-repeat: no-repeat;
-        background-position: center center;
+        &.vertical {
+            background-image: linear-gradient(to right,
+                                shade($bg_color, 0.8) 0%,
+                                shade($bg_color, 0.8) 20%,
+                                transparent 20%,
+                                transparent 45%,
+                                shade($bg_color, 0.8) 45%,
+                                shade($bg_color, 0.8) 55%,
+                                transparent 55%,
+                                transparent 80%,
+                                shade($bg_color, 0.8) 80%,
+                                shade($bg_color, 0.8)
+                            );
+
+            background-size: 10px 4px;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
     }
 }

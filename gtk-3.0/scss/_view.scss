@@ -6,125 +6,128 @@
  ! Generic views
 ****************/
 
-.view {
-    color: $text_color;
-    background-color: $base_color;
-
-    &:insensitive, &:insensitive:insensitive {
-        background-color: shade($base_color, 0.9);
-        color: mix($text_color, $base_color, 0.5);
-    }
-
-    &:selected, &:selected:focus { @extend %selected_items; }
-}
-
-.cell {
-    border-width: 0;
-    border-radius: 0;
-
-    &:selected, &:selected:focus {
-        background-color: $selected_bg_color;
-        color: $selected_fg_color;
-    }
-}
-
-row {
-    &:selected {
-        &, &:hover, &:focus {
-            -GtkWidget-focus-padding: 1;
-            -GtkWidget-focus-line-width: 0;
-
-            border: none;
-            background-color: $selected_bg_color;
-            background-image: none;
-            color: $selected_fg_color;
-        }
-    }
-}
-
-.content-view {
-    &.view {
+@include exports("view") {
+    .view {
+        color: $text_color;
         background-color: $base_color;
 
-        &:prelight { background-color: alpha($selected_bg_color, 0.6); }
-
-        &:selected, &:active { background-color: $selected_bg_color; }
-
-        &:insensitive { background-color: shade($base_color, 0.9); }
-
-        &.check {
-            &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
+        &:insensitive, &:insensitive:insensitive {
+            background-color: shade($base_color, 0.9);
+            color: mix($text_color, $base_color, 0.5);
         }
+
+        &:selected, &:selected:focus { @extend %selected_items; }
     }
 
-    .subtitle {
-        font: smaller;
-        padding: 0 12px;
-    }
-}
+    .cell {
+        border-width: 0;
+        border-radius: 0;
 
-GtkIconView {
-    &.content-view.check { @extend .content-view.check; }
-
-    &.view.cell {
         &:selected, &:selected:focus {
-            border: none;
-            border-radius: 2px;
-            background-image: none;
             background-color: $selected_bg_color;
             color: $selected_fg_color;
         }
     }
-}
 
-.dim-label {
-    &, &.view { color: alpha(currentColor, 0.5); }
-}
+    row {
+        &:selected {
+            &, &:hover, &:focus {
+                -GtkWidget-focus-padding: 1;
+                -GtkWidget-focus-line-width: 0;
 
-.dnd { border: 1px solid $selected_bg_color; }
+                border: none;
+                background-color: $selected_bg_color;
+                background-image: none;
+                color: $selected_fg_color;
+            }
+        }
+    }
 
-.grip { background-color: transparent; }
+    .content-view {
+        &.view {
+            background-color: $base_color;
 
-.arrow { color: alpha(currentColor, 0.7); }
+            &:prelight { background-color: alpha($selected_bg_color, 0.6); }
 
-.rubberband {
-    &, &.view, &.content-view.view {
-        border: 1px solid $selected_bg_color;
-        border-radius: 0;
-        background-color: alpha($selected_bg_color, 0.3);
+            &:selected, &:active { background-color: $selected_bg_color; }
+
+            &:insensitive { background-color: shade($base_color, 0.9); }
+
+            &.check {
+                &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
+            }
+        }
+
+        .subtitle {
+            font: smaller;
+            padding: 0 12px;
+        }
+    }
+
+    GtkIconView {
+        &.content-view.check { @extend .content-view.check; }
+
+        &.view.cell {
+            &:selected, &:selected:focus {
+                border: none;
+                border-radius: 2px;
+                background-image: none;
+                background-color: $selected_bg_color;
+                color: $selected_fg_color;
+            }
+        }
+    }
+
+    .dim-label {
+        &, &.view { color: alpha(currentColor, 0.5); }
+    }
+
+    .dnd { border: 1px solid $selected_bg_color; }
+
+    .grip { background-color: transparent; }
+
+    .arrow { color: alpha(currentColor, 0.7); }
+
+    .rubberband {
+        &, &.view, &.content-view.view {
+            border: 1px solid $selected_bg_color;
+            border-radius: 0;
+            background-color: alpha($selected_bg_color, 0.3);
+        }
+    }
+
+    /* used by GtkScrolledWindow, shown when content is touch-dragged past boundaries. */
+    .overshoot { background-color: alpha($selected_bg_color, 0.3); }
+
+    GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }
+
+    /* this will get overridden by .view, needed by gedit line numbers */
+    GtkTextView { background-color: mix($bg_color, $base_color, 0.50); }
+
+    GtkDrawingArea, GtkHTML {
+        @extend .view;
+
+        &:insensitive { background-color: shade($base_color, 0.9); }
     }
 }
-
-/* used by GtkScrolledWindow, shown when content is touch-dragged past boundaries. */
-.overshoot { background-color: alpha($selected_bg_color, 0.3); }
-
-GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }
-
-/* this will get overridden by .view, needed by gedit line numbers */
-GtkTextView { background-color: mix($bg_color, $base_color, 0.50); }
-
-GtkDrawingArea, GtkHTML {
-    @extend .view;
-
-    &:insensitive { background-color: shade($base_color, 0.9); }
-}
-
 
 /************
  ! Treeview *
 *************/
 
-GtkTreeView {
-    -GtkTreeView-vertical-separator: 0;
+@include exports("treeview") {
+    GtkTreeView {
+        -GtkTreeView-vertical-separator: 0;
 
-    outline-offset: -1px;
+        outline-offset: -1px;
 
-    &.dnd { border: 1px solid $selected_bg_color; }
+        &.dnd { border: 1px solid $selected_bg_color; }
 
-    .entry {
-        border-radius: 0;
-        background-color: $base_color;
-        background-image: none;
+        .entry {
+            border-radius: 0;
+            background-color: $base_color;
+            background-image: none;
+        }
     }
 }
 
@@ -133,28 +136,30 @@ GtkTreeView {
  ! Column view headers
 **********************/
 
-column-header {
-    .button {
-        &, &:active {
-            border-width: 0 1px 1px 0;
-            border-radius: 0;
-        }
+@include exports("columnheader") {
+    column-header {
+        .button {
+            &, &:active {
+                border-width: 0 1px 1px 0;
+                border-radius: 0;
+            }
 
-        &, &:active, &:focus, &:active:focus {
-            border-color: shade($base_color, 0.9);
-            border-bottom-color: shade($base_color, 0.8);
-            background-color: shade($base_color, 0.97);
-            background-image: none;
-        }
+            &, &:active, &:focus, &:active:focus {
+                border-color: shade($base_color, 0.9);
+                border-bottom-color: shade($base_color, 0.8);
+                background-color: shade($base_color, 0.97);
+                background-image: none;
+            }
 
-        &:hover, &:active:hover, &:hover:focus, &:active:hover:focus {
-            border-color: shade($base_color, 0.9);
-            border-bottom-color: shade($base_color, 0.8);
-            background-color: shade($base_color, 0.99);
-            background-image: none;
-        }
+            &:hover, &:active:hover, &:hover:focus, &:active:hover:focus {
+                border-color: shade($base_color, 0.9);
+                border-bottom-color: shade($base_color, 0.8);
+                background-color: shade($base_color, 0.99);
+                background-image: none;
+            }
 
-        &:last-child .button { border-width: 0 0 1px 0; }
+            &:last-child .button { border-width: 0 0 1px 0; }
+        }
     }
 }
 
@@ -163,13 +168,15 @@ column-header {
  ! Frames *
 ***********/
 
-.frame { border: none; }
+@include exports("frame") {
+    .frame { border: none; }
 
-GtkScrolledWindow {
-    &.frame { border: 1px solid border_normal($bg_color); }
+    GtkScrolledWindow {
+        &.frame { border: 1px solid border_normal($bg_color); }
 
-    /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
-    GtkViewport.frame { border: none; }
+        /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
+        GtkViewport.frame { border: none; }
+    }
 }
 
 
@@ -177,23 +184,25 @@ GtkScrolledWindow {
  ! Expanders *
 **************/
 
-GtkExpander {
-    padding: $spacing;
-    outline-offset: 1px;
-}
-
-.expander {
-    color: alpha(currentColor, 0.7);
-    border: alpha(currentColor, 0.7);
-
-    &:hover {
-        color: alpha(currentColor, 0.8);
-        border-color: alpha(currentColor, 0.8);
+@include exports("expander") {
+    GtkExpander {
+        padding: $spacing;
+        outline-offset: 1px;
     }
 
-    &:active {
-        color: alpha(currentColor, 0.9);
-        border-color: alpha(currentColor, 0.9);
+    .expander {
+        color: alpha(currentColor, 0.7);
+        border: alpha(currentColor, 0.7);
+
+        &:hover {
+            color: alpha(currentColor, 0.8);
+            border-color: alpha(currentColor, 0.8);
+        }
+
+        &:active {
+            color: alpha(currentColor, 0.9);
+            border-color: alpha(currentColor, 0.9);
+        }
     }
 }
 
@@ -202,22 +211,14 @@ GtkExpander {
  ! Symbolic images *
 ********************/
 
-.image {
-    color: alpha(currentColor, 0.5);
+@include exports("symbolicimage") {
+    .image {
+        color: alpha(currentColor, 0.5);
 
-    &:hover { color: alpha(currentColor, 0.9); }
+        &:hover { color: alpha(currentColor, 0.9); }
 
-    &:selected, &:selected:hover { color: $selected_fg_color; }
-}
-
-
-/******************
- ! Pane separator *
-*******************/
-
-.pane-separator {
-    background-color: $bg_color;
-    color: transparent;
+        &:selected, &:selected:hover { color: $selected_fg_color; }
+    }
 }
 
 
@@ -225,43 +226,45 @@ GtkExpander {
  ! Floating bar *
 *****************/
 
-.floating-bar {
-    border: 1px solid border_normal($bg_color);
-    border-radius: $roundness;
-    background-color: $bg_color;
-    background-image: none;
-    color: $fg_color;
-
-    &.top {
-        border-top-width: 0;
-        border-top-right-radius: 0;
-        border-top-left-radius: 0;
-    }
-
-    &.right {
-        border-right-width: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    &.bottom {
-        border-bottom-width: 0;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    &.left {
-        border-left-width: 0;
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-    }
-
-    .button {
-        -GtkButton-image-spacing: 0;
-        -GtkButton-inner-border: 0;
-
-        border: none;
-        background-color: transparent;
+@include exports("floatingbar") {
+    .floating-bar {
+        border: 1px solid border_normal($bg_color);
+        border-radius: $roundness;
+        background-color: $bg_color;
         background-image: none;
+        color: $fg_color;
+
+        &.top {
+            border-top-width: 0;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        &.right {
+            border-right-width: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &.bottom {
+            border-bottom-width: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &.left {
+            border-left-width: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .button {
+            -GtkButton-image-spacing: 0;
+            -GtkButton-inner-border: 0;
+
+            border: none;
+            background-color: transparent;
+            background-image: none;
+        }
     }
 }

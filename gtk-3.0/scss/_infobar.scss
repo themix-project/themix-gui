@@ -7,31 +7,33 @@
  ! Infobar
 **********/
 
-GtkInfoBar {
-	border: none;
+@include exports("infobar") {
+	GtkInfoBar {
+		border: none;
 
-	$types: (
-		info: ( $info_fg_color, $info_bg_color ),
-		warning: ( $warning_fg_color, $warning_bg_color ),
-		question: ( $question_fg_color, $question_bg_color ),
-		error: ( $error_fg_color, $error_bg_color ),
-	);
+		$types: (
+			info: ( $info_fg_color, $info_bg_color ),
+			warning: ( $warning_fg_color, $warning_bg_color ),
+			question: ( $question_fg_color, $question_bg_color ),
+			error: ( $error_fg_color, $error_bg_color ),
+		);
 
 
-	@each $type, $colors in $types {
-		$fg_color: nth($colors, 1);
-		$bg_color: nth($colors, 2);
+		@each $type, $colors in $types {
+			$fg_color: nth($colors, 1);
+			$bg_color: nth($colors, 2);
 
-		&.#{$type} {
-			border: 1px solid shade($bg_color, 0.8);
-			background-color: $bg_color;
-			background-image: none;
-			color: $fg_color;
+			&.#{$type} {
+				border: 1px solid shade($bg_color, 0.8);
+				background-color: $bg_color;
+				background-image: none;
+				color: $fg_color;
 
-			.button {
-				@include button($bg_color, $fg_color);
+				.button {
+					@include button($bg_color, $fg_color);
 
-				&.close { @extend %close_button; }
+					&.close { @extend %close_button; }
+				}
 			}
 		}
 	}

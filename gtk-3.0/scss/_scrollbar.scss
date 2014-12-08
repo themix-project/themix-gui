@@ -5,57 +5,59 @@
  ! Scrollbar
 ************/
 
-.scrollbar {
-	border: none;
-	padding: 0;
+@include exports("scrollbar") {
+	.scrollbar {
+		border: none;
+		padding: 0;
 
-	&.button {
-		&, &:active, &:active:hover {
-			border-width: 0;
+		&.button {
+			&, &:active, &:active:hover {
+				border-width: 0;
+				border-radius: 0;
+				background-color: transparent;
+				background-image: none;
+				color: shade($bg_color, 0.6);
+			}
+		}
+
+		&.slider, &.slider.vertical {
+			border: 1px solid mix(shade($bg_color, 0.87), $fg_color, 0.21);
 			border-radius: 0;
-			background-color: transparent;
-			background-image: none;
-			color: shade($bg_color, 0.6);
+			background-color: mix($bg_color, $fg_color, 0.21);
+
+			&:hover {
+				border-color: mix(shade($bg_color, 0.87), $fg_color, 0.31);
+				background-color: mix($bg_color, $fg_color, 0.31);
+			}
+
+			&:active {
+				border-color: shade($selected_bg_color, 0.9);
+				background-color: $selected_bg_color;
+			}
+
+			&.fine-tune:prelight:active {
+				border-width: 2px;
+				border-color: transparent;
+			}
 		}
 	}
 
-	&.slider, &.slider.vertical {
-		border: 1px solid mix(shade($bg_color, 0.87), $fg_color, 0.21);
+	.scrollbars-junction,
+	.scrollbar.trough {
+		border: none;
 		border-radius: 0;
-		background-color: mix($bg_color, $fg_color, 0.21);
-
-		&:hover {
-			border-color: mix(shade($bg_color, 0.87), $fg_color, 0.31);
-			background-color: mix($bg_color, $fg_color, 0.31);
-		}
-
-		&:active {
-			border-color: shade($selected_bg_color, 0.9);
-			background-color: $selected_bg_color;
-		}
-
-		&.fine-tune:prelight:active {
-			border-width: 2px;
-			border-color: transparent;
-		}
+		background-color: $bg_color;
+		background-image: none;
 	}
-}
 
-.scrollbars-junction,
-.scrollbar.trough {
-	border: none;
-	border-radius: 0;
-	background-color: $bg_color;
-	background-image: none;
-}
+	/* overlay scrollbar */
+	OsThumb, OsScrollbar {
+		color: shade($bg_color, 0.7);
 
-/* overlay scrollbar */
-OsThumb, OsScrollbar {
-	color: shade($bg_color, 0.7);
+		&:selected { background-color: $selected_bg_color; }
 
-	&:selected { background-color: $selected_bg_color; }
+		&:active { background-color: $selected_bg_color; }
 
-	&:active { background-color: $selected_bg_color; }
-
-	&:insensitive { background-color: shade($bg_color, 0.9); }
+		&:insensitive { background-color: shade($bg_color, 0.9); }
+	}
 }

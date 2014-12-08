@@ -6,19 +6,22 @@
  ! Calendar
 ***********/
 
-GtkCalendar {
-	padding: $spacing;
-	outline-offset: -1px;
+@include exports("calendar") {
+	GtkCalendar {
+		padding: $spacing;
+		outline-offset: -1px;
 
-	&:inconsistent { color: mix($fg_color, $bg_color, 0.5); }
+		&:inconsistent { color: mix($fg_color, $bg_color, 0.5); }
 
-	&.view, &.highlight, &.header, &.button {
-		&, &:hover, &:insensitive {
-			border: none;
-			background-color: transparent;
-			background-image: none;
+		&.view, &.highlight, &.header, &.button {
+			&, &:hover, &:insensitive {
+				border: none;
+				background-color: transparent;
+				background-image: none;
+			}
 		}
-	}
 
-	&.highlight { color: $selected_bg_color; }
+		&.highlight { color: $selected_bg_color; }
+	}
 }
+

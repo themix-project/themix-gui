@@ -6,189 +6,191 @@
  ! Progress bars *
 ******************/
 
-GtkProgressBar {
-	padding: 0;
-	border-radius: $roundness;
-	font-size: smaller;
-	color: alpha($fg_color, 0.6);
+@include exports("progressbar") {
+	GtkProgressBar {
+		padding: 0;
+		border-radius: $roundness;
+		font-size: smaller;
+		color: alpha($fg_color, 0.6);
 
-	-GtkProgressBar-min-horizontal-bar-height: 12;
-	-GtkProgressBar-min-vertical-bar-width: 12;
+		-GtkProgressBar-min-horizontal-bar-height: 12;
+		-GtkProgressBar-min-vertical-bar-width: 12;
 
-	&.osd {
-		-GtkProgressBar-xspacing: 0;
-		-GtkProgressBar-yspacing: 0;
-		-GtkProgressBar-min-horizontal-bar-height: 3;
+		&.osd {
+			-GtkProgressBar-xspacing: 0;
+			-GtkProgressBar-yspacing: 0;
+			-GtkProgressBar-min-horizontal-bar-height: 3;
+		}
+
+		&.trough {
+			border: 1px solid alpha(border_normal($bg_color), 0.5);
+			background-color: shade($bg_color, 1.08);
+			background-image: none;
+		}
 	}
 
-	&.trough {
-		border: 1px solid alpha(border_normal($bg_color), 0.5);
-		background-color: shade($bg_color, 1.08);
-		background-image: none;
-	}
-}
-
-.progressbar {
-	background-image: none;
-	background-color: $selected_bg_color;
-	border-radius: 0;
-	box-shadow: none;
-
-	&.left {
-		border-top-left-radius: $roundness;
-		border-bottom-left-radius: $roundness;
-	}
-
-	&.right {
-		border-top-right-radius: $roundness;
-		border-bottom-right-radius: $roundness;
-	}
-
-	&.left.right { box-shadow: none; }
-
-	&.vertical {
+	.progressbar {
 		background-image: none;
 		background-color: $selected_bg_color;
+		border-radius: 0;
+		box-shadow: none;
 
-		&.bottom {
+		&.left {
+			border-top-left-radius: $roundness;
 			border-bottom-left-radius: $roundness;
+		}
+
+		&.right {
+			border-top-right-radius: $roundness;
 			border-bottom-right-radius: $roundness;
 		}
 
-		&.top {
-			border-top-left-radius: $roundness;
-			border-top-right-radius: $roundness;
-		}
-	}
-}
+		&.left.right { box-shadow: none; }
 
-GtkLevelBar {
-	-GtkLevelBar-min-block-width: 34;
-	-GtkLevelBar-min-block-height: 3;
-
-	&.vertical {
-		-GtkLevelBar-min-block-width: 3;
-		-GtkLevelBar-min-block-height: 34;
-	}
-}
-
-.level-bar {
-	&.trough {
-		border: 1px solid alpha(border_normal($bg_color), 0.5);
-		background-color: shade($bg_color, 1.08);
-		background-image: none;
-		border-radius: $roundness;
-	}
-
-	&.fill-block {
-		// FIXME: it would be nice to set make fill blocks bigger, but we'd need
-		// :nth-child working on discrete indicators
-		background-color: $selected_bg_color;
-		border-color: transparent;
-		border-radius: 0;
-
-		&.indicator-discrete {
-			&.horizontal { margin-right: 1px; }
-			&.vertical { margin-bottom: 1px; }
-		}
-
-		&.level-high {
-			background-color: $success_color;
-			border-color: transparent;
-		}
-
-		&.level-low {
-			background-color: $warning_color;
-			border-color: transparent;
-		}
-
-		&.empty-fill-block {
-			background-color: transparent;
-			border-color: transparent;
-			box-shadow: none;
-		}
-	}
-}
-
-.scale {
-	-GtkRange-slider-width: 16;
-	-GtkRange-trough-border: 1;
-	-GtkScale-slider-length: 16;
-
-	padding: 0;
-	border-width: 1px;
-	border-radius: $roundness;
-	outline-offset: -1px;
-
-
-	&.slider {
-		border-radius: 8px;
-		background-color: shade($bg_color, 1.08);
-		background-image: none;
-		/* we will draw the border using box shadow for now */
-		box-shadow: inset 1px 0 border_normal($bg_color),
-					inset 0 1px border_normal($bg_color),
-					inset -1px 0 border_normal($bg_color),
-					inset 0 -1px border_normal($bg_color);
-
-		&:hover, &:focus {
-			box-shadow: inset 1px 0 border_focus($bg_color),
-						inset 0 1px border_focus($bg_color),
-						inset -1px 0 border_focus($bg_color),
-						inset 0 -1px border_focus($bg_color);
-		}
-
-		&:active {
-			box-shadow: inset 1px 0 border_active($bg_color),
-						inset 0 1px border_active($bg_color),
-						inset -1px 0 border_active($bg_color),
-						inset 0 -1px border_active($bg_color);
-		}
-
-		&:insensitive {
-			background-color: shade($bg_color, 0.9);
+		&.vertical {
 			background-image: none;
-			box-shadow: inset 1px 0 border_insensitive($bg_color),
-						inset 0 1px border_insensitive($bg_color),
-						inset -1px 0 border_insensitive($bg_color),
-						inset 0 -1px border_insensitive($bg_color);
-		}
-	}
+			background-color: $selected_bg_color;
 
-	&.fine-tune {
-		&, &.horizontal {
-			&:active, &:active:hover {
-				background-size: 50%;
-				background-repeat: no-repeat;
-				background-position: center;
+			&.bottom {
+				border-bottom-left-radius: $roundness;
+				border-bottom-right-radius: $roundness;
+			}
+
+			&.top {
+				border-top-left-radius: $roundness;
+				border-top-right-radius: $roundness;
 			}
 		}
 	}
 
-	&.mark { border-color: alpha(border_normal($bg_color), 0.5); }
+	GtkLevelBar {
+		-GtkLevelBar-min-block-width: 34;
+		-GtkLevelBar-min-block-height: 3;
 
-
-	&.trough {
-		margin: 7px 0;
-		border: 1px solid alpha(border_normal($bg_color), 0.5);
-		border-radius: $roundness;
-		background-color: shade($bg_color, 1.08);
-		background-image: none;
-
-		&:insensitive { background-color: shade($bg_color, 0.9); }
-
-		&.vertical { margin: 0 7px; }
+		&.vertical {
+			-GtkLevelBar-min-block-width: 3;
+			-GtkLevelBar-min-block-height: 34;
+		}
 	}
 
-	&.highlight {
-		&, &.left, &.bottom {
-			border-color: $selected_bg_color;
-			background-color: $selected_bg_color;
+	.level-bar {
+		&.trough {
+			border: 1px solid alpha(border_normal($bg_color), 0.5);
+			background-color: shade($bg_color, 1.08);
 			background-image: none;
+			border-radius: $roundness;
+		}
+
+		&.fill-block {
+			// FIXME: it would be nice to set make fill blocks bigger, but we'd need
+			// :nth-child working on discrete indicators
+			background-color: $selected_bg_color;
+			border-color: transparent;
+			border-radius: 0;
+
+			&.indicator-discrete {
+				&.horizontal { margin-right: 1px; }
+				&.vertical { margin-bottom: 1px; }
+			}
+
+			&.level-high {
+				background-color: $success_color;
+				border-color: transparent;
+			}
+
+			&.level-low {
+				background-color: $warning_color;
+				border-color: transparent;
+			}
+
+			&.empty-fill-block {
+				background-color: transparent;
+				border-color: transparent;
+				box-shadow: none;
+			}
+		}
+	}
+
+	.scale {
+		-GtkRange-slider-width: 16;
+		-GtkRange-trough-border: 1;
+		-GtkScale-slider-length: 16;
+
+		padding: 0;
+		border-width: 1px;
+		border-radius: $roundness;
+		outline-offset: -1px;
+
+
+		&.slider {
+			border-radius: 8px;
+			background-color: shade($bg_color, 1.08);
+			background-image: none;
+			/* we will draw the border using box shadow for now */
+			box-shadow: inset 1px 0 border_normal($bg_color),
+						inset 0 1px border_normal($bg_color),
+						inset -1px 0 border_normal($bg_color),
+						inset 0 -1px border_normal($bg_color);
+
+			&:hover, &:focus {
+				box-shadow: inset 1px 0 border_focus($bg_color),
+							inset 0 1px border_focus($bg_color),
+							inset -1px 0 border_focus($bg_color),
+							inset 0 -1px border_focus($bg_color);
+			}
+
+			&:active {
+				box-shadow: inset 1px 0 border_active($bg_color),
+							inset 0 1px border_active($bg_color),
+							inset -1px 0 border_active($bg_color),
+							inset 0 -1px border_active($bg_color);
+			}
 
 			&:insensitive {
-				border-color: shade($bg_color, 0.7);
-				background-color: shade($bg_color, 0.8);
+				background-color: shade($bg_color, 0.9);
+				background-image: none;
+				box-shadow: inset 1px 0 border_insensitive($bg_color),
+							inset 0 1px border_insensitive($bg_color),
+							inset -1px 0 border_insensitive($bg_color),
+							inset 0 -1px border_insensitive($bg_color);
+			}
+		}
+
+		&.fine-tune {
+			&, &.horizontal {
+				&:active, &:active:hover {
+					background-size: 50%;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+			}
+		}
+
+		&.mark { border-color: alpha(border_normal($bg_color), 0.5); }
+
+
+		&.trough {
+			margin: 7px 0;
+			border: 1px solid alpha(border_normal($bg_color), 0.5);
+			border-radius: $roundness;
+			background-color: shade($bg_color, 1.08);
+			background-image: none;
+
+			&:insensitive { background-color: shade($bg_color, 0.9); }
+
+			&.vertical { margin: 0 7px; }
+		}
+
+		&.highlight {
+			&, &.left, &.bottom {
+				border-color: $selected_bg_color;
+				background-color: $selected_bg_color;
+				background-image: none;
+
+				&:insensitive {
+					border-color: shade($bg_color, 0.7);
+					background-color: shade($bg_color, 0.8);
+				}
 			}
 		}
 	}

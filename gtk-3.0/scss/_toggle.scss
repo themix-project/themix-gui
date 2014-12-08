@@ -6,11 +6,6 @@
  ! Check and Radio items
 ************************/
 
-* {
-	-GtkCheckButton-indicator-size: 16;
-	-GtkCheckMenuItem-indicator-size: 14;
-}
-
 @mixin toggle($type) {
 	background-image: none;
 
@@ -53,14 +48,21 @@
 	}
 }
 
-.radio { @include toggle("radio"); }
+@include exports("checkradio") {
+	* {
+		-GtkCheckButton-indicator-size: 16;
+		-GtkCheckMenuItem-indicator-size: 14;
+	}
 
-.check { @include toggle("checkbox"); }
+	.radio { @include toggle("radio"); }
 
-GtkIconView.content-view.cell.check {
-	-gtk-icon-source: url("assets/grid-selection-unchecked.svg");
+	.check { @include toggle("checkbox"); }
 
-	&:active { -gtk-icon-source: url("assets/grid-selection-checked.svg"); }
+	GtkIconView.content-view.cell.check {
+		-gtk-icon-source: url("assets/grid-selection-unchecked.svg");
+
+		&:active { -gtk-icon-source: url("assets/grid-selection-checked.svg"); }
+	}
 }
 
 
@@ -68,37 +70,39 @@ GtkIconView.content-view.cell.check {
  ! Switch
 *********/
 
-GtkSwitch {
-	padding: 0;
-	border-radius: $roundness;
-	font: bold condensed;
-	outline-offset: -4px;
+@include exports("switch") {
+	GtkSwitch {
+		padding: 0;
+		border-radius: $roundness;
+		font: bold condensed;
+		outline-offset: -4px;
 
-	&.slider {
-		border: 1px solid shade($bg_color, 0.8);
-		background-color: shade($bg_color, 1.08);
+		&.slider {
+			border: 1px solid shade($bg_color, 0.8);
+			background-color: shade($bg_color, 1.08);
 
-		&:insensitive {
-			border-color: shade($bg_color, 0.85);
-			background-color: shade($bg_color, 0.9);
-		}
-	}
-
-	&.trough {
-		border-color: shade($bg_color, 0.8);
-		background-color: shade($bg_color, 0.95);
-		color: $fg_color;
-
-		&:active {
-			border-color: shade($selected_bg_color, 0.9);
-			background-color: $selected_bg_color;
-			color: $selected_fg_color;
+			&:insensitive {
+				border-color: shade($bg_color, 0.85);
+				background-color: shade($bg_color, 0.9);
+			}
 		}
 
-		&:insensitive {
-			border-color: shade($bg_color, 0.85);
-			background-color: shade($bg_color, 0.9);
-			color: mix($fg_color, $bg_color, 0.5);
+		&.trough {
+			border-color: shade($bg_color, 0.8);
+			background-color: shade($bg_color, 0.95);
+			color: $fg_color;
+
+			&:active {
+				border-color: shade($selected_bg_color, 0.9);
+				background-color: $selected_bg_color;
+				color: $selected_fg_color;
+			}
+
+			&:insensitive {
+				border-color: shade($bg_color, 0.85);
+				background-color: shade($bg_color, 0.9);
+				color: mix($fg_color, $bg_color, 0.5);
+			}
 		}
 	}
 }
