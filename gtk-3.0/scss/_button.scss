@@ -172,5 +172,87 @@
 		@include button($bg_color, $fg_color);
 
 		&.default { @include button($selected_bg_color, $selected_fg_color); }
+
+		.spinbutton & {
+			color: mix($text_color, $base_color, 0.4);
+			padding: 2px 4px;
+			border-width: 0;
+			border-radius: 0;
+			border-style: none;
+			background-color: transparent;
+			background-image: none;
+			box-shadow: inset 1px 0 shade($base_color, 0.9);
+
+			&:insensitive {
+				color: mix($text_color, $base_color, 0.7);
+				box-shadow: inset 1px 0 shade($base_color, 0.95);
+			}
+
+			&:active, &:checked, &:hover { color: $text_color; }
+
+			&:first-child {
+				border-radius: $roundness 0 0 $roundness;
+				box-shadow: none;
+			}
+
+			&:last-child { border-radius: 0 $roundness $roundness 0; }
+
+			&:dir(rtl) { box-shadow: inset -1px 0 shade($base_color, 0.9); }
+		}
+
+		.spinbutton.vertical & {
+				border: 1px solid shade($bg_color, 0.8);
+				border-radius: $roundness;
+				background-color: shade($bg_color, 1.08);
+				background-image: none;
+				color: $fg_color;
+				box-shadow: none;
+
+			&:hover {
+				border-color: shade($bg_color, 0.7);
+				background-color: shade($bg_color, 1.10);
+				background-image: none;
+			}
+
+			&:active, &:checked {
+				border-color: shade($bg_color, 0.8);
+				background-color: shade($bg_color, 0.95);
+				background-image: none;
+			}
+
+			&:active:hover, &:checked:hover {
+				border-color: shade($bg_color, 0.7);
+			}
+
+			&:focus, &:hover:focus, &:active:focus, &:active:hover:focus { border-color: shade($bg_color, 0.7); }
+
+			&:insensitive {
+				border-color: shade($bg_color, 0.85);
+				background-color: shade($bg_color, 0.9);
+				background-image: none;
+			}
+
+			&:first-child {
+				border-width: 1px;
+				border-bottom-width: 0;
+				border-radius: $roundness;
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+
+			&:last-child {
+				border-width: 1px;
+				border-top-width: 0;
+				border-radius: $roundness;
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+			}
+		}
+
+		.spinbutton.vertical.entry {
+			border-width: 1px;
+			border-style: solid;
+			border-radius: 0;
+		}
 	}
 }
