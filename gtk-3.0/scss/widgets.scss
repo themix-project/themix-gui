@@ -2,110 +2,21 @@
 @import "colors";
 @import "base";
 @import "button";
-@import "toggle";
 @import "entry";
-@import "menu";
-@import "toolbar";
-@import "sidebar";
-@import "view";
-@import "grid";
-@import "progress";
-@import "spinner";
-@import "window";
 @import "calendar";
+@import "grid";
 @import "infobar";
+@import "menu";
 @import "notebook";
+@import "progress";
 @import "scrollbar";
+@import "sidebar";
+@import "spinner";
+@import "toggle";
+@import "toolbar";
+@import "view";
+@import "window";
 
-/*************
-* separator *
-*************/
-.view.separator,
-.separator {
-    border-width: 1px;
-    border-style: solid;
-    border-color: shade($bg_color, 0.9);
-    color: shade($bg_color, 0.9);
-}
-
-.button .separator,
-.button.separator {
-    border-color: shade($bg_color, 0.95);
-}
-
-.button .separator:insensitive,
-.button.separator:insensitive {
-    border-color: shade($bg_color, 0.85);
-}
-
-.primary-toolbar GtkSeparatorToolItem,
-.primary-toolbar .separator,
-.primary-toolbar .separator:insensitive,
-.toolbar GtkSeparatorToolItem,
-.toolbar .separator,
-.toolbar .separator:insensitive {
-    -GtkWidget-window-dragging: true;
-
-    border-color: shade($toolbar_bg_color, 0.95);
-    color: shade($toolbar_bg_color, 0.95);
-}
-
-.header-bar GtkSeparatorToolItem,
-.header-bar .separator,
-.header-bar .separator:insensitive,
-.titlebar GtkSeparatorToolItem,
-.titlebar .separator,
-.titlebar .separator:insensitive {
-    -GtkWidget-window-dragging: true;
-
-    border-color: shade($titlebar_bg_color, 0.95);
-    color: shade($titlebar_bg_color, 0.95);
-}
-
-.primary-toolbar .button .separator,
-.primary-toolbar .button.separator,
-.toolbar .button .separator,
-.toolbar .button.separator {
-    border-color: shade($toolbar_bg_color, 0.95);
-}
-
-.header-bar .button .separator,
-.header-bar .button.separator,
-.titlebar .button .separator,
-.titlebar .button.separator {
-    border-color: shade($titlebar_bg_color, 0.95);
-}
-
-.primary-toolbar .button .separator:insensitive,
-.primary-toolbar .button.separator:insensitive,
-.toolbar .button .separator:insensitive,
-.toolbar .button.separator:insensitive {
-    border-color: shade($toolbar_bg_color, 0.85);
-}
-
-.header-bar .button .separator:insensitive,
-.header-bar .button.separator:insensitive,
-.titlebar .button .separator:insensitive,
-.titlebar .button.separator:insensitive {
-    border-color: shade($titlebar_bg_color, 0.85);
-}
-
-.menuitem.separator {
-    -GtkMenuItem-horizontal-padding: 0;
-    -GtkWidget-separator-height: 1;
-
-    border-style: none;
-    color: shade($menu_bg_color, 0.9);
-}
-
-GtkComboBox .separator {
-    /* always disable separators */
-    -GtkWidget-wide-separators: true;
-    -GtkWidget-horizontal-separator: 0;
-    -GtkWidget-vertical-separator: 0;
-
-    border-style: none;
-}
 
 /**************
 * spinbutton *

@@ -130,13 +130,14 @@
 			border: none;
 			background-color: transparent;
 			background-image: none;
+			box-shadow: none;
 		}
 
 		// TODO
 	}
 
 	&.separator, .separator {
-		color: shade($bg, .95);
+		color: shade($bg, ($contrast + .05));
 		border: 1px solid currentColor;
 
 		&:insensitive { color: shade($bg, .85); }

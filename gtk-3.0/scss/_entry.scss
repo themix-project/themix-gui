@@ -81,22 +81,33 @@
  ! Combobox entry *
 *******************/
 
-@include exports("comboboxentry") {
-	GtkComboBox.combobox-entry {
-		.entry {
-			&, &:hover, &:focus, &:active, &:insensitive {
-				border-width: 1px 0 1px 1px;
-				border-top-right-radius: 0;
-				border-bottom-right-radius: 0;
+@include exports("combobox") {
+	GtkComboBox {
+		&.combobox-entry {
+			.entry {
+				&, &:hover, &:focus, &:active, &:insensitive {
+					border-width: 1px 0 1px 1px;
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+				}
+			}
+
+			.button {
+				&, &:hover, &:focus, &:active, &:insensitive {
+					border-width: 1px 1px 1px 1px;
+					border-bottom-left-radius: 0;
+					border-top-left-radius: 0;
+				}
 			}
 		}
 
-		.button {
-			&, &:hover, &:focus, &:active, &:insensitive {
-				border-width: 1px 1px 1px 1px;
-				border-bottom-left-radius: 0;
-				border-top-left-radius: 0;
-			}
+		.separator {
+			/* always disable separators */
+			-GtkWidget-wide-separators: true;
+			-GtkWidget-horizontal-separator: 0;
+			-GtkWidget-vertical-separator: 0;
+
+			border-style: none;
 		}
 	}
 }
