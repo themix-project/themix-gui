@@ -78,17 +78,17 @@
 		outline-offset: -4px;
 
 		&.slider {
-			border: 1px solid shade($bg_color, 0.8);
+			border: 1px solid border_normal($bg_color);
 			background-color: shade($bg_color, 1.08);
 
 			&:insensitive {
-				border-color: shade($bg_color, 0.85);
+				border-color: border_insensitive($bg_color);
 				background-color: shade($bg_color, 0.9);
 			}
 		}
 
 		&.trough {
-			border-color: shade($bg_color, 0.8);
+			border: 1px solid border_normal($bg_color);
 			background-color: shade($bg_color, 0.95);
 			color: $fg_color;
 
@@ -99,7 +99,7 @@
 			}
 
 			&:insensitive {
-				border-color: shade($bg_color, 0.85);
+				border-color: border_insensitive($bg_color);
 				background-color: shade($bg_color, 0.9);
 				color: mix($fg_color, $bg_color, 0.5);
 			}

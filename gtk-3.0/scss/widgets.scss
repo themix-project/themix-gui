@@ -4,9 +4,11 @@
 @import "button";
 @import "entry";
 @import "calendar";
+@import "choosers";
 @import "grid";
 @import "infobar";
 @import "menu";
+@import "misc";
 @import "notebook";
 @import "progress";
 @import "scrollbar";
@@ -16,127 +18,6 @@
 @import "toolbar";
 @import "view";
 @import "window";
-
-
-/*****************
-* color chooser *
-*****************/
-GtkColorSwatch,
-GtkColorSwatch:selected {
-    border-width: 1px;
-    border-style: solid;
-    border-color: alpha(black, 0.1);
-    border-radius: 1px;
-    background-color: transparent;
-    background-clip: border-box;
-}
-
-GtkColorSwatch:hover,
-GtkColorSwatch:selected:hover {
-    border-color: alpha(black, 0.3);
-}
-
-GtkColorSwatch.color-dark:hover {
-}
-
-GtkColorSwatch.color-light:hover {
-}
-
-GtkColorSwatch.color-light:selected:hover,
-GtkColorSwatch.color-dark:selected:hover {
-    background-image: none;
-}
-
-GtkColorSwatch.left,
-GtkColorSwatch:first-child {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-}
-
-GtkColorSwatch.right,
-GtkColorSwatch:last-child {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-}
-
-GtkColorSwatch:only-child {
-    border-radius: 2px;
-}
-
-GtkColorSwatch.top {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-}
-
-GtkColorSwatch.bottom {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-}
-
-GtkColorChooserWidget #add-color-button {
-    background-clip: padding-box;
-    border-color: alpha(black, 0.1);
-    background-color: shade($bg_color, 0.95);
-    color: $fg_color;
-}
-
-GtkColorChooserWidget #add-color-button:hover {
-    border-color: alpha(black, 0.3);
-    background-color: shade($bg_color, 0.90);
-    color: $fg_color;
-}
-
-.color-active-badge,
-.color-active-badge:selected {
-    border-width: 1px;
-    border-style: solid;
-    border-width: 2px;
-    background-color: transparent;
-}
-
-.color-active-badge.color-light,
-.color-active-badge.color-light:hover {
-    border-color: alpha(black, 0.3);
-    color: alpha(black, 0.3);
-}
-
-.color-active-badge.color-dark,
-.color-active-badge.color-dark:hover {
-    border-color: alpha(white, 0.3);
-    color: alpha(white, 0.3);
-}
-
-GtkColorEditor GtkColorSwatch {
-    border-radius: 2px;
-}
-
-GtkColorEditor GtkColorSwatch.color-dark:hover,
-GtkColorEditor GtkColorSwatch.color-light:hover {
-    background-image: none;
-    border-color: alpha(black, 0.3);
-}
-
-GtkColorButton.button {
-    padding: 2px;
-}
-
-/***********
-* tooltip *
-***********/
-.tooltip {
-    border-width: 1px;
-    border-style: solid;
-    border-color: shade($tooltip_bg_color, 0.8);
-    border-radius: 2px;
-    background-color: $tooltip_bg_color;
-    background-image: none;
-    color: $tooltip_fg_color;
-}
-
-.tooltip * {
-    background-color: transparent;
-}
-
 
 
 /**************
@@ -182,68 +63,6 @@ GtkColorButton.button {
 
 .search-bar .button.close-button {
     padding: 4px;
-}
-
-/***********
-* dialogs *
-***********/
-GtkMessageDialog,
-.prompt {
-    -GtkDialog-content-area-border: 0;
-    -GtkDialog-action-area-border: 0;
-    -GtkDialog-button-spacing: 0;
-
-    margin: 0;
-    padding: 0;
-}
-
-/********************
-* various choosers *
-********************/
-GtkFontButton .separator,
-GtkFileChooserButton .separator {
-    /* always disable separators */
-    -GtkWidget-wide-separators: true;
-    -GtkWidget-horizontal-separator: 0;
-    -GtkWidget-vertical-separator: 0;
-}
-
-GtkFontButton GtkLabel:last-child {
-    color: alpha(currentColor, 0.7);
-}
-
-GtkFileChooserButton GtkImage:last-child {
-    color: alpha(currentColor, 0.7);
-}
-
-GtkFileChooser .pane-separator,
-GtkFileChooser .pane-separator:hover {
-    border-width: 0 1px 0 0;
-    border-style: solid;
-    border-color: shade($bg_color, 0.8);
-    background-color: $bg_color;
-    color: shade($bg_color, 0.9);
-}
-
-/* for fallback when header bar not used */
-GtkFileChooser .dialog-action-box {
-    border-width: 1px 0 0;
-    border-style: solid;
-    border-color: shade($bg_color, 0.7);
-}
-
-/*********************
-* app notifications *
-*********************/
-.app-notification {
-    border-style: solid;
-    border-color: shade($base_color, 0.8);
-    border-width: 0 1px 1px 1px;
-    border-radius: 0 0 2px 2px;
-    padding: 8px;
-    background-color: $base_color;
-    background-image: none;
-    color: $text_color;
 }
 
 /*******
@@ -694,20 +513,4 @@ GtkFileChooser .dialog-action-box {
 .selection-mode.toolbar .selection-menu.button:active {
     color: shade($selected_bg_color, 0.8);
     box-shadow: none;
-}
-
-/*************************
-* touch text selections *
-*************************/
-GtkBubbleWindow {
-    border-radius: 2px;
-    background-clip: border-box;
-}
-
-GtkBubbleWindow.osd.background {
-    //    background-color: $osd_bg;
-}
-
-GtkBubbleWindow .toolbar {
-    background-color: transparent;
 }
