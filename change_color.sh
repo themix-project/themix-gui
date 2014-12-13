@@ -10,17 +10,17 @@ OUTPUT_THEME_NAME="$2"
 test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox_current
 DEST_PATH=~/.themes/"$OUTPUT_THEME_NAME"
 
-FILELIST=(
-	'openbox-3/themerc'
-	'gtk-2.0/gtkrc'
-	'gtk-3.0/gtk.css'
+PATHLIST=(
+	'./openbox-3/'
+	'./gtk-2.0/'
+	'./gtk-3.0/'
 )
 
 
 replace () {
-	for FILE in "${FILELIST[@]}";
+	for FILEPATH in "${PATHLIST[@]}";
 	do
-		sed -i -e 's/'"$1"'/'"$2"'/g' "$FILE";
+		grep -lZR $1 $FILEPATH | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g';
 	done;
 }
 
