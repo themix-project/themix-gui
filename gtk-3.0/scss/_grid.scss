@@ -11,22 +11,25 @@
     color: $fg_color;
 
     &-row {
-        border: none;
-        border-radius: 0;
-        padding: $spacing;
-        background-image: none;
-        background-color: transparent;
-
-        &:hover {
+        &, &.button {
+            border: none;
+            border-radius: 0;
+            padding: $spacing;
             background-image: none;
-            background-color: shade($bg_color, 1.02);
-        }
+            background-color: transparent;
+            box-shadow: none;
 
-        &:selected {
-            &, &:hover, &:focus {
+            &:hover {
                 background-image: none;
-                background-color: $selected_bg_color;
-                color: $selected_fg_color;
+                background-color: shade($bg_color, 1.02);
+            }
+
+            &:selected {
+                &, &:hover, &:focus {
+                    background-image: none;
+                    background-color: $selected_bg_color;
+                    color: $selected_fg_color;
+                }
             }
         }
     }
