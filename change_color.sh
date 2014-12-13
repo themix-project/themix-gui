@@ -37,17 +37,7 @@ test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
 ) &&
 
 source ./colors/$1.sh &&
-
-     OLD_BG=$(sed -n '1p' < current_colors.txt) &&
-     OLD_FG=$(sed -n '2p' < current_colors.txt) &&
- OLD_SEL_BG=$(sed -n '3p' < current_colors.txt) &&
- OLD_SEL_FG=$(sed -n '4p' < current_colors.txt) &&
- OLD_TXT_BG=$(sed -n '5p' < current_colors.txt) &&
- OLD_TXT_FG=$(sed -n '6p' < current_colors.txt) &&
-OLD_MENU_BG=$(sed -n '7p' < current_colors.txt) &&
-OLD_MENU_FG=$(sed -n '8p' < current_colors.txt) &&
-OLD_BTN_BG=$(sed -n '9p' < current_colors.txt) &&
-OLD_BTN_FG=$(sed -n '10p' < current_colors.txt) &&
+source ./current_colors.txt &&
 
 cd $DEST_PATH &&
 replace $OLD_BG $BG &&
