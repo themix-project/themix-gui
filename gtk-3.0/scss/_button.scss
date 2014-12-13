@@ -15,16 +15,6 @@
 
 	-GtkWidget-focus-padding: 1;
 	-GtkWidget-focus-line-width: 0;
-
-	&.flat {
-		color: inherit;
-		border: none;
-		background-color: transparent;
-		background-image: none;
-		box-shadow: none;
-	}
-
-	&.separator, .separator { border: 1px solid currentColor; }
 }
 
 %linked_button {
@@ -113,46 +103,54 @@
 
 @mixin button($bg, $fg) {
 	@include linear-gradient(shade($bg, 1.05));
-	@include border(shade($bg, 1.05));
 	@extend %button;
 
-	border-color: border_normal($bg);
 	color: $fg;
 	box-shadow: 0 1px 2px -1px alpha($dark_shadow, .3);
-
-	&:focus, &:hover {
-		@include linear-gradient(shade($bg, 1.1));
-
-		border-color: border_focus($bg);
-		box-shadow: 0 1px 3px -1px alpha($dark_shadow, .5);
-	}
-
-	&:checked, &:active {
-		@include linear-gradient(shade($bg, .95));
-
-		border-color: border_active($bg);
-		box-shadow: inset 1px 0 alpha($dark_shadow, .07),
-					inset 0 1px alpha($dark_shadow, .08),
-					inset -1px 0 alpha($dark_shadow, .07),
-					inset 0 -1px alpha($dark_shadow, .05);
-	}
 
 	&:insensitive {
 		@include linear-gradient(shade($bg, .95));
 
-		border-color: border_insensitive($bg);
 		color: mix($bg, $fg, .5);
 		box-shadow: none;
 	}
 
-	&:active:insensitive,
-	&:checked:insensitive {
-		@include linear-gradient(shade($bg, .8));
+	&, &.flat {
+		@include border(shade($bg, 1.05));
 
+		&:focus, &:hover {
+			@include linear-gradient(shade($bg, 1.1));
+
+			box-shadow: 0 1px 3px -1px alpha($dark_shadow, .5);
+		}
+
+		&:checked, &:active {
+			@include linear-gradient(shade($bg, .95));
+
+			box-shadow: inset 1px 0 alpha($dark_shadow, .07),
+						inset 0 1px alpha($dark_shadow, .08),
+						inset -1px 0 alpha($dark_shadow, .07),
+						inset 0 -1px alpha($dark_shadow, .05);
+		}
+
+		&:active:insensitive,
+		&:checked:insensitive {
+			@include linear-gradient(shade($bg, .8));
+
+			box-shadow: none;
+		}
+	}
+
+	&.flat {
+		color: inherit;
+		border-color: transparent;
+		background-color: transparent;
+		background-image: none;
 		box-shadow: none;
 	}
 
 	&.separator, .separator {
+		border: 1px solid currentColor;
 		color: shade($bg, ($contrast + .05));
 
 		&:insensitive { color: shade($bg, .85); }
