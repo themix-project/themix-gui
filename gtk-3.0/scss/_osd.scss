@@ -29,7 +29,7 @@ GtkOverlay.osd {
         -GtkToolbar-button-relief: normal;
 
         padding: $spacing;
-        border-width: 1px solid border_normal($osd_bg);
+        border: 1px solid border_normal($osd_bg);
         border-radius: $roundness;
         background-color: $osd_bg;
         background-image: none;
@@ -114,7 +114,7 @@ GtkOverlay.osd {
     GtkIconView.cell {
         &:selected, &:selected:focus {
             background-color: transparent;
-            border: 3px solid solid mix(shade($osd_bg, 0.87), $osd_fg, 0.21);
+            border: 3px solid mix(shade($osd_bg, 0.87), $osd_fg, 0.21);
             border-radius: $roundness;
             outline-color: transparent;
         }

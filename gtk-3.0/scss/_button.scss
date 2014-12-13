@@ -6,13 +6,33 @@
  ! Buttons
 **********/
 
-@mixin linked_button($bg, $shadow) {
-	border: 1px solid border_normal($bg);
+%button {
+	padding: ($spacing - 1px) ($spacing + 1px);
+	border-width: 1px;
+	border-style: solid;
+	border-radius: $roundness;
+	transition: 100ms ease;
+
+	-GtkWidget-focus-padding: 1;
+	-GtkWidget-focus-line-width: 0;
+
+	&.flat {
+		color: inherit;
+		border: none;
+		background-color: transparent;
+		background-image: none;
+		box-shadow: none;
+	}
+
+	&.separator, .separator { border: 1px solid currentColor; }
+}
+
+%linked_button {
+	border-width: 1px;
+	border-style: solid;
 	border-radius: 0;
 	border-right-style: none;
 	border-left-style: none;
-	box-shadow: inset -1px 0 border_normal($bg),
-				0 1px 2px -1px alpha($shadow, .3);
 
 	&:first-child {
 		border-width: 1px;
@@ -42,14 +62,22 @@
 		}
 	}
 
-	&:only-child {
+	&:only-child, &:first-child:only-child {
 		border-width: 1px;
+		border-style: solid;
 		border-radius: $roundness;
 	}
+}
+
+@mixin linked_button($bg) {
+	@extend %linked_button;
+
+	box-shadow: inset -1px 0 border_normal($bg),
+				0 1px 2px -1px alpha($dark_shadow, .3);
 
 	&:focus, &:hover {
 		box-shadow: inset -1px 0 border_focus($bg),
-					0 1px 2px -1px alpha($shadow, .3);
+					0 1px 2px -1px alpha($dark_shadow, .3);
 	}
 
 	&:active, &:active:hover,
@@ -57,9 +85,9 @@
 	&:checked, &:checked:hover,
 	&:checked:focus, &:checked:hover:focus {
 		box-shadow: inset -1px 0 border_active($bg),
-					inset 1px 0 alpha($shadow, .07),
-					inset 0 1px alpha($shadow, .08),
-					inset 0 -1px alpha($shadow, .05);
+					inset 1px 0 alpha($dark_shadow, .07),
+					inset 0 1px alpha($dark_shadow, .08),
+					inset 0 -1px alpha($dark_shadow, .05);
 	}
 
 	&:insensitive { box-shadow: inset -1px 0 border_insensitive($bg); }
@@ -70,37 +98,39 @@
 	&:checked:insensitive:last-child, &:checked:insensitive:only-child { box-shadow: none; }
 
 	&:active:last-child, &:active:only-child,
-	&:checked:last-child, &:checked:only-child {
-		box-shadow: inset 1px 0 alpha($shadow, .07),
-					inset 0 1px alpha($shadow, .08),
-					inset -1px 0 alpha($shadow, .07);
+	&:active:last-child:focus, &:active:only-child:focus,
+	&:active:last-child:hover, &:active:only-child:hover,
+	&:active:last-child:hover:focus, &:active:only-child:hover:focus,
+	&:checked:last-child, &:checked:only-child,
+	&:checked:last-child:focus, &:checked:only-child:focus,
+	&:checked:last-child:hover, &:checked:only-child:hover,
+	&:checked:last-child:hover:focus, &:checked:only-child:hover:focus {
+		box-shadow: inset 1px 0 alpha($dark_shadow, .07),
+					inset 0 1px alpha($dark_shadow, .08),
+					inset -1px 0 alpha($dark_shadow, .07);
 	}
 }
 
 @mixin button($bg, $fg) {
 	@include linear-gradient(shade($bg, 1.05));
 	@include border(shade($bg, 1.05));
+	@extend %button;
 
-	padding: ($spacing - 1px) ($spacing + 1px);
-	border-width: 1px;
-	border-radius: $roundness;
-	border-style: solid;
+	border-color: border_normal($bg);
 	color: $fg;
-	transition: 100ms ease;
 	box-shadow: 0 1px 2px -1px alpha($dark_shadow, .3);
-
-	-GtkWidget-focus-padding: 1;
-	-GtkWidget-focus-line-width: 0;
 
 	&:focus, &:hover {
 		@include linear-gradient(shade($bg, 1.1));
 
+		border-color: border_focus($bg);
 		box-shadow: 0 1px 3px -1px alpha($dark_shadow, .5);
 	}
 
 	&:checked, &:active {
 		@include linear-gradient(shade($bg, .95));
 
+		border-color: border_active($bg);
 		box-shadow: inset 1px 0 alpha($dark_shadow, .07),
 					inset 0 1px alpha($dark_shadow, .08),
 					inset -1px 0 alpha($dark_shadow, .07),
@@ -110,6 +140,7 @@
 	&:insensitive {
 		@include linear-gradient(shade($bg, .95));
 
+		border-color: border_insensitive($bg);
 		color: mix($bg, $fg, .5);
 		box-shadow: none;
 	}
@@ -121,29 +152,11 @@
 		box-shadow: none;
 	}
 
-	&.flat {
-		color: inherit;
-
-		&, &:hover, &:focus,
-		&:active, &:active:hover, &:active:focus,
-		&:checked, &:checked:hover, &:checked:focus {
-			border: none;
-			background-color: transparent;
-			background-image: none;
-			box-shadow: none;
-		}
-
-		// TODO
-	}
-
 	&.separator, .separator {
 		color: shade($bg, ($contrast + .05));
-		border: 1px solid currentColor;
 
 		&:insensitive { color: shade($bg, .85); }
 	}
-
-	.linked & { @include linked_button($bg, $dark_shadow); }
 }
 
 @include exports("button") {
@@ -173,10 +186,12 @@
 
 		&.default { @include button($selected_bg_color, $selected_fg_color); }
 
+		.linked & { @include linked_button($bg_color); }
+
 		.spinbutton & {
 			color: mix($text_color, $base_color, 0.4);
-			padding: 2px 4px;
-			border-width: 0;
+			padding: $spacing ($spacing * 2);
+			border: none;
 			border-radius: 0;
 			border-style: none;
 			background-color: transparent;

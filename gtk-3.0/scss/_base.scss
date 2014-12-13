@@ -125,8 +125,3 @@ GtkLabel {
 
 	&:insensitive { color: mix($fg_color, $bg_color, 0.50); }
 }
-
-.dim-label {
-	opacity: 0.5;
-	text-shadow: none;
-}

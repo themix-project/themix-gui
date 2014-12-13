@@ -2,6 +2,16 @@
 @import "global";
 
 
+/***************
+! Dimmed label *
+****************/
+
+.dim-label {
+	opacity: 0.5;
+	text-shadow: none;
+}
+
+
 /***********
  ! Tooltip *
 ************/
