@@ -181,13 +181,13 @@
 ***********/
 
 @include exports("frame") {
-    .frame { border: none; }
+    .frame {
+        border: 1px solid border_normal($bg_color);
 
-    GtkScrolledWindow {
-        &.frame { border: 1px solid border_normal($bg_color); }
-
-        /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
-        GtkViewport.frame { border: none; }
+        &.flat { border: none; }
     }
+
+    /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
+    GtkScrolledWindow GtkViewport.frame { border: none; }
 }
 

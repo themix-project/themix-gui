@@ -65,9 +65,11 @@ $modules: () !default;
 	&:focus, &:hover { border-color: border_focus($color); }
 
 	&:active, &:active:hover,
-	&:active:focus, &:active:hover:focus { border-color: border_active($color); }
+	&:active:focus, &:active:hover:focus,
+	&:checked, &:checked:hover,
+	&:checked:focus, &:checked:hover:focus { border-color: border_active($color); }
 
 	&:insensitive { border-color: border_insensitive($color); }
 
-	&:active *:insensitive { border-color: border_normal($color); }
+	&:active:insensitive, &:checked:insensitive { border-color: border_normal($color); }
 }

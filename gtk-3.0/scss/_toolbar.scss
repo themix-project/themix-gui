@@ -31,7 +31,7 @@
 
     .button { @include button($bg, $fg); }
 
-    .linked .button { @include linked_button($bg); }
+    .button.linked, .linked .button { @include linked_button($bg); }
 
     GtkComboBox, .button {
         padding: $spacing - 1px;

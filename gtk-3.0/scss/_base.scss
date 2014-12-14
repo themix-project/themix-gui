@@ -43,8 +43,8 @@
 	outline-color: alpha($selected_bg_color, 0.5);
 	outline-style: dashed;
 	outline-width: 1px;
-	outline-offset: -2px;
-	outline-radius: 2px;
+	outline-offset: -1px;
+	outline-radius: $roundness;
 }
 
 

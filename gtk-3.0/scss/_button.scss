@@ -6,56 +6,59 @@
  ! Buttons
 **********/
 
-%button {
-	padding: ($spacing - 1px) ($spacing + 1px);
-	border-width: 1px;
-	border-style: solid;
-	border-radius: $roundness;
-	transition: 100ms ease;
-
-	-GtkWidget-focus-padding: 1;
-	-GtkWidget-focus-line-width: 0;
-}
-
-%linked_button {
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 0;
-	border-right-style: none;
-	border-left-style: none;
-
-	&:first-child {
-		border-width: 1px;
-		border-radius: $roundness;
-		border-left-style: solid;
-		border-right-style: none;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-
-		&:dir(rtl) {
-			border-left-style: none;
-			border-right-style: solid;
-		}
-	}
-
-	&:last-child {
-		border-width: 1px;
-		border-radius: $roundness;
-		border-left-style: none;
-		border-right-style: solid;
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
-
-		&:dir(rtl) {
-			border-left-style: solid;
-			border-right-style: none;
-		}
-	}
-
-	&:only-child, &:first-child:only-child {
+@include exports("button_extends") {
+	%button {
+		padding: ($spacing - 1px) ($spacing + 1px);
 		border-width: 1px;
 		border-style: solid;
 		border-radius: $roundness;
+		transition: 100ms ease;
+		outline-color: transparent;
+
+		-GtkWidget-focus-padding: 1;
+		-GtkWidget-focus-line-width: 0;
+	}
+
+	%linked_button {
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 0;
+		border-right-style: none;
+		border-left-style: none;
+
+		&:first-child {
+			border-width: 1px;
+			border-radius: $roundness;
+			border-left-style: solid;
+			border-right-style: none;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+
+			&:dir(rtl) {
+				border-left-style: none;
+				border-right-style: solid;
+			}
+		}
+
+		&:last-child {
+			border-width: 1px;
+			border-radius: $roundness;
+			border-left-style: none;
+			border-right-style: solid;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+
+			&:dir(rtl) {
+				border-left-style: solid;
+				border-right-style: none;
+			}
+		}
+
+		&:only-child, &:first-child:only-child {
+			border-width: 1px;
+			border-style: solid;
+			border-radius: $roundness;
+		}
 	}
 }
 
@@ -184,7 +187,7 @@
 
 		&.default { @include button($selected_bg_color, $selected_fg_color); }
 
-		.linked & { @include linked_button($bg_color); }
+		&.linked, .linked & { @include linked_button($bg_color); }
 
 		.spinbutton & {
 			color: mix($text_color, $base_color, 0.4);
@@ -198,7 +201,7 @@
 
 			&:insensitive {
 				color: mix($text_color, $base_color, 0.7);
-				box-shadow: inset 1px 0 shade($base_color, 0.95);
+				box-shadow: inset 1px 0 shade($base_color, 0.85);
 			}
 
 			&:active, &:checked, &:hover { color: $text_color; }
@@ -214,12 +217,12 @@
 		}
 
 		.spinbutton.vertical & {
-				border: 1px solid shade($bg_color, 0.8);
-				border-radius: $roundness;
-				background-color: shade($bg_color, 1.08);
-				background-image: none;
-				color: $fg_color;
-				box-shadow: none;
+			border: 1px solid shade($bg_color, 0.8);
+			border-radius: $roundness;
+			background-color: shade($bg_color, 1.08);
+			background-image: none;
+			color: $fg_color;
+			box-shadow: none;
 
 			&:hover {
 				border-color: shade($bg_color, 0.7);
@@ -248,7 +251,6 @@
 			&:first-child {
 				border-width: 1px;
 				border-bottom-width: 0;
-				border-radius: $roundness;
 				border-bottom-right-radius: 0;
 				border-bottom-left-radius: 0;
 			}
@@ -256,7 +258,6 @@
 			&:last-child {
 				border-width: 1px;
 				border-top-width: 0;
-				border-radius: $roundness;
 				border-top-left-radius: 0;
 				border-top-right-radius: 0;
 			}
