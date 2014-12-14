@@ -14,7 +14,7 @@
     color: $fg;
 
     &:insensitive {
-        @include linear-gradient(darken($bg, 10%));
+        @include linear-gradient(shade($bg, .9));
 
         color: mix($fg, $bg, .5);
     }
@@ -105,7 +105,7 @@
             &:active, &:active:hover {
                 background-image: none;
                 background-color: transparent;
-                color: darken($selected_bg_color, 10%);
+                color: shade($selected_bg_color, .9);
                 box-shadow: none;
             }
 

@@ -5,6 +5,7 @@ $modules: () !default;
 @mixin exports($name) {
 	@if (not index($modules, $name)) {
 		$modules: append($modules, $name) !global;
+
 		@content;
 	}
 }
@@ -18,15 +19,7 @@ $modules: () !default;
 }
 
 @function shade($color, $amount) {
-//	@if type-of($color) == "color" {
-//		@if $amount < 1 {
-//			@return darken($color, ((1 - $amount) * 100));
-//		} @else {
-//			@return lighten($color, (($amount - 1) * 100));
-//		}
-//	} @else {
-		@return unquote("shade(#{$color},#{$amount})");
-//	}
+	@return unquote("shade(#{$color},#{$amount})");
 }
 
 @function mix($color1, $color2, $amount) {
@@ -50,13 +43,18 @@ $modules: () !default;
 }
 
 @mixin linear-gradient($color, $direction: to bottom) {
-	$amount: $gradient / 2;
+	@if $gradient == 0 {
+		background-color: $color;
+		background-image: none;
+	} @else {
+		$amount: $gradient / 2;
 
-	background-color: $color;
-	background-image: linear-gradient($direction,
-						shade($color, (1 + $amount)),
-						shade($color, (1 - $amount))
-					);
+		background-color: $color;
+		background-image: linear-gradient($direction,
+			shade($color, (1 + $amount)),
+			shade($color, (1 - $amount))
+		);
+	}
 }
 
 @mixin border($color) {

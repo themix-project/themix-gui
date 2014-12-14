@@ -24,9 +24,9 @@
 			$bg_color: nth($colors, 2);
 
 			&.#{$type} {
+				@include linear-gradient($bg_color);
+
 				border: 1px solid shade($bg_color, 0.8);
-				background-color: $bg_color;
-				background-image: none;
 				color: $fg_color;
 
 				.button {

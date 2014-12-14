@@ -18,10 +18,10 @@
 
 @include exports("tooltip") {
 	.tooltip {
+		@include linear-gradient($tooltip_bg_color);
+
 		border: none;
 		border-radius: $roundness;
-		background-color: $tooltip_bg_color;
-		background-image: none;
 		color: $tooltip_fg_color;
 
 		* { background-color: transparent; }
@@ -111,10 +111,10 @@
 
 @include exports("floatingbar") {
 	.floating-bar {
+		@include linear-gradient($bg_color);
+
 		border: 1px solid border_normal($bg_color);
 		border-radius: $roundness;
-		background-color: $bg_color;
-		background-image: none;
 		color: $fg_color;
 
 		&.top {

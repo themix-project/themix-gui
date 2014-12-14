@@ -1,15 +1,15 @@
 // default color scheme
 $bg_color: #eee;
-$fg_color: #444;
+$fg_color: #333;
 $base_color: #fff;
-$text_color: #444;
+$text_color: #333;
 $selected_bg_color: #f06860;
 $selected_fg_color: #fff;
-$tooltip_bg_color: #444;
+$tooltip_bg_color: #333;
 $tooltip_fg_color: #eee;
 
 // dark colors
-$dark_bg_color: #444;
+$dark_bg_color: #333;
 $dark_fg_color: #eee;
 
 // shadows
@@ -50,6 +50,6 @@ $lightdm_fg_color: $dark_fg_color;
 
 // widget styles
 $roundness: 2px;
-$spacing: 5px;
+$spacing: 6px;
 $gradient: 0;
 $contrast: .7;

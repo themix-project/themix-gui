@@ -30,8 +30,8 @@
 	}
 
 	.progressbar {
-		background-image: none;
-		background-color: $selected_bg_color;
+		@include linear-gradient($selected_bg_color);
+
 		border-radius: 0;
 		box-shadow: none;
 
@@ -48,8 +48,7 @@
 		&.left.right { box-shadow: none; }
 
 		&.vertical {
-			background-image: none;
-			background-color: $selected_bg_color;
+			@include linear-gradient($selected_bg_color, to right);
 
 			&.bottom {
 				border-bottom-left-radius: $roundness;
@@ -75,16 +74,17 @@
 
 	.level-bar {
 		&.trough {
+			@include linear-gradient(shade($bg_color, 1.08), to top);
+
 			border: 1px solid alpha(border_normal($bg_color), 0.5);
-			background-color: shade($bg_color, 1.08);
-			background-image: none;
 			border-radius: $roundness;
 		}
 
 		&.fill-block {
+			@include linear-gradient($selected_bg_color);
+
 			// FIXME: it would be nice to set make fill blocks bigger, but we'd need
 			// :nth-child working on discrete indicators
-			background-color: $selected_bg_color;
 			border-color: transparent;
 			border-radius: 0;
 
@@ -123,9 +123,10 @@
 
 
 		&.slider {
+			@include linear-gradient(shade($bg_color, 1.08));
+
 			border-radius: 8px;
-			background-color: shade($bg_color, 1.08);
-			background-image: none;
+
 			/* we will draw the border using box shadow for now */
 			box-shadow: inset 1px 0 border_normal($bg_color),
 						inset 0 1px border_normal($bg_color),
@@ -147,8 +148,8 @@
 			}
 
 			&:insensitive {
-				background-color: shade($bg_color, 0.9);
-				background-image: none;
+				@include linear-gradient(shade($bg_color, 0.9));
+
 				box-shadow: inset 1px 0 border_insensitive($bg_color),
 							inset 0 1px border_insensitive($bg_color),
 							inset -1px 0 border_insensitive($bg_color),
@@ -170,26 +171,27 @@
 
 
 		&.trough {
+			@include linear-gradient(shade($bg_color, 1.08));
+
 			margin: 7px 0;
 			border: 1px solid alpha(border_normal($bg_color), 0.5);
 			border-radius: $roundness;
-			background-color: shade($bg_color, 1.08);
-			background-image: none;
 
-			&:insensitive { background-color: shade($bg_color, 0.9); }
+			&:insensitive { @include linear-gradient(shade($bg_color, 0.9)); }
 
 			&.vertical { margin: 0 7px; }
 		}
 
 		&.highlight {
 			&, &.left, &.bottom {
+				@include linear-gradient($selected_bg_color);
+
 				border-color: $selected_bg_color;
-				background-color: $selected_bg_color;
-				background-image: none;
 
 				&:insensitive {
+					@include linear-gradient(shade($bg_color, 0.8));
+
 					border-color: shade($bg_color, 0.7);
-					background-color: shade($bg_color, 0.8);
 				}
 			}
 		}
