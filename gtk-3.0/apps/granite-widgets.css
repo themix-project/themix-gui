@@ -64,7 +64,7 @@
 }
 
 .dynamic-notebook .menu GtkLabel {
-    color: @menu_fg;
+    color: @menu_fg_color;
 }
 
 /****************
