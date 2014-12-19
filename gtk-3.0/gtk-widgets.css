@@ -599,7 +599,12 @@ GtkExpander {
 /*********
  * frame *
  *********/
-.frame { border: none; }
+.frame {
+    border: 1px solid shade(@theme_bg_color, 0.8);
+    border-radius: 0;
+}
+
+.frame.flat { border: none; }
 
 /*******************
  * scrolled window *
