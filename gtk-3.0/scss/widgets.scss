@@ -1,24 +1,26 @@
 @import "functions";
+@import "global";
 @import "colors";
-@import "base";
-@import "button";
-@import "entry";
-@import "calendar";
-@import "choosers";
-@import "grid";
-@import "infobar";
-@import "menu";
-@import "misc";
-@import "notebook";
-@import "osd";
-@import "progress";
-@import "scrollbar";
-@import "sidebar";
-@import "spinner";
-@import "toggle";
-@import "toolbar";
-@import "view";
-@import "window";
+
+@import "widgets/base";
+@import "widgets/button";
+@import "widgets/entry";
+@import "widgets/calendar";
+@import "widgets/choosers";
+@import "widgets/grid";
+@import "widgets/infobar";
+@import "widgets/menu";
+@import "widgets/misc";
+@import "widgets/notebook";
+@import "widgets/osd";
+@import "widgets/progress";
+@import "widgets/scrollbar";
+@import "widgets/sidebar";
+@import "widgets/spinner";
+@import "widgets/toggle";
+@import "widgets/toolbar";
+@import "widgets/view";
+@import "widgets/window";
 
 
 /**************
