@@ -111,7 +111,7 @@
 				border-style: solid;
 				border-color: currentColor;
 				background-color: $bg_color;
-				color: border_normal($bg_color);
+				color: shade($bg_color, ($contrast + .1));
 			}
 		}
 

@@ -106,7 +106,7 @@
             border-style: solid;
 
             &, &:hover {
-                border-color: shade($bg_color, ($contrast + .10));
+                border-color: shade($bg_color, ($contrast + .1));
                 background-color: $bg_color;
             }
         }
@@ -165,7 +165,7 @@
         border-style: solid;
 
         &, &:hover {
-            border-color: shade($bg_color, ($contrast + .10));
+            border-color: shade($bg_color, ($contrast + .1));
             background-color: $bg_color;
         }
     }
@@ -211,7 +211,7 @@
 
     .gedit-document-panel-group-row {
         &, &:hover {
-            border-top: 1px solid shade($bg_color, ($contrast + .10));
+            border-top: 1px solid shade($bg_color, ($contrast + .1));
             background-color: $bg_color;
         }
     }

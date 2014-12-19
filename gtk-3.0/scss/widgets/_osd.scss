@@ -33,7 +33,7 @@ GtkOverlay.osd {
         background-image: none;
         color: $osd_fg;
 
-        .separator { color: shade($osd_bg, 0.9); }
+        .separator { color: shade($osd_bg, ($contrast + .1)); }
     }
 
     /* used by gnome-settings-daemon's media-keys OSD */

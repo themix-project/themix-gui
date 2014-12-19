@@ -150,7 +150,7 @@
 
 	&.separator, .separator {
 		border: 1px solid currentColor;
-		color: shade($bg, ($contrast + .05));
+		color: shade($bg, ($contrast + .1));
 
 		&:insensitive { color: shade($bg, .85); }
 	}
@@ -222,7 +222,7 @@
 
 			&:hover {
 				border-color: shade($bg_color, 0.7);
-				background-color: shade($bg_color, 1.10);
+				background-color: shade($bg_color, 1.1);
 				background-image: none;
 			}
 

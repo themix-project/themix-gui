@@ -109,7 +109,7 @@
             -GtkWidget-separator-height: 1;
 
             border-style: none;
-            color: shade($menu_bg_color, .9);
+            color: shade($menu_bg_color, ($contrast + .1));
         }
 
         &.button {

@@ -134,7 +134,7 @@
 
 @include exports("separator") {
     .view.separator, .separator {
-        color: shade($bg_color, ($contrast + .10));
+        color: shade($bg_color, ($contrast + .1));
         border: 1px solid currentColor;
     }
 }
