@@ -48,7 +48,7 @@
  ! Base states
  *************/
 
-%selected_items {
+%selected {
 	&, &:focus {
 		background-color: $selected_bg_color;
 		color: $selected_fg_color;
@@ -56,7 +56,7 @@
 }
 
 * {
-	&:selected { @extend %selected_items; }
+	&:selected { @extend %selected; }
 
 	&:insensitive,
 	&:insensitive:insensitive { color: mix($fg_color, $bg_color, 0.50); }
@@ -103,7 +103,7 @@
 		color: mix($fg_color, $bg_color, 0.50);
 	}
 
-	&:selected { @extend %selected_items; }
+	&:selected { @extend %selected; }
 }
 
 GtkImage, GtkLabel, GtkBox, GtkGrid {
@@ -117,7 +117,7 @@ GtkLabel {
 		@extend .dim-label;
 	}
 
-	&:selected { @extend %selected_items; }
+	&:selected { @extend %selected; }
 
 	&:insensitive { color: mix($fg_color, $bg_color, 0.50); }
 }

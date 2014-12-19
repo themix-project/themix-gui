@@ -96,7 +96,7 @@
         .toolbar {
             border-width: 0 0 1px;
             border-style: solid;
-            border-color: shade($toolbar_bg_color, 0.8);
+            border-color: border_normal($toolbar_bg_color);
         }
 
         .sidebar .frame { border: none; }
@@ -106,7 +106,7 @@
             border-style: solid;
 
             &, &:hover {
-                border-color: shade($bg_color, 0.8);
+                border-color: shade($bg_color, ($contrast + .10));
                 background-color: $bg_color;
             }
         }
@@ -136,7 +136,7 @@
             border-color: $toolbar_bg_color;
             background-color: shade($toolbar_bg_color, 0.9);
 
-            &:nth-child(2) { border-color: shade($toolbar_bg_color, 0.8); }
+            &:nth-child(2) { border-color: border_normal($toolbar_bg_color); }
 
             &.search-bar {
                 border-top-width: 0;
@@ -146,7 +146,7 @@
             &, &.search-bar {
                 &:only-child {
                     border-bottom-width: 1px;
-                    border-bottom-color: shade($toolbar_bg_color, 0.8);
+                    border-bottom-color: border_normal($toolbar_bg_color);
                 }
             }
 
@@ -165,7 +165,7 @@
         border-style: solid;
 
         &, &:hover {
-            border-color: shade($bg_color, 0.8);
+            border-color: shade($bg_color, ($contrast + .10));
             background-color: $bg_color;
         }
     }
@@ -211,7 +211,7 @@
 
     .gedit-document-panel-group-row {
         &, &:hover {
-            border-top: 1px solid shade($bg_color, 0.9);
+            border-top: 1px solid shade($bg_color, ($contrast + .10));
             background-color: $bg_color;
         }
     }
@@ -220,10 +220,7 @@
         &:hover { background-color: shade($bg_color, 1.05); }
 
         &:selected {
-            &, &:hover {
-                background-color: $selected_bg_color;
-                color: $selected_fg_color;
-            }
+            &, &:hover { @extend %selected; }
         }
     }
 
@@ -239,7 +236,7 @@
         transition: all 200ms ease-in;
     }
 
-    GeditStatusbar { border-top: 1px solid shade($bg_color, 0.8); }
+    GeditStatusbar { border-top: 1px solid border_normal($bg_color); }
 
     GeditStatusbar GeditSmallButton, GeditStatusMenuButton {
         text-shadow: none;
@@ -251,7 +248,7 @@
             border-radius: 0;
             padding: 1px 6px 2px 4px;
 
-            &:hover, &:active, &:active:hover { border-color: shade($bg_color, 0.8); }
+            &:hover, &:active, &:active:hover { border-color: border_normal($bg_color); }
 
             &:active {
                 background-color: shade($bg_color, 0.95);
@@ -265,7 +262,7 @@
         border-radius: 0 0 $roundness $roundness;
         border-width: 0 1px 1px 1px;
         border-style: solid;
-        border-color: shade($base_color, 0.8);
+        border-color: border_normal($base_color);
         background-color: $base_color;
 
         .not-found {
@@ -273,10 +270,7 @@
             background-image: none;
             color: $error_fg_color;
 
-            &:selected {
-                background-color: $selected_bg_color;
-                color: $selected_fg_color;
-            }
+            &:selected { @extend %selected; }
         }
     }
 
@@ -315,10 +309,7 @@
         background-color: $base_color;
         color: $text_color;
 
-        &:focus, &:hover, &:active, &:selected {
-            background-color: $selected_bg_color;
-            color: $selected_fg_color;
-        }
+        &:focus, &:hover, &:active, &:selected { @extend %selected; }
     }
 }
 

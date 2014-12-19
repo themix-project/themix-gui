@@ -1,0 +1,15 @@
+/************
+ ! Synaptic *
+*************/
+
+@include exports("synaptic") {
+    GtkWindow > GtkVBox > .dock {
+        &, > GtkHBox > GtkToolbar {
+            @include linear-gradient($toolbar-bg-color);
+
+            padding: $spacing;
+            border: none;
+            color: $toolbar_fg_color;
+        }
+    }
+}

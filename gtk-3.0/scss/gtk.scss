@@ -2,6 +2,7 @@
 @import "global";
 @import "colors";
 
+
 @import "widgets/base";
 @import "widgets/button";
 @import "widgets/entry";
@@ -21,6 +22,11 @@
 @import "widgets/toolbar";
 @import "widgets/view";
 @import "widgets/window";
+
+
+@import "apps/gnome-applications";
+@import "apps/nemo";
+@import "apps/synaptic";
 
 
 /**************

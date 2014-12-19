@@ -12,7 +12,7 @@
             color: mix($text_color, $base_color, 0.5);
         }
 
-        &:selected, &:selected:focus { @extend %selected_items; }
+        &:selected, &:selected:focus { @extend %selected; }
     }
 
     .cell {

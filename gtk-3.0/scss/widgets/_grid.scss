@@ -37,7 +37,7 @@
         border-radius: $roundness;
 
         &:selected {
-            @extend %selected_items;
+            @extend %selected;
 
             outline-offset: -2px;
         }
