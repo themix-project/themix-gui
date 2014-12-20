@@ -15,6 +15,18 @@
 		-GtkWidget-focus-line-width: 0;
 	}
 
+	%linked_middle {
+		border-radius: 0;
+		border-left-style: none;
+		border-right-style: solid;
+
+		&:dir(rtl) {
+			border-radius: 0; // needed when including %linked_middle:dir(rtl)
+			border-right-style: none;
+			border-left-style: solid
+		}
+	}
+
 	%linked_button {
 		border-width: 1px;
 		border-style: solid;
@@ -264,5 +276,50 @@
 			border-style: solid;
 			border-radius: 0;
 		}
+	}
+}
+
+
+/******************
+! ComboBoxes *
+*******************/
+
+@include exports("combobox") {
+	GtkComboBox {
+		> .button {
+			padding: ($spacing - 2px) ($spacing + 1px);
+
+			-GtkComboBox-arrow-scaling: 0.5;
+			-GtkComboBox-shadow-type: none;
+		}
+
+		&.combobox-entry {
+			.entry, .button { @extend %linked_button; }
+		}
+
+		.separator {
+			/* always disable separators */
+			-GtkWidget-wide-separators: true;
+			-GtkWidget-horizontal-separator: 0;
+			-GtkWidget-vertical-separator: 0;
+
+			border-style: none;
+		}
+	}
+
+	.linked > GtkComboBox {
+		> .button {
+			// the combo is a composite widget so the way we do button linked doesn't
+			// work, special case needed. See
+			// https://bugzilla.gnome.org/show_bug.cgi?id=733979
+			&:dir(ltr) { @extend %linked_middle; } // specificity bump
+			&:dir(rtl) { @extend %linked_middle:dir(rtl); }
+		}
+
+		&:first-child > .button { @extend %linked_button:first-child; }
+
+		&:last-child > .button { @extend %linked_button:last-child; }
+
+		&:only-child > .button { @extend %linked_button:only-child; }
 	}
 }
