@@ -1,8 +1,8 @@
-/*******
- ! Entry
-********/
+/*********
+ ! Entry *
+**********/
 
-@mixin linked_entry($bg) {
+%linked_entry {
 	border-width: 1px;
 	border-radius: 0;
 	border-right-width: 0;
@@ -70,7 +70,11 @@
 }
 
 @include exports("entry") {
-	.entry { @include entry($base_color, $text_color); }
+	.entry {
+		@include entry($base_color, $text_color);
+
+		&.linked, .linked & { @extend %linked_entry; }
+	}
 }
 
 
