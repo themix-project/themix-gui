@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test -z "$1" &&
-  echo 'usage: ./change_color.sh PRESET_NAME [OUTPUT_THEME_NAME]' &&
+  echo "usage: $0 PRESET_NAME [OUTPUT_THEME_NAME]" &&
   exit 1
 
 SRC_PATH=$(readlink -e $(dirname $0))
@@ -36,8 +36,8 @@ test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
 	$DEST_PATH
 ) &&
 
-source ./colors/$1.sh &&
-source ./current_colors.txt &&
+source $SRC_PATH/colors/$1.sh &&
+source $SRC_PATH/current_colors.txt &&
 
 cd $DEST_PATH &&
 replace $OLD_BG $BG &&
