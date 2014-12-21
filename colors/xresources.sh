@@ -19,6 +19,6 @@ color_fg () {
  TXT_BG=$(color_fg)
  TXT_FG=$(color 0)
 MENU_BG=$(color_bg)
-MENU_FG=$(color 2)
+MENU_FG=$(color 13)
  BTN_BG=$(color 7)
  BTN_FG=$(color_fg)
