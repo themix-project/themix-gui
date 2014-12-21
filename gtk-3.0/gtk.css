@@ -1,15 +1,15 @@
 /* default color scheme */
-@define-color bg_color #777777777777;
-@define-color fg_color #111111111111;
-@define-color base_color #999999999999;
-@define-color text_color #222222222222;
-@define-color selected_bg_color #ffff33337777;
-@define-color selected_fg_color #ffeeffeeffee;
-@define-color tooltip_bg_color #777777777777;
-@define-color tooltip_fg_color #111111111111;
+@define-color bg_color #e0ccc8;
+@define-color fg_color #0d0a20;
+@define-color base_color #80257b;
+@define-color text_color #0d0a20;
+@define-color selected_bg_color #6a29a0;
+@define-color selected_fg_color #eeeeef;
+@define-color tooltip_bg_color #e0ccc8;
+@define-color tooltip_fg_color #0d0a20;
 
-@define-color dark_bg_color #777777777777;
-@define-color dark_fg_color #111111111111;
+@define-color dark_bg_color #e0ccc8;
+@define-color dark_fg_color #0d0a20;
 
 /* colormap actually used by the theme, to be overridden in other css files */
 @define-color theme_bg_color @bg_color;
@@ -20,8 +20,8 @@
 @define-color theme_selected_fg_color @selected_fg_color;
 @define-color theme_tooltip_bg_color @tooltip_bg_color;
 @define-color theme_tooltip_fg_color @tooltip_fg_color;
-@define-color theme_button_bg_color #66cc33cc99cc;
-@define-color theme_button_fg_color #dd55dd55dd55;
+@define-color theme_button_bg_color #9a29a0;
+@define-color theme_button_fg_color #eeeeef;
 
 /* shadow effects */
 @define-color light_shadow #fff;
@@ -42,10 +42,10 @@
 @define-color error_color #cc0000;
 
 /* widget colors */
-@define-color titlebar_bg_color #33cc33cc33cc;
-@define-color titlebar_fg_color #ee66ee66ee66;
-@define-color menubar_bg_color #33cc33cc33cc;
-@define-color menubar_fg_color #ee66ee66ee66;
+@define-color titlebar_bg_color #0d0a20;
+@define-color titlebar_fg_color #6a29a0;
+@define-color menubar_bg_color #0d0a20;
+@define-color menubar_fg_color #6a29a0;
 @define-color toolbar_bg_color @theme_bg_color;
 @define-color toolbar_fg_color @theme_fg_color;
 @define-color menu_bg_color @menubar_bg_color;
@@ -54,8 +54,8 @@
 @define-color panel_fg_color @toolbar_fg_color;
 
 /* osd */
-@define-color osd_base #777777777777;
-@define-color osd_fg #111111111111;
+@define-color osd_base #e0ccc8;
+@define-color osd_fg #0d0a20;
 @define-color osd_bg alpha(@osd_base, 0.8);
 
 /* lightdm greeter colors */
