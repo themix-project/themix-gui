@@ -16,7 +16,7 @@ color_fg () {
      FG=$(color 0)
  SEL_BG=$(color 2)
  SEL_FG=$(color_fg)
- TXT_BG=$(color 8)
+ TXT_BG=$(color_fg)
  TXT_FG=$(color 0)
 MENU_BG=$(color 0)
 MENU_FG=$(color 2)
