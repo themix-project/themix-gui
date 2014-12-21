@@ -8,30 +8,30 @@ menu.border.color: #2c2c2c
 menu.border.width: 1
 
 menu.title.bg: Solid Flat
-menu.title.bg.color: #0d0a20
+menu.title.bg.color: #33cc33cc33cc
 menu.title.bg.shadow: 0
-menu.title.text.color: #6a29a0
+menu.title.text.color: #ee66ee66ee66
 menu.title.text.justify: Center
 
 menu.items.bg: Solid Flat
-menu.items.bg.color: #0d0a20
-menu.items.text.color: #6a29a0
+menu.items.bg.color: #33cc33cc33cc
+menu.items.text.color: #ee66ee66ee66
 menu.items.disabled.text.color: #666666
 
 menu.items.active.bg: Solid Flat
-menu.items.active.bg.color: #6a29a0
-menu.items.active.text.color: #6a29a0
+menu.items.active.bg.color: #ffff33337777
+menu.items.active.text.color: #ee66ee66ee66
 
 
 # Window focused
-window.active.title.separator.color: #0d0a20
+window.active.title.separator.color: #33cc33cc33cc
 
 window.active.title.bg: Solid Flat
-window.active.title.bg.color: #0d0a20
+window.active.title.bg.color: #33cc33cc33cc
 window.active.title.bg.shadow: 0
 
 window.active.label.bg: Parentrelative
-window.active.label.text.color: #6a29a0
+window.active.label.text.color: #ee66ee66ee66
 
 window.active.handle.bg: Raised Gradient Vertical
 window.active.handle.bg.color: #FF0000
@@ -42,11 +42,11 @@ window.active.grip.bg.color: #FF0000
 window.active.grip.bg.colorTo: #00FF00
 
 window.active.button.unpressed.bg: Parentrelative
-window.active.button.unpressed.image.color: #6a29a0
+window.active.button.unpressed.image.color: #ee66ee66ee66
 
 window.active.button.pressed.bg: Solid Flat
 window.active.button.pressed.bg.color: #ec7584
-window.active.button.pressed.image.color: #0d0a20
+window.active.button.pressed.image.color: #33cc33cc33cc
 
 window.active.button.disabled.bg: Parentrelative
 window.active.button.disabled.image.color: #9b9b9b
@@ -55,14 +55,14 @@ window.active.button.hover.bg: Parentrelative
 window.active.button.hover.image.color: #ec7584
 
 window.active.button.toggled.bg: Parentrelative
-window.active.button.toggled.image.color: #6a29a0
+window.active.button.toggled.image.color: #ee66ee66ee66
 
 
 # Window unfocused
-window.inactive.title.separator.color: #0d0a20
+window.inactive.title.separator.color: #33cc33cc33cc
 
 window.inactive.title.bg: Flat Solid
-window.inactive.title.bg.color: #0d0a20
+window.inactive.title.bg.color: #33cc33cc33cc
 window.inactive.title.bg.shadow: 0
 
 window.inactive.label.bg: Parentrelative
@@ -91,18 +91,18 @@ window.inactive.button.toggled.image.color: #9b9b9b
 
 # OSD
 osd.bg: Solid Flat
-osd.bg.color: #0d0a20
+osd.bg.color: #33cc33cc33cc
 osd.bg.shadow: 0
 
 osd.border.width: 2
 
 osd.hilight.bg: Solid Flat
-osd.hilight.bg.color: #6a29a0
+osd.hilight.bg.color: #ffff33337777
 
 
 window.handle.width: 0
 window.client.padding.width: 0
 window.label.text.justify: Center
-window.active.border.color:                     #6a29a0
-window.inactive.border.color:                   #0d0a20
+window.active.border.color:                     #ffff33337777
+window.inactive.border.color:                   #33cc33cc33cc
 menu.overlap: 0
