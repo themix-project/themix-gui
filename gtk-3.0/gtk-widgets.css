@@ -244,8 +244,13 @@ GtkAssistant .sidebar {
 .button:active,
 .button:checked {
     border-color: shade(@theme_button_bg_color, 0.8);
-    background-color: shade(@theme_button_bg_color, 0.95);
     background-image: none;
+}
+.button:active {
+    background-color: shade(@theme_button_bg_color, 0.95);
+}
+.button:checked {
+    background-color: shade(@theme_button_bg_color, 0.8);
 }
 
 .button:active:hover,
@@ -287,16 +292,22 @@ GtkAssistant .sidebar {
     background-color: @theme_selected_bg_color;
 }
 
-.button.default:active,
-.button.default:checked {
+.button.default:active {
     border-color: shade(@theme_selected_bg_color, 0.8);
     background-color: shade(@theme_selected_bg_color, 0.95);
 }
+.button.default:checked {
+    border-color: shade(@theme_selected_bg_color, 0.6);
+    background-color: shade(@theme_selected_bg_color, 0.7);
+}
 
-.button.default:active:hover,
-.button.default:checked:hover {
+.button.default:active:hover {
     border-color: shade(@theme_selected_bg_color, 0.7);
     background-color: shade(@theme_selected_bg_color, 0.97);
+}
+.button.default:checked:hover {
+    border-color: shade(@theme_selected_bg_color, 0.5);
+    background-color: shade(@theme_selected_bg_color, 0.8);
 }
 
 .button.flat,
