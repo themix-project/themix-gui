@@ -5,9 +5,10 @@ test -z "$1" &&
   exit 1
 
 SRC_PATH=$(readlink -e $(dirname $0))
+THEME=$1
 OUTPUT_THEME_NAME="$2"
 
-test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox_current
+test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox-$THEME
 DEST_PATH=~/.themes/"$OUTPUT_THEME_NAME"
 
 PATHLIST=(
@@ -36,7 +37,7 @@ test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
 	$DEST_PATH
 ) &&
 
-source $SRC_PATH/colors/$1.sh &&
+source $SRC_PATH/colors/$THEME.sh &&
 source $SRC_PATH/current_colors.txt &&
 
 cd $DEST_PATH &&
