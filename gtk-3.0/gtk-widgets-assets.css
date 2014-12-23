@@ -18,6 +18,7 @@
 .check:active,
 .check:checked,
 .check row:selected:active,
+.check:checked row:selected,
 .check row:selected:focus:active {
     -gtk-icon-source: url("assets/checkbox-checked.svg");
 }
