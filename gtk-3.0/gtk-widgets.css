@@ -424,7 +424,7 @@ GtkIconView.content-view.check:selected {
  * drawing area *
  ****************/
 GtkDrawingArea {
-    background-color: @theme_base_color;
+    background-color: transparent;
 }
 
 GtkDrawingArea:insensitive {
