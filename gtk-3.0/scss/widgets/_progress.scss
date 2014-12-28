@@ -120,37 +120,14 @@
 
 		&.slider {
 			@include linear-gradient(shade($bg_color, 1.08));
+			@include border($bg_color);
 
 			border-radius: 8px;
+			border-width: 1px;
+			border-style: solid;
+			box-shadow: 0 1px 2px -1px alpha($dark_shadow, .3);
 
-			/* we will draw the border using box shadow for now */
-			box-shadow: inset 1px 0 border_normal($bg_color),
-						inset 0 1px border_normal($bg_color),
-						inset -1px 0 border_normal($bg_color),
-						inset 0 -1px border_normal($bg_color);
-
-			&:hover, &:focus {
-				box-shadow: inset 1px 0 border_focus($bg_color),
-							inset 0 1px border_focus($bg_color),
-							inset -1px 0 border_focus($bg_color),
-							inset 0 -1px border_focus($bg_color);
-			}
-
-			&:active {
-				box-shadow: inset 1px 0 border_active($bg_color),
-							inset 0 1px border_active($bg_color),
-							inset -1px 0 border_active($bg_color),
-							inset 0 -1px border_active($bg_color);
-			}
-
-			&:insensitive {
-				@include linear-gradient(shade($bg_color, 0.9));
-
-				box-shadow: inset 1px 0 border_insensitive($bg_color),
-							inset 0 1px border_insensitive($bg_color),
-							inset -1px 0 border_insensitive($bg_color),
-							inset 0 -1px border_insensitive($bg_color);
-			}
+			&:insensitive { @include linear-gradient(shade($bg_color, 0.9)); }
 		}
 
 		&.fine-tune {

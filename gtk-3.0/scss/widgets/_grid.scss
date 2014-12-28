@@ -2,44 +2,47 @@
  ! Grid and flowbox
 *******************/
 
-.list {
-    background-color: shade($bg_color, 0.97);
-    color: $fg_color;
+@include exports("grid") {
+    .list {
+        background-color: shade($bg_color, 0.97);
+        color: $fg_color;
 
-    &-row {
-        &, &.button {
-            border: none;
-            border-radius: 0;
-            padding: $spacing;
-            background-image: none;
-            background-color: transparent;
-            box-shadow: none;
-
-            &:hover {
+        &-row {
+            &, &.button {
+                border: none;
+                border-radius: 0;
+                padding: $spacing;
                 background-image: none;
-                background-color: shade($bg_color, 1.02);
-            }
+                background-color: transparent;
+                box-shadow: none;
 
-            &:selected {
-                &, &:hover, &:focus {
+                &:hover {
                     background-image: none;
-                    background-color: $selected_bg_color;
-                    color: $selected_fg_color;
+                    background-color: shade($bg_color, 1.02);
+                }
+
+                &:selected {
+                    &, &:hover, &:focus {
+                        background-image: none;
+                        background-color: $selected_bg_color;
+                        color: $selected_fg_color;
+                    }
                 }
             }
         }
     }
-}
 
-.grid-child {
-    &, GtkFlowBox & {
-        padding: $spacing;
-        border-radius: $roundness;
+    .grid-child {
+        &, GtkFlowBox & {
+            padding: $spacing;
+            border-radius: $roundness;
 
-        &:selected {
-            @extend %selected;
+            &:selected {
+                @extend %selected;
 
-            outline-offset: -2px;
+                outline-offset: -2px;
+            }
         }
     }
 }
+
