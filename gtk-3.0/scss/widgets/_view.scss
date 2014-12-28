@@ -100,11 +100,13 @@
     /* this will get overridden by .view, needed by gedit line numbers */
     GtkTextView { background-color: mix($bg_color, $base_color, 0.50); }
 
-    GtkDrawingArea, GtkHTML {
+    GtkHTML {
         @extend .view;
 
         &:insensitive { background-color: shade($base_color, 0.9); }
     }
+
+    GtkDrawingArea { background-color: transparent; }
 }
 
 /************
