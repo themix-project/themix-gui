@@ -184,17 +184,24 @@ style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 # Various Standard Widgets
 
 style "murrine-button"  = "murrine-wider" {
-	fg[NORMAL] = @btn_fg_color
-	fg[PRELIGHT] = @btn_fg_color
-	fg[ACTIVE] = @btn_fg_color
-	fg[INSENSITIVE] = @btn_fg_color
-
 	bg[NORMAL] = @btn_bg_color
 	bg[PRELIGHT] = shade (1.10, @btn_bg_color)
+	bg[SELECTED] = shade (0.7, @btn_bg_color)
 	bg[ACTIVE] = shade (0.95, @btn_bg_color)
 	bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
 
-  	engine "murrine" {
+	engine "murrine" {
+	}
+}
+
+style "murrine-buttonlabel" {
+	fg[NORMAL] = @btn_fg_color
+	fg[PRELIGHT] = @btn_fg_color
+	fg[SELECTED] = @btn_fg_color
+	fg[ACTIVE] = @btn_fg_color
+	fg[INSENSITIVE] = @btn_fg_color
+
+	engine "murrine" {
 	}
 }
 
@@ -779,3 +786,7 @@ widget "xfwm4-tabwin*" style "xfwm-tabwin"
 widget "xfwm4-tabwin*GtkButton*" style "xfwm-tabwin-button"
 widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
+
+# button fg workaround:
+widget_class "*.<GtkButton>.<GtkLabel>" style "murrine-buttonlabel"
+widget_class "*<GtkButton>*<GtkLabel>*" style:highest "murrine-buttonlabel"
