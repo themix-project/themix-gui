@@ -1,3 +1,8 @@
+/* desktop itens */
+@define-color desktop_item_fg #eeeeee;
+@define-color desktop_item_selected_fg @theme_selected_fg_color;
+@define-color desktop_item_text_shadow alpha(black, 0.8);
+
 /* default color scheme */
 @define-color bg_color #dedede;
 @define-color fg_color #555555;
