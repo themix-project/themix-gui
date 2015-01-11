@@ -54,15 +54,18 @@
     -gtk-icon-source: none;
 }
 
-.menuitem.check:active {
+.menuitem.check:active,
+.menuitem.check:checked {
     -gtk-icon-source: url("assets/menuitem-checkbox-checked.svg");
 }
 
-.menuitem.check:active:hover {
+.menuitem.check:active:hover,
+.menuitem.check:checked:hover {
     -gtk-icon-source: url("assets/menuitem-checkbox-checked-hover.svg");
 }
 
-.menuitem.check:active:insensitive {
+.menuitem.check:active:insensitive,
+.menuitem.check:checked:insensitive {
     -gtk-icon-source: url("assets/menuitem-checkbox-checked-insensitive.svg");
 }
 
@@ -85,15 +88,18 @@
     -gtk-icon-source: none;
 }
 
-.menuitem.radio:active {
+.menuitem.radio:active,
+.menuitem.radio:checked {
     -gtk-icon-source: url("assets/menuitem-radio-checked.svg");
 }
 
-.menuitem.radio:active:hover {
+.menuitem.radio:active:hover,
+.menuitem.radio:checked:hover {
     -gtk-icon-source: url("assets/menuitem-radio-checked-hover.svg");
 }
 
-.menuitem.radio:active:insensitive {
+.menuitem.radio:active:insensitive,
+.menuitem.radio:checked:insensitive {
     -gtk-icon-source: url("assets/menuitem-radio-checked-insensitive.svg");
 }
 
