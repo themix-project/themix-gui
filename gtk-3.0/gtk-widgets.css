@@ -3945,20 +3945,41 @@ GtkBubbleWindow .toolbar {
 }
 
 .window-frame {
-    border-style: none;
+    border: none;
     border-radius: 2px 2px 0 0;
-    box-shadow: 0 3px 7px 1px alpha(black, 0.7),
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+                0 6px 6px rgba(0, 0, 0, 0.23),
                 0 0 0 1px mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.21);
 
     /* this is used for the resize cursor area */
-    margin: 10px;
+    margin: 15px;
+}
+
+.window-frame:backdrop {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+                0 1px 2px rgba(0, 0, 0, 0.24),
+                0 0 0 1px mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.12);
 }
 
 .window-frame.tiled {
     border-radius: 0;
 }
 
-.window-frame:backdrop {
-    box-shadow: 0 3px 5px 1px alpha(black, 0.5),
-                0 0 0 1px mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.12);
+.window-frame.csd.popup {
+    border-radius: 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+                0 3px 6px rgba(0, 0, 0, 0.23),
+                0 0 0 1px mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.21);
+ }
+
+.window-frame.csd.tooltip {
+    border-radius: 2px;
+    box-shadow: none;
+}
+
+.window-frame.csd.message-dialog {
+    border-radius: 2px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+                0 3px 6px rgba(0, 0, 0, 0.23),
+                0 0 0 1px mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.21);
 }
