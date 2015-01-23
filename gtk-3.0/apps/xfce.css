@@ -1,3 +1,15 @@
+CatfishWindow .sidebar .button.flat {
+    padding: 4px 6px;
+    transition: none;
+}
+
+CatfishWindow .sidebar .button.flat:active,
+CatfishWindow .sidebar .button.flat:checked {
+    border-color: shade(@theme_bg_color, 0.8);
+    background-color: shade(@theme_bg_color, 0.95);
+    background-image: none;
+}
+
 XfceHeading {
     margin: 0;
     padding: 0;
