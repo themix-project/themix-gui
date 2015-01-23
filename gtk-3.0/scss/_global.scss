@@ -1,3 +1,5 @@
+@import "functions";
+
 // default color scheme
 $bg_color: #eee;
 $fg_color: #333;
@@ -51,8 +53,20 @@ $osd_fg: $dark_fg_color;
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;
 
+$wm_bg: $titlebar_bg_color;
+$wm_border_focused: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
+$wm_border_unfocused: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.12);
+$wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, 0.1);
+$wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, 0.4);
+$wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, 0.1);
+$wm_icons_focused_prelight: $selected_bg_color;
+$wm_icons_focused_pressed: shade($selected_bg_color, 0.8);
+$wm_icons_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, 0.4);
+$wm_icons_unfocused_prelight: $selected_bg_color;
+$wm_icons_unfocused_pressed: shade($selected_bg_color, 0.8);
+
 // widget styles
 $roundness: 2px;
-$spacing: 5px;
+$spacing: 4px;
 $gradient: 0;
 $contrast: .7;

@@ -53,14 +53,14 @@
 @define-color lightdm_fg_color #{"" + $lightdm_fg_color};
 
 /* window manager colors */
-@define-color wm_bg @titlebar_bg_color;
-@define-color wm_border_focused mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.21);
-@define-color wm_border_unfocused mix(shade(@titlebar_bg_color, 0.7), @titlebar_fg_color, 0.12);
-@define-color wm_title_focused mix(@titlebar_fg_color, @titlebar_bg_color, 0.1);
-@define-color wm_title_unfocused mix(@titlebar_fg_color, @titlebar_bg_color, 0.4);
-@define-color wm_icons_focused mix(@titlebar_fg_color, @titlebar_bg_color, 0.1);
-@define-color wm_icons_focused_prelight @selected_bg_color;
-@define-color wm_icons_focused_pressed shade(@selected_bg_color, 0.8);
-@define-color wm_icons_unfocused mix(@titlebar_fg_color, @titlebar_bg_color, 0.4);
-@define-color wm_icons_unfocused_prelight @selected_bg_color;
-@define-color wm_icons_unfocused_pressed shade(@selected_bg_color, 0.8);
+@define-color wm_bg #{"" + $wm_bg};
+@define-color wm_border_focused #{"" + $wm_border_focused};
+@define-color wm_border_unfocused #{"" + $wm_border_unfocused};
+@define-color wm_title_focused #{"" + $wm_title_focused};
+@define-color wm_title_unfocused #{"" + $wm_title_unfocused};
+@define-color wm_icons_focused #{"" + $wm_icons_focused};
+@define-color wm_icons_focused_prelight #{"" + $wm_icons_focused_prelight};
+@define-color wm_icons_focused_pressed #{"" + $wm_icons_unfocused_pressed};
+@define-color wm_icons_unfocused #{"" + $wm_icons_unfocused};
+@define-color wm_icons_unfocused_prelight #{"" + $wm_icons_unfocused_prelight};
+@define-color wm_icons_unfocused_pressed #{"" + $wm_icons_unfocused_pressed};

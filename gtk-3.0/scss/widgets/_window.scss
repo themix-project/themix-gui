@@ -3,27 +3,32 @@
 ***************/
 
 @include exports("window") {
-	.window-frame {
-		border: none;
-		border-radius: $roundness $roundness 0 0;
+	%window {
 		box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23),
-					0 0 0 1px mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
-
-		/* this is used for the resize cursor area */
-		margin: $spacing * 3;
+					0 0 0 1px $wm_border_focused;
 
 		&:backdrop {
 			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24),
-						0 0 0 1px mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.12);
+						0 0 0 1px $wm_border_unfocused;
 		}
+	}
+
+	.window-frame {
+		@extend %window;
+
+		border: none;
+		border-radius: $roundness $roundness 0 0;
+
+		/* this is used for the resize cursor area */
+		margin: $spacing * 3;
 
 		&.tiled { border-radius: 0; }
 
 		&.csd {
 			&.popup {
+				@extend %window;
+
 				border-radius: 0;
-				box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23),
-							0 0 0 1px mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
 			}
 
 			&.tooltip {
@@ -32,9 +37,9 @@
 			}
 
 			&.message-dialog {
+				@extend %window;
+
 				border-radius: $roundness;
-				box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23),
-							0 0 0 1px mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
 			}
 		}
 	}
