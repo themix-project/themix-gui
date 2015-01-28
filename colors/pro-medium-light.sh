@@ -1,0 +1,11 @@
+NAME="to match with pro-medium-light awesome theme"
+BG=b8b8b8
+FG=404040
+SEL_BG=7d4f78
+SEL_FG=fcfcfb
+TXT_BG=fcfcfb
+TXT_FG=1a1a1a
+MENU_BG=$BG
+MENU_FG=$FG
+BTN_BG=888888
+BTN_FG=$FG
