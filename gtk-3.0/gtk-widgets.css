@@ -232,7 +232,7 @@ GtkAssistant .sidebar {
     border-color: shade(@theme_button_bg_color, 0.8);
     background-color: @theme_button_bg_color;
     background-image: none;
-    color: @theme_fg_color;
+    color: @theme_button_fg_color;
 }
 
 .button:hover {
