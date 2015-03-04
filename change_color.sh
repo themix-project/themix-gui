@@ -30,12 +30,11 @@ test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
 (
   rm -r $DEST_PATH ;
   mkdir -p $DEST_PATH ;
-  cp -r \
-	  $SRC_PATH/index.theme \
-	  $SRC_PATH/gtk-2.0 \
-	  $SRC_PATH/gtk-3.0 \
-	  $SRC_PATH/openbox-3 \
-	$DEST_PATH
+  cp -r $SRC_PATH/index.theme $DEST_PATH
+  for FILEPATH in "${PATHLIST[@]}";
+  do
+	cp -r $SRC_PATH/$FILEPATH $DEST_PATH
+    done;
 ) &&
 
 source $SRC_PATH/colors/$THEME.sh &&
