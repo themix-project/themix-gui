@@ -34,22 +34,24 @@ test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
   for FILEPATH in "${PATHLIST[@]}";
   do
 	cp -r $SRC_PATH/$FILEPATH $DEST_PATH
-    done;
+  done;
 ) &&
 
 source $SRC_PATH/colors/$THEME.sh &&
 source $SRC_PATH/current_colors.txt &&
 
 cd $DEST_PATH &&
-replace $OLD_BG $BG &&
-replace $OLD_FG $FG &&
-replace $OLD_SEL_BG $SEL_BG &&
-replace $OLD_SEL_FG $SEL_FG &&
-replace $OLD_TXT_BG $TXT_BG &&
-replace $OLD_TXT_FG $TXT_FG &&
-replace $OLD_MENU_BG $MENU_BG &&
-replace $OLD_MENU_FG $MENU_FG &&
-replace $OLD_BTN_BG $BTN_BG &&
-replace $OLD_BTN_FG $BTN_FG &&
+(
+  replace $OLD_BG $BG
+  replace $OLD_FG $FG
+  replace $OLD_SEL_BG $SEL_BG
+  replace $OLD_SEL_FG $SEL_FG
+  replace $OLD_TXT_BG $TXT_BG
+  replace $OLD_TXT_FG $TXT_FG
+  replace $OLD_MENU_BG $MENU_BG
+  replace $OLD_MENU_FG $MENU_FG
+  replace $OLD_BTN_BG $BTN_BG
+  replace $OLD_BTN_FG $BTN_FG
+) &&
 
 exit 0
