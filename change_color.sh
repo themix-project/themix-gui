@@ -19,13 +19,6 @@ PATHLIST=(
 )
 
 
-replace () {
-	for FILEPATH in "${PATHLIST[@]}";
-	do
-		grep -lZR $1 $FILEPATH | xargs -0 -n 1 sed -i -e 's/'"$1"'/'"$2"'/g';
-	done;
-}
-
 test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
 (
   rm -r $DEST_PATH ;
@@ -41,17 +34,20 @@ source $SRC_PATH/colors/$THEME.sh &&
 source $SRC_PATH/current_colors.txt &&
 
 cd $DEST_PATH &&
-(
-  replace $OLD_BG $BG
-  replace $OLD_FG $FG
-  replace $OLD_SEL_BG $SEL_BG
-  replace $OLD_SEL_FG $SEL_FG
-  replace $OLD_TXT_BG $TXT_BG
-  replace $OLD_TXT_FG $TXT_FG
-  replace $OLD_MENU_BG $MENU_BG
-  replace $OLD_MENU_FG $MENU_FG
-  replace $OLD_BTN_BG $BTN_BG
-  replace $OLD_BTN_FG $BTN_FG
-) &&
+for FILEPATH in "${PATHLIST[@]}";
+do
+	find $FILEPATH -type f -exec sed -i \
+		-e 's/'"$OLD_BG"'/'"$BG"'/g' \
+		-e 's/'"$OLD_FG"'/'"$FG"'/g' \
+		-e 's/'"$OLD_SEL_BG"'/'"$SEL_BG"'/g' \
+		-e 's/'"$OLD_SEL_FG"'/'"$SEL_FG"'/g' \
+		-e 's/'"$OLD_TXT_BG"'/'"$TXT_BG"'/g' \
+		-e 's/'"$OLD_TXT_FG"'/'"$TXT_FG"'/g' \
+		-e 's/'"$OLD_MENU_BG"'/'"$MENU_BG"'/g' \
+		-e 's/'"$OLD_MENU_FG"'/'"$MENU_FG"'/g' \
+		-e 's/'"$OLD_BTN_BG"'/'"$BTN_BG"'/g' \
+		-e 's/'"$OLD_BTN_FG"'/'"$BTN_FG"'/g' \
+		{} \; ;
+done;
 
 exit 0
