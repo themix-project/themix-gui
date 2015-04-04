@@ -4,17 +4,17 @@
 @define-color desktop_item_text_shadow alpha(black, 0.8);
 
 /* default color scheme */
-@define-color bg_color #888a85;
-@define-color fg_color #090015;
-@define-color base_color #c0bbbb;
-@define-color text_color #000001;
-@define-color selected_bg_color #ff3388;
-@define-color selected_fg_color #000000;
-@define-color tooltip_bg_color #888a85;
-@define-color tooltip_fg_color #090015;
+@define-color bg_color #%BG%;
+@define-color fg_color #%FG%;
+@define-color base_color #%TXT_BG%;
+@define-color text_color #%TXT_FG%;
+@define-color selected_bg_color #%SEL_BG%;
+@define-color selected_fg_color #%SEL_FG%;
+@define-color tooltip_bg_color #%BG%;
+@define-color tooltip_fg_color #%FG%;
 
-@define-color dark_bg_color #888a85;
-@define-color dark_fg_color #090015;
+@define-color dark_bg_color #%BG%;
+@define-color dark_fg_color #%FG%;
 
 /* colormap actually used by the theme, to be overridden in other css files */
 @define-color theme_bg_color @bg_color;
@@ -25,8 +25,8 @@
 @define-color theme_selected_fg_color @selected_fg_color;
 @define-color theme_tooltip_bg_color @tooltip_bg_color;
 @define-color theme_tooltip_fg_color @tooltip_fg_color;
-@define-color theme_button_bg_color #85509b;
-@define-color theme_button_fg_color #0b0018;
+@define-color theme_button_bg_color #%BTN_BG%;
+@define-color theme_button_fg_color #%BTN_FG%;
 
 /* shadow effects */
 @define-color light_shadow #fff;
@@ -47,10 +47,10 @@
 @define-color error_color #cc0000;
 
 /* widget colors */
-@define-color titlebar_bg_color #0e0021;
-@define-color titlebar_fg_color #878a85;
-@define-color menubar_bg_color #0e0021;
-@define-color menubar_fg_color #878a85;
+@define-color titlebar_bg_color #%MENU_BG%;
+@define-color titlebar_fg_color #%MENU_FG%;
+@define-color menubar_bg_color #%MENU_BG%;
+@define-color menubar_fg_color #%MENU_FG%;
 @define-color toolbar_bg_color @theme_bg_color;
 @define-color toolbar_fg_color @theme_fg_color;
 @define-color menu_bg_color @menubar_bg_color;
@@ -59,8 +59,8 @@
 @define-color panel_fg_color @toolbar_fg_color;
 
 /* osd */
-@define-color osd_base #888a85;
-@define-color osd_fg #090015;
+@define-color osd_base #%BG%;
+@define-color osd_fg #%FG%;
 @define-color osd_bg alpha(@osd_base, 0.8);
 
 /* lightdm greeter colors */

@@ -5,7 +5,7 @@
 </filter>
 </defs>
 <g transform="translate(0 -1036.3622)">
-<rect width="8" x="4" y="1043.451" height="2" style="fill:#0e0021;filter:url(#filter3971)"/>
-<rect width="8" x="4" y="7" height="2" style="fill:#ff3388" transform="translate(0 1036.3622)"/>
+<rect width="8" x="4" y="1043.451" height="2" style="fill:#%MENU_BG%;filter:url(#filter3971)"/>
+<rect width="8" x="4" y="7" height="2" style="fill:#%SEL_BG%" transform="translate(0 1036.3622)"/>
 </g>
 </svg>
