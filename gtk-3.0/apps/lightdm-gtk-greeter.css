@@ -1,3 +1,11 @@
+/***********
+ * general *
+ ***********/
+
+#screen.lightdm-gtk-greeter {
+    background: transparent;
+}
+
 /*********
  * panel *
  *********/
