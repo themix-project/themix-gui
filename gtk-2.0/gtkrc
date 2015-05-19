@@ -494,6 +494,7 @@ widget "*gimmie*" style "bold-panel-item"
 # XFCE Styles
 
 style "workspace-switcher" = "murrine-panel" {
+	bg[ACTIVE] = @selected_bg_color
 	bg[SELECTED] = @selected_bg_color
 }
 
@@ -575,7 +576,7 @@ style "xfsm-logout-button" {
 	}
 }
 
-widget "*WnckPager*" style "workspace-switcher"
+widget "*Pager*" style "workspace-switcher"
 
 widget "*Xfce*Panel*" style "murrine-panel"
 class "*Xfce*Panel*" style "murrine-panel"
