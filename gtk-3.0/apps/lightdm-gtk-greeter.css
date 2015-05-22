@@ -1,7 +1,6 @@
 /***********
  * general *
  ***********/
-
 #screen.lightdm-gtk-greeter {
     background: transparent;
 }
@@ -36,7 +35,9 @@
 }
 
 #panel_window .menubar > .menuitem *:hover {
-    color: white;
+    background-color: @theme_selected_bg_color;
+    background-image: none;
+    color: @theme_selected_fg_color;
 }
 
 #panel_window .menubar > .menuitem:insensitive {
@@ -188,6 +189,7 @@
 /******************************
  * default and focused button *
  ******************************/
+#login_window #login_button,
 #login_window .button.default,
 #shutdown_dialog .button.default,
 #restart_dialog .button.default,
@@ -254,5 +256,7 @@
  * password warning *
  ********************/
 #greeter_infobar {
+    background-color: @warning_bg_color;
+    color: @warning_fg_color;
     font: bold;
 }
