@@ -3,6 +3,18 @@
 ************/
 
 @include exports("scrollbar") {
+	* {
+		-GtkRange-slider-width: 8;
+		-GtkRange-stepper-spacing: 0;
+		-GtkRange-trough-border: $spacing;
+		-GtkRange-trough-under-steppers: 1;
+		-GtkScrollbar-has-backward-stepper: false;
+		-GtkScrollbar-has-forward-stepper: false;
+		-GtkScrollbar-min-slider-length: 80;
+		-GtkScrolledWindow-scrollbar-spacing: 0;
+		-GtkScrolledWindow-scrollbars-within-bevel: 1;
+	}
+
 	.scrollbar {
 		border: none;
 		padding: 0;
@@ -18,24 +30,15 @@
 		}
 
 		&.slider, &.slider.vertical {
-			border: 1px solid mix(shade($bg_color, 0.87), $fg_color, 0.21);
-			border-radius: 0;
+			border: none;
+			border-radius: $roundness;
 			background-color: mix($bg_color, $fg_color, 0.21);
 
-			&:hover {
-				border-color: mix(shade($bg_color, 0.87), $fg_color, 0.31);
-				background-color: mix($bg_color, $fg_color, 0.31);
-			}
+			&:hover { background-color: $selected_bg_color; }
 
-			&:active {
-				border-color: shade($selected_bg_color, 0.9);
-				background-color: $selected_bg_color;
-			}
+			&:active { background-color: shade($selected_bg_color, .9); }
 
-			&.fine-tune:prelight:active {
-				border-width: 2px;
-				border-color: transparent;
-			}
+			&.fine-tune:prelight:active { border: 2px solid transparent; }
 		}
 	}
 

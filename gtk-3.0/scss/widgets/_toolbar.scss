@@ -9,7 +9,7 @@
     @include linear-gradient($bg);
     @include border($bg);
 
-    padding: $spacing;
+    padding: $spacing * 2;
     color: $fg;
 
     &:insensitive {
@@ -37,7 +37,7 @@
 
         &.text-button { padding:  $spacing; }
 
-        &.image-button { padding: $spacing ($spacing - 1px) ($spacing - 1px) $spacing; }
+        &.image-button { padding: ($spacing + 1px) ($spacing - 1px) ($spacing + 1px) $spacing; }
     }
 
     GtkSeparatorToolItem, .separator, .separator:insensitive {
@@ -55,6 +55,11 @@
         @include toolbar($bg_color, $fg_color);
 
         border-style: none;
+
+        &.inline-toolbar {
+            background-image: none;
+            background-color: transparent;
+        }
     }
 
     .header-bar {
@@ -97,20 +102,17 @@
             &:hover, &:hover:focus {
                 background-image: none;
                 background-color: transparent;
-                color: $selected_bg_color;
                 box-shadow: none;
             }
 
             &:active, &:active:hover {
                 background-image: none;
                 background-color: transparent;
-                color: shade($selected_bg_color, .9);
                 box-shadow: none;
             }
 
             &:backdrop {
                 background: none;
-                color: mix($titlebar_fg_color, $titlebar_bg_color, .6);
                 icon-shadow: none;
             }
         }

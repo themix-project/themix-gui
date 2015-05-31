@@ -58,7 +58,7 @@
 
 @include exports("actionbuttons") {
     $types: (
-        suggested: $selected_bg_color,
+        suggested: $success_color,
         destructive: $error-color
     );
 

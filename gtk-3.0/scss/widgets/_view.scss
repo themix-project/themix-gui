@@ -3,6 +3,8 @@
 ****************/
 
 @include exports("view") {
+    * { -GtkTextView-error-underline-color: $error_color; }
+
     .view {
         color: $text_color;
         background-color: $base_color;
@@ -92,9 +94,6 @@
         }
     }
 
-    /* used by GtkScrolledWindow, shown when content is touch-dragged past boundaries. */
-    .overshoot { background-color: alpha($selected_bg_color, 0.3); }
-
     GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }
 
     /* this will get overridden by .view, needed by gedit line numbers */
@@ -115,6 +114,7 @@
 
 @include exports("treeview") {
     GtkTreeView {
+        -GtkTreeView-expander-size: 8;
         -GtkTreeView-vertical-separator: 0;
 
         outline-offset: -1px;

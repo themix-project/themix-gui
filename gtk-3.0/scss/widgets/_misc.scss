@@ -34,7 +34,7 @@
 @include exports("dialogs") {
 	GtkMessageDialog, .message-dialog, .prompt {
 		-GtkDialog-content-area-border: 0;
-		-GtkDialog-action-area-border: 0;
+		-GtkDialog-action-area-border: $spacing;
 		-GtkDialog-button-spacing: 0;
 
 		margin: 0;

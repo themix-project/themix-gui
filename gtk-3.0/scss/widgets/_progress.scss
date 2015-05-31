@@ -9,13 +9,13 @@
 		font-size: smaller;
 		color: alpha($fg_color, 0.6);
 
-		-GtkProgressBar-min-horizontal-bar-height: 12;
-		-GtkProgressBar-min-vertical-bar-width: 12;
+		-GtkProgressBar-min-horizontal-bar-height: 6;
+		-GtkProgressBar-min-vertical-bar-width: 6;
 
 		&.osd {
 			-GtkProgressBar-xspacing: 0;
 			-GtkProgressBar-yspacing: 0;
-			-GtkProgressBar-min-horizontal-bar-height: 3;
+			-GtkProgressBar-min-horizontal-bar-height: 4;
 		}
 
 		&.trough {
@@ -119,8 +119,8 @@
 
 
 		&.slider {
-			@include linear-gradient(shade($bg_color, 1.08));
-			@include border($bg_color);
+			@include linear-gradient($base_color);
+			@include border($base_color);
 
 			border-radius: 8px;
 			border-width: 1px;
@@ -146,13 +146,13 @@
 		&.trough {
 			@include linear-gradient(shade($bg_color, 1.08));
 
-			margin: 7px 0;
-			border: 1px solid alpha(border_normal($bg_color), 0.5);
+			margin: 8px 0;
+			border: 0;
 			border-radius: $roundness;
 
 			&:insensitive { @include linear-gradient(shade($bg_color, 0.9)); }
 
-			&.vertical { margin: 0 7px; }
+			&.vertical { margin: 0 8px; }
 		}
 
 		&.highlight {

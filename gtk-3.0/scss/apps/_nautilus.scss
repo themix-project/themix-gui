@@ -23,7 +23,7 @@
 
         .sidebar .frame { border: none; }
 
-        > GtkGrid > .pane-separator {
+        GtkPaned {
             border-width: 0 1px 0 0;
             border-style: solid;
 
@@ -45,11 +45,6 @@
     }
 
     NautilusQueryEditor {
-        .search-bar.toolbar {
-            border-top-width: 0;
-            border-bottom-width: 0;
-        }
-
         .toolbar {
             padding-top: $spacing - 1px;
             padding-bottom: $spacing - 2px;
@@ -66,7 +61,7 @@
             }
 
             &, &.search-bar {
-                &:only-child {
+                &:last-child, &:only-child {
                     border-bottom-width: 1px;
                     border-bottom-color: border_normal($toolbar_bg_color);
                 }

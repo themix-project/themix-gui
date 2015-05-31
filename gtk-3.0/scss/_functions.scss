@@ -17,7 +17,15 @@ $modules: () !default;
 }
 
 @function shade($color, $amount) {
-	@return unquote("shade(#{$color},#{$amount})");
+	@if type-of($color) == "color" {
+		@if ($amount > 1) {
+			@return lighten($color, ($amount - 1) * lightness($color))
+		} @else {
+			@return darken($color, (1 - $amount) * lightness($color))
+		}
+	} @else {
+		@return unquote("shade(#{$color},#{$amount})");
+	}
 }
 
 @function mix($color1, $color2, $amount) {
@@ -37,7 +45,7 @@ $modules: () !default;
 }
 
 @function border_insensitive($color) {
-	@return shade($color, ($contrast + .1));
+	@return shade($color, ($contrast + .05));
 }
 
 @mixin linear-gradient($color, $direction: to bottom) {

@@ -13,7 +13,7 @@
                 border-radius: 0;
                 padding: $spacing;
                 background-image: none;
-                background-color: transparent;
+                background-color: alpha($bg_color, 0);
                 box-shadow: none;
 
                 &:hover {

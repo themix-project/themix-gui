@@ -10,7 +10,7 @@
 		&:inconsistent { color: mix($fg_color, $bg_color, 0.5); }
 
 		&.view, &.highlight, &.header, &.button {
-			&, &:hover, &:insensitive {
+			&, &:focus, &:hover, &:insensitive {
 				border: none;
 				background-color: transparent;
 				background-image: none;
