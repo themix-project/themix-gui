@@ -2,6 +2,8 @@
  ! Buttons
 **********/
 
+$shadow_strength: .3;	
+
 @include exports("button_extends") {
 	%button {
 		padding: $spacing ($spacing + 2px);
@@ -73,16 +75,13 @@
 }
 
 @mixin linked_button($bg) {
-	$border_strength: if(lightness($bg) > 50, 0, .1);
-	$shadow_strength: if(lightness($bg) > 50, 0, .1);
-
 	@extend %linked_button;
 
-	box-shadow: inset -1px 0 border_normal(rgba(0,0,0,.12 + $border_strength)),
+	box-shadow: inset -1px 0 border_normal(rgba(0,0,0,.12)),
 				0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
 	&:focus, &:hover {
-		box-shadow: inset -1px 0 border_focus(rgba(0,0,0,.12 + $border_strength)),
+		box-shadow: inset -1px 0 border_focus(rgba(0,0,0,.12)),
 					0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
 	}
 
@@ -90,7 +89,7 @@
 	&:active:focus, &:active:hover:focus,
 	&:checked, &:checked:hover,
 	&:checked:focus, &:checked:hover:focus {
-		box-shadow: inset -1px 0 border_active(rgba(0,0,0,.12 + $border_strength)),
+		box-shadow: inset -1px 0 border_active(rgba(0,0,0,.12)),
 					inset 0 1px alpha($dark_shadow, .07),
 					inset 0 -1px alpha($dark_shadow, .05);
 	}
@@ -120,28 +119,26 @@
 }
 
 @mixin button($bg, $fg) {
-	$border_strength: if(lightness($bg) > 50, 0, .1);
-	$shadow_strength: if(lightness($bg) > 50, 0, .1);
-
 	@extend %button;
-	@include linear-gradient(shade($bg, 1.2));
-	@include border(rgba(0,0,0,.12 + $border_strength));
+	@include linear-gradient(shade($bg, 1.3));
+	@include border(rgba(0,0,0,.12));
 
 	color: $fg;
 	box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
+	border-color: alpha($bg, 0);
 
 	&.flat {
-		border-color: transparent;
-		background-color: transparent;
+		border-color: alpha($bg, 0);
+		background-color: alpha($bg, 0);
 		background-image: none;
 		box-shadow: none;
 	}
 
 	&, &.flat {
 		&:focus, &:hover {
-			@include linear-gradient(shade($bg, 1.2));
-			@include border(rgba(0,0,0,.2 + $border_strength));
+			@include linear-gradient(shade($bg, 1.4));
 
+			border-color: alpha($bg, 0);
 			box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
 		}
 
