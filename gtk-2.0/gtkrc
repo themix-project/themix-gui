@@ -477,6 +477,11 @@ widget_class "*Applet*Tomboy*" style "murrine-panel"
 widget_class "*Applet*Netstatus*" style "murrine-panel"
 widget "*gdm-user-switch-menubar*" style "murrine-panel"
 
+# LXPanel (code based on Lubuntu-default theme's gtkrc file)
+widget "*.tclock.*" style "murrine-panel"
+widget "*.taskbar.*" style "murrine-panel"
+widget_class "*GtkBgbox*" style "murrine-panel"
+
 style "bold-panel-item" {
 	font_name = "Bold"
 
