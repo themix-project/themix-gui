@@ -3210,8 +3210,18 @@ GtkColorButton.button {
     color: @theme_tooltip_fg_color;
 }
 
+.tooltip.background {
+    background-color: @theme_tooltip_bg_color;
+    background-clip: padding-box;
+}
+
+.tooltip.window-frame.csd {
+    background-color: transparent;
+}
+
 .tooltip * {
     background-color: transparent;
+    color: inherit;
 }
 
 /************
