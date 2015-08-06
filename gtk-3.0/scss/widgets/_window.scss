@@ -24,6 +24,13 @@
 
         &.tiled { border-radius: 0; }
 
+        &.solid-csd {
+            border-radius: 0;
+            margin: 1px;
+            background-color: $bg_color;
+            box-shadow: none;
+        }
+
         &.csd {
             &.popup {
                 @extend %window;
@@ -41,6 +48,10 @@
 
                 border-radius: $roundness;
             }
+        }
+
+        &.ssd {
+            &.maximized { border-radius: 0; }
         }
     }
 }
