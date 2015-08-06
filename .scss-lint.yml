@@ -53,7 +53,7 @@ linters:
     enabled: true
 
   IdSelector:
-    enabled: true
+    enabled: false
 
   ImportantRule:
     enabled: true
@@ -73,18 +73,18 @@ linters:
     style: exclude_zero
 
   MergeableSelector:
-    enabled: true
+    enabled: false
 
   NameFormat:
-    enabled: true
-    convention: snake_case
+    enabled: false
+    convention: hyphenated_lowercase
 
   NestingDepth:
     enabled: true
-    max_depth: 4
+    max_depth: 5
 
   PlaceholderInExtend:
-    enabled: true
+    enabled: false
 
   PropertyCount:
     enabled: false
@@ -94,7 +94,7 @@ linters:
 
   PropertySpelling:
     enabled: true
-    extra_properties: []
+    extra_properties: ["icon-shadow","outline-radius"]
 
   QualifyingElement:
     enabled: false
@@ -104,10 +104,10 @@ linters:
 
   SelectorDepth:
     enabled: true
-    max_depth: 3
+    max_depth: 5
 
   SelectorFormat:
-    enabled: true
+    enabled: false
     convention: hyphenated_lowercase
 
   Shorthand:
@@ -164,7 +164,7 @@ linters:
   VariableForProperty:
     enabled: false
 
-  VendorPrefixes:
+  VendorPrefix:
     enabled: false
     identifier_list: base
     include: []
