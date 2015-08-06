@@ -16,13 +16,18 @@
 
 @include exports("tooltip") {
     .tooltip {
-        @include linear-gradient($tooltip_bg_color);
+        &.background {
+            @include linear-gradient($tooltip_bg_color);
 
-        border: none;
-        border-radius: $roundness;
-        color: $tooltip_fg_color;
+            border: none;
+            border-radius: $roundness;
+            color: $tooltip_fg_color;
+        }
 
-        * { background-color: transparent; }
+        * {
+            background-color: transparent;
+            color: inherit;
+        }
     }
 }
 
