@@ -22,7 +22,7 @@ xfconf-query -c xfwm4 -p /general/theme -s "Numix"
 
 ### Requirements
 
-GTK+ 3.6 or above
+GTK+ 3.16 or above
 
 Murrine theme engine
 

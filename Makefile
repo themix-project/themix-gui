@@ -4,7 +4,7 @@ GLIB_COMPILE_RESOURCES=glib-compile-resources
 RES_DIR=gtk-3.0
 SCSS_DIR=$(RES_DIR)/scss
 DIST_DIR=$(RES_DIR)/dist
-INSTALL_DIR=$(DESTDIR)/usr/share/themes/Ozon
+INSTALL_DIR=$(DESTDIR)/usr/share/themes/Numix
 
 all: clean gresource
 
