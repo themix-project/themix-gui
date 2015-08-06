@@ -39,8 +39,6 @@
 		<file preprocess='to-pixdata'>assets/radio-unchecked-insensitive.png</file>
 		<file preprocess='to-pixdata'>assets/radio-unchecked.png</file>
 		<file>dist/gtk.css</file>
-		<file>dist/gtk.css.map</file>
 		<file>dist/gtk-dark.css</file>
-		<file>dist/gtk-dark.css.map</file>
 	</gresource>
 </gresources>

@@ -6,7 +6,7 @@ SCSS_DIR=$(RES_DIR)/scss
 DIST_DIR=$(RES_DIR)/dist
 INSTALL_DIR=$(DESTDIR)/usr/share/themes/Ozon
 
-all: gresource
+all: clean gresource
 
 css:
 	$(SASS) --update $(SASSFLAGS) $(SCSS_DIR):$(DIST_DIR)
@@ -14,7 +14,7 @@ css:
 gresource: css
 	$(GLIB_COMPILE_RESOURCES) --sourcedir=$(RES_DIR) $(RES_DIR)/gtk.gresource.xml
 
-watch:
+watch: clean
 	while true; do \
 		make gresource; \
 		inotifywait @gtk.gresource -qr -e modify -e create -e delete $(RES_DIR); \
