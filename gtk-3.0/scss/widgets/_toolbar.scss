@@ -6,7 +6,7 @@
 **********/
 
 @mixin toolbar($bg, $fg) {
-    @incluee linear-gradient($bg);
+    @include linear-gradient($bg);
     @include border($bg);
 
     padding: $spacing * 2;
