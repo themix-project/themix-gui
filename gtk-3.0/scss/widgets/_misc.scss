@@ -3,10 +3,10 @@
 ****************/
 
 @include exports("dimlabel") {
-	.dim-label {
-		opacity: 0.5;
-		text-shadow: none;
-	}
+    .dim-label {
+        opacity: 0.5;
+        text-shadow: none;
+    }
 }
 
 
@@ -15,15 +15,15 @@
 ************/
 
 @include exports("tooltip") {
-	.tooltip {
-		@include linear-gradient($tooltip_bg_color);
+    .tooltip {
+        @include linear-gradient($tooltip_bg_color);
 
-		border: none;
-		border-radius: $roundness;
-		color: $tooltip_fg_color;
+        border: none;
+        border-radius: $roundness;
+        color: $tooltip_fg_color;
 
-		* { background-color: transparent; }
-	}
+        * { background-color: transparent; }
+    }
 }
 
 
@@ -32,14 +32,14 @@
 ************/
 
 @include exports("dialogs") {
-	GtkMessageDialog, .message-dialog, .prompt {
-		-GtkDialog-content-area-border: 0;
-		-GtkDialog-action-area-border: $spacing;
-		-GtkDialog-button-spacing: 0;
+    GtkMessageDialog, .message-dialog, .prompt {
+        -GtkDialog-content-area-border: 0;
+        -GtkDialog-action-area-border: $spacing;
+        -GtkDialog-button-spacing: 0;
 
-		margin: 0;
-		padding: 0;
-	}
+        margin: 0;
+        padding: 0;
+    }
 }
 
 
@@ -48,16 +48,20 @@
 **********************/
 
 @include exports("notifications") {
-	.app-notification {
-		border-style: solid;
-		border-color: border_normal($base_color);
-		border-width: 0 1px 1px 1px;
-		border-radius: 0 0 $roundness $roundness;
-		padding: $spacing * 3;
-		background-color: $base_color;
-		background-image: none;
-		color: $text_color;
-	}
+    .app-notification {
+        &, &.frame {
+            border-style: solid;
+            border-color: border_normal($osd_bg);
+            border-width: 0 1px 1px 1px;
+            border-radius: 0 0 $roundness $roundness;
+            padding: $spacing * 2;
+            background-color: $osd_bg;
+            background-image: none;
+            color: $osd_fg;
+
+            .button { @include button($osd_bg, $osd_fg); }
+        }
+    }
 }
 
 
@@ -66,25 +70,25 @@
 **************/
 
 @include exports("expander") {
-	GtkExpander {
-		padding: $spacing;
-		outline-offset: 1px;
-	}
+    GtkExpander {
+        padding: $spacing;
+        outline-offset: 1px;
+    }
 
-	.expander {
-		color: alpha(currentColor, 0.7);
-		border: alpha(currentColor, 0.7);
+    .expander {
+        color: alpha(currentColor, 0.7);
+        border: alpha(currentColor, 0.7);
 
-		&:hover {
-			color: alpha(currentColor, 0.8);
-			border-color: alpha(currentColor, 0.8);
-		}
+        &:hover {
+            color: alpha(currentColor, 0.8);
+            border-color: alpha(currentColor, 0.8);
+        }
 
-		&:active {
-			color: alpha(currentColor, 0.9);
-			border-color: alpha(currentColor, 0.9);
-		}
-	}
+        &:active {
+            color: alpha(currentColor, 0.9);
+            border-color: alpha(currentColor, 0.9);
+        }
+    }
 }
 
 
@@ -93,13 +97,13 @@
 ********************/
 
 @include exports("symbolicimage") {
-	.image {
-		color: alpha(currentColor, 0.5);
+    .image {
+        color: alpha(currentColor, 0.5);
 
-		&:hover { color: alpha(currentColor, 0.9); }
+        &:hover { color: alpha(currentColor, 0.9); }
 
-		&:selected, &:selected:hover { color: $selected_fg_color; }
-	}
+        &:selected, &:selected:hover { color: $selected_fg_color; }
+    }
 }
 
 
@@ -108,46 +112,46 @@
 *****************/
 
 @include exports("floatingbar") {
-	.floating-bar {
-		@include linear-gradient($bg_color);
+    .floating-bar {
+        @include linear-gradient($bg_color);
 
-		border: 1px solid border_normal($bg_color);
-		border-radius: $roundness;
-		color: $fg_color;
+        border: 1px solid border_normal($bg_color);
+        border-radius: $roundness;
+        color: $fg_color;
 
-		&.top {
-			border-top-width: 0;
-			border-top-right-radius: 0;
-			border-top-left-radius: 0;
-		}
+        &.top {
+            border-top-width: 0;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
 
-		&.right {
-			border-right-width: 0;
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
-		}
+        &.right {
+            border-right-width: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-		&.bottom {
-			border-bottom-width: 0;
-			border-bottom-right-radius: 0;
-			border-bottom-left-radius: 0;
-		}
+        &.bottom {
+            border-bottom-width: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-		&.left {
-			border-left-width: 0;
-			border-bottom-left-radius: 0;
-			border-top-left-radius: 0;
-		}
+        &.left {
+            border-left-width: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
 
-		.button {
-			-GtkButton-image-spacing: 0;
-			-GtkButton-inner-border: 0;
+        .button {
+            -GtkButton-image-spacing: 0;
+            -GtkButton-inner-border: 0;
 
-			border: none;
-			background-color: transparent;
-			background-image: none;
-		}
-	}
+            border: none;
+            background-color: transparent;
+            background-image: none;
+        }
+    }
 }
 
 
@@ -156,14 +160,14 @@
 **************************/
 
 @include exports("touchbubble") {
-	GtkBubbleWindow {
-		border-radius: $roundness;
-		background-clip: border-box;
+    GtkBubbleWindow {
+        border-radius: $roundness;
+        background-clip: border-box;
 
-		&.osd.background { background-color: $osd_bg; }
+        &.osd.background { background-color: $osd_bg; }
 
-		.toolbar { background-color: transparent; }
-	}
+        .toolbar { background-color: transparent; }
+    }
 }
 
 /***************
@@ -171,9 +175,9 @@
 ****************/
 
 @include exports("fontviewer") {
-	SushiFontWidget {
-		padding: $spacing ($spacing * 2);
-	}
+    SushiFontWidget {
+        padding: $spacing ($spacing * 2);
+    }
 }
 
 
@@ -182,12 +186,12 @@
 **************/
 
 @include exports("charmap") {
-	GucharmapChartable {
-		background-color: $base_color;
-		color: $text_color;
+    GucharmapChartable {
+        background-color: $base_color;
+        color: $text_color;
 
-		&:focus, &:hover, &:active, &:selected { @extend %selected; }
-	}
+        &:focus, &:hover, &:active, &:selected { @extend %selected; }
+    }
 }
 
 
@@ -196,10 +200,10 @@
 **************/
 
 @include exports("evolution") {
-	EPreviewPane .entry {
-		background-color: $base_color;
-		color: $text_color;
-	}
+    EPreviewPane .entry {
+        background-color: $base_color;
+        color: $text_color;
+    }
 }
 
 
@@ -208,11 +212,11 @@
 ********************/
 
 @include exports("gnome-bluetooth") {
-	GtkEntry.entry.pin-entry {
-		font: regular 50;
-		padding-left: 25px;
-		padding-right: 25px;
-	}
+    GtkEntry.entry.pin-entry {
+        font: regular 50;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
 
-	GtkLabel.pin-label { font: regular 50; }
+    GtkLabel.pin-label { font: regular 50; }
 }

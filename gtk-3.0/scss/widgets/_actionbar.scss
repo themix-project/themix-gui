@@ -80,7 +80,7 @@
             @include toolbar($selected_bg_color, $selected_fg_color);
 
             .button {
-                @include button(shade($selected_bg_color, 1.68), shade($selected_bg_color, 0.8));
+                @include button($selected_bg_color, $selected_fg_color);
 
                 &.suggested-action { @extend .suggested-action.button; }
             }
