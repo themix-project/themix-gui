@@ -2,7 +2,7 @@
 
 // default color scheme
 $bg_color: if($variant == "dark", #444, #eee);
-$fg_color: if($variant == "dark", #ccc, #555);
+$fg_color: if($variant == "dark", #ddd, #555);
 $base_color: if($variant == "dark", #333, #fff);
 $text_color: if($variant == "dark", #eee, #333);
 $selected_bg_color: #f0544c;
