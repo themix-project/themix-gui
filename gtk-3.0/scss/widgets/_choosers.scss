@@ -5,12 +5,12 @@
 @include exports("colorchooser") {
     GtkColorSwatch {
         &, &:selected {
-            border: 1px solid alpha(black, 0.1);
+            border: 1px solid alpha($black, .1);
             border-radius: $roundness - 1px;
             background-color: transparent;
             background-clip: border-box;
 
-            &:hover { border-color: alpha(black, 0.3); }
+            &:hover { border-color: alpha($black, .3); }
         }
 
         &.color-light:selected:hover, &.color-dark:selected:hover { background-image: none; }
@@ -42,20 +42,20 @@
 
             &.color-dark:hover, &.color-light:hover {
                 background-image: none;
-                border-color: alpha(black, 0.3);
+                border-color: alpha($black, .3);
             }
         }
     }
 
     GtkColorChooserWidget #add-color-button {
         background-clip: padding-box;
-        border-color: alpha(black, 0.1);
-        background-color: shade($bg_color, 0.95);
+        border-color: alpha($black, .1);
+        background-color: shade($bg_color, .95);
         color: $fg_color;
 
         &:hover {
-            border-color: alpha(black, 0.3);
-            background-color: shade($bg_color, 0.90);
+            border-color: alpha($black, .3);
+            background-color: shade($bg_color, .9);
             color: $fg_color;
         }
     }
@@ -69,15 +69,15 @@
 
         &.color-light {
             &, &:hover {
-                border-color: alpha(black, 0.3);
-                color: alpha(black, 0.3);
+                border-color: alpha($black, .3);
+                color: alpha($black, .3);
             }
         }
 
         &.color-dark {
             &, &:hover {
-                border-color: alpha(white, 0.3);
-                color: alpha(white, 0.3);
+                border-color: alpha($white, .3);
+                color: alpha($white, .3);
             }
         }
     }
@@ -99,9 +99,9 @@
             -GtkWidget-vertical-separator: 0;
         }
 
-        GtkLabel:last-child { color: alpha(currentColor, 0.7); }
+        GtkLabel:last-child { color: alpha(currentColor, .7); }
 
-        GtkImage:last-child { color: alpha(currentColor, 0.7); }
+        GtkImage:last-child { color: alpha(currentColor, .7); }
     }
 
     GtkFileChooser {
@@ -119,7 +119,7 @@
         .dialog-action-box {
             border-width: 1px 0 0;
             border-style: solid;
-            border-color: shade($bg_color, 0.7);
+            border-color: shade($bg_color, .7);
         }
     }
 }

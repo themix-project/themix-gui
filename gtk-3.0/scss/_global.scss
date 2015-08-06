@@ -18,6 +18,10 @@ $dark_fg_color: #eee;
 $dark_shadow: #000;
 $light_shadow: #fff;
 
+// white and black
+$black: #000;
+$white: #fff;
+
 // misc colors used by gtk+
 $info_fg_color: #fff;
 $info_bg_color: #03a9f4;
@@ -56,14 +60,14 @@ $lightdm_fg_color: $dark_fg_color;
 $wm_bg: $titlebar_bg_color;
 $wm_border_focused: transparent;
 $wm_border_unfocused: transparent;
-$wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, 0.1);
-$wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, 0.4);
-$wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, 0.1);
+$wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
+$wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
+$wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
 $wm_icons_focused_prelight: $selected_bg_color;
-$wm_icons_focused_pressed: shade($selected_bg_color, 0.8);
-$wm_icons_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, 0.4);
+$wm_icons_focused_pressed: shade($selected_bg_color, .8);
+$wm_icons_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
 $wm_icons_unfocused_prelight: $selected_bg_color;
-$wm_icons_unfocused_pressed: shade($selected_bg_color, 0.8);
+$wm_icons_unfocused_pressed: shade($selected_bg_color, .8);
 
 // widget styles
 $roundness: 2px;

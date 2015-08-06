@@ -25,16 +25,16 @@
                 border-radius: 0;
                 background-color: transparent;
                 background-image: none;
-                color: alpha($fg_color, 0.5);
+                color: alpha($fg_color, .5);
             }
         }
 
         &.slider, &.slider.vertical {
             border: 0;
             border-radius: $roundness;
-            background-color: shade($bg_color, 0.5);
+            background-color: shade($bg_color, .5);
 
-            &:hover { background-color: shade($bg_color, 0.3); }
+            &:hover { background-color: shade($bg_color, .3); }
 
             &:active { background-color: $selected_bg_color; }
 
@@ -44,7 +44,7 @@
         // overlay scrolling indicator
         &.overlay-indicator {
             &:not(.dragging):not(.hovering) {
-                opacity: 0.5;
+                opacity: .5;
 
                 -GtkRange-slider-width: 4px;
 
@@ -60,7 +60,7 @@
                 }
             }
 
-            &.dragging, &.hovering { opacity: 0.7; }
+            &.dragging, &.hovering { opacity: .7; }
         }
     }
 
@@ -75,12 +75,12 @@
 
     // ubuntu overlay scrollbars
     OsThumb, OsScrollbar {
-        color: shade($bg_color, 0.7);
+        color: shade($bg_color, .7);
 
         &:selected { background-color: $selected_bg_color; }
 
         &:active { background-color: $selected_bg_color; }
 
-        &:insensitive { background-color: shade($bg_color, 0.9); }
+        &:insensitive { background-color: shade($bg_color, .9); }
     }
 }

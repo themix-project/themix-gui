@@ -3,7 +3,7 @@
 ***************/
 
 * {
-    -GtkArrow-arrow-scaling: 0.5;
+    -GtkArrow-arrow-scaling: .5;
     -GtkExpander-expander-size: 8;
     -GtkStatusbar-shadow-type: none;
     -GtkToolItemGroup-expander-size: 8;
@@ -11,7 +11,7 @@
     -GtkWindow-resize-grip-width: 0;
     -WnckTasklist-fade-overlay-rect: 0;
 
-    outline-color: alpha($selected_bg_color, 0.5);
+    outline-color: alpha($selected_bg_color, .5);
     outline-style: dashed;
     outline-width: 1px;
     outline-offset: -1px;
@@ -31,20 +31,20 @@
 }
 
 * {
-    &:selected { @extend %selected; }
-
-    &:insensitive,
-    &:insensitive:insensitive { color: mix($fg_color, $bg_color, 0.50); }
-
-    &:insensitive { -gtk-image-effect: dim; }
-
-    &:hover { -gtk-image-effect: highlight; }
-
     /* hyperlinks */
     -GtkHTML-link-color: $link_color;
     -GtkIMHtml-hyperlink-color: $link_color;
     -GtkWidget-link-color: $link_color;
     -GtkWidget-visited-link-color: $link_color;
+
+    &:selected { @extend %selected; }
+
+    &:insensitive,
+    &:insensitive:insensitive { color: mix($fg_color, $bg_color, .5); }
+
+    &:insensitive { -gtk-image-effect: dim; }
+
+    &:hover { -gtk-image-effect: highlight; }
 
     &:link, &:visited { color: $link_color; }
 }
@@ -71,13 +71,13 @@
     }
 
     &:active {
-        background-color: shade($bg_color, 0.9);
+        background-color: shade($bg_color, .9);
         color: $fg_color;
     }
 
     &:insensitive {
-        background-color: shade(shade($bg_color, 0.95), 1.05);
-        color: mix($fg_color, $bg_color, 0.50);
+        background-color: shade(shade($bg_color, .95), 1.05);
+        color: mix($fg_color, $bg_color, .5);
     }
 
     &:selected { @extend %selected; }
@@ -89,12 +89,12 @@ GtkImage, GtkLabel, GtkBox, GtkGrid {
 
 GtkLabel {
     &.separator {
-        color: $fg_color;
-
         @extend .dim-label;
+
+        color: $fg_color;
     }
 
     &:selected { @extend %selected; }
 
-    &:insensitive { color: mix($fg_color, $bg_color, 0.50); }
+    &:insensitive { color: mix($fg_color, $bg_color, .5); }
 }

@@ -10,8 +10,8 @@
         background-color: $base_color;
 
         &:insensitive, &:insensitive:insensitive {
-            background-color: shade($base_color, 0.9);
-            color: mix($text_color, $base_color, 0.5);
+            background-color: shade($base_color, .9);
+            color: mix($text_color, $base_color, .5);
         }
 
         &:selected, &:selected:focus { @extend %selected; }
@@ -33,7 +33,7 @@
                 -GtkWidget-focus-padding: 1;
                 -GtkWidget-focus-line-width: 0;
 
-                border: none;
+                border: 0;
                 background-color: $selected_bg_color;
                 background-image: none;
                 color: $selected_fg_color;
@@ -45,11 +45,11 @@
         &.view {
             background-color: $base_color;
 
-            &:prelight { background-color: alpha($selected_bg_color, 0.6); }
+            &:prelight { background-color: alpha($selected_bg_color, .6); }
 
             &:selected, &:active { background-color: $selected_bg_color; }
 
-            &:insensitive { background-color: shade($base_color, 0.9); }
+            &:insensitive { background-color: shade($base_color, .9); }
 
             &.check {
                 &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
@@ -67,7 +67,7 @@
 
         &.view.cell {
             &:selected, &:selected:focus {
-                border: none;
+                border: 0;
                 border-radius: 2px;
                 background-image: none;
                 background-color: $selected_bg_color;
@@ -77,32 +77,32 @@
     }
 
     .dim-label {
-        &, &.view { color: alpha(currentColor, 0.5); }
+        &, &.view { color: alpha(currentColor, .5); }
     }
 
     .dnd { border: 1px solid $selected_bg_color; }
 
     .grip { background-color: transparent; }
 
-    .arrow { color: alpha(currentColor, 0.7); }
+    .arrow { color: alpha(currentColor, .7); }
 
     .rubberband {
         &, &.view, &.content-view.view {
             border: 1px solid $selected_bg_color;
             border-radius: 0;
-            background-color: alpha($selected_bg_color, 0.3);
+            background-color: alpha($selected_bg_color, .3);
         }
     }
 
     GdMainIconView.content-view { -GdMainIconView-icon-size: 40; }
 
     /* this will get overridden by .view, needed by gedit line numbers */
-    GtkTextView { background-color: mix($bg_color, $base_color, 0.50); }
+    GtkTextView { background-color: mix($bg_color, $base_color, .5); }
 
     GtkHTML {
         @extend .view;
 
-        &:insensitive { background-color: shade($base_color, 0.9); }
+        &:insensitive { background-color: shade($base_color, .9); }
     }
 
     GtkDrawingArea { background-color: transparent; }
@@ -155,20 +155,20 @@
             }
 
             &, &:active, &:focus, &:active:focus {
-                border-color: shade($base_color, 0.9);
-                border-bottom-color: shade($base_color, 0.8);
-                background-color: shade($base_color, 0.97);
+                border-color: shade($base_color, .9);
+                border-bottom-color: shade($base_color, .8);
+                background-color: shade($base_color, .97);
                 background-image: none;
             }
 
             &:hover, &:active:hover, &:hover:focus, &:active:hover:focus {
-                border-color: shade($base_color, 0.9);
-                border-bottom-color: shade($base_color, 0.8);
-                background-color: shade($base_color, 0.99);
+                border-color: shade($base_color, .9);
+                border-bottom-color: shade($base_color, .8);
+                background-color: shade($base_color, .99);
                 background-image: none;
             }
 
-            &:last-child .button { border-width: 0 0 1px 0; }
+            &:last-child .button { border-width: 0 0 1px; }
         }
     }
 }
@@ -182,10 +182,10 @@
     .frame {
         border: 1px solid border_normal($bg_color);
 
-        &.flat { border: none; }
+        &.flat { border: 0; }
     }
 
     /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
-    GtkScrolledWindow GtkViewport.frame { border: none; }
+    GtkScrolledWindow GtkViewport.frame { border: 0; }
 }
 

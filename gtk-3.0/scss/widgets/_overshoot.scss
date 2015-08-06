@@ -9,15 +9,11 @@
     @if $position == bottom {
         $_position: center bottom;
         $_linear_gradient_direction: to top;
-    }
-
-    @else if $position == right {
+    } @else if $position == right {
         $_position: right center;
         $_small_gradient_size: $_small_gradient_length 100%;
         $_big_gradient_size: $_big_gradient_length 100%;
-    }
-
-    @else if $position == left {
+    } @else if $position == left {
         $_position: left center;
         $_small_gradient_size: $_small_gradient_length 100%;
         $_big_gradient_size: $_big_gradient_length 100%;
@@ -28,13 +24,13 @@
 
     $_small_gradient: -gtk-gradient(radial,
                                     $_position, 0,
-                                    $_position, 0.5,
+                                    $_position, .5,
                                     to(alpha($_small_gradient_color, .35)),
                                     to(alpha($_small_gradient_color, .25)));
 
     $_big_gradient: -gtk-gradient(radial,
                                   $_position, 0,
-                                  $_position, 0.6,
+                                  $_position, .6,
                                   from(alpha($_big_gradient_color, .2)),
                                   to(alpha($_big_gradient_color, 0)));
 
@@ -50,13 +46,13 @@
     background-position: $_position;
 
     background-color: transparent; // reset some properties to be sure to not inherit them somehow
-    border: none;
+    border: 0;
     box-shadow: none;
 }
 
 @mixin undershoot($position) {
-    $_undershoot_color_dark: alpha(black, .2);
-    $_undershoot_color_light: alpha(white, .2);
+    $_undershoot_color_dark: alpha($black, .2);
+    $_undershoot_color_light: alpha($white, .2);
 
     $_gradient_dir: left;
     $_dash_bg_size: 10px 1px;

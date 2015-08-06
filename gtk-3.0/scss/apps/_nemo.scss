@@ -4,8 +4,8 @@
 
 @include exports("nemo") {
     .nemo-desktop.nemo-canvas-item {
-        color: white;
-        text-shadow: 1px 1px black;
+        color: $white;
+        text-shadow: 1px 1px $black;
 
         &:active { color: $fg_color; }
 
@@ -21,7 +21,7 @@
     }
 
     NemoPlacesTreeView {
-        -NemoPlacesTreeView-disk-full-bg-color: shade($toolbar_bg_color, 0.8);
+        -NemoPlacesTreeView-disk-full-bg-color: shade($toolbar_bg_color, .8);
         -NemoPlacesTreeView-disk-full-fg-color: $selected_bg_color;
         -NemoPlacesTreeView-disk-full-bar-width: 1px;
         -NemoPlacesTreeView-disk-full-bar-radius: 1px;

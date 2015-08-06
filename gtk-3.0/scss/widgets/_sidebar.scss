@@ -4,16 +4,16 @@
 
 @include exports("sidebar") {
     .sidebar {
-        &, &.view, & .view, & GtkScrolledWindow {
+        &, &.view, .view, GtkScrolledWindow {
             background-color: $bg_color;
-            color: mix($fg_color, $bg_color, 0.1);
+            color: mix($fg_color, $bg_color, .1);
 
             &.separator {
                 &, &:hover, &:focus {
                     border-width: 1px;
                     border-style: solid;
-                    border-color: shade($bg_color, 0.9);
-                    color: shade($bg_color, 0.9);
+                    border-color: shade($bg_color, .9);
+                    color: shade($bg_color, .9);
                 }
             }
         }
@@ -21,14 +21,14 @@
         row, .view row {
             &:selected {
                 &, &:hover, &:focus {
-                    border: none;
+                    border: 0;
                     background-image: none;
                     background-color: $selected_bg_color;
                     color: $selected_fg_color;
                 }
 
                 &:prelight {
-                    border: none;
+                    border: 0;
                     background-image: none;
                     background-color: shade($selected_bg_color, 1.05);
                     color: $selected_fg_color;
@@ -36,7 +36,7 @@
             }
 
             &:prelight {
-                border: none;
+                border: 0;
                 background-image: none;
                 background-color: shade($bg_color, 1.05);
             }
@@ -51,15 +51,16 @@
             border-right-color: border_normal($bg_color);
             border-radius: 0;
             background-color: $bg_color;
-            color: mix($fg_color, $bg_color, 0.1);
+            color: mix($fg_color, $bg_color, .1);
 
             &:dir(ltr) { border-width: 0 1px 0 0; }
+
             &:dir(rtl) { border-width: 0 0 0 1px; }
 
             .label {
                 padding: $spacing ($spacing * 2);
 
-                &.highlight { background-color: mix($bg_color, $fg_color, 0.80); }
+                &.highlight { background-color: mix($bg_color, $fg_color, .8); }
             }
 
             &.csd .sidebar { border-top-style: none; }
@@ -88,7 +89,7 @@
         margin-left: $spacing;
     }
 
-    GtkPaned .pane-separator { background-color: shade($bg_color, 0.9); }
+    GtkPaned .pane-separator { background-color: shade($bg_color, .9); }
 
     GtkPaned.wide {
         -GtkPaned-handle-size: 4;
@@ -99,7 +100,7 @@
     GtkPaned.wide .pane-separator {
         background-color: transparent;
         border-style: none solid;
-        border-color: shade($bg_color, 0.9);
+        border-color: shade($bg_color, .9);
         border-width: 1px;
     }
 

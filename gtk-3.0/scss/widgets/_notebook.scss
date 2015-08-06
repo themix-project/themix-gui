@@ -8,7 +8,7 @@
 @include exports("notebook") {
     .notebook {
         padding: 0;
-        border-width: 1px 0 0 0;
+        border-width: 1px 0 0;
         border-style: solid;
         border-color: border_normal($base_color);
         border-radius: 0;
@@ -32,11 +32,11 @@
             &.frame {
                 border-color: border_normal($base_color);
 
-                &.top { border-width: 1px 1px 0 1px; }
+                &.top { border-width: 1px 1px 0; }
 
                 &.right { border-width: 1px 1px 1px 0; }
 
-                &.bottom { border-width: 0 1px 1px 1px; }
+                &.bottom { border-width: 0 1px 1px; }
 
                 &.left { border-width: 1px 0 1px 1px; }
             }
@@ -90,14 +90,14 @@
                 border-bottom-right-radius: 0;
             }
 
-            GtkLabel { color: mix($text_color, $base_color, 0.3); }
+            GtkLabel { color: mix($text_color, $base_color, .3); }
 
             /* close button styling */
             .button { @extend %close_button; }
         }
 
         .prelight-page {
-            &, GtkLabel { color: mix($text_color, $base_color, 0.15); }
+            &, GtkLabel { color: mix($text_color, $base_color, .15); }
         }
 
         .active-page {
@@ -106,20 +106,20 @@
 
         .reorderable-page {
             &:hover {
-                background-color: shade($base_color, 0.85);
+                background-color: shade($base_color, .85);
                 border-left: 0;
                 border-right: 0;
                 /* using box shadows instead of borders due to slanted edges */
-                box-shadow: inset 0 3px alpha(black, 0.03), inset 0 2px alpha(black, 0.03), inset 0 1px alpha(black, 0.03),
-                            inset 1px 0 shade($base_color, 0.7), inset -1px 0 shade($base_color, 0.7);
+                box-shadow: inset 0 3px alpha($black, .03), inset 0 2px alpha($black, .03), inset 0 1px alpha($black, .03),
+                            inset 1px 0 shade($base_color, .7), inset -1px 0 shade($base_color, .7);
             }
 
             &:active {
-                background-color: shade($base_color, 0.90);
+                background-color: shade($base_color, .9);
                 border-left: 0;
                 border-right: 0;
-                box-shadow: inset 0 3px alpha(black, 0.03), inset 0 2px alpha(black, 0.03), inset 0 1px alpha(black, 0.03),
-                            inset 1px 0 shade($base_color, 0.75), inset -1px 0 shade($base_color, 0.75);
+                box-shadow: inset 0 3px alpha($black, .03), inset 0 2px alpha($black, .03), inset 0 1px alpha($black, .03),
+                            inset 1px 0 shade($base_color, .75), inset -1px 0 shade($base_color, .75);
             }
         }
     }

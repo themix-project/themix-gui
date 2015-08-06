@@ -25,7 +25,7 @@
         &:dir(rtl) {
             border-radius: 0; // needed when including %linked_middle:dir(rtl)
             border-right-style: none;
-            border-left-style: solid
+            border-left-style: solid;
         }
     }
 
@@ -78,11 +78,11 @@
 
     @extend %linked_button;
 
-    box-shadow: inset -1px 0 border_normal(rgba(0,0,0,.12 + $border_strength)),
+    box-shadow: inset -1px 0 border_normal(rgba(0, 0, 0, .12 + $border_strength)),
                 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
     &:focus, &:hover {
-        box-shadow: inset -1px 0 border_focus(rgba(0,0,0,.12 + $border_strength)),
+        box-shadow: inset -1px 0 border_focus(rgba(0, 0, 0, .12 + $border_strength)),
                     0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
     }
 
@@ -90,7 +90,7 @@
     &:active:focus, &:active:hover:focus,
     &:checked, &:checked:hover,
     &:checked:focus, &:checked:hover:focus {
-        box-shadow: inset -1px 0 border_active(rgba(0,0,0,.12 + $border_strength)),
+        box-shadow: inset -1px 0 border_active(rgba(0, 0, 0, .12 + $border_strength)),
                     inset 0 1px alpha($dark_shadow, .07),
                     inset 0 -1px alpha($dark_shadow, .05);
     }
@@ -127,7 +127,7 @@
 
     @extend %button;
     @include linear-gradient($button_bg);
-    @include border(rgba(0,0,0,.12 + $border_strength));
+    @include border(rgba(0, 0, 0, .12 + $border_strength));
 
     color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
@@ -142,7 +142,7 @@
     &, &.flat {
         &:focus, &:hover {
             @include linear-gradient(shade($button_bg, 1.2));
-            @include border(rgba(0,0,0,.2 + $border_strength));
+            @include border(rgba(0, 0, 0, .2 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
         }
@@ -150,7 +150,7 @@
         &:active, &:checked {
             @include linear-gradient(shade($button_bg, .7), to top);
 
-            color: white;
+            color: $white;
             box-shadow: inset 1px 0 alpha($dark_shadow, .06),
                         inset 0 1px alpha($dark_shadow, .07),
                         inset -1px 0 alpha($dark_shadow, .06),
@@ -159,7 +159,7 @@
             &:focus, &:hover {
                 @include linear-gradient(shade($button_bg, .65), to top);
 
-                color: white;
+                color: $white;
             }
         }
 
@@ -212,15 +212,15 @@
         box-shadow: none;
 
         &:focus, &:hover {
-            border: 1px solid alpha(black, .3);
-            background-color: alpha(white, .2);
+            border: 1px solid alpha($black, .3);
+            background-color: alpha($white, .2);
             background-image: none;
             box-shadow: none;
         }
 
-        &:active, &:checked, &:active:hover, &:checked:hover  {
-            border: 1px solid alpha(black, .3);
-            background-color: alpha(black, .1);
+        &:active, &:checked, &:active:hover, &:checked:hover {
+            border: 1px solid alpha($black, .3);
+            background-color: alpha($black, .1);
             background-image: none;
             box-shadow: none;
         }
@@ -236,7 +236,7 @@
         .spinbutton & {
             color: mix($text_color, $base_color, .4);
             padding: $spacing ($spacing * 2);
-            border: none;
+            border: 0;
             border-radius: 0;
             border-style: none;
             background-color: transparent;

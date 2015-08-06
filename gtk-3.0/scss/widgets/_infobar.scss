@@ -7,7 +7,7 @@
 
 @include exports("infobar") {
     GtkInfoBar {
-        border: none;
+        border: 0;
 
         $types: (
             info: ( $info_fg_color, $info_bg_color ),
@@ -24,7 +24,7 @@
             &.#{$type} {
                 @include linear-gradient($bg_color);
 
-                border: 1px solid shade($bg_color, 0.8);
+                border: 1px solid shade($bg_color, .8);
                 color: $fg_color;
 
                 .button {

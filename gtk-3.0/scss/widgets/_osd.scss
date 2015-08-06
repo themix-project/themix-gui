@@ -10,7 +10,7 @@
 
     .osd {
         &.background {
-            background-color: alpha($osd_bg, 0.8);
+            background-color: alpha($osd_bg, .8);
             color: $osd_fg;
         }
 
@@ -36,7 +36,7 @@
         }
 
         /* used by gnome-settings-daemon's media-keys OSD */
-        &.trough { background-color: shade($osd_bg, 0.8); }
+        &.trough { background-color: shade($osd_bg, .8); }
 
         &.progressbar { background-color: $osd_fg; }
 
@@ -45,11 +45,11 @@
                 @include linear-gradient(shade($osd_bg, 1.08));
                 @include border($osd_bg);
 
-                &:insensitive { @include linear-gradient(shade($osd_bg, 0.9)); }
+                &:insensitive { @include linear-gradient(shade($osd_bg, .9)); }
             }
 
             &.trough {
-                border-color: shade($osd_bg, 0.8);
+                border-color: shade($osd_bg, .8);
                 background-color: shade($osd_bg, 1.08);
                 background-image: none;
 
@@ -60,8 +60,8 @@
                 }
 
                 &:insensitive, &.highlight:insensitive {
-                    border-color: shade($osd_bg, 0.85);
-                    background-color: shade($osd_bg, 0.9);
+                    border-color: shade($osd_bg, .85);
+                    background-color: shade($osd_bg, .9);
                     background-image: none;
                 }
             }
@@ -73,17 +73,17 @@
             .trough { background-color: $osd_bg; }
 
             .slider {
-                border: 1px solid mix(shade($osd_bg, 0.87), $osd_fg, 0.21);
+                border: 1px solid mix(shade($osd_bg, .87), $osd_fg, .21);
                 border-radius: 0;
-                background-color: mix($osd_bg, $osd_fg, 0.21);
+                background-color: mix($osd_bg, $osd_fg, .21);
 
                 &:hover {
-                    border-color: mix(shade($osd_bg, 0.87), $osd_fg, 0.31);
-                    background-color: mix($osd_bg, $osd_fg, 0.31);
+                    border-color: mix(shade($osd_bg, .87), $osd_fg, .31);
+                    background-color: mix($osd_bg, $osd_fg, .31);
                 }
 
                 &:active {
-                    border-color: shade($selected_bg_color, 0.9);
+                    border-color: shade($selected_bg_color, .9);
                     background-color: $selected_bg_color;
                 }
             }
@@ -92,7 +92,7 @@
         GtkIconView.cell {
             &:selected, &:selected:focus {
                 background-color: transparent;
-                border: 3px solid mix(shade($osd_bg, 0.87), $osd_fg, 0.21);
+                border: 3px solid mix(shade($osd_bg, .87), $osd_fg, .21);
                 border-radius: $roundness;
                 outline-color: transparent;
             }
@@ -100,7 +100,7 @@
 
         /* used by Documents */
         .page-thumbnail {
-            border: 1px solid shade($osd_bg, 0.9);
+            border: 1px solid shade($osd_bg, .9);
             /* when there's no pixbuf yet */
             background-color: $osd_bg;
         }

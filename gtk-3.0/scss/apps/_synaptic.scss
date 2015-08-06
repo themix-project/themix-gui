@@ -8,7 +8,7 @@
             @include linear-gradient($toolbar-bg-color);
 
             padding: $spacing;
-            border: none;
+            border: 0;
             color: $toolbar_fg_color;
         }
     }

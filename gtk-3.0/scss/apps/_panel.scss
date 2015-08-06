@@ -18,22 +18,22 @@
         color: $panel_fg_color;
 
         &:hover, &:prelight {
-            @include linear-gradient(mix($panel_bg_color, $panel_fg_color, 0.11));
+            @include linear-gradient(mix($panel_bg_color, $panel_fg_color, .11));
 
-            border-color: mix($panel_bg_color, $panel_fg_color, 0.11);
+            border-color: mix($panel_bg_color, $panel_fg_color, .11);
             color: shade($panel_fg_color, 1.08);
         }
 
         &:active, &:checked {
-            @include linear-gradient(mix($panel_bg_color, $panel_fg_color, 0.21), to top);
+            @include linear-gradient(mix($panel_bg_color, $panel_fg_color, .21), to top);
 
-            border-color: mix($panel_bg_color, $panel_fg_color, 0.21);
+            border-color: mix($panel_bg_color, $panel_fg_color, .21);
             color: shade($panel_fg_color, 1.08);
 
             &:prelight {
-                @include linear-gradient(mix($panel_bg_color, $panel_fg_color, 0.31), to top);
+                @include linear-gradient(mix($panel_bg_color, $panel_fg_color, .31), to top);
 
-                border-color: mix($panel_bg_color, $panel_fg_color, 0.31);
+                border-color: mix($panel_bg_color, $panel_fg_color, .31);
             }
         }
     }
@@ -45,7 +45,7 @@
     }
 
     PanelApplet {
-        border: none;
+        border: 0;
 
         .button {
             @extend %panelbutton;
@@ -57,14 +57,14 @@
     PanelSeparator {
         @extend %panel;
 
-        border: none;
+        border: 0;
     }
 
     PanelApplet > GtkMenuBar.menubar, PanelMenuBar.menubar, .gnome-panel-menu-bar {
         &.menuitem {
             @extend %panel;
 
-            border: none;
+            border: 0;
 
             -PanelMenuBar-icon-visible: true;
         }
@@ -73,7 +73,7 @@
     PanelAppletFrame {
         @extend %panel;
 
-        border: none;
+        border: 0;
     }
 
     WnckPager, WnckTasklist { @extend %panel; }

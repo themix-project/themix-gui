@@ -4,8 +4,8 @@
 
 @include exports("nautilus") {
     .nautilus-desktop.nautilus-canvas-item {
-        color: white;
-        text-shadow: 1px 1px black;
+        color: $white;
+        text-shadow: 1px 1px $black;
 
         &:active { color: $fg_color; }
 
@@ -21,7 +21,7 @@
             border-color: border_normal($toolbar_bg_color);
         }
 
-        .sidebar .frame { border: none; }
+        .sidebar .frame { border: 0; }
 
         GtkPaned {
             border-width: 0 1px 0 0;
@@ -41,17 +41,17 @@
             border-bottom-width: 0;
         }
 
-        .frame { border: none; }
+        .frame { border: 0; }
     }
 
     NautilusQueryEditor {
         .toolbar {
             padding-top: $spacing - 1px;
             padding-bottom: $spacing - 2px;
-            border-width: 1px 0 0 0;
+            border-width: 1px 0 0;
             border-style: solid;
             border-color: $toolbar_bg_color;
-            background-color: shade($toolbar_bg_color, 0.9);
+            background-color: shade($toolbar_bg_color, .9);
 
             &:nth-child(2) { border-color: border_normal($toolbar_bg_color); }
 

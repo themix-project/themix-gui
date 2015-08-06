@@ -11,9 +11,9 @@
 
         -UnityDecoration-shadow-offset-x: 1px;
         -UnityDecoration-shadow-offset-y: 1px;
-        -UnityDecoration-active-shadow-color: rgba(0,0,0,0.7);
+        -UnityDecoration-active-shadow-color: rgba(0, 0, 0, .7);
         -UnityDecoration-active-shadow-radius: 8px;
-        -UnityDecoration-inactive-shadow-color: rgba(0,0,0,0.5);
+        -UnityDecoration-inactive-shadow-color: rgba(0, 0, 0, .5);
         -UnityDecoration-inactive-shadow-radius: 5px;
 
         -UnityDecoration-glow-size: 10px;
@@ -21,21 +21,21 @@
 
         -UnityDecoration-title-indent: 10px;
         -UnityDecoration-title-fade: 35px;
-        -UnityDecoration-title-alignment: 0.0;
+        -UnityDecoration-title-alignment: 0;
 
 
         &.top {
             border: 1px solid $wm_border_focused;
-            border-bottom: none;
+            border-bottom: 0;
             border-radius: 2px 2px 0 0;
-            padding: 1px ($spacing * 2) 0 ($spacing * 2);
+            padding: 1px ($spacing * 2) 0;
             background-color: $titlebar_bg_color;
-            color: mix($titlebar_fg_color, $titlebar_bg_color, 0.1);
+            color: mix($titlebar_fg_color, $titlebar_bg_color, .1);
             text-shadow: none;
 
             &:backdrop {
                 border: 1px solid $wm_border_unfocused;
-                color: mix($titlebar_fg_color, $titlebar_bg_color, 0.4);
+                color: mix($titlebar_fg_color, $titlebar_bg_color, .4);
             }
         }
 
@@ -49,7 +49,7 @@
     UnityPanelWidget, .unity-panel {
         @extend %panel;
 
-        border: none;
+        border: 0;
     }
 
     .unity-panel {
@@ -58,8 +58,8 @@
             color: $panel_fg_color;
 
             &:hover, *:hover {
-                border-color: mix($panel_bg_color, $panel_fg_color, 0.21);
-                background-color: mix($panel_bg_color, $panel_fg_color, 0.21);
+                border-color: mix($panel_bg_color, $panel_fg_color, .21);
+                background-color: mix($panel_bg_color, $panel_fg_color, .21);
                 background-image: none;
                 color: shade($panel_fg_color, 1.08);
             }

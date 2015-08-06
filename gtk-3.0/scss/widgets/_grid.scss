@@ -4,12 +4,12 @@
 
 @include exports("grid") {
     .list {
-        background-color: shade($bg_color, 0.97);
+        background-color: shade($bg_color, .97);
         color: $fg_color;
 
         &-row {
             &, &.button {
-                border: none;
+                border: 0;
                 border-radius: 0;
                 padding: $spacing;
                 background-image: none;
