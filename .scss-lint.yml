@@ -12,7 +12,7 @@ linters:
     enabled: true
 
   ColorVariable:
-    enabled: false
+    enabled: true
 
   Comment:
     enabled: false
@@ -21,6 +21,9 @@ linters:
     enabled: true
 
   DeclarationOrder:
+    enabled: true
+
+  DisableLinterReason:
     enabled: true
 
   DuplicateProperty:
@@ -36,6 +39,9 @@ linters:
 
   EmptyRule:
     enabled: true
+
+  ExtendDirective:
+    enabled: false
 
   FinalNewline:
     enabled: true
@@ -94,7 +100,11 @@ linters:
 
   PropertySpelling:
     enabled: true
-    extra_properties: ["icon-shadow","outline-radius"]
+    extra_properties: [ "icon-shadow", "outline-radius" ]
+
+  PropertyUnits:
+    enabled: true
+    global: [ "px", "%", "s", "ms" ]
 
   QualifyingElement:
     enabled: false
@@ -130,13 +140,19 @@ linters:
   SpaceAfterPropertyName:
     enabled: true
 
+  SpaceAfterVariableName:
+    enabled: true
+
+  SpaceAroundOperator:
+    enabled: true
+
   SpaceBeforeBrace:
     enabled: true
     style: space
     allow_single_line_padding: true
 
   SpaceBetweenParens:
-    enabled: false
+    enabled: true
     spaces: 0
 
   StringQuotes:

@@ -10,10 +10,10 @@
         border: 0;
 
         $types: (
-            info: ( $info_fg_color, $info_bg_color ),
-            warning: ( $warning_fg_color, $warning_bg_color ),
-            question: ( $question_fg_color, $question_bg_color ),
-            error: ( $error_fg_color, $error_bg_color ),
+            info: ($info_fg_color, $info_bg_color),
+            warning: ($warning_fg_color, $warning_bg_color),
+            question: ($question_fg_color, $question_bg_color),
+            error: ($error_fg_color, $error_bg_color),
         );
 
 
