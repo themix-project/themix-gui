@@ -3,4 +3,5 @@
 
 # Ignore SASS files
 .sass-cache
+gtk.gresource
 dist
