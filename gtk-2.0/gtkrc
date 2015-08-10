@@ -599,6 +599,30 @@ widget_class "*ThunarShortcutsView*" style "sidepane"
 widget_class "*ThunarTreeView*" style "sidepane"
 widget_class "*ThunarLocationEntry*" style "murrine-entry"
 
+style "whiskermenu" {
+	bg[NORMAL] = @menu_bg_color
+	bg[ACTIVE] = mix (0.21, @menubar_fg_color, @menubar_bg_color)
+	bg[PRELIGHT] = @selected_bg_color
+
+	fg[NORMAL] = @menu_fg_color
+	fg[ACTIVE] = @menu_fg_color
+	fg[PRELIGHT] = @menu_fg_color
+}
+
+style "whiskermenu-scrollbar" = "murrine-scrollbar" {
+	bg[NORMAL] = mix (0.21, @fg_color, @bg_color)
+	bg[PRELIGHT] = mix (0.31, @fg_color, @bg_color)
+	bg[ACTIVE] = @selected_bg_color
+
+	engine "murrine" {
+		trough_shades = { 4.97, 4.97 }
+		trough_border_shades = { 5.0, 5.0 }
+	}
+}
+
+widget "whiskermenu-window*" style "whiskermenu"
+widget "*whisker*GtkVScrollbar" style "whiskermenu-scrollbar"
+
 # Gtk2 Open-File Dialog
 
 widget_class "*GtkFileChooserWidget.GtkFileChooserDefault.GtkVBox.GtkHPaned.GtkVBox.GtkScrolledWindow.GtkTreeView*" style "sidepane"
