@@ -14,11 +14,11 @@ color_fg () {
    NAME="follow xresources theme"
      BG=$(color 7)
      FG=$(color 0)
- SEL_BG=$(color 1)
+ SEL_BG=$(color 2)
  SEL_FG=$FG
  TXT_BG=$(color_fg)
  TXT_FG=$(color 0)
 MENU_BG=$(color_bg)
 MENU_FG=$BG
- BTN_BG=$(color 12)
- BTN_FG=$(color 0)
+ BTN_BG=$(color 8)
+ BTN_FG=$(color 15)
