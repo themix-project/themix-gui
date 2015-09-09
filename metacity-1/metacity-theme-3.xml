@@ -9,12 +9,12 @@
 </info>
 
 <!-- ::: CONSTANTS ::: -->
-<constant name="C_titlebar" value="gtk:custom(wm_bg,#2d2d2d)" />
+<constant name="C_titlebar" value="gtk:custom(wm_bg,#333333)" />
 <constant name="C_border_focused" value="gtk:custom(wm_border_focused,#484848)" />
 <constant name="C_border_unfocused" value="gtk:custom(wm_border_unfocused,#393939)" />
-<constant name="C_title_focused" value="gtk:custom(wm_title_focused,#dcdcdc)" />
+<constant name="C_title_focused" value="gtk:custom(wm_title_focused,#eeeeee)" />
 <constant name="C_title_unfocused" value="gtk:custom(wm_title_unfocused,#888888)" />
-<constant name="C_icons_focused" value="gtk:custom(wm_icons_focused,#dcdcdc)" />
+<constant name="C_icons_focused" value="gtk:custom(wm_icons_focused,#eeeeee)" />
 <constant name="C_icons_focused_prelight" value="gtk:custom(wm_icons_focused_prelight,gtk:bg[SELECTED])" />
 <constant name="C_icons_focused_pressed" value="gtk:custom(wm_icons_focused_pressed,shade/gtk:bg[SELECTED]/0.8)" />
 <constant name="C_icons_unfocused" value="gtk:custom(wm_icons_unfocused,#888888)" />
@@ -733,15 +733,15 @@
 </draw_ops>
 
 <draw_ops name="unshade_focused_pressed">
-	<line 
+	<line
 		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+1"
 		x2="(width-width%3)/3" y2="height-(height-height%3)/3-5"
 		color="C_icons_focused_pressed" />
-	<line 
+	<line
 		x1="width-(width-width%3)/3-6" y1="(height-height%3)/3+2"
 		x2="(width-width%3)/3+1" y2="height-(height-height%3)/3-5"
 		color="C_icons_focused_pressed" />
-	<line 
+	<line
 		x1="width-(width-width%3)/3-7" y1="(height-height%3)/3+1"
 		x2="(width-width%3)/3" y2="height-(height-height%3)/3-6"
 		color="C_icons_focused_pressed" />
@@ -749,16 +749,16 @@
 		x1="(width-width%3)/3+3" y1="(height-height%3)/3+1"
 		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-5"
 		color="C_icons_focused_pressed" />
-	<line 
+	<line
 		x1="(width-width%3)/3+3" y1="(height-height%3)/3+2"
 		x2="width-(width-width%3)/3-4" y2="height-(height-height%3)/3-5"
 		color="C_icons_focused_pressed" />
 	<line
 		x1="(width-width%3)/3+4" y1="(height-height%3)/3+1"
 		x2="width-(width-width%3)/3-3" y2="height-(height-height%3)/3-6"
-		color="C_icons_focused_pressed" /> 
-	<rectangle 
-		x="(width-width%3)/3+3" y="height/2-2" 
+		color="C_icons_focused_pressed" />
+	<rectangle
+		x="(width-width%3)/3+3" y="height/2-2"
 		width="width-2*(width-width%3)/3-8" height="6" filled="true"
 		color="C_icons_focused_pressed" />
 </draw_ops>
