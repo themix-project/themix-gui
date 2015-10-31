@@ -28,14 +28,9 @@
         color: $white;
     }
 
-    .lightdm.menubar {
-        background-image: none;
-        background-color: fade-out(#0f0, .5);
-    }
-    
+    .lightdm.menubar *,    
     .lightdm.menubar .menuitem {
-        color: $menubar_fg_color;
-        padding: 0 5px;
+        padding: 2px;
     }
 
     .lightdm-combo.combobox-entry .button,
