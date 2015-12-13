@@ -1494,6 +1494,32 @@ GtkModelButton.button:selected {
     background-color: shade(@theme_base_color, 0.95);
 }
 
+/*************
+ * overshoot *
+ *************/
+.overshoot.top {
+    background: -gtk-gradient(radial, center top, 0, center top, 0.7, from(shade(@bg_color, 0.92)), to(alpha(@bg_color, 0.0)));
+}
+
+.overshoot.right {
+    background: -gtk-gradient(radial, right center, 0, right center, 0.7, from(shade(@bg_color, 0.92)), to(alpha(@bg_color, 0.0)));
+}
+
+.overshoot.bottom {
+    background: -gtk-gradient(radial, center bottom, 0, center bottom, 0.7, from(shade(@bg_color, 0.92)), to(alpha(@bg_color, 0.0)));
+}
+
+.overshoot.left {
+    background: -gtk-gradient(radial, left center, 0, left center, 0.7, from(shade(@bg_color, 0.92)), to(alpha(@bg_color, 0.0)));
+}
+
+/**************
+ * undershoot *
+ **************/
+.undershoot {
+    background: none;
+}
+
 /******************
  * pane separator *
  ******************/
