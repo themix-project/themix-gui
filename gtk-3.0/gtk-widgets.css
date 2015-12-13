@@ -3690,6 +3690,12 @@ GtkProgressBar.osd.progressbar {
     background-color: @osd_bg;
 }
 
+/* notably used in Nautilus */
+.sidebar GtkPlacesSidebar {
+    /* fixes opaque grey area for the overshoot and undershoot areas */
+    background: rgba(0, 0, 0, 0);
+}
+
 /******************************
  * destructive action buttons *
  ******************************/
