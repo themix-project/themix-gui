@@ -16,6 +16,7 @@
                 color: $selected_bg_color;
             }
         }
+
         &.view, &.highlight, &.header, &.button {
             &, &:focus, &:hover, &:insensitive {
                 background-color: transparent;
@@ -24,6 +25,7 @@
                 border-radius: 0;
             }
         }
+
         &.button {
             &, &:focus, &:hover, &:insensitive {
                 color: $white;
@@ -31,8 +33,10 @@
                 box-shadow: none;
             }
         }
+
         &.highlight { color: $selected_bg_color; }
     }
+
     /* gnome-calendar */
     .calendar-view {
         background-color: $base_color;
