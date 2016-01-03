@@ -4,7 +4,6 @@
 
 @include exports("calendar") {
     GtkCalendar {
-        margin: 4px;
         padding: 1px 5px;
         outline-offset: -1px;
 
