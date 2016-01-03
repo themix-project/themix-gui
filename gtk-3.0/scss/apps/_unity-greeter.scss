@@ -98,6 +98,10 @@
         border-width: 0;
     }
 
+    .lightdm.option-button:insensitive:insensitive {
+        background: none;
+    }
+
     .lightdm.toggle-button {
         background: none;
         border-width: 0;
