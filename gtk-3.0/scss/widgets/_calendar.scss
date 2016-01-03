@@ -5,17 +5,10 @@
 @include exports("calendar") {
     GtkCalendar {
         margin: 4px;
-        padding: $spacing;
+        padding: 1px 5px;
         outline-offset: -1px;
 
         &:inconsistent { color: mix($fg_color, $bg_color, .5); }
-
-        &:selected {
-            &, &:focus, &:hover, &:insensitive {
-                background-color: transparent;
-                color: $selected_bg_color;
-            }
-        }
 
         &.view, &.highlight, &.header, &.button {
             &, &:focus, &:hover, &:insensitive {
@@ -42,5 +35,6 @@
         background-color: $base_color;
         color: $text_color;
     }
+    
 }
 
