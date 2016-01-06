@@ -9,7 +9,7 @@ THEME=$1
 OUTPUT_THEME_NAME="$2"
 
 test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox-$THEME
-DEST_PATH=~/.themes/"$OUTPUT_THEME_NAME"
+DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
 
 PATHLIST=(
 	'./openbox-3/'
