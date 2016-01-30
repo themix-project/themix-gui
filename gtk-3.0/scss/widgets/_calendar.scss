@@ -4,7 +4,7 @@
 
 @include exports("calendar") {
     GtkCalendar {
-        padding: 1px 5px;
+        padding: 1px 3px;
         outline-offset: -1px;
 
         &:inconsistent { color: mix($fg_color, $bg_color, .5); }
