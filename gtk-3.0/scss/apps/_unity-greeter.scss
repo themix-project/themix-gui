@@ -64,7 +64,7 @@
         background-color: fade-out($black, .7);
         border-color: fade-out($white, .4);
         border-radius: 5px;
-        padding: 7px;
+        padding: 6px;
         color: $white;
         text-shadow: none;
     }
@@ -94,9 +94,12 @@
     }
 
     .lightdm.option-button {
-        padding: 5px;
         background: none;
-        border: 0;
+        border-width: 0;
+    }
+
+    .lightdm.option-button:insensitive:insensitive {
+        background: none;
     }
 
     .lightdm.toggle-button {
