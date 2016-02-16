@@ -1,11 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="133pt" height="133pt" viewBox="0 0 133 133" version="1.1">
 <defs>
-<filter width="1.09" x="-.045" y="-.18" height="1.36" id="filter3971">
-<feGaussianBlur stdDeviation=".15"/>
-</filter>
+<image id="image5" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAATUlEQVQ4je3MsQmAQBQE0XcgJoaCIKYWYIkmdmcJtmBoosiZHr8Bk5tslmWo/E8qZWN8mBI92vC9M+fKXo5NKS8DlsyMLgQuHEKgUoEPTicLFK7AexUAAAAASUVORK5CYII="/>
 </defs>
-<g transform="translate(0 -1036.3622)">
-<rect width="8" x="4" y="1043.451" height="2" style="fill:#%MENU_BG%;filter:url(#filter3971)"/>
-<rect width="8" x="4" y="7" height="2" style="fill:#%SEL_BG%" transform="translate(0 1036.3622)"/>
+<g id="surface2">
+<use xlink:href="#image5" transform="matrix(8.333333,0,0,8.333333,0,0)"/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#%SEL_BG%;fill-opacity:1;" d="M 33.332031 58.332031 L 100 58.332031 L 100 75 L 33.332031 75 Z M 33.332031 58.332031 "/>
 </g>
 </svg>
