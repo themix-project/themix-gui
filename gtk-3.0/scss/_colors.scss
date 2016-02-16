@@ -45,6 +45,7 @@
 @define-color panel_fg_color @dark_fg_color;
 
 /* osd */
+@define-color osd_base #{"" + $osd_base};
 @define-color osd_bg #{"" + $osd_bg};
 @define-color osd_fg #{"" + $osd_fg};
 

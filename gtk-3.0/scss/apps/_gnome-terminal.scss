@@ -1,0 +1,56 @@
+/**********************
+ ! Genome Terminal *
+***********************/
+
+@include exports("gnome-terminal") {
+    VteTerminal {
+	background-color: $osd_base;
+	color: $osd_fg;
+    }
+    TerminalWindow {
+	.scrollbars-junction {
+		background-color: $osd_base;
+	}
+	.scrollbar {
+		&.trough {
+			background-color: $osd_base;
+		}
+		&.button {
+			color: shade($osd_base, 0.6);
+			&:active {
+				color: shade($osd_base, 0.6);
+				&:hover {
+					color: shade($osd_base, 0.6);
+				}
+			}
+		}
+		&.slider {
+			border-color: mix(shade($osd_base, 0.87), $osd_fg, 0.21);
+			background-color: mix($osd_base, $osd_fg, 0.21);
+			&:hover {
+				border-color: mix(shade($osd_base, 0.87), $osd_fg, 0.31);
+				background-color: mix($osd_base, $osd_fg, 0.31);
+			}
+			&.vertical {
+				&:hover {
+					border-color: mix(shade($osd_base, 0.87), $osd_fg, 0.31);
+					background-color: mix($osd_base, $osd_fg, 0.31);
+				}
+				&:active {
+					border-color: shade($selected_bg_color, 0.9);
+					background-color: $selected_bg_color;
+				}
+			}
+			&:active {
+				border-color: shade($selected_bg_color, 0.9);
+				background-color: $selected_bg_color;
+			}
+		}
+	}
+	GtkNotebook.notebook {
+		border-right-width: 0;
+		border-bottom-width: 0;
+		border-left-width: 0;
+	}
+    }
+}
