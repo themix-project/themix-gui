@@ -1,0 +1,78 @@
+// scss-lint:disable ColorVariable
+
+@import "functions";
+
+// default color scheme
+$bg_color: if($variant == "dark", #444, #eee);
+$fg_color: if($variant == "dark", #ddd, #555);
+$base_color: if($variant == "dark", #333, #fff);
+$text_color: if($variant == "dark", #eee, #333);
+$selected_bg_color: #f0544c;
+$selected_fg_color: #fff;
+$tooltip_bg_color: #444;
+$tooltip_fg_color: #eee;
+
+// dark colors
+$dark_bg_color: #444;
+$dark_fg_color: #eee;
+
+// shadows
+$dark_shadow: #000;
+$light_shadow: #fff;
+
+// white and black
+$black: #000;
+$white: #fff;
+
+// misc colors used by gtk+
+$info_fg_color: #fff;
+$info_bg_color: #03a9f4;
+$warning_fg_color: #fff;
+$warning_bg_color: #ef6c00;
+$question_fg_color: #fff;
+$question_bg_color: #673ab7;
+$error_fg_color: #fff;
+$error_bg_color: #f44336;
+$link_color: #3f51b5;
+$success_color: #4caf50;
+$warning_color: #ef6c00;
+$error_color: #f44336;
+
+$toolbar_bg_color: $bg_color;
+$toolbar_fg_color: $fg_color;
+
+$titlebar_bg_color: $dark_bg_color;
+$titlebar_fg_color: $dark_fg_color;
+
+$menu_bg_color: $dark_bg_color;
+$menu_fg_color: $dark_fg_color;
+
+$menubar_bg_color: $dark_bg_color;
+$menubar_fg_color: $dark_fg_color;
+
+$panel_bg_color: $dark_bg_color;
+$panel_fg_color: $dark_fg_color;
+
+$osd_bg: $dark_bg_color;
+$osd_fg: $dark_fg_color;
+
+$lightdm_bg_color: $dark_bg_color;
+$lightdm_fg_color: $dark_fg_color;
+
+$wm_bg: $titlebar_bg_color;
+$wm_border_focused: transparent;
+$wm_border_unfocused: transparent;
+$wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
+$wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
+$wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
+$wm_icons_focused_prelight: $selected_bg_color;
+$wm_icons_focused_pressed: shade($selected_bg_color, .8);
+$wm_icons_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
+$wm_icons_unfocused_prelight: $selected_bg_color;
+$wm_icons_unfocused_pressed: shade($selected_bg_color, .8);
+
+// widget styles
+$roundness: 2px;
+$spacing: 5px;
+$gradient: 0;
+$contrast: .8;

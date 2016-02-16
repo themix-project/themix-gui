@@ -22,6 +22,10 @@ menu.items.active.bg: Solid Flat
 menu.items.active.bg.color: #%SEL_BG%
 menu.items.active.text.color: #%MENU_FG%
 
+menu.separator.color: #262626
+menu.separator.width: 1
+menu.separator.padding.width: 2
+menu.separator.padding.height: 4
 
 # Window focused
 window.active.title.separator.color: #%MENU_BG%
@@ -57,6 +61,8 @@ window.active.button.hover.image.color: #ec7584
 window.active.button.toggled.bg: Parentrelative
 window.active.button.toggled.image.color: #%MENU_FG%
 
+# Inactive window
+window.inactive.border.color: #393939
 
 # Window unfocused
 window.inactive.title.separator.color: #%MENU_BG%
@@ -88,6 +94,11 @@ window.inactive.button.disabled.image.color: #9b9b9b
 window.inactive.button.toggled.bg: Parentrelative
 window.inactive.button.toggled.image.color: #9b9b9b
 
+osd.bg: flat solid
+osd.bg.color: #333333
+osd.label.bg: flat solid
+osd.label.bg.color: #333333
+osd.label.text.color: #eeeeee
 
 # OSD
 osd.bg: Solid Flat
@@ -99,7 +110,28 @@ osd.border.width: 2
 osd.hilight.bg: Solid Flat
 osd.hilight.bg.color: #%SEL_BG%
 
+osd.button.pressed.bg: flat border
+osd.button.pressed.bg.color: #2a2a2a
+osd.button.pressed.*.border.color: #242424
 
+osd.button.focused.bg: flat solid border
+osd.button.focused.bg.color: #303030
+osd.button.focused.*.border.color: #1e1e1e
+
+osd.button.focused.box.color: #f06860
+
+
+# Fonts
+window.active.label.text.font:shadow=n
+window.inactive.label.text.font:shadow=n
+menu.items.font:shadow=n
+menu.title.text.font:shadow=n
+
+
+# Everything else
+border.width: 1
+padding.width: 8
+padding.height: 4
 window.handle.width: 0
 window.client.padding.width: 0
 window.label.text.justify: Center
