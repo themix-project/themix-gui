@@ -16,6 +16,7 @@ PATHLIST=(
 	'./gtk-2.0/'
 	'./gtk-3.0/'
 	'./xfwm4/'
+	'Makefile'
 )
 
 
@@ -49,5 +50,7 @@ do
 		-e 's/'"$OLD_BTN_FG"'/'"$BTN_FG"'/g' \
 		{} \; ;
 done;
+
+make
 
 exit 0
