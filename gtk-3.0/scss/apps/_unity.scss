@@ -25,7 +25,7 @@
 
 
         &.top {
-            border: 1px solid $wm_border_focused;
+            border: 1px solid mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
             border-bottom: 0;
             border-radius: 2px 2px 0 0;
             padding: 1px 8px 0 8px;
@@ -34,16 +34,18 @@
             text-shadow: none;
 
             &:backdrop {
-                border: 1px solid $wm_border_unfocused;
+                border: 1px solid mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.12);
+                border-bottom: 0;
+                background-color: $titlebar_bg_color;
                 color: mix($titlebar_fg_color, $titlebar_bg_color, .4);
             }
         }
 
         &.left, &.right, &.bottom {
-            background-color: $titlebar_bg_color;
+            background-color: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
 
             &:backdrop { 
-               background-color: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
+               background-color: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.12);
             }
         }
     }
