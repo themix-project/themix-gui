@@ -54,6 +54,7 @@
     .toolbar {
         @include toolbar($bg_color, $fg_color);
 
+        padding: 2px;
         border-style: none;
 
         &.inline-toolbar {
