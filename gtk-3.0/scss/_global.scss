@@ -53,8 +53,9 @@ $menubar_fg_color: $dark_fg_color;
 $panel_bg_color: $dark_bg_color;
 $panel_fg_color: $dark_fg_color;
 
-$osd_bg: $dark_bg_color;
+$osd_base: $dark_bg_color;
 $osd_fg: $dark_fg_color;
+$osd_bg: alpha($osd_base, 0.8);
 
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;

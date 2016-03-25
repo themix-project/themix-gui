@@ -23,11 +23,6 @@
 
         .sidebar .frame { border: 0; }
 
-        .sidebar-icon {
-            padding-left: $spacing;
-            padding-right: $spacing;
-        }
-
         GtkPaned {
             border-width: 0 1px 0 0;
             border-style: solid;
