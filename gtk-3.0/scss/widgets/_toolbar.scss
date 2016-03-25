@@ -67,6 +67,10 @@
 
         border-width: 0 0 1px;
         border-style: solid;
+		.button {
+			background-color: $button_bg_color;
+			color: $button_fg_color;
+		}
     }
 
     .titlebar {
