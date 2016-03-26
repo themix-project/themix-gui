@@ -130,7 +130,7 @@
     @include linear-gradient($button_bg);
     @include border(rgba(0, 0, 0, .12 + $border_strength));
 
-    color: $fg;
+    color: $button_fg_color;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
     &.flat {
@@ -164,12 +164,12 @@
             }
         }
 
-        &:focus, &:hover { color: $fg; }
+        &:focus, &:hover { color: $button_fg_color; }
 
         &:active:insensitive, &:checked:insensitive {
             @include linear-gradient(shade($button_bg, .9));
 
-            color: $fg;
+            color: $button_fg_color;
             box-shadow: none;
         }
 
@@ -180,14 +180,14 @@
                 @include linear-gradient(alpha($button_bg, .3));
             }
 
-            color: mix($bg, $fg, .5);
+            color: mix($button_bg, $button_fg_color, .5);
             box-shadow: none;
         }
     }
 
     &.separator, .separator {
         border: 1px solid currentColor;
-        color: shade($bg, ($contrast + .1));
+        color: shade($button_bg, ($contrast + .1));
 
         &:insensitive { color: shade($button_bg, .85); }
     }
