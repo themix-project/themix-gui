@@ -167,17 +167,17 @@ style "murrine-thin" {
 
 # Notebook
 
-style "murrine-notebook-bg" {
-	bg[NORMAL] = @base_color
-	bg[ACTIVE] = shade (0.87, @base_color)
+style "clearlooks-notebook-bg" {
+	bg[NORMAL] = @bg_color
+	bg[ACTIVE] = shade (0.90, @bg_color)
 }
 
-style "murrine-notebook" = "murrine-notebook-bg" {
+style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 	xthickness = 2
 	ythickness = 2
 
-	engine "murrine" {
-		roundness = 2
+	engine "clearlooks" {
+		radius = 0.1
 	}
 }
 
@@ -816,3 +816,7 @@ widget "xfwm4-tabwin*" style "xfwm-tabwin"
 widget "xfwm4-tabwin*GtkButton*" style "xfwm-tabwin-button"
 widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
+
+# button fg workaround:
+widget_class "*.<GtkButton>.<GtkLabel>" style "murrine-buttonlabel"
+widget_class "*<GtkButton>*<GtkLabel>*" style:highest "murrine-buttonlabel"
