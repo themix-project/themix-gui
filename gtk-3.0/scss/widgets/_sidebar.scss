@@ -43,6 +43,11 @@
         }
 
         .frame { border-width: 0; }
+
+        .sidebar-row {
+            padding: 0;
+        }
+
         .sidebar-icon {
               padding-left: $spacing * 2;
               padding-right: $spacing * 2;
