@@ -154,8 +154,12 @@ class ThemeColorsList(Gtk.ScrolledWindow):
     theme = None
 
     def color_edited(self, widget, path, text):
-        print((path, text))
         self.liststore[path][1] = text
+        key = list(
+            self.liststore[path]
+        )[0]
+        self.theme[key] = text
+        self.color_edited_callback(self.theme)
 
     def open_theme(self, theme):
         self.liststore.clear()
@@ -163,8 +167,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         for key, value in self.theme.items():
             self.liststore.append((key, value))
 
-    def __init__(self):
+    def __init__(self, color_edited_callback):
         super().__init__()
+        self.color_edited_callback = color_edited_callback
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
         self.liststore = Gtk.ListStore(str, str)
@@ -224,8 +229,13 @@ class MainWindow(Gtk.Window):
             self.theme_edit.open_theme(self.colorscheme)
             self.preview.update_preview_colors(self.colorscheme)
 
+        def color_edited_callback(colorscheme):
+            self.colorscheme = colorscheme
+            self.preview.update_preview_colors(self.colorscheme)
+
         self.presets_list = ThemePresetsList(
-            preset_select_callback=preset_select_callback)
+            preset_select_callback=preset_select_callback
+        )
         presets_list_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         presets_list_label = Gtk.Label()
         presets_list_label.set_text("Presets:")
@@ -233,7 +243,9 @@ class MainWindow(Gtk.Window):
         presets_list_box.pack_start(self.presets_list, True, True, 0)
         self.box.pack_start(presets_list_box, True, True, 0)
 
-        self.theme_edit = ThemeColorsList()
+        self.theme_edit = ThemeColorsList(
+            color_edited_callback=color_edited_callback
+        )
         # preset_select_callback=preset_select_callback)
         theme_edit_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         theme_edit_label = Gtk.Label()
