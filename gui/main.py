@@ -1,8 +1,9 @@
 #!/bin/env python3
 import os
+from threading import Thread
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, GObject, GLib
 
 from .helpers import (
     read_colorscheme_from_preset, script_dir
@@ -10,9 +11,23 @@ from .helpers import (
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
+from .dialogs import SpinnerDialog
 
 
 class MainWindow(Gtk.Window):
+
+    def on_export(self, button):
+        spinner = SpinnerDialog(self)
+        def update_ui():
+            spinner.destroy()
+        def update():
+            from time import sleep
+            sleep(3)
+            GLib.idle_add(update_ui)
+        thread = Thread(target=update)
+        thread.daemon = True
+        thread.start()
+        spinner.run()
 
     def _init_window(self):
         Gtk.Window.__init__(self, title="Oo-mox GUI")
@@ -23,6 +38,7 @@ class MainWindow(Gtk.Window):
         self.headerbar.set_show_close_button(True)
         self.headerbar.props.title = "Oo-mox GUI"
         export_button = Gtk.Button(label="Create theme")
+        export_button.connect("clicked", self.on_export)
         self.headerbar.pack_end(export_button)
         self.set_titlebar(self.headerbar)
 
@@ -94,6 +110,7 @@ class MainWindow(Gtk.Window):
 
 
 def main():
+    GObject.threads_init()
     win = MainWindow()
     win.connect("delete-event", Gtk.main_quit)
     win.show_all()
