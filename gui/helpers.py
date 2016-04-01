@@ -27,15 +27,10 @@ def get_random_gdk_color():
     return Gdk.RGBA(random.random(), random.random(), random.random(), 1)
 
 
-def hex_str_to_float(s):
-    return int("0x{}".format(s), 16)/255
-
-
 def convert_theme_color_to_gdk(theme_color):
-    r = hex_str_to_float(theme_color[:2])
-    g = hex_str_to_float(theme_color[2:4])
-    b = hex_str_to_float(theme_color[4:])
-    return Gdk.RGBA(r, g, b, 1)
+    gdk_color = Gdk.RGBA()
+    gdk_color.parse("#"+theme_color)
+    return gdk_color
 
 
 def read_colorscheme_from_preset(preset_name):
