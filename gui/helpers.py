@@ -40,7 +40,9 @@ def read_colorscheme_from_preset(preset_name):
             parsed_line = line.strip().split('=')
             # migration workaround:
             try:
-                if parsed_line[0] != "NAME":
+                if not (
+                    parsed_line[0].startswith("#") or parsed_line[0] == "NAME"
+                ):
                     colorscheme[parsed_line[0]] = parsed_line[1]
             except IndexError:
                 pass
