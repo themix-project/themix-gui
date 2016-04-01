@@ -29,7 +29,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 	cp -r $SRC_PATH/$FILEPATH $DEST_PATH
 done
 
-source $SRC_PATH/colors/$THEME.sh
+source $SRC_PATH/colors/$THEME
 source $SRC_PATH/current_colors.txt
 
 cd $DEST_PATH
