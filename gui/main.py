@@ -22,6 +22,8 @@ class MainWindow(Gtk.Window):
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
         self.headerbar.props.title = "Oo-mox GUI"
+        export_button = Gtk.Button(label="Create theme")
+        self.headerbar.pack_end(export_button)
         self.set_titlebar(self.headerbar)
 
         win_style_context = self.get_style_context()
