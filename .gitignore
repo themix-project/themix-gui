@@ -5,3 +5,6 @@
 .sass-cache
 gtk.gresource
 dist
+
+# python stuff
+__pycache__
