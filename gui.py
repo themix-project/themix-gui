@@ -49,8 +49,11 @@ def read_colorscheme_from_preset(preset_name):
         for line in f.readlines():
             parsed_line = line.strip().split('=')
             # migration workaround:
-            if parsed_line[0] != "NAME":
-                colorscheme[parsed_line[0]] = parsed_line[1]
+            try:
+                if parsed_line[0] != "NAME":
+                    colorscheme[parsed_line[0]] = parsed_line[1]
+            except IndexError:
+                pass
     # migration workaround #2:
     for key, value in colorscheme.items():
         if value.startswith("$"):
@@ -76,6 +79,8 @@ class ThemePreview(Gtk.Grid):
         }
         self.override_color(self, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
+        self.override_color(self.sel_label, self.FG, converted["SEL_FG"])
+        self.override_color(self.sel_label, self.BG, converted["SEL_BG"])
         self.override_color(self.entry, self.FG, converted["TXT_FG"])
         self.override_color(self.entry, self.BG, converted["TXT_BG"])
         self.override_color(self.entry, self.FG, converted["SEL_FG"],
@@ -103,14 +108,18 @@ class ThemePreview(Gtk.Grid):
 
         self.label = Gtk.Label()
         self.label.set_text("This is a label.")
+        self.sel_label = Gtk.Label()
+        self.sel_label.set_text("Selected item.")
         self.entry = Gtk.Entry()
-        self.entry.set_text("Hello World")
+        self.entry.set_text("Text entry.")
 
-        self.button = Gtk.Button(label="Click Here")
+        self.button = Gtk.Button(label="Click-click")
 
         self.attach(self.menubar, 1, 1, 3, 1)
         self.attach(self.label, 2, 2, 1, 1)
-        self.attach_next_to(self.entry, self.label,
+        self.attach_next_to(self.sel_label, self.label,
+                            Gtk.PositionType.BOTTOM, 1, 1)
+        self.attach_next_to(self.entry, self.sel_label,
                             Gtk.PositionType.BOTTOM, 1, 1)
         self.attach_next_to(self.button, self.entry,
                             Gtk.PositionType.BOTTOM, 1, 1)
