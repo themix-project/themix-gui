@@ -6,7 +6,15 @@ class SpinnerDialog(Gtk.Dialog):
     def __init__(self, parent):
         Gtk.Dialog.__init__(self, "Exporting...", parent, 0)
 
-        label = Gtk.Label("Please wait while new colorscheme will be created")
+        label = Gtk.Label(
+            "Please wait while\nnew colorscheme will be created"
+        )
+        label.set_justify(Gtk.Justification.CENTER)
+        label.set_alignment(0.5, 0.5)
+        label.set_margin_left(6)
+        label.set_margin_right(6)
+        label.set_margin_top(6)
+        label.set_margin_bottom(6)
         spinner = Gtk.Spinner()
         spinner.start()
 
