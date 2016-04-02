@@ -7,7 +7,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
     def on_color_set(self, widget):
         c = widget.get_rgba()
         self.value = "".join([
-            str(hex(int(n*255))).lstrip("0x")
+            "{0:02x}".format(int(n*255))
             for n in (c.red, c.green, c.blue)
         ])
         self.color_set_callback(self.key, self.value)
