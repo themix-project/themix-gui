@@ -1,12 +1,13 @@
 #!/bin/env python3
 import os
+import subprocess
 from threading import Thread
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
 from gi.repository import Gtk, Gdk, GObject, GLib
 
 from .helpers import (
-    read_colorscheme_from_preset, script_dir
+    read_colorscheme_from_preset, script_dir, theme_dir
 )
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
@@ -18,13 +19,25 @@ class MainWindow(Gtk.Window):
 
     def on_export(self, button):
         spinner = SpinnerDialog(self)
+
         def update_ui():
             spinner.destroy()
-        def update():
-            from time import sleep
-            sleep(3)
+
+        def export():
+            proc = subprocess.Popen(
+                [
+                    "bash",
+                    os.path.join(theme_dir, "change_color.sh"),
+                    self.colorscheme_name
+                ],
+                stdout=subprocess.PIPE
+            )
+            for line in iter(proc.stdout.readline, b''):
+                print(line.rstrip())
+            print(proc)
             GLib.idle_add(update_ui)
-        thread = Thread(target=update)
+
+        thread = Thread(target=export)
         thread.daemon = True
         thread.start()
         spinner.run()
@@ -53,6 +66,7 @@ class MainWindow(Gtk.Window):
         self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         self.add(self.box)
 
+    colorscheme_name = None
     colorscheme = None
     theme_edit = None
     presets_list = None
@@ -65,6 +79,7 @@ class MainWindow(Gtk.Window):
         self._init_window()
 
         def preset_select_callback(selected_preset):
+            self.colorscheme_name = selected_preset
             self.colorscheme = read_colorscheme_from_preset(selected_preset)
             self.theme_edit.open_theme(self.colorscheme)
             self.preview.update_preview_colors(self.colorscheme)

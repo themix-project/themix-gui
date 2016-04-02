@@ -47,12 +47,9 @@ class ThemePreview(Gtk.Grid):
         # menuitem.set_submenu(self.create_menu(4, True))
         self.menubar.append(self.menuitem2)
 
-        self.label = Gtk.Label()
-        self.label.set_text("This is a label.")
-        self.sel_label = Gtk.Label()
-        self.sel_label.set_text("Selected item.")
-        self.entry = Gtk.Entry()
-        self.entry.set_text("Text entry.")
+        self.label = Gtk.Label("This is a label.")
+        self.sel_label = Gtk.Label("Selected item.")
+        self.entry = Gtk.Entry(text="Text entry.")
 
         self.button = Gtk.Button(label="Click-click")
 

@@ -4,7 +4,8 @@ from gi.repository import Gdk
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-colors_dir = os.path.join(script_dir, "../colors/")
+theme_dir = os.path.join(script_dir, "../")
+colors_dir = os.path.join(theme_dir, "colors/")
 
 
 def ls_r(path):
