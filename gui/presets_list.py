@@ -21,12 +21,13 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         self.liststore = Gtk.ListStore(str)
         for preset_name in self.presets:
             self.liststore.append((preset_name, ))
+        self.liststore.set_sort_column_id(0, Gtk.SortType.ASCENDING)
 
         treeview = Gtk.TreeView(model=self.liststore, headers_visible=False)
         treeview.connect("cursor_changed", self.on_preset_select)
 
         renderer_text = Gtk.CellRendererText()
-        column_text = Gtk.TreeViewColumn(cell_renderer=renderer_text, text=0)
-        treeview.append_column(column_text)
+        column = Gtk.TreeViewColumn(cell_renderer=renderer_text, text=0)
+        treeview.append_column(column)
 
         self.add(treeview)
