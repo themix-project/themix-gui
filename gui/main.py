@@ -20,10 +20,17 @@ class MainWindow(Gtk.Window):
     def on_export(self, button):
         spinner = SpinnerDialog(self)
 
-        def update_ui():
+        captured_log = ""
+
+        def update_ui(text):
+            textbuffer = spinner.log.get_buffer()
+            textbuffer.set_text(text)
+
+        def ui_done():
             spinner.destroy()
 
         def export():
+            nonlocal captured_log
             proc = subprocess.Popen(
                 [
                     "bash",
@@ -33,9 +40,10 @@ class MainWindow(Gtk.Window):
                 stdout=subprocess.PIPE
             )
             for line in iter(proc.stdout.readline, b''):
-                print(line.rstrip())
+                captured_log += line.decode("utf-8")
+                GLib.idle_add(update_ui, captured_log)
             print(proc)
-            GLib.idle_add(update_ui)
+            GLib.idle_add(ui_done)
 
         thread = Thread(target=export)
         thread.daemon = True
