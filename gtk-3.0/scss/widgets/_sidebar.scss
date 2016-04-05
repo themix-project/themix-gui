@@ -83,30 +83,27 @@
     GtkPaned {
         -GtkPaned-handle-size: 1;
         -gtk-icon-source: none;
-
         margin: 0 $spacing;
+
+        &:dir(rtl) {
+            margin-right: 0;
+            margin-left: $spacing;
+        }
+
+        .pane-separator { background-color: shade($bg_color, .9); }
+
+        &.wide {
+            -GtkPaned-handle-size: 4;
+            margin: 0;
+
+            .pane-separator {
+                background-color: transparent;
+                border-style: none solid;
+                border-color: shade($bg_color, .9);
+                border-width: 1px;
+            }
+
+            &.vertical .pane-separator { border-style: solid none; }
+        }
     }
-
-
-    GtkPaned:dir(rtl) {
-        margin-right: 0;
-        margin-left: $spacing;
-    }
-
-    GtkPaned .pane-separator { background-color: shade($bg_color, .9); }
-
-    GtkPaned.wide {
-        -GtkPaned-handle-size: 4;
-
-        margin: 0;
-    }
-
-    GtkPaned.wide .pane-separator {
-        background-color: transparent;
-        border-style: none solid;
-        border-color: shade($bg_color, .9);
-        border-width: 1px;
-    }
-
-    GtkPaned.wide.vertical .pane-separator { border-style: solid none; }
 }
