@@ -200,6 +200,12 @@
             background-color: transparent;
             background-image: none;
             color: $menu_fg_color;
+
+            &:hover {
+                background-image: none;
+                background-color: $selected_bg_color;
+                color: $selected_fg_color;
+            }
         }
 
         .list-row {
@@ -230,7 +236,7 @@
         .separator {
             border: 0;
             background-color: transparent;
-            color: alpha($menu_bg_color, .5);
+            color: shade($menu_bg_color, ($contrast + .1));
             font-size: 80%;
             font-weight: bold;
         }
@@ -240,10 +246,21 @@
         &, &:backdrop {
             @include button(transparent, currentColor);
 
-            &:focus:hover, &:active:hover, &:hover, &:selected {
+            &:focus:hover, &.flat:checked:hover, &:active:hover, &:hover, &:selected {
                 background-image: none;
                 background-color: $selected_bg_color;
                 color: $selected_fg_color;
+                box-shadow: none;
+            }
+
+            &.flat {
+                &:checked {
+                    box-shadow: none;
+                }
+
+                &, &:hover {
+                    transition: none;
+                }
             }
         }
     }
