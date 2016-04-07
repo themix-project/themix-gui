@@ -2,7 +2,7 @@ from gi.repository import Gtk
 from .helpers import get_presets
 
 
-class ThemePresetsList(Gtk.ScrolledWindow):
+class ThemePresetsList(Gtk.Box):
 
     def on_preset_select(self, widget):
         list_index = widget.get_cursor()[0].to_string()
@@ -12,9 +12,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         self.preset_select_callback(self.current_theme)
 
     def __init__(self, preset_select_callback):
-        super().__init__()
-        self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.preset_select_callback = preset_select_callback
         self.presets = get_presets()
 
@@ -26,8 +24,14 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         treeview = Gtk.TreeView(model=self.liststore, headers_visible=False)
         treeview.connect("cursor_changed", self.on_preset_select)
 
-        renderer_text = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn(cell_renderer=renderer_text, text=0)
+        column = Gtk.TreeViewColumn(cell_renderer=Gtk.CellRendererText(), text=0)
         treeview.append_column(column)
 
-        self.add(treeview)
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scrolled.add(treeview)
+
+        presets_list_label = Gtk.Label()
+        presets_list_label.set_text("Presets:")
+        self.pack_start(presets_list_label, False, False, 0)
+        self.pack_start(scrolled, True, True, 0)
