@@ -1,19 +1,12 @@
-from gi.repository import Gtk
+import subprocess
+import os
+from threading import Thread
+from gi.repository import Gtk, GObject, GLib
+
+from .helpers import theme_dir, CenterLabel
 
 
-class CenterLabel(Gtk.Label):
-
-    def __init__(self, text):
-        super().__init__(text)
-        self.set_justify(Gtk.Justification.CENTER)
-        self.set_alignment(0.5, 0.5)
-        self.set_margin_left(6)
-        self.set_margin_right(6)
-        self.set_margin_top(6)
-        self.set_margin_bottom(6)
-
-
-class SpinnerDialog(Gtk.Dialog):
+class ExportDialog(Gtk.Dialog):
 
     def _close_button_callback(self, widget):
         self.destroy()
@@ -26,7 +19,6 @@ class SpinnerDialog(Gtk.Dialog):
             "Something went wrong :("
         )
         label.set_alignment(0.5, 0.5)
-
 
         button = Gtk.Button(label="Dismiss")
         button.connect("clicked", self._close_button_callback)
@@ -45,7 +37,7 @@ class SpinnerDialog(Gtk.Dialog):
 
     def __init__(self, parent):
         Gtk.Dialog.__init__(self, "Exporting...", parent, 0)
-        self.set_default_size(150, 150)
+        self.set_default_size(150, 80)
 
         self.label = CenterLabel(
             "Please wait while\nnew colorscheme will be created"
@@ -71,3 +63,42 @@ class SpinnerDialog(Gtk.Dialog):
         self.box.add(self.spinner)
         self.box.add(self.scrolled_window)
         self.show_all()
+
+
+def export_theme(window, theme_name):
+    spinner = ExportDialog(window)
+
+    captured_log = ""
+
+    def update_ui(text):
+        spinner.set_text(text)
+
+    def ui_done():
+        spinner.destroy()
+
+    def ui_error():
+        spinner.show_error()
+
+    def do_export():
+        nonlocal captured_log
+        proc = subprocess.Popen(
+            [
+                "bash",
+                os.path.join(theme_dir, "change_color.sh"),
+                theme_name
+            ],
+            stdout=subprocess.PIPE
+        )
+        for line in iter(proc.stdout.readline, b''):
+            captured_log += line.decode("utf-8")
+            GLib.idle_add(update_ui, captured_log)
+        proc.communicate(timeout=60)
+        if proc.returncode == 0:
+            GLib.idle_add(ui_done)
+        else:
+            GLib.idle_add(ui_error)
+
+    thread = Thread(target=do_export)
+    thread.daemon = True
+    thread.start()
+    spinner.run()

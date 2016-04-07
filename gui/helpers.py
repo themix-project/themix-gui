@@ -1,6 +1,6 @@
 import os
 import random
-from gi.repository import Gdk
+from gi.repository import Gdk, Gtk
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -52,3 +52,15 @@ def read_colorscheme_from_preset(preset_name):
         if value.startswith("$"):
             colorscheme[key] = colorscheme[value.lstrip("$")]
     return colorscheme
+
+
+class CenterLabel(Gtk.Label):
+
+    def __init__(self, text):
+        super().__init__(text)
+        self.set_justify(Gtk.Justification.CENTER)
+        self.set_alignment(0.5, 0.5)
+        self.set_margin_left(6)
+        self.set_margin_right(6)
+        self.set_margin_top(6)
+        self.set_margin_bottom(6)

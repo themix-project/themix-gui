@@ -13,7 +13,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         self.color_set_callback(self.key, self.value)
 
     def __init__(self, key, value, color_set_callback):
-        super(Gtk.ListBoxRow, self).__init__()
+        super().__init__()
 
         self.color_set_callback = color_set_callback
         self.key = key
@@ -31,7 +31,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(color_button, False, True, 0)
 
 
-class ThemeColorsList(Gtk.ScrolledWindow):
+class ThemeColorsList(Gtk.Box):
 
     theme = None
 
@@ -48,9 +48,11 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.listbox.show_all()
 
     def __init__(self, color_edited_callback):
-        super().__init__()
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.color_edited_callback = color_edited_callback
-        self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
@@ -59,4 +61,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             return row_1.key.lower() > row_2.key.lower()
 
         self.listbox.set_sort_func(sort_func, None, False)
-        self.add(self.listbox)
+        scrolled.add(self.listbox)
+
+        theme_edit_label = Gtk.Label()
+        theme_edit_label.set_text("Edit:")
+        self.pack_start(theme_edit_label, False, False, 0)
+        self.pack_start(scrolled, True, True, 0)
