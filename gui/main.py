@@ -19,6 +19,7 @@ class MainWindow(Gtk.Window):
     colorscheme = None
     theme_edited = False
     # widgets:
+    headerbar = None
     theme_edit = None
     presets_list = None
     preview = None
@@ -26,11 +27,22 @@ class MainWindow(Gtk.Window):
     def on_export(self, button):
         return export_theme(window=self, theme_name=self.colorscheme_name)
 
-    def _init_window(self):
-        Gtk.Window.__init__(self, title="Oo-mox GUI")
-        self.set_default_size(500, 300)
-        self.set_border_width(6)
+    def on_preset_selected(self, selected_preset):
+        self.colorscheme_name = selected_preset
+        self.colorscheme = read_colorscheme_from_preset(selected_preset)
+        self.theme_edit.open_theme(self.colorscheme)
+        self.preview.update_preview_colors(self.colorscheme)
+        self.headerbar.props.title = selected_preset
+        self.theme_edited = False
 
+    def on_color_edited(self, colorscheme):
+        self.colorscheme = colorscheme
+        self.preview.update_preview_colors(self.colorscheme)
+        if not self.theme_edited:
+            self.headerbar.props.title = "*" + self.headerbar.props.title
+        self.theme_edited = True
+
+    def _init_headerbar(self):
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
         self.headerbar.props.title = "Oo-mox GUI"
@@ -38,6 +50,11 @@ class MainWindow(Gtk.Window):
         export_button.connect("clicked", self.on_export)
         self.headerbar.pack_end(export_button)
         self.set_titlebar(self.headerbar)
+
+    def _init_window(self):
+        Gtk.Window.__init__(self, title="Oo-mox GUI")
+        self.set_default_size(500, 300)
+        self.set_border_width(6)
 
         win_style_context = self.get_style_context()
         css_provider = Gtk.CssProvider()
@@ -47,6 +64,8 @@ class MainWindow(Gtk.Window):
             screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
+        self._init_headerbar()
+
         self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         self.add(self.box)
 
@@ -55,28 +74,13 @@ class MainWindow(Gtk.Window):
 
         self._init_window()
 
-        def preset_select_callback(selected_preset):
-            self.colorscheme_name = selected_preset
-            self.colorscheme = read_colorscheme_from_preset(selected_preset)
-            self.theme_edit.open_theme(self.colorscheme)
-            self.preview.update_preview_colors(self.colorscheme)
-            self.headerbar.props.title = selected_preset
-            self.theme_edited = False
-
-        def color_edited_callback(colorscheme):
-            self.colorscheme = colorscheme
-            self.preview.update_preview_colors(self.colorscheme)
-            if not self.theme_edited:
-                self.headerbar.props.title = "*" + self.headerbar.props.title
-            self.theme_edited = True
-
         self.presets_list = ThemePresetsList(
-            preset_select_callback=preset_select_callback
+            preset_select_callback=self.on_preset_selected
         )
         self.box.pack_start(self.presets_list, True, True, 0)
 
         self.theme_edit = ThemeColorsList(
-            color_edited_callback=color_edited_callback
+            color_edited_callback=self.on_color_edited
         )
         self.box.pack_start(self.theme_edit, True, True, 0)
 
