@@ -23,11 +23,13 @@ class MainWindow(Gtk.Window):
         captured_log = ""
 
         def update_ui(text):
-            textbuffer = spinner.log.get_buffer()
-            textbuffer.set_text(text)
+            spinner.set_text(text)
 
         def ui_done():
             spinner.destroy()
+
+        def ui_error():
+            spinner.show_error()
 
         def export():
             nonlocal captured_log
@@ -42,8 +44,11 @@ class MainWindow(Gtk.Window):
             for line in iter(proc.stdout.readline, b''):
                 captured_log += line.decode("utf-8")
                 GLib.idle_add(update_ui, captured_log)
-            print(proc)
-            GLib.idle_add(ui_done)
+            proc.communicate(timeout=60)
+            if proc.returncode == 0:
+                GLib.idle_add(ui_done)
+            else:
+                GLib.idle_add(ui_error)
 
         thread = Thread(target=export)
         thread.daemon = True
