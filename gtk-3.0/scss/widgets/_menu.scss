@@ -197,7 +197,7 @@
         }
 
         .view, .list {
-            background-color: transparent;
+            background-color: shade($menu_bg_color, ($contrast + .5));
             background-image: none;
             color: $menu_fg_color;
 
