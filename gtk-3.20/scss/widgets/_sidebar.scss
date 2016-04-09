@@ -4,11 +4,11 @@
 
 @include exports("sidebar") {
     .sidebar {
-        &, &.view, .view, GtkScrolledWindow {
+        &, &.view, .view, view, scrolledwindow {
             background-color: $bg_color;
             color: mix($fg_color, $bg_color, .1);
 
-            &.separator {
+            &.separator, separator {
                 &, &:hover, &:focus {
                     border-width: 1px;
                     border-style: solid;
@@ -18,7 +18,7 @@
             }
         }
 
-        row, .view row {
+        row, .view row, view row {
             &:selected {
                 &, &:hover, &:focus {
                     border: 0;
@@ -27,7 +27,7 @@
                     color: $selected_fg_color;
                 }
 
-                &:prelight {
+                &:hover {
                     border: 0;
                     background-image: none;
                     background-color: shade($selected_bg_color, 1.05);
@@ -35,25 +35,25 @@
                 }
             }
 
-            &:prelight {
+            &:hover {
                 border: 0;
                 background-image: none;
                 background-color: shade($bg_color, 1.05);
             }
         }
 
-        .frame { border-width: 0; }
-
-        .sidebar-row {
-            padding: 1px;
+        .sidebar-label {
+            padding-left: $spacing;
+            padding-right: $spacing;
         }
 
+        .frame, frame { border-width: 0; }
         .sidebar-icon {
               padding-left: $spacing * 2;
               padding-right: $spacing * 2;
         }
 
-        GtkAssistant & {
+        assistant & {
             padding: $spacing;
             border-width: 0 1px 0 0;
             border-style: solid;
@@ -66,7 +66,7 @@
 
             &:dir(rtl) { border-width: 0 0 0 1px; }
 
-            .label {
+            label {
                 padding: $spacing ($spacing * 2);
 
                 &.highlight { background-color: mix($bg_color, $fg_color, .8); }
@@ -85,30 +85,33 @@
 *******/
 
 @include exports("paned") {
-    GtkPaned {
+    paned {
         -GtkPaned-handle-size: 1;
         -gtk-icon-source: none;
+
         margin: 0 $spacing;
-
-        &:dir(rtl) {
-            margin-right: 0;
-            margin-left: $spacing;
-        }
-
-        .pane-separator { background-color: shade($bg_color, .9); }
-
-        &.wide {
-            -GtkPaned-handle-size: 4;
-            margin: 0;
-
-            .pane-separator {
-                background-color: transparent;
-                border-style: none solid;
-                border-color: shade($bg_color, .9);
-                border-width: 1px;
-            }
-
-            &.vertical .pane-separator { border-style: solid none; }
-        }
     }
+
+
+    paned:dir(rtl) {
+        margin-right: 0;
+        margin-left: $spacing;
+    }
+
+    paned .pane-separator { background-color: shade($bg_color, .9); }
+
+    paned.wide {
+        -GtkPaned-handle-size: 4;
+
+        margin: 0;
+    }
+
+    paned.wide .pane-separator {
+        background-color: transparent;
+        border-style: none solid;
+        border-color: shade($bg_color, .9);
+        border-width: 1px;
+    }
+
+    paned.wide.vertical .pane-separator { border-style: solid none; }
 }

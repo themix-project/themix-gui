@@ -6,5 +6,9 @@
 gtk.gresource
 dist
 
+# Jetbrains IDEs
+.idea
+*.iml
+
 # python stuff
 __pycache__

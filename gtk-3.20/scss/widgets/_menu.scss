@@ -6,7 +6,7 @@
 **********/
 
 @include exports("menubar") {
-    .menubar {
+    .menubar, menubar {
         -GtkWidget-window-dragging: true;
 
         border: 0;
@@ -15,21 +15,21 @@
         color: $menubar_fg_color;
 
 
-        &.menuitem, .menuitem {
+        &.menuitem, .menuitem, menuitem {
             padding: $spacing ($spacing * 2);
             border: 1px solid transparent;
             background-color: transparent;
             background-image: none;
-            color: $menubar_fg_color;
+            color: $menu_fg_color;
 
             &:hover {
-                border-color: mix($menubar_bg_color, $menubar_fg_color, .21);
-                background-color: mix($menubar_bg_color, $menubar_fg_color, .21);
+                border-color: mix($menu_bg_color, $menu_fg_color, .21);
+                background-color: mix($menu_bg_color, $menu_fg_color, .21);
                 background-image: none;
-                color: shade($menubar_fg_color, 1.08);
+                color: shade($menu_fg_color, 1.08);
             }
 
-            *:hover { color: shade($menubar_fg_color, 1.08); }
+            *:hover { color: shade($menu_fg_color, 1.08); }
         }
     }
 }
@@ -41,28 +41,27 @@
 
 @include exports("menu") {
     * {
-        -GtkMenu-horizontal-padding: 0;
-        -GtkMenu-vertical-padding: 0;
+        padding: 0;
     }
 
-    GtkTreeMenu, GtkMenuToolButton, GtkComboBox {
-        &.menu, .menu {
+    combobox {
+        &.menu, .menu, menu {
             background-color: $menu_bg_color;
             margin: $spacing;
         }
     }
 
-    #toolbar-popup, .menu {
+    #toolbar-popup, menu {
         padding: 0;
         border-radius: 0;
         border: 0;
         background-color: $menu_bg_color;
         color: $menu_fg_color;
 
-        &:selected { background-color: $selected_bg_color; }
+        &:checked { background-color: $selected_bg_color; }
 
-        .button {
-            &, &:hover, &:active, &:active *:insensitive, &:insensitive {
+        button {
+            &, &:hover, &:active, &:active *:disabled, &:disabled {
                 border-width: 0;
                 background-color: transparent;
                 background-image: none;
@@ -70,23 +69,29 @@
         }
     }
 
+    menuitem window decoration {
+        box-shadow: 0 2px 3px rgba(0,0,0,.2);
+    }
+
     .context-menu { font: initial; }
 
-    .menuitem {
-        GtkTreeMenu & {
-            padding: 0;
-            border-width: 0;
-        }
-
-        &, .menu & {
+    .menuitem, menuitem {
+        &, menu & {
             margin: $spacing;
-            padding: $spacing;
+            padding: $spacing 8px;
             border: 0;
             border-radius: 0;
             background-color: transparent;
             background-image: none;
 
             -GtkMenuItem-arrow-scaling: .5;
+
+            menu &:last-child {
+                padding-bottom: 8px;
+            }
+            menu &:first-child {
+                padding-top: 8px;
+            }
 
             &:active, &:hover {
                 border: 0;
@@ -97,28 +102,27 @@
 
             *:active, *:hover { color: $selected_fg_color; }
 
-            &:insensitive, *:insensitive { color: mix($menu_fg_color, $menu_bg_color, .5); }
+            &:disabled, *:disabled { color: mix($menu_fg_color, $menu_bg_color, .5); }
         }
 
         &.check, &.radio {
-            &, &:focus, &:hover, &:insensitive { background-image: none; }
+            &, &:focus, &:hover, &:disabled { background-image: none; }
 
-            &, &:focus, &:hover, &:active, &:insensitive {
+            &, &:focus, &:hover, &:active, &:disabled {
                 border-style: none;
                 background-color: transparent;
             }
         }
 
         &.separator {
-            -GtkMenuItem-horizontal-padding: 0;
-            -GtkWidget-separator-height: 1;
+            padding: 0;
 
             border-style: none;
             color: shade($menu_bg_color, ($contrast + .1));
         }
 
         &.button, &.button.flat {
-            &, &:focus, &:active, &:insensitive, &:active:insensitive {
+            &, &:focus, &:active, &:disabled, &:active:disabled {
                 background-color: transparent;
                 background-image: none;
                 border: 0;
@@ -133,8 +137,8 @@
             }
         }
 
-        GtkCalendar {
-            &:inconsistent { color: mix($menu_fg_color, $menu_bg_color, .5); }
+        calendar {
+            &:indeterminate { color: mix($menu_fg_color, $menu_bg_color, .5); }
 
             .button {
                 border-style: none;
@@ -148,13 +152,18 @@
 
             &:hover { color: alpha($selected_fg_color, .8); }
 
-            &:insensitive { color: alpha(mix($menu_fg_color, $menu_bg_color, .5), .4); }
+            &:disabled { color: alpha(mix($menu_fg_color, $menu_bg_color, .5), .4); }
         }
 
-        .entry { @include entry($menu_bg_color, $menu_fg_color); }
+        entry { @include entry($menu_bg_color, $menu_fg_color); }
     }
+}
 
-    GtkModelMenuItem GtkBox GtkImage { padding-right: $spacing; }
+%undecorated_button {
+    border-color: transparent;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
 }
 
 
@@ -163,9 +172,8 @@
 **********/
 
 @include exports("popover") {
-    GtkPopover {
+    popover {
         @include border($menu_bg_color);
-
         margin: 10px;
         padding: $spacing;
         border-radius: $roundness;
@@ -185,10 +193,10 @@
 
         &:backdrop { box-shadow: none; }
 
-        &.osd {
+        .osd & {
             box-shadow: 0 2px 7px 3px alpha($black, .5);
 
-            > .toolbar .button {
+            > toolbar button {
                 border-radius: 0;
                 border-width: 0;
                 background-color: transparent;
@@ -196,20 +204,14 @@
             }
         }
 
-        .view, .list {
+        view, .view, list {
             background-color: shade($menu_bg_color, ($contrast + .5));
             background-image: none;
             color: $menu_fg_color;
-
-            &:hover {
-                background-image: none;
-                background-color: $selected_bg_color;
-                color: $selected_fg_color;
-            }
         }
 
-        .list-row {
-            &, &.button {
+        .list-row, list row {
+            &, & .button {
                 background-color: transparent;
                 background-image: none;
                 color: $menu_fg_color;
@@ -222,45 +224,49 @@
             }
         }
 
-        .frame {
+        frame {
             border-color: border_normal($menu_bg_color);
             border-radius: $roundness;
         }
 
-        .entry { @include entry($menu_bg_color, $menu_fg_color);  }
+        entry { @include entry($menu_bg_color, $menu_fg_color);  }
 
-        .button { @include button($menu_bg_color, $menu_fg_color);  }
+        button { @include button($menu_bg_color, $menu_fg_color);  }
 
-        > .list, > .view, > .toolbar { background-color: transparent; }
+        > list, > view, > toolbar { background-color: transparent; }
 
-        .separator {
+        separator {
             border: 0;
             background-color: transparent;
-            color: shade($menu_bg_color, ($contrast + .1));
+            color: alpha($menu_bg_color, .5);
             font-size: 80%;
             font-weight: bold;
         }
     }
 
-    GtkModelButton.button {
-        &, &:backdrop {
-            @include button(transparent, currentColor);
+    modelbutton {
+        padding: $spacing ($spacing + 2px);
+        border: none;
+        transition: 150ms ease;
+        outline-color: transparent;
 
-            &:focus:hover, &.flat:checked:hover, &:active:hover, &:hover, &:selected {
-                background-image: none;
-                background-color: $selected_bg_color;
-                color: $selected_fg_color;
-                box-shadow: none;
-            }
+        &, &:backdrop, &.flat, &.flat:backdrop {
+            //@extend %undecorated_button;
 
-            &.flat {
-                &:checked {
-                    box-shadow: none;
-                }
+            &:hover { background-color: $selected_bg_color; color: $selected_fg_color }
+            &:active, &:selected { &, arrow { @extend %selected_items; } }
+            &:checked { color: $fg_color; }
 
-                &, &:hover {
-                    transition: none;
-                }
+            // FIXME: temporary workaround
+            check:last-child,
+            radio:last-child { margin-left: 8px; }
+
+            check:first-child,
+            radio:first-child { margin-right: 8px; }
+
+            &.flat arrow {
+                &.left { -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
+                &.right { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
             }
         }
     }
