@@ -5,3 +5,7 @@
 .sass-cache
 gtk.gresource
 dist
+
+# Jetbrains IDEs
+.idea
+*.iml
