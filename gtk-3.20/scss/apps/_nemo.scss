@@ -1,0 +1,153 @@
+/********
+ ! Nemo *
+*********/
+
+@include exports("nemo") {
+    .nemo-desktop, .nemo-desktop * {
+        color: $white;
+        text-shadow: 1px 1px $black;
+        background: transparent;
+        border: none;
+
+        &:active {
+            color: $fg_color;
+        }
+
+        &:selected {
+            color: $selected_fg_color;
+        }
+
+        &:active, &:hover, &:selected {
+            text-shadow: none;
+        }
+    }
+
+    .nemo-pathbar {
+        @include button($toolbar_bg_color, $toolbar_fg_color);
+        -NemoPathbarButton-border-radius: $roundness;
+    }
+
+    .nemo-window {
+        toolbar {
+            border-width: 0 0 1px;
+            border-style: solid;
+            border-color: border_normal($toolbar_bg_color);
+        }
+
+        > grid widget:last-child {
+            border-top-style: solid;
+            border-top-color: border_normal($toolbar_bg_color);
+            border-top-width: 1px;
+        }
+
+        menubar menuitem {
+            margin: 0px;
+        }
+
+        .sidebar .view {
+            -NemoPlacesTreeView-disk-full-bg-color: shade($toolbar_bg_color, .8);
+            -NemoPlacesTreeView-disk-full-fg-color: $selected_bg_color;
+            -NemoPlacesTreeView-disk-full-bar-width: 2px;
+            -NemoPlacesTreeView-disk-full-bar-radius: 1px;
+            -NemoPlacesTreeView-disk-full-bottom-padding: 0px;
+            -NemoPlacesTreeView-disk-full-max-length: 75px;
+
+            &:selected {
+                -NemoPlacesTreeView-disk-full-bg-color: $selected_fg_color;
+                -NemoPlacesTreeView-disk-full-fg-color: shade($selected_bg_color, 1.2);
+            }
+        }
+
+        .sidebar frame {
+            border: 0;
+        }
+
+        statusbar {
+            border: none;
+        }
+
+        .sidebar image {
+            padding-left: $spacing;
+            padding-right: $spacing;
+        }
+
+        paned {
+            border-width: 0 1px 0 0;
+            border-style: solid;
+
+            &, &:hover {
+                border-color: shade($bg_color, ($contrast + .1));
+                background-color: $bg_color;
+            }
+        }
+
+        notebook {
+            border-width: 0;
+
+            tabs {
+                border: 0;
+            }
+        }
+        
+        toolbar {
+        button {
+            @include button($bg_color, $fg_color);
+        }
+
+        button.linked, .linked .button {
+            @include linked_button($bg_color);
+        }
+
+        combobox button {
+            padding: $spacing - 1px;
+
+            &.text-button {
+                padding: $spacing;
+            }
+
+            &.image-button {
+                padding: ($spacing + 1px) ($spacing - 1px) ($spacing + 1px) $spacing;
+            }
+        }
+
+        separator, separator:disabled {
+            color: shade($bg_color, ($contrast + .1));
+            border-color: currentColor;
+            -GtkWidget-window-dragging: true;
+        }
+
+        &.primary-toolbar button {
+            padding: 5px 8px;
+        }
+    }
+    }
+
+    NemoQueryEditor {
+        toolbar {
+            padding-top: $spacing - 3px;
+            padding-bottom: $spacing - 4px;
+            border-width: 1px 0 0;
+            border-style: solid;
+            border-color: $toolbar_bg_color;
+            background-color: shade($toolbar_bg_color, .9);
+
+            &:nth-child(2) {
+                border-color: border_normal($toolbar_bg_color);
+            }
+
+            &.search-bar {
+                border-top-width: 0;
+                border-bottom-width: 0;
+            }
+
+            &, &.search-bar {
+                &:last-child, &:only-child {
+                    border-bottom-width: 1px;
+                    border-bottom-color: border_normal($toolbar_bg_color);
+                }
+            }
+
+        }
+    }
+
+}

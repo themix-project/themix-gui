@@ -1,0 +1,111 @@
+
+@import "functions";
+
+// default color scheme
+$bg_color: if($variant == "dark", #444, #eee);
+$fg_color: if($variant == "dark", #ddd, #555);
+$base_color: if($variant == "dark", #333, #fff);
+$text_color: if($variant == "dark", #eee, #333);
+$selected_bg_color: #f0544c;
+$selected_fg_color: #fff;
+$tooltip_bg_color: #444;
+$tooltip_fg_color: #eee;
+
+$selected_borders_color: if($variant == 'light', darken($selected_bg_color, 30%), darken($selected_bg_color, 20%));
+$borders_color: if($variant == 'light', darken($bg_color, 15%), darken($bg_color, 12%));
+$borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
+
+// dark colors
+$dark_bg_color: #444;
+$dark_fg_color: #eee;
+
+// shadows
+$dark_shadow: #000;
+$light_shadow: #fff;
+
+// white and black
+$black: #000;
+$white: #fff;
+
+$button_border: shade($base_color, .9);
+$entry_border: alpha($dark_shadow, .06);
+
+$scrollbar_bg_color: if($variant == 'light', darken($bg_color, 5%), mix($base_color, $bg_color, .4));
+$scrollbar_slider_color: shade($bg_color, .5);
+$scrollbar_slider_hover_color: shade($bg_color, .3);
+$scrollbar_slider_active_color: if($variant == 'light', darken($selected_bg_color, 5%), lighten($selected_bg_color, 10%));
+
+// misc colors used by gtk+
+$info_fg_color: #fff;
+$info_bg_color: #03a9f4;
+$warning_fg_color: #fff;
+$warning_bg_color: #ef6c00;
+$question_fg_color: #fff;
+$question_bg_color: #673ab7;
+$error_fg_color: #fff;
+$error_bg_color: #f44336;
+$link_color: #3f51b5;
+$success_color: #4caf50;
+$warning_color: #ef6c00;
+$error_color: #f44336;
+
+$toolbar_bg_color: $bg_color;
+$toolbar_fg_color: $fg_color;
+
+$titlebar_bg_color: $dark_bg_color;
+$titlebar_fg_color: $dark_fg_color;
+
+$menu_bg_color: $dark_bg_color;
+$menu_fg_color: $dark_fg_color;
+
+$menubar_bg_color: $dark_bg_color;
+$menubar_fg_color: $dark_fg_color;
+
+$panel_bg_color: $dark_bg_color;
+$panel_fg_color: $dark_fg_color;
+
+$osd_base: $dark_bg_color;
+$osd_fg: $dark_fg_color;
+$osd_bg: alpha($osd_base, 0.8);
+
+$lightdm_bg_color: $dark_bg_color;
+$lightdm_fg_color: $dark_fg_color;
+
+$wm_bg: $titlebar_bg_color;
+$wm_border_focused: transparent;
+$wm_border_unfocused: transparent;
+$wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
+$wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
+$wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
+$wm_icons_focused_prelight: $selected_bg_color;
+$wm_icons_focused_pressed: shade($selected_bg_color, .8);
+$wm_icons_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
+$wm_icons_unfocused_prelight: $selected_bg_color;
+$wm_icons_unfocused_pressed: shade($selected_bg_color, .8);
+
+//insensitive state derived colors
+$insensitive_fg_color: mix($fg_color, $bg_color, 50%);
+$insensitive_bg_color: mix($bg_color, $base_color, 60%);
+$insensitive_borders_color: $borders_color;
+
+//colors for the backdrop state, derived from the main colors.
+$backdrop_base_color: if($variant == 'light', darken($base_color, 1%), lighten($base_color, 1%));
+$backdrop_text_color: mix($text_color, $backdrop_base_color, 80%);
+$backdrop_bg_color: $bg_color;
+$backdrop_fg_color: mix($fg_color, $backdrop_bg_color, 50%);
+$backdrop_insensitive_color: if($variant == 'light', darken($backdrop_bg_color, 15%), lighten($backdrop_bg_color, 15%));
+$backdrop_selected_fg_color: if($variant == 'light', $backdrop_base_color, $backdrop_text_color);
+$backdrop_borders_color: mix($borders_color, $bg_color, 90%);
+$backdrop_dark_fill: mix($backdrop_borders_color, $backdrop_bg_color, 35%);
+$backdrop_sidebar_bg_color: mix($backdrop_bg_color, $backdrop_base_color, 50%);
+
+$backdrop_scrollbar_bg_color: darken($backdrop_bg_color, 3%);
+$backdrop_scrollbar_slider_color: mix($backdrop_fg_color, $backdrop_bg_color, 40%);
+
+$backdrop_menu_color: if($variant == 'light', $backdrop_base_color, mix($backdrop_bg_color, $backdrop_base_color, 20%));
+
+// widget styles
+$roundness: 2px;
+$spacing: 5px;
+$gradient: 0;
+$contrast: .8;

@@ -1,0 +1,273 @@
+@import "entry";
+
+
+/*********
+ ! Menubar
+**********/
+
+@include exports("menubar") {
+    .menubar, menubar {
+        -GtkWidget-window-dragging: true;
+
+        border: 0;
+        background-color: $menubar_bg_color;
+        background-image: none;
+        color: $menubar_fg_color;
+
+
+        &.menuitem, .menuitem, menuitem {
+            padding: $spacing ($spacing * 2);
+            border: 1px solid transparent;
+            background-color: transparent;
+            background-image: none;
+            color: $menu_fg_color;
+
+            &:hover {
+                border-color: mix($menu_bg_color, $menu_fg_color, .21);
+                background-color: mix($menu_bg_color, $menu_fg_color, .21);
+                background-image: none;
+                color: shade($menu_fg_color, 1.08);
+            }
+
+            *:hover { color: shade($menu_fg_color, 1.08); }
+        }
+    }
+}
+
+
+/******
+ ! Menu
+*******/
+
+@include exports("menu") {
+    * {
+        padding: 0;
+    }
+
+    combobox {
+        &.menu, .menu, menu {
+            background-color: $menu_bg_color;
+            margin: $spacing;
+        }
+    }
+
+    #toolbar-popup, menu {
+        padding: 0;
+        border-radius: 0;
+        border: 0;
+        background-color: $menu_bg_color;
+        color: $menu_fg_color;
+
+        &:checked { background-color: $selected_bg_color; }
+
+        button {
+            &, &:hover, &:active, &:active *:disabled, &:disabled {
+                border-width: 0;
+                background-color: transparent;
+                background-image: none;
+            }
+        }
+    }
+
+    menuitem window decoration {
+        box-shadow: 0 2px 3px rgba(0,0,0,.2);
+    }
+
+    .context-menu { font: initial; }
+
+    .menuitem, menuitem {
+        &, menu & {
+            margin: $spacing;
+            padding: $spacing 8px;
+            border: 0;
+            border-radius: 0;
+            background-color: transparent;
+            background-image: none;
+
+            -GtkMenuItem-arrow-scaling: .5;
+
+            menu &:last-child {
+                padding-bottom: 8px;
+            }
+            menu &:first-child {
+                padding-top: 8px;
+            }
+
+            &:active, &:hover {
+                border: 0;
+                background-color: $selected_bg_color;
+                background-image: none;
+                color: $selected_fg_color;
+            }
+
+            *:active, *:hover { color: $selected_fg_color; }
+
+            &:disabled, *:disabled { color: mix($menu_fg_color, $menu_bg_color, .5); }
+        }
+
+        &.check, &.radio {
+            &, &:focus, &:hover, &:disabled { background-image: none; }
+
+            &, &:focus, &:hover, &:active, &:disabled {
+                border-style: none;
+                background-color: transparent;
+            }
+        }
+
+        &.separator {
+            padding: 0;
+
+            border-style: none;
+            color: shade($menu_bg_color, ($contrast + .1));
+        }
+
+        &.button, &.button.flat {
+            &, &:focus, &:active, &:disabled, &:active:disabled {
+                background-color: transparent;
+                background-image: none;
+                border: 0;
+                box-shadow: none;
+                color: currentColor;
+            }
+
+            &:hover, &:focus:hover, &:active:hover, &:selected {
+                background-image: none;
+                background-color: $selected_bg_color;
+                color: $selected_fg_color;
+            }
+        }
+
+        calendar {
+            &:indeterminate { color: mix($menu_fg_color, $menu_bg_color, .5); }
+
+            .button {
+                border-style: none;
+                background-color: transparent;
+                background-image: none;
+            }
+        }
+
+        .accelerator {
+            color: alpha($menu_fg_color, .6);
+
+            &:hover { color: alpha($selected_fg_color, .8); }
+
+            &:disabled { color: alpha(mix($menu_fg_color, $menu_bg_color, .5), .4); }
+        }
+
+        entry { @include entry($menu_bg_color, $menu_fg_color); }
+    }
+}
+
+%undecorated_button {
+    border-color: transparent;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+}
+
+
+/*********
+ ! Popover
+**********/
+
+@include exports("popover") {
+    popover {
+        @include border($menu_bg_color);
+        margin: 10px;
+        padding: $spacing;
+        border-radius: $roundness;
+        border-width: 1px;
+        border-style: solid;
+        background-clip: border-box;
+        background-color: $menu_bg_color;
+        background-image: none;
+        color: $menu_fg_color;
+        box-shadow: 0 3px 6px alpha($black, .16);
+
+        &.background {
+            background-image: none;
+            background-color: $menu_bg_color;
+            color: $menu_fg_color;
+        }
+
+        &:backdrop { box-shadow: none; }
+
+        .osd & {
+            box-shadow: 0 2px 7px 3px alpha($black, .5);
+
+            > toolbar button {
+                border-radius: 0;
+                border-width: 0;
+                background-color: transparent;
+                background-image: none;
+            }
+        }
+
+        view, .view, list {
+            background-color: transparent;
+            background-image: none;
+            color: $menu_fg_color;
+        }
+
+        .list-row, list row {
+            &, & .button {
+                background-color: transparent;
+                background-image: none;
+                color: $menu_fg_color;
+
+                &:focus, &:hover, &:active {
+                    background-image: none;
+                    background-color: $selected_bg_color;
+                    color: $selected_fg_color;
+                }
+            }
+        }
+
+        frame {
+            border-color: border_normal($menu_bg_color);
+            border-radius: $roundness;
+        }
+
+        entry { @include entry($menu_bg_color, $menu_fg_color);  }
+
+        button { @include button($menu_bg_color, $menu_fg_color);  }
+
+        > list, > view, > toolbar { background-color: transparent; }
+
+        separator {
+            border: 0;
+            background-color: transparent;
+            color: alpha($menu_bg_color, .5);
+            font-size: 80%;
+            font-weight: bold;
+        }
+    }
+
+    modelbutton {
+        padding: $spacing ($spacing + 2px);
+        border: none;
+        transition: 150ms ease;
+        outline-color: transparent;
+
+        &, &:backdrop, &.flat, &.flat:backdrop {
+            //@extend %undecorated_button;
+
+            &:hover { background-color: $selected_bg_color; color: $selected_fg_color }
+            &:active, &:selected { &, arrow { @extend %selected_items; } }
+            &:checked { color: $fg_color; }
+
+            // FIXME: temporary workaround
+            check:last-child,
+            radio:last-child { margin-left: 8px; }
+
+            check:first-child,
+            radio:first-child { margin-right: 8px; }
+
+            &.flat arrow {
+                &.left { -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
+                &.right { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
+            }
+        }
+    }
+}

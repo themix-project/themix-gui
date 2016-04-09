@@ -1,0 +1,116 @@
+/***********************
+ ! Check and Radio items
+************************/
+
+$suffix: if($variant == "dark", "-dark", "");
+
+@mixin toggle($type) {
+    background-image: none;
+
+    -gtk-icon-source: url("../assets/#{$type}-unchecked#{$suffix}.png");
+
+    &:disabled { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.png"); }
+
+    &:checked, &:active {
+        -gtk-icon-source: url("../assets/#{$type}-checked#{$suffix}.png");
+
+        &:disabled { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.png"); }
+    }
+
+    &:indeterminate {
+        -gtk-icon-source: url("../assets/#{$type}-mixed#{$suffix}.png");
+
+        &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.png"); }
+    }
+
+    &.menuitem {
+        -gtk-icon-source: none;
+
+        &:disabled { -gtk-icon-source: none; }
+
+        &:checked, &:active {
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.png");
+
+            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-hover.png"); }
+
+            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png"); }
+        }
+
+        &:indeterminate {
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed.png");
+
+            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-hover.png"); }
+
+            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.png"); }
+        }
+    }
+}
+
+@include exports("checkradio") {
+    radio {
+        @include toggle("radio");
+        min-width: 16px;
+        min-height: 16px;
+    }
+
+    check {
+        @include toggle("checkbox");
+        min-width: 16px;
+        min-height: 16px;
+    }
+
+    iconview.content-view.cell.check {
+        -gtk-icon-source: url("assets/grid-selection-unchecked#{$suffix}.png");
+
+        &:active { -gtk-icon-source: url("assets/grid-selection-checked#{$suffix}.png"); }
+    }
+}
+
+
+/********
+ ! Switch
+*********/
+
+@include exports("switch") {
+    switch {
+        border-radius: 3px;
+        padding: 5px;
+        border: none;
+        outline: none;
+        transition: all 0.4s linear;
+        transition: background-colot 0.4s linear;
+        min-width: 93px;
+        min-height: 25px;
+        background-color: #e8eaec;
+        color: #8e969e;
+
+        slider {
+            background-color: #fbfbfb;
+            transition: all 0.3s linear;
+            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+        }
+
+        &:checked {
+            background-color: $selected_bg_color;
+            background-image: none;
+            border-color: $selected_bg_color;
+            color: $base_color;
+
+            slider {
+                background-color: $white;
+            }
+        }
+
+        &:disabled {
+            background-color: #d8d8d8;
+            background-image: none;
+            border-color: #ccc;
+            color: mix(#444, #f0f0f0, 0.5);
+
+            slider {
+                background-color: #e8eaec;
+            }
+        }
+    }
+}

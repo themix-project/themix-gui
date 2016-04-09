@@ -1,0 +1,117 @@
+/*********
+ ! Sidebar
+**********/
+
+@include exports("sidebar") {
+    .sidebar {
+        &, &.view, .view, view, scrolledwindow {
+            background-color: $bg_color;
+            color: mix($fg_color, $bg_color, .1);
+
+            &.separator, separator {
+                &, &:hover, &:focus {
+                    border-width: 1px;
+                    border-style: solid;
+                    border-color: shade($bg_color, .9);
+                    color: shade($bg_color, .9);
+                }
+            }
+        }
+
+        row, .view row, view row {
+            &:selected {
+                &, &:hover, &:focus {
+                    border: 0;
+                    background-image: none;
+                    background-color: $selected_bg_color;
+                    color: $selected_fg_color;
+                }
+
+                &:hover {
+                    border: 0;
+                    background-image: none;
+                    background-color: shade($selected_bg_color, 1.05);
+                    color: $selected_fg_color;
+                }
+            }
+
+            &:hover {
+                border: 0;
+                background-image: none;
+                background-color: shade($bg_color, 1.05);
+            }
+        }
+
+        .sidebar-label {
+            padding-left: $spacing;
+            padding-right: $spacing;
+        }
+
+        .frame, frame { border-width: 0; }
+        .sidebar-icon {
+              padding-left: $spacing * 2;
+              padding-right: $spacing * 2;
+        }
+
+        assistant & {
+            padding: $spacing;
+            border-width: 0 1px 0 0;
+            border-style: solid;
+            border-right-color: border_normal($bg_color);
+            border-radius: 0;
+            background-color: $bg_color;
+            color: mix($fg_color, $bg_color, .1);
+
+            &:dir(ltr) { border-width: 0 1px 0 0; }
+
+            &:dir(rtl) { border-width: 0 0 0 1px; }
+
+            label {
+                padding: $spacing ($spacing * 2);
+
+                &.highlight { background-color: mix($bg_color, $fg_color, .8); }
+            }
+
+            &.csd .sidebar { border-top-style: none; }
+
+            .highlight { font: bold; }
+        }
+    }
+}
+
+
+/******
+! Paned
+*******/
+
+@include exports("paned") {
+    paned {
+        -GtkPaned-handle-size: 1;
+        -gtk-icon-source: none;
+
+        margin: 0 $spacing;
+    }
+
+
+    paned:dir(rtl) {
+        margin-right: 0;
+        margin-left: $spacing;
+    }
+
+    paned .pane-separator { background-color: shade($bg_color, .9); }
+
+    paned.wide {
+        -GtkPaned-handle-size: 4;
+
+        margin: 0;
+    }
+
+    paned.wide .pane-separator {
+        background-color: transparent;
+        border-style: none solid;
+        border-color: shade($bg_color, .9);
+        border-width: 1px;
+    }
+
+    paned.wide.vertical .pane-separator { border-style: solid none; }
+}
