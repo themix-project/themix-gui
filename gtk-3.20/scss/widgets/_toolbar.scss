@@ -52,7 +52,7 @@
 
 @include exports("toolbar") {
     toolbar {
-        @include toolbar($bg_color, $fg_color);
+        @include toolbar($toolbar_bg_color, $toolbar_fg_color);
 
         border-style: none;
 
