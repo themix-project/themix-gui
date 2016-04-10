@@ -15,6 +15,7 @@ PATHLIST=(
 	'./openbox-3/'
 	'./gtk-2.0/'
 	'./gtk-3.0/'
+	'./gtk-3.20/'
 	'./xfwm4/'
 	'Makefile'
 )

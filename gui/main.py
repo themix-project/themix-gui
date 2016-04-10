@@ -58,7 +58,13 @@ class MainWindow(Gtk.Window):
 
         win_style_context = self.get_style_context()
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_path(os.path.join(script_dir, "theme.css"))
+        try:
+            if Gtk.get_minor_version() == 20:
+                css_provider.load_from_path(os.path.join(script_dir, "theme20.css"))
+            else:
+                css_provider.load_from_path(os.path.join(script_dir, "theme.css"))
+        except GLib.Error as e:
+            print(e)
         screen = Gdk.Screen.get_default()
         win_style_context.add_provider_for_screen(
             screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
