@@ -129,4 +129,14 @@
         padding: $spacing / 2;
         color: mix($text_color, $base_color, .5);
     }
+
+    .gedit-bottom-panel-paned,
+    .gedit-side-panel-paned,
+    paned.titlebar {
+        margin-right: 0px;
+     }
+
+    .gedit-bottom-panel-paned notebook {
+        border-top: none;
+     }
 }

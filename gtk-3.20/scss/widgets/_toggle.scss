@@ -85,7 +85,7 @@ $suffix: if($variant == "dark", "-dark", "");
         color: $text_color;
 
         slider {
-			background-color: mix($text_color, $bg_color, 0.5);
+            background-color: mix($text_color, $bg_color, .5);
             transition: all 0.3s linear;
             box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
             border-radius: 2px;
@@ -103,13 +103,12 @@ $suffix: if($variant == "dark", "-dark", "");
         }
 
         &:disabled {
-            background-color: mix($bg_color, $base_color, 0.5);
+            background-color: mix($bg_color, $base_color, .5);
             background-image: none;
-            /*border-color: #ccc;*/
-            color: mix($text_color, $bg_color, 0.5);
+            color: mix($text_color, $bg_color, .5);
 
             slider {
-				background-color: $bg_color;
+                background-color: $bg_color;
             }
         }
     }

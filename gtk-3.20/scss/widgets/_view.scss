@@ -47,6 +47,7 @@
         border: 1px solid darken($selected_bg_color, 10%);
         background-color: transparentize(darken($selected_bg_color, 10%), 0.8);
     }
+
     treeview entry {
         &.flat, & {
             border-radius: 0;
@@ -56,6 +57,7 @@
             &:focus { border-color: $selected_bg_color; }
         }
     }
+
     %column_header_button {
         padding: 0 6px;
         border-radius: 0;
@@ -82,14 +84,15 @@
             }
         }
     }
+
     treeview.view {
         -GtkTreeView-grid-line-width: 1;
         -GtkTreeView-grid-line-pattern: '';
         -GtkTreeView-tree-line-width: 1;
         -GtkTreeView-tree-line-pattern: '';
 
-        border-left-color: mix($fg_color, $base_color, .5); // this is actually the tree lines color,
-        border-top-color: $bg_color;                         // while this is the grid lines color, better then nothing
+        border-left-color: mix($dark_bg_color, $base_color, .2); // this is actually the tree lines color,
+        border-top-color: mix($dark_bg_color, $base_color, .2);  // while this is the grid lines color, better then nothing
 
         rubberband { @extend rubberband; } // to avoid borders being overridden by the previously set props
 
@@ -127,6 +130,7 @@
             border-left-color: mix($backdrop_fg_color, $backdrop_bg_color, .5);
             border-top: $backdrop_bg_color;
         }
+
         &:drop(active) {
             border-style: solid none;
             border-width: 1px;
@@ -276,7 +280,7 @@
 ************/
 
 @include exports("separator") {
-    .view.separator, .separator {
+    view separator, separator {
         color: shade($bg_color, ($contrast + .1));
         border: 1px solid currentColor;
     }
