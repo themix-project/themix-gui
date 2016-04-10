@@ -106,7 +106,7 @@
     &:checked:insensitive:last-child, &:checked:insensitive:only-child { box-shadow: none; }
 
     &:active:last-child, &:active:last-child:focus, &:active:last-child:hover, &:active:last-child:hover:focus,
-    &:checked:last-child, &:checked:last-child:focus, &:checked:last-child:hover, &:checked:last-child:hover:focus, {
+    &:checked:last-child, &:checked:last-child:focus, &:checked:last-child:hover, &:checked:last-child:hover:focus {
         box-shadow: inset 0 1px alpha($dark_shadow, .07),
                     inset -1px 0 alpha($dark_shadow, .06);
     }

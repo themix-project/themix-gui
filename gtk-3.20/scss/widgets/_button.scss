@@ -70,7 +70,9 @@
 @mixin linked_button($bg) {
     $border_strength: if(lightness($bg) > 50, 0, .1);
     $shadow_strength: if(lightness($bg) > 50, 0, .1);
+
     @extend %linked_button;
+
     box-shadow: inset -1px 0 border_normal(rgba(0, 0, 0, .12 + $border_strength)),
     0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
@@ -115,10 +117,13 @@
 @mixin button($bg, $fg) {
     $border_strength: if(lightness($bg) > 50, 0, .1);
     $shadow_strength: if(lightness($bg) > 50, 0, .1);
+
     $button_bg: if(hue($bg) == 0deg, shade($bg, 1.2), $bg);
+
     @extend %button;
     @include linear-gradient($button_bg);
     @include border(rgba(0, 0, 0, .12 + $border_strength));
+
     color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
@@ -133,11 +138,13 @@
         &:focus, &:hover {
             @include linear-gradient(shade($button_bg, 1.2));
             @include border(rgba(0, 0, 0, .2 + $border_strength));
+
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
         }
 
         &:checked {
             @include linear-gradient(shade($button_bg, .7), to top);
+
             color: $white;
             box-shadow: inset 1px 0 alpha($dark_shadow, .06),
             inset 0 1px alpha($dark_shadow, .07),
@@ -146,6 +153,7 @@
 
             &:focus, &:hover {
                 @include linear-gradient(shade($button_bg, .65), to top);
+
                 color: $white;
             }
         }
@@ -154,6 +162,7 @@
 
         &:active:disabled, &:checked:disabled {
             @include linear-gradient(shade($button_bg, .9));
+
             color: $fg;
             box-shadow: none;
         }
