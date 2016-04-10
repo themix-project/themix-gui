@@ -50,7 +50,10 @@
         .frame, frame { border-width: 0; }
 
         .sidebar-row {
-            padding: 1px;
+            padding-top: $spacing;
+            padding-bottom: $spacing;
+            padding-left: 1px;
+            padding-right: 1px;
         }
 
         .sidebar-icon {
