@@ -84,25 +84,25 @@ $wm_icons_unfocused_prelight: $selected_bg_color;
 $wm_icons_unfocused_pressed: shade($selected_bg_color, .8);
 
 //insensitive state derived colors
-$insensitive_fg_color: mix($fg_color, $bg_color, 50%);
-$insensitive_bg_color: mix($bg_color, $base_color, 60%);
+$insensitive_fg_color: mix($fg_color, $bg_color, .5);
+$insensitive_bg_color: mix($bg_color, $base_color, .6);
 $insensitive_borders_color: $borders_color;
 
 //colors for the backdrop state, derived from the main colors.
 $backdrop_base_color: if($variant == 'light', darken($base_color, 1%), lighten($base_color, 1%));
-$backdrop_text_color: mix($text_color, $backdrop_base_color, 80%);
+$backdrop_text_color: mix($text_color, $backdrop_base_color, .8);
 $backdrop_bg_color: $bg_color;
-$backdrop_fg_color: mix($fg_color, $backdrop_bg_color, 50%);
+$backdrop_fg_color: mix($fg_color, $backdrop_bg_color, .5);
 $backdrop_insensitive_color: if($variant == 'light', darken($backdrop_bg_color, 15%), lighten($backdrop_bg_color, 15%));
 $backdrop_selected_fg_color: if($variant == 'light', $backdrop_base_color, $backdrop_text_color);
-$backdrop_borders_color: mix($borders_color, $bg_color, 90%);
-$backdrop_dark_fill: mix($backdrop_borders_color, $backdrop_bg_color, 35%);
-$backdrop_sidebar_bg_color: mix($backdrop_bg_color, $backdrop_base_color, 50%);
+$backdrop_borders_color: mix($borders_color, $bg_color, .9);
+$backdrop_dark_fill: mix($backdrop_borders_color, $backdrop_bg_color, .35);
+$backdrop_sidebar_bg_color: mix($backdrop_bg_color, $backdrop_base_color, .5);
 
 $backdrop_scrollbar_bg_color: darken($backdrop_bg_color, 3%);
-$backdrop_scrollbar_slider_color: mix($backdrop_fg_color, $backdrop_bg_color, 40%);
+$backdrop_scrollbar_slider_color: mix($backdrop_fg_color, $backdrop_bg_color, .4);
 
-$backdrop_menu_color: if($variant == 'light', $backdrop_base_color, mix($backdrop_bg_color, $backdrop_base_color, 20%));
+$backdrop_menu_color: if($variant == 'light', $backdrop_base_color, mix($backdrop_bg_color, $backdrop_base_color, .2));
 
 // widget styles
 $roundness: 2px;
