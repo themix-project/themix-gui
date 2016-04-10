@@ -88,7 +88,7 @@
                 border: 0;
             }
         }
-        
+
         toolbar {
         button {
             @include button($bg_color, $fg_color);
@@ -117,7 +117,7 @@
         }
 
         &.primary-toolbar button {
-            padding: 5px 8px;
+            padding: 5px 6px;
         }
     }
     }
