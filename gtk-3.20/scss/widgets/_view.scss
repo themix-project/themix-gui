@@ -72,7 +72,7 @@
         &:backdrop {
             border-color: $backdrop_bg_color;
             border-style: none solid solid none;
-            color: mix($backdrop_fg_color, $backdrop_bg_color, 50%);
+            color: mix($backdrop_fg_color, $backdrop_bg_color, .5);
             background-image: none;
             background-color: $backdrop_base_color;
 
@@ -88,7 +88,7 @@
         -GtkTreeView-tree-line-width: 1;
         -GtkTreeView-tree-line-pattern: '';
 
-        border-left-color: mix($fg_color, $base_color, 50%); // this is actually the tree lines color,
+        border-left-color: mix($fg_color, $base_color, .5); // this is actually the tree lines color,
         border-top-color: $bg_color;                         // while this is the grid lines color, better then nothing
 
         rubberband { @extend rubberband; } // to avoid borders being overridden by the previously set props
@@ -100,7 +100,7 @@
             }
 
             &:backdrop, & {
-                border-left-color: mix($selected_fg_color, $selected_bg_color, 50%);
+                border-left-color: mix($selected_fg_color, $selected_bg_color, .5);
                 border-top-color: transparentize($fg_color, 0.9); // doesn't work unfortunatelly
             }
         }
@@ -109,8 +109,8 @@
             color: $insensitive_fg_color;
 
             &:selected {
-                color: mix($selected_fg_color, $selected_bg_color, 40%);
-                &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, 30%); }
+                color: mix($selected_fg_color, $selected_bg_color, .4);
+                &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, .3); }
             }
 
             &:backdrop { color: $backdrop_insensitive_color; }
@@ -124,7 +124,7 @@
         }
 
         &:backdrop {
-            border-left-color: mix($backdrop_fg_color, $backdrop_bg_color, 50%);
+            border-left-color: mix($backdrop_fg_color, $backdrop_bg_color, .5);
             border-top: $backdrop_bg_color;
         }
         &:drop(active) {
@@ -139,7 +139,7 @@
 
         &.expander {
             -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
-            color: mix($fg_color, $base_color, 70%);
+            color: mix($fg_color, $base_color, .7);
 
             &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
 
@@ -147,16 +147,16 @@
             &:hover { color: $fg_color; }
 
             &:selected {
-                color: mix($selected_fg_color, $selected_bg_color, 70%);
+                color: mix($selected_fg_color, $selected_bg_color, .7);
 
                 &:hover { color: $selected_fg_color; }
 
-                &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, 70%); }
+                &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, .7); }
             }
 
             &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
 
-            &:backdrop { color: mix($backdrop_fg_color, $backdrop_base_color, 70%); }
+            &:backdrop { color: mix($backdrop_fg_color, $backdrop_base_color, .7); }
         }
 
         &.progressbar { // progress bar in treeviews
@@ -224,7 +224,7 @@
 
         header {
             button {
-                $_column_header_color: mix($fg_color, $base_color, 50%);
+                $_column_header_color: mix($fg_color, $base_color, .5);
 
                 @extend %column_header_button;
 
@@ -237,7 +237,7 @@
                 &:hover {
                     @extend %column_header_button;
 
-                    color: mix($_column_header_color, $fg_color, 50%);
+                    color: mix($_column_header_color, $fg_color, .5);
                     box-shadow: none;
                     transition: none; //I shouldn't need this
                 }

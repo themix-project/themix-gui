@@ -189,7 +189,7 @@
                 highlight {
                     background-color: $selected_fg_color;
 
-                    &:disabled { background-color: mix($selected_fg_color, $selected_bg_color, 55%); }
+                    &:disabled { background-color: mix($selected_fg_color, $selected_bg_color, .55); }
                 }
 
                 &:disabled { background-color: transparentize(black, 0.9); }
@@ -232,7 +232,7 @@
             }
 
             &:disabled {
-                background-color: mix($fg_color, $bg_color, 55%);
+                background-color: mix($fg_color, $bg_color, .55);
                 border-color: transparentize($_slider_border, 0.2);
             }
 
@@ -244,16 +244,16 @@
                 border-color: $selected_fg_color;
 
                 &:hover {
-                    background-color: mix($selected_fg_color, $selected_bg_color, 85%);
-                    border-color: mix($selected_fg_color, $selected_bg_color, 85%);
+                    background-color: mix($selected_fg_color, $selected_bg_color, .85);
+                    border-color: mix($selected_fg_color, $selected_bg_color, .85);
                 }
                 &:active {
-                    background-color: mix($selected_fg_color, $selected_bg_color, 50%);
-                    border-color: mix($selected_fg_color, $selected_bg_color, 50%);
+                    background-color: mix($selected_fg_color, $selected_bg_color, .5);
+                    border-color: mix($selected_fg_color, $selected_bg_color, .5);
                 }
                 &:disabled{
-                    background-color: mix($selected_fg_color, $selected_bg_color, 55%);
-                    border-color: mix($selected_fg_color, $selected_bg_color, 55%);
+                    background-color: mix($selected_fg_color, $selected_bg_color, .55);
+                    border-color: mix($selected_fg_color, $selected_bg_color, .55);
                 }
             }
 
