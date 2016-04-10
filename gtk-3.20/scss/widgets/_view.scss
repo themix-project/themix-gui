@@ -91,8 +91,8 @@
         -GtkTreeView-tree-line-width: 1;
         -GtkTreeView-tree-line-pattern: '';
 
-        border-left-color: mix($fg_color, $base_color, .5); // this is actually the tree lines color,
-        border-top-color: $bg_color;                         // while this is the grid lines color, better then nothing
+        border-left-color: mix($dark_bg_color, $base_color, .2); // this is actually the tree lines color,
+        border-top-color: mix($dark_bg_color, $base_color, .2);  // while this is the grid lines color, better then nothing
 
         rubberband { @extend rubberband; } // to avoid borders being overridden by the previously set props
 
@@ -280,7 +280,7 @@
 ************/
 
 @include exports("separator") {
-    .view.separator, .separator {
+    view separator, separator {
         color: shade($bg_color, ($contrast + .1));
         border: 1px solid currentColor;
     }
