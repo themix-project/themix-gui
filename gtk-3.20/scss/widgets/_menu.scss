@@ -6,30 +6,32 @@
 **********/
 
 @include exports("menubar") {
-    .menubar, menubar {
+    menubar, .menubar {
         -GtkWidget-window-dragging: true;
 
+        padding: 0;
         border: 0;
         background-color: $menubar_bg_color;
         background-image: none;
+        //box-shadow: inset 0 -1px shade($menubar_bg_color, .9);
         color: $menubar_fg_color;
 
-
-        &.menuitem, .menuitem, menuitem {
+        > menuitem {
+            min-height: 16px;
             padding: $spacing ($spacing * 2);
             border: 1px solid transparent;
             background-color: transparent;
             background-image: none;
-            color: $menu_fg_color;
+            color: $menubar_fg_color;
 
             &:hover {
-                border-color: mix($menu_bg_color, $menu_fg_color, .21);
-                background-color: mix($menu_bg_color, $menu_fg_color, .21);
+                border-color: mix($menubar_bg_color, $menubar_fg_color, .21);
+                background-color: mix($menubar_bg_color, $menubar_fg_color, .21);
                 background-image: none;
-                color: shade($menu_fg_color, 1.08);
+                color: shade($menubar_fg_color, 1.08);
             }
 
-            *:hover { color: shade($menu_fg_color, 1.08); }
+            *:hover { color: shade($menubar_fg_color, 1.08); }
         }
     }
 }
@@ -40,58 +42,28 @@
 *******/
 
 @include exports("menu") {
-    * {
-        padding: 0;
-    }
-
-    combobox {
-        &.menu, .menu, menu {
-            background-color: $menu_bg_color;
-            margin: $spacing;
-        }
-    }
-
-    #toolbar-popup, menu {
+    menu, .menu {
         padding: 0;
         border-radius: 0;
         border: 0;
         background-color: $menu_bg_color;
         color: $menu_fg_color;
 
-        &:checked { background-color: $selected_bg_color; }
+        .csd & { border: 0; }  // axes borders in a composited env
 
-        button {
-            &, &:hover, &:active, &:active *:disabled, &:disabled {
-                border-width: 0;
-                background-color: transparent;
-                background-image: none;
-            }
+        &:selected { background-color: $selected_bg_color; }
+
+        separator {
+            padding: 0;
+            border-style: none;
+            background-color: shade($menu_bg_color, ($contrast + .1));
         }
-    }
 
-    menuitem window decoration {
-        box-shadow: 0 2px 3px rgba(0,0,0,.2);
-    }
-
-    .context-menu { font: initial; }
-
-    .menuitem, menuitem {
-        &, menu & {
-            margin: $spacing;
-            padding: $spacing 8px;
-            border: 0;
+        menuitem {
+            min-height: 16px;
+            min-width: 40px;
+            padding: $spacing;
             border-radius: 0;
-            background-color: transparent;
-            background-image: none;
-
-            -GtkMenuItem-arrow-scaling: .5;
-
-            menu &:last-child {
-                padding-bottom: 8px;
-            }
-            menu &:first-child {
-                padding-top: 8px;
-            }
 
             &:active, &:hover {
                 border: 0;
@@ -103,56 +75,105 @@
             *:active, *:hover { color: $selected_fg_color; }
 
             &:disabled, *:disabled { color: mix($menu_fg_color, $menu_bg_color, .5); }
+
+            // submenu indicators
+            arrow {
+                min-height: 16px;
+                min-width: 16px;
+
+                &:dir(ltr) {
+                    -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+                    margin-left: 10px;
+                }
+
+                &:dir(rtl) {
+                    -gtk-icon-source:-gtk-icontheme('pan-end-symbolic-rtl');
+                    margin-right: 10px;
+                }
+            }
+
+            &.button, &.button.flat {
+                &, &:focus, &:active, &:disabled, &:active:disabled {
+                    background-color: transparent;
+                    background-image: none;
+                    border: 0;
+                    box-shadow: none;
+                    color: currentColor;
+                }
+
+                &:hover, &:focus:hover, &:active:hover, &:selected {
+                    background-image: none;
+                    background-color: $selected_bg_color;
+                    color: $selected_fg_color;
+                }
+            }
+
+            calendar {
+                &:inconsistent { color: mix($menu_fg_color, $menu_bg_color, .5); }
+
+                .button {
+                    border-style: none;
+                    background-color: transparent;
+                    background-image: none;
+                }
+            }
         }
 
-        &.check, &.radio {
-            &, &:focus, &:hover, &:disabled { background-image: none; }
+        // overflow arrows
+        > arrow {
+            //@include button(undecorated);
 
-            &, &:focus, &:hover, &:active, &:disabled {
-                border-style: none;
+            min-height: 16px;
+            min-width: 16px;
+            padding: $spacing;
+            background-color: $menu_bg_color;
+            border-radius: 0;
+
+            &.top {
+                margin-top: -6px;
+                border-bottom: 1px solid mix($fg_color, $base_color, .1);
+                -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+            }
+
+            &.bottom {
+                margin-bottom: -6px;
+                border-top: 1px solid mix($fg_color, $base_color, .1);
+                -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+            }
+
+            &:hover { background-color: mix($fg_color, $base_color, .1); }
+
+            &:backdrop { background-color: $backdrop_menu_color; }
+
+            &:disabled {
+                color: transparent;
                 background-color: transparent;
+                border-color: transparent;
             }
         }
+    }
 
-        &.separator {
-            padding: 0;
+    .context-menu { font: initial; }
 
-            border-style: none;
-            color: shade($menu_bg_color, ($contrast + .1));
-        }
-
-        &.button, &.button.flat {
-            &, &:focus, &:active, &:disabled, &:active:disabled {
-                background-color: transparent;
-                background-image: none;
-                border: 0;
-                box-shadow: none;
-                color: currentColor;
-            }
-
-            &:hover, &:focus:hover, &:active:hover, &:selected {
-                background-image: none;
-                background-color: $selected_bg_color;
-                color: $selected_fg_color;
-            }
-        }
-
-        calendar {
-            &:indeterminate { color: mix($menu_fg_color, $menu_bg_color, .5); }
-
-            .button {
-                border-style: none;
-                background-color: transparent;
-                background-image: none;
-            }
-        }
-
-        .accelerator {
+    menuitem {
+        accelerator {
             color: alpha($menu_fg_color, .6);
 
             &:hover { color: alpha($selected_fg_color, .8); }
 
             &:disabled { color: alpha(mix($menu_fg_color, $menu_bg_color, .5), .4); }
+        }
+
+        check, radio {
+            min-height: 16px;
+            min-width: 16px;
+
+            &:dir(ltr) { margin-right: 7px; }
+            &:dir(rtl) { margin-left: 7px; }
+        }
+
+        window decoration {
+            box-shadow: 0 2px 3px alpha($black, .2);
         }
 
         entry { @include entry($menu_bg_color, $menu_fg_color); }
@@ -204,13 +225,28 @@
             }
         }
 
-        view, .view, list {
-            background-color: shade($menu_bg_color, ($contrast + .5));
-            background-image: none;
-            color: $menu_fg_color;
+        treeview.view {
+            &:hover, &:selected, &:selected:focus, &:backdrop:selected, &:backdrop:selected:focus { border-top-color: $selected_bg_color; }
+
+            &, &:backdrop { border-top-color: shade($menu_bg_color, ($contrast + .4)); }
         }
 
-        .list-row, list row {
+        view, .view, list {
+            &:hover {
+                background-image: none;
+                background-color: $selected_bg_color;
+                color: $selected_fg_color;
+            }
+
+            &, &:backdrop {
+                background-color: shade($menu_bg_color, ($contrast + .5));
+                background-image: none;
+                color: $menu_fg_color;
+                border-color: border_normal($menu_bg_color);
+            }
+        }
+
+        list row {
             &, & .button {
                 background-color: transparent;
                 background-image: none;
@@ -234,14 +270,6 @@
         button { @include button($menu_bg_color, $menu_fg_color);  }
 
         > list, > view, > toolbar { background-color: transparent; }
-
-        separator {
-            border: 0;
-            background-color: transparent;
-            color: alpha($menu_bg_color, .5);
-            font-size: 80%;
-            font-weight: bold;
-        }
     }
 
     modelbutton {
@@ -267,6 +295,12 @@
             &.flat arrow {
                 &.left { -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
                 &.right { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
+            }
+        }
+
+        &.flat {
+            &, &:hover {
+                transition: none;
             }
         }
     }

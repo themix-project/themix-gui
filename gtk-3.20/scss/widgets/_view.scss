@@ -47,6 +47,7 @@
         border: 1px solid darken($selected_bg_color, 10%);
         background-color: transparentize(darken($selected_bg_color, 10%), 0.8);
     }
+
     treeview entry {
         &.flat, & {
             border-radius: 0;
@@ -56,6 +57,7 @@
             &:focus { border-color: $selected_bg_color; }
         }
     }
+
     %column_header_button {
         padding: 0 6px;
         border-radius: 0;
@@ -82,6 +84,7 @@
             }
         }
     }
+
     treeview.view {
         -GtkTreeView-grid-line-width: 1;
         -GtkTreeView-grid-line-pattern: '';
@@ -127,6 +130,7 @@
             border-left-color: mix($backdrop_fg_color, $backdrop_bg_color, .5);
             border-top: $backdrop_bg_color;
         }
+
         &:drop(active) {
             border-style: solid none;
             border-width: 1px;
