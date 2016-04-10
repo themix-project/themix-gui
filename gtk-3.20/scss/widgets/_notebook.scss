@@ -58,10 +58,13 @@
                 border-color: shade($base_color, .8);
             }
 
-            &:active {
+            &:checked {
                 background-color: $base_color;
                 background-image: none;
                 border-color: shade($base_color, .85);
+				label {
+					color: $text_color;
+				}
             }
 
             &.top {
@@ -113,7 +116,7 @@
                             inset 1px 0 shade($base_color, .7), inset -1px 0 shade($base_color, .7);
             }
 
-            &:active {
+            &:checked {
                 background-color: shade($base_color, .9);
                 border-left: 0;
                 border-right: 0;
