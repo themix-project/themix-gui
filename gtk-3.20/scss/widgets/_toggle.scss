@@ -7,20 +7,20 @@ $suffix: if($variant == "dark", "-dark", "");
 @mixin toggle($type) {
     background-image: none;
 
-    -gtk-icon-source: url("../assets/#{$type}-unchecked#{$suffix}.png");
+    -gtk-icon-source: url("../assets/#{$type}-unchecked#{$suffix}.svg");
 
-    &:disabled { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.png"); }
+    &:disabled { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.svg"); }
 
     &:checked, &:active {
-        -gtk-icon-source: url("../assets/#{$type}-checked#{$suffix}.png");
+        -gtk-icon-source: url("../assets/#{$type}-checked#{$suffix}.svg");
 
-        &:disabled { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.png"); }
+        &:disabled { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.svg"); }
     }
 
     &:indeterminate {
-        -gtk-icon-source: url("../assets/#{$type}-mixed#{$suffix}.png");
+        -gtk-icon-source: url("../assets/#{$type}-mixed#{$suffix}.svg");
 
-        &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.png"); }
+        &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.svg"); }
     }
 
     &.menuitem {
@@ -29,19 +29,19 @@ $suffix: if($variant == "dark", "-dark", "");
         &:disabled { -gtk-icon-source: none; }
 
         &:checked, &:active {
-            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.png");
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.svg");
 
-            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-hover.png"); }
+            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-hover.svg"); }
 
-            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png"); }
+            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg"); }
         }
 
         &:indeterminate {
-            -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed.png");
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed.svg");
 
-            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-hover.png"); }
+            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-hover.svg"); }
 
-            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.png"); }
+            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.svg"); }
         }
     }
 }
@@ -60,9 +60,9 @@ $suffix: if($variant == "dark", "-dark", "");
     }
 
     iconview.content-view.cell.check {
-        -gtk-icon-source: url("assets/grid-selection-unchecked#{$suffix}.png");
+        -gtk-icon-source: url("assets/grid-selection-unchecked#{$suffix}.svg");
 
-        &:active { -gtk-icon-source: url("assets/grid-selection-checked#{$suffix}.png"); }
+        &:active { -gtk-icon-source: url("assets/grid-selection-checked#{$suffix}.svg"); }
     }
 }
 
