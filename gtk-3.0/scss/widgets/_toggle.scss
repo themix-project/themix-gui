@@ -24,7 +24,7 @@ $suffix: if($variant == "dark", "-dark", "");
     }
 
     &.menuitem {
-        -gtk-icon-source: none;
+        -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png");
 
         &:insensitive { -gtk-icon-source: none; }
 
