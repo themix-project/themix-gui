@@ -4,27 +4,50 @@ from .helpers import get_presets
 
 class ThemePresetsList(Gtk.Box):
 
+    presets = None
+    current_theme = None
+    current_preset_path = None
+
+    liststore = None
+    treeiter = None
+    preset_select_callback = None
+
     def on_preset_select(self, widget):
         list_index = widget.get_cursor()[0].to_string()
-        self.current_theme = list(
+        selected_preset = list(
             self.liststore[list_index]
-        )[0]
-        self.preset_select_callback(self.current_theme)
+        )
+        self.current_theme = selected_preset[0]
+        self.current_preset_path = selected_preset[1]
+        self.preset_select_callback(
+            self.current_theme, self.current_preset_path
+        )
+        self.treeiter = self.liststore.get_iter(
+            Gtk.TreePath.new_from_string(list_index)
+        )
+
+    def add_preset(self, preset_name, preset_path):
+        self.liststore.append((preset_name, preset_path))
+
+    def update_current_preset_path(self, new_path):
+        self.liststore[self.treeiter][1] = new_path
 
     def __init__(self, preset_select_callback):
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.preset_select_callback = preset_select_callback
         self.presets = get_presets()
 
-        self.liststore = Gtk.ListStore(str)
-        for preset_name in self.presets:
-            self.liststore.append((preset_name, ))
+        self.liststore = Gtk.ListStore(str, str)
+        for preset_name, preset_path in self.presets.items():
+            self.liststore.append((preset_name, preset_path))
         self.liststore.set_sort_column_id(0, Gtk.SortType.ASCENDING)
 
         treeview = Gtk.TreeView(model=self.liststore, headers_visible=False)
         treeview.connect("cursor_changed", self.on_preset_select)
 
-        column = Gtk.TreeViewColumn(cell_renderer=Gtk.CellRendererText(), text=0)
+        column = Gtk.TreeViewColumn(
+            cell_renderer=Gtk.CellRendererText(), text=0
+        )
         treeview.append_column(column)
 
         scrolled = Gtk.ScrolledWindow()
