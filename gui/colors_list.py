@@ -1,5 +1,5 @@
 from gi.repository import Gtk
-from .helpers import convert_theme_color_to_gdk
+from .helpers import convert_theme_color_to_gdk, THEME_KEYS
 
 
 class ColorListBoxRow(Gtk.ListBoxRow):
@@ -7,7 +7,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
     def on_color_set(self, widget):
         c = widget.get_rgba()
         self.value = "".join([
-            "{0:02x}".format(int(n*255))
+            "{0:02x}".format(int(n * 255))
             for n in (c.red, c.green, c.blue)
         ])
         self.color_set_callback(self.key, self.value)
@@ -42,9 +42,14 @@ class ThemeColorsList(Gtk.Box):
     def open_theme(self, theme):
         self.theme = theme
         self.listbox.foreach(lambda x: self.listbox.remove(x))
-        for key, value in self.theme.items():
-            row = ColorListBoxRow(key, value, self.color_edited)
+        if "NOGUI" in self.theme:
+            row = Gtk.ListBoxRow()
+            row.add(Gtk.Label("Can't be edited in GUI"))
             self.listbox.add(row)
+        else:
+            for key in THEME_KEYS:
+                row = ColorListBoxRow(key, self.theme[key], self.color_edited)
+                self.listbox.add(row)
         self.listbox.show_all()
 
     def __init__(self, color_edited_callback):

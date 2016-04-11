@@ -12,6 +12,7 @@ color_fg () {
 }
 
    NAME="follow xresources theme"
+  NOGUI=True
      BG=$(color 7)
      FG=$(color 0)
  TXT_BG=$(color_fg)

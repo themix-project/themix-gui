@@ -1,4 +1,4 @@
-from .helpers import convert_theme_color_to_gdk
+from .helpers import convert_theme_color_to_gdk, THEME_KEYS
 from gi.repository import Gtk
 
 
@@ -15,8 +15,8 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_colors(self, colorscheme):
         converted = {
-            key: convert_theme_color_to_gdk(value)
-            for key, value in colorscheme.items()
+            key: convert_theme_color_to_gdk(colorscheme[key])
+            for key in THEME_KEYS
         }
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
@@ -62,11 +62,11 @@ class ThemePreview(Gtk.Grid):
         self.bg.attach(self.menubar, 1, 1, 3, 1)
         self.bg.attach(self.label, 2, 2, 1, 1)
         self.bg.attach_next_to(self.sel_label, self.label,
-                            Gtk.PositionType.BOTTOM, 1, 1)
+                               Gtk.PositionType.BOTTOM, 1, 1)
         self.bg.attach_next_to(self.entry, self.sel_label,
-                            Gtk.PositionType.BOTTOM, 1, 1)
+                               Gtk.PositionType.BOTTOM, 1, 1)
         self.bg.attach_next_to(self.button, self.entry,
-                            Gtk.PositionType.BOTTOM, 1, 1)
+                               Gtk.PositionType.BOTTOM, 1, 1)
         # hack to have margin inside children box instead of the parent one:
         self.bg.attach_next_to(Gtk.Label(), self.button,
-                            Gtk.PositionType.BOTTOM, 1, 1)
+                               Gtk.PositionType.BOTTOM, 1, 1)
