@@ -13,7 +13,7 @@ sass
 
 #### Arch Linux:
 ```
-yaourt -S glib2 gdk-pixbuf2 ruby-sass python-gobject
+yaourt -S --needed glib2 gdk-pixbuf2 ruby-sass python-gobject
 ```
 @TODO: create PKGBUILD
 
@@ -23,6 +23,7 @@ yaourt -S glib2 gdk-pixbuf2 ruby-sass python-gobject
 #### GUI:
 ```
 git clone https://github.com/actionless/oomox.git
+cd oomox
 ./gui.sh
 ```
 ![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI 1")
