@@ -77,15 +77,22 @@ def resolve_color_links(colorscheme):
 
 def bash_preprocess(preset_path):
     colorscheme = {"NOGUI": True}
-    lines = subprocess.run(
+    process = subprocess.run(
         [
             "bash", "-c",
             "source " + preset_path + " ; " +
             "".join("echo ${} ;".format(key) for key in THEME_KEYS)
         ],
-        stdout=subprocess.PIPE
-    ).stdout.decode("UTF-8").split()
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+    if process.stderr:
+        raise(Exception(
+            "Pre-processing failed:\nstdout:\n{}\nstderr:\n{}".format(
+                process.stdout, process.stderr
+            )))
 
+    lines = process.stdout.decode("UTF-8").split()
     i = 0
     for key in THEME_KEYS:
         colorscheme[key] = lines[i]
