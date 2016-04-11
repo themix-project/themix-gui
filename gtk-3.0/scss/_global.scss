@@ -7,6 +7,8 @@ $bg_color: if($variant == "dark", #%FG%, #%BG%);
 $fg_color: if($variant == "dark", #%BG%, #%FG%);
 $base_color: if($variant == "dark", #%TXT_FG%, #%TXT_BG%);
 $text_color: if($variant == "dark", #%TXT_BG%, #%TXT_FG%);
+$button_bg_color: if($variant == "dark", #%BTN_FG%, #%BTN_BG%);
+$button_fg_color: if($variant == "dark", #%BTN_BG%, #%BTN_FG%);
 $selected_bg_color: #%SEL_BG%;
 $selected_fg_color: #%SEL_FG%;
 $tooltip_bg_color: #%BG%;
@@ -53,8 +55,9 @@ $menubar_fg_color: $dark_fg_color;
 $panel_bg_color: $dark_bg_color;
 $panel_fg_color: $dark_fg_color;
 
-$osd_bg: $dark_bg_color;
+$osd_base: $dark_bg_color;
 $osd_fg: $dark_fg_color;
+$osd_bg: alpha($osd_base, 0.8);
 
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;

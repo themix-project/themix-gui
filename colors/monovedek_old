@@ -1,4 +1,4 @@
-NAME="monovedek"
+NAME="monovedek3"
 BG=888a85
 FG=0e0021
 SEL_BG=dc5e86

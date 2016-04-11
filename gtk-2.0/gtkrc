@@ -177,7 +177,7 @@ style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 	ythickness = 2
 
 	engine "clearlooks" {
-		radius = 0.0
+		radius = 0.1
 	}
 }
 

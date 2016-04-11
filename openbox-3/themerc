@@ -1,11 +1,14 @@
+# Name: Oomox (Numix fork) Openbox theme
+# Author: Satyajit Sahoo <satyajit.happy@gmail.com>
+# License: GPL-3.0+
+
 # Common
 border.width: 4
 padding.width: 3
 
 
 # Menu
-menu.border.color: #2c2c2c
-menu.border.width: 1
+menu.border.color: #2d2d2d
 
 menu.title.bg: Solid Flat
 menu.title.bg.color: #%MENU_BG%
@@ -30,33 +33,33 @@ menu.separator.padding.height: 4
 # Window focused
 window.active.title.separator.color: #%MENU_BG%
 
-window.active.title.bg: Solid Flat
-window.active.title.bg.color: #%MENU_BG%
-window.active.title.bg.shadow: 0
+# Active window
+window.active.border.color: #484848
 
-window.active.label.bg: Parentrelative
+window.active.title.bg: flat solid
+window.active.title.bg.color: #2d2d2d
+window.active.title.separator.color: #2d2d2d
+window.active.text.justify: center
+
+window.active.label.bg: parentrelative
 window.active.label.text.color: #%MENU_FG%
 
-window.active.handle.bg: Raised Gradient Vertical
-window.active.handle.bg.color: #FF0000
-window.active.handle.bg.colorTo: #00FF00
+window.active.handle.bg: flat solid
+window.active.handle.bg.color: #2d2d2d
 
-window.active.grip.bg: Raised Gradient Vertical
-window.active.grip.bg.color: #FF0000
-window.active.grip.bg.colorTo: #00FF00
+window.active.grip.bg: flat solid
+window.active.grip.bg.color: #2d2d2d
 
-window.active.button.unpressed.bg: Parentrelative
+window.active.button.unpressed.bg: parentrelative
 window.active.button.unpressed.image.color: #%MENU_FG%
 
-window.active.button.pressed.bg: Solid Flat
+window.active.button.pressed.bg: flat solid
 window.active.button.pressed.bg.color: #ec7584
 window.active.button.pressed.image.color: #%MENU_BG%
 
-window.active.button.disabled.bg: Parentrelative
-window.active.button.disabled.image.color: #9b9b9b
-
-window.active.button.hover.bg: Parentrelative
-window.active.button.hover.image.color: #ec7584
+window.active.button.disabled.bg: flat solid
+window.active.button.disabled.bg.color: #2d2d2d
+window.active.button.disabled.image.color: #888888
 
 window.active.button.toggled.bg: Parentrelative
 window.active.button.toggled.image.color: #%MENU_FG%
@@ -64,41 +67,43 @@ window.active.button.toggled.image.color: #%MENU_FG%
 # Inactive window
 window.inactive.border.color: #393939
 
+window.inactive.title.bg: flat solid
+window.inactive.title.bg.color: #2d2d2d
 # Window unfocused
 window.inactive.title.separator.color: #%MENU_BG%
+window.inactive.text.justify: center
 
-window.inactive.title.bg: Flat Solid
-window.inactive.title.bg.color: #%MENU_BG%
-window.inactive.title.bg.shadow: 0
+window.inactive.label.bg: parentrelative
+window.inactive.label.text.color: #888888
 
-window.inactive.label.bg: Parentrelative
-window.inactive.label.text.color: #9b9b9b
+window.inactive.handle.bg: flat solid
+window.inactive.handle.bg.color: #2d2d2d
 
-window.inactive.handle.bg: Raised Gradient Vertical
-window.inactive.handle.bg.color: #c3c3c3
-window.inactive.handle.bg.colorTo: #979797
+window.inactive.grip.bg: flat solid
+window.inactive.grip.bg.color: #2d2d2d
 
-window.inactive.grip.bg: Raised Gradient Vertical
-window.inactive.grip.bg.color: #c3c3c3
-window.inactive.grip.bg.colorTo: #979797
+window.inactive.button.unpressed.bg: flat solid
+window.inactive.button.unpressed.bg.color: #2d2d2d
+window.inactive.button.unpressed.image.color: #888888
 
-window.inactive.button.unpressed.bg: Parentrelative
-window.inactive.button.unpressed.image.color: #9b9b9b
+window.inactive.button.pressed.bg: flat solid
+window.inactive.button.pressed.bg.color: #2d2d2d
+window.inactive.button.pressed.image.color: #d64937
 
-window.inactive.button.pressed.bg: Parentrelative
-window.inactive.button.pressed.image.color: #9b9b9b
+window.inactive.button.disabled.bg: flat solid
+window.inactive.button.disabled.bg.color: #2d2d2d
+window.inactive.button.disabled.image.color: #888888
 
-window.inactive.button.disabled.bg: Parentrelative
-window.inactive.button.disabled.image.color: #9b9b9b
 
-window.inactive.button.toggled.bg: Parentrelative
-window.inactive.button.toggled.image.color: #9b9b9b
+# OSD
+osd.border.width: 1
+osd.border.color: #484848
 
 osd.bg: flat solid
-osd.bg.color: #333333
+osd.bg.color: #2d2d2d
 osd.label.bg: flat solid
-osd.label.bg.color: #333333
-osd.label.text.color: #eeeeee
+osd.label.bg.color: #2d2d2d
+osd.label.text.color: #dcdcdc
 
 # OSD
 osd.bg: Solid Flat
@@ -106,9 +111,14 @@ osd.bg.color: #%MENU_BG%
 osd.bg.shadow: 0
 
 osd.border.width: 2
-
 osd.hilight.bg: Solid Flat
 osd.hilight.bg.color: #%SEL_BG%
+osd.unhilight.bg: flat solid
+osd.unhilight.bg.color: #888888
+
+osd.button.unpressed.bg: flat border
+osd.button.unpressed.bg.color: #303030
+osd.button.unpressed.*.border.color: #242424
 
 osd.button.pressed.bg: flat border
 osd.button.pressed.bg.color: #2a2a2a

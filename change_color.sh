@@ -1,42 +1,45 @@
 #!/bin/bash
 
-test -z "$1" &&
+set -ue
+SRC_PATH=$(readlink -e $(dirname $0))
+
+THEME=${1:-}
+test -z "${THEME}" &&
   echo "usage: $0 PRESET_NAME [OUTPUT_THEME_NAME]" &&
   exit 1
-
-SRC_PATH=$(readlink -e $(dirname $0))
-THEME=$1
-OUTPUT_THEME_NAME="$2"
-
-test -z "$OUTPUT_THEME_NAME" && OUTPUT_THEME_NAME=oomox-$THEME
-DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
 
 PATHLIST=(
 	'./openbox-3/'
 	'./gtk-2.0/'
 	'./gtk-3.0/'
+	'./gtk-3.20/'
 	'./xfwm4/'
 	'Makefile'
 )
 
+if [[ ${THEME} == /* ]] ; then
+	source $THEME
+	THEME=$(basename ${THEME})
+else
+	source $SRC_PATH/colors/$THEME
+fi
+source $SRC_PATH/current_colors.txt
 
-test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1 ||
-(
-  rm -r $DEST_PATH ;
-  mkdir -p $DEST_PATH ;
-  cp -r $SRC_PATH/index.theme $DEST_PATH
-  for FILEPATH in "${PATHLIST[@]}";
-  do
+OUTPUT_THEME_NAME=${2-oomox-$THEME}
+DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
+
+test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
+
+rm -r $DEST_PATH || true
+mkdir -p $DEST_PATH
+cp -r $SRC_PATH/index.theme $DEST_PATH
+for FILEPATH in "${PATHLIST[@]}"; do
 	cp -r $SRC_PATH/$FILEPATH $DEST_PATH
-  done;
-) &&
+done
 
-source $SRC_PATH/colors/$THEME.sh &&
-source $SRC_PATH/current_colors.txt &&
 
-cd $DEST_PATH &&
-for FILEPATH in "${PATHLIST[@]}";
-do
+cd $DEST_PATH
+for FILEPATH in "${PATHLIST[@]}"; do
 	find $FILEPATH -type f -exec sed -i \
 		-e 's/'"$OLD_BG"'/'"$BG"'/g' \
 		-e 's/'"$OLD_FG"'/'"$FG"'/g' \
@@ -49,7 +52,7 @@ do
 		-e 's/'"$OLD_BTN_BG"'/'"$BTN_BG"'/g' \
 		-e 's/'"$OLD_BTN_FG"'/'"$BTN_FG"'/g' \
 		{} \; ;
-done;
+done
 
 make
 
