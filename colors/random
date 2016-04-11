@@ -4,6 +4,7 @@ random_color () {
 }
 
    NAME="random theme"
+  NOGUI=True
      BG=$(random_color)
      FG=$(random_color)
  SEL_BG=$(random_color)
