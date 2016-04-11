@@ -7,6 +7,8 @@
 
 @include exports("notebook") {
     notebook {
+        background-color: $base_color;
+
         > header {
             padding: 0;
             margin: 0;
