@@ -107,7 +107,8 @@ class MainWindow(Gtk.Window):
         self.save()
 
     def on_export(self, button):
-        export_theme(window=self, theme_name=self.colorscheme_name)
+        self.check_unsaved_changes()
+        export_theme(window=self, theme_path=self.colorscheme_path)
 
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()
