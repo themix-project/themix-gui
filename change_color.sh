@@ -7,9 +7,6 @@ THEME=${1:-}
 test -z "${THEME}" &&
   echo "usage: $0 PRESET_NAME [OUTPUT_THEME_NAME]" &&
   exit 1
-OUTPUT_THEME_NAME=${2-oomox-$THEME}
-
-DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
 
 PATHLIST=(
 	'./openbox-3/'
@@ -20,6 +17,16 @@ PATHLIST=(
 	'Makefile'
 )
 
+if [[ ${THEME} == /* ]] ; then
+	source $THEME
+	THEME=$(basename ${THEME})
+else
+	source $SRC_PATH/colors/$THEME
+fi
+source $SRC_PATH/current_colors.txt
+
+OUTPUT_THEME_NAME=${2-oomox-$THEME}
+DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
 
 test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
 
@@ -30,8 +37,6 @@ for FILEPATH in "${PATHLIST[@]}"; do
 	cp -r $SRC_PATH/$FILEPATH $DEST_PATH
 done
 
-source $SRC_PATH/colors/$THEME
-source $SRC_PATH/current_colors.txt
 
 cd $DEST_PATH
 for FILEPATH in "${PATHLIST[@]}"; do
