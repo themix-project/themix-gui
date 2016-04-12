@@ -98,8 +98,8 @@ $insensitive_bg_color: mix($bg_color, $base_color, .6);
 $insensitive_borders_color: $borders_color;
 
 //colors for the backdrop state, derived from the main colors.
-$backdrop_base_color: if($variant == 'light', darken($base_color, 1%), lighten($base_color, 1%));
-$backdrop_text_color: mix($text_color, $backdrop_base_color, .8);
+$backdrop_base_color: if($variant == 'light', darken($base_color, .01), lighten($base_color, .01));
+$backdrop_text_color: mix($backdrop_base_color, $text_color, .8);
 $backdrop_bg_color: $bg_color;
 $backdrop_fg_color: mix($fg_color, $backdrop_bg_color, .5);
 $backdrop_insensitive_color: if($variant == 'light', darken($backdrop_bg_color, 15%), lighten($backdrop_bg_color, 15%));
