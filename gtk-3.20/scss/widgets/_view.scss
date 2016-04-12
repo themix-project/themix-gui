@@ -17,7 +17,7 @@
             &:focus, & {
                 @extend %selected_items;
 
-                border-radius: 3px;
+                border-radius: $roundness;
             }
         }
     }
@@ -338,10 +338,12 @@
 ***********/
 
 @include exports("frame") {
-    .frame {
-        border: 1px solid border_normal($bg_color);
+    frame > border, .frame {
+        border: 1px solid $borders_color;
 
-        &.flat { border: 0; }
+        &.flat { border-style: none; }
+
+        &:backdrop { border-color: $backdrop_borders_color; }
     }
 
     /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
