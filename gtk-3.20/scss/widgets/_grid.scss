@@ -4,8 +4,14 @@
 
 @include exports("grid") {
     list {
-        background-color: shade($bg_color, .97);
-        color: $fg_color;
+        color: $text_color;
+        background-color: $base_color;
+        border-color: $borders_color;
+
+        &:backdrop {
+            background-color: $backdrop_base_color;
+            border-color: $backdrop_borders_color;
+        }
 
         row {
             &, &.button {
