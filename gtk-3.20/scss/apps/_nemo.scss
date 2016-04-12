@@ -45,7 +45,7 @@
         }
 
         .sidebar .view {
-            -NemoPlacesTreeView-disk-full-bg-color: shade($toolbar_bg_color, .8);
+            -NemoPlacesTreeView-disk-full-bg-color: shade($bg_color, .8);
             -NemoPlacesTreeView-disk-full-fg-color: $selected_bg_color;
             -NemoPlacesTreeView-disk-full-bar-width: 2px;
             -NemoPlacesTreeView-disk-full-bar-radius: 1px;
