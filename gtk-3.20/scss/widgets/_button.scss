@@ -142,7 +142,7 @@
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
         }
 
-        &:checked {
+        &:checked, &:active {
             @include linear-gradient(shade($button_bg, .7), to top);
 
             color: $white;
