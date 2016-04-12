@@ -7,22 +7,15 @@
 
 @include exports("notebook") {
     notebook {
-        padding: 0;
-        border-width: 1px 0 0;
-        border-style: solid;
-        border-color: border_normal($base_color);
-        border-radius: 0;
-        background-color: $base_color;
-        background-image: none;
-        background-clip: border-box;
-        color: $text_color;
-
-        &.frame { border-width: 1px; }
-
         > header {
+            padding: 0;
             margin: 0;
             border-width: 0;
+            border-radius: 0;
+            background-image: none;
+            background-clip: border-box;
             background-color: shade($base_color, .9);
+            color: $text_color;
 
             &.frame {
                 border-color: border_normal($base_color);
@@ -48,7 +41,7 @@
         }
 
         tab {
-            padding: ($spacing + 1px) ($spacing * 2);
+            padding: ($spacing + 1) ($spacing * 2);
             border: 1px solid transparent;
             background-color: transparent;
             background-image: none;
@@ -62,9 +55,8 @@
                 background-color: $base_color;
                 background-image: none;
                 border-color: shade($base_color, .85);
-				label {
-					color: $text_color;
-				}
+
+                label { color: $text_color; }
             }
 
             &.top {
