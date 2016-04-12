@@ -81,11 +81,11 @@ $suffix: if($variant == "dark", "-dark", "");
         transition: background-colot 0.4s linear;
         min-width: 93px;
         min-height: 25px;
-        background-color: #e8eaec;
-        color: #8e969e;
+        background-color: $base_color;
+        color: $text_color;
 
         slider {
-            background-color: #fbfbfb;
+            background-color: mix($text_color, $bg_color, .5);
             transition: all 0.3s linear;
             box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
             border-radius: 2px;
@@ -95,21 +95,21 @@ $suffix: if($variant == "dark", "-dark", "");
             background-color: $selected_bg_color;
             background-image: none;
             border-color: $selected_bg_color;
-            color: $base_color;
+            color: $selected_fg_color;
 
             slider {
-                background-color: $white;
+                background-color: $selected_fg_color;
             }
         }
 
         &:disabled {
-            background-color: #d8d8d8;
+            background-color: mix($bg_color, $base_color, .5);
             background-image: none;
-            border-color: #ccc;
-            color: mix(#444, #f0f0f0, 0.5);
+            /*border-color: #ccc;*/
+            color: mix($text_color, $bg_color, .5);
 
             slider {
-                background-color: #e8eaec;
+                background-color: $bg_color;
             }
         }
     }
