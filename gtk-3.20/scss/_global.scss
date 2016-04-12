@@ -19,8 +19,8 @@ $borders_color: if($variant == 'light', darken($bg_color, 15%), darken($bg_color
 $borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
 
 // dark colors
-$dark_bg_color: #444;
-$dark_fg_color: #eee;
+$dark_bg_color: #%MENU_BG%;
+$dark_fg_color: #%MENU_FG%;
 
 // shadows
 $dark_shadow: #000;
