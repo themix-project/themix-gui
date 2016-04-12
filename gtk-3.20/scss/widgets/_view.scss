@@ -293,9 +293,10 @@
 ************/
 
 @include exports("separator") {
-    view separator, separator {
-        color: shade($bg_color, ($contrast + .1));
-        border: 1px solid currentColor;
+    separator { // vbox and hbox separators
+        background: transparentize(black, .9);
+        min-width: 1px;
+        min-height: 1px;
     }
 }
 
