@@ -192,8 +192,16 @@
                             border-color: $backdrop_base_color;
                         }
 
-                        background-color: $backdrop_base_color;
+                        background-color: mix($backdrop_base_color, $selected_bg_color, .9);
                     }
+                }
+            }
+
+            /* transmission fix. */
+            &:insensitive {
+                &:insensitive {
+                    @include linear-gradient($bg_color);
+                    border-color: border_insensitive($bg_color);
                 }
             }
 
@@ -229,8 +237,6 @@
                     }
                 }
             }
-
-            &:disabled { background-color: $base_color; }
         }
 
         header {

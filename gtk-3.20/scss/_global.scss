@@ -19,8 +19,8 @@ $borders_color: if($variant == 'light', darken($bg_color, 15%), darken($bg_color
 $borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
 
 // dark colors
-$dark_bg_color: #%MENU_BG%;
-$dark_fg_color: #%MENU_FG%;
+$dark_bg_color: #444;
+$dark_fg_color: #eee;
 
 // shadows
 $dark_shadow: #000;
@@ -37,6 +37,14 @@ $scrollbar_bg_color: if($variant == 'light', darken($bg_color, 5%), mix($base_co
 $scrollbar_slider_color: shade($bg_color, .5);
 $scrollbar_slider_hover_color: shade($bg_color, .3);
 $scrollbar_slider_active_color: if($variant == 'light', darken($selected_bg_color, 5%), lighten($selected_bg_color, 10%));
+
+$switch_disabled_bg_color: mix($bg_color, $base_color, .5);
+$switch_disabled_border_color: $bg_color;
+$switch_disabled_fg_color: mix(#444, #f0f0f0, 0.5);
+$switch_disabled_slider_bg_color: $bg_color;
+$switch_bg_color: $base_color;
+$switch_fg_color: $text_color;
+$switch_slider_bg_color: mix($text_color, $bg_color, .5);
 
 // @TODO: replace to xrdb values:
 // misc colors used by gtk+

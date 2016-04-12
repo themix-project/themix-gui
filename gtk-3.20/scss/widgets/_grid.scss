@@ -32,8 +32,10 @@
         }
     }
 
-    .grid-child {
-        &, flowbox & {
+    flowbox {
+        rubberband { @extend rubberband; }
+
+        flowboxchild {
             padding: $spacing;
             border-radius: $roundness;
 

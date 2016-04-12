@@ -73,43 +73,43 @@ $suffix: if($variant == "dark", "-dark", "");
 
 @include exports("switch") {
     switch {
-        border-radius: 3px;
-        padding: 5px;
+        border-radius: $roundness;
+        padding: $spacing;
         border: none;
         outline: none;
         transition: all 0.4s linear;
-        transition: background-colot 0.4s linear;
+        transition: background-color 0.3s linear;
         min-width: 93px;
         min-height: 25px;
-        background-color: $base_color;
-        color: $text_color;
+        background-color: $switch_bg_color;
+        color: $switch_fg_color;
 
         slider {
-            background-color: mix($text_color, $bg_color, .5);
+            background-color: $switch_slider_bg_color;
             transition: all 0.3s linear;
             box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-            border-radius: 2px;
+            border-radius: $roundness;
         }
 
         &:checked {
             background-color: $selected_bg_color;
             background-image: none;
             border-color: $selected_bg_color;
-            color: $selected_fg_color;
+            color: $base_color;
 
             slider {
-                background-color: $selected_fg_color;
+                background-color: $white;
             }
         }
 
         &:disabled {
-            background-color: mix($bg_color, $base_color, .5);
+            background-color: $switch_disabled_bg_color;
             background-image: none;
-            /*border-color: #ccc;*/
-            color: mix($text_color, $bg_color, .5);
+            border-color: $switch_disabled_border_color;
+            color: $switch_disabled_fg_color;
 
             slider {
-                background-color: $bg_color;
+                background-color: $switch_disabled_slider_bg_color;
             }
         }
     }
