@@ -77,7 +77,7 @@
 /*************
  ! Base states
  *************/
-*:selected, .gtkstyle-fallback:selected, .grid-child:selected, flowBox .grid-child:selected, GucharmapChartable:focus, GucharmapChartable:hover, GucharmapChartable:active, GucharmapChartable:selected, .gedit-document-panel-document-row:selected, .gedit-document-panel-document-row:selected:hover, GeditViewFrame .gedit-search-slider .not-found:selected, :focus:selected, flowBox .grid-child:focus:selected, GucharmapChartable:focus, .gedit-document-panel-document-row:focus:selected:hover, GeditViewFrame .gedit-search-slider .not-found:focus:selected {
+*:selected, .gtkstyle-fallback:selected, .grid-child:selected, flowbox .grid-child:selected, GucharmapChartable:focus, GucharmapChartable:hover, GucharmapChartable:active, GucharmapChartable:selected, .gedit-document-panel-document-row:selected, .gedit-document-panel-document-row:selected:hover, GeditViewFrame .gedit-search-slider .not-found:selected, :focus:selected, flowbox .grid-child:focus:selected, GucharmapChartable:focus, .gedit-document-panel-document-row:focus:selected:hover, GeditViewFrame .gedit-search-slider .not-found:focus:selected {
   background-color: #B36A87;
   color: #e6e6e6; }
 
@@ -1209,10 +1209,10 @@ list {
       background-color: #B36A87;
       color: #e6e6e6; }
 
-.grid-child, flowBox .grid-child {
+.grid-child, flowbox .grid-child {
   padding: 3px;
   border-radius: 2px; }
-  .grid-child:selected, flowBox .grid-child:selected {
+  .grid-child:selected, flowbox .grid-child:selected {
     outline-offset: -2px; }
 
 /*********
@@ -2099,86 +2099,79 @@ textview text selection, treeview.view:selected:focus, treeview.view:selected {
 /**********
  ! Notebook
 ***********/
-notebook {
+notebook > header {
   padding: 0;
-  border-width: 1px 0 0;
-  border-style: solid;
-  border-color: #a7aba1;
+  margin: 0;
+  border-width: 0;
   border-radius: 0;
-  background-color: #d0d2cd;
   background-image: none;
   background-clip: border-box;
+  background-color: #bbbeb7;
   color: #000000; }
-  notebook.frame {
-    border-width: 1px; }
-  notebook > header {
-    margin: 0;
-    border-width: 0;
-    background-color: #bbbeb7; }
-    notebook > header.frame {
-      border-color: #a7aba1; }
-      notebook > header.frame.top {
-        border-width: 1px 1px 0; }
-      notebook > header.frame.right {
-        border-width: 1px 1px 1px 0; }
-      notebook > header.frame.bottom {
-        border-width: 0 1px 1px; }
-      notebook > header.frame.left {
-        border-width: 1px 0 1px 1px; }
-    notebook > header tabs arrow {
-      margin: 5px; }
-  notebook viewport {
-    border-width: 0;
+  notebook > header.frame {
+    border-color: #a7aba1; }
+    notebook > header.frame.top {
+      border-width: 1px 1px 0; }
+    notebook > header.frame.right {
+      border-width: 1px 1px 1px 0; }
+    notebook > header.frame.bottom {
+      border-width: 0 1px 1px; }
+    notebook > header.frame.left {
+      border-width: 1px 0 1px 1px; }
+  notebook > header tabs arrow {
+    margin: 5px; }
+notebook viewport {
+  border-width: 0;
+  background-color: #d0d2cd;
+  color: #000000; }
+notebook tab {
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  background-image: none;
+  /* close button styling */ }
+  notebook tab:hover {
+    background-color: #c6c8c2;
+    border-color: #a7aba1; }
+  notebook tab:checked {
     background-color: #d0d2cd;
-    color: #000000; }
-  notebook tab {
-    padding: 4px 6px;
-    border: 1px solid transparent;
-    background-color: transparent;
     background-image: none;
-    /* close button styling */ }
-    notebook tab:hover {
-      background-color: #c6c8c2;
-      border-color: #a7aba1; }
-    notebook tab:checked {
-      background-color: #d0d2cd;
-      background-image: none;
-      border-color: #b1b5ac; }
-      notebook tab:checked label {
-        color: #000000; }
-    notebook tab.top {
-      border-bottom-width: 0;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0; }
-    notebook tab.right {
-      border-left-width: 0;
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0; }
-    notebook tab.bottom {
-      border-top-width: 0;
-      border-top-right-radius: 0;
-      border-top-left-radius: 0; }
-    notebook tab.left {
-      border-right-width: 0;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0; }
-    notebook tab label {
-      color: mix(#000000,#d0d2cd,0.3); }
-  notebook .prelight-page, notebook .prelight-page label {
-    color: mix(#000000,#d0d2cd,0.15); }
-  notebook .active-page, notebook .active-page label {
-    color: #000000; }
-  notebook .reorderable-page:hover {
-    background-color: #b1b5ac;
-    border-left: 0;
-    border-right: 0;
-    /* using box shadows instead of borders due to slanted edges */
-    box-shadow: inset 0 3px rgba(0, 0, 0, 0.03), inset 0 2px rgba(0, 0, 0, 0.03), inset 0 1px rgba(0, 0, 0, 0.03), inset 1px 0 #92978b, inset -1px 0 #92978b; }
-  notebook .reorderable-page:checked {
-    background-color: #bbbeb7;
-    border-left: 0;
-    border-right: 0;
-    box-shadow: inset 0 3px rgba(0, 0, 0, 0.03), inset 0 2px rgba(0, 0, 0, 0.03), inset 0 1px rgba(0, 0, 0, 0.03), inset 1px 0 #9da196, inset -1px 0 #9da196; }
+    border-color: #b1b5ac; }
+    notebook tab:checked label {
+      color: #000000; }
+  notebook tab.top {
+    border-bottom-width: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0; }
+  notebook tab.right {
+    border-left-width: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0; }
+  notebook tab.bottom {
+    border-top-width: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0; }
+  notebook tab.left {
+    border-right-width: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; }
+  notebook tab label {
+    color: mix(#000000,#d0d2cd,0.3); }
+notebook .prelight-page, notebook .prelight-page label {
+  color: mix(#000000,#d0d2cd,0.15); }
+notebook .active-page, notebook .active-page label {
+  color: #000000; }
+notebook .reorderable-page:hover {
+  background-color: #b1b5ac;
+  border-left: 0;
+  border-right: 0;
+  /* using box shadows instead of borders due to slanted edges */
+  box-shadow: inset 0 3px rgba(0, 0, 0, 0.03), inset 0 2px rgba(0, 0, 0, 0.03), inset 0 1px rgba(0, 0, 0, 0.03), inset 1px 0 #92978b, inset -1px 0 #92978b; }
+notebook .reorderable-page:checked {
+  background-color: #bbbeb7;
+  border-left: 0;
+  border-right: 0;
+  box-shadow: inset 0 3px rgba(0, 0, 0, 0.03), inset 0 2px rgba(0, 0, 0, 0.03), inset 0 1px rgba(0, 0, 0, 0.03), inset 1px 0 #9da196, inset -1px 0 #9da196; }
 
 /*********
  ! Buttons
@@ -2788,11 +2781,6 @@ treeview ~ scrollbar.vertical {
   padding-right: 3px; }
 .sidebar .frame, .sidebar frame {
   border-width: 0; }
-.sidebar .sidebar-row {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 1px;
-  padding-right: 1px; }
 .sidebar .sidebar-icon {
   padding-left: 6px;
   padding-right: 6px; }
@@ -2985,6 +2973,7 @@ switch {
   switch:disabled {
     background-color: mix(#A5A8A2,#d0d2cd,0.5);
     background-image: none;
+    /*border-color: #ccc;*/
     color: mix(#000000,#A5A8A2,0.5); }
     switch:disabled slider {
       background-color: #A5A8A2; }
@@ -3113,33 +3102,36 @@ treeview.view {
       color: mix(mix(#0e0021,#A5A8A2,0.5),#cdd0ca,0.7); }
   treeview.view.progressbar {
     color: #d0d2cd;
+    border-radius: 2px;
     border: 1px solid #572d3e;
-    border-radius: 4px;
     background-color: #B36A87;
-    background-image: linear-gradient(to bottom, #B36A87, #9b4f6d);
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px rgba(0, 0, 0, 0.2); }
     treeview.view.progressbar:selected:focus, treeview.view.progressbar:selected {
-      border-radius: 4px;
-      color: #B36A87;
+      color: #e6e6e6;
       box-shadow: none;
-      background-image: linear-gradient(to bottom, #d0d2cd, #b7bab2); }
+      background-color: linear-gradient(to bottom, #d0d2cd, #d0d2cd); }
       treeview.view.progressbar:selected:focus:backdrop, treeview.view.progressbar:selected:backdrop {
         color: #B36A87;
         border-color: #572d3e;
         background-color: #cdd0ca; }
+    treeview.view.progressbar:disabled {
+      background-color: #A5A8A2;
+      background-image: none;
+      border-color: border_disabled(#A5A8A2); }
     treeview.view.progressbar:backdrop {
       color: #cdd0ca;
       background-image: none;
       box-shadow: none; }
   treeview.view.trough {
     background-color: rgba(14, 0, 33, 0.1);
-    border-radius: 4px; }
+    border-radius: 2px; }
     treeview.view.trough:selected:focus, treeview.view.trough:selected {
       background-color: rgba(230, 230, 230, 0.3);
-      border-radius: 4px;
       border-width: 1px 0;
       border-style: solid;
       border-color: #B36A87; }
+    treeview.view.trough:disabled {
+      background-color: #d0d2cd; }
   treeview.view header button {
     color: mix(#0e0021,#d0d2cd,0.5);
     background-color: #d0d2cd;
@@ -3562,6 +3554,20 @@ NautilusQueryEditor toolbar {
     .nemo-pathbar.separator:disabled, .nemo-pathbar .separator:disabled {
       color: #765484; }
 
+/* This block needs to be moved back into the scope of nemo-window
+ * as soon as nemo is updated to include the nemo-window style class.
+ */
+.sidebar .view, .sidebar iconview {
+  -NemoPlacesTreeView-disk-full-bg-color: #848880;
+  -NemoPlacesTreeView-disk-full-fg-color: #B36A87;
+  -NemoPlacesTreeView-disk-full-bar-width: 2px;
+  -NemoPlacesTreeView-disk-full-bar-radius: 1px;
+  -NemoPlacesTreeView-disk-full-bottom-padding: 0px;
+  -NemoPlacesTreeView-disk-full-max-length: 75px; }
+  .sidebar .view:selected, .sidebar iconview:selected {
+    -NemoPlacesTreeView-disk-full-bg-color: #e6e6e6;
+    -NemoPlacesTreeView-disk-full-fg-color: #c690a5; }
+
 .nemo-window toolbar {
   border-width: 0 0 1px;
   border-style: solid;
@@ -3572,16 +3578,6 @@ NautilusQueryEditor toolbar {
   border-top-width: 1px; }
 .nemo-window menubar menuitem {
   margin: 0px; }
-.nemo-window .sidebar .view, .nemo-window .sidebar iconview {
-  -NemoPlacesTreeView-disk-full-bg-color: #848880;
-  -NemoPlacesTreeView-disk-full-fg-color: #B36A87;
-  -NemoPlacesTreeView-disk-full-bar-width: 2px;
-  -NemoPlacesTreeView-disk-full-bar-radius: 1px;
-  -NemoPlacesTreeView-disk-full-bottom-padding: 0px;
-  -NemoPlacesTreeView-disk-full-max-length: 75px; }
-  .nemo-window .sidebar .view:selected, .nemo-window .sidebar iconview:selected {
-    -NemoPlacesTreeView-disk-full-bg-color: #e6e6e6;
-    -NemoPlacesTreeView-disk-full-fg-color: #c690a5; }
 .nemo-window .sidebar frame {
   border: 0; }
 .nemo-window statusbar {
