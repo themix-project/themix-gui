@@ -95,7 +95,7 @@ $suffix: if($variant == "dark", "-dark", "");
             background-color: $selected_bg_color;
             background-image: none;
             border-color: $selected_bg_color;
-            color: $base_color;
+            color: $selected_fg_color;
 
             slider {
                 background-color: $white;
