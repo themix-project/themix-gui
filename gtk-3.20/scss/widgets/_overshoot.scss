@@ -35,10 +35,10 @@
                                   to(alpha($_big_gradient_color, 0)));
 
     @if $type == normal {
-        background-image: $_small_gradient, $_big_gradient;
+        background-image: none;
         background-size: $_small_gradient_size, $_big_gradient_size;
     } @else if $type == backdrop {
-        background-image: $_small_gradient;
+        background-image: none;
         background-size: $_small_gradient_size;
     }
 
@@ -68,9 +68,7 @@
         $_bg_pos: $position center;
     }
 
-    background-image: linear-gradient(to $_gradient_dir, // this is the dashed line
-                                         $_undershoot_color_light 50%,
-                                         $_undershoot_color_dark 50%);
+    background-image: none;
 
     padding-#{$position}: 1px;
     background-size: $_dash_bg_size;
