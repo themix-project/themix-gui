@@ -43,6 +43,11 @@
         }
     }
 
+    /* Ridiculously specific selector until Nemo is updated with new style classes */
+    grid > paned > box > paned > box > notebook {
+        background-color: $base_color;
+    }
+
     .nemo-window {
         toolbar {
             border-width: 0 0 1px;
