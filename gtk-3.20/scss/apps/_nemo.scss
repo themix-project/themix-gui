@@ -27,6 +27,23 @@
         -NemoPathbarButton-border-radius: $roundness;
     }
 
+    /* This block needs to be moved back into the scope of nemo-window
+     * as soon as nemo is updated to include the nemo-window style class.
+     */
+    .sidebar .view {
+        -NemoPlacesTreeView-disk-full-bg-color: shade($bg_color, .8);
+        -NemoPlacesTreeView-disk-full-fg-color: $selected_bg_color;
+        -NemoPlacesTreeView-disk-full-bar-width: 2px;
+        -NemoPlacesTreeView-disk-full-bar-radius: 1px;
+        -NemoPlacesTreeView-disk-full-bottom-padding: 0px;
+        -NemoPlacesTreeView-disk-full-max-length: 75px;
+
+        &:selected {
+            -NemoPlacesTreeView-disk-full-bg-color: $selected_fg_color;
+            -NemoPlacesTreeView-disk-full-fg-color: shade($selected_bg_color, 1.2);
+        }
+    }
+
     .nemo-window {
         toolbar {
             border-width: 0 0 1px;
@@ -42,20 +59,6 @@
 
         menubar menuitem {
             margin: 0px;
-        }
-
-        .sidebar .view {
-            -NemoPlacesTreeView-disk-full-bg-color: shade($bg_color, .8);
-            -NemoPlacesTreeView-disk-full-fg-color: $selected_bg_color;
-            -NemoPlacesTreeView-disk-full-bar-width: 2px;
-            -NemoPlacesTreeView-disk-full-bar-radius: 1px;
-            -NemoPlacesTreeView-disk-full-bottom-padding: 0px;
-            -NemoPlacesTreeView-disk-full-max-length: 75px;
-
-            &:selected {
-                -NemoPlacesTreeView-disk-full-bg-color: $selected_fg_color;
-                -NemoPlacesTreeView-disk-full-fg-color: shade($selected_bg_color, 1.2);
-            }
         }
 
         .sidebar frame {
