@@ -6,7 +6,6 @@
     .nemo-desktop, .nemo-desktop * {
         color: $white;
         text-shadow: 1px 1px $black;
-        background: transparent;
         border: none;
 
         &:active {
@@ -42,6 +41,11 @@
             -NemoPlacesTreeView-disk-full-bg-color: $selected_fg_color;
             -NemoPlacesTreeView-disk-full-fg-color: shade($selected_bg_color, 1.2);
         }
+    }
+
+    /* Ridiculously specific selector until Nemo is updated with new style classes */
+    grid > paned > box > paned > box > notebook {
+        background-color: $base_color;
     }
 
     .nemo-window {
