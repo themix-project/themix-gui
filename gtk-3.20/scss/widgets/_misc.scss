@@ -76,23 +76,16 @@
 
 @include exports("expander") {
     expander {
-        padding: $spacing;
-        outline-offset: 1px;
-        min-width: 8px;
-    }
+        arrow {
+            min-width: 16px;
+            min-height: 16px;
+            -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
 
-    .expander {
-        color: alpha(currentColor, .7);
-        border: alpha(currentColor, .7);
+            &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
 
-        &:hover {
-            color: alpha(currentColor, .8);
-            border-color: alpha(currentColor, .8);
-        }
+            &:hover { color: alpha(currentColor, .8); } //only lightens the arrow
 
-        &:active {
-            color: alpha(currentColor, .9);
-            border-color: alpha(currentColor, .9);
+            &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
         }
     }
 }
