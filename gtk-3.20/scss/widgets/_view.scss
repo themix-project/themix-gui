@@ -27,7 +27,7 @@
         text {
             @extend %view;
 
-            selection { &:focus, & { @extend %selected_items; }}
+            selection { &:focus, & { @extend %selected_items; } }
         }
     }
 
@@ -348,5 +348,32 @@
 
     /* avoid double borders when a viewport is packed into a GtkScrolledWindow */
     scrolledwindow viewport.frame { border: 0; }
+}
+
+
+/***************
+ ! Places view *
+****************/
+
+@include exports("placesview") {
+    placesview {
+        .server-list-button > image {
+            transition: 200ms $ease-out-quad;
+            -gtk-icon-transform: rotate(0turn);
+        }
+
+        .server-list-button:checked > image {
+            transition: 200ms $ease-out-quad;
+            -gtk-icon-transform: rotate(-0.5turn);
+        }
+
+        row.activatable:hover { background-color: transparent; }
+
+        // this selects the "connect to server" label
+        > actionbar > revealer > box > label {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+    }
 }
 

@@ -4,78 +4,151 @@
 
 @include exports("sidebar") {
     .sidebar {
-        &, &.view, .view, view, scrolledwindow {
+        border-style: none;
+        background-color: mix($bg_color, $base_color, .5);
+
+        .view { // .view, nemo sidebar fix.
             background-color: $bg_color;
             color: mix($fg_color, $bg_color, .1);
-
-            &.separator, separator {
-                &, &:hover, &:focus {
-                    border-width: 1px;
-                    border-style: solid;
-                    border-color: shade($bg_color, .9);
-                    color: shade($bg_color, .9);
-                }
-            }
         }
 
-        row, .view row, view row {
-            &:selected {
-                &, &:hover, &:focus {
-                    border: 0;
-                    background-image: none;
-                    background-color: $selected_bg_color;
-                    color: $selected_fg_color;
-                }
-
-                &:hover {
-                    border: 0;
-                    background-image: none;
-                    background-color: shade($selected_bg_color, 1.05);
-                    color: $selected_fg_color;
-                }
-            }
-
-            &:hover {
-                border: 0;
-                background-image: none;
-                background-color: shade($bg_color, 1.05);
-            }
+        @at-root %sidebar_left,
+        &:dir(ltr),
+        &.left,
+        &.left:dir(rtl) {
+            border-right: 1px solid $borders_color;
+            border-left-style: none;
         }
 
-        .sidebar-label {
-            padding-left: $spacing;
-            padding-right: $spacing;
+        @at-root %sidebar_right
+        &:dir(rtl),
+        &.right {
+            border-left: 1px solid $borders_color;
+            border-right-style: none;
+        }
+
+        &:backdrop {
+            background-color: $backdrop_sidebar_bg_color;
+            border-color: $backdrop_borders_color;
+            transition: $backdrop_transition;
         }
 
         .frame, frame { border-width: 0; }
 
-        .sidebar-icon {
-              padding-left: $spacing * 2;
-              padding-right: $spacing * 2;
-        }
+        list { background-color: transparent; }
 
-        assistant & {
-            padding: $spacing;
-            border-width: 0 1px 0 0;
-            border-style: solid;
-            border-right-color: border_normal($bg_color);
-            border-radius: 0;
-            background-color: $bg_color;
-            color: mix($fg_color, $bg_color, .1);
+        paned & { &.left, &.right, &.left:dir(rtl), &:dir(rtl), &:dir(ltr), & { border-style: none; } }
+    }
 
-            &:dir(ltr) { border-width: 0 1px 0 0; }
-
-            &:dir(rtl) { border-width: 0 0 0 1px; }
-
-            label {
-                padding: $spacing ($spacing * 2);
-
-                &.highlight { background-color: mix($bg_color, $fg_color, .8); }
+    stacksidebar {
+        &.sidebar {
+            &:dir(ltr),
+            &.left,
+            &.left:dir(rtl) {
+                list { @extend %sidebar_left; }
             }
 
-            &.csd .sidebar { border-top-style: none; }
+            &:dir(rtl),
+            &.right {
+                list { @extend %sidebar_right; }
+            }
+        }
 
-            .highlight { font: bold; }
+        row {
+            padding: $spacing * 2 $spacing;
+
+            > label {
+                padding-left: $spacing;
+                padding-right: $spacing;
+            }
+
+            &.needs-attention > label {
+                @extend %needs_attention;
+
+                background-size: 6px 6px, 0 0;
+            }
+        }
+    }
+
+    $_placesidebar_icons_opacity: 0.7;
+
+    placessidebar {
+        > viewport.frame { border-style: none; }
+
+        row {
+            // Needs overriding of the GtkListBoxRow padding
+            min-height: 36px;
+            padding: 0px;
+
+            // Using margins/padding directly in the SidebarRow
+            // will make the animation of the new bookmark row jump
+            > revealer { padding: 0 14px; }
+
+            &:selected { color: $selected_fg_color; }
+
+            &:disabled { color: $insensitive_fg_color; }
+
+            &:backdrop {
+                color: $backdrop_fg_color;
+
+                &:selected { color: $backdrop_selected_fg_color; }
+
+                &:disabled { color: $backdrop_insensitive_color; }
+            }
+
+            image.sidebar-icon {
+                opacity: $_placesidebar_icons_opacity; // dim the device icons
+
+                &:dir(ltr) { padding-right: 8px; }
+                &:dir(rtl) { padding-left: 8px; }
+            }
+
+            label.sidebar-label {
+                &:dir(ltr) { padding-right: 2px; }
+                &:dir(rtl) { padding-left: 2px; }
+            }
+
+            @at-root button.sidebar-button {
+                //@extend %button_basic.flat;
+
+                //@extend %button_selected.flat;
+
+                min-height: 26px;
+                min-width: 26px;
+                margin-top: 3px;
+                margin-bottom: 3px;
+                padding: 0;
+                border-radius: 100%;
+                -gtk-outline-radius: 100%;
+
+                &:not(:hover):not(:active),
+                &:backdrop {
+                    > image { opacity: $_placesidebar_icons_opacity; }
+                }
+            }
+
+            // in the sidebar case it makes no sense to click the selected row
+            &:selected:active { box-shadow: none; }
+
+            &.sidebar-placeholder-row {
+                padding: 0 8px;
+                min-height: 2px;
+                background-image: image($drop_target_color);
+                background-clip: content-box;
+            }
+
+            &.sidebar-new-bookmark-row { color: $selected_bg_color; }
+
+            &:drop(active):not(:disabled) {
+                color: $drop_target_color;
+                box-shadow: inset 0 1px $drop_target_color,
+                            inset 0 -1px $drop_target_color;
+
+                &:selected {
+                    color: $selected_fg_color;
+                    background-color: $drop_target_color;
+                }
+            }
         }
     }
 }
