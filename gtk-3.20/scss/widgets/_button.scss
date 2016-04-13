@@ -347,6 +347,12 @@
 
 @include exports("combobox") {
     combobox {
+        arrow {
+            -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+            min-height: 16px;
+            min-width: 16px;
+        }
+
         box button, box entry {
             @extend %linked_button;
             padding: ($spacing - 2px) ($spacing + 1px);
