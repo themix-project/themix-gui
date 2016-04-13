@@ -7,11 +7,6 @@
         border-style: none;
         background-color: mix($bg_color, $base_color, .5);
 
-        .view { // .view, nemo sidebar fix.
-            background-color: $bg_color;
-            color: mix($fg_color, $bg_color, .1);
-        }
-
         @at-root %sidebar_left,
         &:dir(ltr),
         &.left,

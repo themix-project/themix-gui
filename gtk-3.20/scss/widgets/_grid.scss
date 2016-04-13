@@ -13,29 +13,36 @@
             border-color: $backdrop_borders_color;
         }
 
-        row {
-            &, &.button {
-                border: 0;
-                border-radius: 0;
-                padding: $spacing;
-                background-image: none;
-                background-color: alpha($bg_color, 0);
-                box-shadow: none;
+        row { padding: $spacing; }
+    }
 
-                &:hover {
-                    background-image: none;
-                    background-color: shade($bg_color, 1.02);
-                }
+    row {
+        transition: all 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-                &:selected {
-                    &, &:hover, &:focus {
-                        background-image: none;
-                        background-color: $selected_bg_color;
-                        color: $selected_fg_color;
-                    }
-                }
+        &:hover { transition: none; }
+
+        &:backdrop { transition: 200ms ease-out; }
+
+        &.activatable {
+            &.has-open-popup, // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411
+
+            &:hover { background-color: if(variant == light, transparentize($fg_color, .9), transparentize($fg_color, .95)); }
+
+            &:active { box-shadow: inset 0 2px 2px -2px transparentize(black, .8); }
+
+            &:backdrop:hover { background-color: transparent; }
+
+            &:selected {
+                &:active { box-shadow: inset 0 2px 3px -1px transparentize(black, .5); }
+
+                &.has-open-popup,
+                &:hover { background-color: mix($fg_color, $selected_bg_color, .1); }
+
+                &:backdrop { background-color: $selected_bg_color; }
             }
         }
+
+        &:selected { @extend %selected_items; }
     }
 
     flowbox {
