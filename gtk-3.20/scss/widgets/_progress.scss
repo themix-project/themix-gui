@@ -132,7 +132,7 @@
         slider {
             min-height: 15px;
             min-width: 15px;
-            margin: -6px;
+            margin: -7px;
         }
 
         // Click-and-hold the slider to activate
@@ -162,7 +162,7 @@
 
         // Trough
         trough {
-            $_scale_trough_bg: if($variant == 'light', shade($toolbar_bg_color, .8), darken($bg_color, 5%));
+            $_scale_trough_bg: if($variant == 'light', shade($bg_color, .8), darken($bg_color, 5%));
 
             outline-offset: 2px;
             -gtk-outline-radius: 4.5px;
@@ -214,7 +214,7 @@
         }
 
         slider {
-            $_slider_border: if($variant=='light', transparentize(darken($button_border,25%), 0.5), darken($button_border,2%));
+            $_slider_border: if($variant=='light', transparentize(shade($button_border, .25), 0.5), darken($button_border,2%));
 
             background-color: $button_bg;
             border: 1px solid $_slider_border;
