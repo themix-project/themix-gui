@@ -31,6 +31,13 @@ You need to have `python3-gobject` binding and those executables:
  - `gdk-pixbuf-pixdata`
  - `sass`
 
+##### Ubuntu
+
+```
+sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi
+sudo gem install sass
+```
+
 #### GUI
 
 ```sh
