@@ -30,7 +30,7 @@
         &:backdrop {
             background-color: $backdrop_sidebar_bg_color;
             border-color: $backdrop_borders_color;
-            transition: $backdrop_transition;
+            transition: 200ms ease-out;
         }
 
         .frame, frame { border-width: 0; }
