@@ -1,7 +1,7 @@
 ﻿oomox
 =====
 
-## numix fork with color changing script
+## Graphical application for generating different color variations of Numix theme (GTK2, GTK3)
 
 ![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI 1")
 
