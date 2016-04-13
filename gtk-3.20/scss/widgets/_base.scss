@@ -128,5 +128,5 @@ assistant {
 
     .sidebar label { padding: 6px 12px; }
 
-    .sidebar label.highlight { background-color: mix($bg_color, $fg_color, .8); }
+    .sidebar label.highlight { background-color: mix($fg_color, $bg_color, .8); }
 }

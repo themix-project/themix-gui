@@ -91,34 +91,19 @@
 ************************/
 
 @include exports("miscchoosers") {
-    GtkFontButton, filechooserbutton {
-        .separator {
-            /* always disable separators */
-            -GtkWidget-horizontal-separator: 0;
-            -GtkWidget-vertical-separator: 0;
-        }
-
-        label:last-child { color: alpha(currentColor, .7); }
-
-        image:last-child { color: alpha(currentColor, .7); }
-    }
-
     filechooser {
-        .pane-separator {
-            &, &:hover {
-                border-width: 0 1px 0 0;
-                border-style: solid;
-                border-color: currentColor;
-                background-color: $bg_color;
-                color: shade($bg_color, ($contrast + .1));
-            }
-        }
-
         /* for fallback when header bar not used */
         .dialog-action-box {
-            border-width: 1px 0 0;
-            border-style: solid;
-            border-color: shade($bg_color, .7);
+            border-top: 1px solid $borders_color;
+
+            &:backdrop { border-top-color: $backdrop_borders_color; }
         }
+
+        #pathbarbox { border-bottom: 1px solid $bg_color; }
+    }
+
+    filechooserbutton:drop(active) {
+        box-shadow: none;
+        border-color: transparent;
     }
 }
