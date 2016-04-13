@@ -23,8 +23,8 @@ $suffix: if($variant == "dark", "-dark", "");
         &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.png"); }
     }
 
-    &.menuitem {
-        -gtk-icon-source: none;
+    menuitem &, modelbutton & {
+        -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png");
 
         &:disabled { -gtk-icon-source: none; }
 
