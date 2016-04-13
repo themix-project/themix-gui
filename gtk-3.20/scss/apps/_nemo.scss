@@ -55,27 +55,56 @@
             border-color: border_normal($toolbar_bg_color);
         }
 
-        > grid widget:last-child {
-            border-top-style: solid;
-            border-top-color: border_normal($toolbar_bg_color);
-            border-top-width: 1px;
-        }
+        /* Stupid selectors to target statusbar because nemo lacks 3.20 style class */
+        grid {
+            > widget:last-child {
+                button {
+                    min-height: 15px;
+                    min-width: 22px;
+                    margin: 5px;
+                }
+
+                button:first-child {
+                    margin-left: 20px;
+                }
+
+                button:first-child + button {
+                    margin-right: 15px;
+                }
+
+                button:first-child + button + separator + button {
+                    margin-left: 15px;
+                }
+
+                > box > scale {
+                    margin-right: 12px;
+                }
+            }
+        } // END statusbar
 
         menubar menuitem {
             margin: 0px;
         }
 
-        .sidebar frame {
-            border: 0;
+        .sidebar {
+            .frame {
+                border: 0;
+            }
+
+            image {
+                padding-left: $spacing;
+                padding-right: $spacing;
+            }
+
+            .places-sidebar {
+                &, & .view {
+                    background-color: mix($bg_color, $base_color, .5);
+                }
+            }
         }
 
         statusbar {
-            border: none;
-        }
-
-        .sidebar image {
-            padding-left: $spacing;
-            padding-right: $spacing;
+            border: 0;
         }
 
         paned {
