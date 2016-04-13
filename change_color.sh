@@ -14,6 +14,8 @@ PATHLIST=(
 	'./gtk-3.0/'
 	'./gtk-3.20/'
 	'./xfwm4/'
+	'./metacity-1/'
+	'./unity/'
 	'Makefile'
 )
 
