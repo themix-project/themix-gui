@@ -12,7 +12,7 @@ $selected_fg_color: #fff;
 $tooltip_bg_color: #444;
 $tooltip_fg_color: #eee;
 
-$selected_borders_color: if($variant == 'light', darken($selected_bg_color, 30%), darken($selected_bg_color, 20%));
+$selected_borders_color: if($variant == 'light', shade($bg_color, .85), shade($bg_color, .88));
 $borders_color: if($variant == 'light', shade($bg_color, .85), shade($bg_color, .88));
 $borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
 
@@ -75,7 +75,7 @@ $panel_fg_color: $dark_fg_color;
 
 $osd_base: $dark_bg_color;
 $osd_fg: $dark_fg_color;
-$osd_bg: alpha($osd_base, 0.8);
+$osd_bg: alpha($osd_base, .8);
 
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;

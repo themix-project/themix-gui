@@ -260,10 +260,8 @@
             }
         }
 
-        viewport {
-            border-width: 0;
+        stack {
             background-color: $base_color;
-            color: $text_color;
         }
     }
 }
