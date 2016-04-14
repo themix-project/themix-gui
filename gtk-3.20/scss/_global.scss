@@ -40,7 +40,7 @@ $scrollbar_slider_active_color: if($variant == 'light', darken($selected_bg_colo
 
 $switch_disabled_bg_color: mix($bg_color, $base_color, .5);
 $switch_disabled_border_color: $bg_color;
-$switch_disabled_fg_color: mix(#444, #f0f0f0, 0.5);
+$switch_disabled_fg_color: $bg_color;
 $switch_disabled_slider_bg_color: $bg_color;
 $switch_bg_color: mix($bg_color, $base_color, .3);
 $switch_fg_color: $text_color;
