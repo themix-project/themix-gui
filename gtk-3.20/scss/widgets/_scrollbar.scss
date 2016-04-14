@@ -31,9 +31,9 @@
         slider {
             min-width: 7px;
             min-height: 7px;
-            margin: -1px;
+            margin: -2px;
             border: 4px solid transparent;
-            border-radius: 2px;
+            border-radius: $roundness;
             background-clip: padding-box;
             background-color: $scrollbar_slider_color;
 
@@ -75,7 +75,7 @@
                     min-height: 5px;
                     background-color: $fg_color;
                     background-clip: padding-box;
-                    border-radius: 2px;
+                    border-radius: $roundness;
                     border: 1px solid if($variant == 'light', white, black);
                     -gtk-icon-source: none;
                 }
@@ -118,23 +118,20 @@
             min-width: 7px;
             min-height: 7px;
             border-style: none;
-            border-radius: 2px;
+            border-radius: $roundness;
             transition-property: min-height, min-width, color;
 
             color: $scrollbar_slider_color;
 
             &:hover {
-
                 color: $scrollbar_slider_hover_color;
             }
 
             &:active, &:checked {
-
                 color: $scrollbar_slider_active_color;
             }
 
             &:backdrop {
-
                 color: $backdrop_scrollbar_slider_color;
             }
         }
