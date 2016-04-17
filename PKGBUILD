@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=0.14.1
+pkgver=0.14.1.32.gb260ebb
 pkgrel=1
 pkgdesc="Numix fork with color-changing script (GTK2, GTK3)"
 arch=('x86_64' 'i686')
@@ -27,13 +27,13 @@ package() {
 	cat > ${pkgdir}/usr/bin/oomox-gui <<EOF
 #!/bin/sh
 cd /opt/oomox/
-exec ./gui.sh "$@"
+exec ./gui.sh "\$@"
 EOF
 	chmod +x ${pkgdir}/usr/bin/oomox-gui
 	cat > ${pkgdir}/usr/bin/oomox-cli <<EOF
 #!/bin/sh
 cd /opt/oomox/
-exec ./change_color.sh "$@"
+exec ./change_color.sh "\$@"
 EOF
 	chmod +x ${pkgdir}/usr/bin/oomox-cli
 }
