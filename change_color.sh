@@ -4,36 +4,41 @@ set -ue
 SRC_PATH=$(readlink -e $(dirname $0))
 
 
-while [[ $# > 1 ]]
-do
-	case ${1} in
-		-p|--path-list)
-			CUSTOM_PATHLIST="$2"
-			shift
-		;;
-		-o|--output)
-			OUTPUT_THEME_NAME="$2"
-			shift
-		;;
-		*)
-			if [[ ${1} == -* ]] ; then
-				echo "unknown option ${1}"
-				exit 2
-			fi
-		;;
-	esac
-	shift
-done
-
-
-THEME=${1:-}
-if [[ -z "${THEME}" ]] ; then
+print_usage() {
   echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] PRESET_NAME_OR_PATH"
   echo "examples:"
   echo "       $0 monovedek"
   echo "       $0 -o my-theme-name ./colors/retro/twg"
   echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" gnome-noble"
   exit 1
+}
+
+
+while [[ $# > 0 ]]
+do
+	case ${1} in
+		-p|--path-list)
+			CUSTOM_PATHLIST="${2}"
+			shift
+		;;
+		-o|--output)
+			OUTPUT_THEME_NAME="${2}"
+			shift
+		;;
+		*)
+			if [[ "${1}" == -* ]] || [[ ${THEME-} ]]; then
+				echo "unknown option ${1}"
+				print_usage
+				exit 2
+			fi
+			THEME="${1}"
+		;;
+	esac
+	shift
+done
+
+if [[ -z "${THEME:-}" ]] ; then
+	print_usage
 fi
 
 PATHLIST=(
