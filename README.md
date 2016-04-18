@@ -56,6 +56,6 @@ Murrine theme engine
 
 ### Code and license
 
-Report bugs or contribute at [GitHub](https://github.com/shimmerproject/Numix)
+Report bugs or contribute at [GitHub](https://github.com/numixproject/numix-gtk-theme)
 
 License: GPL-3.0+
