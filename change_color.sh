@@ -35,7 +35,6 @@ if [[ -z "${THEME}" ]] ; then
   echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" gnome-noble"
   exit 1
 fi
-OUTPUT_THEME_NAME=${OUTPUT_THEME_NAME-oomox-$THEME}
 
 PATHLIST=(
 	'./openbox-3/'
@@ -58,7 +57,6 @@ for FILEPATH in "${PATHLIST[@]}"; do
 	fi
 done
 
-
 if [[ ${THEME} == /* ]] || [[ ${THEME} == ./* ]] ; then
 	source $THEME
 	THEME=$(basename ${THEME})
@@ -67,9 +65,11 @@ else
 fi
 source $SRC_PATH/current_colors.txt
 
+OUTPUT_THEME_NAME=${OUTPUT_THEME_NAME-oomox-$THEME}
 DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
 
 test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
+
 
 rm -r $DEST_PATH || true
 mkdir -p $DEST_PATH
