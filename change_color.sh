@@ -5,12 +5,12 @@ SRC_PATH=$(readlink -e $(dirname $0))
 
 
 print_usage() {
-  echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] PRESET_NAME_OR_PATH"
-  echo "examples:"
-  echo "       $0 monovedek"
-  echo "       $0 -o my-theme-name ./colors/retro/twg"
-  echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" gnome-noble"
-  exit 1
+	echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] PRESET_NAME_OR_PATH"
+	echo "examples:"
+	echo "       $0 monovedek"
+	echo "       $0 -o my-theme-name ./colors/retro/twg"
+	echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" gnome-noble"
+	exit 1
 }
 
 
