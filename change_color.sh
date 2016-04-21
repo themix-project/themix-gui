@@ -3,10 +3,43 @@
 set -ue
 SRC_PATH=$(readlink -e $(dirname $0))
 
-THEME=${1:-}
-test -z "${THEME}" &&
-  echo "usage: $0 PRESET_NAME [OUTPUT_THEME_NAME]" &&
-  exit 1
+
+print_usage() {
+	echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] PRESET_NAME_OR_PATH"
+	echo "examples:"
+	echo "       $0 monovedek"
+	echo "       $0 -o my-theme-name ./colors/retro/twg"
+	echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" gnome-noble"
+	exit 1
+}
+
+
+while [[ $# > 0 ]]
+do
+	case ${1} in
+		-p|--path-list)
+			CUSTOM_PATHLIST="${2}"
+			shift
+		;;
+		-o|--output)
+			OUTPUT_THEME_NAME="${2}"
+			shift
+		;;
+		*)
+			if [[ "${1}" == -* ]] || [[ ${THEME-} ]]; then
+				echo "unknown option ${1}"
+				print_usage
+				exit 2
+			fi
+			THEME="${1}"
+		;;
+	esac
+	shift
+done
+
+if [[ -z "${THEME:-}" ]] ; then
+	print_usage
+fi
 
 PATHLIST=(
 	'./openbox-3/'
@@ -14,10 +47,22 @@ PATHLIST=(
 	'./gtk-3.0/'
 	'./gtk-3.20/'
 	'./xfwm4/'
+	'./metacity-1/'
+	'./unity/'
 	'Makefile'
 )
+if [ ! -z "${CUSTOM_PATHLIST:-}" ] ; then
+	IFS=', ' read -r -a PATHLIST <<< "${CUSTOM_PATHLIST:-}"
+fi
 
-if [[ ${THEME} == /* ]] ; then
+MAKE_GTK3=0
+for FILEPATH in "${PATHLIST[@]}"; do
+	if [[ ${FILEPATH} == *Makefile* ]] ;then
+		MAKE_GTK3=1
+	fi
+done
+
+if [[ ${THEME} == /* ]] || [[ ${THEME} == ./* ]] ; then
 	source $THEME
 	THEME=$(basename ${THEME})
 else
@@ -25,10 +70,11 @@ else
 fi
 source $SRC_PATH/current_colors.txt
 
-OUTPUT_THEME_NAME=${2-oomox-$THEME}
+OUTPUT_THEME_NAME=${OUTPUT_THEME_NAME-oomox-$THEME}
 DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
 
 test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
+
 
 rm -r $DEST_PATH || true
 mkdir -p $DEST_PATH
@@ -54,6 +100,6 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		{} \; ;
 done
 
-make
+test ${MAKE_GTK3} = 1 && make
 
 exit 0

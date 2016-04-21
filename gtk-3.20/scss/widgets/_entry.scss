@@ -31,7 +31,7 @@
 }
 
 %entry {
-    padding: ($spacing - 1px) $spacing;
+    padding: $spacing;
     border-width: 1px;
     border-style: solid;
     border-radius: $roundness;
@@ -56,7 +56,13 @@
         color: $selected_fg_color;
     }
 
-    &.image.left { padding-right: $spacing; }
+    & image.left { padding-right: $spacing; }
+    & image.right { padding-left: $spacing; }
+
+    selection {
+        background-color: $selected_bg_color;
+        color: $selected_fg_color;
+    }
 }
 
 @mixin entry($bg, $fg) {
@@ -66,7 +72,7 @@
 
     color: $fg;
 
-    &:focus, &:active { border-color: $selected_bg_color; }
+    &:focus, &:active { border-color: border_focus($selected_borders_color); }
 
     &:disabled {
         @include linear-gradient(shade($bg, .9), to top);

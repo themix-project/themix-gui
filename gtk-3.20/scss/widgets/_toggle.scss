@@ -23,8 +23,8 @@ $suffix: if($variant == "dark", "-dark", "");
         &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.svg"); }
     }
 
-    &.menuitem {
-        -gtk-icon-source: none;
+    menuitem &, modelbutton & {
+        -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png");
 
         &:disabled { -gtk-icon-source: none; }
 
@@ -51,12 +51,19 @@ $suffix: if($variant == "dark", "-dark", "");
         @include toggle("radio");
         min-width: 16px;
         min-height: 16px;
+        margin-right: $spacing;
     }
 
     check {
         @include toggle("checkbox");
         min-width: 16px;
         min-height: 16px;
+        margin-right: $spacing;
+    }
+
+    radio:dir(rtl), check:dir(rtl) {
+        margin-right: 0;
+        margin-left: $spacing;
     }
 
     iconview.content-view.cell.check {
@@ -73,22 +80,21 @@ $suffix: if($variant == "dark", "-dark", "");
 
 @include exports("switch") {
     switch {
-        border-radius: 3px;
-        padding: 5px;
+        border-radius: $roundness;
+        padding: $spacing;
         border: none;
         outline: none;
-        transition: all 0.4s linear;
-        transition: background-colot 0.4s linear;
+        transition: background-color 0.3s linear;
         min-width: 93px;
         min-height: 25px;
-        background-color: $base_color;
-        color: $text_color;
+        background-color: $switch_bg_color;
+        color: $switch_fg_color;
 
         slider {
-            background-color: mix($text_color, $bg_color, .5);
-            transition: all 0.3s linear;
+            background-color: $switch_slider_bg_color;
+            transition: all 0.3s ease-in;
             box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-            border-radius: 2px;
+            border-radius: $roundness;
         }
 
         &:checked {
@@ -98,17 +104,18 @@ $suffix: if($variant == "dark", "-dark", "");
             color: $selected_fg_color;
 
             slider {
-                background-color: $selected_fg_color;
+                background-color: $white;
             }
         }
 
         &:disabled {
-            background-color: mix($bg_color, $base_color, .5);
+            background-color: $switch_disabled_bg_color;
             background-image: none;
-            color: mix($text_color, $bg_color, .5);
+            border-color: $switch_disabled_border_color;
+            color: $switch_disabled_fg_color;
 
             slider {
-                background-color: $bg_color;
+                background-color: $switch_disabled_slider_bg_color;
             }
         }
     }

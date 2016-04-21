@@ -12,3 +12,8 @@ dist
 
 # python stuff
 __pycache__
+
+# pkgbuild
+oomox/
+src/
+pkg/

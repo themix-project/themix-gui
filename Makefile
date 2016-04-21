@@ -9,15 +9,21 @@ SCSS_DIR320=$(RES_DIR320)/scss
 DIST_DIR320=$(RES_DIR320)/dist
 INSTALL_DIR=$(DESTDIR)/usr/share/themes/Numix
 
+gtk3: clean gresource_gtk3
+gtk320: clean gresource_gtk320
 all: clean gresource
 
-css:
+css_gtk3:
 	$(SASS) --update $(SASSFLAGS) $(SCSS_DIR):$(DIST_DIR)
+css_gtk320:
 	$(SASS) --update $(SASSFLAGS) $(SCSS_DIR320):$(DIST_DIR320)
+css: css_gtk3 css_gtk320
 
-gresource: css
+gresource_gtk3: css_gtk3
 	$(GLIB_COMPILE_RESOURCES) --sourcedir=$(RES_DIR) $(RES_DIR)/gtk.gresource.xml
+gresource_gtk320: css_gtk320
 	$(GLIB_COMPILE_RESOURCES) --sourcedir=$(RES_DIR320) $(RES_DIR320)/gtk.gresource.xml
+gresource: gresource_gtk3 gresource_gtk320
 
 watch: clean
 	while true; do \

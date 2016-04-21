@@ -1,5 +1,6 @@
 import os
 import random
+import subprocess
 from gi.repository import Gdk, Gtk, Gio
 
 
@@ -13,6 +14,19 @@ user_theme_dir = os.path.join(
     "oomox/"
 )
 colors_dir = os.path.join(theme_dir, "colors/")
+
+THEME_KEYS = [
+    'BG',
+    'FG',
+    'MENU_BG',
+    'MENU_FG',
+    'SEL_BG',
+    'SEL_FG',
+    'TXT_BG',
+    'TXT_FG',
+    'BTN_BG',
+    'BTN_FG',
+]
 
 
 def mkdir_p(dir):
@@ -50,23 +64,60 @@ def convert_theme_color_to_gdk(theme_color):
     return gdk_color
 
 
+def resolve_color_links(colorscheme):
+    # @TODO: remove it
+    for key, value in colorscheme.items():
+        if value.startswith("$"):
+            try:
+                colorscheme[key] = colorscheme[value.lstrip("$")]
+            except KeyError:
+                colorscheme[key] = "ff3333"
+    return colorscheme
+
+
+def bash_preprocess(preset_path):
+    colorscheme = {"NOGUI": True}
+    process = subprocess.run(
+        [
+            "bash", "-c",
+            "source " + preset_path + " ; " +
+            "".join("echo ${} ;".format(key) for key in THEME_KEYS)
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+    if process.stderr:
+        raise(Exception(
+            "Pre-processing failed:\nstdout:\n{}\nstderr:\n{}".format(
+                process.stdout, process.stderr
+            )))
+
+    lines = process.stdout.decode("UTF-8").split()
+    i = 0
+    for key in THEME_KEYS:
+        colorscheme[key] = lines[i]
+        i += 1
+
+    return colorscheme
+
+
 def read_colorscheme_from_path(preset_path):
+    # @TODO: remove legacy stuff
     colorscheme = {}
     with open(preset_path) as f:
         for line in f.readlines():
             parsed_line = line.strip().split('=')
             # migration workaround:
             try:
-                if not (
-                    parsed_line[0].startswith("#") or parsed_line[0] == "NAME"
-                ):
+                if not parsed_line[0].startswith("#"):
                     colorscheme[parsed_line[0]] = parsed_line[1]
             except IndexError:
                 pass
     # migration workaround #2:
-    for key, value in colorscheme.items():
-        if value.startswith("$"):
-            colorscheme[key] = colorscheme[value.lstrip("$")]
+    if 'NOGUI' in colorscheme:
+        colorscheme = bash_preprocess(preset_path)
+    else:
+        colorscheme = resolve_color_links(colorscheme)
     return colorscheme
 
 
@@ -78,8 +129,8 @@ def save_colorscheme(preset_name, colorscheme):
     path = os.path.join(user_theme_dir, preset_name)
     with open(path, 'w') as f:
         f.write("NAME={}\n".format(preset_name))
-        for key, value in colorscheme.items():
-            f.write("{}={}\n".format(key, value))
+        for key in THEME_KEYS:
+            f.write("{}={}\n".format(key, colorscheme[key]))
     return path
 
 

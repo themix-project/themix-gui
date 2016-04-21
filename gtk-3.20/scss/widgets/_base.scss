@@ -113,11 +113,6 @@ label {
     }
 }
 
-.dim-label {
-    opacity: 0.55;
-    text-shadow: none;
-}
-
 assistant {
     .sidebar {
         background-color: $base_color;
@@ -133,5 +128,5 @@ assistant {
 
     .sidebar label { padding: 6px 12px; }
 
-    .sidebar label.highlight { background-color: mix($bg_color, $fg_color, .8); }
+    .sidebar label.highlight { background-color: mix($fg_color, $bg_color, .8); }
 }

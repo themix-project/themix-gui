@@ -18,16 +18,16 @@
 
         border: 0;
         border-radius: $roundness $roundness 0 0;
-
+        background-color: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
         /* this is used for the resize cursor area */
         margin: $spacing * 3;
 
         &.tiled { border-radius: 0; }
 
         &.solid-csd {
-            border-radius: 0;
+            border-radius: $roundness $roundness 0 0;
             margin: 1px;
-            background-color: $bg_color;
+            background-color: mix(shade($titlebar_bg_color, 0.7), $titlebar_fg_color, 0.21);
             box-shadow: none;
         }
 

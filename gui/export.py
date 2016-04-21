@@ -65,7 +65,7 @@ class ExportDialog(Gtk.Dialog):
         self.show_all()
 
 
-def export_theme(window, theme_name):
+def export_theme(window, theme_path):
     spinner = ExportDialog(window)
 
     captured_log = ""
@@ -85,7 +85,7 @@ def export_theme(window, theme_name):
             [
                 "bash",
                 os.path.join(theme_dir, "change_color.sh"),
-                theme_name
+                theme_path
             ],
             stdout=subprocess.PIPE
         )
