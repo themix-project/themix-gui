@@ -84,8 +84,8 @@ $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;
 
 $wm_bg: $titlebar_bg_color;
-$wm_border_focused: if($variant=='light', transparentize($black, .5), transparentize($borders_color, .1));
-$wm_border_unfocused: if($variant=='light', transparentize($black, .55), transparentize($borders_color, .1));
+$wm_border_focused: if($variant == 'light', transparentize($black, .5), transparentize($borders_color, .1));
+$wm_border_unfocused: if($variant == 'light', transparentize($black, .55), transparentize($borders_color, .1));
 $wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
 $wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
 $wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
