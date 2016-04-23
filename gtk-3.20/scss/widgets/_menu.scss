@@ -198,23 +198,20 @@
 **********/
 
 @include exports("popover") {
-    popover {
-        @include border($menu_bg_color);
+    popover.background {
         margin: 10px;
         padding: $spacing;
         border-radius: $roundness;
-        border-width: 1px;
-        border-style: solid;
         background-clip: border-box;
         background-color: $menu_bg_color;
         background-image: none;
         color: $menu_fg_color;
         box-shadow: 0 3px 6px alpha($black, .16);
 
-        &.background {
-            background-image: none;
-            background-color: $menu_bg_color;
-            color: $menu_fg_color;
+        .csd &, & {
+            @include border($menu_bg_color);
+            border-width: 1px;
+            border-style: solid;
         }
 
         &:backdrop { box-shadow: none; }
@@ -274,7 +271,10 @@
 
         button { @include button($menu_bg_color, $menu_fg_color);  }
 
-        > list, > view, > toolbar { background-color: transparent; }
+        > list, > .view, > toolbar {
+            border-style: none;
+            background-color: transparent;
+        }
     }
 
     modelbutton {
