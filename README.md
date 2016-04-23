@@ -1,6 +1,7 @@
 ## Numix
-###### A modern flat theme with a combination of light and dark elements. It supports Gnome, Unity, XFCE and Openbox.
-##### [![Numix Project](https://dl.dropboxusercontent.com/u/60521097/numix.jpg) &nbsp;The Numix Project](http://numixproject.org)
+##### A modern flat theme with a combination of light and dark elements. It supports Gnome, Unity, XFCE and Openbox.
+#### Part of: 
+##### [![The Numix Project](https://dl.dropboxusercontent.com/u/60521097/numix.jpg)](http://numixproject.org) [The Numix Project](http://numixproject.org)
 
 ### Manual installation
 
