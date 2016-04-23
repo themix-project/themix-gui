@@ -18,9 +18,6 @@ These are just guidelines, not rules, use your best judgment and feel free to pr
 
 [Style Guides](#styleguides)
   * [Git Commit Messages](#git-commit-messages)
-  * [CoffeeScript Styleguide](#coffeescript-styleguide)
-  * [Specs Styleguide](#specs-styleguide)
-  * [Documentation Styleguide](#documentation-styleguide)
 
 [Additional Notes](#additional-notes)
   * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
@@ -43,7 +40,7 @@ Before creating bug reports, please check [this list](#before-submitting-a-bug-r
 
 #### Before Submitting A Bug Report
 
-* **Most importantly, check to see if you can reproduce the problem while using the latest version of the product/project from its [`master` branch](https://github.com/numixproject/numix-gtk-theme/tree/master).
+* **Most importantly**, check to see if you can reproduce the problem while using the latest version of the product/project from its [`master` branch](https://github.com/numixproject/numix-gtk-theme/tree/master).
 * **Perform a [cursory search](https://github.com/issues?q=+is%3Aissue+user%3Anumixproject)** to see if the problem has already been reported. If it has, add a *thumbs up* reaction to the existing issue instead of opening a new one. Only add comments to issues when you have new information to provide that is relevant to the issue.
 
 #### How Do I Submit A (Good) Bug Report?
