@@ -23,8 +23,8 @@
         // this needs to be transparent
         // see bug #722563
         // server-side decorations as used by mutter
-        //.ssd & { box-shadow: 0 0 0 1px $wm_border_focused; } //just doing borders, wm draws actual shadows
-        .ssd & { box-shadow: 0 0 0 1px transparent; } //just doing borders, wm draws actual shadows
+        // Fixed gtk-3.18 Unity bug (https://github.com/numixproject/numix-gtk-theme/issues/270)
+        .ssd & { box-shadow: 0 0 0 1px $wm_border_focused; } //just doing borders, wm draws actual shadows
 
         .solid-csd & {
             border-radius: 0;
