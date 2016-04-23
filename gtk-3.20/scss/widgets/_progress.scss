@@ -56,16 +56,18 @@
     }
 
     levelbar {
-        min-width: 34px;
-        min-height: 3px;
+        block {
+            min-width: 34px;
+            min-height: 3px;
+        }
 
-        &.vertical {
+        &.vertical block {
             min-width: 3px;
             min-height: 34px;
         }
-    }
 
-    levelbar {
+        &:backdrop { transition: 200ms ease-out; }
+
         trough {
             @include linear-gradient(shade($bg_color, 1.08), to top);
 
@@ -73,13 +75,18 @@
             border-radius: $roundness;
         }
 
-        &.discrete {
-            &.horizontal { margin-right: 1px; }
+        &.horizontal.discrete { margin-right: 1px; }
 
-            &.vertical { margin-bottom: 1px; }
+        &.vertical.discrete { margin-bottom: 1px; }
+
+        block:not(.empty) {
+            @include linear-gradient($selected_bg_color);
+
+            border-color: transparent;
+            border-radius: 0;
         }
 
-        block.filled {
+        block {
             @include linear-gradient($selected_bg_color);
 
             // FIXME: it would be nice to set make fill blocks bigger, but we'd need
@@ -87,17 +94,22 @@
             border-color: transparent;
             border-radius: 0;
 
-            &.level-high {
-                background-color: $success_color;
-                border-color: transparent;
-            }
-
-            &.level-low {
+            &.low {
                 background-color: $warning_color;
                 border-color: transparent;
             }
 
-            &.empty-fill-block {
+            &.high {
+                background-color: $selected_bg_color;
+                border-color: transparent;
+            }
+
+            &.full {
+                background-color: $success_color;
+                border-color: transparent;
+            }
+
+            &.empty {
                 background-color: transparent;
                 border-color: transparent;
                 box-shadow: none;
