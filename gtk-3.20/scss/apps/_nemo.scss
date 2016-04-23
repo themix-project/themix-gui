@@ -108,16 +108,6 @@
             border: 0;
         }
 
-        paned {
-            border-width: 0 1px 0 0;
-            border-style: solid;
-
-            &, &:hover {
-                border-color: shade($bg_color, ($contrast + .1));
-                background-color: $bg_color;
-            }
-        }
-
         notebook {
             border-width: 0;
 
