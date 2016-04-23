@@ -31,9 +31,11 @@
             border-radius: 0;
             margin: 1px;
             background-color: $bg_color;
-            box-shadow: inset 0 0 0 3px $headerbar_color, inset 0 1px $top_hilight;
+            // Unity/compiz regression: Issue: https://github.com/numixproject/numix-gtk-theme/issues/206
+            box-shadow: none;
+            //box-shadow: inset 0 0 0 3px $headerbar_color, inset 0 1px $top_hilight;
 
-            &:backdrop { box-shadow: inset 0 0 0 3px $backdrop_bg_color, inset 0 1px $top_hilight; }
+            //&:backdrop { box-shadow: inset 0 0 0 3px $backdrop_bg_color, inset 0 1px $top_hilight; }
         }
 
         .csd.popup & {
