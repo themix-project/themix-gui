@@ -71,6 +71,7 @@
     @include border($bg);
 
     color: $fg;
+    caret-color: $fg;
 
     &:focus, &:active { border-color: border_focus($borders_color); }
 
