@@ -6,37 +6,11 @@
 ***************/
 
 @include exports("actionbar") {
-    actionbar {
-        @include linear-gradient($bg_color);
-
+    actionbar > revealer > box {
         padding: $spacing;
-        border-width: 1px 0 0;
-        border-style: solid;
-        border-color: border_normal($bg_color);
-        color: $fg_color;
+        border-top: 1px solid $borders_color;
 
-        .button {
-            &.text-button { padding: $spacing - 1px; }
-
-            &.image-button { padding: $spacing + 1px; }
-        }
-
-        .title {
-            font: bold;
-            padding: 0 ($spacing * 2);
-        }
-
-        .subtitle {
-            font: smaller;
-            padding: 0 ($spacing * 2);
-        }
-
-        > revealer >  box {
-            padding: 6px;
-            border-top: 1px solid $borders_color;
-
-            &:backdrop { border-color: $backdrop_borders_color; }
-        }
+        &:backdrop { border-color: $backdrop_borders_color; }
     }
 }
 
