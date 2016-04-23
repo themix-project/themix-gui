@@ -158,6 +158,8 @@
         }
     }
 
+    .context-menu { font: initial; }
+
     menuitem {
         accelerator {
             color: alpha($menu_fg_color, .6);
