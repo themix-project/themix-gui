@@ -1,6 +1,6 @@
-Numix is a modern flat theme with a combination of light and dark elements. It supports Gnome, Unity, XFCE and Openbox.
-
-Numix is a part of the [Numix Project](http://numixproject.org).
+## Numix
+###### A modern flat theme with a combination of light and dark elements. It supports Gnome, Unity, XFCE and Openbox.
+##### [![Numix Project](https://dl.dropboxusercontent.com/u/60521097/numix.jpg) &nbsp;The Numix Project](http://numixproject.org)
 
 ### Manual installation
 
@@ -36,8 +36,10 @@ xfconf-query -c xsettings -p /Net/ThemeName -s "Numix"
 xfconf-query -c xfwm4 -p /general/theme -s "Numix"
 ```
 
-### For developers
+### For contributors
+Start by reviewing the [guidelines for contributing](https://github.com/numixproject/numix-gtk-theme/blob/master/.github/CONTRIBUTING.md).
 
+#### For developers
 If you want to hack on the theme, make sure you have the `inotifywait` command available, which is used for watching and automatically building the files.
 
 To start watching for changes, run the following,
