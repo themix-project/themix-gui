@@ -31,9 +31,6 @@ $white: #fff;
 $button_border: shade($base_color, .9);
 $entry_border: alpha($dark_shadow, .06);
 
-$top_hilight: $borders_edge;
-$headerbar_color: if($variant == 'light', lighten($bg_color, 5%), darken($bg_color, 3%));
-
 $scrollbar_bg_color: if($variant == 'light', darken($bg_color, 5%), mix($base_color, $bg_color, .4));
 $scrollbar_slider_color: shade($bg_color, .5);
 $scrollbar_slider_hover_color: shade($bg_color, .3);
@@ -84,8 +81,8 @@ $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;
 
 $wm_bg: $titlebar_bg_color;
-$wm_border_focused: if($variant == 'light', transparentize($black, .5), transparentize($borders_color, .1));
-$wm_border_unfocused: if($variant == 'light', transparentize($black, .55), transparentize($borders_color, .1));
+$wm_border_focused: transparent;
+$wm_border_unfocused: transparent;
 $wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
 $wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
 $wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
