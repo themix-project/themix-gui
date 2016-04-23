@@ -4,6 +4,8 @@
 
 @include exports("window") {
     decoration {
+        $_wm_border: if($variant == 'light', transparentize($black, .77), transparentize($borders_color, .1));
+
         border-radius: $roundness $roundness 0 0;
         // lamefun trick to get rounded borders regardless of CSD use
         border-width: 0;
@@ -38,7 +40,7 @@
 
         .csd.popup & {
             border-radius: 0;
-            box-shadow: 0 1px 2px transparentize($black, .8), 0 0 0 1px transparentize($wm_border_focused, .1);
+            box-shadow: 0 1px 2px transparentize($black, .8), 0 0 0 1px transparentize($_wm_border, .1);
         }
 
         tooltip.csd & {
@@ -48,7 +50,7 @@
 
         messagedialog.csd & {
             border-radius: $roundness;
-            box-shadow: 0 1px 2px transparentize($black, .8), 0 0 0 1px transparentize($wm_border_focused, .1);
+            box-shadow: 0 1px 2px transparentize($black, .8), 0 0 0 1px transparentize($_wm_border, .1);
         }
     }
 }
