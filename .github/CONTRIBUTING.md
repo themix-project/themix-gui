@@ -51,7 +51,7 @@ Explain the problem and include additional details to help maintainers reproduce
 
 * **Use a clear and descriptive title** for the issue to identify the problem. The **preferred format for issue titles** is:
   * `General Scope :: Specialized Scope :: One-sentence description of the issue`
-  * Eg. `GTK 3.20 :: Nautilus :: Active tab is not easily distinguishable from other tabs`
+    * Example: `GTK 3.20 :: Nautilus :: Active tab is not easily distinguishable from other tabs`
 * **Describe the exact steps which reproduce the problem** in as many details as possible.
 * **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
 * **Explain which behavior you expected to see instead and why.**
@@ -77,7 +77,7 @@ When you create a new issue, you will see that a structured template has been pr
 
 This section guides you through submitting an enhancement suggestion for a Numix product/project, including completely new features/designs and minor improvements to existing features/designs. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
 
-Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Please try not to deviate away from the predefined issue template's format as doing so will delay the review of your issue.
+Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Try not to deviate away from the predefined issue template's format as doing so will delay the review of your issue.
 
 #### Before Submitting An Enhancement Suggestion
 
@@ -89,7 +89,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 
 * **Use a clear and descriptive title** for the issue to identify the problem. The **preferred format for issue titles** is:
   * `General Scope :: Specialized Scope :: One-sentence description of the suggested enhancement`
-  * Eg. `MATE Desktop :: Panel :: Add support for MATE Panel`
+    * Example: `MATE Desktop :: Panel :: Add support for MATE Panel`
 * **Provide a detailed description of the suggested enhancement**.
 * **Include screenshots and, where applicable, animated GIFs** which help you demonstrate the current vs. desired results or to point out the part of the product/project to which the suggestion relates. You can use [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) to create animated GIFs on Linux.
 * **Explain why this enhancement is needed**.
@@ -104,8 +104,8 @@ When you create a new issue, you will see that a structured template has been pr
 
 Unsure where to begin contributing to Numix? You can start by looking through these `beginner` and `help-wanted` issues:
 
-* [Beginner issues][beginner] - issues which should only require a few lines of code.
-* [Help wanted issues][help-wanted] - issues which should be a bit more involved than `beginner` issues.
+* [Beginner issues][beginner] - issues that should only require a few lines of code.
+* [Help welcomed issues][help-welcomed] - issues that should be a bit more involved than `beginner` issues.
 
 Both issue lists are sorted by total number of *thumbs up* reactions which is a reasonable proxy for the impact a given change will have.
 
@@ -139,11 +139,11 @@ To help you find issues and pull requests, each label is listed with search link
 
 The labels are loosely grouped by their purpose, but it's not required that every issue have a label from every group nor that an issue can't have more than one label from the same group.
 
-Please open an issue on `numixproject/numix-gtk-theme` if you have suggestions for new labels, and if you notice some labels are missing on some repositories, then please open an issue on that repository.
+Please open an issue on numixproject/numix-gtk-theme if you have suggestions for new labels, and if you notice some labels are missing on some repositories, then please open an issue on that repository.
 
 #### Type of Issue and Issue State
 
-| Label name               | `numixproject/numix-gtk-theme` :mag_right:                         | `numixproject`‑org :mag_right:                                 | Description                                                                                                                                   |
+| Label name               | `numix-gtk-theme` :mag_right:                         | `numixproject`‑org :mag_right:                                 | Description                                                                                                                                   |
 | ---                      | ---                                                                | ---                                                            | ---                                                                                                                                           |
 | `enhancement`            | [search][search-numix-gtk-theme-repo-label-enhancement]            | [search][search-numixproject-org-label-enhancement]            | Feature requests.                                                                                                                             |
 | `bug`                    | [search][search-numix-gtk-theme-repo-label-bug]                    | [search][search-numixproject-org-label-bug]                    | Confirmed bugs or reports that are very likely to be bugs.                                                                                    |
@@ -157,7 +157,7 @@ Please open an issue on `numixproject/numix-gtk-theme` if you have suggestions f
 
 #### Topic Categories
 
-| Label name        | `numixproject/numix-gtk-theme` :mag_right:                  | `numixproject`‑org :mag_right:                          | Description                 |
+| Label name        | `numix-gtk-theme` :mag_right:                  | `numixproject`‑org :mag_right:                          | Description                 |
 | ---               | ---                                                         | ---                                                     | ---                         |
 | `GTK`             | [search][search-numix-gtk-theme-repo-label-gtk]             | [search][search-numixproject-org-label-gtk]             | Related to GTK.             |
 | `KDE`             | [search][search-numix-gtk-theme-repo-label-kde]             | [search][search-numixproject-org-label-kde]             | Related to KDE.             |
@@ -175,7 +175,7 @@ Please open an issue on `numixproject/numix-gtk-theme` if you have suggestions f
 
 #### Pull Request Labels
 
-| Label name         | `numixproject/numix-gtk-theme` :mag_right:                   | `numixproject`‑org :mag_right:                           | Description
+| Label name         | `numix-gtk-theme` :mag_right:                   | `numixproject`‑org :mag_right:                           | Description
 | ---                | ---                                                          | ---                                                      | ---                                                                                                                   |
 | `work-in-progress` | [search][search-numix-gtk-theme-repo-label-work-in-progress] | [search][search-numixproject-org-label-work-in-progress] | Pull requests which are still being worked on, more changes will follow.                                              |
 | `needs-review`     | [search][search-numix-gtk-theme-repo-label-needs-review]     | [search][search-numixproject-org-label-needs-review]     | Pull requests which need code review, and approval from maintainers or Numix Project core team.                       |
