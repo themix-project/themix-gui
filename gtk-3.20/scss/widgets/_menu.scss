@@ -114,7 +114,7 @@
             }
 
             calendar {
-                &:inconsistent { color: mix($menu_fg_color, $menu_bg_color, .5); }
+                &:indeterminate { color: mix($menu_fg_color, $menu_bg_color, .5); }
 
                 .button {
                     border-style: none;
