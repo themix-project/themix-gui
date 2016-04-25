@@ -182,7 +182,7 @@
                         box-shadow: inset 0 1px transparentize(white, .95);
                     }
 
-                    background-color: linear-gradient(to bottom, $base_color, darken($base_color, .1));
+                    @include linear-gradient($selected_bg_color);
 
                     &:backdrop {
                         @if $variant == 'light' {
@@ -197,17 +197,9 @@
                 }
             }
 
-            /* transmission fix. */
-            &:insensitive {
-                &:insensitive {
-                    @include linear-gradient($bg_color);
-                    border-color: border_insensitive($bg_color);
-                }
-            }
-
             &:disabled {
                 @include linear-gradient($bg_color);
-                border-color: border_disabled($bg_color);
+                border-color: border_insensitive($bg_color);
             }
 
             &:backdrop {
