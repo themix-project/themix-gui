@@ -62,7 +62,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 	fi
 done
 
-if [[ ${THEME} == /* ]] || [[ ${THEME} == ./* ]] ; then
+if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
 	source $THEME
 	THEME=$(basename ${THEME})
 else
