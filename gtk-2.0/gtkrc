@@ -168,8 +168,8 @@ style "murrine-thin" {
 # Notebook
 
 style "clearlooks-notebook-bg" {
-	bg[NORMAL] = @base_color
-	bg[ACTIVE] = shade (0.87, @base_color)
+	bg[NORMAL] = @bg_color
+	bg[ACTIVE] = shade (0.80, @bg_color)
 }
 
 style "clearlooks-notebook" = "clearlooks-notebook-bg" {
