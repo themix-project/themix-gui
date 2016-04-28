@@ -30,12 +30,55 @@
         > header {
             padding: 0;
             margin: 0;
-            border-width: 0;
+            border-width: 1px;
             border-radius: 0;
+            border-color: $borders_color;
             background-image: none;
             background-clip: border-box;
             background-color: shade($base_color, .9);
             color: $text_color;
+
+            tabs { margin: -1px; }
+
+            &.top {
+                border-bottom-style: solid;
+
+                tabs {
+                    margin-top: 0;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+
+            &.right {
+                border-left-style: solid;
+
+                tabs {
+                    margin-right: 0;
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+            }
+
+            &.bottom {
+                border-top-style: solid;
+
+                tabs {
+                    margin-bottom: 0;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+
+            &.left {
+                border-right-style: solid;
+
+                tabs {
+                    margin-left: 0;
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+            }
 
             &.top > tabs > arrow {
                 @extend %notebook_vert_arrows;
@@ -50,8 +93,8 @@
             }
 
             @at-root %notebook_vert_arrows {
-                margin-left: -5px;
-                margin-right: -5px;
+                margin-left: 0;
+                margin-right: 0;
                 padding-left: 4px;
                 padding-right: 4px;
 
@@ -73,8 +116,8 @@
             }
 
             @at-root %notebook_horz_arrows {
-                margin-top: -5px;
-                margin-bottom: -5px;
+                margin-top: 0;
+                margin-bottom: 0;
                 padding-top: 4px;
                 padding-bottom: 4px;
 
@@ -103,9 +146,8 @@
             tab {
                 padding: ($spacing + 1) 0 0; // top | left/right | bottom
                 border-style: solid;
-                border-color: shade($bg_color, .8);
-                border-width: 0px;
-                background-color: mix($bg_color, $base_color, .6);
+                border-width: 1px;         // for reorderable tabs
+                border-color: transparent; //
                 background-image: none;
                 box-shadow: none;
                 outline: none;
@@ -124,11 +166,13 @@
                     border-width: 2px;
                     border-style: solid;
                     border-color: transparent;
-                    transition: border-bottom-color .3s ease-out;
+                    transition: border-color .3s ease-out;
                 }
 
                 &:hover {
                     background-color: shade($base_color, .93);
+                    border-color: transparent;
+                    outline: none;
 
                     button, button:hover {
                         opacity: 1;
@@ -165,16 +209,26 @@
             &.top tab {
                 padding: ($spacing + 1) 0 0; // top | left/right | bottom
                 border-style: solid;
-                border-color: shade($bg_color, .8);
-                border-width: 0px;
+                border-color: $borders_color;
+                border-width: 0;
                 border-bottom-width: 1px;
+                transition: border-bottom-color .3s ease-out;
 
                 > box, > label {
                     padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
                 }
 
+                &:hover {
+                    border-bottom-color: shade($base_color, .65);
+                    outline: none;
+
+                    > box, > label {
+                        border-bottom-color: shade($base_color, .65);
+                    }
+                }
+
                 &:checked {
-                    border-bottom-color: transparent;
+                    border-bottom-color: $selected_bg_color;
                     outline: none;
 
                     > box, > label {
@@ -182,7 +236,7 @@
                     }
 
                     label {
-                        margin-bottom: -1px;
+                        margin-bottom: 0;
                         color: $selected_bg_color;
                     }
 
@@ -195,44 +249,79 @@
             &.right tab {
                 padding: 0 ($spacing + 1) 0 0; // top | right | bottom | left
                 border-style: solid;
-                border-color: shade($bg_color, .8);
-                border-width: 0px;
+                border-color: $borders_color;
+                border-width: 0;
                 border-left-width: 1px;
+                transition: border-left-color .3s ease-out;
 
                 > box, > label {
                     padding: ($spacing + 1) ($spacing * 3); // top | right | bottom | left
                 }
 
-                &:checked {
-                    border-left-color: transparent;
+                &:hover {
+                    border-left-color: shade($base_color, .65);
                     outline: none;
 
                     > box, > label {
-                        margin-left: -1px;
+                        border-left-color: shade($base_color, .65);
+                    }
+                }
+
+                &:checked {
+                    border-left-color: $selected_bg_color;
+                    outline: none;
+
+                    > box, > label {
                         border-left-color: $selected_bg_color;
+                    }
+
+                    label {
+                        margin-left: 0;
+                        color: $selected_bg_color;
+                    }
+
+                    &:hover {
+                        background-color: mix($bg_color, $base_color, .6);
                     }
                 }
             }
 
-
             &.bottom tab {
                 padding: 0 0 ($spacing + 1); // top | left/right | bottom
                 border-style: solid;
-                border-color: shade($bg_color, .8);
-                border-width: 0px;
+                border-color: $borders_color;
+                border-width: 0;
                 border-top-width: 1px;
+                transition: border-top-color .3s ease-out;
 
                 > box, > label {
                     padding: ($spacing + 1) ($spacing * 3) 0;  // top/bottom | left/right
                 }
 
-                &:checked {
-                    border-top-color: transparent;
+                &:hover {
+                    border-top-color: shade($base_color, .65);
                     outline: none;
 
                     > box, > label {
-                        margin-top: -1px;
+                        border-top-color: shade($base_color, .65);
+                    }
+                }
+
+                &:checked {
+                    border-top-color: $selected_bg_color;
+                    outline: none;
+
+                    > box, > label {
                         border-top-color: $selected_bg_color;
+                    }
+
+                    label {
+                        margin-top: 0;
+                        color: $selected_bg_color;
+                    }
+
+                    &:hover {
+                        background-color: mix($bg_color, $base_color, .6);
                     }
                 }
             }
@@ -240,28 +329,48 @@
             &.left tab {
                 padding: 0 0 0 ($spacing + 1); // top | right | bottom | left
                 border-style: solid;
-                border-color: shade($bg_color, .8);
-                border-width: 0px;
+                border-color: $borders_color;
+                border-width: 0;
                 border-right-width: 1px;
+                transition: border-right-color .3s ease-out;
 
                 > box, > label {
                     padding: ($spacing + 1) ($spacing * 3); // top/bottom | left/right
                 }
 
-                &:checked {
-                    border-right-color: transparent;
+                &:hover {
+                    border-right-color: shade($base_color, .65);
                     outline: none;
 
                     > box, > label {
-                        margin-right: -1px;
+                        border-right-color: shade($base_color, .65);
+                    }
+                }
+
+                &:checked {
+                    border-right-color: $selected_bg_color;
+                    outline: none;
+
+                    > box, > label {
                         border-right-color: $selected_bg_color;
+                    }
+
+                    label {
+                        margin-right: 0;
+                        color: $selected_bg_color;
+                    }
+
+                    &:hover {
+                        background-color: mix($bg_color, $base_color, .6);
                     }
                 }
             }
         }
 
-        stack {
+        > stack:not(:only-child) {
             background-color: $base_color;
+
+            &:backdrop { background-color: $backdrop_base_color; }
         }
     }
 }
