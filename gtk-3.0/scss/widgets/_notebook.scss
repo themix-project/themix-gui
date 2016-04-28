@@ -6,156 +6,135 @@
 ***********/
 
 @include exports("notebook") {
+    .notebook {
+        padding: 0;
+        border-style: solid;
+        border-color: border_normal($bg_color);
+        border-radius: 0;
+        background-color: $bg_color;
+        background-image: none;
+        background-clip: border-box;
+        color: $text_color;
 
-.notebook {
-  padding: 0;
-  background-color: $bg_color;
-  -GtkNotebook-initial-gap: 4;
-  -GtkNotebook-arrow-spacing: 5;
-  -GtkNotebook-tab-curvature: 0;
-  -GtkNotebook-tab-overlap: 1;
-  -GtkNotebook-has-tab-gap: false;
-  -GtkWidget-focus-padding: 0;
-  -GtkWidget-focus-line-width: 0;
-  transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-  .notebook.frame {
-    border: 1px solid mix($bg_color, $fg_color, 0.2); }
-    .notebook.frame.top {
-      border-top-width: 0; }
-    .notebook.frame.bottom {
-      border-bottom-width: 0; }
-    .notebook.frame.right {
-      border-right-width: 0; }
-    .notebook.frame.left {
-      border-left-width: 0; }
-  .notebook.header {
-    background-color: $bg_color; }
-    .notebook.header.frame {
-      border: 0px solid mix($bg_color, $fg_color, 0.2); }
-      .notebook.header.frame.top {
-        border-bottom-width: 0; }
-      .notebook.header.frame.bottom {
-        border-top-width: 0; }
-      .notebook.header.frame.right {
-        border-left-width: 0; }
-      .notebook.header.frame.left {
-        border-right-width: 0; }
-    .notebook.header.top {
-      box-shadow: inset 0 -1px mix($bg_color, $fg_color, 0.2); }
-    .notebook.header.bottom {
-      box-shadow: inset 0 1px mix($bg_color, $fg_color, 0.2); }
-    .notebook.header.right {
-      box-shadow: inset 1px 0 mix($bg_color, $fg_color, 0.2); }
-    .notebook.header.left {
-      box-shadow: inset -1px 0 mix($bg_color, $fg_color, 0.2); }
-  .notebook tab {
-    border-width: 0;
-    border-style: solid;
-    border-color: transparent;
-	background-color: transparent;
-    outline-color: transparent;
-    outline-offset: 0; }
-    .notebook tab.top, .notebook tab.bottom {
-      padding: 4px 15px; }
-    .notebook tab.left, .notebook tab.right {
-      padding: 4px 15px; }
-    .notebook tab.reorderable-page.top, .notebook tab.reorderable-page.bottom {
-      padding-left: 12px;
-      padding-right: 12px; }
-    .notebook tab.reorderable-page.top, .notebook tab.top {
-      padding-top: 6px;
-      border-radius: 3.5px 2px 0 0;
-      border-width: 0;
-      border-top-width: 2px;
-      border-color: transparent;}
-      .notebook tab.reorderable-page.top:hover, .notebook tab.reorderable-page.top.prelight-page, .notebook tab.top:hover, .notebook tab.top.prelight-page {
-        background-color: mix($bg_color, $base_color, 0.4);
-        box-shadow: inset 0 1px mix($bg_color, $base_color, 0.4), inset 0 -1px mix($bg_color, $base_color, 0.4), inset 1px 0 mix($bg_color, $base_color, 0.4), inset -1px 0 mix($bg_color, $base_color, 0.4); }
-      .notebook tab.reorderable-page.top:active, .notebook tab.reorderable-page.top.active-page, .notebook tab.reorderable-page.top.active-page:hover, .notebook tab.top:active, .notebook tab.top.active-page, .notebook tab.top.active-page:hover {
-		  border-left-color: mix($bg_color, $fg_color, 0.2);;
-		  border-left-width: 1px;
-		  border-right-color: mix($bg_color, $fg_color, 0.2);;
-		  border-right-width: 1px;
-		  border-top-color: $selected_bg_color;
-		  border-top-width: 2px;
-		  border-bottom-width: 2px;
-		  border-bottom-color: $bg_color;
-   	}
-    .notebook tab.reorderable-page.bottom, .notebook tab.bottom {
-      padding-bottom: 6px;
-      border-radius: 0 0 2px 3.5px;
-      border-width: 0;
-      border-bottom-width: 2px;
-      border-color: transparent;
-      }
-      .notebook tab.reorderable-page.bottom:hover, .notebook tab.reorderable-page.bottom.prelight-page, .notebook tab.bottom:hover, .notebook tab.bottom.prelight-page {
-        background-color: mix($bg_color, $base_color, 0.4);
-        box-shadow: inset 0 1px mix($bg_color, $base_color, 0.4), inset 0 -1px mix($bg_color, $base_color, 0.4), inset 1px 0 mix($bg_color, $base_color, 0.4), inset -1px 0 mix($bg_color, $base_color, 0.4); }
-      .notebook tab.reorderable-page.bottom:active, .notebook tab.reorderable-page.bottom.active-page, .notebook tab.reorderable-page.bottom.active-page:hover, .notebook tab.bottom:active, .notebook tab.bottom.active-page, .notebook tab.bottom.active-page:hover {
-		  border-left-color: mix($bg_color, $fg_color, 0.2);;
-		  border-left-width: 1px;
-		  border-right-color: mix($bg_color, $fg_color, 0.2);;
-		  border-right-width: 1px;
-		  border-bottom-color: $selected_bg_color;
-		  border-bottom-width: 2px;
-		  border-top-width: 2px;
-		  border-top-color: $bg_color;
-		}
-    .notebook tab.reorderable-page.right, .notebook tab.right {
-      padding-right: 17px;
-      border-radius: 0 3.5px 3.5px 0;
-      border-width: 0;
-      border-right-width: 2px;
-      border-color: transparent;
-      }
-      .notebook tab.reorderable-page.right:hover, .notebook tab.reorderable-page.right.prelight-page, .notebook tab.right:hover, .notebook tab.right.prelight-page {
-        background-color: mix($bg_color, $base_color, 0.4);
-        box-shadow: inset 0 1px mix($bg_color, $base_color, 0.4), inset 0 -1px mix($bg_color, $base_color, 0.4), inset 1px 0 mix($bg_color, $base_color, 0.4), inset -1px 0 mix($bg_color, $base_color, 0.4); }
-      .notebook tab.reorderable-page.right:active, .notebook tab.reorderable-page.right.active-page, .notebook tab.reorderable-page.right.active-page:hover, .notebook tab.right:active, .notebook tab.right.active-page, .notebook tab.right.active-page:hover {
-		  border-top-color: mix($bg_color, $fg_color, 0.2);;
-		  border-top-width: 1px;
-		  border-bottom-color: mix($bg_color, $fg_color, 0.2);;
-		  border-bottom-width: 1px;
-		  border-right-color: $selected_bg_color;
-		  border-right-width: 2px;
-		  border-left-width: 2px;
-		  border-left-color: $bg_color;
-	}
-    .notebook tab.reorderable-page.left, .notebook tab.left {
-      padding-left: 17px;
-      border-radius: 3.5px 0 0 3.5px;
-      border-width: 0;
-      border-left-width: 2px;
-      border-color: transparent;
-      }
-      .notebook tab.reorderable-page.left:hover, .notebook tab.reorderable-page.left.prelight-page, .notebook tab.left:hover, .notebook tab.left.prelight-page {
-        background-color: mix($bg_color, $base_color, 0.4);
-        box-shadow: inset 0 1px mix($bg_color, $base_color, 0.4), inset 0 -1px mix($bg_color, $base_color, 0.4), inset 1px 0 mix($bg_color, $base_color, 0.4), inset -1px 0 mix($bg_color, $base_color, 0.4); }
-      .notebook tab.reorderable-page.left:active, .notebook tab.reorderable-page.left.active-page, .notebook tab.reorderable-page.left.active-page:hover, .notebook tab.left:active, .notebook tab.left.active-page, .notebook tab.left.active-page:hover {
-		  border-top-color: mix($bg_color, $fg_color, 0.2);;
-		  border-top-width: 1px;
-		  border-bottom-color: mix($bg_color, $fg_color, 0.2);;
-		  border-bottom-width: 1px;
-		  border-left-color: $selected_bg_color;
-		  border-left-width: 2px;
-		  border-right-width: 2px;
-		  border-right-color: $bg_color;
-		}
-    .notebook tab GtkLabel {
-      padding: 0 2px;
-      color: $fg_color; }
-    .notebook tab .prelight-page GtkLabel, .notebook tab GtkLabel.prelight-page {
-      color: mix($fg_color, $bg_color, 0.1); }
-    .notebook tab .active-page GtkLabel, .notebook tab GtkLabel.active-page {
-      color: $fg_color; }
-      .notebook tab .button > GtkImage {
-        padding: 2px; }
-  .notebook.arrow {
-      color: $fg_color; }
-    .notebook.arrow:hover {
-      color: mix($fg_color, $bg_color, 0.1); }
-    .notebook.arrow:active {
-      color: $fg_color; }
-    .notebook.arrow:insensitive {
-      color: mix($fg_color, $bg_color, 0.4); }
+        -GtkNotebook-initial-gap: 0;
+        -GtkNotebook-arrow-spacing: 5;
+        -GtkNotebook-tab-curvature: 0;
+        -GtkNotebook-tab-overlap: 1;
+        -GtkNotebook-has-tab-gap: false;
+
+        &.frame {
+            &.top { border-width: 0 1px 1px; }
+
+            &.right { border-width: 1px 0 1px 1px; }
+
+            &.bottom { border-width: 1px 1px 0; }
+
+            &.left { border-width: 1px 1px 1px 0; }
+        }
+
+        &.header {
+            border-width: 2px;
+            background-color: transparent;
+        }
+
+        GtkViewport {
+            border-width: 0;
+            background-color: $base_color;
+            color: $text_color;
+        }
+
+        tab {
+            padding: ($spacing + 1px) ($spacing * 2);
+            border-style: solid;
+            border-color: border_normal(shade($bg_color, 0.80));
+            background-color: shade($bg_color, 0.80);
+            background-image: none;
+
+            &:active {
+                background-color: $bg_color;
+                background-image: none;
+            }
+
+            &.top {
+                border-width: 2px 1px 1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                
+                &:active {
+                    border-top-width: 3px;
+                    border-top-color: $selected_bg_color;
+                    border-bottom-width: 0;
+                }
+            }
+
+            &.right {
+                border-width: 1px 2px 1px 1px;
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+                
+                &:active {
+                    border-right-width: 3px;
+                    border-right-color: $selected_bg_color;
+                    border-left-width: 0;
+                }
+            }
+
+
+            &.bottom {
+                border-width: 1px 1px 2px;
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+                
+                &:active {
+                    border-bottom-width: 3px;
+                    border-bottom-color: $selected_bg_color;
+                    border-top-width: 0;
+                }
+            }
+
+            &.left {
+                border-width: 1px 1px 1px 2px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                
+                &:active {
+                    border-left-width: 3px;
+                    border-left-color: $selected_bg_color;
+                    border-right-width: 0;
+                }
+            }
+
+            GtkLabel { color: mix($text_color, $base_color, .3); }
+
+            /* close button styling */
+            .button { @extend %close_button; }
+        }
+
+        .prelight-page {
+            &, GtkLabel { color: mix($text_color, $base_color, .15); }
+        }
+
+        .active-page {
+            &, GtkLabel { color: $text_color; }
+        }
+
+        .reorderable-page {
+            &:hover {
+                background-color: shade($base_color, .85);
+                border-left: 0;
+                border-right: 0;
+                /* using box shadows instead of borders due to slanted edges */
+                box-shadow: inset 0 3px alpha($black, .03), inset 0 2px alpha($black, .03), inset 0 1px alpha($black, .03),
+                            inset 1px 0 shade($base_color, .7), inset -1px 0 shade($base_color, .7);
+            }
+
+            &:active {
+                background-color: shade($base_color, .9);
+                border-left: 0;
+                border-right: 0;
+                box-shadow: inset 0 3px alpha($black, .03), inset 0 2px alpha($black, .03), inset 0 1px alpha($black, .03),
+                            inset 1px 0 shade($base_color, .75), inset -1px 0 shade($base_color, .75);
+            }
+        }
+    }
 }

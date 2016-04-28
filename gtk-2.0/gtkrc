@@ -169,7 +169,7 @@ style "murrine-thin" {
 
 style "clearlooks-notebook-bg" {
 	bg[NORMAL] = @bg_color
-	bg[ACTIVE] = shade (0.90, @bg_color)
+	bg[ACTIVE] = shade (0.80, @bg_color)
 }
 
 style "clearlooks-notebook" = "clearlooks-notebook-bg" {
@@ -206,8 +206,8 @@ style "murrine-buttonlabel" {
 }
 
 style "murrine-scrollbar" {
-	bg[NORMAL] = @btn_bg_color
-	bg[PRELIGHT] = mix (0.31, @selected_bg_color, @btn_bg_color)
+	bg[NORMAL] = mix (0.21, @fg_color, @bg_color)
+	bg[PRELIGHT] = mix (0.31, @fg_color, @bg_color)
 	bg[ACTIVE] = @selected_bg_color
 
 	engine "murrine" {
@@ -292,11 +292,20 @@ style "murrine-spinbutton" = "murrine-button" {
 	}
 }
 
-style "murrine-radiocheck" = "murrine-default" {
-	bg[SELECTED] = @bg_color
+style "clearlooks-radiocheck" = "murrine-default" {
+	bg[SELECTED] = @base_color
+	bg[PRELIGHT] = @bg_color
 
 	text[NORMAL] = @selected_bg_color
 	text[PRELIGHT] = @selected_bg_color
+	
+	engine "clearlooks" {
+		radius = 4.0
+	}
+}
+
+style "clearlooks-base-radiocheck" = "clearlooks-radiocheck" {
+	bg[PRELIGHT] = @base_color
 }
 
 style "murrine-entry" = "murrine-wider" {
@@ -691,9 +700,6 @@ class "GtkScrollbar" style "murrine-scrollbar"
 class "GtkVScrollbar" style "murrine-vscrollbar"
 class "GtkHScrollbar" style "murrine-hscrollbar"
 
-class "GtkRadio*" style "murrine-radiocheck"
-class "GtkCheck*" style "murrine-radiocheck"
-
 class "GtkEntry" style "murrine-entry"
 
 widget_class "*<GtkNotebook>" style "clearlooks-notebook"
@@ -729,6 +735,10 @@ widget_class "*.<GtkTreeView>.<GtkButton>" style "murrine-treeview-header"
 widget_class "*.<GtkCTree>.<GtkButton>" style "murrine-treeview-header"
 widget_class "*.<GtkList>.<GtkButton>" style "murrine-treeview-header"
 widget_class "*.<GtkCList>.<GtkButton>" style "murrine-treeview-header"
+
+widget_class "*.<GtkCheckButton>" style "clearlooks-radiocheck"
+widget_class "*<GtkNotebook>.*.<GtkCheckButton>" style "clearlooks-base-radiocheck"
+widget_class "*<GtkCellRendererToggle>" style "clearlooks-base-radiocheck"
 
 widget "gtk-tooltip*" style "murrine-tooltips"
 
