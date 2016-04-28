@@ -32,9 +32,9 @@
         &.slider, &.slider.vertical {
             border: 0;
             border-radius: $roundness;
-            background-color: shade($bg_color, .5);
+            background-color: mix($bg_color, $fg_color, 0.21);
 
-            &:hover { background-color: shade($bg_color, .3); }
+            &:hover { background-color: mix($bg_color, $fg_color, .31); }
 
             &:active { background-color: $selected_bg_color; }
 
