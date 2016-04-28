@@ -71,8 +71,9 @@
     @include border($bg);
 
     color: $fg;
+    caret-color: $fg;
 
-    &:focus, &:active { border-color: border_focus($selected_borders_color); }
+    &:focus, &:active { border-color: border_focus($borders_color); }
 
     &:disabled {
         @include linear-gradient(shade($bg, .9), to top);

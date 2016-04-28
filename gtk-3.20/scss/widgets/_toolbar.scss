@@ -40,6 +40,11 @@
         &.image-button { padding: ($spacing + 1px) ($spacing - 1px) ($spacing + 1px) $spacing; }
     }
 
+    // toolbar separators
+    &.horizontal separator { margin: 0 ($spacing + 2px) 1px ($spacing + 2px); }
+
+    &.vertical separator { margin: ($spacing + 2px) 1px ($spacing + 2px) 0; }
+
     separator, separator:disabled {
         color: shade($bg, ($contrast + .1));
         border-color: currentColor;
@@ -67,6 +72,18 @@
 
         border-width: 0 0 1px;
         border-style: solid;
+
+        window:not(.tiled):not(.maximized) separator:first-child + &, // tackles the paned container case
+        window:not(.tiled):not(.maximized) &:first-child { &:backdrop, & { border-top-left-radius: $roundness; } }
+
+        window:not(.tiled):not(.maximized) &:last-child { &:backdrop, & { border-top-right-radius: $roundness; } }
+    }
+
+    .background:not(.tiled):not(.maximized) .titlebar {
+        &:backdrop, & {
+            border-top-left-radius: $roundness;
+            border-top-right-radius: $roundness;
+        }
     }
 
     .titlebar {

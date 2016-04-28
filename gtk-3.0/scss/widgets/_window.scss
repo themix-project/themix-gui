@@ -51,6 +51,9 @@
         }
 
         &.ssd {
+            // Fixed gtk-3.18 Unity bug (https://github.com/numixproject/numix-gtk-theme/issues/270)
+            box-shadow: 0 0 0 1px $wm_border_focused;
+
             &.maximized { border-radius: 0; }
         }
     }

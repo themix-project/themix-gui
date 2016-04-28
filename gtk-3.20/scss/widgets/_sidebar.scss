@@ -164,6 +164,7 @@
             // workaround, using background istead of a border since the border will get rendered twice (?)
             background-image: image(shade($bg_color, .9));
             background-size: 1px 1px;
+            background-position: center center;
 
             &:selected { background-image: image($selected_bg_color); } // FIXME is this needed?
 
@@ -186,18 +187,8 @@
 
         &.horizontal > separator {
             background-repeat: repeat-y;
-
-            &:dir(ltr) {
-                margin: 0 -8px 0 0;
-                padding: 0 8px 0 0;
-                background-position: left;
-            }
-
-            &:dir(rtl) {
-                margin: 0 0 0 -8px;
-                padding: 0 0 0 8px;
-                background-position: right;
-            }
+            padding: 0 2px;
+            margin: 0 -2px;
 
             &.wide {
                 margin: 0;
@@ -208,10 +199,9 @@
         }
 
         &.vertical > separator {
-            margin: 0 0 -8px 0;
-            padding: 0 0 8px 0;
             background-repeat: repeat-x;
-            background-position: top;
+            padding: 2px 0;
+            margin: -2px 0;
 
             &.wide {
                 margin: 0;
