@@ -69,18 +69,22 @@
 **********************/
 
 @include exports("notifications") {
-    .app-notification {
-        &, &.frame {
-            border-style: solid;
-            border-color: border_normal($osd_bg);
-            border-width: 0 1px 1px;
-            border-radius: 0 0 $roundness $roundness;
-            padding: $spacing * 2;
-            background-color: $osd_bg;
-            background-image: none;
-            color: $osd_fg;
+    frame.app-notification {
+        border-style: solid;
+        border-color: border_normal($osd_bg);
+        border-width: 0 1px 1px;
+        border-radius: 0 0 $roundness $roundness;
+        padding: $spacing * 2;
+        background-color: $osd_bg;
+        background-image: none;
+        color: $osd_fg;
 
-            .button { @include button($osd_bg, $osd_fg); }
+        button {
+            @include button($osd_bg, $osd_fg);
+        }
+
+        border {
+            border: 0;
         }
     }
 }
