@@ -62,7 +62,7 @@
                     min-width: $_slider_small_width;
                     min-height: $_slider_small_width;
                     background-color: $fg_color;
-                    border: 1px solid if($variant == "light", white, black);
+                    border: 1px solid if($variant == 'light', $white, $black);
                 }
 
                 // hide steppers

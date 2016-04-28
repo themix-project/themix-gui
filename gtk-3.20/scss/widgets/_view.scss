@@ -170,8 +170,8 @@
             border: 1px solid $selected_borders_color;
             background-color: $selected_bg_color;
             //background-image: linear-gradient(to bottom, $selected_bg_color, darken($selected_bg_color, .1));
-            box-shadow: inset 0 1px if($variant == 'light', transparentize(white, .7), transparentize(white, .85)),
-            0 1px if($variant == 'light', transparentize(black, .8), transparentize(black, .9));
+            box-shadow: inset 0 1px if($variant == 'light', transparentize($white, .7), transparentize($white, .85)),
+            0 1px if($variant == 'light', transparentize($black, .8), transparentize($black, .9));
 
             &:selected {
                 &:focus, & {
@@ -179,7 +179,7 @@
                         color: $selected_fg_color;
                         box-shadow: none;
                     } @else {
-                        box-shadow: inset 0 1px transparentize(white, .95);
+                        box-shadow: inset 0 1px transparentize($white, .95);
                     }
 
                     @include linear-gradient($selected_bg_color);
@@ -286,7 +286,7 @@
 
 @include exports("separator") {
     separator { // vbox and hbox separators
-        background: transparentize(black, .9);
+        background: transparentize($black, .9);
         min-width: 1px;
         min-height: 1px;
     }
