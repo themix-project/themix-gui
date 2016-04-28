@@ -68,9 +68,9 @@
         $_bg_pos: $position center;
     }
 
-    background-image: linear-gradient(to $_gradient_dir, // this is the dashed line
+    /*background-image: linear-gradient(to $_gradient_dir, // this is the dashed line
                                          $_undershoot_color_light 50%,
-                                         $_undershoot_color_dark 50%);
+                                         $_undershoot_color_dark 50%);*/
 
     padding-#{$position}: 1px;
     background-size: $_dash_bg_size;
