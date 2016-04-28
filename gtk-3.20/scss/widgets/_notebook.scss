@@ -135,7 +135,7 @@
                 &:hover:not(:active):not(:backdrop) {
                     background-clip: padding-box;
                     background-image: none;
-                    background-color: transparentize(white, 0.7);
+                    background-color: transparentize($white, .7);
                     border-color: transparent;
                     box-shadow: none;
                 }
