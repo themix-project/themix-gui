@@ -8,7 +8,7 @@
 @include exports("notebook") {
     notebook {
         &.frame {
-            border-color: border_normal($base_color);
+            border-color: border_normal($bg_color);
 
             &.top {
                 border-width: 1px 1px 0;
@@ -35,8 +35,8 @@
             border-color: $borders_color;
             background-image: none;
             background-clip: border-box;
-            background-color: shade($base_color, .9);
-            color: $text_color;
+            background-color: shade($bg_color, .9);
+            color: $fg_color;
 
             tabs { margin: -1px; }
 
@@ -170,7 +170,7 @@
                 }
 
                 &:hover {
-                    background-color: shade($base_color, .93);
+                    background-color: shade($bg_color, .93);
                     border-color: transparent;
                     outline: none;
 
@@ -179,25 +179,26 @@
                     }
 
                     &:checked {
-                        background-color: mix($bg_color, $base_color, .6);
+                        background-color: mix($base_color, $bg_color, .6);
                     }
                 }
 
                 &:checked {
+					background-color: $bg_color;
                     border-bottom-color: transparent;
                     outline: none;
 
                     label {
-                        color: $selected_bg_color;
+						color: $fg_color;
                     }
 
                     &:hover {
-                        background-color: mix($bg_color, $base_color, .6);
+                        background-color: mix($base_color, $bg_color, .6);
                     }
                 }
 
                 label {
-                    color: mix($text_color, $base_color, .3);
+                    color: mix($fg_color, $bg_color, .3);
                 }
 
                 /* close button styling */
@@ -206,7 +207,7 @@
                 }
             }
 
-            &.top tab {
+            &.bottom tab {
                 padding: ($spacing + 1) 0 0; // top | left/right | bottom
                 border-style: solid;
                 border-color: $borders_color;
@@ -219,11 +220,11 @@
                 }
 
                 &:hover {
-                    border-bottom-color: shade($base_color, .65);
+                    border-bottom-color: shade($bg_color, .65);
                     outline: none;
 
                     > box, > label {
-                        border-bottom-color: shade($base_color, .65);
+                        border-bottom-color: shade($bg_color, .65);
                     }
                 }
 
@@ -237,16 +238,15 @@
 
                     label {
                         margin-bottom: 0;
-                        color: $selected_bg_color;
                     }
 
                     &:hover {
-                        background-color: mix($bg_color, $base_color, .6);
+                        background-color: mix($bg_color, $bg_color, .6);
                     }
                 }
             }
 
-            &.right tab {
+            &.left tab {
                 padding: 0 ($spacing + 1) 0 0; // top | right | bottom | left
                 border-style: solid;
                 border-color: $borders_color;
@@ -259,11 +259,11 @@
                 }
 
                 &:hover {
-                    border-left-color: shade($base_color, .65);
+                    border-left-color: shade($bg_color, .65);
                     outline: none;
 
                     > box, > label {
-                        border-left-color: shade($base_color, .65);
+                        border-left-color: shade($bg_color, .65);
                     }
                 }
 
@@ -277,16 +277,15 @@
 
                     label {
                         margin-left: 0;
-                        color: $selected_bg_color;
                     }
 
                     &:hover {
-                        background-color: mix($bg_color, $base_color, .6);
+                        background-color: mix($bg_color, $bg_color, .6);
                     }
                 }
             }
 
-            &.bottom tab {
+            &.top tab {
                 padding: 0 0 ($spacing + 1); // top | left/right | bottom
                 border-style: solid;
                 border-color: $borders_color;
@@ -299,11 +298,11 @@
                 }
 
                 &:hover {
-                    border-top-color: shade($base_color, .65);
+                    border-top-color: shade($bg_color, .65);
                     outline: none;
 
                     > box, > label {
-                        border-top-color: shade($base_color, .65);
+                        border-top-color: shade($bg_color, .65);
                     }
                 }
 
@@ -317,16 +316,15 @@
 
                     label {
                         margin-top: 0;
-                        color: $selected_bg_color;
                     }
 
                     &:hover {
-                        background-color: mix($bg_color, $base_color, .6);
+                        background-color: mix($bg_color, $bg_color, .6);
                     }
                 }
             }
 
-            &.left tab {
+            &.right tab {
                 padding: 0 0 0 ($spacing + 1); // top | right | bottom | left
                 border-style: solid;
                 border-color: $borders_color;
@@ -339,11 +337,11 @@
                 }
 
                 &:hover {
-                    border-right-color: shade($base_color, .65);
+                    border-right-color: shade($bg_color, .65);
                     outline: none;
 
                     > box, > label {
-                        border-right-color: shade($base_color, .65);
+                        border-right-color: shade($bg_color, .65);
                     }
                 }
 
@@ -357,18 +355,17 @@
 
                     label {
                         margin-right: 0;
-                        color: $selected_bg_color;
                     }
 
                     &:hover {
-                        background-color: mix($bg_color, $base_color, .6);
+                        background-color: mix($bg_color, $bg_color, .6);
                     }
                 }
             }
         }
 
         > stack:not(:only-child) {
-            background-color: $base_color;
+            background-color: $bg_color;
 
             &:backdrop { background-color: $backdrop_base_color; }
         }
