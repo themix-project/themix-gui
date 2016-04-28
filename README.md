@@ -22,6 +22,27 @@ oomox-gui
 ```
 
 
+### Using with tiling WMs:
+
+To resolve borders/shadow problem in tiling window managers create/append to 
+`~/.config/gtk-3.0/gtk.css`:
+
+```css
+.window-frame, .window-frame:backdrop {
+  box-shadow: 0 0 0 black;
+  border-style: none;
+  margin: 0;
+  border-radius: 0;
+}
+.titlebar {
+  border-radius: 0;
+}
+window decoration {
+	margin: 0;
+}
+```
+
+
 ### Other distributions:
 
 #### Prerequisites
