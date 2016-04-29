@@ -24,9 +24,11 @@ $suffix: if($variant == "dark", "-dark", "");
     }
 
     menuitem &, modelbutton & {
-        -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg");
+        -gtk-icon-source: url("../assets/menuitem-#{$type}-unchecked.svg");
 
-        &:disabled { -gtk-icon-source: none; }
+        &:disabled {
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg");
+        }
 
         &:checked, &:active {
             -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.svg");
