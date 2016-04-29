@@ -26,8 +26,6 @@ $suffix: if($variant == "dark", "-dark", "");
     &.menuitem {
         -gtk-icon-source: none;
 
-        &:insensitive { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg"); }
-
         &:checked, &:active {
             -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.svg");
 
