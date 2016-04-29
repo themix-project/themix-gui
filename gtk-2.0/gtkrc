@@ -362,6 +362,8 @@ style "murrine-menu-item" = "murrine-wider" {
 	fg[ACTIVE] = @selected_fg_color
 	fg[INSENSITIVE] = mix (0.5, @menu_bg_color, @menu_fg_color)
 
+	text[NORMAL] = @selected_bg_color
+
 	engine "murrine" {
 		textstyle = 0
 		border_shades = { 1.2, 1.2 }
