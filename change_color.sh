@@ -63,28 +63,28 @@ for FILEPATH in "${PATHLIST[@]}"; do
 done
 
 if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
-	source $THEME
+	source "$THEME"
 	THEME=$(basename ${THEME})
 else
-	source $SRC_PATH/colors/$THEME
+	source "$SRC_PATH/colors/$THEME"
 fi
 source $SRC_PATH/current_colors.txt
 
-OUTPUT_THEME_NAME=${OUTPUT_THEME_NAME-oomox-$THEME}
-DEST_PATH=~/.themes/${OUTPUT_THEME_NAME/\//-}
+OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
+DEST_PATH="~/.themes/${OUTPUT_THEME_NAME/\//-}"
 
 test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
 
 
-rm -r $DEST_PATH || true
-mkdir -p $DEST_PATH
-cp -r $SRC_PATH/index.theme $DEST_PATH
+rm -r "$DEST_PATH" || true
+mkdir -p "$DEST_PATH"
+cp -r "$SRC_PATH/index.theme" "$DEST_PATH"
 for FILEPATH in "${PATHLIST[@]}"; do
-	cp -r $SRC_PATH/$FILEPATH $DEST_PATH
+	cp -r "$SRC_PATH/$FILEPATH" "$DEST_PATH"
 done
 
 
-cd $DEST_PATH
+cd "$DEST_PATH"
 for FILEPATH in "${PATHLIST[@]}"; do
 	find $FILEPATH -type f -exec sed -i \
 		-e 's/'"$OLD_BG"'/'"$BG"'/g' \
