@@ -103,6 +103,9 @@
         &:only-child, &:first-child:only-child {
             border-width: 1px;
             border-style: solid;
+        }
+
+        &:only-child {
             border-radius: $roundness;
         }
     }
@@ -347,6 +350,14 @@
 
 @include exports("combobox") {
     combobox {
+
+        button.combo {
+            // otherwise the arrow placement is not symmetric
+            min-width: 0;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
         arrow {
             -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
             min-height: 16px;
@@ -367,10 +378,11 @@
             &:dir(rtl) { @extend %linked_middle:dir(rtl); }
         }
 
-        &:first-child > button { @extend %linked_button:first-child; }
+        .linked:not(.vertical) > &:first-child > box > button.combo { @extend %linked_button:first-child; }
 
-        &:last-child > button { @extend %linked_button:last-child; }
+        .linked:not(.vertical) > &:last-child > box > button.combo { @extend %linked_button:last-child; }
 
-        &:only-child > button { @extend %linked_button:only-child; }
+        .linked:not(.vertical) > &:only-child > box > button.combo { @extend %linked_button:only-child; }
+
     }
 }
