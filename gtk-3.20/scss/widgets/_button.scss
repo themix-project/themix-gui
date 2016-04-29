@@ -104,7 +104,8 @@
             border-width: 1px;
             border-style: solid;
         }
-        &:only-child{
+
+        &:only-child {
             border-radius: $roundness;
         }
     }
@@ -357,9 +358,10 @@
     combobox {
 
         button.combo {
-            min-width: 0;       // otherwise the arrow placement is unsymmetric
-            padding-left: 8px;  //
-            padding-right: 8px  //
+            // otherwise the arrow placement is not symmetric
+            min-width: 0;
+            padding-left: 8px;
+            padding-right: 8px;
         }
 
         arrow {
@@ -383,7 +385,10 @@
         }
 
         .linked:not(.vertical) > &:first-child > box > button.combo { @extend %linked_button:first-child; }
+
         .linked:not(.vertical) > &:last-child > box > button.combo { @extend %linked_button:last-child; }
+
         .linked:not(.vertical) > &:only-child > box > button.combo { @extend %linked_button:only-child; }
+
     }
 }
