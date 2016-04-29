@@ -71,7 +71,7 @@ fi
 source $SRC_PATH/current_colors.txt
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
-DEST_PATH="~/.themes/${OUTPUT_THEME_NAME/\//-}"
+DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
 
 test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
 
