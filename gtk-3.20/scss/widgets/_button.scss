@@ -369,7 +369,7 @@
             padding: ($spacing - 2px) ($spacing + 1px);
         }
 
-        box > button {
+        .linked:not(.vertical) > & > box > button.combo {
             // the combo is a composite widget so the way we do button linked doesn't
             // work, special case needed. See
             // https://bugzilla.gnome.org/show_bug.cgi?id=733979
