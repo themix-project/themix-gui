@@ -3,6 +3,12 @@
 
 ## Graphical application for generating different color variations of Numix theme (GTK2, GTK3)
 
+[Arch Linux](#arch-linux "")
+[Ubuntu](#ubuntu "")
+[Other distributions](#other-distributions "")
+[Using with tiling WMs](#using-with-tiling-wms "")
+[Demo video](#demo-video "")
+
 ![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI 1")
 
 ![Screenshot GUI 2](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui_retro.png "Screenshot GUI 2")
