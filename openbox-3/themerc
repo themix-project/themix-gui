@@ -55,6 +55,10 @@ window.active.button.disabled.bg: flat solid
 window.active.button.disabled.bg.color: #333333
 window.active.button.disabled.image.color: #888888
 
+window.active.button.hover.bg: flat solid
+window.active.button.hover.bg.color: #333333
+window.active.button.hover.image.color: #1D90CD
+
 
 # Inactive window
 window.inactive.border.color: #393939
@@ -84,6 +88,10 @@ window.inactive.button.pressed.image.color: #f06860
 window.inactive.button.disabled.bg: flat solid
 window.inactive.button.disabled.bg.color: #333333
 window.inactive.button.disabled.image.color: #888888
+
+window.inactive.button.hover.bg: flat solid
+window.inactive.button.hover.bg.color: #333333
+window.inactive.button.hover.image.color: #1D90CD
 
 
 # OSD
