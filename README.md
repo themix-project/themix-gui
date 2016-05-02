@@ -78,3 +78,9 @@ ls colors
 
 next select oomox_current in your appearance config tool (for example, _lxappearance_)
 
+
+#### Demo video
+
+One of the users, Spatry, made this cool demo video:
+
+[![video](https://img.youtube.com/vi/Dh5TuIYQ6jo/0.jpg)](https://www.youtube.com/watch?v=Dh5TuIYQ6jo)
