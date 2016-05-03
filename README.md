@@ -1,16 +1,16 @@
 ## Numix
-##### A modern flat theme with a combination of light and dark elements. It supports Gnome, Unity, XFCE and Openbox.
-##### [![The Numix Project](https://dl.dropboxusercontent.com/u/60521097/numix.jpg)](http://numixproject.org) [The Numix Project](http://numixproject.org)
+##### A modern flat theme with a combination of light and dark elements. It supports GNOME, Unity, Xfce and Openbox.
+##### [![The Numix Project](https://dl.dropboxusercontent.com/u/60521097/numix.jpg)](https://numixproject.org/) [The Numix Project](https://numixproject.org/)
 
 ### Manual installation
 
 First, you need to compile the theme using the [Sass](http://sass-lang.com/) compiler.
 
-To install Sass, install ruby and the gem command using your distro's package manager. Then install `sass` with the `gem` command,
+To install Sass, install Ruby and the gem command using your distributions' package manager. Then install `sass` with the `gem` command,
 
 `gem install sass`
 
-You'll also need the following commands in your path to generate the gresource binary. Install them using your distro's package manager.
+You'll also need the following commands in your path to generate the gresource binary. Install them using your distributions' package manager.
 
 * `glib-compile-schemas`
 * `gdk-pixbuf-pixdata`
@@ -22,7 +22,7 @@ make
 sudo make install
 ```
 
-To set the theme in Gnome, run the following commands in Terminal,
+To set the theme in GNOME, run the following commands in Terminal,
 
 ```sh
 gsettings set org.gnome.desktop.interface gtk-theme "Numix"
