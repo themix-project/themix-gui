@@ -6,11 +6,11 @@
 
 First, you need to compile the theme using the [Sass](http://sass-lang.com/) compiler.
 
-To install Sass, install Ruby and the gem command using your distributions' package manager. Then install `sass` with the `gem` command,
+To install Sass, install Ruby and the gem command using your distribution's package manager. Then install `sass` with the `gem` command,
 
 `gem install sass`
 
-You'll also need the following commands in your path to generate the gresource binary. Install them using your distributions' package manager.
+You'll also need the following commands in your path to generate the gresource binary. Install them using your distribution's package manager.
 
 * `glib-compile-schemas`
 * `gdk-pixbuf-pixdata`
