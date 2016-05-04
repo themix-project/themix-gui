@@ -66,6 +66,7 @@ fi
 main_bg="${BG}"
 area_bg="${TXT_BG}"
 selected_row_bg="$(darker ${BG})"
+selected_area_bg="$(darker ${TXT_BG} 20)"
 
 sidebar_fg="${FG}"
 main_fg="${FG}"
@@ -103,6 +104,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
+				-e "s/404040/oomox_selected_area_bg/g" \
 				-e "s/ffffff/oomox_accent_fg/gI" \
 				-e "s/fcfcfc/oomox_hover_text/gI" \
 				-e "s/1ed760/oomox_active_selection_color/gI" \
@@ -114,6 +116,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/oomox_main_bg/${main_bg}/g" \
 				-e "s/oomox_area_bg/${area_bg}/g" \
 				-e "s/oomox_selected_row_bg/${selected_row_bg}/g" \
+				-e "s/oomox_selected_area_bg/${selected_area_bg}/g" \
 				-e "s/oomox_accent_fg/${accent_fg}/gI" \
 				-e "s/oomox_hover_text/${hover_text}/gI" \
 				-e "s/oomox_active_selection_color/${active_selection_color}/gI" \
