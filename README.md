@@ -100,6 +100,7 @@ cd oomox
 ls colors
 ./oomoxify.sh gnome_noble  # or other theme from above
 ```
+Make sure to remove `~/.config/oomox/spotify_backup` when upgrading Spotify to the new version.
 
 
 #### Review article
