@@ -11,6 +11,8 @@
 
 [Using with tiling WMs](#using-with-tiling-wms "")
 
+[Review article](#review-article "")
+
 [Demo video](#demo-video "")
 
 ![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI 1")
@@ -88,6 +90,10 @@ ls colors
 
 next select oomox_current in your appearance config tool (for example, _lxappearance_)
 
+
+#### Review article
+
+To learn more about it you can check this article: http://www.webupd8.org/2016/05/easily-create-your-own-numix-based-gtk.html
 
 #### Demo video
 
