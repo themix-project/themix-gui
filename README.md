@@ -11,6 +11,8 @@
 
 [Using with tiling WMs](#using-with-tiling-wms "")
 
+[Spotify](#spotify "")
+
 [Review article](#review-article "")
 
 [Demo video](#demo-video "")
@@ -89,6 +91,15 @@ ls colors
 
 
 next select oomox_current in your appearance config tool (for example, _lxappearance_)
+
+
+#### Spotify:
+```sh
+git clone https://github.com/actionless/oomox.git
+cd oomox
+ls colors
+./oomoxify.sh gnome_noble  # or other theme from above
+```
 
 
 #### Review article
