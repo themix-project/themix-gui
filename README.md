@@ -65,11 +65,12 @@ You need to have `python3-gobject` binding and those executables:
  - `glib-compile-schemas`
  - `gdk-pixbuf-pixdata`
  - `sass`
+For GTK2 you need murrine engine which can be not installed by default.
 
 ##### Ubuntu
 
 ```
-sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi
+sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
 sudo gem install sass
 ```
 

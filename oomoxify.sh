@@ -89,6 +89,7 @@ if [[ ! -d "${backup_dir}" ]] ; then
 	cp -prf "${spotify_apps_path}"/*.spa "${backup_dir}/"
 fi
 
+
 cd "${root}"
 for file in $(ls "${backup_dir}"/*.spa) ; do
 	filename="$(basename "${file}")"
