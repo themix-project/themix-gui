@@ -28,7 +28,9 @@
         padding: 0 ($spacing * 2);
     }
 
-    button { @include button($bg, $fg); }
+    /* @TODO: make this optionable */
+    /*button { @include button($bg, $fg); }*/
+    button { @include button($button_bg_color, $button_fg_color); }
 
     button.linked, .linked button { @include linked_button($bg); }
 

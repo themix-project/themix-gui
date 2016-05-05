@@ -161,32 +161,30 @@
 @mixin button($bg, $fg) {
     $border_strength: if(lightness($bg) > 50, 0, .1);
     $shadow_strength: if(lightness($bg) > 50, 0, .1);
-    
-    $button_bg: $button_bg_color;
 
     @extend %button;
-    @include linear-gradient($button_bg);
+    @include linear-gradient($bg);
     @include border(rgba(0, 0, 0, .12 + $border_strength));
-    color: $button_fg_color;
+    color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
     &.flat {
-        border-color: alpha($button_bg, 0);
-        background-color: alpha($button_bg, 0);
+        border-color: alpha($bg, 0);
+        background-color: alpha($bg, 0);
         background-image: none;
         box-shadow: none;
     }
 
     &, &.flat {
         &:focus, &:hover {
-            @include linear-gradient(shade($button_bg, 1.2));
+            @include linear-gradient(shade($bg, 1.2));
             @include border(rgba(0, 0, 0, .2 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
         }
 
         &:checked, &:active {
-            @include linear-gradient(shade($button_bg, .7), to top);
+            @include linear-gradient(shade($bg, .7), to top);
 
             color: $selected_fg_color;
             box-shadow: inset 1px 0 alpha($dark_shadow, .06),
@@ -195,29 +193,29 @@
             inset 0 -1px alpha($dark_shadow, .05);
 
             &:focus, &:hover {
-                @include linear-gradient(shade($button_bg, .65), to top);
+                @include linear-gradient(shade($bg, .65), to top);
 
                 color: $selected_fg_color;
             }
         }
 
-        &:focus, &:hover { color: $button_fg_color; }
+        &:focus, &:hover { color: $fg; }
 
         &:active:disabled, &:checked:disabled {
-            @include linear-gradient(shade($button_bg, .9));
+            @include linear-gradient(shade($bg, .9));
 
-            color: $button_fg_color;
+            color: $fg;
             box-shadow: none;
         }
 
         &:disabled:disabled {
-            @if (lightness($button_bg) > 50) {
-                @include linear-gradient(shade($button_bg, .95));
+            @if (lightness($bg) > 50) {
+                @include linear-gradient(shade($bg, .95));
             } @else {
-                @include linear-gradient(alpha($button_bg, .3));
+                @include linear-gradient(alpha($bg, .3));
             }
 
-            color: mix($button_bg_color, $button_fg_color, .5);
+            color: mix($bg, $fg, .5);
             box-shadow: none;
         }
     }
@@ -226,7 +224,7 @@
         border: 1px solid currentColor;
         color: shade($bg, ($contrast + .1));
 
-        &:disabled { color: shade($button_bg, .85); }
+        &:disabled { color: shade($bg, .85); }
     }
 }
 
@@ -256,7 +254,7 @@
     button {
         min-height: 22px;
         min-width: 24px;
-        @include button(shade($button_bg_color, 1.2), $button_fg_color);
+        @include button($button_bg_color, $button_fg_color);
 
         &.link, .link & { @include linked_button(shade($bg_color, 1.2)); }
 		spinbutton & {
