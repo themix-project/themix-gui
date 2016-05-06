@@ -1,7 +1,7 @@
 import subprocess
 import os
 from threading import Thread
-from gi.repository import Gtk, GObject, GLib
+from gi.repository import Gtk, GLib
 
 from .helpers import theme_dir, CenterLabel
 
@@ -27,7 +27,6 @@ class ExportDialog(Gtk.Dialog):
         self.box.add(button)
         self.show_all()
 
-
     def set_text(self, text):
         self.log.get_buffer().set_text(text)
 
@@ -48,13 +47,14 @@ class ExportDialog(Gtk.Dialog):
 
         self.log = Gtk.TextView()
         self.log.set_editable(False)
-        #self.log.set_cursor_visible(False)
+        # self.log.set_cursor_visible(False)
         self.log.set_monospace(True)
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
         self.log.connect('size-allocate', self._resize_callback)
 
         self.scrolled_window = Gtk.ScrolledWindow()
-        self.scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.scrolled_window.set_policy(
+            Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scrolled_window.add(self.log)
         self.scrolled_window.set_min_content_height(100)
 
@@ -81,11 +81,16 @@ def export_theme(window, theme_path):
 
     def do_export():
         nonlocal captured_log
+        if Gtk.get_minor_version() == 20:
+            make_opts = "gtk320"
+        else:
+            make_opts = "gtk3"
         proc = subprocess.Popen(
             [
                 "bash",
                 os.path.join(theme_dir, "change_color.sh"),
-                theme_path
+                theme_path,
+                "--make-opts", make_opts
             ],
             stdout=subprocess.PIPE
         )
