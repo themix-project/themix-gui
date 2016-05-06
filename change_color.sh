@@ -5,11 +5,12 @@ SRC_PATH=$(readlink -e $(dirname $0))
 
 
 print_usage() {
-	echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] PRESET_NAME_OR_PATH"
+	echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] [-m MAKE_OPTS] PRESET_NAME_OR_PATH"
 	echo "examples:"
 	echo "       $0 monovedek"
 	echo "       $0 -o my-theme-name ./colors/retro/twg"
 	echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" gnome-noble"
+	echo "       $0 -o oomox-gnome-noble -p \"./gtk-2.0 ./gtk-3.0 ./gtk-3.20 ./Makefile\" -m gtk320 gnome-noble"
 	exit 1
 }
 
@@ -23,6 +24,10 @@ do
 		;;
 		-o|--output)
 			OUTPUT_THEME_NAME="${2}"
+			shift
+		;;
+		-m|--make-opts)
+			MAKE_OPTS="${2}"
 			shift
 		;;
 		*)
@@ -61,6 +66,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		MAKE_GTK3=1
 	fi
 done
+MAKE_OPTS="${MAKE_OPTS-all}"
 
 if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
 	source "$THEME"
@@ -104,6 +110,6 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		{} \; ;
 done
 
-test ${MAKE_GTK3} = 1 && make
+test ${MAKE_GTK3} = 1 && make "${MAKE_OPTS}"
 
 exit 0
