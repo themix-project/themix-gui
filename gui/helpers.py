@@ -11,21 +11,49 @@ user_theme_dir = os.path.join(
         "XDG_CONFIG_HOME",
         os.path.join(os.environ.get("HOME"), ".config/")
     ),
-    "oomox/"
+    "oomox/colors/"
 )
 colors_dir = os.path.join(theme_dir, "colors/")
 
 THEME_KEYS = [
-    'BG',
-    'FG',
-    'MENU_BG',
-    'MENU_FG',
-    'SEL_BG',
-    'SEL_FG',
-    'TXT_BG',
-    'TXT_FG',
-    'BTN_BG',
-    'BTN_FG',
+    {
+        'key': 'BG',
+    },
+    {
+        'key': 'FG',
+    },
+    {
+        'key': 'MENU_BG',
+    },
+    {
+        'key': 'MENU_FG',
+    },
+    {
+        'key': 'SEL_BG',
+    },
+    {
+        'key': 'SEL_FG',
+    },
+    {
+        'key': 'TXT_BG',
+    },
+    {
+        'key': 'TXT_FG',
+    },
+    {
+        'key': 'BTN_BG',
+    },
+    {
+        'key': 'BTN_FG',
+    },
+    {
+        'key': 'HDR_BTN_BG',
+        'fallback': 'BTN_BG',
+    },
+    {
+        'key': 'HDR_BTN_FG',
+        'fallback': 'BTN_FG',
+    },
 ]
 
 
@@ -65,9 +93,16 @@ def convert_theme_color_to_gdk(theme_color):
 
 
 def resolve_color_links(colorscheme):
-    # @TODO: remove it
-    for key, value in colorscheme.items():
-        if value.startswith("$"):
+    # @TODO: rename it
+    for key_obj in THEME_KEYS:
+        key = key_obj['key']
+        fallback_key = key_obj.get('fallback')
+        value = colorscheme.get(key)
+        if not value and fallback_key:
+            value = colorscheme[key] = colorscheme[fallback_key]
+        if not value:
+            colorscheme[key] = "ff3333"
+        elif value.startswith("$"):
             try:
                 colorscheme[key] = colorscheme[value.lstrip("$")]
             except KeyError:
@@ -81,7 +116,9 @@ def bash_preprocess(preset_path):
         [
             "bash", "-c",
             "source " + preset_path + " ; " +
-            "".join("echo ${} ;".format(key) for key in THEME_KEYS)
+            "".join(
+                "echo ${{{}-None}} ;".format(obj['key']) for obj in THEME_KEYS
+            )
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
@@ -94,8 +131,11 @@ def bash_preprocess(preset_path):
 
     lines = process.stdout.decode("UTF-8").split()
     i = 0
-    for key in THEME_KEYS:
-        colorscheme[key] = lines[i]
+    for obj in THEME_KEYS:
+        value = lines[i]
+        if value == 'None':
+            value = None
+        colorscheme[obj['key']] = value
         i += 1
 
     return colorscheme
@@ -116,8 +156,7 @@ def read_colorscheme_from_path(preset_path):
     # migration workaround #2:
     if 'NOGUI' in colorscheme:
         colorscheme = bash_preprocess(preset_path)
-    else:
-        colorscheme = resolve_color_links(colorscheme)
+    colorscheme = resolve_color_links(colorscheme)
     return colorscheme
 
 
