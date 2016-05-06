@@ -92,7 +92,7 @@ fi
 
 
 cd "${root}"
-for file in $(ls "${backup_dir}"/*.spa) ; do
+for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 	filename="$(basename "${file}")"
 	echo "${filename}"
 	cp "${file}" "${tmp_dir}/"
