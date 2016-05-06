@@ -9,6 +9,8 @@ $base_color: if($variant == "dark", #%TXT_FG%, #%TXT_BG%);
 $text_color: if($variant == "dark", #%TXT_BG%, #%TXT_FG%);
 $button_bg_color: if($variant == "dark", #%BTN_FG%, #%BTN_BG%);
 $button_fg_color: if($variant == "dark", #%BTN_BG%, #%BTN_FG%);
+$header_button_bg_color: #%HDR_BTN_BG%;
+$header_button_fg_color: #%HDR_BTN_FG%;
 $selected_bg_color: #%SEL_BG%;
 $selected_fg_color: #%SEL_FG%;
 $tooltip_bg_color: #%BG%;

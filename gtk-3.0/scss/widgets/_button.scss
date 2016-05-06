@@ -124,13 +124,13 @@
     $shadow_strength: if(lightness($bg) > 50, 0, .1);
 
     /*$button_bg: if(hue($bg) == 0deg, shade($bg, 1.2), $bg);*/
-    $button_bg: $button_bg_color;
+    $button_bg: $bg;
 
     @extend %button;
     @include linear-gradient($button_bg);
     @include border(rgba(0, 0, 0, .12 + $border_strength));
 
-    color: $button_fg_color;
+    color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
     &.flat {
@@ -164,12 +164,12 @@
             }
         }
 
-        &:focus, &:hover { color: $button_fg_color; }
+        &:focus, &:hover { color: $fg; }
 
         &:active:insensitive, &:checked:insensitive {
             @include linear-gradient(shade($button_bg, .9));
 
-            color: $button_fg_color;
+            color: $fg;
             box-shadow: none;
         }
 
@@ -180,7 +180,7 @@
                 @include linear-gradient(alpha($button_bg, .3));
             }
 
-            color: mix($button_bg, $button_fg_color, .5);
+            color: mix($button_bg, $fg, .5);
             box-shadow: none;
         }
     }
@@ -228,11 +228,11 @@
     }
 
     .button {
-        @include button(shade($bg_color, 1.2), $fg_color);
+        @include button($button_bg_color, $button_fg_color);
 
         &.default { @include button($selected_bg_color, $selected_fg_color); }
 
-        &.linked, .linked & { @include linked_button(shade($bg_color, 1.2)); }
+        &.linked, .linked & { @include linked_button($button_bg_color); }
 
         .spinbutton & {
             color: mix($text_color, $base_color, .4);
