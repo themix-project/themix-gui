@@ -15,8 +15,8 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_colors(self, colorscheme):
         converted = {
-            key: convert_theme_color_to_gdk(colorscheme[key])
-            for key in THEME_KEYS
+            obj['key']: convert_theme_color_to_gdk(colorscheme[obj['key']])
+            for obj in THEME_KEYS
         }
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
@@ -33,6 +33,12 @@ class ThemePreview(Gtk.Grid):
         self.override_color(self.menuitem1, self.FG, converted["MENU_FG"])
         self.override_color(self.menuitem2, self.FG, converted["MENU_FG"])
         self.override_color(self.menubar, self.BG, converted["MENU_BG"])
+        self.override_color(self.headerbar, self.BG, converted["MENU_BG"])
+        self.override_color(self.headerbar, self.FG, converted["MENU_FG"])
+        self.override_color(self.headerbar_button, self.FG,
+                            converted["HDR_BTN_FG"])
+        self.override_color(self.headerbar_button, self.BG,
+                            converted["HDR_BTN_BG"])
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
@@ -43,15 +49,24 @@ class ThemePreview(Gtk.Grid):
         self.attach_next_to(self.bg, preview_label,
                             Gtk.PositionType.BOTTOM, 1, 1)
 
-        self.menubar = Gtk.MenuBar()
+        self.headerbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
+        self.headerbar = Gtk.HeaderBar()
+        self.headerbar.set_show_close_button(True)
+        self.headerbar.props.title = "Headerbar"
+        self.headerbar_button = Gtk.Button(label="Header Button")
+        self.headerbar.pack_end(self.headerbar_button)
+
+        self.menubar = Gtk.MenuBar()
         self.menuitem1 = Gtk.MenuItem(label='File')
         # menuitem.set_submenu(self.create_menu(3, True))
         self.menubar.append(self.menuitem1)
-
         self.menuitem2 = Gtk.MenuItem(label='Edit')
         # menuitem.set_submenu(self.create_menu(4, True))
         self.menubar.append(self.menuitem2)
+
+        self.headerbox.pack_start(self.headerbar, True, True, 0)
+        self.headerbox.pack_start(self.menubar, True, True, 0)
 
         self.label = Gtk.Label("This is a label.")
         self.sel_label = Gtk.Label("Selected item.")
@@ -59,8 +74,8 @@ class ThemePreview(Gtk.Grid):
 
         self.button = Gtk.Button(label="Click-click")
 
-        self.bg.attach(self.menubar, 1, 1, 3, 1)
-        self.bg.attach(self.label, 2, 2, 1, 1)
+        self.bg.attach(self.headerbox, 1, 1, 5, 2)
+        self.bg.attach(self.label, 3, 3, 1, 1)
         self.bg.attach_next_to(self.sel_label, self.label,
                                Gtk.PositionType.BOTTOM, 1, 1)
         self.bg.attach_next_to(self.entry, self.sel_label,

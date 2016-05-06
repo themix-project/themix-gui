@@ -69,6 +69,8 @@ else
 	source "$SRC_PATH/colors/$THEME"
 fi
 source $SRC_PATH/current_colors.txt
+HDR_BTN_BG=${HDR_BTN_BG-$BTN_BG}
+HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -97,6 +99,8 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/'"$OLD_MENU_FG"'/'"$MENU_FG"'/g' \
 		-e 's/'"$OLD_BTN_BG"'/'"$BTN_BG"'/g' \
 		-e 's/'"$OLD_BTN_FG"'/'"$BTN_FG"'/g' \
+		-e 's/'"$OLD_HDR_BTN_BG"'/'"$HDR_BTN_BG"'/g' \
+		-e 's/'"$OLD_HDR_BTN_FG"'/'"$HDR_BTN_FG"'/g' \
 		{} \; ;
 done
 

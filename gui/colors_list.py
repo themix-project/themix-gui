@@ -47,7 +47,8 @@ class ThemeColorsList(Gtk.Box):
             row.add(Gtk.Label("Can't be edited in GUI"))
             self.listbox.add(row)
         else:
-            for key in THEME_KEYS:
+            for key_obj in THEME_KEYS:
+                key = key_obj['key']
                 row = ColorListBoxRow(key, self.theme[key], self.color_edited)
                 self.listbox.add(row)
         self.listbox.show_all()
