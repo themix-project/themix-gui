@@ -106,7 +106,9 @@
 
         .tiled &, .maximized & { border-radius: 0; }
 
-        .title { font: bold; }
+        .title { font-weight: bold; }
+
+        separator.titlebutton { margin-left: $spacing * 2; }
 
         button.titlebutton {
             padding: $spacing;
