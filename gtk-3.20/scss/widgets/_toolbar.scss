@@ -46,7 +46,7 @@
     &.vertical separator { margin: ($spacing + 2px) 1px ($spacing + 2px) 0; }
 
     separator, separator:disabled {
-        color: shade($bg, ($contrast + .1));
+        color: shade($bg, ($contrast - .2));
         border-color: currentColor;
 
         -GtkWidget-window-dragging: true;
