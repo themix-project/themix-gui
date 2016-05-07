@@ -57,7 +57,7 @@ window.active.button.disabled.image.color: #888888
 
 window.active.button.hover.bg: flat solid
 window.active.button.hover.bg.color: #333333
-window.active.button.hover.image.color: #1D90CD
+window.active.button.hover.image.color: #f06860
 
 
 # Inactive window
@@ -91,7 +91,7 @@ window.inactive.button.disabled.image.color: #888888
 
 window.inactive.button.hover.bg: flat solid
 window.inactive.button.hover.bg.color: #333333
-window.inactive.button.hover.image.color: #1D90CD
+window.inactive.button.hover.image.color: #f06860
 
 
 # OSD
