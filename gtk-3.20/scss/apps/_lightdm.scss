@@ -11,8 +11,10 @@
         text-shadow: 0 1px alpha($black, .5);
         -gtk-icon-shadow: 0 1px alpha($black, .5);
 
-        .menubar {
-            &, > .menuitem {
+        menubar {
+            padding-left: 5px;
+            
+            &, > menuitem {
                 background-color: transparent;
                 background-image: none;
                 color: $white;
@@ -31,10 +33,10 @@
 
                 &:disabled { color: alpha($white, .7); }
 
-                .menu {
+                menu {
                     border-radius: 1px;
 
-                    .menuitem {
+                    menuitem {
                         font: normal;
                         text-shadow: none;
                     }
@@ -57,7 +59,7 @@
                     inset 0 1px mix(shade($lightdm_bg_color, .7), $lightdm_fg_color, .21),
                     inset 0 -1px mix(shade($lightdm_bg_color, .7), $lightdm_fg_color, .21);
 
-        .button {
+        button {
             padding: 3px 15px;
             border-width: 1px;
             border-radius: $roundness;
@@ -84,9 +86,9 @@
 
 
     #login_window {
-        .menu { border-radius: 1px; }
+        menu { border-radius: 1px; }
 
-        GtkComboBox .button {
+        combobox button {
             &, &:hover, &:active, &:active:hover,
             &:focus, &:hover:focus, &:active:focus, &:active:hover:focus {
                 padding: 0;
@@ -96,7 +98,7 @@
             }
         }
 
-        .entry {
+        entry {
             padding: 3px 5px;
             border-width: 1px;
             border-style: solid;
@@ -123,9 +125,9 @@
         color: $lightdm_fg_color;
         font: 18px;
 
-        .menu { font: normal; }
+        menu { font: normal; }
 
-        .arrow { color: mix($lightdm_fg_color, $lightdm_bg_color, .5); }
+        arrow { color: mix($lightdm_fg_color, $lightdm_bg_color, .5); }
     }
 
     #user_image {

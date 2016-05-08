@@ -106,6 +106,9 @@ linters:
     enabled: true
     global: [ "px", "%", "s", "ms" ]
 
+  PseudoElement:
+    enabled: false
+
   QualifyingElement:
     enabled: false
     allow_element_with_attribute: false
