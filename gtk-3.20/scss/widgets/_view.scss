@@ -44,8 +44,8 @@
 @include exports("treeview") {
     .rubberband,
     rubberband {
-        border: 1px solid darken($selected_bg_color, 10%);
-        background-color: transparentize(darken($selected_bg_color, 10%), 0.8);
+        border: 1px solid darken($selected_bg_color, .1);
+        background-color: transparentize(darken($selected_bg_color, .1), .8);
     }
 
     treeview entry {
@@ -91,8 +91,8 @@
         -GtkTreeView-tree-line-width: 1;
         -GtkTreeView-tree-line-pattern: '';
 
-        border-left-color: mix($dark_bg_color, $base_color, .2); // this is actually the tree lines color,
-        border-top-color: mix($dark_bg_color, $base_color, .2);  // while this is the grid lines color, better then nothing
+        border-left-color: mix($fg_color, $base_color, .5); // this is actually the tree lines color,
+        border-top-color: $bg_color;                        // while this is the grid lines color, better then nothing
 
         rubberband { @extend rubberband; } // to avoid borders being overridden by the previously set props
 
@@ -104,7 +104,7 @@
 
             &:backdrop, & {
                 border-left-color: mix($selected_fg_color, $selected_bg_color, .5);
-                border-top-color: transparentize($fg_color, 0.9); // doesn't work unfortunatelly
+                border-top-color: transparentize($fg_color, .9); // doesn't work unfortunatelly
             }
         }
 
@@ -123,7 +123,7 @@
             min-height: 2px;
             color: $bg_color;
 
-            &:backdrop { color: transparentize($bg_color, 0.9); }
+            &:backdrop { color: transparentize($bg_color, .9); }
         }
 
         &:backdrop {
@@ -146,7 +146,6 @@
             color: mix($fg_color, $base_color, .7);
 
             &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
-
 
             &:hover { color: $fg_color; }
 
@@ -186,7 +185,7 @@
 
                     &:backdrop {
                         @if $variant == 'light' {
-                            color: $selected_bg_color;
+                            color: $backdrop_selected_fg_color;
                             border-color: $selected_borders_color; // otherwise it gets inherited by .view(?!?)
                         } @else {
                             border-color: $backdrop_base_color;
@@ -350,12 +349,12 @@
 @include exports("placesview") {
     placesview {
         .server-list-button > image {
-            transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: 200ms cubic-bezier(.25, .46, .45, .94);
             -gtk-icon-transform: rotate(0turn);
         }
 
         .server-list-button:checked > image {
-            transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: 200ms cubic-bezier(.25, .46, .45, .94);
             -gtk-icon-transform: rotate(-0.5turn);
         }
 
