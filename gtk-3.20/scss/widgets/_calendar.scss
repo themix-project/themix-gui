@@ -4,7 +4,7 @@
 
 @include exports("calendar") {
     calendar {
-        padding: $spacing;
+        padding: 1px 3px;
         outline-offset: -1px;
 
         color: $text_color;
@@ -16,7 +16,6 @@
         &:selected {
             @extend %selected_items;
 
-            padding: 5px;
             border-radius: $roundness;
         }
 
