@@ -259,18 +259,29 @@
         }
     }
 
+	spinbutton.horizontal entry {
+		border-radius: $roundness;
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+		border-right-width: 0;
+	}
+
     button {
         min-height: 22px;
         min-width: 24px;
         @include button($button_bg_color, $button_fg_color);
 
         &.link, .link & { @include linked_button(shade($bg_color, 1.2)); }
+
 		spinbutton & {
 			/*&:active:hover, &:checked:hover,*/
 			/*&:focus,*/
 			&:hover:focus, &:active:focus, &:active:hover:focus {
 				@include linear-gradient(shade($button_bg_color, 1.4));
 			}
+		}
+		spinbutton.horizontal & {
+			@include linked_button($button_bg_color);
 		}
 
         &.linked, .linked & { @include linked_button($button_bg_color); }
