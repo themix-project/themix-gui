@@ -260,9 +260,9 @@
             border-radius: $roundness;
         }
 
-        entry { @include entry($menu_bg_color, $menu_fg_color);  }
+        entry { @include entry($base_color, $text_color);  }
 
-        button { @include button($menu_bg_color, $menu_fg_color);  }
+        button { @include button($header_button_bg_color, $header_button_fg_color);  }
 
         > list, > .view, > toolbar {
             border-style: none;
