@@ -41,31 +41,26 @@
             border: none;
             frame { border: 0; }
         }
-    }
 
-    NautilusQueryEditor {
-        toolbar {
-            padding-top: $spacing - 1px;
-            padding-bottom: $spacing - 2px;
-            border-width: 1px 0 0;
-            border-style: solid;
-            border-color: $toolbar_bg_color;
-            background-color: shade($toolbar_bg_color, .9);
+        .searchbar-container {
+            border-bottom: 2px solid $base_color;
+            border-left-width: 0px;
 
-            &:nth-child(2) { border-color: border_normal($toolbar_bg_color); }
-
-            &.search-bar {
-                border-top-width: 0;
-                border-bottom-width: 0;
-            }
-
-            &, &.search-bar {
-                &:last-child, &:only-child {
-                    border-bottom-width: 1px;
-                    border-bottom-color: border_normal($toolbar_bg_color);
+            searchbar {
+                padding-top: $spacing - 3px;
+                padding-bottom: $spacing - 2px;
+                border: none;
+                background-color: $selected_bg_color;
+                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+                
+                .search {
+                    border-right-width: 1px;
+                
+                    + button {
+                        margin-left: 8px;
+                    }
                 }
             }
-
         }
     }
 }
