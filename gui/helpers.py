@@ -168,8 +168,8 @@ def save_colorscheme(preset_name, colorscheme):
     path = os.path.join(user_theme_dir, preset_name)
     with open(path, 'w') as f:
         f.write("NAME={}\n".format(preset_name))
-        for key in THEME_KEYS:
-            f.write("{}={}\n".format(key, colorscheme[key]))
+        for field in THEME_KEYS:
+            f.write("{}={}\n".format(field['key'], colorscheme[field['key']]))
     return path
 
 
