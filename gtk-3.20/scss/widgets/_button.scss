@@ -172,6 +172,7 @@
     @extend %button;
     @include linear-gradient($bg);
     @include border(rgba(0, 0, 0, .12 + $border_strength));
+
     color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
@@ -271,6 +272,9 @@
 				@include linear-gradient(shade($button_bg_color, 1.4));
 			}
 		}
+
+        &.linked, .linked & { @include linked_button($button_bg_color); }
+
 /*
         spinbutton & {
             color: mix($text_color, $base_color, .4);
@@ -361,7 +365,6 @@
 
 @include exports("combobox") {
     combobox {
-
         button.combo {
             // otherwise the arrow placement is not symmetric
             min-width: 0;
@@ -394,6 +397,5 @@
         .linked:not(.vertical) > &:last-child > box > button.combo { @extend %linked_button:last-child; }
 
         .linked:not(.vertical) > &:only-child > box > button.combo { @extend %linked_button:only-child; }
-
     }
 }
