@@ -15,14 +15,17 @@
 ************/
 
 @include exports("tooltip") {
-    .tooltip {
+    tooltip {
         &.background {
-            @include linear-gradient($tooltip_bg_color);
-
-            border: 0;
-            border-radius: $roundness;
-            color: $tooltip_fg_color;
+            &, &.csd {
+                background-color: $tooltip_bg_color;
+                background-clip: padding-box;
+                border: 1px solid border_normal($tooltip_bg_color);
+                border-radius: $roundness;
+            }
         }
+
+        label { color: $tooltip_fg_color; }
 
         * {
             background-color: transparent;
