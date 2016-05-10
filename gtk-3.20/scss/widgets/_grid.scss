@@ -36,7 +36,7 @@
                 &:active { box-shadow: inset 0 2px 3px -1px transparentize($black, .5); }
 
                 &.has-open-popup,
-                &:hover { background-color: mix($fg_color, $selected_bg_color, .1); }
+                &:hover { background-color: mix($selected_bg_color, $fg_color, .1); }
 
                 &:backdrop { background-color: $selected_bg_color; }
             }
