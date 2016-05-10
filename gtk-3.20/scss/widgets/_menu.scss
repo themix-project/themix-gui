@@ -202,7 +202,8 @@
         box-shadow: 0 3px 6px alpha($black, .16);
 
         .csd &, & {
-            @include border($menu_bg_color);
+            /*@include border($menu_bg_color);*/
+            @include border(alpha($menu_fg_color, .5));
             border-width: 1px;
             border-style: solid;
         }

@@ -123,6 +123,7 @@ style "murrine-default" {
 		animation = FALSE
 		arrowstyle = 1 # 0 = normal arrows, 1 = filled arrows
 		border_shades = { 1.0, 1.0 } # gradient to draw on border
+		border_colors = { mix(0.2, @fg_color, @bg_color), mix(0.2, @fg_color, @bg_color) }
 		colorize_scrollbar = FALSE
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
 		contrast = 0.8 # overal contrast with borders
@@ -188,9 +189,10 @@ style "murrine-button"  = "murrine-wider" {
 	bg[PRELIGHT] = shade (1.10, @btn_bg_color)
 	bg[SELECTED] = shade (0.7, @btn_bg_color)
 	bg[ACTIVE] = shade (0.95, @btn_bg_color)
-	bg[INSENSITIVE] = shade (0.85, @btn_bg_color)
+	bg[INSENSITIVE] = shade (0.75, @btn_bg_color)
 
 	engine "murrine" {
+		border_colors = { mix(0.2, @btn_fg_color, @btn_bg_color), mix(0.2, @btn_fg_color, @btn_bg_color) }
 	}
 }
 
@@ -265,6 +267,10 @@ style "murrine-treeview" {
   	engine "murrine" {
 		roundness = 0
 	}
+}
+
+style "murrine-frame" = "murrine-wide" {
+	bg[NORMAL] = mix(0.08, @fg_color, @bg_color)
 }
 
 style "murrine-frame-title" {
@@ -684,7 +690,7 @@ widget_class "*Chrom*Button*" style "chromium-toolbar-button"
 
 class "GtkWidget" style "murrine-default"
 
-class "GtkFrame" style "murrine-wide"
+class "GtkFrame" style "murrine-frame"
 class "MetaFrames" style "metacity-frame"
 class "GtkWindow" style "metacity-frame"
 

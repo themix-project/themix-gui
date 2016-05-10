@@ -68,15 +68,19 @@
 @mixin entry($bg, $fg) {
     @extend %entry;
     @include linear-gradient($bg, to top);
-    @include border(mix($bg, $fg, .15));
+    @include border(mix($bg, $fg, .20));
 
     color: $fg;
     caret-color: $fg;
 
-    &:focus, &:active { border-color: border_focus($selected_borders_color); }
+    &:focus, &:active { border-color: $selected_borders_color; }
 
     &:disabled {
-        @include linear-gradient(shade($bg, .9), to top);
+		@include linear-gradient(shade($bg, .9), to top);
+		@include border(alpha(mix($bg, $fg, .20), .4));
+		/*@include border(mix($bg, $fg, .20));*/
+		/*border-color: alpha(mix($bg, $fg, .15), .8);*/
+		/*opacity: .8;*/
 
         color: mix($bg, $fg, .5);
     }

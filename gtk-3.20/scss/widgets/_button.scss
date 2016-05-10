@@ -166,12 +166,14 @@
 }
 
 @mixin button($bg, $fg) {
-    $border_strength: if(lightness($bg) > 50, 0, .1);
-    $shadow_strength: if(lightness($bg) > 50, 0, .1);
+	$border_strength: if(lightness($bg) > 50, 0, .1);
+	$shadow_strength: if(lightness($bg) > 50, 0, .1);
+    /*$border_strength: .1;*/
+    /*$shadow_strength: .1;*/
 
     @extend %button;
     @include linear-gradient($bg);
-    @include border(rgba(0, 0, 0, .12 + $border_strength));
+    @include border(alpha($fg, .12 + $border_strength));
 
     color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
@@ -186,22 +188,25 @@
     &, &.flat {
         &:focus, &:hover {
             @include linear-gradient(shade($bg, 1.2));
-            @include border(rgba(0, 0, 0, .2 + $border_strength));
+			@include border(alpha($fg, .20 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
         }
 
         &:checked, &:active {
-            @include linear-gradient(shade($bg, .7), to top);
+            /*@include linear-gradient(shade($bg, .7), to top);*/
+            @include linear-gradient($selected_bg_color, to top);
 
             color: $selected_fg_color;
-            box-shadow: inset 1px 0 alpha($dark_shadow, .06),
-            inset 0 1px alpha($dark_shadow, .07),
-            inset -1px 0 alpha($dark_shadow, .06),
-            inset 0 -1px alpha($dark_shadow, .05);
+            box-shadow: inset 1px 0 alpha($fg, .06),
+            inset  0 1px alpha($fg, .07),
+            inset -1px 0 alpha($fg, .06),
+            inset 0 -1px alpha($fg, .05);
+			@include border(alpha($fg, .12 + $border_strength));
 
             &:focus, &:hover {
-                @include linear-gradient(shade($bg, .65), to top);
+                /*@include linear-gradient(shade($bg, .65), to top);*/
+				@include linear-gradient(shade($selected_bg_color, 1.1), to top);
 
                 color: $selected_fg_color;
             }
@@ -209,30 +214,28 @@
 
         &:focus, &:hover { color: $fg; }
 
-        &:active:disabled, &:checked:disabled {
-            @include linear-gradient(shade($bg, .9));
+        &:disabled:disabled {
+			@include linear-gradient(alpha(mix($bg, $fg, .2), .3));
+			/*border: 1px solid alpha($bg, .2);*/
+			opacity: .6;
 
-            color: $fg;
+            color: mix($bg, $fg, .5);
             box-shadow: none;
         }
 
-        &:disabled:disabled {
-            @if (lightness($bg) > 50) {
-                @include linear-gradient(shade($bg, .95));
-            } @else {
-                @include linear-gradient(alpha($bg, .3));
-            }
+        &:active:disabled, &:checked:disabled {
+			@include linear-gradient(alpha($selected_bg_color, .6));
 
-            color: mix($bg, $fg, .5);
+            color: $fg;
             box-shadow: none;
         }
     }
 
     &.separator, .separator {
         border: 1px solid currentColor;
-        color: shade($bg, ($contrast + .1));
+        color: alpha($bg, ($contrast + .1));
 
-        &:disabled { color: shade($bg, .85); }
+        &:disabled { color: alpha($bg, .85); }
     }
 }
 

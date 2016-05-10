@@ -16,8 +16,10 @@ $selected_fg_color: #%SEL_FG%;
 $tooltip_bg_color: #%BG%;
 $tooltip_fg_color: #%FG%;
 
-$selected_borders_color: if($variant == 'light', darken($selected_bg_color, 30%), darken($selected_bg_color, 20%));
-$borders_color: if($variant == 'light', shade($bg_color, .85), shade($bg_color, .88));
+/*$selected_borders_color: if($variant == 'light', darken($selected_bg_color, 30%), darken($selected_bg_color, 20%));*/
+/*$borders_color: if($variant == 'light', shade($bg_color, .85), shade($bg_color, .88));*/
+$selected_borders_color: if($variant == 'light', mix($selected_bg_color, $fg_color, .3), darken($selected_bg_color, 20%));
+$borders_color: if($variant == 'light', mix($bg_color, $fg_color, .08), shade($bg_color, .88));
 $borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
 
 // dark colors
@@ -25,15 +27,22 @@ $dark_bg_color: #%MENU_BG%;
 $dark_fg_color: #%MENU_FG%;
 
 // shadows
-$dark_shadow: #000;
-$light_shadow: #fff;
+/*$dark_shadow: #000;*/
+/*$light_shadow: #fff;*/
+$dark_shadow: shade($bg_color, .2);
+$light_shadow: lighten($fg_color, .4);
 
 // white and black
-$black: #000;
-$white: #fff;
+/*$black: #000;*/
+/*$white: #fff;*/
+$black: shade($bg_color, .2);
+$white: lighten($fg_color, .4);
 
-$button_border: shade($base_color, .9);
-$entry_border: alpha($dark_shadow, .06);
+/*$button_border_strength: if(lightness($bg) > 50, 0, .1);*/
+/*$button_shadow_strength: if(lightness($bg) > 50, 0, .1);*/
+$button_border_strength: 0.1;
+$button_border: alpha($button_fg_color, .06 + $button_border_strength);
+$entry_border: $borders_color;
 
 $scrollbar_bg_color: if($variant == 'light', darken($bg_color, 5%), mix($base_color, $bg_color, .4));
 $scrollbar_slider_color: shade($bg_color, .5);
@@ -124,4 +133,5 @@ $drop_target_color: #4e9a06;
 $roundness: 2px;
 $spacing: 3px;
 $gradient: 0;
+/*$gradient: .2;*/
 $contrast: .8;
