@@ -29,8 +29,8 @@ $dark_fg_color: #%MENU_FG%;
 // shadows
 /*$dark_shadow: #000;*/
 /*$light_shadow: #fff;*/
-$dark_shadow: shade($bg_color, .2);
-$light_shadow: lighten($fg_color, .4);
+$dark_shadow: shade($fg_color, .2);
+$light_shadow: lighten($bg_color, .4);
 
 // white and black
 /*$black: #000;*/
