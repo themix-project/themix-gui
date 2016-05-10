@@ -67,39 +67,31 @@ notebook {
 
 
           // tab border radius
-          @if $_pos==top {
-              border-radius: $roundness $roundness 0 0;
-          }
-          @else if $_pos==bottom {
-              border-radius: 0 0 $roundness $roundness;
-          }
-          @else if $_pos==left {
-              border-radius: $roundness 0 0 $roundness;
-          }
-          @else if $_pos==right {
-              border-radius: 0 $roundness $roundness 0;
-          }
+          @if $_pos==top { border-radius: 1px 1px 0 0; }
+          @else if $_pos==bottom { border-radius: 0 0 1px 1px; }
+          @else if $_pos==left { border-radius: 1px 0 0 1px; }
+          @else if $_pos==right { border-radius: 0 1px 1px 0; }
         }
       }
     }
     // overflow arrows
     &.top, &.bottom {
       > tabs > arrow.up {
-        @extend %notebook_vert_arrows;
+        -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
         &:last-child { margin-left: 2px; }
       }
       > tabs > arrow.down {
-        @extend %notebook_vert_arrows;
+        -gtk-icon-source: -gtk-icontheme('pan-start-symbolic');
         &:first-child { margin-right: 2px; }
       }
     }
     &.left, &.right {
       > tabs > arrow.up {
-        @extend %notebook_horz_arrows;
+        -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
         &:last-child { margin-top: 2px; }
       }
       > tabs > arrow.down {
-        @extend %notebook_horz_arrows;
+        -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
         &:first-child { margin-bottom: 2px; }
       }
     }
