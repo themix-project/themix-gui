@@ -26,7 +26,7 @@
         $_small_gradient_color: darken($borders_color, 10%);
         $_big_gradient_color: $fg_color;
 
-        @if $t == backdrop { $_small_gradient_color: $backdrop_borders_color; }
+        @if $type == backdrop { $_small_gradient_color: $backdrop_borders_color; }
     }
 
     $_small_gradient: -gtk-gradient(radial,
