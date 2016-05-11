@@ -5,53 +5,39 @@
 @include exports("gnome-terminal") {
     //noinspection ScssLintInspection,ScssLintInspection
     VteTerminal {
-	background-color: $osd_base;
-	color: $osd_fg;
+        background-color: $osd_base;
+        color: $osd_fg;
     }
-    TerminalWindow {
-	.scrollbars-junction {
-		background-color: $osd_base;
-	}
-	scrollbar {
-		trough {
-			background-color: $osd_base;
-		}
-		button {
-			color: shade($osd_base, 0.6);
-			&:active {
-				color: shade($osd_base, 0.6);
-				&:hover {
-					color: shade($osd_base, 0.6);
-				}
-			}
-		}
-		& slider {
-			border-color: mix(shade($osd_base, 0.87), $osd_fg, 0.21);
-			background-color: mix($osd_base, $osd_fg, 0.21);
-			&:hover {
-				border-color: mix(shade($osd_base, 0.87), $osd_fg, 0.31);
-				background-color: mix($osd_base, $osd_fg, 0.31);
-			}
-			&.vertical {
-				&:hover {
-					border-color: mix(shade($osd_base, 0.87), $osd_fg, 0.31);
-					background-color: mix($osd_base, $osd_fg, 0.31);
-				}
-				&:active {
-					border-color: shade($selected_bg_color, 0.9);
-					background-color: $selected_bg_color;
-				}
-			}
-			&:active {
-				border-color: shade($selected_bg_color, 0.9);
-				background-color: $selected_bg_color;
-			}
-		}
-	}
-	GtkNotebook.notebook {
-		border-right-width: 0;
-		border-bottom-width: 0;
-		border-left-width: 0;
-	}
+
+    terminal-window {
+        junction, scrollbar trough {
+            background-color: $osd_base;
+            border-color: border_normal($osd_base);
+
+            &:backdrop {
+                background-color: shade($backdrop_osd_bg, .9);
+                border-color: border_normal(shade($backdrop_osd_bg, .9));
+            }
+        }
+
+        scrollbar.vertical {
+            slider {
+                background-color: mix($osd_base, $osd_fg, .2);
+
+                &:hover { background-color: mix($osd_base, $osd_fg, .3); }
+
+                &:hover:active { background-color: $selected_bg_color; }
+
+                &:backdrop { background-color: mix($backdrop_osd_fg, $backdrop_osd_bg, .4); }
+
+                &:disabled { background-color: transparent; }
+            }
+        }
+
+        /*GtkNotebook.notebook {
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-left-width: 0;
+        }*/
     }
 }
