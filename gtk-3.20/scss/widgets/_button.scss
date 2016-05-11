@@ -166,7 +166,7 @@
 }
 
 @mixin button($bg, $fg) {
-	$border_strength: if(lightness($bg) > 50, 0, .1);
+	$border_strength: if(lightness($fg) > 50, .1, .2);
 	$shadow_strength: if(lightness($bg) > 50, 0, .1);
     /*$border_strength: .1;*/
     /*$shadow_strength: .1;*/
