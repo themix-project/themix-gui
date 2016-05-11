@@ -275,6 +275,8 @@
                 text-shadow: none;
             }
         }
+
+        acceleditor > label { background-color: $selected_bg_color; }
     }
 }
 
