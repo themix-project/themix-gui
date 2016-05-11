@@ -108,6 +108,10 @@ $backdrop_borders_color: mix($bg_color, $borders_color, .9);
 $backdrop_dark_fill: mix($backdrop_borders_color, $backdrop_bg_color, .35);
 $backdrop_sidebar_bg_color: mix($backdrop_bg_color, $backdrop_base_color, .5);
 
+$backdrop_osd_base: $osd_base;
+$backdrop_osd_bg: $osd_bg;
+$backdrop_osd_fg: mix($osd_fg, $backdrop_osd_base, .5);
+
 $backdrop_scrollbar_bg_color: darken($backdrop_bg_color, 3%);
 $backdrop_scrollbar_slider_color: mix($backdrop_fg_color, $backdrop_bg_color, .4);
 
