@@ -27,8 +27,7 @@
 
         @if $variant == 'light' {
             background-position: right 3px, right 4px;
-        }
-        @else {
+        } @else {
             background-position: right 3px, right 2px;
         }
 
@@ -37,8 +36,7 @@
         &:dir(rtl) {
             @if $variant == 'light' {
                 background-position: left 3px, left 4px;
-            }
-            @else {
+            } @else {
                 background-position: left 3px, left 2px;
             }
         }
@@ -69,6 +67,18 @@
             border-radius: 0; // needed when including %linked_middle:dir(rtl)
             border-right-style: none;
             border-left-style: solid;
+        }
+    }
+
+    %linked_vertical_middle {
+        border-radius: 0;
+        border-top-style: none;
+        border-bottom-style: solid;
+
+        &:dir(rtl) {
+            border-radius: 0; // needed when including %linked_vertical_middle:dir(rtl)
+            border-top-style: none;
+            border-bottom-style: solid;
         }
     }
 
@@ -116,6 +126,51 @@
             border-radius: $roundness;
         }
     }
+
+    %linked_vertical_button {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 0;
+        border-top-style: none;
+        border-bottom-style: none;
+
+        &:first-child {
+            border-width: 1px;
+            border-radius: $roundness;
+            border-top-style: solid;
+            border-bottom-style: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            &:dir(rtl) {
+                border-top-style: none;
+                border-bottom-style: solid;
+            }
+        }
+
+        &:last-child {
+            border-width: 1px;
+            border-radius: $roundness;
+            border-top-style: none;
+            border-bottom-style: solid;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+
+            &:dir(rtl) {
+                border-top-style: solid;
+                border-bottom-style: none;
+            }
+        }
+
+        &:only-child, &:first-child:only-child {
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        &:only-child {
+            border-radius: $roundness;
+        }
+    }
 }
 
 @mixin linked_button($bg) {
@@ -142,6 +197,53 @@
     }
 
     &:disabled { box-shadow: inset -1px 0 shade($bg, .8); }
+
+    &:last-child, &:only-child { box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength); }
+
+    &:last-child:hover, &:only-child:hover { box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength); }
+
+    &:disabled:last-child, &:disabled:only-child,
+    &:active:disabled:last-child, &:active:disabled:only-child,
+    &:checked:disabled:last-child, &:checked:disabled:only-child { box-shadow: none; }
+
+    &:active:last-child, &:active:last-child:focus, &:active:last-child:hover, &:active:last-child:hover:focus,
+    &:checked:last-child, &:checked:last-child:focus, &:checked:last-child:hover, &:checked:last-child:hover:focus {
+        box-shadow: inset 0 1px alpha($dark_shadow, .07),
+        inset -1px 0 alpha($dark_shadow, .06);
+    }
+
+    &:active:only-child, &:active:only-child:focus, &:active:only-child:hover, &:active:only-child:hover:focus,
+    &:checked:only-child, &:checked:only-child:focus, &:checked:only-child:hover, &:checked:only-child:hover:focus {
+        box-shadow: inset 1px 0 alpha($dark_shadow, .06),
+        inset 0 1px alpha($dark_shadow, .07),
+        inset -1px 0 alpha($dark_shadow, .06);
+    }
+}
+
+@mixin linked_vertical_button($bg) {
+    $border_strength: if(lightness($bg) > 50, 0, .1);
+    $shadow_strength: if(lightness($bg) > 50, 0, .1);
+
+    @extend %linked_vertical_button;
+
+    box-shadow: inset 0 -1px border_normal(rgba(0, 0, 0, .12 + $border_strength)),
+    0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
+
+    &:focus, &:hover {
+        box-shadow: inset 0 -1px border_focus(rgba(0, 0, 0, .12 + $border_strength)),
+        0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
+    }
+
+    &:active, &:active:hover,
+    &:active:focus, &:active:hover:focus,
+    &:checked, &:checked:hover,
+    &:checked:focus, &:checked:hover:focus {
+        box-shadow: inset 0 -1px border_active(rgba(0, 0, 0, .12 + $border_strength)),
+        inset 1px 0 alpha($dark_shadow, .07),
+        inset -1px 0 alpha($dark_shadow, .05);
+    }
+
+    &:disabled { box-shadow: inset 0 -1px shade($bg, .8); }
 
     &:last-child, &:only-child { box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength); }
 
@@ -239,7 +341,6 @@
 }
 
 @include exports("button") {
-
     %close_button {
         border: 1px solid transparent;
         background-color: transparent;
@@ -267,6 +368,8 @@
         @include button(shade($bg_color, 1.2), $fg_color);
 
         &.linked, .linked & { @include linked_button(shade($bg_color, 1.2)); }
+
+        &.linked.vertical, .linked.vertical & { @include linked_vertical_button(shade($bg_color, 1.2)); }
 
         spinbutton & {
             color: mix($text_color, $base_color, .4);
