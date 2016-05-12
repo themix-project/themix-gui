@@ -215,9 +215,9 @@
         &:focus, &:hover { color: $fg; }
 
         &:disabled:disabled {
-			@include linear-gradient(alpha(mix($bg, $fg, .2), .3));
+			@include linear-gradient(alpha(mix($bg, $fg, .2), .4));
 			/*border: 1px solid alpha($bg, .2);*/
-			opacity: .6;
+			opacity: .4;
 
             color: mix($bg, $fg, .5);
             box-shadow: none;
@@ -226,7 +226,7 @@
         &:active:disabled, &:checked:disabled {
 			@include linear-gradient(alpha($selected_bg_color, .6));
 
-            color: $fg;
+            color: $selected_fg_color;
             box-shadow: none;
         }
     }
