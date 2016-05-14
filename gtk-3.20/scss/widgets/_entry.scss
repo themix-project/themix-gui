@@ -30,6 +30,34 @@
     }
 }
 
+%linked_vertical_entry {
+    border-width: 1px;
+    border-radius: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+
+    &:first-child {
+        border-width: 1px;
+        border-radius: $roundness;
+        border-bottom-width: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+        border-width: 1px;
+        border-radius: $roundness;
+        border-top-width: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:only-child {
+        border-width: 1px;
+        border-radius: $roundness;
+    }
+}
+
 %entry {
     padding: $spacing;
     border-width: 1px;
@@ -48,7 +76,7 @@
 
     &:disabled { box-shadow: none; }
 
-    & progressbar {
+    progressbar {
         @include linear-gradient($selected_bg_color);
 
         border-width: 0;
@@ -56,13 +84,11 @@
         color: $selected_fg_color;
     }
 
-    & image.left { padding-right: $spacing; }
-    & image.right { padding-left: $spacing; }
+    image.left { padding-right: $spacing; }
 
-    selection {
-        background-color: $selected_bg_color;
-        color: $selected_fg_color;
-    }
+    image.right { padding-left: $spacing; }
+
+    selection { &:focus, & { @extend %selected_items; } }
 }
 
 @mixin entry($bg, $fg) {
@@ -87,5 +113,7 @@
         @include entry($base_color, $text_color);
 
         &.linked, .linked & { @extend %linked_entry; }
+
+        &.linked.vertical, .linked.vertical & { @extend %linked_vertical_entry; }
     }
 }
