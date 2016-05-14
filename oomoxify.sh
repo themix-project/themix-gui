@@ -119,10 +119,10 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 			if [ ! -z "${replace_font:-}" ] ; then
 				sed -i \
 					-e "s/'spotify-circular'/${replace_font}/g" \
-					"${css}"
-				sed -i \
 					-e "s/Monaco/monospace/g" \
-					"${css}"
+					-e "s/font-weight: 200/font-weight: 400/g" \
+					-e "s/font-weight: 100/font-weight: 400/g" \
+					"${css}" || true
 			fi
 			sed -i \
 				-e "s/282828/oomox_main_bg/g" \
