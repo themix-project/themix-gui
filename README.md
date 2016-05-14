@@ -98,6 +98,8 @@ ls colors
 ```
 Make sure to remove `~/.config/oomox/spotify_backup` when upgrading Spotify to the new version.
 
+Also you can replace font with `-f` argument, see `-h` for usage.
+
 
 #### Review article
 
