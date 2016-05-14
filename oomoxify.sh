@@ -8,10 +8,18 @@ backup_dir="${HOME}/.config/oomox/spotify_backup"
 
 
 print_usage() {
-	echo "usage: $0 [-s /path/to/spotify/Apps] PRESET_NAME_OR_PATH"
-	echo "examples:"
-	echo "       $0 monovedek"
-	echo "       $0 -o /opt/spotify/Apps ./colors/retro/twg"
+	echo "
+usage:
+$0 [-s /path/to/spotify/Apps] [-f font] PRESET_NAME_OR_PATH
+
+options:
+	-s, --spotify-apps-path		path to spotify/Apps
+	-f, --replace-font		replace font
+
+examples:
+	$0 monovedek
+	$0 -f sans-serif ./colors/gnome-colors/shiki-noble
+	$0 -o /opt/spotify/Apps ./colors/retro/twg"
 	exit 1
 }
 
@@ -35,6 +43,14 @@ darker() {
 while [[ $# > 0 ]]
 do
 	case ${1} in
+		-h|--help)
+			print_usage
+			exit 0
+		;;
+		-f|--replace-font)
+			replace_font="${2}"
+			shift
+		;;
 		-s|--spotify-apps-path)
 			spotify_apps_path="${2}"
 			shift
@@ -100,6 +116,11 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 	unzip "./${filename}" > /dev/null
 	if [[ -d ./css/ ]] && [[ -f ./css/style.css ]] ; then
 		for css in $(ls ./css/*.css); do
+			if [ ! -z "${replace_font:-}" ] ; then
+				sed -i \
+					-e "s/'spotify-circular'/${replace_font}/g" \
+					"${css}"
+			fi
 			sed -i \
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
