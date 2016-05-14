@@ -120,6 +120,9 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 				sed -i \
 					-e "s/'spotify-circular'/${replace_font}/g" \
 					"${css}"
+				sed -i \
+					-e "s/Monaco/monospace/g" \
+					"${css}"
 			fi
 			sed -i \
 				-e "s/282828/oomox_main_bg/g" \
