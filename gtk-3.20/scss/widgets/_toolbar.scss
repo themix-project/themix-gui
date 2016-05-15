@@ -30,7 +30,7 @@
 
     button { @include button($bg, $fg); }
 
-    button.linked, .linked button { @include linked_button($bg); }
+    .linked > button { @include linked_button($bg); }
 
     combobox, button {
         padding: $spacing - 1px;
