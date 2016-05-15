@@ -126,7 +126,7 @@ assistant {
 
     &.csd .sidebar { border-top-style: none; }
 
-    .sidebar label { padding: 6px 12px; }
+    .sidebar label { padding: $spacing ($spacing * 2); }
 
     .sidebar label.highlight { background-color: mix($fg_color, $bg_color, .8); }
 }
