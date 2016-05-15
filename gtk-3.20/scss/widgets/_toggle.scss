@@ -81,19 +81,20 @@ $suffix: if($variant == "dark", "-dark", "");
 @include exports("switch") {
     switch {
         border-radius: $roundness;
-        padding: $spacing;
+        padding: $spacing - 1;
         border: none;
         outline: none;
         transition: background-color 0.3s linear;
-        min-width: 93px;
-        min-height: 25px;
+        min-width: 88px;
+        min-height: 24px;
         background-color: $switch_bg_color;
         color: $switch_fg_color;
+        box-shadow: inset 1px -1px 0px rgba(0, 0, 0, 0.06), inset -1px 1px 0px rgba(0, 0, 0, 0.06);
 
         slider {
             background-color: $switch_slider_bg_color;
             transition: all 0.3s ease-in;
-            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.07), 1px 0px 2px 0px rgba(0, 0, 0, 0.07);
             border-radius: $roundness;
         }
 
@@ -105,6 +106,7 @@ $suffix: if($variant == "dark", "-dark", "");
 
             slider {
                 background-color: $white;
+                box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -113,9 +115,28 @@ $suffix: if($variant == "dark", "-dark", "");
             background-image: none;
             border-color: $switch_disabled_border_color;
             color: $switch_disabled_fg_color;
+            box-shadow: none;
 
             slider {
                 background-color: $switch_disabled_slider_bg_color;
+            }
+        }
+
+        list row:selected & {
+            background-color: $switch_disabled_slider_bg_color;
+            color: $switch_disabled_bg_color;
+
+            slider {
+                background-color: mix($switch_disabled_bg_color, $base_color, .4);
+            }
+
+            &:checked {
+                color: $selected_bg_color;
+                background-color: $switch_slider_bg_color;
+
+                slider {
+                    background-color: $selected_bg_color;
+                }
             }
         }
     }
