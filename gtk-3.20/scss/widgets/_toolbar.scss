@@ -64,6 +64,10 @@
         &.inline-toolbar {
             background-image: none;
             background-color: transparent;
+
+            button { @include button($toolbar_bg_color, $toolbar_fg_color); }
+
+            .linked > button { @include linked_button($toolbar_bg_color); }
         }
     }
 
