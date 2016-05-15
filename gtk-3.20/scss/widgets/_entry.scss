@@ -104,7 +104,7 @@
 
     &:disabled { box-shadow: none; }
 
-    progressbar {
+    progress {
         @include linear-gradient($selected_bg_color);
 
         border-width: 0;
