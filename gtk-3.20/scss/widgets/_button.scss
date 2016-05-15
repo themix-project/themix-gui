@@ -367,11 +367,10 @@
         min-width: 24px;
         @include button(shade($bg_color, 1.2), $fg_color);
 
+        .inline-toolbar &,
         .linked > & { @include linked_button(shade($bg_color, 1.2)); }
 
         .linked.vertical > & { @include linked_vertical_button(shade($bg_color, 1.2)); }
-
-        .inline-toolbar & { @extend %linked_button; }
     }
 
     spinbutton {
