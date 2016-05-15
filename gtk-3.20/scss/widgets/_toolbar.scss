@@ -30,7 +30,7 @@
 
     button { @include button($bg, $fg); }
 
-    button.linked, .linked button { @include linked_button($bg); }
+    .linked > button { @include linked_button($bg); }
 
     combobox, button {
         padding: $spacing - 1px;
@@ -64,6 +64,10 @@
         &.inline-toolbar {
             background-image: none;
             background-color: transparent;
+
+            button { @include button($toolbar_bg_color, $toolbar_fg_color); }
+
+            .linked > button { @include linked_button($toolbar_bg_color); }
         }
     }
 

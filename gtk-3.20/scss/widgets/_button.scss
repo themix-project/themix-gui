@@ -367,90 +367,60 @@
         min-width: 24px;
         @include button(shade($bg_color, 1.2), $fg_color);
 
-        &.linked, .linked & { @include linked_button(shade($bg_color, 1.2)); }
+        .inline-toolbar &,
+        .linked > & { @include linked_button(shade($bg_color, 1.2)); }
 
-        &.linked.vertical, .linked.vertical & { @include linked_vertical_button(shade($bg_color, 1.2)); }
+        .linked.vertical > & { @include linked_vertical_button(shade($bg_color, 1.2)); }
+    }
 
-        spinbutton & {
+    spinbutton {
+        button {
             color: mix($text_color, $base_color, .4);
-            padding: $spacing ($spacing * 2);
-            border: 0;
-            border-radius: 0;
-            border-style: none;
-            background-color: transparent;
-            background-image: none;
-            box-shadow: inset 1px 0 shade($base_color, .9);
-
-            &:disabled {
-                color: mix($text_color, $base_color, .7);
-                box-shadow: inset 1px 0 shade($base_color, .85);
-            }
 
             &:active, &:checked, &:hover { color: $text_color; }
 
-            &:first-child {
-                border-radius: $roundness 0 0 $roundness;
-                box-shadow: none;
-            }
-
-            &:last-child { border-radius: 0 $roundness $roundness 0; }
-
-            &:dir(rtl) { box-shadow: inset -1px 0 shade($base_color, .9); }
+            &:disabled { color: mix($text_color, $base_color, .7); }
         }
 
-        spinbutton.vertical & {
-            border: 1px solid shade($bg_color, .8);
-            border-radius: $roundness;
-            background-color: shade($bg_color, 1.08);
-            background-image: none;
-            color: $fg_color;
-            box-shadow: none;
-
-            &:hover {
-                border-color: shade($bg_color, .7);
-                background-color: shade($bg_color, 1.1);
-                background-image: none;
+        &:not(.vertical) {
+            entry {
+                // reset all the other props since the spinbutton node is styled here
+                border-radius: 0;
             }
 
-            &:active, &:checked {
-                border-color: shade($bg_color, .8);
-                background-color: shade($bg_color, .95);
-                background-image: none;
-            }
+            button {
+                @extend %linked_middle;
 
-            &:active:hover, &:checked:hover {
-                border-color: shade($bg_color, .7);
-            }
+                &:first-child { border-radius: $roundness 0 0 $roundness; }
 
-            &:focus, &:hover:focus, &:active:focus, &:active:hover:focus { border-color: shade($bg_color, .7); }
-
-            &:disabled {
-                border-color: shade($bg_color, .85);
-                background-color: shade($bg_color, .9);
-                background-image: none;
-            }
-
-            &:first-child {
-                border-width: 1px;
-                border-bottom-width: 0;
-                border-bottom-right-radius: 0;
-                border-bottom-left-radius: 0;
-            }
-
-            &:last-child {
-                border-width: 1px;
-                border-top-width: 0;
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
+                &:last-child { border-radius: 0 $roundness $roundness 0; }
             }
         }
 
-        spinbutton.vertical entry {
-            border-width: 1px;
-            border-style: solid;
-            border-radius: 0;
-        }
+        &.vertical {
+            entry {
+                // reset all the other props since the spinbutton node is styled here
+                border-radius: 0;
+            }
 
+            button {
+                @extend %linked_vertical_entry;
+
+                &:first-child {
+                    border-width: 1px;
+                    border-bottom-width: 0;
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+
+                &:last-child {
+                    border-width: 1px;
+                    border-top-width: 0;
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+            }
+        }
     }
 }
 
