@@ -30,9 +30,7 @@
                 @include button($bg_color, $fg_color);
             }
 
-            button.linked, .linked .button {
-                @include linked_button($bg_color);
-            }
+            .linked > button { @include linked_button($bg_color); }
 
             combobox button {
                 padding: $spacing - 1px;
