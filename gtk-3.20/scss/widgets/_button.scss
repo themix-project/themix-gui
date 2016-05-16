@@ -392,6 +392,7 @@
             entry {
                 // reset all the other props since the spinbutton node is styled here
                 border-radius: 0;
+				border-right-width: 0;
             }
 
             button {
@@ -410,21 +411,25 @@
             }
 
             button {
-                @extend %linked_vertical_entry;
+                /*@extend %linked_vertical_entry;*/
+                /*&:first-child { border-radius: 0 $roundness 0 $roundness; }*/
+                border-radius: $roundness $roundness 0 0;
 
-                &:first-child {
-                    border-width: 1px;
-                    border-bottom-width: 0;
-                    border-bottom-right-radius: 0;
-                    border-bottom-left-radius: 0;
-                }
+                &:last-child { border-radius: 0 0 $roundness $roundness; }
 
-                &:last-child {
-                    border-width: 1px;
-                    border-top-width: 0;
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                }
+                /*&:first-child {*/
+                    /*border-width: 1px;*/
+                    /*border-bottom-width: 0;*/
+                    /*border-bottom-right-radius: 0;*/
+                    /*border-bottom-left-radius: 0;*/
+                /*}*/
+
+                /*&:last-child {*/
+                    /*border-width: 1px;*/
+                    /*border-top-width: 0;*/
+                    /*border-top-left-radius: 0;*/
+                    /*border-top-right-radius: 0;*/
+                /*}*/
             }
         }
     }
