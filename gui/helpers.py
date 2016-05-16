@@ -166,10 +166,16 @@ def read_colorscheme_from_preset(preset_name):
 
 def save_colorscheme(preset_name, colorscheme):
     path = os.path.join(user_theme_dir, preset_name)
-    with open(path, 'w') as f:
-        f.write("NAME={}\n".format(preset_name))
-        for field in THEME_KEYS:
-            f.write("{}={}\n".format(field['key'], colorscheme[field['key']]))
+    try:
+        with open(path, 'w') as f:
+            f.write("NAME={}\n".format(preset_name))
+            for field in THEME_KEYS:
+                f.write("{}={}\n".format(
+                    field['key'], colorscheme[field['key']]
+                ))
+    except FileNotFoundError:
+        mkdir_p(os.path.dirname(path))
+        return save_colorscheme(preset_name, colorscheme)
     return path
 
 
