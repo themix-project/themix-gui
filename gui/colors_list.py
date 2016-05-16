@@ -2,6 +2,30 @@ from gi.repository import Gtk
 from .helpers import convert_theme_color_to_gdk, THEME_KEYS
 
 
+class BoolListBoxRow(Gtk.ListBoxRow):
+
+    def on_switch_activated(self, switch, gparam):
+        self.value = switch.get_active()
+        self.color_set_callback(self.key, self.value)
+
+    def __init__(self, key, value, color_set_callback):
+        super().__init__()
+
+        self.color_set_callback = color_set_callback
+        self.key = key
+        self.value = value
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.add(hbox)
+        label = Gtk.Label(key, xalign=0)
+        hbox.pack_start(label, True, True, 0)
+
+        switch = Gtk.Switch()
+        switch.connect("notify::active", self.on_switch_activated)
+        switch.set_active(value)
+        hbox.pack_start(switch, False, True, 0)
+
+
 class ColorListBoxRow(Gtk.ListBoxRow):
 
     def on_color_set(self, widget):
@@ -48,9 +72,18 @@ class ThemeColorsList(Gtk.Box):
             self.listbox.add(row)
         else:
             for key_obj in THEME_KEYS:
-                key = key_obj['key']
-                row = ColorListBoxRow(key, self.theme[key], self.color_edited)
-                self.listbox.add(row)
+                if key_obj['type'] == 'color':
+                    key = key_obj['key']
+                    row = ColorListBoxRow(
+                        key, self.theme[key], self.color_edited
+                    )
+                    self.listbox.add(row)
+                if key_obj['type'] == 'bool':
+                    key = key_obj['key']
+                    row = BoolListBoxRow(
+                        key, self.theme[key], self.color_edited
+                    )
+                    self.listbox.add(row)
         self.listbox.show_all()
 
     def __init__(self, color_edited_callback):

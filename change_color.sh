@@ -77,6 +77,7 @@ fi
 source $SRC_PATH/current_colors.txt
 HDR_BTN_BG=${HDR_BTN_BG-$BTN_BG}
 HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
+GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -110,6 +111,10 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		{} \; ;
 done
 
+if [[ ${GTK3_GENERATE_DARK} != "true" ]] ; then
+	cp ./gtk-3.0/scss/gtk.scss ./gtk-3.0/scss/gtk-dark.scss || true
+	cp ./gtk-3.20/scss/gtk.scss ./gtk-3.20/scss/gtk-dark.scss || true
+fi
 test ${MAKE_GTK3} = 1 && make "${MAKE_OPTS}"
 
 exit 0
