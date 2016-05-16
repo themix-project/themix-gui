@@ -8,24 +8,31 @@
         border-radius: $roundness;
         font-size: smaller;
         color: alpha($fg_color, .6);
-        min-width: 6px;
-        min-height: 6px;
 
-        &.osd {
-            min-height: 4px;
+        // sizing
+        &.horizontal {
+            trough,
+            progress { min-height: 6px; }
         }
+
+        &.vertical {
+            trough,
+            progress { min-width: 6px; }
+        }
+
+        &.osd { min-height: 4px; }
 
         trough {
             border: 1px solid alpha(border_normal($bg_color), .5);
             background-color: shade($bg_color, 1.08);
             background-image: none;
+            border-radius: $roundness;
         }
 
         progress {
             @include linear-gradient($selected_bg_color);
 
             border-radius: 0;
-            box-shadow: none;
 
             &.left {
                 border-top-left-radius: $roundness;
@@ -37,20 +44,14 @@
                 border-bottom-right-radius: $roundness;
             }
 
-            &.left.right { box-shadow: none; }
+            &.bottom {
+                border-bottom-left-radius: $roundness;
+                border-bottom-right-radius: $roundness;
+            }
 
-            &.vertical {
-                @include linear-gradient($selected_bg_color, to right);
-
-                &.bottom {
-                    border-bottom-left-radius: $roundness;
-                    border-bottom-right-radius: $roundness;
-                }
-
-                &.top {
-                    border-top-left-radius: $roundness;
-                    border-top-right-radius: $roundness;
-                }
+            &.top {
+                border-top-left-radius: $roundness;
+                border-top-right-radius: $roundness;
             }
         }
     }
