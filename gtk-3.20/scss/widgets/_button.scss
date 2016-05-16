@@ -364,12 +364,6 @@
         }
     }
 
-	spinbutton.horizontal entry {
-		border-radius: $roundness;
-		border-bottom-right-radius: 0;
-		border-top-right-radius: 0;
-		border-right-width: 0;
-	}
 
     button {
         min-height: 22px;
@@ -378,32 +372,20 @@
 
 
         .inline-toolbar &,
-        .linked > & { @include linked_button(shade($bg_color, 1.2)); }
+        .linked > & { @include linked_button($button_bg_color); }
 
-        .linked.vertical > & { @include linked_vertical_button(shade($bg_color, 1.2)); }
+        .linked.vertical > & { @include linked_vertical_button($button_bg_color); }
     }
 
-		spinbutton & {
-			/*&:active:hover, &:checked:hover,*/
-			/*&:focus,*/
-			&:hover:focus, &:active:focus, &:active:hover:focus {
-				@include linear-gradient(shade($button_bg_color, 1.4));
-			}
-		}
-		spinbutton.horizontal & {
-			@include linked_button($button_bg_color);
-		}
-
-        &.linked, .linked & { @include linked_button($button_bg_color); }
-		&.linked.vertical, .linked.vertical & { @include linked_vertical_button($button_bg_color); }
-/*
     spinbutton {
         button {
-            color: mix($text_color, $base_color, .4);
+            color: $button_fg_color;
 
-            &:active, &:checked, &:hover { color: $text_color; }
+            &:active, &:checked, &:hover {
+				@include linear-gradient(shade($button_bg_color, 1.4));
+			}
 
-            &:disabled { color: mix($text_color, $base_color, .7); }
+            &:disabled { color: mix($button_fg_color, $bg_color, .7); }
         }
 
         &:not(.vertical) {
@@ -445,13 +427,6 @@
                 }
             }
         }
-*/
-        spinbutton.vertical entry {
-            border-width: 1px;
-            border-style: solid;
-            border-radius: 0;
-        }
-
     }
 }
 
