@@ -81,6 +81,11 @@ THEME_KEYS = [
         'type': 'int',
         'fallback_value': 3,
     },
+    {
+        'key': 'GRADIENT',
+        'type': 'float',
+        'fallback_value': 0.0,
+    },
 ]
 
 
@@ -126,9 +131,11 @@ def resolve_color_links(colorscheme):
         fallback_key = key_obj.get('fallback_key')
         fallback_value = key_obj.get('fallback_value')
         value = colorscheme.get(key)
-        if not value and (fallback_key or fallback_value):
-            value = colorscheme[key] = \
-                fallback_value and fallback_value or colorscheme[fallback_key]
+        if not value and (fallback_key or fallback_value is not None):
+            if fallback_value is not None:
+                value = colorscheme[key] = fallback_value
+            else:
+                value = colorscheme[key] = colorscheme[fallback_key]
         if not value:
             colorscheme[key] = "ff3333"
         elif isinstance(value, str) and value.startswith("$"):
@@ -139,8 +146,10 @@ def resolve_color_links(colorscheme):
         if key_obj['type'] == 'bool':
             if isinstance(value, str):
                 colorscheme[key] = value.lower() == 'true'
-        if key_obj['type'] == 'int':
+        elif key_obj['type'] == 'int':
             colorscheme[key] = int(value)
+        elif key_obj['type'] == 'float':
+            colorscheme[key] = float(value)
     return colorscheme
 
 
