@@ -86,6 +86,7 @@ class MainWindow(Gtk.Window):
             name = self.colorscheme_name
         new_path = save_colorscheme(name, self.colorscheme)
         self.presets_list.update_current_preset_path(new_path)
+        self.colorscheme_path = new_path
         self.theme_edited = False
         self.headerbar.props.title = self.colorscheme_name
 
