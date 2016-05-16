@@ -99,7 +99,7 @@
             }
 
             &.high,
-            :not(.empty) {
+            &:not(.empty) {
                 background-color: $selected_bg_color;
                 border-color: transparent;
             }
