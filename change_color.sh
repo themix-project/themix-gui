@@ -79,6 +79,7 @@ HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
 GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
 ROUNDNESS=${ROUNDNESS-2}
 SPACING=${SPACING-3}
+GRADIENT=${GRADIENT-0}
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -111,6 +112,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%HDR_BTN_FG%/'"$HDR_BTN_FG"'/g' \
 		-e 's/%ROUNDNESS%/'"$ROUNDNESS"'/g' \
 		-e 's/%SPACING%/'"$SPACING"'/g' \
+		-e 's/%GRADIENT%/'"$GRADIENT"'/g' \
 		{} \; ;
 done
 

@@ -2,11 +2,40 @@ from gi.repository import Gtk
 from .helpers import convert_theme_color_to_gdk, THEME_KEYS
 
 
+class FloatListBoxRow(Gtk.ListBoxRow):
+
+    def on_value_changed(self, spinbutton):
+        self.value = spinbutton.get_value()
+        self.color_set_callback(self.key, self.value)
+
+    def __init__(self, key, value, color_set_callback):
+        super().__init__()
+
+        self.color_set_callback = color_set_callback
+        self.key = key
+        self.value = value
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.add(hbox)
+        label = Gtk.Label(key, xalign=0)
+        hbox.pack_start(label, True, True, 0)
+
+        adjustment = Gtk.Adjustment(value, 0.0, 20.0, 0.1, 10.0, 0)
+        spinbutton = Gtk.SpinButton()
+        spinbutton.set_digits(2)
+        spinbutton.set_adjustment(adjustment)
+        spinbutton.set_numeric(True)
+        spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
+        spinbutton.set_value(value)  # idk why it's needed if value is in~
+        # ~the adjustment already
+        spinbutton.connect("value-changed", self.on_value_changed)
+        hbox.pack_start(spinbutton, False, False, 0)
+
+
 class IntListBoxRow(Gtk.ListBoxRow):
 
     def on_value_changed(self, spinbutton):
         self.value = spinbutton.get_value_as_int()
-        print(self.value)
         self.color_set_callback(self.key, self.value)
 
     def __init__(self, key, value, color_set_callback):
@@ -114,6 +143,10 @@ class ThemeColorsList(Gtk.Box):
                     )
                 elif key_obj['type'] == 'int':
                     row = IntListBoxRow(
+                        key, self.theme[key], self.color_edited
+                    )
+                elif key_obj['type'] == 'float':
+                    row = FloatListBoxRow(
                         key, self.theme[key], self.color_edited
                     )
                 if row:
