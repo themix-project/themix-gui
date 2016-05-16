@@ -16,7 +16,7 @@ class ThemePreview(Gtk.Grid):
     def update_preview_colors(self, colorscheme):
         converted = {
             obj['key']: convert_theme_color_to_gdk(colorscheme[obj['key']])
-            for obj in THEME_KEYS
+            for obj in THEME_KEYS if obj['type'] == 'color'
         }
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])

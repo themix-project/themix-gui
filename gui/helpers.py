@@ -18,42 +18,59 @@ colors_dir = os.path.join(theme_dir, "colors/")
 THEME_KEYS = [
     {
         'key': 'BG',
+        'type': 'color',
     },
     {
         'key': 'FG',
+        'type': 'color',
     },
     {
         'key': 'MENU_BG',
+        'type': 'color',
     },
     {
         'key': 'MENU_FG',
+        'type': 'color',
     },
     {
         'key': 'SEL_BG',
+        'type': 'color',
     },
     {
         'key': 'SEL_FG',
+        'type': 'color',
     },
     {
         'key': 'TXT_BG',
+        'type': 'color',
     },
     {
         'key': 'TXT_FG',
+        'type': 'color',
     },
     {
         'key': 'BTN_BG',
+        'type': 'color',
     },
     {
         'key': 'BTN_FG',
+        'type': 'color',
     },
     {
         'key': 'HDR_BTN_BG',
-        'fallback': 'BTN_BG',
+        'fallback_key': 'BTN_BG',
+        'type': 'color',
     },
     {
         'key': 'HDR_BTN_FG',
-        'fallback': 'BTN_FG',
+        'fallback_key': 'BTN_FG',
+        'type': 'color',
     },
+    {
+        'key': 'GTK3_GENERATE_DARK',
+        'type': 'bool',
+        'fallback_value': True,
+    }
 ]
 
 
@@ -96,17 +113,22 @@ def resolve_color_links(colorscheme):
     # @TODO: rename it
     for key_obj in THEME_KEYS:
         key = key_obj['key']
-        fallback_key = key_obj.get('fallback')
+        fallback_key = key_obj.get('fallback_key')
+        fallback_value = key_obj.get('fallback_value')
         value = colorscheme.get(key)
-        if not value and fallback_key:
-            value = colorscheme[key] = colorscheme[fallback_key]
+        if not value and (fallback_key or fallback_value):
+            value = colorscheme[key] = \
+                fallback_value and fallback_value or colorscheme[fallback_key]
         if not value:
             colorscheme[key] = "ff3333"
-        elif value.startswith("$"):
+        elif isinstance(value, str) and value.startswith("$"):
             try:
                 colorscheme[key] = colorscheme[value.lstrip("$")]
             except KeyError:
                 colorscheme[key] = "ff3333"
+        if key_obj['type'] == 'bool':
+            if isinstance(value, str):
+                colorscheme[key] = value.lower() == 'true'
     return colorscheme
 
 
