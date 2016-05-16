@@ -143,7 +143,7 @@ style "murrine-default" {
 		menustyle = 0 # 0 = none, 1 = vertical striped
 		progressbarstyle = 0 # 0 = none, 1 = diagonal striped, 2 = vertical striped
 		reliefstyle = 0 # 0 = flat, 1 = inset, 2 = shadow, 3 = shadow with gradient, 4 = stronger shadow with gradient
-		roundness = 2 # roundness of widgets
+		roundness = %ROUNDNESS% # roundness of widgets
 		scrollbarstyle = 0 # 0 = none, 1 = circles, 2 = handles, 3 = diagonal stripes, 4 = diagonal stripes and handles, 5 = horizontal stripes, 6 = horizontal stripes and handles
 		sliderstyle = 0 # 0 = none, 1 = handles
 		stepperstyle = 1 # 0 = standard, 1 = integrated stepper handles
@@ -193,6 +193,7 @@ style "murrine-button"  = "murrine-wider" {
 
 	engine "murrine" {
 		border_colors = { mix(0.2, @btn_fg_color, @btn_bg_color), mix(0.2, @btn_fg_color, @btn_bg_color) }
+		roundness = %ROUNDNESS%
 	}
 }
 
@@ -317,6 +318,7 @@ style "clearlooks-base-radiocheck" = "clearlooks-radiocheck" {
 style "murrine-entry" = "murrine-wider" {
 	engine "murrine" {
 		border_shades = { 1.15, 1.15 }
+		roundness = %ROUNDNESS%
 	}
 }
 
