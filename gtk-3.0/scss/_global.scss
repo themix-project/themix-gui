@@ -77,7 +77,7 @@ $wm_icons_unfocused_prelight: $selected_bg_color;
 $wm_icons_unfocused_pressed: shade($selected_bg_color, .8);
 
 // widget styles
-$roundness: 2px;
+$roundness: %ROUNDNESS%px;
 $spacing: 5px;
 $gradient: 0;
 $contrast: .8;
