@@ -1,4 +1,4 @@
-oomox
+﻿oomox
 =====
 
 Graphical application for generating different color variations of Numix theme (GTK2, GTK3)
@@ -12,9 +12,8 @@ Graphical application for generating different color variations of Numix theme (
   * [Demo video](#demo-video "")
 
 
-![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI 1")
+![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot.png "Screenshot GUI 1")
 
-![Screenshot GUI 2](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui_retro.png "Screenshot GUI 2")
 
 ### Arch Linux:
 
