@@ -76,7 +76,7 @@ THEME_KEYS = [
         'key': 'ROUNDNESS',
         'type': 'int',
         'fallback_value': 2,
-        'display_name': '(GTK3) Roundness'
+        'display_name': 'Roundness'
     },
     {
         'key': 'SPACING',
