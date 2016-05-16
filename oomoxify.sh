@@ -14,11 +14,11 @@ $0 [-s /path/to/spotify/Apps] [-f font] PRESET_NAME_OR_PATH
 
 options:
 	-s, --spotify-apps-path		path to spotify/Apps
-	-f, --replace-font		replace font
+	-f, --system-font		use system font
 
 examples:
 	$0 monovedek
-	$0 -f sans-serif ./colors/gnome-colors/shiki-noble
+	$0 -f ./colors/gnome-colors/shiki-noble
 	$0 -o /opt/spotify/Apps ./colors/retro/twg"
 	exit 1
 }
@@ -47,9 +47,8 @@ do
 			print_usage
 			exit 0
 		;;
-		-f|--replace-font)
-			replace_font="${2}"
-			shift
+		-f|--system-font)
+			use_system_font="True"
 		;;
 		-s|--spotify-apps-path)
 			spotify_apps_path="${2}"
@@ -116,9 +115,12 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 	unzip "./${filename}" > /dev/null
 	if [[ -d ./css/ ]] && [[ -f ./css/style.css ]] ; then
 		for css in $(ls ./css/*.css); do
-			if [ ! -z "${replace_font:-}" ] ; then
+			if [ ! -z "${use_system_font:-}" ] ; then
+				replace_font=sans-serif
 				sed -i \
 					-e "s/'spotify-circular'/${replace_font}/g" \
+					-e "s/'circular_sp_.*'/${replace_font}/g" \
+					-e "s/font-family: circular_.*/font-fmaily: ${replace_font}/g" \
 					-e "s/Monaco/monospace/g" \
 					-e "s/font-weight: 200/font-weight: 400/g" \
 					-e "s/font-weight: 100/font-weight: 400/g" \
