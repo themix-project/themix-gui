@@ -6,6 +6,7 @@ class IntListBoxRow(Gtk.ListBoxRow):
 
     def on_value_changed(self, spinbutton):
         self.value = spinbutton.get_value_as_int()
+        print(self.value)
         self.color_set_callback(self.key, self.value)
 
     def __init__(self, key, value, color_set_callback):
@@ -25,6 +26,8 @@ class IntListBoxRow(Gtk.ListBoxRow):
         spinbutton.set_adjustment(adjustment)
         spinbutton.set_numeric(True)
         spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
+        spinbutton.set_value(value)  # idk why it's needed if value is in~
+        # ~the adjustment already
         spinbutton.connect("value-changed", self.on_value_changed)
         hbox.pack_start(spinbutton, False, False, 0)
 

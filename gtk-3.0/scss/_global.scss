@@ -78,6 +78,6 @@ $wm_icons_unfocused_pressed: shade($selected_bg_color, .8);
 
 // widget styles
 $roundness: %ROUNDNESS%px;
-$spacing: 5px;
+$spacing: %SPACING%px;
 $gradient: 0;
 $contrast: .8;
