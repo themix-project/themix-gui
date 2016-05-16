@@ -10,7 +10,7 @@ backup_dir="${HOME}/.config/oomox/spotify_backup"
 print_usage() {
 	echo "
 usage:
-$0 [-s /path/to/spotify/Apps] [-f font] PRESET_NAME_OR_PATH
+$0 [-s /path/to/spotify/Apps] [-f] PRESET_NAME_OR_PATH
 
 options:
 	-s, --spotify-apps-path		path to spotify/Apps
