@@ -408,6 +408,8 @@
             entry {
                 // reset all the other props since the spinbutton node is styled here
                 border-radius: 0;
+				border-top-width: 0;
+				border-bottom-width: 0;
             }
 
             button {
