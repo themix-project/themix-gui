@@ -74,11 +74,11 @@ if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
 else
 	source "$SRC_PATH/colors/$THEME"
 fi
-source $SRC_PATH/current_colors.txt
 HDR_BTN_BG=${HDR_BTN_BG-$BTN_BG}
 HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
 GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
 ROUNDNESS=${ROUNDNESS-2}
+SPACING=${SPACING-3}
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -97,19 +97,20 @@ done
 cd "$DEST_PATH"
 for FILEPATH in "${PATHLIST[@]}"; do
 	find $FILEPATH -type f -exec sed -i \
-		-e 's/'"$OLD_BG"'/'"$BG"'/g' \
-		-e 's/'"$OLD_FG"'/'"$FG"'/g' \
-		-e 's/'"$OLD_SEL_BG"'/'"$SEL_BG"'/g' \
-		-e 's/'"$OLD_SEL_FG"'/'"$SEL_FG"'/g' \
-		-e 's/'"$OLD_TXT_BG"'/'"$TXT_BG"'/g' \
-		-e 's/'"$OLD_TXT_FG"'/'"$TXT_FG"'/g' \
-		-e 's/'"$OLD_MENU_BG"'/'"$MENU_BG"'/g' \
-		-e 's/'"$OLD_MENU_FG"'/'"$MENU_FG"'/g' \
-		-e 's/'"$OLD_BTN_BG"'/'"$BTN_BG"'/g' \
-		-e 's/'"$OLD_BTN_FG"'/'"$BTN_FG"'/g' \
-		-e 's/'"$OLD_HDR_BTN_BG"'/'"$HDR_BTN_BG"'/g' \
-		-e 's/'"$OLD_HDR_BTN_FG"'/'"$HDR_BTN_FG"'/g' \
-		-e 's/'"$OLD_ROUNDNESS"'/'"$ROUNDNESS"'/g' \
+		-e 's/%BG%/'"$BG"'/g' \
+		-e 's/%FG%/'"$FG"'/g' \
+		-e 's/%SEL_BG%/'"$SEL_BG"'/g' \
+		-e 's/%SEL_FG%/'"$SEL_FG"'/g' \
+		-e 's/%TXT_BG%/'"$TXT_BG"'/g' \
+		-e 's/%TXT_FG%/'"$TXT_FG"'/g' \
+		-e 's/%MENU_BG%/'"$MENU_BG"'/g' \
+		-e 's/%MENU_FG%/'"$MENU_FG"'/g' \
+		-e 's/%BTN_BG%/'"$BTN_BG"'/g' \
+		-e 's/%BTN_FG%/'"$BTN_FG"'/g' \
+		-e 's/%HDR_BTN_BG%/'"$HDR_BTN_BG"'/g' \
+		-e 's/%HDR_BTN_FG%/'"$HDR_BTN_FG"'/g' \
+		-e 's/%ROUNDNESS%/'"$ROUNDNESS"'/g' \
+		-e 's/%SPACING%/'"$SPACING"'/g' \
 		{} \; ;
 done
 

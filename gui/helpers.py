@@ -76,6 +76,11 @@ THEME_KEYS = [
         'type': 'int',
         'fallback_value': 2,
     },
+    {
+        'key': 'SPACING',
+        'type': 'int',
+        'fallback_value': 3,
+    },
 ]
 
 
