@@ -70,21 +70,25 @@ THEME_KEYS = [
         'key': 'GTK3_GENERATE_DARK',
         'type': 'bool',
         'fallback_value': True,
+        'display_name': '(GTK3) Add dark variant'
     },
     {
         'key': 'ROUNDNESS',
         'type': 'int',
         'fallback_value': 2,
+        'display_name': '(GTK3) Roundness'
     },
     {
         'key': 'SPACING',
         'type': 'int',
         'fallback_value': 3,
+        'display_name': '(GTK3) Spacing'
     },
     {
         'key': 'GRADIENT',
         'type': 'float',
         'fallback_value': 0.0,
+        'display_name': '(GTK3) Gradient'
     },
 ]
 
@@ -122,6 +126,13 @@ def convert_theme_color_to_gdk(theme_color):
     gdk_color = Gdk.RGBA()
     gdk_color.parse("#" + theme_color)
     return gdk_color
+
+
+def convert_gdk_to_theme_color(gdk_color):
+    return "".join([
+        "{0:02x}".format(int(n * 255))
+        for n in (gdk_color.red, gdk_color.green, gdk_color.blue)
+    ])
 
 
 def resolve_color_links(colorscheme):
