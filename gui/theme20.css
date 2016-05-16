@@ -2,20 +2,14 @@
 /*$borders_color: if($variant == 'light', shade($bg_color, .85), shade($bg_color, .88));*/
 /*$dark_shadow: #000;*/
 /*$light_shadow: #fff;*/
-/*$black: #000;*/
-/*$white: #fff;*/
 /*$button_border_strength: if(lightness($bg) > 50, 0, .1);*/
 /*$button_shadow_strength: if(lightness($bg) > 50, 0, .1);*/
-/*$gradient: .2;*/
 /*$selected_borders_color: if($variant == 'light', darken($selected_bg_color, 30%), darken($selected_bg_color, 20%));*/
 /*$borders_color: if($variant == 'light', shade($bg_color, .85), shade($bg_color, .88));*/
 /*$dark_shadow: #000;*/
 /*$light_shadow: #fff;*/
-/*$black: #000;*/
-/*$white: #fff;*/
 /*$button_border_strength: if(lightness($bg) > 50, 0, .1);*/
 /*$button_shadow_strength: if(lightness($bg) > 50, 0, .1);*/
-/*$gradient: .2;*/
 /* dark color scheme */
 @define-color dark_bg_color #0e0021;
 @define-color dark_fg_color #A5A8A2;
@@ -159,7 +153,7 @@ assistant .sidebar {
 assistant.csd .sidebar {
   border-top-style: none; }
 assistant .sidebar label {
-  padding: 6px 12px; }
+  padding: 3px 6px; }
 assistant .sidebar label.highlight {
   background-color: mix(#0e0021,#A5A8A2,0.8); }
 
@@ -182,7 +176,7 @@ stacksidebar row.needs-attention > label {
   stacksidebar row.needs-attention > label:dir(rtl) {
     background-position: left 3px, left 4px; }
 
-button, toolbar button, headerbar button, .suggested-action.button, .selection-mode.header-bar .button.suggested-action, .selection-mode.toolbar .button.suggested-action, .destructive-action.button, .selection-mode.header-bar button, .selection-mode.toolbar button, .selection-mode.header-bar .button, .selection-mode.toolbar .button, infobar.info button, infobar.warning button, infobar.question button, infobar.error button, popover.background button, frame.app-notification button, osd button, .nemo-window toolbar button, .nemo-window .sidebar + separator + box .primary-toolbar button.flat {
+button, toolbar button, toolbar.inline-toolbar button, headerbar button, .suggested-action.button, .selection-mode.header-bar .button.suggested-action, .selection-mode.toolbar .button.suggested-action, .destructive-action.button, .selection-mode.header-bar button, .selection-mode.toolbar button, .selection-mode.header-bar .button, .selection-mode.toolbar .button, infobar.info button, infobar.warning button, infobar.question button, infobar.error button, popover.background button, frame.app-notification button, osd button, .nemo-window toolbar button, .nemo-window .sidebar + separator + box .primary-toolbar button.flat {
   padding: 3px 5px;
   border-width: 1px;
   border-style: solid;
@@ -196,45 +190,77 @@ calendar.view, calendar.view:backdrop, calendar.button, calendar.button:hover, c
   background-image: none;
   box-shadow: none; }
 
-.linked:not(.vertical) > combobox > box > button.combo:dir(ltr) {
+spinbutton:not(.vertical) button, .linked:not(.vertical) > combobox > box > button.combo:dir(ltr) {
   border-radius: 0;
   border-left-style: none;
   border-right-style: solid; }
-  .linked:not(.vertical) > combobox > box > button.combo:dir(rtl) {
+  spinbutton:not(.vertical) button:dir(rtl), .linked:not(.vertical) > combobox > box > button.combo:dir(rtl) {
     border-radius: 0;
     border-right-style: none;
     border-left-style: solid; }
 
-button.link, .link button, spinbutton.horizontal button, button.linked, .linked button, combobox box button, combobox box entry, toolbar button.linked, toolbar .linked button, headerbar button.linked, headerbar .linked button, .selection-mode.header-bar button.linked, .selection-mode.header-bar .linked button, .selection-mode.toolbar button.linked, .selection-mode.toolbar .linked button, .nemo-window toolbar button.linked, .nemo-window toolbar .linked .button, .nemo-window toolbar toolitem stack widget button {
+.inline-toolbar button, .linked > button, combobox box button, combobox box entry, toolbar .linked > button, toolbar.inline-toolbar .linked > button, headerbar .linked > button, .selection-mode.header-bar .linked > button, .selection-mode.toolbar .linked > button, .nemo-window toolbar .linked > button, .nemo-window toolbar toolitem stack widget button {
   border-width: 1px;
   border-style: solid;
   border-radius: 0;
   border-right-style: none;
   border-left-style: none; }
-  button.link:first-child, .link button:first-child, spinbutton.horizontal button:first-child, button.linked:first-child, .linked button:first-child, combobox box button:first-child, combobox box entry:first-child, .linked:not(.vertical) > combobox:first-child > box > button.combo, .selection-mode.header-bar button.linked:first-child, .selection-mode.header-bar .linked button:first-child, .selection-mode.toolbar button.linked:first-child, .selection-mode.toolbar .linked button:first-child, .nemo-window toolbar button.linked:first-child, .nemo-window toolbar .linked .button:first-child, .nemo-window toolbar toolitem stack widget button:first-child {
+  .inline-toolbar button:first-child, .linked > button:first-child, combobox box button:first-child, combobox box entry:first-child, .linked:not(.vertical) > combobox:first-child > box > button.combo, toolbar .linked > button:first-child, headerbar .linked > button:first-child, .selection-mode.header-bar .linked > button:first-child, .selection-mode.toolbar .linked > button:first-child, .nemo-window toolbar toolitem stack widget button:first-child {
     border-width: 1px;
     border-radius: 2px;
     border-left-style: solid;
     border-right-style: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
-    button.link:first-child:dir(rtl), .link button:first-child:dir(rtl), spinbutton.horizontal button:first-child:dir(rtl), button.linked:first-child:dir(rtl), .linked button:first-child:dir(rtl), combobox box button:first-child:dir(rtl), combobox box entry:first-child:dir(rtl), .linked:not(.vertical) > combobox:first-child > box > button.combo:dir(rtl), .nemo-window toolbar .linked .button:first-child:dir(rtl), .nemo-window toolbar toolitem stack widget button:first-child:dir(rtl) {
+    .inline-toolbar button:first-child:dir(rtl), .linked > button:first-child:dir(rtl), combobox box button:first-child:dir(rtl), combobox box entry:first-child:dir(rtl), .linked:not(.vertical) > combobox:first-child > box > button.combo:dir(rtl), toolbar .linked > button:first-child:dir(rtl), headerbar .linked > button:first-child:dir(rtl), .selection-mode.header-bar .linked > button:first-child:dir(rtl), .selection-mode.toolbar .linked > button:first-child:dir(rtl), .nemo-window toolbar toolitem stack widget button:first-child:dir(rtl) {
       border-left-style: none;
       border-right-style: solid; }
-  button.link:last-child, .link button:last-child, spinbutton.horizontal button:last-child, button.linked:last-child, .linked button:last-child, combobox box button:last-child, combobox box entry:last-child, .linked:not(.vertical) > combobox:last-child > box > button.combo, .selection-mode.header-bar button.linked:last-child, .selection-mode.header-bar .linked button:last-child, .selection-mode.toolbar button.linked:last-child, .selection-mode.toolbar .linked button:last-child, .nemo-window toolbar button.linked:last-child, .nemo-window toolbar .linked .button:last-child, .nemo-window toolbar toolitem stack widget button:last-child {
+  .inline-toolbar button:last-child, .linked > button:last-child, combobox box button:last-child, combobox box entry:last-child, .linked:not(.vertical) > combobox:last-child > box > button.combo, toolbar .linked > button:last-child, headerbar .linked > button:last-child, .selection-mode.header-bar .linked > button:last-child, .selection-mode.toolbar .linked > button:last-child, .nemo-window toolbar toolitem stack widget button:last-child {
     border-width: 1px;
     border-radius: 2px;
     border-left-style: none;
     border-right-style: solid;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
-    button.link:last-child:dir(rtl), .link button:last-child:dir(rtl), spinbutton.horizontal button:last-child:dir(rtl), button.linked:last-child:dir(rtl), .linked button:last-child:dir(rtl), combobox box button:last-child:dir(rtl), combobox box entry:last-child:dir(rtl), .linked:not(.vertical) > combobox:last-child > box > button.combo:dir(rtl), .nemo-window toolbar .linked .button:last-child:dir(rtl), .nemo-window toolbar toolitem stack widget button:last-child:dir(rtl) {
+    .inline-toolbar button:last-child:dir(rtl), .linked > button:last-child:dir(rtl), combobox box button:last-child:dir(rtl), combobox box entry:last-child:dir(rtl), .linked:not(.vertical) > combobox:last-child > box > button.combo:dir(rtl), toolbar .linked > button:last-child:dir(rtl), headerbar .linked > button:last-child:dir(rtl), .selection-mode.header-bar .linked > button:last-child:dir(rtl), .selection-mode.toolbar .linked > button:last-child:dir(rtl), .nemo-window toolbar toolitem stack widget button:last-child:dir(rtl) {
       border-left-style: solid;
       border-right-style: none; }
-  button.link:only-child, .link button:only-child, spinbutton.horizontal button:only-child, button.linked:only-child, .linked button:only-child, combobox box button:only-child, combobox box entry:only-child, .linked:not(.vertical) > combobox:only-child > box > button.combo, .selection-mode.header-bar button.linked:only-child, .selection-mode.header-bar .linked button:only-child, .selection-mode.toolbar button.linked:only-child, .selection-mode.toolbar .linked button:only-child, .nemo-window toolbar button.linked:only-child, .nemo-window toolbar .linked .button:only-child, .nemo-window toolbar toolitem stack widget button:only-child, button.link:first-child:only-child, .link button:first-child:only-child, spinbutton.horizontal button:first-child:only-child, button.linked:first-child:only-child, .linked button:first-child:only-child, combobox box button:first-child:only-child, combobox box entry:first-child:only-child, .linked:not(.vertical) > combobox:first-child > box > button.combo:only-child, .linked:not(.vertical) > combobox:only-child > box > button.combo:first-child, .nemo-window toolbar .linked .button:first-child:only-child, .nemo-window toolbar toolitem stack widget button:first-child:only-child {
+  .inline-toolbar button:only-child, .linked > button:only-child, combobox box button:only-child, combobox box entry:only-child, .linked:not(.vertical) > combobox:only-child > box > button.combo, toolbar .linked > button:only-child, headerbar .linked > button:only-child, .selection-mode.header-bar .linked > button:only-child, .selection-mode.toolbar .linked > button:only-child, .nemo-window toolbar toolitem stack widget button:only-child, .inline-toolbar button:first-child:only-child, .linked > button:first-child:only-child, combobox box button:first-child:only-child, combobox box entry:first-child:only-child, .linked:not(.vertical) > combobox:first-child > box > button.combo:only-child, .linked:not(.vertical) > combobox:only-child > box > button.combo:first-child, toolbar .linked > button:first-child:only-child, headerbar .linked > button:first-child:only-child, .selection-mode.header-bar .linked > button:first-child:only-child, .selection-mode.toolbar .linked > button:first-child:only-child, .nemo-window toolbar toolitem stack widget button:first-child:only-child {
     border-width: 1px;
     border-style: solid; }
-  button.link:only-child, .link button:only-child, spinbutton.horizontal button:only-child, button.linked:only-child, .linked button:only-child, combobox box button:only-child, combobox box entry:only-child, .linked:not(.vertical) > combobox:only-child > box > button.combo, .selection-mode.header-bar button.linked:only-child, .selection-mode.header-bar .linked button:only-child, .selection-mode.toolbar button.linked:only-child, .selection-mode.toolbar .linked button:only-child, .nemo-window toolbar button.linked:only-child, .nemo-window toolbar .linked .button:only-child, .nemo-window toolbar toolitem stack widget button:only-child {
+  .inline-toolbar button:only-child, .linked > button:only-child, combobox box button:only-child, combobox box entry:only-child, .linked:not(.vertical) > combobox:only-child > box > button.combo, toolbar .linked > button:only-child, headerbar .linked > button:only-child, .selection-mode.header-bar .linked > button:only-child, .selection-mode.toolbar .linked > button:only-child, .nemo-window toolbar toolitem stack widget button:only-child {
+    border-radius: 2px; }
+
+.linked.vertical > button {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0;
+  border-top-style: none;
+  border-bottom-style: none; }
+  .linked.vertical > button:first-child {
+    border-width: 1px;
+    border-radius: 2px;
+    border-top-style: solid;
+    border-bottom-style: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+    .linked.vertical > button:first-child:dir(rtl) {
+      border-top-style: none;
+      border-bottom-style: solid; }
+  .linked.vertical > button:last-child {
+    border-width: 1px;
+    border-radius: 2px;
+    border-top-style: none;
+    border-bottom-style: solid;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0; }
+    .linked.vertical > button:last-child:dir(rtl) {
+      border-top-style: solid;
+      border-bottom-style: none; }
+  .linked.vertical > button:only-child, .linked.vertical > button:first-child:only-child {
+    border-width: 1px;
+    border-style: solid; }
+  .linked.vertical > button:only-child {
     border-radius: 2px; }
 
 infobar.info button.close, infobar.warning button.close, infobar.question button.close, infobar.error button.close, notebook > header > tabs > arrow {
@@ -243,21 +269,15 @@ infobar.info button.close, infobar.warning button.close, infobar.question button
   background-image: none;
   box-shadow: none; }
   infobar.info button.close:focus, infobar.warning button.close:focus, infobar.question button.close:focus, infobar.error button.close:focus, notebook > header > tabs > arrow:focus, infobar.info button.close:hover, infobar.warning button.close:hover, infobar.question button.close:hover, infobar.error button.close:hover, notebook > header > tabs > arrow:hover {
-    border: 1px solid rgba(33, 34, 32, 0.3);
-    background-color: rgba(15, 0, 35, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
     background-image: none;
     box-shadow: none; }
   infobar.info button.close:active, infobar.warning button.close:active, infobar.question button.close:active, infobar.error button.close:active, notebook > header > tabs > arrow:active, infobar.info button.close:checked, infobar.warning button.close:checked, infobar.question button.close:checked, infobar.error button.close:checked, notebook > header > tabs > arrow:checked, infobar.info button.close:active:hover, infobar.warning button.close:active:hover, infobar.question button.close:active:hover, infobar.error button.close:active:hover, notebook > header > tabs > arrow:active:hover, infobar.info button.close:checked:hover, infobar.warning button.close:checked:hover, infobar.question button.close:checked:hover, infobar.error button.close:checked:hover, notebook > header > tabs > arrow:checked:hover {
-    border: 1px solid rgba(33, 34, 32, 0.3);
-    background-color: rgba(33, 34, 32, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.1);
     background-image: none;
     box-shadow: none; }
-
-spinbutton.horizontal entry {
-  border-radius: 2px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-right-width: 0; }
 
 button {
   min-height: 22px;
@@ -268,82 +288,7 @@ button {
   background-image: none;
   border-color: rgba(11, 0, 26, 0.32);
   color: #0e0021;
-  box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.22);
-  /*
-          spinbutton & {
-              color: mix($text_color, $base_color, .4);
-              padding: $spacing ($spacing * 2);
-              border: 0;
-              border-radius: 0;
-              border-style: none;
-              background-color: transparent;
-              background-image: none;
-              box-shadow: inset 1px 0 shade($base_color, .9);
-  
-              &:disabled {
-                  color: mix($text_color, $base_color, .7);
-                  box-shadow: inset 1px 0 shade($base_color, .85);
-              }
-  
-              &:active, &:checked, &:hover { color: $text_color; }
-  
-              &:first-child {
-                  border-radius: $roundness 0 0 $roundness;
-                  box-shadow: none;
-              }
-  
-              &:last-child { border-radius: 0 $roundness $roundness 0; }
-  
-              &:dir(rtl) { box-shadow: inset -1px 0 shade($base_color, .9); }
-          }
-  
-          spinbutton.vertical & {
-              border: 1px solid shade($bg_color, .8);
-              border-radius: $roundness;
-              background-color: shade($bg_color, 1.08);
-              background-image: none;
-              color: $fg_color;
-              box-shadow: none;
-  
-              &:hover {
-                  border-color: shade($bg_color, .7);
-                  background-color: shade($bg_color, 1.1);
-                  background-image: none;
-              }
-  
-              &:active, &:checked {
-                  border-color: shade($bg_color, .8);
-                  background-color: shade($bg_color, .95);
-                  background-image: none;
-              }
-  
-              &:active:hover, &:checked:hover {
-                  border-color: shade($bg_color, .7);
-              }
-  
-              &:focus, &:hover:focus, &:active:focus, &:active:hover:focus { border-color: shade($bg_color, .7); }
-  
-              &:disabled {
-                  border-color: shade($bg_color, .85);
-                  background-color: shade($bg_color, .9);
-                  background-image: none;
-              }
-  
-              &:first-child {
-                  border-width: 1px;
-                  border-bottom-width: 0;
-                  border-bottom-right-radius: 0;
-                  border-bottom-left-radius: 0;
-              }
-  
-              &:last-child {
-                  border-width: 1px;
-                  border-top-width: 0;
-                  border-top-left-radius: 0;
-                  border-top-right-radius: 0;
-              }
-          }
-  */ }
+  box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
   button:focus, button:hover {
     border-color: rgba(11, 0, 25, 0.32); }
   button:active, button:active:hover, button:active:focus, button:active:hover:focus, button:checked, button:checked:hover, button:checked:focus, button:checked:hover:focus {
@@ -409,70 +354,79 @@ button {
     color: rgba(139, 99, 155, 0.9); }
     button.separator:disabled, button .separator:disabled {
       color: rgba(139, 99, 155, 0.85); }
-  button.link, .link button {
-    box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-    button.link:focus, button.link:hover, .link button:focus, .link button:hover {
-      box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-    button.link:active, button.link:active:hover, button.link:active:focus, button.link:active:hover:focus, button.link:checked, button.link:checked:hover, button.link:checked:focus, button.link:checked:hover:focus, .link button:active, .link button:active:hover, .link button:active:focus, .link button:active:hover:focus, .link button:checked, .link button:checked:hover, .link button:checked:focus, .link button:checked:hover:focus {
-      box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-    button.link:disabled, .link button:disabled {
-      box-shadow: inset -1px 0 #9ea29b; }
-    button.link:last-child, button.link:only-child, .link button:last-child, .link button:only-child {
-      box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-    button.link:last-child:hover, button.link:only-child:hover, .link button:last-child:hover, .link button:only-child:hover {
-      box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-    button.link:disabled:last-child, button.link:disabled:only-child, button.link:active:disabled:last-child, button.link:active:disabled:only-child, button.link:checked:disabled:last-child, button.link:checked:disabled:only-child, .link button:disabled:last-child, .link button:disabled:only-child, .link button:active:disabled:last-child, .link button:active:disabled:only-child, .link button:checked:disabled:last-child, .link button:checked:disabled:only-child {
-      box-shadow: none; }
-    button.link:active:last-child, button.link:active:last-child:focus, button.link:active:last-child:hover, button.link:active:last-child:hover:focus, button.link:checked:last-child, button.link:checked:last-child:focus, button.link:checked:last-child:hover, button.link:checked:last-child:hover:focus, .link button:active:last-child, .link button:active:last-child:focus, .link button:active:last-child:hover, .link button:active:last-child:hover:focus, .link button:checked:last-child, .link button:checked:last-child:focus, .link button:checked:last-child:hover, .link button:checked:last-child:hover:focus {
-      box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-    button.link:active:only-child, button.link:active:only-child:focus, button.link:active:only-child:hover, button.link:active:only-child:hover:focus, button.link:checked:only-child, button.link:checked:only-child:focus, button.link:checked:only-child:hover, button.link:checked:only-child:hover:focus, .link button:active:only-child, .link button:active:only-child:focus, .link button:active:only-child:hover, .link button:active:only-child:hover:focus, .link button:checked:only-child, .link button:checked:only-child:focus, .link button:checked:only-child:hover, .link button:checked:only-child:hover:focus {
-      box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-  spinbutton button {
-    /*&:active:hover, &:checked:hover,*/
-    /*&:focus,*/ }
-    spinbutton button:hover:focus, spinbutton button:active:focus, spinbutton button:active:hover:focus {
-      background-color: #b9a1c3;
-      background-image: none; }
-  spinbutton.horizontal button {
+  .inline-toolbar button, .linked > button {
     box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
-    spinbutton.horizontal button:focus, spinbutton.horizontal button:hover {
+    .inline-toolbar button:focus, .inline-toolbar button:hover, .linked > button:focus, .linked > button:hover {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
-    spinbutton.horizontal button:active, spinbutton.horizontal button:active:hover, spinbutton.horizontal button:active:focus, spinbutton.horizontal button:active:hover:focus, spinbutton.horizontal button:checked, spinbutton.horizontal button:checked:hover, spinbutton.horizontal button:checked:focus, spinbutton.horizontal button:checked:hover:focus {
+    .inline-toolbar button:active, .inline-toolbar button:active:hover, .inline-toolbar button:active:focus, .inline-toolbar button:active:hover:focus, .inline-toolbar button:checked, .inline-toolbar button:checked:hover, .inline-toolbar button:checked:focus, .inline-toolbar button:checked:hover:focus, .linked > button:active, .linked > button:active:hover, .linked > button:active:focus, .linked > button:active:hover:focus, .linked > button:checked, .linked > button:checked:hover, .linked > button:checked:focus, .linked > button:checked:hover:focus {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-    spinbutton.horizontal button:disabled {
+    .inline-toolbar button:disabled, .linked > button:disabled {
       box-shadow: inset -1px 0 #6f4f7c; }
-    spinbutton.horizontal button:last-child, spinbutton.horizontal button:only-child {
+    .inline-toolbar button:last-child, .inline-toolbar button:only-child, .linked > button:last-child, .linked > button:only-child {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
-    spinbutton.horizontal button:last-child:hover, spinbutton.horizontal button:only-child:hover {
+    .inline-toolbar button:last-child:hover, .inline-toolbar button:only-child:hover, .linked > button:last-child:hover, .linked > button:only-child:hover {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
-    spinbutton.horizontal button:disabled:last-child, spinbutton.horizontal button:disabled:only-child, spinbutton.horizontal button:active:disabled:last-child, spinbutton.horizontal button:active:disabled:only-child, spinbutton.horizontal button:checked:disabled:last-child, spinbutton.horizontal button:checked:disabled:only-child {
+    .inline-toolbar button:disabled:last-child, .inline-toolbar button:disabled:only-child, .inline-toolbar button:active:disabled:last-child, .inline-toolbar button:active:disabled:only-child, .inline-toolbar button:checked:disabled:last-child, .inline-toolbar button:checked:disabled:only-child, .linked > button:disabled:last-child, .linked > button:disabled:only-child, .linked > button:active:disabled:last-child, .linked > button:active:disabled:only-child, .linked > button:checked:disabled:last-child, .linked > button:checked:disabled:only-child {
       box-shadow: none; }
-    spinbutton.horizontal button:active:last-child, spinbutton.horizontal button:active:last-child:focus, spinbutton.horizontal button:active:last-child:hover, spinbutton.horizontal button:active:last-child:hover:focus, spinbutton.horizontal button:checked:last-child, spinbutton.horizontal button:checked:last-child:focus, spinbutton.horizontal button:checked:last-child:hover, spinbutton.horizontal button:checked:last-child:hover:focus {
+    .inline-toolbar button:active:last-child, .inline-toolbar button:active:last-child:focus, .inline-toolbar button:active:last-child:hover, .inline-toolbar button:active:last-child:hover:focus, .inline-toolbar button:checked:last-child, .inline-toolbar button:checked:last-child:focus, .inline-toolbar button:checked:last-child:hover, .inline-toolbar button:checked:last-child:hover:focus, .linked > button:active:last-child, .linked > button:active:last-child:focus, .linked > button:active:last-child:hover, .linked > button:active:last-child:hover:focus, .linked > button:checked:last-child, .linked > button:checked:last-child:focus, .linked > button:checked:last-child:hover, .linked > button:checked:last-child:hover:focus {
       box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-    spinbutton.horizontal button:active:only-child, spinbutton.horizontal button:active:only-child:focus, spinbutton.horizontal button:active:only-child:hover, spinbutton.horizontal button:active:only-child:hover:focus, spinbutton.horizontal button:checked:only-child, spinbutton.horizontal button:checked:only-child:focus, spinbutton.horizontal button:checked:only-child:hover, spinbutton.horizontal button:checked:only-child:hover:focus {
+    .inline-toolbar button:active:only-child, .inline-toolbar button:active:only-child:focus, .inline-toolbar button:active:only-child:hover, .inline-toolbar button:active:only-child:hover:focus, .inline-toolbar button:checked:only-child, .inline-toolbar button:checked:only-child:focus, .inline-toolbar button:checked:only-child:hover, .inline-toolbar button:checked:only-child:hover:focus, .linked > button:active:only-child, .linked > button:active:only-child:focus, .linked > button:active:only-child:hover, .linked > button:active:only-child:hover:focus, .linked > button:checked:only-child, .linked > button:checked:only-child:focus, .linked > button:checked:only-child:hover, .linked > button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-  button.linked, .linked button {
-    box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
-    button.linked:focus, button.linked:hover, .linked button:focus, .linked button:hover {
-      box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
-    button.linked:active, button.linked:active:hover, button.linked:active:focus, button.linked:active:hover:focus, button.linked:checked, button.linked:checked:hover, button.linked:checked:focus, button.linked:checked:hover:focus, .linked button:active, .linked button:active:hover, .linked button:active:focus, .linked button:active:hover:focus, .linked button:checked, .linked button:checked:hover, .linked button:checked:focus, .linked button:checked:hover:focus {
-      box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-    button.linked:disabled, .linked button:disabled {
-      box-shadow: inset -1px 0 #6f4f7c; }
-    button.linked:last-child, button.linked:only-child, .linked button:last-child, .linked button:only-child {
+  .linked.vertical > button {
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
+    .linked.vertical > button:focus, .linked.vertical > button:hover {
+      box-shadow: inset 0 -1px rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
+    .linked.vertical > button:active, .linked.vertical > button:active:hover, .linked.vertical > button:active:focus, .linked.vertical > button:active:hover:focus, .linked.vertical > button:checked, .linked.vertical > button:checked:hover, .linked.vertical > button:checked:focus, .linked.vertical > button:checked:hover:focus {
+      box-shadow: inset 0 -1px rgba(0, 0, 0, 0.22), inset 1px 0 rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.05); }
+    .linked.vertical > button:disabled {
+      box-shadow: inset 0 -1px #6f4f7c; }
+    .linked.vertical > button:last-child, .linked.vertical > button:only-child {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
-    button.linked:last-child:hover, button.linked:only-child:hover, .linked button:last-child:hover, .linked button:only-child:hover {
+    .linked.vertical > button:last-child:hover, .linked.vertical > button:only-child:hover {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
-    button.linked:disabled:last-child, button.linked:disabled:only-child, button.linked:active:disabled:last-child, button.linked:active:disabled:only-child, button.linked:checked:disabled:last-child, button.linked:checked:disabled:only-child, .linked button:disabled:last-child, .linked button:disabled:only-child, .linked button:active:disabled:last-child, .linked button:active:disabled:only-child, .linked button:checked:disabled:last-child, .linked button:checked:disabled:only-child {
+    .linked.vertical > button:disabled:last-child, .linked.vertical > button:disabled:only-child, .linked.vertical > button:active:disabled:last-child, .linked.vertical > button:active:disabled:only-child, .linked.vertical > button:checked:disabled:last-child, .linked.vertical > button:checked:disabled:only-child {
       box-shadow: none; }
-    button.linked:active:last-child, button.linked:active:last-child:focus, button.linked:active:last-child:hover, button.linked:active:last-child:hover:focus, button.linked:checked:last-child, button.linked:checked:last-child:focus, button.linked:checked:last-child:hover, button.linked:checked:last-child:hover:focus, .linked button:active:last-child, .linked button:active:last-child:focus, .linked button:active:last-child:hover, .linked button:active:last-child:hover:focus, .linked button:checked:last-child, .linked button:checked:last-child:focus, .linked button:checked:last-child:hover, .linked button:checked:last-child:hover:focus {
+    .linked.vertical > button:active:last-child, .linked.vertical > button:active:last-child:focus, .linked.vertical > button:active:last-child:hover, .linked.vertical > button:active:last-child:hover:focus, .linked.vertical > button:checked:last-child, .linked.vertical > button:checked:last-child:focus, .linked.vertical > button:checked:last-child:hover, .linked.vertical > button:checked:last-child:hover:focus {
       box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-    button.linked:active:only-child, button.linked:active:only-child:focus, button.linked:active:only-child:hover, button.linked:active:only-child:hover:focus, button.linked:checked:only-child, button.linked:checked:only-child:focus, button.linked:checked:only-child:hover, button.linked:checked:only-child:hover:focus, .linked button:active:only-child, .linked button:active:only-child:focus, .linked button:active:only-child:hover, .linked button:active:only-child:hover:focus, .linked button:checked:only-child, .linked button:checked:only-child:focus, .linked button:checked:only-child:hover, .linked button:checked:only-child:hover:focus {
+    .linked.vertical > button:active:only-child, .linked.vertical > button:active:only-child:focus, .linked.vertical > button:active:only-child:hover, .linked.vertical > button:active:only-child:hover:focus, .linked.vertical > button:checked:only-child, .linked.vertical > button:checked:only-child:focus, .linked.vertical > button:checked:only-child:hover, .linked.vertical > button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-  button spinbutton.vertical entry {
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 0; }
+
+spinbutton button {
+  color: #0e0021; }
+  spinbutton button:active, spinbutton button:checked, spinbutton button:hover {
+    background-color: #b9a1c3;
+    background-image: none; }
+  spinbutton button:disabled {
+    color: mix(#0e0021,#A5A8A2,0.7); }
+spinbutton:not(.vertical) entry {
+  border-radius: 0;
+  border-right-width: 0; }
+spinbutton:not(.vertical) button:first-child {
+  border-radius: 2px 0 0 2px; }
+spinbutton:not(.vertical) button:last-child {
+  border-radius: 0 2px 2px 0; }
+spinbutton.vertical entry {
+  border-radius: 0;
+  border-top-width: 0;
+  border-bottom-width: 0; }
+spinbutton.vertical button {
+  /*@extend %linked_vertical_entry;*/
+  /*&:first-child { border-radius: 0 $roundness 0 $roundness; }*/
+  border-radius: 2px 2px 0 0;
+  /*&:first-child {*/
+  /*border-width: 1px;*/
+  /*border-bottom-width: 0;*/
+  /*border-bottom-right-radius: 0;*/
+  /*border-bottom-left-radius: 0;*/
+  /*}*/
+  /*&:last-child {*/
+  /*border-width: 1px;*/
+  /*border-top-width: 0;*/
+  /*border-top-left-radius: 0;*/
+  /*border-top-right-radius: 0;*/
+  /*}*/ }
+  spinbutton.vertical button:last-child {
+    border-radius: 0 0 2px 2px; }
 
 /******************
 ! ComboBoxes *
@@ -491,25 +445,62 @@ combobox box button, combobox box entry {
 /*********
  ! Entry *
 **********/
-entry.linked, .linked entry {
+.linked:not(.vertical) > entry {
   border-width: 1px;
   border-radius: 0;
   border-right-width: 0;
   border-left-width: 0; }
-  entry.linked:first-child, .linked entry:first-child {
+  .linked:not(.vertical) > entry:first-child {
     border-width: 1px;
     border-radius: 2px;
     border-right-width: 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
-  entry.linked:last-child, .linked entry:last-child {
+    .linked:not(.vertical) > entry:first-child:dir(rtl) {
+      border-left-width: 0;
+      border-right-width: 1px; }
+  .linked:not(.vertical) > entry:last-child {
     border-width: 1px;
     border-radius: 2px;
     border-left-width: 0;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
-  entry.linked:only-child, .linked entry:only-child {
+    .linked:not(.vertical) > entry:last-child:dir(rtl) {
+      border-left-width: 1px;
+      border-right-width: 0; }
+  .linked:not(.vertical) > entry:only-child, .linked:not(.vertical) > entry:first-child:only-child {
+    border-width: 1px; }
+  .linked:not(.vertical) > entry:only-child {
+    border-radius: 2px; }
+
+.linked.vertical > entry {
+  border-width: 1px;
+  border-radius: 0;
+  border-top-width: 0;
+  border-bottom-width: 0; }
+  .linked.vertical > entry:first-child {
     border-width: 1px;
+    border-radius: 2px;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+    .linked.vertical > entry:first-child:dir(rtl) {
+      border-top-width: 0;
+      border-bottom-width: 1px; }
+  .linked.vertical > entry:last-child {
+    border-width: 1px;
+    border-radius: 2px;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0; }
+    .linked.vertical > entry:last-child:dir(rtl) {
+      border-top-width: 1px;
+      border-bottom-width: 0; }
+  .linked.vertical > entry:only-child, .linked.vertical > entry:first-child:only-child {
+    border-width: 1px; }
+  .linked.vertical > entry:only-child {
     border-radius: 2px; }
 
 entry, menuitem entry, popover.background entry {
@@ -526,7 +517,7 @@ entry, menuitem entry, popover.background entry {
     color: #0e0021; }
   entry:disabled, popover.background entry:disabled {
     box-shadow: none; }
-  entry progressbar, popover.background entry progressbar {
+  entry progress, popover.background entry progress {
     background-color: #B36A87;
     background-image: none;
     border-width: 0;
@@ -536,9 +527,6 @@ entry, menuitem entry, popover.background entry {
     padding-right: 3px; }
   entry image.right {
     padding-left: 3px; }
-  entry selection, popover.background entry selection {
-    background-color: #B36A87;
-    color: #0e0021; }
 
 entry {
   background-color: #d0d2cd;
@@ -572,6 +560,28 @@ entry {
       border-color: shade(alpha(mix(#d0d2cd,#000000,0.2),0.4),0.85); }
     entry:disabled:active:disabled, entry:disabled:checked:disabled {
       border-color: shade(alpha(mix(#d0d2cd,#000000,0.2),0.4),0.8); }
+  .linked:not(.vertical) > entry:focus + entry, .linked:not(.vertical) > entry:focus + button, .linked:not(.vertical) > entry:focus + combobox > box > button.combo {
+    border-left-color: #B36A87; }
+  .linked:not(.vertical) > entry:drop(active) + entry, .linked:not(.vertical) > entry:drop(active) + button, .linked:not(.vertical) > entry:drop(active) + combobox > box > button.combo {
+    border-left-color: #4e9a06; }
+  .linked.vertical > entry:not(:disabled) + entry:not(:disabled) {
+    border-top-color: mix(mix(#A5A8A2,#0e0021,0.08),#d0d2cd,0.3); }
+    .linked.vertical > entry:not(:disabled) + entry:not(:disabled):backdrop {
+      border-top-color: mix(mix(#A5A8A2,mix(#A5A8A2,#0e0021,0.08),0.9),#d0d2cd,0.3); }
+  .linked.vertical > entry:disabled + entry:disabled {
+    border-top-color: mix(mix(#A5A8A2,#0e0021,0.08),#d0d2cd,0.3); }
+  .linked.vertical > entry + entry:focus:not(:only-child) {
+    border-top-color: #B36A87; }
+  .linked.vertical > entry + entry:drop(active):not(:only-child) {
+    border-top-color: #4e9a06; }
+  .linked.vertical > entry:focus:not(:only-child) + entry,
+  .linked.vertical > entry:focus:not(:only-child) + button,
+  .linked.vertical > entry:focus:not(:only-child) + combobox > box > button.combo {
+    border-top-color: #B36A87; }
+  .linked.vertical > entry:drop(active):not(:only-child) + entry,
+  .linked.vertical > entry:drop(active):not(:only-child) + button,
+  .linked.vertical > entry:drop(active):not(:only-child) + combobox > box > button.combo {
+    border-top-color: #4e9a06; }
 
 /*********
  ! Buttons
@@ -686,23 +696,23 @@ toolbar {
       color: rgba(139, 99, 155, 0.9); }
       toolbar button.separator:disabled, toolbar button .separator:disabled {
         color: rgba(139, 99, 155, 0.85); }
-  toolbar button.linked, toolbar .linked button {
+  toolbar .linked > button {
     box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-    toolbar button.linked:focus, toolbar button.linked:hover, toolbar .linked button:focus, toolbar .linked button:hover {
+    toolbar .linked > button:focus, toolbar .linked > button:hover {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-    toolbar button.linked:active, toolbar button.linked:active:hover, toolbar button.linked:active:focus, toolbar button.linked:active:hover:focus, toolbar button.linked:checked, toolbar button.linked:checked:hover, toolbar button.linked:checked:focus, toolbar button.linked:checked:hover:focus, toolbar .linked button:active, toolbar .linked button:active:hover, toolbar .linked button:active:focus, toolbar .linked button:active:hover:focus, toolbar .linked button:checked, toolbar .linked button:checked:hover, toolbar .linked button:checked:focus, toolbar .linked button:checked:hover:focus {
+    toolbar .linked > button:active, toolbar .linked > button:active:hover, toolbar .linked > button:active:focus, toolbar .linked > button:active:hover:focus, toolbar .linked > button:checked, toolbar .linked > button:checked:hover, toolbar .linked > button:checked:focus, toolbar .linked > button:checked:hover:focus {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-    toolbar button.linked:disabled, toolbar .linked button:disabled {
+    toolbar .linked > button:disabled {
       box-shadow: inset -1px 0 #848880; }
-    toolbar button.linked:last-child, toolbar button.linked:only-child, toolbar .linked button:last-child, toolbar .linked button:only-child {
+    toolbar .linked > button:last-child, toolbar .linked > button:only-child {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-    toolbar button.linked:last-child:hover, toolbar button.linked:only-child:hover, toolbar .linked button:last-child:hover, toolbar .linked button:only-child:hover {
+    toolbar .linked > button:last-child:hover, toolbar .linked > button:only-child:hover {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-    toolbar button.linked:disabled:last-child, toolbar button.linked:disabled:only-child, toolbar button.linked:active:disabled:last-child, toolbar button.linked:active:disabled:only-child, toolbar button.linked:checked:disabled:last-child, toolbar button.linked:checked:disabled:only-child, toolbar .linked button:disabled:last-child, toolbar .linked button:disabled:only-child, toolbar .linked button:active:disabled:last-child, toolbar .linked button:active:disabled:only-child, toolbar .linked button:checked:disabled:last-child, toolbar .linked button:checked:disabled:only-child {
+    toolbar .linked > button:disabled:last-child, toolbar .linked > button:disabled:only-child, toolbar .linked > button:active:disabled:last-child, toolbar .linked > button:active:disabled:only-child, toolbar .linked > button:checked:disabled:last-child, toolbar .linked > button:checked:disabled:only-child {
       box-shadow: none; }
-    toolbar button.linked:active:last-child, toolbar button.linked:active:last-child:focus, toolbar button.linked:active:last-child:hover, toolbar button.linked:active:last-child:hover:focus, toolbar button.linked:checked:last-child, toolbar button.linked:checked:last-child:focus, toolbar button.linked:checked:last-child:hover, toolbar button.linked:checked:last-child:hover:focus, toolbar .linked button:active:last-child, toolbar .linked button:active:last-child:focus, toolbar .linked button:active:last-child:hover, toolbar .linked button:active:last-child:hover:focus, toolbar .linked button:checked:last-child, toolbar .linked button:checked:last-child:focus, toolbar .linked button:checked:last-child:hover, toolbar .linked button:checked:last-child:hover:focus {
+    toolbar .linked > button:active:last-child, toolbar .linked > button:active:last-child:focus, toolbar .linked > button:active:last-child:hover, toolbar .linked > button:active:last-child:hover:focus, toolbar .linked > button:checked:last-child, toolbar .linked > button:checked:last-child:focus, toolbar .linked > button:checked:last-child:hover, toolbar .linked > button:checked:last-child:hover:focus {
       box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-    toolbar button.linked:active:only-child, toolbar button.linked:active:only-child:focus, toolbar button.linked:active:only-child:hover, toolbar button.linked:active:only-child:hover:focus, toolbar button.linked:checked:only-child, toolbar button.linked:checked:only-child:focus, toolbar button.linked:checked:only-child:hover, toolbar button.linked:checked:only-child:hover:focus, toolbar .linked button:active:only-child, toolbar .linked button:active:only-child:focus, toolbar .linked button:active:only-child:hover, toolbar .linked button:active:only-child:hover:focus, toolbar .linked button:checked:only-child, toolbar .linked button:checked:only-child:focus, toolbar .linked button:checked:only-child:hover, toolbar .linked button:checked:only-child:hover:focus {
+    toolbar .linked > button:active:only-child, toolbar .linked > button:active:only-child:focus, toolbar .linked > button:active:only-child:hover, toolbar .linked > button:active:only-child:hover:focus, toolbar .linked > button:checked:only-child, toolbar .linked > button:checked:only-child:focus, toolbar .linked > button:checked:only-child:hover, toolbar .linked > button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
   toolbar combobox, toolbar button {
     padding: 2px; }
@@ -723,6 +733,97 @@ toolbar {
   toolbar.inline-toolbar {
     background-image: none;
     background-color: transparent; }
+    toolbar.inline-toolbar button {
+      /*$border_strength: .1;*/
+      /*$shadow_strength: .1;*/
+      background-color: #A5A8A2;
+      background-image: none;
+      border-color: rgba(11, 0, 26, 0.32);
+      color: #0e0021;
+      box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
+      toolbar.inline-toolbar button:focus, toolbar.inline-toolbar button:hover {
+        border-color: rgba(11, 0, 25, 0.32); }
+      toolbar.inline-toolbar button:active, toolbar.inline-toolbar button:active:hover, toolbar.inline-toolbar button:active:focus, toolbar.inline-toolbar button:active:hover:focus, toolbar.inline-toolbar button:checked, toolbar.inline-toolbar button:checked:hover, toolbar.inline-toolbar button:checked:focus, toolbar.inline-toolbar button:checked:hover:focus {
+        border-color: rgba(10, 0, 23, 0.32); }
+      toolbar.inline-toolbar button:disabled {
+        border-color: rgba(12, 0, 28, 0.32); }
+      toolbar.inline-toolbar button:active:disabled, toolbar.inline-toolbar button:checked:disabled {
+        border-color: rgba(11, 0, 26, 0.32); }
+      toolbar.inline-toolbar button.flat {
+        border-color: rgba(165, 168, 162, 0);
+        background-color: rgba(165, 168, 162, 0);
+        background-image: none;
+        box-shadow: none; }
+      toolbar.inline-toolbar button:focus, toolbar.inline-toolbar button:hover, toolbar.inline-toolbar button.flat:focus, toolbar.inline-toolbar button.flat:hover {
+        background-color: #c6c8c4;
+        background-image: none;
+        border-color: rgba(11, 0, 26, 0.4);
+        box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
+        toolbar.inline-toolbar button:focus:focus, toolbar.inline-toolbar button:focus:hover, toolbar.inline-toolbar button:hover:focus, toolbar.inline-toolbar button:hover:hover, toolbar.inline-toolbar button.flat:focus:focus, toolbar.inline-toolbar button.flat:focus:hover, toolbar.inline-toolbar button.flat:hover:focus, toolbar.inline-toolbar button.flat:hover:hover {
+          border-color: rgba(11, 0, 25, 0.4); }
+        toolbar.inline-toolbar button:focus:active, toolbar.inline-toolbar button:focus:active:hover, toolbar.inline-toolbar button:focus:active:focus, toolbar.inline-toolbar button:focus:active:hover:focus, toolbar.inline-toolbar button:focus:checked, toolbar.inline-toolbar button:focus:checked:hover, toolbar.inline-toolbar button:focus:checked:focus, toolbar.inline-toolbar button:focus:checked:hover:focus, toolbar.inline-toolbar button:hover:active, toolbar.inline-toolbar button:hover:active:hover, toolbar.inline-toolbar button:hover:active:focus, toolbar.inline-toolbar button:hover:active:hover:focus, toolbar.inline-toolbar button:hover:checked, toolbar.inline-toolbar button:hover:checked:hover, toolbar.inline-toolbar button:hover:checked:focus, toolbar.inline-toolbar button:hover:checked:hover:focus, toolbar.inline-toolbar button.flat:focus:active, toolbar.inline-toolbar button.flat:focus:active:hover, toolbar.inline-toolbar button.flat:focus:active:focus, toolbar.inline-toolbar button.flat:focus:active:hover:focus, toolbar.inline-toolbar button.flat:focus:checked, toolbar.inline-toolbar button.flat:focus:checked:hover, toolbar.inline-toolbar button.flat:focus:checked:focus, toolbar.inline-toolbar button.flat:focus:checked:hover:focus, toolbar.inline-toolbar button.flat:hover:active, toolbar.inline-toolbar button.flat:hover:active:hover, toolbar.inline-toolbar button.flat:hover:active:focus, toolbar.inline-toolbar button.flat:hover:active:hover:focus, toolbar.inline-toolbar button.flat:hover:checked, toolbar.inline-toolbar button.flat:hover:checked:hover, toolbar.inline-toolbar button.flat:hover:checked:focus, toolbar.inline-toolbar button.flat:hover:checked:hover:focus {
+          border-color: rgba(10, 0, 23, 0.4); }
+        toolbar.inline-toolbar button:focus:disabled, toolbar.inline-toolbar button:hover:disabled, toolbar.inline-toolbar button.flat:focus:disabled, toolbar.inline-toolbar button.flat:hover:disabled {
+          border-color: rgba(12, 0, 28, 0.4); }
+        toolbar.inline-toolbar button:focus:active:disabled, toolbar.inline-toolbar button:focus:checked:disabled, toolbar.inline-toolbar button:hover:active:disabled, toolbar.inline-toolbar button:hover:checked:disabled, toolbar.inline-toolbar button.flat:focus:active:disabled, toolbar.inline-toolbar button.flat:focus:checked:disabled, toolbar.inline-toolbar button.flat:hover:active:disabled, toolbar.inline-toolbar button.flat:hover:checked:disabled {
+          border-color: rgba(11, 0, 26, 0.4); }
+      toolbar.inline-toolbar button:checked, toolbar.inline-toolbar button:active, toolbar.inline-toolbar button.flat:checked, toolbar.inline-toolbar button.flat:active {
+        /*@include linear-gradient(shade($bg, .7), to top);*/
+        background-color: #B36A87;
+        background-image: none;
+        color: #0e0021;
+        box-shadow: inset 1px 0 rgba(14, 0, 33, 0.06), inset 0 1px rgba(14, 0, 33, 0.07), inset -1px 0 rgba(14, 0, 33, 0.06), inset 0 -1px rgba(14, 0, 33, 0.05);
+        border-color: rgba(11, 0, 26, 0.32); }
+        toolbar.inline-toolbar button:checked:focus, toolbar.inline-toolbar button:checked:hover, toolbar.inline-toolbar button:active:focus, toolbar.inline-toolbar button:active:hover, toolbar.inline-toolbar button.flat:checked:focus, toolbar.inline-toolbar button.flat:checked:hover, toolbar.inline-toolbar button.flat:active:focus, toolbar.inline-toolbar button.flat:active:hover {
+          border-color: rgba(11, 0, 25, 0.32); }
+        toolbar.inline-toolbar button:checked:active, toolbar.inline-toolbar button:checked:active:hover, toolbar.inline-toolbar button:checked:active:focus, toolbar.inline-toolbar button:checked:active:hover:focus, toolbar.inline-toolbar button:checked:checked, toolbar.inline-toolbar button:checked:checked:hover, toolbar.inline-toolbar button:checked:checked:focus, toolbar.inline-toolbar button:checked:checked:hover:focus, toolbar.inline-toolbar button:active:active, toolbar.inline-toolbar button:active:active:hover, toolbar.inline-toolbar button:active:active:focus, toolbar.inline-toolbar button:active:active:hover:focus, toolbar.inline-toolbar button:active:checked, toolbar.inline-toolbar button:active:checked:hover, toolbar.inline-toolbar button:active:checked:focus, toolbar.inline-toolbar button:active:checked:hover:focus, toolbar.inline-toolbar button.flat:checked:active, toolbar.inline-toolbar button.flat:checked:active:hover, toolbar.inline-toolbar button.flat:checked:active:focus, toolbar.inline-toolbar button.flat:checked:active:hover:focus, toolbar.inline-toolbar button.flat:checked:checked, toolbar.inline-toolbar button.flat:checked:checked:hover, toolbar.inline-toolbar button.flat:checked:checked:focus, toolbar.inline-toolbar button.flat:checked:checked:hover:focus, toolbar.inline-toolbar button.flat:active:active, toolbar.inline-toolbar button.flat:active:active:hover, toolbar.inline-toolbar button.flat:active:active:focus, toolbar.inline-toolbar button.flat:active:active:hover:focus, toolbar.inline-toolbar button.flat:active:checked, toolbar.inline-toolbar button.flat:active:checked:hover, toolbar.inline-toolbar button.flat:active:checked:focus, toolbar.inline-toolbar button.flat:active:checked:hover:focus {
+          border-color: rgba(10, 0, 23, 0.32); }
+        toolbar.inline-toolbar button:checked:disabled, toolbar.inline-toolbar button:active:disabled, toolbar.inline-toolbar button.flat:checked:disabled, toolbar.inline-toolbar button.flat:active:disabled {
+          border-color: rgba(12, 0, 28, 0.32); }
+        toolbar.inline-toolbar button:checked:active:disabled, toolbar.inline-toolbar button:checked:checked:disabled, toolbar.inline-toolbar button:active:active:disabled, toolbar.inline-toolbar button:active:checked:disabled, toolbar.inline-toolbar button.flat:checked:active:disabled, toolbar.inline-toolbar button.flat:checked:checked:disabled, toolbar.inline-toolbar button.flat:active:active:disabled, toolbar.inline-toolbar button.flat:active:checked:disabled {
+          border-color: rgba(11, 0, 26, 0.32); }
+        toolbar.inline-toolbar button:checked:focus, toolbar.inline-toolbar button:checked:hover, toolbar.inline-toolbar button:active:focus, toolbar.inline-toolbar button:active:hover, toolbar.inline-toolbar button.flat:checked:focus, toolbar.inline-toolbar button.flat:checked:hover, toolbar.inline-toolbar button.flat:active:focus, toolbar.inline-toolbar button.flat:active:hover {
+          /*@include linear-gradient(shade($bg, .65), to top);*/
+          background-color: #bd7d96;
+          background-image: none;
+          color: #0e0021; }
+      toolbar.inline-toolbar button:focus, toolbar.inline-toolbar button:hover, toolbar.inline-toolbar button.flat:focus, toolbar.inline-toolbar button.flat:hover {
+        color: #0e0021; }
+      toolbar.inline-toolbar button:disabled:disabled, toolbar.inline-toolbar button.flat:disabled:disabled {
+        background-color: alpha(mix(#A5A8A2,#0e0021,0.2),0.4);
+        background-image: none;
+        /*border: 1px solid alpha($bg, .2);*/
+        opacity: .4;
+        color: mix(#A5A8A2,#0e0021,0.5);
+        box-shadow: none; }
+      toolbar.inline-toolbar button:active:disabled, toolbar.inline-toolbar button:checked:disabled, toolbar.inline-toolbar button.flat:active:disabled, toolbar.inline-toolbar button.flat:checked:disabled {
+        background-color: rgba(179, 106, 135, 0.6);
+        background-image: none;
+        color: #0e0021;
+        box-shadow: none; }
+      toolbar.inline-toolbar button.separator, toolbar.inline-toolbar button .separator {
+        border: 1px solid currentColor;
+        color: rgba(165, 168, 162, 0.9); }
+        toolbar.inline-toolbar button.separator:disabled, toolbar.inline-toolbar button .separator:disabled {
+          color: rgba(165, 168, 162, 0.85); }
+    toolbar.inline-toolbar .linked > button {
+      box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
+      toolbar.inline-toolbar .linked > button:focus, toolbar.inline-toolbar .linked > button:hover {
+        box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
+      toolbar.inline-toolbar .linked > button:active, toolbar.inline-toolbar .linked > button:active:hover, toolbar.inline-toolbar .linked > button:active:focus, toolbar.inline-toolbar .linked > button:active:hover:focus, toolbar.inline-toolbar .linked > button:checked, toolbar.inline-toolbar .linked > button:checked:hover, toolbar.inline-toolbar .linked > button:checked:focus, toolbar.inline-toolbar .linked > button:checked:hover:focus {
+        box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
+      toolbar.inline-toolbar .linked > button:disabled {
+        box-shadow: inset -1px 0 #848880; }
+      toolbar.inline-toolbar .linked > button:last-child, toolbar.inline-toolbar .linked > button:only-child {
+        box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
+      toolbar.inline-toolbar .linked > button:last-child:hover, toolbar.inline-toolbar .linked > button:only-child:hover {
+        box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
+      toolbar.inline-toolbar .linked > button:disabled:last-child, toolbar.inline-toolbar .linked > button:disabled:only-child, toolbar.inline-toolbar .linked > button:active:disabled:last-child, toolbar.inline-toolbar .linked > button:active:disabled:only-child, toolbar.inline-toolbar .linked > button:checked:disabled:last-child, toolbar.inline-toolbar .linked > button:checked:disabled:only-child {
+        box-shadow: none; }
+      toolbar.inline-toolbar .linked > button:active:last-child, toolbar.inline-toolbar .linked > button:active:last-child:focus, toolbar.inline-toolbar .linked > button:active:last-child:hover, toolbar.inline-toolbar .linked > button:active:last-child:hover:focus, toolbar.inline-toolbar .linked > button:checked:last-child, toolbar.inline-toolbar .linked > button:checked:last-child:focus, toolbar.inline-toolbar .linked > button:checked:last-child:hover, toolbar.inline-toolbar .linked > button:checked:last-child:hover:focus {
+        box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
+      toolbar.inline-toolbar .linked > button:active:only-child, toolbar.inline-toolbar .linked > button:active:only-child:focus, toolbar.inline-toolbar .linked > button:active:only-child:hover, toolbar.inline-toolbar .linked > button:active:only-child:hover:focus, toolbar.inline-toolbar .linked > button:checked:only-child, toolbar.inline-toolbar .linked > button:checked:only-child:focus, toolbar.inline-toolbar .linked > button:checked:only-child:hover, toolbar.inline-toolbar .linked > button:checked:only-child:hover:focus {
+        box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
 
 headerbar {
   background-color: #0e0021;
@@ -823,23 +924,23 @@ headerbar {
       color: rgba(139, 99, 155, 0.9); }
       headerbar button.separator:disabled, headerbar button .separator:disabled {
         color: rgba(139, 99, 155, 0.85); }
-  headerbar button.linked, headerbar .linked button {
+  headerbar .linked > button {
     box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
-    headerbar button.linked:focus, headerbar button.linked:hover, headerbar .linked button:focus, headerbar .linked button:hover {
+    headerbar .linked > button:focus, headerbar .linked > button:hover {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
-    headerbar button.linked:active, headerbar button.linked:active:hover, headerbar button.linked:active:focus, headerbar button.linked:active:hover:focus, headerbar button.linked:checked, headerbar button.linked:checked:hover, headerbar button.linked:checked:focus, headerbar button.linked:checked:hover:focus, headerbar .linked button:active, headerbar .linked button:active:hover, headerbar .linked button:active:focus, headerbar .linked button:active:hover:focus, headerbar .linked button:checked, headerbar .linked button:checked:hover, headerbar .linked button:checked:focus, headerbar .linked button:checked:hover:focus {
+    headerbar .linked > button:active, headerbar .linked > button:active:hover, headerbar .linked > button:active:focus, headerbar .linked > button:active:hover:focus, headerbar .linked > button:checked, headerbar .linked > button:checked:hover, headerbar .linked > button:checked:focus, headerbar .linked > button:checked:hover:focus {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.22), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-    headerbar button.linked:disabled, headerbar .linked button:disabled {
+    headerbar .linked > button:disabled {
       box-shadow: inset -1px 0 #0b001a; }
-    headerbar button.linked:last-child, headerbar button.linked:only-child, headerbar .linked button:last-child, headerbar .linked button:only-child {
+    headerbar .linked > button:last-child, headerbar .linked > button:only-child {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.22); }
-    headerbar button.linked:last-child:hover, headerbar button.linked:only-child:hover, headerbar .linked button:last-child:hover, headerbar .linked button:only-child:hover {
+    headerbar .linked > button:last-child:hover, headerbar .linked > button:only-child:hover {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.42); }
-    headerbar button.linked:disabled:last-child, headerbar button.linked:disabled:only-child, headerbar button.linked:active:disabled:last-child, headerbar button.linked:active:disabled:only-child, headerbar button.linked:checked:disabled:last-child, headerbar button.linked:checked:disabled:only-child, headerbar .linked button:disabled:last-child, headerbar .linked button:disabled:only-child, headerbar .linked button:active:disabled:last-child, headerbar .linked button:active:disabled:only-child, headerbar .linked button:checked:disabled:last-child, headerbar .linked button:checked:disabled:only-child {
+    headerbar .linked > button:disabled:last-child, headerbar .linked > button:disabled:only-child, headerbar .linked > button:active:disabled:last-child, headerbar .linked > button:active:disabled:only-child, headerbar .linked > button:checked:disabled:last-child, headerbar .linked > button:checked:disabled:only-child {
       box-shadow: none; }
-    headerbar button.linked:active:last-child, headerbar button.linked:active:last-child:focus, headerbar button.linked:active:last-child:hover, headerbar button.linked:active:last-child:hover:focus, headerbar button.linked:checked:last-child, headerbar button.linked:checked:last-child:focus, headerbar button.linked:checked:last-child:hover, headerbar button.linked:checked:last-child:hover:focus, headerbar .linked button:active:last-child, headerbar .linked button:active:last-child:focus, headerbar .linked button:active:last-child:hover, headerbar .linked button:active:last-child:hover:focus, headerbar .linked button:checked:last-child, headerbar .linked button:checked:last-child:focus, headerbar .linked button:checked:last-child:hover, headerbar .linked button:checked:last-child:hover:focus {
+    headerbar .linked > button:active:last-child, headerbar .linked > button:active:last-child:focus, headerbar .linked > button:active:last-child:hover, headerbar .linked > button:active:last-child:hover:focus, headerbar .linked > button:checked:last-child, headerbar .linked > button:checked:last-child:focus, headerbar .linked > button:checked:last-child:hover, headerbar .linked > button:checked:last-child:hover:focus {
       box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-    headerbar button.linked:active:only-child, headerbar button.linked:active:only-child:focus, headerbar button.linked:active:only-child:hover, headerbar button.linked:active:only-child:hover:focus, headerbar button.linked:checked:only-child, headerbar button.linked:checked:only-child:focus, headerbar button.linked:checked:only-child:hover, headerbar button.linked:checked:only-child:hover:focus, headerbar .linked button:active:only-child, headerbar .linked button:active:only-child:focus, headerbar .linked button:active:only-child:hover, headerbar .linked button:active:only-child:hover:focus, headerbar .linked button:checked:only-child, headerbar .linked button:checked:only-child:focus, headerbar .linked button:checked:only-child:hover, headerbar .linked button:checked:only-child:hover:focus {
+    headerbar .linked > button:active:only-child, headerbar .linked > button:active:only-child:focus, headerbar .linked > button:active:only-child:hover, headerbar .linked > button:active:only-child:hover:focus, headerbar .linked > button:checked:only-child, headerbar .linked > button:checked:only-child:focus, headerbar .linked > button:checked:only-child:hover, headerbar .linked > button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
   headerbar combobox, headerbar button {
     padding: 2px; }
@@ -1180,23 +1281,23 @@ actionbar > revealer > box {
       color: rgba(139, 99, 155, 0.9); }
       .selection-mode.header-bar button.separator:disabled, .selection-mode.header-bar button .separator:disabled, .selection-mode.toolbar button.separator:disabled, .selection-mode.toolbar button .separator:disabled {
         color: rgba(139, 99, 155, 0.85); }
-  .selection-mode.header-bar button.linked, .selection-mode.header-bar .linked button, .selection-mode.toolbar button.linked, .selection-mode.toolbar .linked button {
+  .selection-mode.header-bar .linked > button, .selection-mode.toolbar .linked > button {
     box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-    .selection-mode.header-bar button.linked:focus, .selection-mode.header-bar button.linked:hover, .selection-mode.header-bar .linked button:focus, .selection-mode.header-bar .linked button:hover, .selection-mode.toolbar button.linked:focus, .selection-mode.toolbar button.linked:hover, .selection-mode.toolbar .linked button:focus, .selection-mode.toolbar .linked button:hover {
+    .selection-mode.header-bar .linked > button:focus, .selection-mode.header-bar .linked > button:hover, .selection-mode.toolbar .linked > button:focus, .selection-mode.toolbar .linked > button:hover {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-    .selection-mode.header-bar button.linked:active, .selection-mode.header-bar button.linked:active:hover, .selection-mode.header-bar button.linked:active:focus, .selection-mode.header-bar button.linked:active:hover:focus, .selection-mode.header-bar button.linked:checked, .selection-mode.header-bar button.linked:checked:hover, .selection-mode.header-bar button.linked:checked:focus, .selection-mode.header-bar button.linked:checked:hover:focus, .selection-mode.header-bar .linked button:active, .selection-mode.header-bar .linked button:active:hover, .selection-mode.header-bar .linked button:active:focus, .selection-mode.header-bar .linked button:active:hover:focus, .selection-mode.header-bar .linked button:checked, .selection-mode.header-bar .linked button:checked:hover, .selection-mode.header-bar .linked button:checked:focus, .selection-mode.header-bar .linked button:checked:hover:focus, .selection-mode.toolbar button.linked:active, .selection-mode.toolbar button.linked:active:hover, .selection-mode.toolbar button.linked:active:focus, .selection-mode.toolbar button.linked:active:hover:focus, .selection-mode.toolbar button.linked:checked, .selection-mode.toolbar button.linked:checked:hover, .selection-mode.toolbar button.linked:checked:focus, .selection-mode.toolbar button.linked:checked:hover:focus, .selection-mode.toolbar .linked button:active, .selection-mode.toolbar .linked button:active:hover, .selection-mode.toolbar .linked button:active:focus, .selection-mode.toolbar .linked button:active:hover:focus, .selection-mode.toolbar .linked button:checked, .selection-mode.toolbar .linked button:checked:hover, .selection-mode.toolbar .linked button:checked:focus, .selection-mode.toolbar .linked button:checked:hover:focus {
+    .selection-mode.header-bar .linked > button:active, .selection-mode.header-bar .linked > button:active:hover, .selection-mode.header-bar .linked > button:active:focus, .selection-mode.header-bar .linked > button:active:hover:focus, .selection-mode.header-bar .linked > button:checked, .selection-mode.header-bar .linked > button:checked:hover, .selection-mode.header-bar .linked > button:checked:focus, .selection-mode.header-bar .linked > button:checked:hover:focus, .selection-mode.toolbar .linked > button:active, .selection-mode.toolbar .linked > button:active:hover, .selection-mode.toolbar .linked > button:active:focus, .selection-mode.toolbar .linked > button:active:hover:focus, .selection-mode.toolbar .linked > button:checked, .selection-mode.toolbar .linked > button:checked:hover, .selection-mode.toolbar .linked > button:checked:focus, .selection-mode.toolbar .linked > button:checked:hover:focus {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-    .selection-mode.header-bar button.linked:disabled, .selection-mode.header-bar .linked button:disabled, .selection-mode.toolbar button.linked:disabled, .selection-mode.toolbar .linked button:disabled {
+    .selection-mode.header-bar .linked > button:disabled, .selection-mode.toolbar .linked > button:disabled {
       box-shadow: inset -1px 0 #974d6a; }
-    .selection-mode.header-bar button.linked:last-child, .selection-mode.header-bar button.linked:only-child, .selection-mode.header-bar .linked button:last-child, .selection-mode.header-bar .linked button:only-child, .selection-mode.toolbar button.linked:last-child, .selection-mode.toolbar button.linked:only-child, .selection-mode.toolbar .linked button:last-child, .selection-mode.toolbar .linked button:only-child {
+    .selection-mode.header-bar .linked > button:last-child, .selection-mode.header-bar .linked > button:only-child, .selection-mode.toolbar .linked > button:last-child, .selection-mode.toolbar .linked > button:only-child {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-    .selection-mode.header-bar button.linked:last-child:hover, .selection-mode.header-bar button.linked:only-child:hover, .selection-mode.header-bar .linked button:last-child:hover, .selection-mode.header-bar .linked button:only-child:hover, .selection-mode.toolbar button.linked:last-child:hover, .selection-mode.toolbar button.linked:only-child:hover, .selection-mode.toolbar .linked button:last-child:hover, .selection-mode.toolbar .linked button:only-child:hover {
+    .selection-mode.header-bar .linked > button:last-child:hover, .selection-mode.header-bar .linked > button:only-child:hover, .selection-mode.toolbar .linked > button:last-child:hover, .selection-mode.toolbar .linked > button:only-child:hover {
       box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-    .selection-mode.header-bar button.linked:disabled:last-child, .selection-mode.header-bar button.linked:disabled:only-child, .selection-mode.header-bar button.linked:active:disabled:last-child, .selection-mode.header-bar button.linked:active:disabled:only-child, .selection-mode.header-bar button.linked:checked:disabled:last-child, .selection-mode.header-bar button.linked:checked:disabled:only-child, .selection-mode.header-bar .linked button:disabled:last-child, .selection-mode.header-bar .linked button:disabled:only-child, .selection-mode.header-bar .linked button:active:disabled:last-child, .selection-mode.header-bar .linked button:active:disabled:only-child, .selection-mode.header-bar .linked button:checked:disabled:last-child, .selection-mode.header-bar .linked button:checked:disabled:only-child, .selection-mode.toolbar button.linked:disabled:last-child, .selection-mode.toolbar button.linked:disabled:only-child, .selection-mode.toolbar button.linked:active:disabled:last-child, .selection-mode.toolbar button.linked:active:disabled:only-child, .selection-mode.toolbar button.linked:checked:disabled:last-child, .selection-mode.toolbar button.linked:checked:disabled:only-child, .selection-mode.toolbar .linked button:disabled:last-child, .selection-mode.toolbar .linked button:disabled:only-child, .selection-mode.toolbar .linked button:active:disabled:last-child, .selection-mode.toolbar .linked button:active:disabled:only-child, .selection-mode.toolbar .linked button:checked:disabled:last-child, .selection-mode.toolbar .linked button:checked:disabled:only-child {
+    .selection-mode.header-bar .linked > button:disabled:last-child, .selection-mode.header-bar .linked > button:disabled:only-child, .selection-mode.header-bar .linked > button:active:disabled:last-child, .selection-mode.header-bar .linked > button:active:disabled:only-child, .selection-mode.header-bar .linked > button:checked:disabled:last-child, .selection-mode.header-bar .linked > button:checked:disabled:only-child, .selection-mode.toolbar .linked > button:disabled:last-child, .selection-mode.toolbar .linked > button:disabled:only-child, .selection-mode.toolbar .linked > button:active:disabled:last-child, .selection-mode.toolbar .linked > button:active:disabled:only-child, .selection-mode.toolbar .linked > button:checked:disabled:last-child, .selection-mode.toolbar .linked > button:checked:disabled:only-child {
       box-shadow: none; }
-    .selection-mode.header-bar button.linked:active:last-child, .selection-mode.header-bar button.linked:active:last-child:focus, .selection-mode.header-bar button.linked:active:last-child:hover, .selection-mode.header-bar button.linked:active:last-child:hover:focus, .selection-mode.header-bar button.linked:checked:last-child, .selection-mode.header-bar button.linked:checked:last-child:focus, .selection-mode.header-bar button.linked:checked:last-child:hover, .selection-mode.header-bar button.linked:checked:last-child:hover:focus, .selection-mode.header-bar .linked button:active:last-child, .selection-mode.header-bar .linked button:active:last-child:focus, .selection-mode.header-bar .linked button:active:last-child:hover, .selection-mode.header-bar .linked button:active:last-child:hover:focus, .selection-mode.header-bar .linked button:checked:last-child, .selection-mode.header-bar .linked button:checked:last-child:focus, .selection-mode.header-bar .linked button:checked:last-child:hover, .selection-mode.header-bar .linked button:checked:last-child:hover:focus, .selection-mode.toolbar button.linked:active:last-child, .selection-mode.toolbar button.linked:active:last-child:focus, .selection-mode.toolbar button.linked:active:last-child:hover, .selection-mode.toolbar button.linked:active:last-child:hover:focus, .selection-mode.toolbar button.linked:checked:last-child, .selection-mode.toolbar button.linked:checked:last-child:focus, .selection-mode.toolbar button.linked:checked:last-child:hover, .selection-mode.toolbar button.linked:checked:last-child:hover:focus, .selection-mode.toolbar .linked button:active:last-child, .selection-mode.toolbar .linked button:active:last-child:focus, .selection-mode.toolbar .linked button:active:last-child:hover, .selection-mode.toolbar .linked button:active:last-child:hover:focus, .selection-mode.toolbar .linked button:checked:last-child, .selection-mode.toolbar .linked button:checked:last-child:focus, .selection-mode.toolbar .linked button:checked:last-child:hover, .selection-mode.toolbar .linked button:checked:last-child:hover:focus {
+    .selection-mode.header-bar .linked > button:active:last-child, .selection-mode.header-bar .linked > button:active:last-child:focus, .selection-mode.header-bar .linked > button:active:last-child:hover, .selection-mode.header-bar .linked > button:active:last-child:hover:focus, .selection-mode.header-bar .linked > button:checked:last-child, .selection-mode.header-bar .linked > button:checked:last-child:focus, .selection-mode.header-bar .linked > button:checked:last-child:hover, .selection-mode.header-bar .linked > button:checked:last-child:hover:focus, .selection-mode.toolbar .linked > button:active:last-child, .selection-mode.toolbar .linked > button:active:last-child:focus, .selection-mode.toolbar .linked > button:active:last-child:hover, .selection-mode.toolbar .linked > button:active:last-child:hover:focus, .selection-mode.toolbar .linked > button:checked:last-child, .selection-mode.toolbar .linked > button:checked:last-child:focus, .selection-mode.toolbar .linked > button:checked:last-child:hover, .selection-mode.toolbar .linked > button:checked:last-child:hover:focus {
       box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-    .selection-mode.header-bar button.linked:active:only-child, .selection-mode.header-bar button.linked:active:only-child:focus, .selection-mode.header-bar button.linked:active:only-child:hover, .selection-mode.header-bar button.linked:active:only-child:hover:focus, .selection-mode.header-bar button.linked:checked:only-child, .selection-mode.header-bar button.linked:checked:only-child:focus, .selection-mode.header-bar button.linked:checked:only-child:hover, .selection-mode.header-bar button.linked:checked:only-child:hover:focus, .selection-mode.header-bar .linked button:active:only-child, .selection-mode.header-bar .linked button:active:only-child:focus, .selection-mode.header-bar .linked button:active:only-child:hover, .selection-mode.header-bar .linked button:active:only-child:hover:focus, .selection-mode.header-bar .linked button:checked:only-child, .selection-mode.header-bar .linked button:checked:only-child:focus, .selection-mode.header-bar .linked button:checked:only-child:hover, .selection-mode.header-bar .linked button:checked:only-child:hover:focus, .selection-mode.toolbar button.linked:active:only-child, .selection-mode.toolbar button.linked:active:only-child:focus, .selection-mode.toolbar button.linked:active:only-child:hover, .selection-mode.toolbar button.linked:active:only-child:hover:focus, .selection-mode.toolbar button.linked:checked:only-child, .selection-mode.toolbar button.linked:checked:only-child:focus, .selection-mode.toolbar button.linked:checked:only-child:hover, .selection-mode.toolbar button.linked:checked:only-child:hover:focus, .selection-mode.toolbar .linked button:active:only-child, .selection-mode.toolbar .linked button:active:only-child:focus, .selection-mode.toolbar .linked button:active:only-child:hover, .selection-mode.toolbar .linked button:active:only-child:hover:focus, .selection-mode.toolbar .linked button:checked:only-child, .selection-mode.toolbar .linked button:checked:only-child:focus, .selection-mode.toolbar .linked button:checked:only-child:hover, .selection-mode.toolbar .linked button:checked:only-child:hover:focus {
+    .selection-mode.header-bar .linked > button:active:only-child, .selection-mode.header-bar .linked > button:active:only-child:focus, .selection-mode.header-bar .linked > button:active:only-child:hover, .selection-mode.header-bar .linked > button:active:only-child:hover:focus, .selection-mode.header-bar .linked > button:checked:only-child, .selection-mode.header-bar .linked > button:checked:only-child:focus, .selection-mode.header-bar .linked > button:checked:only-child:hover, .selection-mode.header-bar .linked > button:checked:only-child:hover:focus, .selection-mode.toolbar .linked > button:active:only-child, .selection-mode.toolbar .linked > button:active:only-child:focus, .selection-mode.toolbar .linked > button:active:only-child:hover, .selection-mode.toolbar .linked > button:active:only-child:hover:focus, .selection-mode.toolbar .linked > button:checked:only-child, .selection-mode.toolbar .linked > button:checked:only-child:focus, .selection-mode.toolbar .linked > button:checked:only-child:hover, .selection-mode.toolbar .linked > button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
   .selection-mode.header-bar combobox, .selection-mode.header-bar button, .selection-mode.toolbar combobox, .selection-mode.toolbar button {
     padding: 2px; }
@@ -1311,10 +1412,10 @@ calendar {
   calendar:selected {
     border-radius: 2px; }
   calendar.header {
-    border-bottom: 1px solid rgba(33, 34, 32, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0; }
     calendar.header:backdrop {
-      border-color: rgba(33, 34, 32, 0.1); }
+      border-color: rgba(0, 0, 0, 0.1); }
   calendar.button {
     color: rgba(14, 0, 33, 0.55); }
     calendar.button:hover {
@@ -1340,12 +1441,12 @@ calendar {
  ! Color chooser
 ****************/
 colorswatch, colorswatch:selected {
-  border: 1px solid rgba(33, 34, 32, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1px;
   background-color: transparent;
   background-clip: border-box; }
   colorswatch:hover, colorswatch:selected:hover {
-    border-color: rgba(33, 34, 32, 0.3); }
+    border-color: rgba(0, 0, 0, 0.3); }
 colorswatch.color-light:selected:hover, colorswatch.color-dark:selected:hover {
   background-image: none; }
 colorswatch.left, colorswatch:first-child {
@@ -1366,15 +1467,15 @@ coloreditor colorswatch {
   border-radius: 2px; }
   coloreditor colorswatch.color-dark:hover, coloreditor colorswatch.color-light:hover {
     background-image: none;
-    border-color: rgba(33, 34, 32, 0.3); }
+    border-color: rgba(0, 0, 0, 0.3); }
 
 GtkColorChooserWidget #add-color-button {
   background-clip: padding-box;
-  border-color: rgba(33, 34, 32, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
   background-color: #9da099;
   color: #0e0021; }
   GtkColorChooserWidget #add-color-button:hover {
-    border-color: rgba(33, 34, 32, 0.3);
+    border-color: rgba(0, 0, 0, 0.3);
     background-color: #959891;
     color: #0e0021; }
 
@@ -1383,11 +1484,11 @@ GtkColorChooserWidget #add-color-button {
   border-style: solid;
   background-color: transparent; }
 .color-active-badge.color-light, .color-active-badge.color-light:hover {
-  border-color: rgba(33, 34, 32, 0.3);
-  color: rgba(33, 34, 32, 0.3); }
+  border-color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.3); }
 .color-active-badge.color-dark, .color-active-badge.color-dark:hover {
-  border-color: rgba(15, 0, 35, 0.3);
-  color: rgba(15, 0, 35, 0.3); }
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.3); }
 
 GtkColorButton.button {
   padding: 3px; }
@@ -1430,13 +1531,13 @@ row {
   row.activatable.has-open-popup, row.activatable:hover {
     background-color: rgba(14, 0, 33, 0.05); }
   row.activatable:active {
-    box-shadow: inset 0 2px 2px -2px rgba(33, 34, 32, 0.2); }
+    box-shadow: inset 0 2px 2px -2px rgba(0, 0, 0, 0.2); }
   row.activatable:backdrop:hover {
     background-color: transparent; }
   row.activatable:selected:active {
-    box-shadow: inset 0 2px 3px -1px rgba(33, 34, 32, 0.5); }
+    box-shadow: inset 0 2px 3px -1px rgba(0, 0, 0, 0.5); }
   row.activatable:selected.has-open-popup, row.activatable:selected:hover {
-    background-color: mix(#0e0021,#B36A87,0.1); }
+    background-color: mix(#B36A87,#0e0021,0.1); }
   row.activatable:selected:backdrop {
     background-color: #B36A87; }
 
@@ -1773,25 +1874,62 @@ infobar {
 /*********
  ! Entry *
 **********/
-entry.linked, .linked entry {
+.linked:not(.vertical) > entry {
   border-width: 1px;
   border-radius: 0;
   border-right-width: 0;
   border-left-width: 0; }
-  entry.linked:first-child, .linked entry:first-child {
+  .linked:not(.vertical) > entry:first-child {
     border-width: 1px;
     border-radius: 2px;
     border-right-width: 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
-  entry.linked:last-child, .linked entry:last-child {
+    .linked:not(.vertical) > entry:first-child:dir(rtl) {
+      border-left-width: 0;
+      border-right-width: 1px; }
+  .linked:not(.vertical) > entry:last-child {
     border-width: 1px;
     border-radius: 2px;
     border-left-width: 0;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
-  entry.linked:only-child, .linked entry:only-child {
+    .linked:not(.vertical) > entry:last-child:dir(rtl) {
+      border-left-width: 1px;
+      border-right-width: 0; }
+  .linked:not(.vertical) > entry:only-child, .linked:not(.vertical) > entry:first-child:only-child {
+    border-width: 1px; }
+  .linked:not(.vertical) > entry:only-child {
+    border-radius: 2px; }
+
+.linked.vertical > entry {
+  border-width: 1px;
+  border-radius: 0;
+  border-top-width: 0;
+  border-bottom-width: 0; }
+  .linked.vertical > entry:first-child {
     border-width: 1px;
+    border-radius: 2px;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; }
+    .linked.vertical > entry:first-child:dir(rtl) {
+      border-top-width: 0;
+      border-bottom-width: 1px; }
+  .linked.vertical > entry:last-child {
+    border-width: 1px;
+    border-radius: 2px;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0; }
+    .linked.vertical > entry:last-child:dir(rtl) {
+      border-top-width: 1px;
+      border-bottom-width: 0; }
+  .linked.vertical > entry:only-child, .linked.vertical > entry:first-child:only-child {
+    border-width: 1px; }
+  .linked.vertical > entry:only-child {
     border-radius: 2px; }
 
 entry, menuitem entry, popover.background entry {
@@ -1808,7 +1946,7 @@ entry, menuitem entry, popover.background entry {
     color: #0e0021; }
   entry:disabled, popover.background entry:disabled {
     box-shadow: none; }
-  entry progressbar, popover.background entry progressbar {
+  entry progress, popover.background entry progress {
     background-color: #B36A87;
     background-image: none;
     border-width: 0;
@@ -1818,9 +1956,6 @@ entry, menuitem entry, popover.background entry {
     padding-right: 3px; }
   entry image.right {
     padding-left: 3px; }
-  entry selection, popover.background entry selection {
-    background-color: #B36A87;
-    color: #0e0021; }
 
 /*********
  ! Menubar
@@ -1947,7 +2082,7 @@ menuitem check, menuitem radio {
   menuitem check:dir(rtl), menuitem radio:dir(rtl) {
     margin-left: 7px; }
 menuitem window decoration {
-  box-shadow: 0 2px 3px rgba(33, 34, 32, 0.2); }
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); }
 menuitem entry {
   background-color: #0e0021;
   background-image: none;
@@ -1992,7 +2127,7 @@ popover.background {
   background-color: #0e0021;
   background-image: none;
   color: #A5A8A2;
-  box-shadow: 0 3px 6px rgba(33, 34, 32, 0.16); }
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); }
   .csd popover.background, popover.background {
     /*@include border($menu_bg_color);*/
     border-color: rgba(132, 136, 128, 0.5);
@@ -2009,7 +2144,7 @@ popover.background {
   popover.background:backdrop {
     box-shadow: none; }
   .osd popover.background {
-    box-shadow: 0 2px 7px 3px rgba(33, 34, 32, 0.5); }
+    box-shadow: 0 2px 7px 3px rgba(0, 0, 0, 0.5); }
     .osd popover.background > toolbar button {
       border-radius: 0;
       border-width: 0;
@@ -2187,13 +2322,15 @@ modelbutton {
 /***********
  ! Tooltip *
 ************/
-tooltip.background, tooltip.background.csd {
+.tooltip.background, .tooltip.background.csd,
+tooltip.background,
+tooltip.background.csd {
   background-color: #A5A8A2;
   background-clip: padding-box;
   border: 1px solid #848880;
-  border-radius: 2px; }
-tooltip label {
+  border-radius: 2px;
   color: #0e0021; }
+.tooltip *,
 tooltip * {
   background-color: transparent;
   color: inherit; }
@@ -2211,7 +2348,7 @@ messagedialog, .message-dialog, .prompt {
 printdialog paper {
   color: #0e0021;
   border: 1px solid mix(#A5A8A2,#0e0021,0.08);
-  background: #0f0023;
+  background: #fff;
   padding: 0; }
   printdialog paper:backdrop {
     color: mix(#0e0021,#A5A8A2,0.5);
@@ -2403,10 +2540,32 @@ entry.entry.pin-entry {
 label.pin-label {
   font: regular 50; }
 
+/************************
+ ! Shortcut window keys *
+*************************/
+.keycap {
+  min-width: 20px;
+  min-height: 25px;
+  margin-top: 2px;
+  padding-bottom: 1.5px;
+  padding-left: 3px;
+  padding-right: 3px;
+  color: #0e0021;
+  background-color: #d0d2cd;
+  border: 1px solid;
+  border-color: mix(mix(#A5A8A2,#0e0021,0.08),#A5A8A2,0.5);
+  border-radius: 2px;
+  box-shadow: inset 0 -3px mix(#d0d2cd,#A5A8A2,0.2);
+  font-size: smaller; }
+  .keycap:backdrop {
+    background-color: #d0d2cd;
+    color: mix(#0e0021,#A5A8A2,0.5);
+    transition: 200ms ease-out; }
+
 /*******************
  ! Selected Items  *
 ********************/
-calendar:selected, row:selected, modelbutton:active, modelbutton:active arrow, modelbutton:selected, modelbutton:selected arrow, modelbutton:backdrop:active, modelbutton:backdrop:active arrow, modelbutton:backdrop:selected, modelbutton:backdrop:selected arrow, modelbutton.flat:active, modelbutton.flat:active arrow, modelbutton.flat:selected, modelbutton.flat:selected arrow, modelbutton.flat:backdrop:active, modelbutton.flat:backdrop:active arrow, modelbutton.flat:backdrop:selected, modelbutton.flat:backdrop:selected arrow, .view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
+entry selection:focus, menuitem entry selection:focus, popover.background entry selection:focus, entry selection, menuitem entry selection, popover.background entry selection, calendar:selected, row:selected, modelbutton:active, modelbutton:active arrow, modelbutton:selected, modelbutton:selected arrow, modelbutton:backdrop:active, modelbutton:backdrop:active arrow, modelbutton:backdrop:selected, modelbutton:backdrop:selected arrow, modelbutton.flat:active, modelbutton.flat:active arrow, modelbutton.flat:selected, modelbutton.flat:selected arrow, modelbutton.flat:backdrop:active, modelbutton.flat:backdrop:active arrow, modelbutton.flat:backdrop:selected, modelbutton.flat:backdrop:selected arrow, .view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
 .view text:selected:focus,
 iconview text:selected:focus,
 textview text:selected:focus,
@@ -2416,7 +2575,7 @@ textview text:selected, .view text selection:focus, iconview text selection:focu
 textview text selection:focus,
 textview text selection, treeview.view:selected:focus, treeview.view:selected, .nemo-window .sidebar .nemo-places-sidebar .view:selected:focus, .nemo-window .sidebar .nemo-places-sidebar iconview:selected:focus, .nemo-window .sidebar .nemo-places-sidebar .view:selected, .nemo-window .sidebar .nemo-places-sidebar iconview:selected {
   background-color: #B36A87; }
-  row:selected label, label:selected, calendar:selected, row:selected, modelbutton:active, modelbutton:active arrow, modelbutton:selected, modelbutton:selected arrow, modelbutton:backdrop:active, modelbutton:backdrop:active arrow, modelbutton:backdrop:selected, modelbutton:backdrop:selected arrow, modelbutton.flat:active, modelbutton.flat:active arrow, modelbutton.flat:selected, modelbutton.flat:selected arrow, modelbutton.flat:backdrop:active, modelbutton.flat:backdrop:active arrow, modelbutton.flat:backdrop:selected, modelbutton.flat:backdrop:selected arrow, .view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
+  row:selected label, label:selected, entry selection:focus, menuitem entry selection:focus, popover.background entry selection:focus, entry selection, menuitem entry selection, popover.background entry selection, calendar:selected, row:selected, modelbutton:active, modelbutton:active arrow, modelbutton:selected, modelbutton:selected arrow, modelbutton:backdrop:active, modelbutton:backdrop:active arrow, modelbutton:backdrop:selected, modelbutton:backdrop:selected arrow, modelbutton.flat:active, modelbutton.flat:active arrow, modelbutton.flat:selected, modelbutton.flat:selected arrow, modelbutton.flat:backdrop:active, modelbutton.flat:backdrop:active arrow, modelbutton.flat:backdrop:selected, modelbutton.flat:backdrop:selected arrow, .view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
   .view text:selected:focus,
   iconview text:selected:focus,
   textview text:selected:focus,
@@ -2427,7 +2586,7 @@ textview text selection, treeview.view:selected:focus, treeview.view:selected, .
   textview text selection, treeview.view:selected:focus, treeview.view:selected, .nemo-window .sidebar .nemo-places-sidebar .view:selected:focus, .nemo-window .sidebar .nemo-places-sidebar iconview:selected:focus, .nemo-window .sidebar .nemo-places-sidebar .view:selected, .nemo-window .sidebar .nemo-places-sidebar iconview:selected {
     color: #0e0021;
     outline-color: rgba(14, 0, 33, 0.3); }
-    row:selected label:disabled, label:disabled:selected, label:disabled selection, calendar:disabled:selected, row:disabled:selected, modelbutton:disabled:active, modelbutton:active arrow:disabled, modelbutton:disabled:selected, modelbutton:selected arrow:disabled, modelbutton.flat:disabled:backdrop:active, modelbutton.flat:backdrop:active arrow:disabled, modelbutton.flat:disabled:backdrop:selected, modelbutton.flat:backdrop:selected arrow:disabled, iconview:disabled:selected:focus, .view:disabled:selected, iconview:disabled:selected,
+    row:selected label:disabled, label:disabled:selected, label:disabled selection, entry selection:disabled:focus, entry selection:disabled, calendar:disabled:selected, row:disabled:selected, modelbutton:disabled:active, modelbutton:active arrow:disabled, modelbutton:disabled:selected, modelbutton:selected arrow:disabled, modelbutton.flat:disabled:backdrop:active, modelbutton.flat:backdrop:active arrow:disabled, modelbutton.flat:disabled:backdrop:selected, modelbutton.flat:backdrop:selected arrow:disabled, iconview:disabled:selected:focus, .view:disabled:selected, iconview:disabled:selected,
     iconview text:disabled:selected:focus,
     textview text:disabled:selected:focus,
     .view text:disabled:selected,
@@ -2435,7 +2594,7 @@ textview text selection, treeview.view:selected:focus, treeview.view:selected, .
     textview text:disabled:selected, iconview text selection:disabled:focus, .view text selection:disabled, iconview text selection:disabled,
     textview text selection:disabled, .nemo-window .sidebar .nemo-places-sidebar iconview:disabled:selected:focus, .nemo-window .sidebar .nemo-places-sidebar .view:disabled:selected, .nemo-window .sidebar .nemo-places-sidebar iconview:disabled:selected {
       color: mix(#0e0021,#B36A87,0.5); }
-    row:selected label:backdrop, label:backdrop:selected, label:backdrop selection, calendar:backdrop:selected, row:backdrop:selected, modelbutton:backdrop:active, modelbutton:active arrow:backdrop, modelbutton:backdrop:selected, modelbutton:selected arrow:backdrop, modelbutton.flat:backdrop:active arrow:backdrop, modelbutton.flat:backdrop:selected arrow:backdrop, iconview:backdrop:selected:focus, .view:backdrop:selected, iconview:backdrop:selected,
+    row:selected label:backdrop, label:backdrop:selected, label:backdrop selection, entry selection:backdrop:focus, entry selection:backdrop, calendar:backdrop:selected, row:backdrop:selected, modelbutton:backdrop:active, modelbutton:active arrow:backdrop, modelbutton:backdrop:selected, modelbutton:selected arrow:backdrop, modelbutton.flat:backdrop:active arrow:backdrop, modelbutton.flat:backdrop:selected arrow:backdrop, iconview:backdrop:selected:focus, .view:backdrop:selected, iconview:backdrop:selected,
     iconview text:backdrop:selected:focus,
     textview text:backdrop:selected:focus,
     .view text:backdrop:selected,
@@ -2443,7 +2602,7 @@ textview text selection, treeview.view:selected:focus, treeview.view:selected, .
     textview text:backdrop:selected, iconview text selection:backdrop:focus, .view text selection:backdrop, iconview text selection:backdrop,
     textview text selection:backdrop, .nemo-window .sidebar .nemo-places-sidebar iconview:backdrop:selected:focus, .nemo-window .sidebar .nemo-places-sidebar .view:backdrop:selected, .nemo-window .sidebar .nemo-places-sidebar iconview:backdrop:selected {
       color: mix(#B36A87,#0e0021,0.66); }
-      row:selected label:backdrop:disabled, label:backdrop:disabled:selected, label:disabled selection:backdrop, label:backdrop selection:disabled, calendar:backdrop:disabled:selected, row:backdrop:disabled:selected, modelbutton:backdrop:disabled:active, modelbutton:active arrow:backdrop:disabled, modelbutton:backdrop:disabled:selected, modelbutton:selected arrow:backdrop:disabled, .view:backdrop:disabled:selected, iconview:backdrop:disabled:selected,
+      row:selected label:backdrop:disabled, label:backdrop:disabled:selected, label:disabled selection:backdrop, label:backdrop selection:disabled, entry selection:backdrop:disabled, calendar:backdrop:disabled:selected, row:backdrop:disabled:selected, modelbutton:backdrop:disabled:active, modelbutton:active arrow:backdrop:disabled, modelbutton:backdrop:disabled:selected, modelbutton:selected arrow:backdrop:disabled, .view:backdrop:disabled:selected, iconview:backdrop:disabled:selected,
       .view text:backdrop:disabled:selected,
       iconview text:backdrop:disabled:selected,
       textview text:backdrop:disabled:selected, .view text selection:backdrop:disabled, iconview text selection:backdrop:disabled,
@@ -2922,29 +3081,28 @@ progressbar {
     border: 1px solid rgba(132, 136, 128, 0.5);
     background-color: #b2b5b0;
     background-image: none; }
-
-progressbar progress {
-  background-color: #B36A87;
-  background-image: none;
-  border-radius: 0;
-  box-shadow: none; }
-  progressbar progress.left {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px; }
-  progressbar progress.right {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px; }
-  progressbar progress.left.right {
-    box-shadow: none; }
-  progressbar progress.vertical {
+  progressbar progress {
     background-color: #B36A87;
-    background-image: none; }
-    progressbar progress.vertical.bottom {
-      border-bottom-left-radius: 2px;
-      border-bottom-right-radius: 2px; }
-    progressbar progress.vertical.top {
+    background-image: none;
+    border-radius: 0;
+    box-shadow: none; }
+    progressbar progress.left {
       border-top-left-radius: 2px;
-      border-top-right-radius: 2px; }
+      border-bottom-left-radius: 2px; }
+    progressbar progress.right {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px; }
+    progressbar progress.left.right {
+      box-shadow: none; }
+    progressbar progress.vertical {
+      background-color: #B36A87;
+      background-image: none; }
+      progressbar progress.vertical.bottom {
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px; }
+      progressbar progress.vertical.top {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px; }
 
 levelbar block {
   min-width: 34px;
@@ -2959,15 +3117,14 @@ levelbar trough {
   background-image: none;
   border: 1px solid rgba(132, 136, 128, 0.5);
   border-radius: 2px; }
-levelbar.horizontal.discrete {
-  margin-right: 1px; }
-levelbar.vertical.discrete {
-  margin-bottom: 1px; }
-levelbar block:not(.empty) {
-  background-color: #B36A87;
-  background-image: none;
-  border-color: transparent;
-  border-radius: 0; }
+levelbar.horizontal.discrete block {
+  margin: 0 2px; }
+  levelbar.horizontal.discrete block:first-child {
+    margin: 0; }
+levelbar.vertical.discrete block {
+  margin: 2px 0; }
+  levelbar.vertical.discrete block:first-child {
+    margin: 0; }
 levelbar block {
   background-color: #B36A87;
   background-image: none;
@@ -2976,7 +3133,7 @@ levelbar block {
   levelbar block.low {
     background-color: #ef6c00;
     border-color: transparent; }
-  levelbar block.high {
+  levelbar block.high, levelbar block:not(.empty) {
     background-color: #B36A87;
     border-color: transparent; }
   levelbar block.full {
@@ -3033,13 +3190,13 @@ scale {
       .osd scale trough highlight {
         background-color: #B36A87; }
     row:selected scale trough, infobar scale trough {
-      background-color: rgba(33, 34, 32, 0.2); }
+      background-color: rgba(0, 0, 0, 0.2); }
       row:selected scale trough highlight, infobar scale trough highlight {
         background-color: #0e0021; }
         row:selected scale trough highlight:disabled, infobar scale trough highlight:disabled {
           background-color: mix(#0e0021,#B36A87,0.55); }
       row:selected scale trough:disabled, infobar scale trough:disabled {
-        background-color: rgba(33, 34, 32, 0.1); }
+        background-color: rgba(0, 0, 0, 0.1); }
   scale highlight {
     border-radius: 2.5px;
     background-color: #B36A87; }
@@ -3154,9 +3311,9 @@ scrollbar {
     border: 1px solid transparent;
     border-radius: 2px;
     background-clip: padding-box;
-    background-color: #535550; }
+    background-color: mix(#A5A8A2,#0e0021,0.5); }
     scrollbar slider:hover {
-      background-color: #323330; }
+      background-color: mix(#A5A8A2,#0e0021,0.7); }
     scrollbar slider:hover:active {
       background-color: #aa5979; }
     scrollbar slider:backdrop {
@@ -3179,7 +3336,7 @@ scrollbar {
         min-width: 4px;
         min-height: 4px;
         background-color: #0e0021;
-        border: 1px solid #0f0023; }
+        border: 1px solid #fff; }
       scrollbar.overlay-indicator:not(.dragging):not(.hovering) button {
         min-width: 4px;
         min-height: 4px;
@@ -3202,9 +3359,9 @@ scrollbar {
     border-color: mix(#A5A8A2,#0e0021,0.08);
     background-color: transparent;
     box-shadow: none;
-    color: #535550; }
+    color: mix(#A5A8A2,#0e0021,0.5); }
     scrollbar button:hover {
-      color: #323330; }
+      color: mix(#A5A8A2,#0e0021,0.7); }
     scrollbar button:active, scrollbar button:checked {
       color: #aa5979; }
     scrollbar button:backdrop {
@@ -3452,18 +3609,19 @@ iconview.content-view.cell.check {
 *********/
 switch {
   border-radius: 2px;
-  padding: 3px;
+  padding: 2px;
   border: none;
   outline: none;
   transition: background-color 0.3s linear;
-  min-width: 93px;
-  min-height: 25px;
+  min-width: 88px;
+  min-height: 24px;
   background-color: mix(#A5A8A2,#d0d2cd,0.3);
-  color: #000000; }
+  color: #000000;
+  box-shadow: inset 1px -1px 0px rgba(0, 0, 0, 0.06), inset -1px 1px 0px rgba(0, 0, 0, 0.06); }
   switch slider {
     background-color: mix(#000000,#A5A8A2,0.5);
     transition: all 0.3s ease-in;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.07), 1px 0px 2px 0px rgba(0, 0, 0, 0.07);
     border-radius: 2px; }
   switch:checked {
     background-color: #B36A87;
@@ -3471,14 +3629,26 @@ switch {
     border-color: #B36A87;
     color: #0e0021; }
     switch:checked slider {
-      background-color: #0f0023; }
+      background-color: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1); }
   switch:disabled {
     background-color: mix(#A5A8A2,#d0d2cd,0.5);
     background-image: none;
     border-color: #A5A8A2;
-    color: #A5A8A2; }
+    color: #A5A8A2;
+    box-shadow: none; }
     switch:disabled slider {
       background-color: #A5A8A2; }
+  list row:selected switch {
+    background-color: #A5A8A2;
+    color: mix(#A5A8A2,#d0d2cd,0.5); }
+    list row:selected switch slider {
+      background-color: mix(mix(#A5A8A2,#d0d2cd,0.5),#d0d2cd,0.4); }
+    list row:selected switch:checked {
+      color: #B36A87;
+      background-color: mix(#000000,#A5A8A2,0.5); }
+      list row:selected switch:checked slider {
+        background-color: #B36A87; }
 
 /*********
  ! Buttons
@@ -3662,33 +3832,16 @@ treeview.view {
     border-style: none;
     box-shadow: inset 0 0 0 1px #d0d2cd;
     text-shadow: none; }
+  treeview.view acceleditor > label {
+    background-color: #B36A87; }
 
 /***********
  ! Separator
 ************/
 separator {
-  background: rgba(33, 34, 32, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   min-width: 1px;
   min-height: 1px; }
-
-/*********************
- ! Column view headers
-**********************/
-column-header .button, column-header .button:active {
-  border-width: 0 1px 1px 0;
-  border-radius: 0; }
-column-header .button, column-header .button:active, column-header .button:focus, column-header .button:active:focus {
-  border-color: #bbbeb7;
-  border-bottom-color: #a7aba1;
-  background-color: #caccc6;
-  background-image: none; }
-column-header .button:hover, column-header .button:active:hover, column-header .button:hover:focus, column-header .button:active:hover:focus {
-  border-color: #bbbeb7;
-  border-bottom-color: #a7aba1;
-  background-color: #ced0cb;
-  background-image: none; }
-column-header .button:last-child .button {
-  border-width: 0 0 1px; }
 
 /**********
  ! Frames *
@@ -3725,11 +3878,11 @@ placesview > actionbar > revealer > box > label {
 decoration {
   border-radius: 2px 2px 0 0;
   border-width: 0;
-  box-shadow: 0 3px 9px 1px rgba(33, 34, 32, 0.7), 0 0 0 1px transparent;
+  box-shadow: 0 3px 9px 1px rgba(0, 0, 0, 0.7), 0 0 0 1px transparent;
   /* this is used for the resize cursor area */
   margin: 9px; }
   decoration:backdrop {
-    box-shadow: 0 3px 9px 1px transparent, 0 2px 6px 2px rgba(33, 34, 32, 0.4), 0 0 0 1px transparent;
+    box-shadow: 0 3px 9px 1px transparent, 0 2px 6px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px transparent;
     transition: 200ms ease-out; }
   .maximized decoration, .fullscreen decoration, .tiled decoration {
     border-radius: 0; }
@@ -3744,35 +3897,35 @@ decoration {
     box-shadow: none; }
   .csd.popup decoration {
     border-radius: 0;
-    box-shadow: 0 1px 2px rgba(33, 34, 32, 0.2), 0 0 0 1px rgba(33, 34, 32, 0.13); }
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.13); }
   tooltip.csd decoration {
     border-radius: 2px;
     box-shadow: none; }
   messagedialog.csd decoration {
     border-radius: 2px;
-    box-shadow: 0 1px 2px rgba(33, 34, 32, 0.2), 0 0 0 1px rgba(33, 34, 32, 0.13); }
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.13); }
 
 /***********************
  ! Unity Greeter *
  ***********************/
 .lightdm.menu {
   background-image: none;
-  background-color: rgba(33, 34, 32, 0.6);
-  border-color: rgba(15, 0, 35, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
   padding: 1px;
-  color: #0f0023; }
+  color: #fff; }
 
 .lightdm-combo .menu {
   background-color: #0f0024;
   border-radius: 0;
   padding: 0;
-  color: #0f0023; }
+  color: #fff; }
 
 .lightdm.menu .menuitem *,
 .lightdm.menu .menuitem.check:active,
 .lightdm.menu .menuitem.radio:active {
-  color: #0f0023; }
+  color: #fff; }
 
 .lightdm.menubar *,
 .lightdm.menubar .menuitem {
@@ -3784,19 +3937,19 @@ decoration {
 .lightdm-combo .entry,
 .lightdm.button {
   background-image: none;
-  background-color: rgba(33, 34, 32, 0.3);
-  border-color: rgba(15, 0, 35, 0.9);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   padding: 5px;
-  color: #0f0023; }
+  color: #fff; }
 
 .lightdm.button:hover {
   background-image: none;
-  background-color: rgba(15, 0, 35, 0.3);
-  border-color: rgba(15, 0, 35, 0.6);
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
   border-radius: 5px;
   padding: 5px;
-  color: #0f0023;
+  color: #fff;
   text-shadow: none; }
 
 .lightdm.button:active,
@@ -3804,11 +3957,11 @@ decoration {
 .lightdm.button:focus,
 .lightdm.entry {
   background-image: none;
-  background-color: rgba(33, 34, 32, 0.3);
-  border-color: rgba(15, 0, 35, 0.6);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
   border-radius: 5px;
   padding: 7px;
-  color: #0f0023;
+  color: #fff;
   text-shadow: none; }
 
 .lightdm.entry:hover,
@@ -3818,13 +3971,13 @@ decoration {
   border-image: none; }
 
 .lightdm.entry:focus {
-  border-color: rgba(15, 0, 35, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
   border-width: 1px;
   border-style: solid;
-  color: #0f0023; }
+  color: #fff; }
 
 .lightdm.entry:selected {
-  background-color: rgba(15, 0, 35, 0.2); }
+  background-color: rgba(255, 255, 255, 0.2); }
 
 @keyframes dashentry_spinner {
   to {
@@ -3843,13 +3996,13 @@ decoration {
   border-width: 0; }
 
 .lightdm.toggle-button.selected:hover {
-  background-color: rgba(15, 0, 35, 0.3);
-  border-color: rgba(15, 0, 35, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
   border-width: 1px; }
 
 .lightdm.toggle-button.selected {
-  background-color: rgba(33, 34, 32, 0.3);
-  border-color: rgba(15, 0, 35, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
   border-width: 1px; }
 
 /*********
@@ -3878,15 +4031,15 @@ GeditWindow .pane-separator {
       color: transparent;
       -gtk-icon-shadow: none; }
   .gedit-document-panel .prelight-row button {
-    border-color: rgba(33, 34, 32, 0.1);
-    color: rgba(15, 0, 35, 0.8); }
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(255, 255, 255, 0.8); }
     .gedit-document-panel .prelight-row button:active {
-      border-color: rgba(33, 34, 32, 0.2);
-      background-color: rgba(33, 34, 32, 0.08);
-      color: #0f0023; }
+      border-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.08);
+      color: #fff; }
   .gedit-document-panel list row button:hover, .gedit-document-panel .prelight-row button:hover {
-    border-color: rgba(33, 34, 32, 0.1);
-    color: #0f0023; }
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #fff; }
 
 .gedit-document-panel-group-row, .gedit-document-panel-group-row:hover {
   border-top: 1px solid #959891;
@@ -3896,13 +4049,13 @@ GeditWindow .pane-separator {
   background-color: #adb0ab; }
 
 .gedit-document-panel-dragged-row {
-  border: 1px solid rgba(33, 34, 32, 0.1);
-  background-color: rgba(33, 34, 32, 0.5);
-  color: #0f0023; }
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff; }
 
 .gedit-document-panel-placeholder-row {
   border: 0;
-  background-color: rgba(33, 34, 32, 0.08);
+  background-color: rgba(0, 0, 0, 0.08);
   transition: all 200ms ease-in; }
 
 statusbar {
@@ -3957,8 +4110,8 @@ paned.titlebar {
  ! Nautilus *
 *************/
 .nautilus-desktop * {
-  color: #0f0023;
-  text-shadow: 1px 1px #212220; }
+  color: #fff;
+  text-shadow: 1px 1px #000; }
   .nautilus-desktop *:active {
     color: #0e0021; }
   .nautilus-desktop *:selected {
@@ -4003,8 +4156,8 @@ paned.titlebar {
  ! Nemo *
 *********/
 .nemo-desktop, .nemo-desktop * {
-  color: #0f0023;
-  text-shadow: 1px 1px #212220; }
+  color: #fff;
+  text-shadow: 1px 1px #000; }
   .nemo-desktop:active, .nemo-desktop *:active {
     color: #0e0021; }
   .nemo-desktop:selected, .nemo-desktop *:selected {
@@ -4092,23 +4245,23 @@ paned.titlebar {
         color: rgba(165, 168, 162, 0.9); }
         .nemo-window toolbar button.separator:disabled, .nemo-window toolbar button .separator:disabled {
           color: rgba(165, 168, 162, 0.85); }
-    .nemo-window toolbar button.linked, .nemo-window toolbar .linked .button {
+    .nemo-window toolbar .linked > button {
       box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-      .nemo-window toolbar button.linked:focus, .nemo-window toolbar button.linked:hover, .nemo-window toolbar .linked .button:focus, .nemo-window toolbar .linked .button:hover {
+      .nemo-window toolbar .linked > button:focus, .nemo-window toolbar .linked > button:hover {
         box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-      .nemo-window toolbar button.linked:active, .nemo-window toolbar button.linked:active:hover, .nemo-window toolbar button.linked:active:focus, .nemo-window toolbar button.linked:active:hover:focus, .nemo-window toolbar button.linked:checked, .nemo-window toolbar button.linked:checked:hover, .nemo-window toolbar button.linked:checked:focus, .nemo-window toolbar button.linked:checked:hover:focus, .nemo-window toolbar .linked .button:active, .nemo-window toolbar .linked .button:active:hover, .nemo-window toolbar .linked .button:active:focus, .nemo-window toolbar .linked .button:active:hover:focus, .nemo-window toolbar .linked .button:checked, .nemo-window toolbar .linked .button:checked:hover, .nemo-window toolbar .linked .button:checked:focus, .nemo-window toolbar .linked .button:checked:hover:focus {
+      .nemo-window toolbar .linked > button:active, .nemo-window toolbar .linked > button:active:hover, .nemo-window toolbar .linked > button:active:focus, .nemo-window toolbar .linked > button:active:hover:focus, .nemo-window toolbar .linked > button:checked, .nemo-window toolbar .linked > button:checked:hover, .nemo-window toolbar .linked > button:checked:focus, .nemo-window toolbar .linked > button:checked:hover:focus {
         box-shadow: inset -1px 0 rgba(0, 0, 0, 0.12), inset 0 1px rgba(3, 0, 7, 0.07), inset 0 -1px rgba(3, 0, 7, 0.05); }
-      .nemo-window toolbar button.linked:disabled, .nemo-window toolbar .linked .button:disabled {
+      .nemo-window toolbar .linked > button:disabled {
         box-shadow: inset -1px 0 #848880; }
-      .nemo-window toolbar button.linked:last-child, .nemo-window toolbar button.linked:only-child, .nemo-window toolbar .linked .button:last-child, .nemo-window toolbar .linked .button:only-child {
+      .nemo-window toolbar .linked > button:last-child, .nemo-window toolbar .linked > button:only-child {
         box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.12); }
-      .nemo-window toolbar button.linked:last-child:hover, .nemo-window toolbar button.linked:only-child:hover, .nemo-window toolbar .linked .button:last-child:hover, .nemo-window toolbar .linked .button:only-child:hover {
+      .nemo-window toolbar .linked > button:last-child:hover, .nemo-window toolbar .linked > button:only-child:hover {
         box-shadow: 0 1px 2px -1px rgba(3, 0, 7, 0.32); }
-      .nemo-window toolbar button.linked:disabled:last-child, .nemo-window toolbar button.linked:disabled:only-child, .nemo-window toolbar button.linked:active:disabled:last-child, .nemo-window toolbar button.linked:active:disabled:only-child, .nemo-window toolbar button.linked:checked:disabled:last-child, .nemo-window toolbar button.linked:checked:disabled:only-child, .nemo-window toolbar .linked .button:disabled:last-child, .nemo-window toolbar .linked .button:disabled:only-child, .nemo-window toolbar .linked .button:active:disabled:last-child, .nemo-window toolbar .linked .button:active:disabled:only-child, .nemo-window toolbar .linked .button:checked:disabled:last-child, .nemo-window toolbar .linked .button:checked:disabled:only-child {
+      .nemo-window toolbar .linked > button:disabled:last-child, .nemo-window toolbar .linked > button:disabled:only-child, .nemo-window toolbar .linked > button:active:disabled:last-child, .nemo-window toolbar .linked > button:active:disabled:only-child, .nemo-window toolbar .linked > button:checked:disabled:last-child, .nemo-window toolbar .linked > button:checked:disabled:only-child {
         box-shadow: none; }
-      .nemo-window toolbar button.linked:active:last-child, .nemo-window toolbar button.linked:active:last-child:focus, .nemo-window toolbar button.linked:active:last-child:hover, .nemo-window toolbar button.linked:active:last-child:hover:focus, .nemo-window toolbar button.linked:checked:last-child, .nemo-window toolbar button.linked:checked:last-child:focus, .nemo-window toolbar button.linked:checked:last-child:hover, .nemo-window toolbar button.linked:checked:last-child:hover:focus, .nemo-window toolbar .linked .button:active:last-child, .nemo-window toolbar .linked .button:active:last-child:focus, .nemo-window toolbar .linked .button:active:last-child:hover, .nemo-window toolbar .linked .button:active:last-child:hover:focus, .nemo-window toolbar .linked .button:checked:last-child, .nemo-window toolbar .linked .button:checked:last-child:focus, .nemo-window toolbar .linked .button:checked:last-child:hover, .nemo-window toolbar .linked .button:checked:last-child:hover:focus {
+      .nemo-window toolbar .linked > button:active:last-child, .nemo-window toolbar .linked > button:active:last-child:focus, .nemo-window toolbar .linked > button:active:last-child:hover, .nemo-window toolbar .linked > button:active:last-child:hover:focus, .nemo-window toolbar .linked > button:checked:last-child, .nemo-window toolbar .linked > button:checked:last-child:focus, .nemo-window toolbar .linked > button:checked:last-child:hover, .nemo-window toolbar .linked > button:checked:last-child:hover:focus {
         box-shadow: inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
-      .nemo-window toolbar button.linked:active:only-child, .nemo-window toolbar button.linked:active:only-child:focus, .nemo-window toolbar button.linked:active:only-child:hover, .nemo-window toolbar button.linked:active:only-child:hover:focus, .nemo-window toolbar button.linked:checked:only-child, .nemo-window toolbar button.linked:checked:only-child:focus, .nemo-window toolbar button.linked:checked:only-child:hover, .nemo-window toolbar button.linked:checked:only-child:hover:focus, .nemo-window toolbar .linked .button:active:only-child, .nemo-window toolbar .linked .button:active:only-child:focus, .nemo-window toolbar .linked .button:active:only-child:hover, .nemo-window toolbar .linked .button:active:only-child:hover:focus, .nemo-window toolbar .linked .button:checked:only-child, .nemo-window toolbar .linked .button:checked:only-child:focus, .nemo-window toolbar .linked .button:checked:only-child:hover, .nemo-window toolbar .linked .button:checked:only-child:hover:focus {
+      .nemo-window toolbar .linked > button:active:only-child, .nemo-window toolbar .linked > button:active:only-child:focus, .nemo-window toolbar .linked > button:active:only-child:hover, .nemo-window toolbar .linked > button:active:only-child:hover:focus, .nemo-window toolbar .linked > button:checked:only-child, .nemo-window toolbar .linked > button:checked:only-child:focus, .nemo-window toolbar .linked > button:checked:only-child:hover, .nemo-window toolbar .linked > button:checked:only-child:hover:focus {
         box-shadow: inset 1px 0 rgba(3, 0, 7, 0.06), inset 0 1px rgba(3, 0, 7, 0.07), inset -1px 0 rgba(3, 0, 7, 0.06); }
     .nemo-window toolbar combobox button {
       padding: 2px; }
@@ -4346,28 +4499,28 @@ SheetStyleDialog.unity-force-quit {
 #panel_window {
   background-color: transparent;
   background-image: none;
-  color: #0f0023;
+  color: #fff;
   font: bold;
-  text-shadow: 0 1px rgba(33, 34, 32, 0.5);
-  -gtk-icon-shadow: 0 1px rgba(33, 34, 32, 0.5); }
+  text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+  -gtk-icon-shadow: 0 1px rgba(0, 0, 0, 0.5); }
   #panel_window menubar {
     padding-left: 5px; }
     #panel_window menubar, #panel_window menubar > menuitem {
       background-color: transparent;
       background-image: none;
-      color: #0f0023;
+      color: #fff;
       font: bold;
-      text-shadow: 0 1px rgba(33, 34, 32, 0.5);
-      -gtk-icon-shadow: 0 1px rgba(33, 34, 32, 0.5); }
+      text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+      -gtk-icon-shadow: 0 1px rgba(0, 0, 0, 0.5); }
       #panel_window menubar *:hover, #panel_window menubar > menuitem *:hover {
-        color: #0f0023; }
+        color: #fff; }
       #panel_window menubar:hover, #panel_window menubar > menuitem:hover {
         border-style: none;
-        background-color: rgba(15, 0, 35, 0.2);
+        background-color: rgba(255, 255, 255, 0.2);
         background-image: none;
-        color: #0f0023; }
+        color: #fff; }
       #panel_window menubar:disabled, #panel_window menubar > menuitem:disabled {
-        color: rgba(15, 0, 35, 0.7); }
+        color: rgba(255, 255, 255, 0.7); }
       #panel_window menubar menu, #panel_window menubar > menuitem menu {
         border-radius: 1px; }
         #panel_window menubar menu menuitem, #panel_window menubar > menuitem menu menuitem {
@@ -4486,32 +4639,25 @@ VteTerminal {
   background-color: #0e0021;
   color: #A5A8A2; }
 
-TerminalWindow .scrollbars-junction {
-  background-color: #0e0021; }
-TerminalWindow scrollbar trough {
-  background-color: #0e0021; }
-TerminalWindow scrollbar button {
-  color: #080014; }
-  TerminalWindow scrollbar button:active {
-    color: #080014; }
-    TerminalWindow scrollbar button:active:hover {
-      color: #080014; }
-TerminalWindow scrollbar slider {
-  border-color: mix(#0c001d,#A5A8A2,0.21);
-  background-color: mix(#0e0021,#A5A8A2,0.21); }
-  TerminalWindow scrollbar slider:hover {
-    border-color: mix(#0c001d,#A5A8A2,0.31);
-    background-color: mix(#0e0021,#A5A8A2,0.31); }
-  TerminalWindow scrollbar slider.vertical:hover {
-    border-color: mix(#0c001d,#A5A8A2,0.31);
-    background-color: mix(#0e0021,#A5A8A2,0.31); }
-  TerminalWindow scrollbar slider.vertical:active {
-    border-color: #a95778;
-    background-color: #B36A87; }
-  TerminalWindow scrollbar slider:active {
-    border-color: #a95778;
-    background-color: #B36A87; }
-TerminalWindow GtkNotebook.notebook {
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0; }
+terminal-window {
+  /*GtkNotebook.notebook {
+      border-right-width: 0;
+      border-bottom-width: 0;
+      border-left-width: 0;
+  }*/ }
+  terminal-window junction, terminal-window scrollbar trough {
+    background-color: #0e0021;
+    border-color: #0b001a; }
+    terminal-window junction:backdrop, terminal-window scrollbar trough:backdrop {
+      background-color: rgba(13, 0, 30, 0.8);
+      border-color: rgba(10, 0, 24, 0.8); }
+  terminal-window scrollbar.vertical slider {
+    background-color: mix(#0e0021,#A5A8A2,0.2); }
+    terminal-window scrollbar.vertical slider:hover {
+      background-color: mix(#0e0021,#A5A8A2,0.3); }
+    terminal-window scrollbar.vertical slider:hover:active {
+      background-color: #B36A87; }
+    terminal-window scrollbar.vertical slider:backdrop {
+      background-color: mix(mix(#A5A8A2,#0e0021,0.5),rgba(14, 0, 33, 0.8),0.4); }
+    terminal-window scrollbar.vertical slider:disabled {
+      background-color: transparent; }
