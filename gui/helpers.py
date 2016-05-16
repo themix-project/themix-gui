@@ -70,7 +70,12 @@ THEME_KEYS = [
         'key': 'GTK3_GENERATE_DARK',
         'type': 'bool',
         'fallback_value': True,
-    }
+    },
+    {
+        'key': 'ROUNDNESS',
+        'type': 'int',
+        'fallback_value': 2,
+    },
 ]
 
 
@@ -129,6 +134,8 @@ def resolve_color_links(colorscheme):
         if key_obj['type'] == 'bool':
             if isinstance(value, str):
                 colorscheme[key] = value.lower() == 'true'
+        if key_obj['type'] == 'int':
+            colorscheme[key] = int(value)
     return colorscheme
 
 

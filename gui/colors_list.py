@@ -2,6 +2,33 @@ from gi.repository import Gtk
 from .helpers import convert_theme_color_to_gdk, THEME_KEYS
 
 
+class IntListBoxRow(Gtk.ListBoxRow):
+
+    def on_value_changed(self, spinbutton):
+        self.value = spinbutton.get_value_as_int()
+        self.color_set_callback(self.key, self.value)
+
+    def __init__(self, key, value, color_set_callback):
+        super().__init__()
+
+        self.color_set_callback = color_set_callback
+        self.key = key
+        self.value = value
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.add(hbox)
+        label = Gtk.Label(key, xalign=0)
+        hbox.pack_start(label, True, True, 0)
+
+        adjustment = Gtk.Adjustment(value, 0, 20, 1, 10, 0)
+        spinbutton = Gtk.SpinButton()
+        spinbutton.set_adjustment(adjustment)
+        spinbutton.set_numeric(True)
+        spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
+        spinbutton.connect("value-changed", self.on_value_changed)
+        hbox.pack_start(spinbutton, False, False, 0)
+
+
 class BoolListBoxRow(Gtk.ListBoxRow):
 
     def on_switch_activated(self, switch, gparam):
@@ -72,17 +99,21 @@ class ThemeColorsList(Gtk.Box):
             self.listbox.add(row)
         else:
             for key_obj in THEME_KEYS:
+                key = key_obj['key']
+                row = None
                 if key_obj['type'] == 'color':
-                    key = key_obj['key']
                     row = ColorListBoxRow(
                         key, self.theme[key], self.color_edited
                     )
-                    self.listbox.add(row)
-                if key_obj['type'] == 'bool':
-                    key = key_obj['key']
+                elif key_obj['type'] == 'bool':
                     row = BoolListBoxRow(
                         key, self.theme[key], self.color_edited
                     )
+                elif key_obj['type'] == 'int':
+                    row = IntListBoxRow(
+                        key, self.theme[key], self.color_edited
+                    )
+                if row:
                     self.listbox.add(row)
         self.listbox.show_all()
 

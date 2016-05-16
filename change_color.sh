@@ -78,6 +78,7 @@ source $SRC_PATH/current_colors.txt
 HDR_BTN_BG=${HDR_BTN_BG-$BTN_BG}
 HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
 GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
+ROUNDNESS=${ROUNDNESS-2}
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -108,6 +109,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/'"$OLD_BTN_FG"'/'"$BTN_FG"'/g' \
 		-e 's/'"$OLD_HDR_BTN_BG"'/'"$HDR_BTN_BG"'/g' \
 		-e 's/'"$OLD_HDR_BTN_FG"'/'"$HDR_BTN_FG"'/g' \
+		-e 's/'"$OLD_ROUNDNESS"'/'"$ROUNDNESS"'/g' \
 		{} \; ;
 done
 
