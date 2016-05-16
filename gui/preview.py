@@ -1,5 +1,9 @@
-from .helpers import convert_theme_color_to_gdk, THEME_KEYS
 from gi.repository import Gtk
+
+from .helpers import (
+    convert_theme_color_to_gdk,
+    THEME_KEYS,
+)
 
 
 class ThemePreview(Gtk.Grid):
@@ -39,6 +43,53 @@ class ThemePreview(Gtk.Grid):
                             converted["HDR_BTN_FG"])
         self.override_color(self.headerbar_button, self.BG,
                             converted["HDR_BTN_BG"])
+
+        gradient = colorscheme['GRADIENT']
+        for widget, color in zip(
+            [self.button, self.headerbar_button, self.entry],
+            [
+                colorscheme["BTN_BG"],
+                colorscheme["HDR_BTN_BG"],
+                colorscheme["TXT_BG"]
+            ]
+        ):
+            css_provider_gradient = Gtk.CssProvider()
+            css_provider_gradient.load_from_data((
+                gradient > 0 and """
+                * {{
+                    background-image: linear-gradient(to bottom,
+                        shade(#{color}, {amount1}),
+                        shade(#{color}, {amount2})
+                    );
+                }}
+                """.format(
+                    color=color,
+                    amount1=1 - gradient / 2,
+                    amount2=1 + gradient * 2
+                ) or """
+                * {
+                    background-image: none;
+                }
+                """
+            ).encode('ascii'))
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider_gradient,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+
+        css_provider_roundness = Gtk.CssProvider()
+        css_provider_roundness.load_from_data("""
+            * {{
+                border-radius: {roundness}px;
+            }}
+        """.format(roundness=colorscheme['ROUNDNESS']).encode('ascii'))
+        for widget in [self.button, self.headerbar_button, self.entry]:
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider_roundness,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)

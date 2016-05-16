@@ -1,5 +1,7 @@
 from gi.repository import Gtk
-from .helpers import convert_theme_color_to_gdk, THEME_KEYS
+from .helpers import (
+    convert_theme_color_to_gdk, THEME_KEYS, convert_gdk_to_theme_color
+)
 
 
 class FloatListBoxRow(Gtk.ListBoxRow):
@@ -8,7 +10,7 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         self.value = spinbutton.get_value()
         self.color_set_callback(self.key, self.value)
 
-    def __init__(self, key, value, color_set_callback):
+    def __init__(self, display_name, key, value, color_set_callback):
         super().__init__()
 
         self.color_set_callback = color_set_callback
@@ -17,10 +19,10 @@ class FloatListBoxRow(Gtk.ListBoxRow):
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.add(hbox)
-        label = Gtk.Label(key, xalign=0)
+        label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        adjustment = Gtk.Adjustment(value, 0.0, 20.0, 0.1, 10.0, 0)
+        adjustment = Gtk.Adjustment(value, 0.0, 4.0, 0.1, 10.0, 0)
         spinbutton = Gtk.SpinButton()
         spinbutton.set_digits(2)
         spinbutton.set_adjustment(adjustment)
@@ -38,7 +40,7 @@ class IntListBoxRow(Gtk.ListBoxRow):
         self.value = spinbutton.get_value_as_int()
         self.color_set_callback(self.key, self.value)
 
-    def __init__(self, key, value, color_set_callback):
+    def __init__(self, display_name, key, value, color_set_callback):
         super().__init__()
 
         self.color_set_callback = color_set_callback
@@ -47,7 +49,7 @@ class IntListBoxRow(Gtk.ListBoxRow):
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.add(hbox)
-        label = Gtk.Label(key, xalign=0)
+        label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
         adjustment = Gtk.Adjustment(value, 0, 20, 1, 10, 0)
@@ -67,7 +69,7 @@ class BoolListBoxRow(Gtk.ListBoxRow):
         self.value = switch.get_active()
         self.color_set_callback(self.key, self.value)
 
-    def __init__(self, key, value, color_set_callback):
+    def __init__(self, display_name, key, value, color_set_callback):
         super().__init__()
 
         self.color_set_callback = color_set_callback
@@ -76,7 +78,7 @@ class BoolListBoxRow(Gtk.ListBoxRow):
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.add(hbox)
-        label = Gtk.Label(key, xalign=0)
+        label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
         switch = Gtk.Switch()
@@ -88,14 +90,10 @@ class BoolListBoxRow(Gtk.ListBoxRow):
 class ColorListBoxRow(Gtk.ListBoxRow):
 
     def on_color_set(self, widget):
-        c = widget.get_rgba()
-        self.value = "".join([
-            "{0:02x}".format(int(n * 255))
-            for n in (c.red, c.green, c.blue)
-        ])
+        self.value = convert_gdk_to_theme_color(widget.get_rgba())
         self.color_set_callback(self.key, self.value)
 
-    def __init__(self, key, value, color_set_callback):
+    def __init__(self, display_name, key, value, color_set_callback):
         super().__init__()
 
         self.color_set_callback = color_set_callback
@@ -104,7 +102,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.add(hbox)
-        label = Gtk.Label(key, xalign=0)
+        label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
         color_button = Gtk.ColorButton.new_with_rgba(
@@ -132,22 +130,23 @@ class ThemeColorsList(Gtk.Box):
         else:
             for key_obj in THEME_KEYS:
                 key = key_obj['key']
+                display_name = key_obj.get('display_name', key)
                 row = None
                 if key_obj['type'] == 'color':
                     row = ColorListBoxRow(
-                        key, self.theme[key], self.color_edited
+                        display_name, key, self.theme[key], self.color_edited
                     )
                 elif key_obj['type'] == 'bool':
                     row = BoolListBoxRow(
-                        key, self.theme[key], self.color_edited
+                        display_name, key, self.theme[key], self.color_edited
                     )
                 elif key_obj['type'] == 'int':
                     row = IntListBoxRow(
-                        key, self.theme[key], self.color_edited
+                        display_name, key, self.theme[key], self.color_edited
                     )
                 elif key_obj['type'] == 'float':
                     row = FloatListBoxRow(
-                        key, self.theme[key], self.color_edited
+                        display_name, key, self.theme[key], self.color_edited
                     )
                 if row:
                     self.listbox.add(row)
@@ -163,10 +162,6 @@ class ThemeColorsList(Gtk.Box):
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
-        def sort_func(row_1, row_2, data, notify_destroy):
-            return row_1.key.lower() > row_2.key.lower()
-
-        self.listbox.set_sort_func(sort_func, None, False)
         scrolled.add(self.listbox)
 
         theme_edit_label = Gtk.Label()
