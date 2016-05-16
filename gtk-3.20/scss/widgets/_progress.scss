@@ -20,37 +20,37 @@
             background-color: shade($bg_color, 1.08);
             background-image: none;
         }
-    }
 
-    progressbar progress {
-        @include linear-gradient($selected_bg_color);
+        progress {
+            @include linear-gradient($selected_bg_color);
 
-        border-radius: 0;
-        box-shadow: none;
+            border-radius: 0;
+            box-shadow: none;
 
-        &.left {
-            border-top-left-radius: $roundness;
-            border-bottom-left-radius: $roundness;
-        }
-
-        &.right {
-            border-top-right-radius: $roundness;
-            border-bottom-right-radius: $roundness;
-        }
-
-        &.left.right { box-shadow: none; }
-
-        &.vertical {
-            @include linear-gradient($selected_bg_color, to right);
-
-            &.bottom {
+            &.left {
+                border-top-left-radius: $roundness;
                 border-bottom-left-radius: $roundness;
+            }
+
+            &.right {
+                border-top-right-radius: $roundness;
                 border-bottom-right-radius: $roundness;
             }
 
-            &.top {
-                border-top-left-radius: $roundness;
-                border-top-right-radius: $roundness;
+            &.left.right { box-shadow: none; }
+
+            &.vertical {
+                @include linear-gradient($selected_bg_color, to right);
+
+                &.bottom {
+                    border-bottom-left-radius: $roundness;
+                    border-bottom-right-radius: $roundness;
+                }
+
+                &.top {
+                    border-top-left-radius: $roundness;
+                    border-top-right-radius: $roundness;
+                }
             }
         }
     }
@@ -75,22 +75,21 @@
             border-radius: $roundness;
         }
 
-        &.horizontal.discrete { margin-right: 1px; }
+        &.horizontal.discrete block {
+            margin: 0 2px;
 
-        &.vertical.discrete { margin-bottom: 1px; }
+            &:first-child { margin: 0; }
+        }
 
-        block:not(.empty) {
-            @include linear-gradient($selected_bg_color);
+        &.vertical.discrete block {
+            margin: 2px 0;
 
-            border-color: transparent;
-            border-radius: 0;
+            &:first-child { margin: 0; }
         }
 
         block {
             @include linear-gradient($selected_bg_color);
 
-            // FIXME: it would be nice to set make fill blocks bigger, but we'd need
-            // :nth-child working on discrete indicators
             border-color: transparent;
             border-radius: 0;
 
@@ -99,7 +98,8 @@
                 border-color: transparent;
             }
 
-            &.high {
+            &.high,
+            :not(.empty) {
                 background-color: $selected_bg_color;
                 border-color: transparent;
             }
