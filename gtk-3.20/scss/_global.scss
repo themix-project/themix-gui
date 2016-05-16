@@ -45,8 +45,8 @@ $button_border: alpha($button_fg_color, .06 + $button_border_strength);
 $entry_border: $borders_color;
 
 $scrollbar_bg_color: if($variant == 'light', darken($bg_color, 5%), mix($base_color, $bg_color, .4));
-$scrollbar_slider_color: shade($bg_color, .5);
-$scrollbar_slider_hover_color: shade($bg_color, .3);
+$scrollbar_slider_color: mix($bg_color, $fg_color, .5);
+$scrollbar_slider_hover_color: mix($bg_color, $fg_color, .7);
 $scrollbar_slider_active_color: if($variant == 'light', darken($selected_bg_color, 5%), lighten($selected_bg_color, 10%));
 
 $switch_disabled_bg_color: mix($bg_color, $base_color, .5);
