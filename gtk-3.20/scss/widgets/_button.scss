@@ -379,21 +379,60 @@
 
             &:active, &:checked, &:hover { color: $text_color; }
 
-            &:disabled { color: mix($text_color, $base_color, .7); }
+            &:disabled { color: alpha($insensitive_fg_color, .8); }
+
+            &:backdrop { color: mix($backdrop_base_color, $backdrop_fg_color, .9); }
+
+            &:backdrop:disabled { color: alpha($backdrop_insensitive_color, .8); }
         }
 
         &:not(.vertical) {
+            @extend %entry;
+            @include linear-gradient($base_color, to top);
+            @include border($base_color);
+
+            padding: 0;
+
+            color: $text_color;
+            caret-color: $text_color;
+
+            &:focus, &:active { border-color: border_focus($borders_color); }
+
+            &:disabled {
+                @include linear-gradient(shade($base_color, .9), to top);
+
+                color: mix($base_color, $text_color, .5);
+            }
+
             entry {
                 // reset all the other props since the spinbutton node is styled here
+                border: 0;
                 border-radius: 0;
+                box-shadow: none;
             }
 
             button {
-                @extend %linked_middle;
+                border-radius: 0;
+                border-color: alpha($borders_color, .8);
+                border-style: none none none solid;
+                background-image: none;
+                box-shadow: none;
 
-                &:first-child { border-radius: $roundness 0 0 $roundness; }
+                &:dir(rtl) { border-style: none solid none none; }
 
-                &:last-child { border-radius: 0 $roundness $roundness 0; }
+                &:active { box-shadow: inset 0 2px 3px -1px transparentize($black, .8); }
+
+                &:backdrop { border-color: alpha($backdrop_borders_color, .8); }
+
+                &:backdrop:disabled {
+                    border-style: none none none solid; // It is needed or it gets overridden
+
+                    &:dir(rtl) { border-style: none solid none none; }
+                }
+
+                &:dir(rtl):first-child { border-radius: $roundness 0 0 $roundness; }
+
+                &:dir(ltr):last-child { border-radius: 0 $roundness $roundness 0; }
             }
         }
 
@@ -404,20 +443,14 @@
             }
 
             button {
-                @extend %linked_vertical_entry;
-
-                &:first-child {
-                    border-width: 1px;
-                    border-bottom-width: 0;
-                    border-bottom-right-radius: 0;
-                    border-bottom-left-radius: 0;
+                &.up {
+                    border-style: solid solid none solid;
+                    border-radius: $roundness $roundness 0 0;
                 }
 
-                &:last-child {
-                    border-width: 1px;
-                    border-top-width: 0;
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
+                &.down {
+                    border-style: none solid solid solid;
+                    border-radius: 0 0 $roundness $roundness; 
                 }
             }
         }

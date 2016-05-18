@@ -87,7 +87,6 @@
 }
 
 %entry {
-    padding: $spacing;
     border-width: 1px;
     border-style: solid;
     border-radius: $roundness;
@@ -124,6 +123,8 @@
     @include linear-gradient($bg, to top);
     @include border($bg);
 
+    padding: $spacing;
+
     color: $fg;
     caret-color: $fg;
 
@@ -141,47 +142,7 @@
         @include entry($base_color, $text_color);
 
         .linked:not(.vertical) > & { @extend %linked_entry; }
-        .linked:not(.vertical) > &:focus + &,
-        .linked:not(.vertical) > &:focus + button,
-        .linked:not(.vertical) > &:focus + combobox > box > button.combo { border-left-color: entry_focus_border(); }
 
-        .linked:not(.vertical) > &:drop(active) + &,
-        .linked:not(.vertical) > &:drop(active) + button,
-        .linked:not(.vertical) > &:drop(active) + combobox > box > button.combo { border-left-color: $drop_target_color; }
-
-
-        .linked.vertical > & {
-            @extend %linked_vertical_entry;
-
-            // brighter border between linked entries
-            &:not(:disabled) + entry:not(:disabled) {
-                border-top-color: mix($borders_color, $base_color, .3);
-
-                &:backdrop { border-top-color: mix($backdrop_borders_color, $backdrop_base_color, .3); }
-            }
-
-            // brighter border between linked insensitive entries
-            &:disabled + entry:disabled { border-top-color: mix($borders_color, $base_color, .3); }
-
-            // color back the top border of a linked focused entry following another entry.
-            // :not(:only-child) is a specificity bump hack.
-            + entry:focus:not(:only-child) { border-top-color: entry_focus_border(); }
-
-            + entry:drop(active):not(:only-child) { border-top-color: $drop_target_color; }
-
-            // this takes care of coloring the top border of the focused entry subsequent widget.
-            // :not(:only-child) is a specificity bump hack.
-            &:focus:not(:only-child) {
-                + entry,
-                + button,
-                + combobox > box > button.combo { border-top-color: entry_focus_border(); }
-            }
-
-            &:drop(active):not(:only-child) {
-                + entry,
-                + button,
-                + combobox > box > button.combo { border-top-color: $drop_target_color; }
-            }
-        }
+        .linked.vertical > & { @extend %linked_vertical_entry; }
     }
 }
