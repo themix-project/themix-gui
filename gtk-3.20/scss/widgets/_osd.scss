@@ -105,27 +105,4 @@
             background-color: $osd_bg;
         }
     }
-
-    .osd progressbar, progressbar.osd {
-        margin: 2px;
-        min-height: 2px;
-        min-width: 2px;
-
-        padding: 0;
-
-        trough {
-            padding: 0;
-            border-style: none;
-            border-radius: 0;
-            background-image: none;
-            background-color: transparent;
-        }
-
-        progress {
-            border-style: none;
-            border-radius: 0;
-            background-color: $selected_bg_color;
-            background-image: none;
-        }
-    }
 }

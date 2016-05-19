@@ -54,6 +54,26 @@
                 border-top-right-radius: $roundness;
             }
         }
+
+        &.osd { // progressbar.osd used for epiphany page loading progress
+            margin: 2px;
+            min-height: 2px;
+            min-width: 2px;
+
+            trough {
+                border-style: none;
+                border-radius: 0;
+                background-image: none;
+                background-color: transparent;
+            }
+
+            progress {
+                border-style: none;
+                border-radius: 0;
+                background-color: $selected_bg_color;
+                background-image: none;
+            }
+        }
     }
 
     levelbar {
