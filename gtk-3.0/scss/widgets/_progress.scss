@@ -156,18 +156,27 @@
             &.vertical { margin: 0 7px; }
         }
 
-        &.highlight {
-            &, &.left, &.bottom {
-                @include linear-gradient($selected_bg_color);
+        &.highlight.left {
+            &, .memuitem & {
+                    @include linear-gradient($selected_bg_color);
+                    border-color: $selected_bg_color;
+               
+                    &:hover {
+                        border-color: border_normal($selected_bg_color);
+                        background-color: shade($selected_bg_color, .8);
+                    }
 
-                border-color: $selected_bg_color;
-
-                &:insensitive {
-                    @include linear-gradient(shade($bg_color, .8));
-
-                    border-color: shade($bg_color, .7);
-                }
+                    &:insensitive {
+                        @include linear-gradient(shade($bg_color, .9));
+                        border-color: shade($bg_color, .85);
+                    }
             }
         }
+
+	&.highlight.bottom {              
+            @include linear-gradient($selected_bg_color);
+            border-color: $selected_bg_color;
+        }
+
     }
 }
