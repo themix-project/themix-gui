@@ -8,13 +8,13 @@
 @include exports("osd") {
     overlay.osd { background-color: transparent; }
 
-    osd {
+    .osd {
         &.background {
             background-color: alpha($osd_bg, .8);
             color: $osd_fg;
         }
 
-        frame {
+        .frame {
             background-clip: border-box;
             background-origin: border-box;
         }
