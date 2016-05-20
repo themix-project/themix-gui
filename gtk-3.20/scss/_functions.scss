@@ -93,12 +93,3 @@ $modules: () !default;
         @return transparentize(black, $_lbg * .8);
     }
 }
-
-// entries
-@function entry_focus_border($fc:$selected_bg_color) {
-    @if $variant == 'light' {
-        @return $fc;
-    } @else {
-        @return if($fc == $selected_bg_color, $selected_borders_color, shade($fc, .65));
-    }
-}

@@ -143,23 +143,23 @@
 
         &.expander {
             -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
-            color: mix($fg_color, $base_color, .7);
+            color: mix($base_color, $fg_color, .7);
 
             &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
 
             &:hover { color: $fg_color; }
 
             &:selected {
-                color: mix($selected_fg_color, $selected_bg_color, .7);
+                color: mix($selected_bg_color, $selected_fg_color, .7);
 
                 &:hover { color: $selected_fg_color; }
 
-                &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, .7); }
+                &:backdrop { color: mix($selected_bg_color, $backdrop_selected_fg_color, .7); }
             }
 
             &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
 
-            &:backdrop { color: mix($backdrop_fg_color, $backdrop_base_color, .7); }
+            &:backdrop { color: mix($backdrop_base_color, $backdrop_fg_color, .7); }
         }
 
         &.progressbar { // progress bar in treeviews
