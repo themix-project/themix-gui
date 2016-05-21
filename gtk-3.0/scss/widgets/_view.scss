@@ -140,8 +140,6 @@
                     border: 1px solid border_focus($selected_bg_color);
                     color: $selected_fg_color;
                 }
-
-                &:backdrop { }
             }
 
             &:insensitive {
@@ -149,11 +147,6 @@
                     @include linear-gradient($bg_color);
                     border-color: border_insensitive($bg_color);
                 }
-            }
-
-            &:backdrop {
-                @include linear-gradient($bg_color);
-                border-color: border_insensitive($bg_color);
             }
         }
 
