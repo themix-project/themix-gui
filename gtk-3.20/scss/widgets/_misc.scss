@@ -272,6 +272,15 @@
 }
 
 
+/*****************
+ ! Stackswitcher *
+******************/
+
+@include exports("stackswitcher") {
+    stackswitcher button.text-button { min-width: 90px; } // FIXME aggregate with buttons
+}
+
+
 /*******************
  ! Selected Items  *
 ********************/
