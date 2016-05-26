@@ -288,11 +288,25 @@
     }
 
     &, &.flat {
-        &:focus, &:hover {
-            @include linear-gradient(shade($bg, 1.2));
+
+		&:prelight {
+            @include linear-gradient(shade($bg, 1.05));
+            @include border(alpha($fg, .20 + $border_strength));
+
+            box-shadow: 0 1px 2px -1px alpha($dark_shadow, .22 + $shadow_strength);
+        }
+
+        &:focused {
+            @include linear-gradient(shade($bg, 1.05));
             @include border(alpha($fg, .20 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
+			&:prelight {
+				@include linear-gradient(shade($bg, 1.1));
+				@include border(alpha($fg, .20 + $border_strength));
+
+				box-shadow: 0 1px 2px -1px alpha($dark_shadow, .38 + $shadow_strength);
+			}
         }
 
         &:checked, &:active {
@@ -308,7 +322,7 @@
 
             &:focus, &:hover {
                 /*@include linear-gradient(shade($bg, .65), to top);*/
-                @include linear-gradient(shade($selected_bg_color, 1.1), to top);
+                @include linear-gradient(shade($selected_bg_color, 1.05), to top);
 
                 color: $selected_fg_color;
             }
@@ -387,7 +401,7 @@
             color: $button_fg_color;
 
             &:active, &:checked, &:hover {
-                @include linear-gradient(shade($button_bg_color, 1.4));
+                @include linear-gradient(shade($button_bg_color, 1.2));
             }
 
             &:disabled { color: mix($button_fg_color, $bg_color, .7); }
