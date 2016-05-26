@@ -289,7 +289,7 @@
 
     &, &.flat {
         &:focus, &:hover {
-            @include linear-gradient(shade($bg, 1.1));
+            @include linear-gradient(shade($bg, 1.2));
             @include border(alpha($fg, .20 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
@@ -308,7 +308,7 @@
 
             &:focus, &:hover {
                 /*@include linear-gradient(shade($bg, .65), to top);*/
-                @include linear-gradient(shade($selected_bg_color, 1.05), to top);
+                @include linear-gradient(shade($selected_bg_color, 1.1), to top);
 
                 color: $selected_fg_color;
             }
