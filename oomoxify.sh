@@ -134,6 +134,7 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 				-e "s/ffffff/oomox_accent_fg/gI" \
 				-e "s/fcfcfc/oomox_hover_text/gI" \
 				-e "s/1ed760/oomox_active_selection_color/gI" \
+				-e "s/1ed660/oomox_active_selection_color/gI" \
 				-e "s/1db954/oomox_inactive_selection_color/gI" \
 				-e "s/a0a0a0/oomox_main_fg/gI" \
 				-e "s/adafb2/oomox_sidebar_fg/gI" \
