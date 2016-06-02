@@ -105,7 +105,7 @@ $backdrop_fg_color: mix($fg_color, $backdrop_bg_color, .5);
 $backdrop_insensitive_color: if($variant == 'light', darken($backdrop_bg_color, 15%), lighten($backdrop_bg_color, 15%));
 $backdrop_selected_fg_color: mix($selected_bg_color, $selected_fg_color, .66);
 $backdrop_borders_color: mix($bg_color, $borders_color, .9);
-$backdrop_dark_fill: mix($backdrop_borders_color, $backdrop_bg_color, .35);
+$backdrop_dark_fill: mix($backdrop_bg_color, $backdrop_borders_color, .35);
 $backdrop_sidebar_bg_color: mix($backdrop_bg_color, $backdrop_base_color, .5);
 
 $backdrop_osd_base: $osd_base;

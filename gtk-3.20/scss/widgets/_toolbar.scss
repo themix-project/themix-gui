@@ -63,11 +63,29 @@
 
         &.inline-toolbar {
             background-image: none;
-            background-color: transparent;
+            border-width: 0 1px 1px;
+            border-style: solid;
+            border-color: $borders_color;
+            background-color: mix($borders_color, $bg_color, .7);
+
+            &:backdrop {
+                border-color: $backdrop_borders_color;
+                background-color: $backdrop_dark_fill;
+                transition: 200ms ease-out;
+            }
 
             button { @include button($toolbar_bg_color, $toolbar_fg_color); }
 
-            .linked > button { @include linked_button($toolbar_bg_color); }
+            toolbutton,
+            toolbutton:backdrop {
+                > button.flat { @extend %linked_middle; }
+
+                &:first-child > button.flat { @extend %linked_button:first-child; }
+
+                &:last-child > button.flat { @extend %linked_button:last-child; }
+
+                &:only-child > button.flat { @extend %linked_button:only-child; }
+            }
         }
     }
 
