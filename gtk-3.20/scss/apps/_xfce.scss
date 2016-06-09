@@ -19,8 +19,8 @@
 
         font: normal;
 
-        .button { @extend %panelbutton; }
+        button { @extend %panelbutton; }
 
-        .menu { -gtk-icon-effect: none; }
+        menu, .menu { -gtk-icon-effect: none; }
     }
 }
