@@ -371,6 +371,13 @@
         .linked > & { @include linked_button(shade($bg_color, 1.2)); }
 
         .linked.vertical > & { @include linked_vertical_button(shade($bg_color, 1.2)); }
+
+        &.circular { // FIXME: aggregate to buttons
+            border-radius: 20px;
+            -gtk-outline-radius: 20px;
+
+            label { padding: 0; }
+        }
     }
 
     spinbutton {

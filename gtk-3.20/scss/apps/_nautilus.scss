@@ -63,4 +63,32 @@
             }
         }
     }
+
+    button.nautilus-circular-button.image-button {
+        @extend button.circular;
+    }
+
+    $disk_space_unknown: alpha($fg_color, .5);
+    $disk_space_used: alpha($selected_bg_color, .8);
+    $disk_space_free: shade($bg_color, .95);
+
+    .disk-space-display {
+        border-style: solid;
+        border-width: 1px;
+
+        &.unknown {
+            background-color: $disk_space_unknown;
+            border-color: shade($disk_space_unknown, .9);
+        }
+
+        &.used {
+            background-color: $disk_space_used;
+            border-color: shade($disk_space_used, .9);
+        }
+
+        &.free {
+            background-color: $disk_space_free;
+            border-color: shade($disk_space_free, .9);
+        }
+    }
 }
