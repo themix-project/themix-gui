@@ -161,7 +161,7 @@
                     transition: opacity .3s ease-in;
                 }
 
-                > box, > label {
+                > box {
                     padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
                     border-width: 2px;
                     border-style: solid;
@@ -177,13 +177,10 @@
                     button, button:hover {
                         opacity: 1;
                     }
-
-                    &:checked {
-                        background-color: mix($bg_color, $base_color, .6);
-                    }
                 }
 
                 &:checked {
+                    background-color: mix($bg_color, $base_color, .4);
                     border-bottom-color: transparent;
                     outline: none;
 
@@ -193,6 +190,14 @@
 
                     &:hover {
                         background-color: mix($bg_color, $base_color, .6);
+                    }
+
+                    &:not(:first-child:only-child){
+                        box-shadow: -1px 0 1px 0 rgba(0,0,0,0.1);
+                    }
+
+                    &:not(:last-child:only-child) {
+                        box-shadow: 1px 0 1px 0 rgba(0,0,0,0.1);
                     }
                 }
 
@@ -214,24 +219,19 @@
                 border-bottom-width: 1px;
                 transition: border-bottom-color .3s ease-out;
 
-                > box, > label {
+                > box {
                     padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
                 }
 
                 &:hover {
-                    border-bottom-color: shade($base_color, .65);
                     outline: none;
-
-                    > box, > label {
-                        border-bottom-color: shade($base_color, .65);
-                    }
                 }
 
                 &:checked {
                     border-bottom-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box {
                         border-bottom-color: $selected_bg_color;
                     }
 
@@ -254,24 +254,19 @@
                 border-left-width: 1px;
                 transition: border-left-color .3s ease-out;
 
-                > box, > label {
+                > box {
                     padding: ($spacing + 1) ($spacing * 3); // top | right | bottom | left
                 }
 
                 &:hover {
-                    border-left-color: shade($base_color, .65);
                     outline: none;
-
-                    > box, > label {
-                        border-left-color: shade($base_color, .65);
-                    }
                 }
 
                 &:checked {
                     border-left-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box {
                         border-left-color: $selected_bg_color;
                     }
 
@@ -294,24 +289,19 @@
                 border-top-width: 1px;
                 transition: border-top-color .3s ease-out;
 
-                > box, > label {
+                > box {
                     padding: ($spacing + 1) ($spacing * 3) 0;  // top/bottom | left/right
                 }
 
                 &:hover {
-                    border-top-color: shade($base_color, .65);
                     outline: none;
-
-                    > box, > label {
-                        border-top-color: shade($base_color, .65);
-                    }
                 }
 
                 &:checked {
                     border-top-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box {
                         border-top-color: $selected_bg_color;
                     }
 
@@ -334,24 +324,19 @@
                 border-right-width: 1px;
                 transition: border-right-color .3s ease-out;
 
-                > box, > label {
+                > box {
                     padding: ($spacing + 1) ($spacing * 3); // top/bottom | left/right
                 }
 
                 &:hover {
-                    border-right-color: shade($base_color, .65);
                     outline: none;
-
-                    > box, > label {
-                        border-right-color: shade($base_color, .65);
-                    }
                 }
 
                 &:checked {
                     border-right-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box {
                         border-right-color: $selected_bg_color;
                     }
 
