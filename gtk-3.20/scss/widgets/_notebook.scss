@@ -192,11 +192,11 @@
                         background-color: mix($bg_color, $base_color, .6);
                     }
 
-                    &:not(:first-child:only-child){
+                    &:not(:first-child):not(:only-child){
                         box-shadow: -1px 0 1px 0 rgba(0,0,0,0.1);
                     }
 
-                    &:not(:last-child:only-child) {
+                    &:not(:last-child):not(:only-child) {
                         box-shadow: 1px 0 1px 0 rgba(0,0,0,0.1);
                     }
                 }
