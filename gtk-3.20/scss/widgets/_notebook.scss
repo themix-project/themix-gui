@@ -161,7 +161,7 @@
                     transition: opacity .3s ease-in;
                 }
 
-                > box {
+                > box, > label {
                     padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
                     border-width: 2px;
                     border-style: solid;
@@ -219,7 +219,7 @@
                 border-bottom-width: 1px;
                 transition: border-bottom-color .3s ease-out;
 
-                > box {
+                > box, > label {
                     padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
                 }
 
@@ -231,7 +231,7 @@
                     border-bottom-color: $selected_bg_color;
                     outline: none;
 
-                    > box {
+                    > box, > label {
                         border-bottom-color: $selected_bg_color;
                     }
 
@@ -254,7 +254,7 @@
                 border-left-width: 1px;
                 transition: border-left-color .3s ease-out;
 
-                > box {
+                > box, > label {
                     padding: ($spacing + 1) ($spacing * 3); // top | right | bottom | left
                 }
 
@@ -266,7 +266,7 @@
                     border-left-color: $selected_bg_color;
                     outline: none;
 
-                    > box {
+                    > box, > label {
                         border-left-color: $selected_bg_color;
                     }
 
@@ -289,7 +289,7 @@
                 border-top-width: 1px;
                 transition: border-top-color .3s ease-out;
 
-                > box {
+                > box, > label {
                     padding: ($spacing + 1) ($spacing * 3) 0;  // top/bottom | left/right
                 }
 
@@ -301,7 +301,7 @@
                     border-top-color: $selected_bg_color;
                     outline: none;
 
-                    > box {
+                    > box, > label {
                         border-top-color: $selected_bg_color;
                     }
 
@@ -324,7 +324,7 @@
                 border-right-width: 1px;
                 transition: border-right-color .3s ease-out;
 
-                > box {
+                > box, > label {
                     padding: ($spacing + 1) ($spacing * 3); // top/bottom | left/right
                 }
 
@@ -336,7 +336,7 @@
                     border-right-color: $selected_bg_color;
                     outline: none;
 
-                    > box {
+                    > box, > label {
                         border-right-color: $selected_bg_color;
                     }
 
