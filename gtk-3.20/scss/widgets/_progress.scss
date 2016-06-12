@@ -142,7 +142,7 @@
         $_marks_length: 3px;
         $_marks_distance: 1px;
         $button_bg: if(hue($bg_color) == 0deg, shade($bg_color, 1.2), $bg_color);
-        $ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        $ease-out-quad: cubic-bezier(.25, .46, .45, .94);
         $button_transition: all 200ms $ease-out-quad;
 
         min-height: 10px;
@@ -154,6 +154,7 @@
             trough { padding: 0 7px; }
             highlight, fill { margin: 0 -7px; }
         }
+
         &.vertical {
             padding: 0 6px;
 
@@ -209,9 +210,7 @@
             .osd & {
                 background-color: lighten($osd_bg, 7%);
 
-                highlight {
-                    background-color: $selected_bg_color;
-                }
+                highlight { background-color: $selected_bg_color; }
             }
 
             // Troughs in selected list-rows and infobars
@@ -280,11 +279,13 @@
                     background-color: mix($selected_fg_color, $selected_bg_color, .85);
                     border-color: mix($selected_fg_color, $selected_bg_color, .85);
                 }
+
                 &:active {
                     background-color: mix($selected_fg_color, $selected_bg_color, .5);
                     border-color: mix($selected_fg_color, $selected_bg_color, .5);
                 }
-                &:disabled{
+
+                &:disabled {
                     background-color: mix($selected_fg_color, $selected_bg_color, .55);
                     border-color: mix($selected_fg_color, $selected_bg_color, .55);
                 }
@@ -335,6 +336,7 @@
                 }
             }
         }
+
         &.horizontal {
             indicator {
                 min-height: $_marks_length;
@@ -343,6 +345,7 @@
 
             &.fine-tune indicator { min-height: ($_marks_length - 1px); }
         }
+
         &.vertical {
             indicator {
                 min-height: 1px;
@@ -350,6 +353,66 @@
             }
 
             &.fine-tune indicator { min-width: ($_marks_length - 1px); }
+        }
+
+        &.color {
+            trough {
+                padding: 0;
+                border: 0;
+                background-image: none;
+            }
+
+            highlight, fill { margin: 0; }
+
+            &.horizontal {
+                padding: 0 0 6px 0;
+
+                trough {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+
+                slider {
+                    &:hover, &:backdrop, &:disabled, &:backdrop:disabled, & {
+                        margin-bottom: 0;
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &.vertical {
+                &:dir(ltr) {
+                    padding: 0 0 0 6px;
+
+                    trough {
+                        border-bottom-right-radius: 0;
+                        border-top-right-radius: 0;
+                    }
+
+                    slider {
+                        &:hover, &:backdrop, &:disabled, &:backdrop:disabled, & {
+                            margin-left: 0;
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+                &:dir(rtl) {
+                    padding: 0 6px 0 0;
+
+                    trough {
+                        border-bottom-left-radius: 0;
+                        border-top-left-radius: 0;
+                    }
+
+                    slider {
+                        &:hover, &:backdrop, &:disabled, &:backdrop:disabled, & {
+                            margin-right: 0;
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }
