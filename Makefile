@@ -34,7 +34,15 @@ clean:
 install: all
 	install -d -m755 $(INSTALL_DIR)
 
-	for f in *; do cp -pr $$f $(INSTALL_DIR)/; done
+	cp -pr gtk-2.0		$(INSTALL_DIR)
+	cp -pr gtk-3.0		$(INSTALL_DIR)
+	cp -pr gtk-3.20		$(INSTALL_DIR)
+	cp -pr metacity-1	$(INSTALL_DIR)
+	cp -pr openbox-3	$(INSTALL_DIR)
+	cp -pr xfce-notify-4.0	$(INSTALL_DIR)
+	cp -pr xfwm4		$(INSTALL_DIR)
+	cp -pr unity		$(INSTALL_DIR)
+	cp -p  index.theme	$(INSTALL_DIR)
 
 uninstall:
 	rm -rf $(INSTALL_DIR)
