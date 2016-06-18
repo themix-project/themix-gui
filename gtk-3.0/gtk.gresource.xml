@@ -40,6 +40,7 @@
 		<file preprocess='to-pixdata'>assets/radio-unchecked-insensitive-dark.svg</file>
 		<file preprocess='to-pixdata'>assets/radio-unchecked-insensitive.svg</file>
 		<file preprocess='to-pixdata'>assets/radio-unchecked.svg</file>
+		<file preprocess='to-pixdata'>assets/pane-handle.png</file>
 		<file>dist/gtk.css</file>
 		<file>dist/gtk-dark.css</file>
 	</gresource>

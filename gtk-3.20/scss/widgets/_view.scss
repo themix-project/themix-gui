@@ -31,10 +31,10 @@
         }
     }
 
+    textview border { background-color: mix($bg_color, $base_color, .5); }
+
     iconview { @extend .view; }
-
 }
-
 
 
 /************

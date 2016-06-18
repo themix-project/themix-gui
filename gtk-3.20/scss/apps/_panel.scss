@@ -49,8 +49,6 @@
 
         .button {
             @extend %panelbutton;
-
-            -GtkButton-inner-border: 2;
         }
     }
 
