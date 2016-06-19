@@ -17,7 +17,7 @@
         background-image: none;
         color: $panel_fg_color;
 
-        &:hover, &:prelight {
+        &:hover, &:hover {
             @include linear-gradient(mix($panel_bg_color, $panel_fg_color, .11));
 
             border-color: mix($panel_bg_color, $panel_fg_color, .11);
@@ -30,7 +30,7 @@
             border-color: mix($panel_bg_color, $panel_fg_color, .21);
             color: shade($panel_fg_color, 1.08);
 
-            &:prelight {
+            &:hover {
                 @include linear-gradient(mix($panel_bg_color, $panel_fg_color, .31), to top);
 
                 border-color: mix($panel_bg_color, $panel_fg_color, .31);

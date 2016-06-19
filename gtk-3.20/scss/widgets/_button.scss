@@ -289,19 +289,19 @@
 
     &, &.flat {
 
-		&:prelight {
+		&:hover {
             @include linear-gradient(shade($bg, 1.05));
             @include border(alpha($fg, .20 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .22 + $shadow_strength);
         }
 
-        &:focused {
+        &:focus {
             @include linear-gradient(shade($bg, 1.05));
             @include border(alpha($fg, .20 + $border_strength));
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
-			&:prelight {
+			&:hover {
 				@include linear-gradient(shade($bg, 1.1));
 				@include border(alpha($fg, .20 + $border_strength));
 

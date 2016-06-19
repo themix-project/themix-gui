@@ -38,7 +38,7 @@
 
             &:active { background-color: $selected_bg_color; }
 
-            &.fine-tune:prelight:active { border: 2px solid transparent; }
+            &.fine-tune:hover:active { border: 2px solid transparent; }
         }
 
         // overlay scrolling indicator

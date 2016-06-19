@@ -56,8 +56,8 @@
         text-shadow: none;
         }
     .lightdm.button:active,
-    .lightdm.button:active:focused,
-    .lightdm.button:focused,
+    .lightdm.button:active:focus,
+    .lightdm.button:focus,
 
     .lightdm.entry {
         background-image: none;
@@ -70,11 +70,11 @@
     }
     .lightdm.entry:hover,
     .lightdm.entry:active,
-    .lightdm.entry:active:focused {
+    .lightdm.entry:active:focus {
         background-image: none;
         border-image: none;
     }
-    .lightdm.entry:focused {
+    .lightdm.entry:focus {
         border-color: fade-out($white, .4);
         border-width: 1px;
         border-style: solid;

@@ -65,7 +65,7 @@
     background-color: alpha($bg_color, .5);
     color: $fg_color;
 
-    &:prelight {
+    &:hover {
         background-color: shade($bg_color, 1.1);
         color: $fg_color;
     }

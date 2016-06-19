@@ -11,7 +11,7 @@
 
         &:selected { color: $selected_fg_color; }
 
-        &:active, &:prelight, &:selected { text-shadow: none; }
+        &:active, &:hover, &:selected { text-shadow: none; }
     }
 
     NemoPathbarButton {

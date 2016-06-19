@@ -27,7 +27,7 @@
                     color: $selected_fg_color;
                 }
 
-                &:prelight {
+                &:hover {
                     border: 0;
                     background-image: none;
                     background-color: shade($selected_bg_color, 1.05);
@@ -35,7 +35,7 @@
                 }
             }
 
-            &:prelight {
+            &:hover {
                 border: 0;
                 background-image: none;
                 background-color: shade($bg_color, 1.05);

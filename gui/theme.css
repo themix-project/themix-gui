@@ -107,7 +107,7 @@
 .gtkstyle-fallback {
   background-color: rgba(165, 168, 162, 0.5);
   color: #0e0021; }
-  .gtkstyle-fallback:prelight {
+  .gtkstyle-fallback:hover {
     background-color: #b6b8b3;
     color: #0e0021; }
   .gtkstyle-fallback:active {
@@ -2637,7 +2637,7 @@ GtkLevelBar {
       background-color: mix(#A5A8A2,#0e0021,0.31); }
     .scrollbar.slider:active, .scrollbar.slider.vertical:active {
       background-color: #B36A87; }
-    .scrollbar.slider.fine-tune:prelight:active, .scrollbar.slider.vertical.fine-tune:prelight:active {
+    .scrollbar.slider.fine-tune:hover:active, .scrollbar.slider.vertical.fine-tune:hover:active {
       border: 2px solid transparent; }
   .scrollbar.overlay-indicator:not(.dragging):not(.hovering) {
     opacity: .5;
@@ -2685,12 +2685,12 @@ OsThumb, OsScrollbar {
   background-image: none;
   background-color: #B36A87;
   color: #0e0021; }
-.sidebar row:selected:prelight, .sidebar .view row:selected:prelight, .sidebar GtkHTML row:selected:prelight {
+.sidebar row:selected:hover, .sidebar .view row:selected:hover, .sidebar GtkHTML row:selected:hover {
   border: 0;
   background-image: none;
   background-color: #b8738f;
   color: #0e0021; }
-.sidebar row:prelight, .sidebar .view row:prelight, .sidebar GtkHTML row:prelight {
+.sidebar row:hover, .sidebar .view row:hover, .sidebar GtkHTML row:hover {
   border: 0;
   background-image: none;
   background-color: #adb0ab; }
@@ -2907,13 +2907,13 @@ row:selected, row:selected:hover, row:selected:focus {
 
 .content-view.view, GtkHTML.content-view {
   background-color: #d0d2cd; }
-  .content-view.view:prelight, GtkHTML.content-view:prelight {
+  .content-view.view:hover, GtkHTML.content-view:hover {
     background-color: rgba(179, 106, 135, 0.6); }
   .content-view.view:selected, GtkHTML.content-view:selected, .content-view.view:active, GtkHTML.content-view:active {
     background-color: #B36A87; }
   .content-view.view:insensitive, GtkHTML.content-view:insensitive {
     background-color: #bbbeb7; }
-  .content-view.view.check, GtkHTML.content-view.check, .content-view.view.check:active, GtkHTML.content-view.check:active, .content-view.view.check:prelight, GtkHTML.content-view.check:prelight, .content-view.view.check:insensitive, GtkHTML.content-view.check:insensitive, .content-view.view.check:selected, GtkHTML.content-view.check:selected {
+  .content-view.view.check, GtkHTML.content-view.check, .content-view.view.check:active, GtkHTML.content-view.check:active, .content-view.view.check:hover, GtkHTML.content-view.check:hover, .content-view.view.check:insensitive, GtkHTML.content-view.check:insensitive, .content-view.view.check:selected, GtkHTML.content-view.check:selected {
     background-color: transparent; }
 .content-view .subtitle {
   font: smaller;
@@ -3118,8 +3118,8 @@ GtkScrolledWindow GtkViewport.frame {
   text-shadow: none; }
 
 .lightdm.button:active,
-.lightdm.button:active:focused,
-.lightdm.button:focused,
+.lightdm.button:active:focus,
+.lightdm.button:focus,
 .lightdm.entry {
   background-image: none;
   background-color: rgba(0, 0, 0, 0.3);
@@ -3131,11 +3131,11 @@ GtkScrolledWindow GtkViewport.frame {
 
 .lightdm.entry:hover,
 .lightdm.entry:active,
-.lightdm.entry:active:focused {
+.lightdm.entry:active:focus {
   background-image: none;
   border-image: none; }
 
-.lightdm.entry:focused {
+.lightdm.entry:focus {
   border-color: rgba(255, 255, 255, 0.6);
   border-width: 1px;
   border-style: solid;
@@ -3275,7 +3275,7 @@ GeditFileBrowserWidget .toolbar {
     color: #0e0021; }
   .nautilus-desktop.nautilus-canvas-item:selected {
     color: #0e0021; }
-  .nautilus-desktop.nautilus-canvas-item:active, .nautilus-desktop.nautilus-canvas-item:prelight, .nautilus-desktop.nautilus-canvas-item:selected {
+  .nautilus-desktop.nautilus-canvas-item:active, .nautilus-desktop.nautilus-canvas-item:hover, .nautilus-desktop.nautilus-canvas-item:selected {
     text-shadow: none; }
 
 NautilusWindow .toolbar {
@@ -3324,7 +3324,7 @@ NautilusQueryEditor .toolbar {
     color: #0e0021; }
   .nemo-desktop.nemo-canvas-item:selected {
     color: #0e0021; }
-  .nemo-desktop.nemo-canvas-item:active, .nemo-desktop.nemo-canvas-item:prelight, .nemo-desktop.nemo-canvas-item:selected {
+  .nemo-desktop.nemo-canvas-item:active, .nemo-desktop.nemo-canvas-item:hover, .nemo-desktop.nemo-canvas-item:selected {
     text-shadow: none; }
 
 NemoPathbarButton {
@@ -3414,7 +3414,7 @@ PanelApplet .button, .xfce4-panel .button {
   background-color: transparent;
   background-image: none;
   color: #A5A8A2; }
-  PanelApplet .button:hover, .xfce4-panel .button:hover, PanelApplet .button:prelight, .xfce4-panel .button:prelight {
+  PanelApplet .button:hover, .xfce4-panel .button:hover, PanelApplet .button:hover, .xfce4-panel .button:hover {
     background-color: mix(#0e0021,#A5A8A2,0.11);
     background-image: none;
     border-color: mix(#0e0021,#A5A8A2,0.11);
@@ -3424,7 +3424,7 @@ PanelApplet .button, .xfce4-panel .button {
     background-image: none;
     border-color: mix(#0e0021,#A5A8A2,0.21);
     color: #b2b5b0; }
-    PanelApplet .button:active:prelight, .xfce4-panel .button:active:prelight, PanelApplet .button:checked:prelight, .xfce4-panel .button:checked:prelight {
+    PanelApplet .button:active:hover, .xfce4-panel .button:active:hover, PanelApplet .button:checked:hover, .xfce4-panel .button:checked:hover {
       background-color: mix(#0e0021,#A5A8A2,0.31);
       background-image: none;
       border-color: mix(#0e0021,#A5A8A2,0.31); }

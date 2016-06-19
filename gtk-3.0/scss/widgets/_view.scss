@@ -45,14 +45,14 @@
         &.view {
             background-color: $base_color;
 
-            &:prelight { background-color: alpha($selected_bg_color, .6); }
+            &:hover { background-color: alpha($selected_bg_color, .6); }
 
             &:selected, &:active { background-color: $selected_bg_color; }
 
             &:insensitive { background-color: shade($base_color, .9); }
 
             &.check {
-                &, &:active, &:prelight, &:insensitive, &:selected { background-color: transparent; }
+                &, &:active, &:hover, &:insensitive, &:selected { background-color: transparent; }
             }
         }
 
