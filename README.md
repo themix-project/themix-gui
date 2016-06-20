@@ -15,6 +15,7 @@ Graphical application for generating different color variations of Numix theme (
 ![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot.png "Screenshot GUI 1")
 
 
+
 ### Arch Linux:
 
 #### Install
@@ -28,6 +29,73 @@ yaourt -S oomox-git
 ```
 oomox-gui
 ```
+
+
+
+### Ubuntu
+
+Ubuntu 16.04 and 15.10 / Linux Mint 18 users can install Oomox by using the main WebUpd8 PPA:
+
+```bash
+sudo add-apt-repository ppa:nilarimogard/webupd8
+sudo apt update
+sudo apt install oomox
+```
+
+If you don't want to add the PPA, you can download the deb from [here](http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/ "").
+
+For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#gui-1 "").
+
+```
+sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
+sudo gem install sass
+```
+
+
+
+### Other distributions:
+
+
+#### Prerequisites
+
+You need to have `python3-gobject` binding and those executables:
+ - `glib-compile-schemas`
+ - `gdk-pixbuf-pixdata`
+ - `sass`
+For GTK2 you need murrine engine which can be not installed by default.
+
+
+#### GUI
+
+```sh
+git clone https://github.com/actionless/oomox.git
+cd oomox
+./gui.sh
+```
+
+
+#### CLI:
+```sh
+git clone https://github.com/actionless/oomox.git
+cd oomox
+ls colors
+./change_color.sh gnome_noble  # or other theme from above
+```
+
+next select oomox_current in your appearance config tool (for example, _lxappearance_)
+
+
+#### Spotify:
+```sh
+git clone https://github.com/actionless/oomox.git
+cd oomox
+ls colors
+./oomoxify.sh gnome_noble  # or other theme from above
+```
+Make sure to remove `~/.config/oomox/spotify_backup` when upgrading Spotify to the new version.
+
+Also you can replace font with `-f` argument, see `-h` for usage.
+
 
 
 ### Using with tiling WMs:
@@ -51,58 +119,15 @@ window decoration {
 ```
 
 
-### Other distributions:
-
-#### Prerequisites
-
-You need to have `python3-gobject` binding and those executables:
- - `glib-compile-schemas`
- - `gdk-pixbuf-pixdata`
- - `sass`
-For GTK2 you need murrine engine which can be not installed by default.
-
-##### Ubuntu
-
-```
-sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
-sudo gem install sass
-```
-
-#### GUI
-
-```sh
-git clone https://github.com/actionless/oomox.git
-cd oomox
-./gui.sh
-```
-
-#### CLI:
-```sh
-git clone https://github.com/actionless/oomox.git
-cd oomox
-ls colors
-./change_color.sh gnome_noble  # or other theme from above
-```
-
-
-next select oomox_current in your appearance config tool (for example, _lxappearance_)
-
-
-#### Spotify:
-```sh
-git clone https://github.com/actionless/oomox.git
-cd oomox
-ls colors
-./oomoxify.sh gnome_noble  # or other theme from above
-```
-Make sure to remove `~/.config/oomox/spotify_backup` when upgrading Spotify to the new version.
-
-Also you can replace font with `-f` argument, see `-h` for usage.
-
 
 #### Review article
 
-To learn more about it you can check this article: http://www.webupd8.org/2016/05/easily-create-your-own-numix-based-gtk.html
+To learn more about using the application you can check these articles: 
+
+  * http://www.webupd8.org/2016/05/easily-create-your-own-numix-based-gtk.html
+  * http://www.webupd8.org/2016/06/tool-to-customize-numix-theme-colors.html
+
+
 
 #### Demo video
 
