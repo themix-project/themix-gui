@@ -1,6 +1,8 @@
 import os
 import random
 import subprocess
+from collections import defaultdict
+from itertools import groupby
 from gi.repository import Gdk, Gtk, Gio
 
 
@@ -108,14 +110,20 @@ def ls_r(path):
 
 
 def get_presets():
-    result = {
-        "".join(
-            path.startswith(colors_dir) and path.rsplit(colors_dir) or
-            path.rsplit(user_theme_dir)
-        ): path
+    file_paths = [
+        {
+            "name": "".join(
+                path.startswith(colors_dir) and path.rsplit(colors_dir) or
+                path.rsplit(user_theme_dir)
+            ),
+            "path": path,
+        }
         for path in ls_r(colors_dir) + ls_r(user_theme_dir)
-    }
-    return result
+    ]
+    result = defaultdict(list)
+    for key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
+        result[key] = list(group)
+    return dict(result)
 
 
 def get_random_gdk_color():

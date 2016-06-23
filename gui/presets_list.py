@@ -27,7 +27,7 @@ class ThemePresetsList(Gtk.Box):
         )
 
     def add_preset(self, preset_name, preset_path):
-        self.liststore.append((preset_name, preset_path))
+        self.liststore.append(None, (preset_name, preset_path))
 
     def update_current_preset_path(self, new_path):
         self.liststore[self.treeiter][1] = new_path
@@ -37,9 +37,18 @@ class ThemePresetsList(Gtk.Box):
         self.preset_select_callback = preset_select_callback
         self.presets = get_presets()
 
-        self.liststore = Gtk.ListStore(str, str)
-        for preset_name, preset_path in self.presets.items():
-            self.liststore.append((preset_name, preset_path))
+        self.liststore = Gtk.TreeStore(str, str)
+        for preset_dir, preset_list in self.presets.items():
+            sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
+            piter = self.liststore.append(
+                None,
+                (sorted_preset_list[0]['name'], sorted_preset_list[0]['path'])
+            )
+            for preset in sorted_preset_list[1:]:
+                self.liststore.append(
+                    piter,
+                    (preset['name'], preset['path'])
+                )
         self.liststore.set_sort_column_id(0, Gtk.SortType.ASCENDING)
 
         treeview = Gtk.TreeView(model=self.liststore, headers_visible=False)
