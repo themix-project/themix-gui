@@ -4,19 +4,15 @@
 
 @include exports("nemo") {
     .nemo-desktop, .nemo-desktop * {
-        color: $white;
-        text-shadow: 1px 1px $black;
+        &, &:backdrop {
+            color: $white;
+            text-shadow: 1px 1px $black;
 
-        &:active {
-            color: $fg_color;
-        }
+            &:active { color: $fg_color; }
 
-        &:selected {
-            color: $selected_fg_color;
-        }
+            &:selected { color: $selected_fg_color; }
 
-        &:active, &:hover, &:selected {
-            text-shadow: none;
+            &:active, &:hover, &:selected { text-shadow: none; }
         }
     }
 
@@ -71,8 +67,7 @@
             > widget:last-child {
                 button {
                     min-height: 15px;
-                    min-width: 22px;
-                    margin: 5px;
+                    min-width: 20px;
                 }
 
                 button:first-child {
@@ -132,24 +127,24 @@
             }
             
             /* Nemo Query Editor (File Search Bar) */
-            + separator + box .primary-toolbar  {
+            + separator + box .primary-toolbar {
+                @include linear-gradient(shade($bg_color, .98)); // Searchbar color (_actionbar.scss)
+
                 padding-top: $spacing - 3px;
                 padding-bottom: $spacing - 4px;
-                border-top: none;
-                background-color: $selected_bg_color;
-                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+                border-bottom: 1px solid $borders_color;
 
                 button:nth-child(2) {
                     border-right: none;
-                    border-top-right-radius: 0px;
-                    border-bottom-right-radius: 0px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
                 }
 
                 button:nth-child(3) {
                     margin-left: -6px;
                     border-left: none;
-                    border-top-left-radius: 0px;
-                    border-bottom-left-radius: 0px;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
                 }
                 
                 button.flat {
@@ -168,9 +163,7 @@
                     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
                     padding: 5px 6px;
                 }
-
             } // END Nemo Query Editor
-
         } // END .sidebar
 
         notebook {
@@ -183,4 +176,3 @@
         }
     }
 }
-
