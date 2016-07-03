@@ -2,18 +2,18 @@
 import os
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
-from gi.repository import Gtk, Gdk, GObject, GLib
+from gi.repository import Gtk, GObject
 
 from .helpers import (
+    user_theme_dir,
     mkdir_p,
     read_colorscheme_from_path, save_colorscheme,
-    script_dir, user_theme_dir,
     ImageButton, CenterLabel
 )
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
-from .export import export_theme
+from .export import export_theme, export_icon_theme
 
 
 class NewDialog(Gtk.Dialog):
@@ -111,6 +111,10 @@ class MainWindow(Gtk.Window):
         self.check_unsaved_changes()
         export_theme(window=self, theme_path=self.colorscheme_path)
 
+    def on_export_icontheme(self, button):
+        self.check_unsaved_changes()
+        export_icon_theme(window=self, theme_path=self.colorscheme_path)
+
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()
         self.colorscheme_name = selected_preset
@@ -149,6 +153,10 @@ class MainWindow(Gtk.Window):
         save_button.connect("clicked", self.on_save)
         self.headerbar.pack_start(save_button)
 
+        export_icons_button = Gtk.Button(label="Export icon theme")
+        export_icons_button.connect("clicked", self.on_export_icontheme)
+        self.headerbar.pack_end(export_icons_button)
+
         export_button = Gtk.Button(label="Export theme")
         export_button.connect("clicked", self.on_export)
         self.headerbar.pack_end(export_button)
@@ -159,24 +167,6 @@ class MainWindow(Gtk.Window):
         Gtk.Window.__init__(self, title="Oo-mox GUI")
         self.set_default_size(500, 300)
         self.set_border_width(6)
-
-        win_style_context = self.get_style_context()
-        css_provider = Gtk.CssProvider()
-        try:
-            if Gtk.get_minor_version() == 20:
-                css_provider.load_from_path(
-                    os.path.join(script_dir, "theme20.css")
-                )
-            else:
-                css_provider.load_from_path(
-                    os.path.join(script_dir, "theme.css")
-                )
-        except GLib.Error as e:
-            print(e)
-        screen = Gdk.Screen.get_default()
-        win_style_context.add_provider_for_screen(
-            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
 
         self._init_headerbar()
 

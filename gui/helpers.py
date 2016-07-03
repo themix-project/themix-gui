@@ -68,6 +68,7 @@ THEME_KEYS = [
         'fallback_key': 'BTN_FG',
         'type': 'color',
     },
+
     {
         'key': 'GTK3_GENERATE_DARK',
         'type': 'bool',
@@ -91,6 +92,31 @@ THEME_KEYS = [
         'type': 'float',
         'fallback_value': 0.0,
         'display_name': '(GTK3) Gradient'
+    },
+
+    {
+        'key': 'ICONS_LIGHT_FOLDER',
+        'type': 'color',
+        'fallback_key': 'SEL_BG',
+        'display_name': '(icons) Light base (folders)'
+    },
+    {
+        'key': 'ICONS_LIGHT',
+        'fallback_key': 'SEL_BG',
+        'type': 'color',
+        'display_name': '(icons) Light base'
+    },
+    {
+        'key': 'ICONS_MEDIUM',
+        'type': 'color',
+        'fallback_key': 'BTN_BG',
+        'display_name': '(icons) Medium base'
+    },
+    {
+        'key': 'ICONS_DARK',
+        'type': 'color',
+        'fallback_key': 'BTN_FG',
+        'display_name': '(icons) Dark stroke'
     },
 ]
 
