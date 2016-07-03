@@ -3,9 +3,9 @@
 
 pkgname=oomox-git
 pkgver=0.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical application for generating different color variations 
-of Numix theme (GTK2, GTK3) and gnome-colors icon theme."
+of Numix theme (GTK2, GTK3) and gnome-colors icon theme"
 arch=('x86_64' 'i686')
 url="https://github.com/actionless/oomox"
 license=('GPLv3')
@@ -69,5 +69,22 @@ cd /opt/oomox/
 exec ./oomoxify.sh "\$@"
 EOF
 	chmod +x ${pkgdir}/usr/bin/oomoxify-cli
+
+
+	cat > ${pkgdir}/usr/share/applications/oomox <<EOF
+[Desktop Entry]
+Name=Oomox
+GenericName=Oomox
+Comment=Graphical application for generating different color variations of Numix theme (GTK2, GTK3) and gnome-colors icon theme
+Exec=oomox-gui
+Terminal=false
+Type=Application
+Icon=preferences-desktop-theme
+Categories=GNOME;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
+Keywords=color;gtk;highlight;theme;widget;numix;
+StartupWMClass=__main__.py
+X-GNOME-Gettext-Domain=oomox
+X-Desktop-File-Install-Version=0.22
+EOF
 
 }
