@@ -56,7 +56,7 @@ class ExportDialog(Gtk.Dialog):
         self.scrolled_window.set_policy(
             Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scrolled_window.add(self.log)
-        self.scrolled_window.set_min_content_height(100)
+        # self.scrolled_window.set_min_content_height(100)
 
         self.box = self.get_content_area()
         self.box.add(self.label)
@@ -65,7 +65,7 @@ class ExportDialog(Gtk.Dialog):
         self.show_all()
 
 
-def export_theme(window, theme_path):
+def _export(window, theme_path, export_args):
     spinner = ExportDialog(window)
 
     captured_log = ""
@@ -81,18 +81,10 @@ def export_theme(window, theme_path):
 
     def do_export():
         nonlocal captured_log
-        if Gtk.get_minor_version() == 20:
-            make_opts = "gtk320"
-        else:
-            make_opts = "gtk3"
         proc = subprocess.Popen(
-            [
-                "bash",
-                os.path.join(theme_dir, "change_color.sh"),
-                theme_path,
-                "--make-opts", make_opts
-            ],
-            stdout=subprocess.PIPE
+            export_args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT
         )
         for line in iter(proc.stdout.readline, b''):
             captured_log += line.decode("utf-8")
@@ -107,3 +99,24 @@ def export_theme(window, theme_path):
     thread.daemon = True
     thread.start()
     spinner.run()
+
+
+def export_theme(window, theme_path):
+    if Gtk.get_minor_version() == 20:
+        make_opts = "gtk320"
+    else:
+        make_opts = "gtk3"
+    return _export(window, theme_path, [
+        "bash",
+        os.path.join(theme_dir, "change_color.sh"),
+        theme_path,
+        "--make-opts", make_opts
+    ])
+
+
+def export_icon_theme(window, theme_path):
+    return _export(window, theme_path, [
+        "bash",
+        os.path.join(theme_dir, "gnome_colors.sh"),
+        theme_path,
+    ])

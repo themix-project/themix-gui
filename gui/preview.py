@@ -1,8 +1,9 @@
-from gi.repository import Gtk
+import os
+from gi.repository import Gtk, GLib
 
 from .helpers import (
     convert_theme_color_to_gdk,
-    THEME_KEYS,
+    THEME_KEYS, script_dir
 )
 
 
@@ -136,3 +137,34 @@ class ThemePreview(Gtk.Grid):
         # hack to have margin inside children box instead of the parent one:
         self.bg.attach_next_to(Gtk.Label(), self.button,
                                Gtk.PositionType.BOTTOM, 1, 1)
+
+        css_provider = Gtk.CssProvider()
+        try:
+            if Gtk.get_minor_version() == 20:
+                css_provider.load_from_path(
+                    os.path.join(script_dir, "theme20.css")
+                )
+            else:
+                css_provider.load_from_path(
+                    os.path.join(script_dir, "theme.css")
+                )
+        except GLib.Error as e:
+            print(e)
+
+        for widget in [
+            self,
+            self.label,
+            self.sel_label,
+            self.entry,
+            self.button,
+            self.menuitem1,
+            self.menuitem2,
+            self.menubar,
+            self.headerbar,
+            self.headerbar_button
+        ]:
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
