@@ -2,6 +2,7 @@
 =====
 
 Graphical application for generating different color variations of Numix theme (GTK2, GTK3)
+and gnome-colors icon theme.
 
   * [Arch Linux](#arch-linux "")
   * [Ubuntu](#ubuntu "")
@@ -82,7 +83,23 @@ ls colors
 ./change_color.sh gnome_noble  # or other theme from above
 ```
 
-next select oomox_current in your appearance config tool (for example, _lxappearance_)
+next select oomox-current in your appearance config tool (for example, _lxappearance_)
+
+
+#### Icons:
+
+For icons you need to have `inkscape` and `imagemagick` installed.
+
+To generate `gnome-colors` iconset with the selected colorscheme:
+
+```sh
+git clone https://github.com/actionless/oomox.git
+cd oomox
+ls colors
+./gnome_colors.sh gnome_noble  # or other theme from above
+```
+
+next select oomox-current in your appearance config tool (for example, _lxappearance_)
 
 
 #### Spotify:
