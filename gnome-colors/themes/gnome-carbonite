@@ -1,0 +1,21 @@
+Name=GNOME-Carbonite
+Distribution=gnome-colors-extras
+Alternatives=Folder Actions
+LightFolderBase=#8fb3d9
+LightBase=#729fcf
+MediumBase=#3465a4
+DarkStroke=#204a87
+
+#The following set first alternate color palette for files by type.
+Folder_Files=actions/add-folder-to-archive.png actions/document-open.png actions/folder-copy.png actions/folder-move.png actions/folder-new.png places/folder.png places/folder-documents.png places/folder-downloads.png places/folder-music.png places/folder-pictures.png places/folder-publicshare.png places/folder-videos.png places/folder-remote.png places/folder-saved-search.png places/user-home.png status/folder-open.png
+Folder_LightFolderBase=#888a85
+Folder_LightBase=#747672
+Folder_MediumBase=#555753
+Folder_DarkStroke=#2e3436
+
+#The following set second alternate color palette for files by type.
+Actions_Files=actions/go-bottom.png actions/go-down.png actions/go-first.png actions/go-jump.png actions/go-last.png actions/go-next.png actions/go-previous.png actions/go-top.png actions/go-up.png
+Actions_LightFolderBase=#aacb7d
+Actions_LightBase=#97bf60
+Actions_MediumBase=#709937
+Actions_DarkStroke=#51751e

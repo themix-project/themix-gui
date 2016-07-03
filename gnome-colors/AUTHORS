@@ -1,0 +1,89 @@
+####################
+ABOUT:             #
+####################
+GNOME-Colors is developed by Victor C. <perfectska04@gmail.com>
+
+GNOME icons and GNOME-Colors icons are all licensed under the GPL. Some
+original GNOME-Colors icons are listed as public domain.
+
+This package is licensed under GNU General Public License version 2.
+
+Icons based or directly from GNOME and other GNOME projects, licensed GPL.
+	You can visit the GNOME website here:
+		http://www.gnome.org/
+
+Icons based on Tango sources or taken from the Tango project are public domain.
+	You can visit the Tango project website here:
+		http://tango.freedesktop.org/Tango_Desktop_Project
+
+Custom application icons are from the Tango Generator project (GPL).
+	You can visit the project website here:
+		http://mejogid.ohallwebservices.com/site/index.php?q=node/1
+
+Some icons are based on sources from the Elementary Project (GPL).
+	You can visit the project website here:
+		http://code.google.com/p/elementary-project/
+
+Some application icons come from their respective GPL applications, to ensure
+that all sizes from 16px to scalable are always sharp and rendered properly.
+
+Some custom application icons are from other GPL sources.
+	You can visit their websites here:
+		http://jimmac.musichall.cz/
+		http://www.andreasn.se/blog/
+		http://mischamajskij.deviantart.com/
+		http://jaanos.deviantart.com/
+		http://quantum-bits.org/
+		http://ulisse.wordpress.com/
+		http://www.bomahy.nl/hylke/blog/
+		http://www.jesusda.com/
+
+####################
+SPECIAL THANKS TO: #
+####################
+* Jakub 'jimmac' Steiner, Andreas Nilsson, Lapo Calamandrei, Hylke Bons and all
+  the other talented artists who make tons of incredible artwork for Linux.
+  GNOME-Colors would not exist at all without these people.
+
+* The GNOME and Tango projects, on which GNOME-Colors is decidedly and
+  admittedly based 99% on.
+
+* Benjamin Drung and Andrew Starr-Bochicchio for doing the Debian/Ubuntu
+  packaging, maintaining the official PPA repository, getting all the packages
+  into Ubuntu Karmic's archives, and helping to resolve all licensing conflicts
+  in order to make GNOME-Colors freer and easier than ever!
+
+* Benjamin Drung, once again, for engineering the entire move to SVN, the
+  creation of makefiles and all the other scripts that allow for automatic
+  recoloring.
+
+* Evgeni Golov for reviewing the packages and uploading everything to Debian.
+
+* The Tango Generator project for making dozens of consistent and beautiful
+  application icons available for use.
+
+* The developers of "Human" and "Erectus" icon themes for some inspiration and
+  icons.
+
+* The Elementary project for being a big influence for GNOME-Colors in the
+  project's very early stages. We have moved quite far away from them and into
+  almost all Gnome/Tango-based icons, but there are still a small handful of
+  icons based on Elementary that give the project a little extra style.
+
+* Many unnamed artists who created or helped create icons specifically for this
+  set. (If you are such a person, e-mail me and I will add you here.)
+
+* The gnome-look.org, ubuntuforums.org and linux communities for their constant
+  support, words of encouragement and prompt feedback.
+
+* The developers of gnome-do for featuring gnome-colors in their website!
+
+* Xubuntu, Easy Peasy, Sabayon-GNOME, Linux Mint and others for including these
+  icons in their distributions!
+
+* The Comix developer for making one of the best applications for Linux, and for
+  collaborating in the creation and inclusion of the new Comix logo/icons.
+
+* And last but not least, people who have donated to the project! I don't
+  require nor force donations, but I am always very thankful of those of you who
+  have donated any amount to the project.
