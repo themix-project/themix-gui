@@ -3,7 +3,7 @@
 
 pkgname=oomox-git
 pkgver=0.19.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Graphical application for generating different color variations 
 of Numix theme (GTK2, GTK3) and gnome-colors icon theme"
 arch=('x86_64' 'i686')
@@ -37,6 +37,7 @@ package() {
 	mkdir -p ${pkgdir}/opt/oomox
 	mv ./oomox/* ${pkgdir}/opt/oomox
 	mkdir -p ${pkgdir}/usr/bin/
+	mkdir -p ${pkgdir}/usr/share/applications/
 
 
 	cat > ${pkgdir}/usr/bin/oomox-gui <<EOF
@@ -71,7 +72,7 @@ EOF
 	chmod +x ${pkgdir}/usr/bin/oomoxify-cli
 
 
-	cat > ${pkgdir}/usr/share/applications/oomox <<EOF
+	cat > ${pkgdir}/usr/share/applications/oomox.desktop <<EOF
 [Desktop Entry]
 Name=Oomox
 GenericName=Oomox
