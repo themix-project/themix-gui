@@ -89,8 +89,14 @@ class BoolListBoxRow(Gtk.ListBoxRow):
 
 class ColorListBoxRow(Gtk.ListBoxRow):
 
+    def on_color_input(self, widget):
+        self.value = widget.get_text()
+        self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
+        self.color_set_callback(self.key, self.value)
+
     def on_color_set(self, widget):
         self.value = convert_gdk_to_theme_color(widget.get_rgba())
+        self.color_entry.set_text(self.value)
         self.color_set_callback(self.key, self.value)
 
     def __init__(self, display_name, key, value, color_set_callback):
@@ -105,11 +111,17 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        color_button = Gtk.ColorButton.new_with_rgba(
+        linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.StyleContext.add_class(linked_box.get_style_context(), "linked")
+        self.color_entry = Gtk.Entry(text=value, width_chars=8)
+        self.color_entry.connect("changed", self.on_color_input)
+        linked_box.add(self.color_entry)
+        self.color_button = Gtk.ColorButton.new_with_rgba(
             convert_theme_color_to_gdk(value)
         )
-        color_button.connect("color-set", self.on_color_set)
-        hbox.pack_start(color_button, False, True, 0)
+        linked_box.add(self.color_button)
+        self.color_button.connect("color-set", self.on_color_set)
+        hbox.pack_start(linked_box, False, True, 0)
 
 
 class ThemeColorsList(Gtk.Box):
