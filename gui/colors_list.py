@@ -106,22 +106,38 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         self.key = key
         self.value = value
 
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
         self.add(hbox)
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        Gtk.StyleContext.add_class(linked_box.get_style_context(), "linked")
-        self.color_entry = Gtk.Entry(text=value, width_chars=8)
-        self.color_entry.connect("changed", self.on_color_input)
-        linked_box.add(self.color_entry)
-        self.color_button = Gtk.ColorButton.new_with_rgba(
-            convert_theme_color_to_gdk(value)
-        )
-        linked_box.add(self.color_button)
-        self.color_button.connect("color-set", self.on_color_set)
-        hbox.pack_start(linked_box, False, True, 0)
+        # @TODO:
+        if False:
+            # unfortunately linked box is causing weird redraw issues
+            # in current GTK version, let's leave it for later
+            linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+            Gtk.StyleContext.add_class(
+                linked_box.get_style_context(), "linked"
+            )
+            self.color_entry = Gtk.Entry(text=value, width_chars=8)
+            self.color_entry.connect("changed", self.on_color_input)
+            linked_box.add(self.color_entry)
+            self.color_button = Gtk.ColorButton.new_with_rgba(
+                convert_theme_color_to_gdk(value)
+            )
+            linked_box.add(self.color_button)
+            self.color_button.connect("color-set", self.on_color_set)
+            hbox.pack_start(linked_box, False, True, 0)
+        else:
+            self.color_entry = Gtk.Entry(text=value, width_chars=7)
+            self.color_entry.connect("changed", self.on_color_input)
+            hbox.pack_start(self.color_entry, False, True, 0)
+
+            self.color_button = Gtk.ColorButton.new_with_rgba(
+                convert_theme_color_to_gdk(value)
+            )
+            self.color_button.connect("color-set", self.on_color_set)
+            hbox.pack_start(self.color_button, False, True, 0)
 
 
 class SeparatorListBoxRow(Gtk.ListBoxRow):
