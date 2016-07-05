@@ -124,6 +124,21 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(linked_box, False, True, 0)
 
 
+class SeparatorListBoxRow(Gtk.ListBoxRow):
+
+    def __init__(self, display_name):
+        super().__init__(activatable=False, selectable=False)
+
+        label = Gtk.Label(xalign=0)
+        label.set_markup("<b>{}</b>".format(display_name))
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        hbox.pack_start(Gtk.Label(), True, True, 2)
+        hbox.pack_start(label, True, True, 4)
+
+        self.add(hbox)
+
+
 class ThemeColorsList(Gtk.Box):
 
     theme = None
@@ -141,7 +156,7 @@ class ThemeColorsList(Gtk.Box):
             self.listbox.add(row)
         else:
             for key_obj in THEME_KEYS:
-                key = key_obj['key']
+                key = key_obj.get('key')
                 display_name = key_obj.get('display_name', key)
                 row = None
                 if key_obj['type'] == 'color':
@@ -160,6 +175,8 @@ class ThemeColorsList(Gtk.Box):
                     row = FloatListBoxRow(
                         display_name, key, self.theme[key], self.color_edited
                     )
+                elif key_obj['type'] == 'separator':
+                    row = SeparatorListBoxRow(display_name)
                 if row:
                     self.listbox.add(row)
         self.listbox.show_all()

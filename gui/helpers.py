@@ -70,11 +70,10 @@ THEME_KEYS = [
     },
 
     {
-        'key': 'GTK3_GENERATE_DARK',
-        'type': 'bool',
-        'fallback_value': True,
-        'display_name': '(GTK3) Add dark variant'
+        'type': 'separator',
+        'display_name': 'Options'
     },
+
     {
         'key': 'ROUNDNESS',
         'type': 'int',
@@ -93,30 +92,41 @@ THEME_KEYS = [
         'fallback_value': 0.0,
         'display_name': '(GTK3) Gradient'
     },
+    {
+        'key': 'GTK3_GENERATE_DARK',
+        'type': 'bool',
+        'fallback_value': True,
+        'display_name': '(GTK3) Add dark variant'
+    },
+
+    {
+        'type': 'separator',
+        'display_name': 'Iconset'
+    },
 
     {
         'key': 'ICONS_LIGHT_FOLDER',
         'type': 'color',
         'fallback_key': 'SEL_BG',
-        'display_name': '(icons) Light base (folders)'
+        'display_name': 'Light base (folders)'
     },
     {
         'key': 'ICONS_LIGHT',
         'fallback_key': 'SEL_BG',
         'type': 'color',
-        'display_name': '(icons) Light base'
+        'display_name': 'Light base'
     },
     {
         'key': 'ICONS_MEDIUM',
         'type': 'color',
         'fallback_key': 'BTN_BG',
-        'display_name': '(icons) Medium base'
+        'display_name': 'Medium base'
     },
     {
         'key': 'ICONS_DARK',
         'type': 'color',
         'fallback_key': 'BTN_FG',
-        'display_name': '(icons) Dark stroke'
+        'display_name': 'Dark stroke'
     },
 ]
 
@@ -172,7 +182,9 @@ def convert_gdk_to_theme_color(gdk_color):
 def resolve_color_links(colorscheme):
     # @TODO: rename it
     for key_obj in THEME_KEYS:
-        key = key_obj['key']
+        key = key_obj.get('key')
+        if not key:
+            continue
         fallback_key = key_obj.get('fallback_key')
         fallback_value = key_obj.get('fallback_value')
         value = colorscheme.get(key)
