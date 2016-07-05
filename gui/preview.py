@@ -1,5 +1,5 @@
 import os
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, GdkPixbuf, Gio
 
 from .helpers import (
     convert_theme_color_to_gdk,
@@ -44,6 +44,8 @@ class ThemePreview(Gtk.Grid):
                             converted["HDR_BTN_FG"])
         self.override_color(self.headerbar_button, self.BG,
                             converted["HDR_BTN_BG"])
+        self.override_color(self.icon_preview_listbox, self.BG,
+                            converted["TXT_BG"])
 
         gradient = colorscheme['GRADIENT']
         for widget, color in zip(
@@ -92,8 +94,43 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
+        for source_image, target_imagebox in (
+            (self.icon_source_user_home, self.icon_user_home),
+            (self.icon_source_user_desktop, self.icon_user_desktop),
+            (self.icon_source_system_file_manager,
+             self.icon_system_file_manager),
+        ):
+            new_svg_image = source_image.replace(
+                "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"]
+            ).replace(
+                "LightBase", colorscheme["ICONS_LIGHT"]
+            ).replace(
+                "MediumBase", colorscheme["ICONS_MEDIUM"]
+            ).replace(
+                "DarkStroke", colorscheme["ICONS_DARK"]
+            ).encode('ascii')
+            stream = Gio.MemoryInputStream.new_from_bytes(
+                GLib.Bytes.new(new_svg_image)
+            )
+
+            # @TODO: is it possible to make it faster?
+            pixbuf = GdkPixbuf.Pixbuf.new_from_stream(stream, None)
+
+            target_imagebox.set_from_pixbuf(pixbuf)
+
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
+
+        for template_path, attr_name in (
+            ("user-home.svg.template", "icon_source_user_home"),
+            ("user-desktop.svg.template", "icon_source_user_desktop"),
+            ("system-file-manager.svg.template",
+             "icon_source_system_file_manager"),
+        ):
+            with open(
+                os.path.join(script_dir, template_path), "rb"
+            ) as f:
+                setattr(self, attr_name, f.read().decode('utf-8'))
 
         preview_label = Gtk.Label("Preview:")
         self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
@@ -126,6 +163,21 @@ class ThemePreview(Gtk.Grid):
 
         self.button = Gtk.Button(label="Click-click")
 
+        self.icon_preview_listbox = Gtk.ListBox()
+        self.icon_preview_listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        row = Gtk.ListBoxRow()
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        row.add(hbox)
+        for attr_name in (
+            "icon_user_home",
+            "icon_user_desktop",
+            "icon_system_file_manager"
+        ):
+            setattr(self, attr_name, Gtk.Image())
+            hbox.pack_start(getattr(self, attr_name), True, True, 0)
+        self.icon_preview_listbox.add(row)
+        self.icon_preview_listbox.show_all()
+
         self.bg.attach(self.headerbox, 1, 1, 5, 2)
         self.bg.attach(self.label, 3, 3, 1, 1)
         self.bg.attach_next_to(self.sel_label, self.label,
@@ -135,7 +187,13 @@ class ThemePreview(Gtk.Grid):
         self.bg.attach_next_to(self.button, self.entry,
                                Gtk.PositionType.BOTTOM, 1, 1)
         # hack to have margin inside children box instead of the parent one:
-        self.bg.attach_next_to(Gtk.Label(), self.button,
+        self.bottom_margin = Gtk.Label()
+        self.bg.attach_next_to(self.bottom_margin, self.button,
+                               Gtk.PositionType.BOTTOM, 1, 1)
+        self.bg.attach_next_to(self.icon_preview_listbox, self.bottom_margin,
+                               Gtk.PositionType.BOTTOM, 1, 1)
+        self.bottom_margin2 = Gtk.Label()
+        self.bg.attach_next_to(self.bottom_margin2, self.icon_preview_listbox,
                                Gtk.PositionType.BOTTOM, 1, 1)
 
         css_provider = Gtk.CssProvider()
