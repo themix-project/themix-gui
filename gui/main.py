@@ -182,7 +182,7 @@ class MainWindow(Gtk.Window):
         self.presets_list = ThemePresetsList(
             preset_select_callback=self.on_preset_selected
         )
-        self.box.pack_start(self.presets_list, True, True, 0)
+        self.box.pack_start(self.presets_list, False, False, 0)
 
         self.theme_edit = ThemeColorsList(
             color_edited_callback=self.on_color_edited
@@ -190,7 +190,7 @@ class MainWindow(Gtk.Window):
         self.box.pack_start(self.theme_edit, True, True, 0)
 
         self.preview = ThemePreview()
-        self.box.pack_start(self.preview, True, True, 0)
+        self.box.pack_start(self.preview, False, False, 0)
 
 
 def main():
