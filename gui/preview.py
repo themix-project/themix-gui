@@ -121,6 +121,11 @@ class ThemePreview(Gtk.Grid):
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
 
+        self._init_icon_templates()
+        self._init_widgets()
+        self._override_css_style()
+
+    def _init_icon_templates(self):
         for template_path, attr_name in (
             ("user-home.svg.template", "icon_source_user_home"),
             ("user-desktop.svg.template", "icon_source_user_desktop"),
@@ -132,6 +137,7 @@ class ThemePreview(Gtk.Grid):
             ) as f:
                 setattr(self, attr_name, f.read().decode('utf-8'))
 
+    def _init_widgets(self):
         preview_label = Gtk.Label("Preview:")
         self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
         self.attach(preview_label, 1, 1, 3, 1)
@@ -196,6 +202,7 @@ class ThemePreview(Gtk.Grid):
         self.bg.attach_next_to(self.bottom_margin2, self.icon_preview_listbox,
                                Gtk.PositionType.BOTTOM, 1, 1)
 
+    def _override_css_style(self):
         css_provider = Gtk.CssProvider()
         try:
             if Gtk.get_minor_version() == 20:
