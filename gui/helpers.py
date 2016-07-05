@@ -154,10 +154,12 @@ def get_presets():
             ),
             "path": path,
         }
-        for path in ls_r(colors_dir) + ls_r(user_theme_dir)
+        for path in ls_r(user_theme_dir) + ls_r(colors_dir)
     ]
     result = defaultdict(list)
     for key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
+        if key in result:
+            key = key + " (default)"
         result[key] = list(group)
     return dict(result)
 
@@ -274,9 +276,10 @@ def save_colorscheme(preset_name, colorscheme):
         with open(path, 'w') as f:
             f.write("NAME={}\n".format(preset_name))
             for field in THEME_KEYS:
-                f.write("{}={}\n".format(
-                    field['key'], colorscheme[field['key']]
-                ))
+                if field.get('key'):
+                    f.write("{}={}\n".format(
+                        field['key'], colorscheme[field['key']]
+                    ))
     except FileNotFoundError:
         mkdir_p(os.path.dirname(path))
         return save_colorscheme(preset_name, colorscheme)

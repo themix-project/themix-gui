@@ -85,9 +85,12 @@ class MainWindow(Gtk.Window):
         if not name:
             name = self.colorscheme_name
         new_path = save_colorscheme(name, self.colorscheme)
-        self.presets_list.update_current_preset_path(new_path)
-        self.colorscheme_path = new_path
         self.theme_edited = False
+        if new_path != self.colorscheme_path:
+            self.presets_list.update_current_preset_display_name(name + " (default)")
+            self.presets_list.add_preset(name, new_path)
+            self.presets_list.focus_previous()
+        self.colorscheme_path = new_path
         self.headerbar.props.title = self.colorscheme_name
 
     def check_unsaved_changes(self):
