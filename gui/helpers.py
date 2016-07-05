@@ -217,7 +217,9 @@ def bash_preprocess(preset_path):
             "bash", "-c",
             "source " + preset_path + " ; " +
             "".join(
-                "echo ${{{}-None}} ;".format(obj['key']) for obj in THEME_KEYS
+                "echo ${{{}-None}} ;".format(obj['key'])
+                for obj in THEME_KEYS
+                if obj.get('key')
             )
         ],
         stdout=subprocess.PIPE,
@@ -232,6 +234,8 @@ def bash_preprocess(preset_path):
     lines = process.stdout.decode("UTF-8").split()
     i = 0
     for obj in THEME_KEYS:
+        if not obj.get('key'):
+            continue
         value = lines[i]
         if value == 'None':
             value = None
