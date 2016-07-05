@@ -158,9 +158,11 @@ def get_presets():
     ]
     result = defaultdict(list)
     for key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
-        if key in result:
-            key = key + " (default)"
-        result[key] = list(group)
+        group = sorted(list(group), key=lambda x: x['name'])
+        display_name = group[0]['name']
+        if display_name in result:
+            display_name = display_name + " (default)"
+        result[display_name] = group
     return dict(result)
 
 
