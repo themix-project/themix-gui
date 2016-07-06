@@ -62,7 +62,10 @@ class ThemePresetsList(Gtk.Box):
             self.treestore, filepath
         )
         if treepath:
-            self.treeview.set_cursor(treepath)
+            treepathcopy = treepath.copy()
+            while treepath.up():
+                self.treeview.expand_row(treepath, False)
+            self.treeview.set_cursor(treepathcopy)
 
     def load_presets(self):
         if self.update_signal:
