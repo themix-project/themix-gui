@@ -87,9 +87,7 @@ class MainWindow(Gtk.Window):
         new_path = save_colorscheme(name, self.colorscheme)
         self.theme_edited = False
         if new_path != self.colorscheme_path:
-            self.presets_list.update_current_preset_display_name(name + " (default)")
-            self.presets_list.add_preset(name, new_path)
-            self.presets_list.focus_previous()
+            self.reload_presets(new_path)
         self.colorscheme_path = new_path
         self.headerbar.props.title = self.colorscheme_name
 
@@ -102,10 +100,8 @@ class MainWindow(Gtk.Window):
         dialog = NewDialog(self)
         dialog.run()
         new_theme_name = dialog.input_data
-        self.save(new_theme_name)
-        self.presets_list.add_preset(
-            new_theme_name, os.path.join(user_theme_dir, new_theme_name)
-        )
+        new_path = self.save(new_theme_name)
+        self.reload_presets(new_path)
 
     def on_save(self, button):
         self.save()
@@ -175,6 +171,13 @@ class MainWindow(Gtk.Window):
 
         self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         self.add(self.box)
+
+    def reload_presets(self, focus_on_path=None):
+        if not focus_on_path:
+            focus_on_path = self.colorscheme_path
+        self.presets_list.load_presets()
+        if focus_on_path:
+            self.presets_list.focus_preset_by_filepath(focus_on_path)
 
     def __init__(self):
         self.colorscheme = {}
