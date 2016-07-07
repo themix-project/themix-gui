@@ -78,18 +78,24 @@ else
 fi
 
 
-main_bg="${BG}"
-area_bg="${TXT_BG}"
-selected_row_bg="$(darker ${BG})"
-selected_area_bg="$(darker ${TXT_BG} 20)"
+main_bg="${SPOTIFY_MAIN_BG-$BG}"
+area_bg="${SPOTIFY_AREA_BG-$TXT_BG}"
+selected_row_bg_fallback="$(darker ${BG})"
+selected_area_bg_fallback="$(darker ${TXT_BG} 20)"
+selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
+selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
 
-sidebar_fg="${FG}"
-main_fg="${FG}"
-accent_fg="$(darker ${BTN_BG} 30)"
+sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
+main_fg="${SPOTIFY_MAIN_FG-$FG}"
+accent_fg_fallback="$(darker ${BTN_BG} 30)"
+accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
-hover_text="${SEL_BG}"
-active_selection_color="${SEL_BG}"
-inactive_selection_color="$(darker ${SEL_BG})"
+hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
+active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
+inactive_selection_color_fallback="$(darker ${SEL_BG})"
+hover_selection_color_fallback="$(darker ${SEL_BG} -10)"
+inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
+hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
 
 
 tmp_dir="$(mktemp -d)"
@@ -136,6 +142,7 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 				-e "s/1ed760/oomox_active_selection_color/gI" \
 				-e "s/1ed660/oomox_active_selection_color/gI" \
 				-e "s/1db954/oomox_inactive_selection_color/gI" \
+				-e "s/1df269/oomox_hover_selection_color/gI" \
 				-e "s/a0a0a0/oomox_main_fg/gI" \
 				-e "s/adafb2/oomox_sidebar_fg/gI" \
 				"${css}"
@@ -148,6 +155,7 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 				-e "s/oomox_hover_text/${hover_text}/gI" \
 				-e "s/oomox_active_selection_color/${active_selection_color}/gI" \
 				-e "s/oomox_inactive_selection_color/${inactive_selection_color}/gI" \
+				-e "s/oomox_hover_selection_color/${hover_selection_color}/gI" \
 				-e "s/oomox_main_fg/${main_fg}/gI" \
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
 				"${css}"
