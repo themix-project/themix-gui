@@ -3,14 +3,14 @@
 
 pkgname=oomox-git
 pkgver=0.20.0
-pkgrel=1
-pkgdesc="Graphical application for generating different color variations 
+pkgrel=2
+pkgdesc="Graphical application for generating different color variations
 of Numix theme (GTK2, GTK3) and gnome-colors icon theme"
 arch=('x86_64' 'i686')
 url="https://github.com/actionless/oomox"
 license=('GPLv3')
 source=(
-	"git://github.com/actionless/oomox.git#branch=master"
+	"git+https://github.com/actionless/oomox.git#branch=master"
 )
 md5sums=("SKIP")
 depends=(
