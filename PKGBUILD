@@ -10,7 +10,7 @@ arch=('x86_64' 'i686')
 url="https://github.com/actionless/oomox"
 license=('GPLv3')
 source=(
-	"git://github.com/actionless/oomox.git#branch=master"
+	"git+http://github.com/actionless/oomox.git#branch=master"
 )
 md5sums=("SKIP")
 depends=(
