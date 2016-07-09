@@ -98,6 +98,12 @@ THEME_KEYS = [
         'fallback_value': True,
         'display_name': '(GTK3) Add dark variant'
     },
+    {
+        'key': 'GTK2_HIDPI',
+        'type': 'bool',
+        'fallback_value': False,
+        'display_name': '(GTK2) HiDPI'
+    },
 
     {
         'type': 'separator',
@@ -192,12 +198,12 @@ def resolve_color_links(colorscheme):
         fallback_key = key_obj.get('fallback_key')
         fallback_value = key_obj.get('fallback_value')
         value = colorscheme.get(key)
-        if not value and (fallback_key or fallback_value is not None):
+        if value is None and (fallback_key or fallback_value is not None):
             if fallback_value is not None:
                 value = colorscheme[key] = fallback_value
             else:
                 value = colorscheme[key] = colorscheme[fallback_key]
-        if not value:
+        if value is None:
             colorscheme[key] = "ff3333"
         elif isinstance(value, str) and value.startswith("$"):
             try:
