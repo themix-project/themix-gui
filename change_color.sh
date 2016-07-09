@@ -76,10 +76,14 @@ else
 fi
 HDR_BTN_BG=${HDR_BTN_BG-$BTN_BG}
 HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
+
 GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
-ROUNDNESS=${ROUNDNESS-2}
+GTK2_HIDPI=$(echo ${GTK2_HIDPI-False} | tr '[:upper:]' '[:lower:]')
+
 SPACING=${SPACING-3}
 GRADIENT=${GRADIENT-0}
+ROUNDNESS=${ROUNDNESS-2}
+ROUNDNESS_GTK2_HIDPI=$(( ${ROUNDNESS} * 2 ))
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -111,6 +115,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%HDR_BTN_BG%/'"$HDR_BTN_BG"'/g' \
 		-e 's/%HDR_BTN_FG%/'"$HDR_BTN_FG"'/g' \
 		-e 's/%ROUNDNESS%/'"$ROUNDNESS"'/g' \
+		-e 's/%ROUNDNESS_GTK2_HIDPI%/'"$ROUNDNESS_GTK2_HIDPI"'/g' \
 		-e 's/%SPACING%/'"$SPACING"'/g' \
 		-e 's/%GRADIENT%/'"$GRADIENT"'/g' \
 		{} \; ;
@@ -119,6 +124,9 @@ done
 if [[ ${GTK3_GENERATE_DARK} != "true" ]] ; then
 	cp ./gtk-3.0/scss/gtk.scss ./gtk-3.0/scss/gtk-dark.scss || true
 	cp ./gtk-3.20/scss/gtk.scss ./gtk-3.20/scss/gtk-dark.scss || true
+fi
+if [[ ${GTK2_HIDPI} == "true" ]] ; then
+	cp ./gtk-2.0/gtkrc.hidpi ./gtk-2.0/gtkrc
 fi
 test ${MAKE_GTK3} = 1 && make "${MAKE_OPTS}"
 
