@@ -191,7 +191,8 @@ class MainWindow(Gtk.Window):
         self.box.pack_start(self.presets_list, False, False, 0)
 
         self.theme_edit = ThemeColorsList(
-            color_edited_callback=self.on_color_edited
+            color_edited_callback=self.on_color_edited,
+            parent=self
         )
         self.box.pack_start(self.theme_edit, True, True, 0)
 

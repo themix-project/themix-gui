@@ -1,4 +1,4 @@
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 from .helpers import (
     convert_theme_color_to_gdk, THEME_KEYS, convert_gdk_to_theme_color
 )
@@ -87,19 +87,102 @@ class BoolListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(switch, False, True, 0)
 
 
+palette_cache = []
+
+
+class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
+
+    parent_window = None
+    gtk_color = None
+
+    def on_cancel(self, button):
+        self.gtk_color = None
+        self.destroy()
+
+    def on_ok(self, button):
+        global palette_cache
+        self.gtk_color = self.props.color_selection.get_current_rgba()
+        palette_cache.append(self.gtk_color.to_color())
+        self.destroy()
+
+    def __init__(self, parent, gtk_color):
+        global palette_cache
+        self.gtk_color = gtk_color
+        self.parent_window = parent
+        Gtk.ColorSelectionDialog.__init__(self, "Choose a color...", parent, 0)
+
+        self.props.color_selection.set_current_rgba(self.gtk_color)
+        self.props.color_selection.set_has_palette(True)
+        if len(palette_cache) > 0:
+            palette_string = self.props.color_selection.palette_to_string(
+                palette_cache
+            )
+            # @TODO: this crashes for some reason
+            # print(palette_string)
+            # for color in palette_string.split(":"):
+                # print(Gdk.Color.parse(color))
+            # print(
+                # self.props.color_selection.get_children()[0].get_children()[1].get_children()[1].get_children()[1]
+            # )
+            # self.props.color_selection.palette_from_string(palette_string)
+
+        self.props.cancel_button.connect("clicked", self.on_cancel)
+        self.props.ok_button.connect("clicked", self.on_ok)
+
+        self.show_all()
+
+
+class OomoxColorButton(Gtk.Button):
+
+    gtk_color = None
+    callback = None
+    parent_window = None
+    color_button = None
+    color_image = None
+
+    def set_rgba(self, gtk_color):
+        self.gtk_color = gtk_color
+        self.color_button.set_rgba(gtk_color)
+
+    def on_click(self, widget):
+        color_selection_dialog = OomoxColorSelectionDialog(
+            self.parent_window, self.gtk_color
+        )
+        color_selection_dialog.run()
+        new_color = color_selection_dialog.gtk_color
+        if new_color:
+            self.set_rgba(new_color)
+            self.callback(new_color)
+
+    def __init__(self, value, parent_window, callback):
+        self.parent_window = parent_window
+        self.gtk_color = convert_theme_color_to_gdk(value)
+        self.callback = callback
+        Gtk.Button.__init__(self)
+        self.color_button = Gtk.ColorButton.new_with_rgba(
+            self.gtk_color
+        )
+        self.color_image = self.color_button.get_child()
+        self.set_image(self.color_image)
+        self.connect("clicked", self.on_click)
+
+
 class ColorListBoxRow(Gtk.ListBoxRow):
+
+    parent_window = None
 
     def on_color_input(self, widget):
         self.value = widget.get_text()
         self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
         self.color_set_callback(self.key, self.value)
 
-    def on_color_set(self, widget):
-        self.value = convert_gdk_to_theme_color(widget.get_rgba())
+    def on_color_set(self, gtk_value):
+        self.value = convert_gdk_to_theme_color(gtk_value)
         self.color_entry.set_text(self.value)
         self.color_set_callback(self.key, self.value)
 
-    def __init__(self, display_name, key, value, color_set_callback):
+    def __init__(self, display_name, key, value, color_set_callback, parent):
+        self.parent_window = parent
         super().__init__()
 
         self.color_set_callback = color_set_callback
@@ -122,22 +205,24 @@ class ColorListBoxRow(Gtk.ListBoxRow):
             self.color_entry = Gtk.Entry(text=value, width_chars=8)
             self.color_entry.connect("changed", self.on_color_input)
             linked_box.add(self.color_entry)
-            self.color_button = Gtk.ColorButton.new_with_rgba(
-                convert_theme_color_to_gdk(value)
+            self.color_button = OomoxColorButton(
+                value,
+                parent_window=self.parent_window,
+                callback=self.on_color_set
             )
             linked_box.add(self.color_button)
-            self.color_button.connect("color-set", self.on_color_set)
             hbox.pack_start(linked_box, False, True, 0)
         else:
             self.color_entry = Gtk.Entry(text=value, width_chars=7)
             self.color_entry.connect("changed", self.on_color_input)
             hbox.pack_start(self.color_entry, False, True, 0)
-
-            self.color_button = Gtk.ColorButton.new_with_rgba(
-                convert_theme_color_to_gdk(value)
+            self.color_button = OomoxColorButton(
+                value,
+                parent_window=self.parent_window,
+                callback=self.on_color_set
             )
-            self.color_button.connect("color-set", self.on_color_set)
             hbox.pack_start(self.color_button, False, True, 0)
+            # ## ### #### ##### ###### #######
 
 
 class SeparatorListBoxRow(Gtk.ListBoxRow):
@@ -158,6 +243,7 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
 class ThemeColorsList(Gtk.Box):
 
     theme = None
+    parent = None
 
     def color_edited(self, key, value):
         self.theme[key] = value
@@ -177,7 +263,8 @@ class ThemeColorsList(Gtk.Box):
                 row = None
                 if key_obj['type'] == 'color':
                     row = ColorListBoxRow(
-                        display_name, key, self.theme[key], self.color_edited
+                        display_name, key, self.theme[key], self.color_edited,
+                        parent=self.parent
                     )
                 elif key_obj['type'] == 'bool':
                     row = BoolListBoxRow(
@@ -197,7 +284,8 @@ class ThemeColorsList(Gtk.Box):
                     self.listbox.add(row)
         self.listbox.show_all()
 
-    def __init__(self, color_edited_callback):
+    def __init__(self, color_edited_callback, parent):
+        self.parent = parent
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.color_edited_callback = color_edited_callback
 

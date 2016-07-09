@@ -8,13 +8,14 @@ from gi.repository import Gdk, Gtk, Gio
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 theme_dir = os.path.join(script_dir, "../")
-user_theme_dir = os.path.join(
+user_config_dir = os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",
         os.path.join(os.environ.get("HOME"), ".config/")
     ),
-    "oomox/colors/"
+    "oomox/"
 )
+user_theme_dir = os.path.join(user_config_dir, "colors/")
 colors_dir = os.path.join(theme_dir, "colors/")
 
 THEME_KEYS = [
