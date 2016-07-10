@@ -1,13 +1,14 @@
 import os
 import random
 import subprocess
+import json
 from collections import defaultdict
 from itertools import groupby
 from gi.repository import Gdk, Gtk, Gio
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-theme_dir = os.path.join(script_dir, "../")
+oomox_root_dir = os.path.join(script_dir, "../")
 user_config_dir = os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",
@@ -16,7 +17,8 @@ user_config_dir = os.path.join(
     "oomox/"
 )
 user_theme_dir = os.path.join(user_config_dir, "colors/")
-colors_dir = os.path.join(theme_dir, "colors/")
+colors_dir = os.path.join(oomox_root_dir, "colors/")
+user_palette_path = os.path.join(user_config_dir, "recent_palette.json")
 
 THEME_KEYS = [
     {
@@ -150,6 +152,19 @@ def ls_r(path):
         for files in os.walk(path)
         for file in files[2]
     ]
+
+
+def load_palette():
+    try:
+        with open(user_palette_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+
+def save_palette(palette):
+    with open(user_palette_path, 'w') as f:
+        return json.dump(palette, f)
 
 
 def get_presets():
