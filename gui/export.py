@@ -3,7 +3,7 @@ import os
 from threading import Thread
 from gi.repository import Gtk, GLib
 
-from .helpers import theme_dir, CenterLabel
+from .helpers import oomox_root_dir, CenterLabel
 
 
 class ExportDialog(Gtk.Dialog):
@@ -106,7 +106,7 @@ def export_theme(window, theme_path):
         make_opts = "gtk3"
     return _export(window, theme_path, [
         "bash",
-        os.path.join(theme_dir, "change_color.sh"),
+        os.path.join(oomox_root_dir, "change_color.sh"),
         theme_path,
         "--make-opts", make_opts
     ])
@@ -115,6 +115,6 @@ def export_theme(window, theme_path):
 def export_icon_theme(window, theme_path):
     return _export(window, theme_path, [
         "bash",
-        os.path.join(theme_dir, "gnome_colors.sh"),
+        os.path.join(oomox_root_dir, "gnome_colors.sh"),
         theme_path,
     ])

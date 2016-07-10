@@ -1,6 +1,7 @@
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 from .helpers import (
-    convert_theme_color_to_gdk, THEME_KEYS, convert_gdk_to_theme_color
+    convert_theme_color_to_gdk, THEME_KEYS, convert_gdk_to_theme_color,
+    load_palette, save_palette
 )
 
 
@@ -87,7 +88,7 @@ class BoolListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(switch, False, True, 0)
 
 
-palette_cache = []
+palette_cache = None
 
 
 class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
@@ -102,32 +103,41 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
     def on_ok(self, button):
         global palette_cache
         self.gtk_color = self.props.color_selection.get_current_rgba()
-        palette_cache.append(self.gtk_color.to_color())
+        gtk_color_converted = self.gtk_color.to_color().to_string()
+        palette_cache_list = [
+            string for string in palette_cache.split(':')
+            if string != ''
+        ]
+        if gtk_color_converted not in palette_cache_list:
+            palette_cache_list = (
+                [gtk_color_converted] + palette_cache_list
+            )[:20]
+            palette_cache = ':'.join(palette_cache_list)
+            save_palette(palette_cache_list)
         self.destroy()
+
+    def on_response(self, widget, result):
+        if result == -4:
+            return self.on_cancel(widget)
 
     def __init__(self, parent, gtk_color):
         global palette_cache
         self.gtk_color = gtk_color
         self.parent_window = parent
+
         Gtk.ColorSelectionDialog.__init__(self, "Choose a color...", parent, 0)
+        self.set_transient_for(parent)
+        self.props.color_selection.set_has_palette(True)
 
         self.props.color_selection.set_current_rgba(self.gtk_color)
-        self.props.color_selection.set_has_palette(True)
-        if len(palette_cache) > 0:
-            palette_string = self.props.color_selection.palette_to_string(
-                palette_cache
-            )
-            # @TODO: this crashes for some reason
-            # print(palette_string)
-            # for color in palette_string.split(":"):
-                # print(Gdk.Color.parse(color))
-            # print(
-                # self.props.color_selection.get_children()[0].get_children()[1].get_children()[1].get_children()[1]
-            # )
-            # self.props.color_selection.palette_from_string(palette_string)
+        if not palette_cache:
+            palette_cache = ':'.join(load_palette())
+
+        Gtk.Settings.get_default().props.gtk_color_palette = palette_cache
 
         self.props.cancel_button.connect("clicked", self.on_cancel)
         self.props.ok_button.connect("clicked", self.on_ok)
+        self.connect("response", self.on_response)
 
         self.show_all()
 
