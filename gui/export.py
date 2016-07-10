@@ -66,8 +66,6 @@ class ExportDialog(Gtk.Dialog):
 
 
 def _export(window, theme_path, export_args):
-    spinner = ExportDialog(window)
-
     captured_log = ""
 
     def update_ui(text):
@@ -95,10 +93,10 @@ def _export(window, theme_path, export_args):
         else:
             GLib.idle_add(ui_error)
 
+    spinner = ExportDialog(window)
     thread = Thread(target=do_export)
     thread.daemon = True
     thread.start()
-    spinner.run()
 
 
 def export_theme(window, theme_path):
