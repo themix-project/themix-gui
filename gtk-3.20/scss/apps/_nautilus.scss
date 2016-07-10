@@ -3,15 +3,17 @@
 *************/
 
 @include exports("nautilus") {
-    .nautilus-desktop * {
-        color: $white;
-        text-shadow: 1px 1px $black;
+    .nautilus-desktop, .nautilus-desktop * {
+        &, &:backdrop {
+            color: $white;
+            text-shadow: 1px 1px $black;
 
-        &:active { color: $fg_color; }
+            &:active { color: $fg_color; }
 
-        &:selected { color: $selected_fg_color; }
+            &:selected { color: $selected_fg_color; }
 
-        &:active, &:hover, &:selected { text-shadow: none; }
+            &:active, &:hover, &:selected { text-shadow: none; }
+        }
     }
 
     .nautilus-window {
@@ -22,44 +24,25 @@
         }
 
         .sidebar {
-            border: none;
+            border: 0;
+
             frame { border: 0; }
-        }
-
-        paned {
-            border-width: 0 1px 0 0;
-            border-style: solid;
-
-            &, &:hover {
-                border-color: shade($bg_color, ($contrast + .1));
-                background-color: $bg_color;
-            }
         }
 
         notebook {
             background-color: $base_color;
-            border: none;
+            border: 0;
+
             frame { border: 0; }
         }
 
         .searchbar-container {
-            border-bottom: 2px solid $base_color;
-            border-left-width: 0px;
+            margin-top: -1px;
 
             searchbar {
                 padding-top: $spacing - 3px;
                 padding-bottom: $spacing - 2px;
-                border: none;
-                background-color: $selected_bg_color;
-                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-                
-                .search {
-                    border-right-width: 1px;
-                
-                    + button {
-                        margin-left: 8px;
-                    }
-                }
+                border-bottom: 1px solid $borders_color;
             }
         }
     }
