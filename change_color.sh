@@ -119,7 +119,6 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%ROUNDNESS_GTK2_HIDPI%/'"$ROUNDNESS_GTK2_HIDPI"'/g' \
 		-e 's/%SPACING%/'"$SPACING"'/g' \
 		-e 's/%GRADIENT%/'"$GRADIENT"'/g' \
-		-e 's/%GRADIENT%/'"$GRADIENT"'/g' \
 		-e 's/%OUTPUT_THEME_NAME%/'"$OUTPUT_THEME_NAME"'/g' \
 		{} \; ;
 done
