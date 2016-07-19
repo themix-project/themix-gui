@@ -52,7 +52,7 @@ If you change any assets, you'll need to regenerate the `gtk.gresource.xml` and 
 
 ### Requirements
 
-GTK+ 3.16 or above
+GTK+ 3.18 or above
 
 Murrine theme engine
 
