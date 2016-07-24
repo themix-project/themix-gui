@@ -23,7 +23,7 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        adjustment = Gtk.Adjustment(value, 0.0, 4.0, 0.02, 10.0, 0)
+        adjustment = Gtk.Adjustment(value, 0.0, 4.0, 0.01, 10.0, 0)
         spinbutton = Gtk.SpinButton()
         spinbutton.set_digits(2)
         spinbutton.set_adjustment(adjustment)
