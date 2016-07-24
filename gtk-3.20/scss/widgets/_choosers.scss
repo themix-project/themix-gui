@@ -6,7 +6,7 @@
     colorswatch {
         &, &:selected {
             border: 1px solid alpha($black, .1);
-            border-radius: $roundness - 1px;
+            border-radius: $roundness;
             background-color: transparent;
             background-clip: border-box;
 
