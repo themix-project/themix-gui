@@ -25,18 +25,7 @@ examples:
 
 
 darker() {
-	hexinput=$(echo $1 | tr '[:lower:]' '[:upper:]')
-	light_delta=${2-10}
-
-    a=`echo $hexinput | cut -c-2`
-    b=`echo $hexinput | cut -c3-4`
-    c=`echo $hexinput | cut -c5-6`
-
-    r=`echo "ibase=16; $a - $light_delta" | bc`
-    g=`echo "ibase=16; $b - $light_delta" | bc`
-    b=`echo "ibase=16; $c - $light_delta" | bc`
-
-	echo $(echo "obase=16; $r" | bc ; echo "obase=16; $g" | bc ;echo "obase=16; $b" | bc) | tr -d ' '
+	${root}/darker.sh $@
 }
 
 
@@ -87,13 +76,13 @@ selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
 
 sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
 main_fg="${SPOTIFY_MAIN_FG-$FG}"
-accent_fg_fallback="$(darker ${BTN_BG} 30)"
+accent_fg_fallback="$(darker ${SEL_BG} 30)"
 accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
 hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
 active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
-inactive_selection_color_fallback="$(darker ${SEL_BG})"
-hover_selection_color_fallback="$(darker ${SEL_BG} -10)"
+inactive_selection_color_fallback="$(darker ${SEL_BG} 40)"
+hover_selection_color_fallback="$(darker ${SEL_BG} 20)"
 inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
 hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
 
