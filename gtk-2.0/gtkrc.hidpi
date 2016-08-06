@@ -259,6 +259,17 @@ style "murrine-progressbar" = "murrine-thin" {
 }
 
 style "murrine-treeview-header" = "murrine-button" {
+	#bg[NORMAL] = @base_color
+	bg[NORMAL] = mix(0.12, @bg_color, @base_color)
+	bg[PRELIGHT] = shade (1.04, @base_color)
+	bg[SELECTED] = shade (0.7, @base_color)
+	bg[ACTIVE] = shade (0.95, @base_color)
+	fg[INSENSITIVE] = mix(0.20, @bg_color, @base_color)
+	fg[NORMAL] = @text_color
+	fg[PRELIGHT] = @text_color
+	fg[SELECTED] = @text_color
+	fg[ACTIVE] = @text_color
+	fg[INSENSITIVE] = mix(0.20, @bg_color, @text_color)
   	engine "murrine" {
 		roundness = 0
 	}
