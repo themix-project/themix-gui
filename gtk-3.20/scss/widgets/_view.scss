@@ -180,6 +180,7 @@
                     }
 
                     @include linear-gradient($selected_bg_color);
+                    border-radius: $roundness;
 
                     &:backdrop {
                         @if $variant == 'light' {
@@ -224,6 +225,7 @@
                         border-style: solid;
                         border-color: $selected_bg_color;
                     }
+                    border-radius: $roundness;
                 }
             }
         }
