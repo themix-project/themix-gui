@@ -13,8 +13,8 @@ and gnome-colors icon theme.
   * [Demo video](#demo-video "")
 
 
-![Screenshot GUI 1](https://raw.githubusercontent.com/actionless/oomox/master/screenshot.png "Screenshot GUI 1")
-
+![Screenshot GUI](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI")
+![Screenshot Themes](https://raw.githubusercontent.com/actionless/oomox/master/screenshot.png "Screenshot Themes")
 
 
 ### Arch Linux:
