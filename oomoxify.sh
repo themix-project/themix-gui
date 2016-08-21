@@ -15,6 +15,7 @@ $0 [-s /path/to/spotify/Apps] [-f] PRESET_NAME_OR_PATH
 options:
 	-s, --spotify-apps-path		path to spotify/Apps
 	-f, --system-font		use system font
+	-w, --font-weight		'normalize' font weight
 
 examples:
 	$0 monovedek
@@ -38,6 +39,9 @@ do
 		;;
 		-f|--system-font)
 			use_system_font="True"
+		;;
+		-w|--font-weight)
+			fix_font_weight="True"
 		;;
 		-s|--spotify-apps-path)
 			spotify_apps_path="${2}"
@@ -117,6 +121,13 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 					-e "s/'circular_sp_.*'/${replace_font}/g" \
 					-e "s/font-family: circular_.*/font-fmaily: ${replace_font}/g" \
 					-e "s/Monaco/monospace/g" \
+					-e "s/font-weight: 200/font-weight: 400/g" \
+					-e "s/font-weight: 100/font-weight: 400/g" \
+					"${css}" || true
+			fi
+			if [ ! -z "${fix_font_weight:-}" ] ; then
+				replace_font=sans-serif
+				sed -i \
 					-e "s/font-weight: 200/font-weight: 400/g" \
 					-e "s/font-weight: 100/font-weight: 400/g" \
 					"${css}" || true
