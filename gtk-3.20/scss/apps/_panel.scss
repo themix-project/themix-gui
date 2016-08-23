@@ -17,7 +17,7 @@
         background-image: none;
         color: $panel_fg_color;
 
-        &:hover, &:hover {
+        &:hover {
             @include linear-gradient(mix($panel_bg_color, $panel_fg_color, .11));
 
             border-color: mix($panel_bg_color, $panel_fg_color, .11);
@@ -47,7 +47,7 @@
     PanelApplet {
         border: 0;
 
-        .button {
+        button {
             @extend %panelbutton;
         }
     }
