@@ -173,6 +173,19 @@
         }
 
         &:insensitive:insensitive {
+            @if (lightness($button_bg) > 50) {
+                @include linear-gradient(shade($button_bg, .95));
+            } @else {
+                @include linear-gradient(alpha($button_bg, .3));
+            }
+
+            color: mix($bg, $fg, .5);
+            box-shadow: none;
+        }
+    }
+
+    &.flat {
+        &:insensitive:insensitive {
             background-color: transparent;
             background-image: none;
             color: mix($bg, $fg, .5);
