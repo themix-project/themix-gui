@@ -321,12 +321,8 @@
         }
 
         &:disabled:disabled {
-            @if (lightness($button_bg) > 50) {
-                @include linear-gradient(shade($button_bg, .95));
-            } @else {
-                @include linear-gradient(alpha($button_bg, .3));
-            }
-
+            background-color: transparent;
+            background-image: none;
             color: mix($bg, $fg, .5);
             box-shadow: none;
         }
@@ -457,7 +453,7 @@
 
                 &.down {
                     border-style: none solid solid solid;
-                    border-radius: 0 0 $roundness $roundness; 
+                    border-radius: 0 0 $roundness $roundness;
                 }
             }
         }
