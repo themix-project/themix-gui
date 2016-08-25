@@ -56,10 +56,20 @@ $suffix: if($variant == "dark", "-dark", "");
 
     .check { @include toggle("checkbox"); }
 
-    GtkIconView.content-view.cell.check {
-        -gtk-icon-source: url("assets/grid-selection-unchecked#{$suffix}.png");
-
-        &:active { -gtk-icon-source: url("assets/grid-selection-checked#{$suffix}.png"); }
+    //selection-mode
+    @each $s,$as in ('', '-unchecked'),
+                  (':hover', '-unchecked'),
+                  (':active', '-checked'),
+                  (':backdrop', '-unchecked'),
+                  (':checked', '-checked'),
+                  (':checked:hover', '-checked'),
+                  (':checked:active', '-checked'),
+                  (':backdrop:checked', '-checked') {
+        .view.content-view.check#{$s}:not(list) {
+            -gtk-icon-shadow: none;
+            -gtk-icon-source: url("../assets/grid-selection#{$as}#{$suffix}.png");
+            background-color: transparent;
+        }
     }
 }
 
