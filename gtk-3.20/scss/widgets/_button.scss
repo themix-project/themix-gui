@@ -382,8 +382,8 @@
         .linked.vertical > & { @include linked_vertical_button(shade($bg_color, 1.2)); }
 
         &.circular { // FIXME: aggregate to buttons
-            border-radius: 20px;
-            -gtk-outline-radius: 20px;
+            border-radius: 9999px; // Fixed: https://github.com/GNOME/gtk/commit/a6409458f0d50d673a4dc370b9251993b7835b6b
+            -gtk-outline-radius: 9999px;
 
             label { padding: 0; }
         }

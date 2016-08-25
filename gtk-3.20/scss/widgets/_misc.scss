@@ -280,7 +280,11 @@
     stackswitcher button {
         &.text-button { min-width: 90px; } // FIXME aggregate with buttons
 
-        &.circular { min-width: 0; } // FIXME aggregate with buttons
+        &.circular {  // FIXME aggregate with buttons
+            min-width: 32px;
+            min-height: 32px;
+            padding: 0;
+        }
     }
 }
 
