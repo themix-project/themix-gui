@@ -132,6 +132,11 @@
 
         separator.titlebutton { margin-left: $spacing * 2; }
 
+        button.titlebutton + separator.titlebutton {
+            margin-left: 0;
+            margin-right: $spacing * 2;
+        }
+
         button.titlebutton {
             padding: $spacing;
             border: 0;
