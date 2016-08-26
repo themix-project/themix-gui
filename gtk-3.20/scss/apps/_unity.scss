@@ -24,7 +24,7 @@
         -UnityDecoration-title-alignment: 0;
 
 
-        &.top {
+        .top {
             border: 1px solid $wm_border_focused;
             border-bottom: 0;
             border-radius: 2px 2px 0 0;
@@ -39,7 +39,7 @@
             }
         }
 
-        &.left, &.right, &.bottom {
+        .left, .right, .bottom {
             background-color: $wm_border_focused;
 
             &:backdrop { background-color: $wm_border_unfocused; }
