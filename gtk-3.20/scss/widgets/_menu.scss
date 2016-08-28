@@ -114,13 +114,29 @@
             }
 
             calendar {
-                &:indeterminate { color: mix($menu_fg_color, $menu_bg_color, .5); }
+                color: $menu_fg_color;
 
-                .button {
-                    border-style: none;
-                    background-color: transparent;
-                    background-image: none;
+                &.header {
+                    border-bottom: 1px solid shade($menu_bg_color, ($contrast + .1));
+                    border-radius: 0;
+
+                    &:backdrop { border-color: shade($menu_bg_color, ($contrast + .1)); }
                 }
+
+                &.button {
+                    @extend %undecorated_button;
+
+                    color: alpha($menu_fg_color, .55);
+
+                    &:hover {
+                        @extend %undecorated_button;
+
+                        color: $menu_fg_color;
+                    }
+                }
+
+                &:indeterminate,
+                &:indeterminate:backdrop { color: mix($menu_fg_color, $menu_bg_color, .5); }
             }
         }
 
