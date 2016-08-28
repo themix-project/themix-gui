@@ -214,6 +214,7 @@
             }
 
             // Troughs in selected list-rows and infobars
+            menuitem:hover &,
             row:selected &,
             infobar & {
                 background-color: transparentize($black, .8);
@@ -269,6 +270,7 @@
             }
 
             // Selected list-row and infobar sliders
+            menuitem:hover &,
             row:selected &,
             infobar & {
                 background-clip: border-box;
