@@ -1,0 +1,34 @@
+#XfceNotifyWindow {
+	background-color: #111111;
+	border-color: #444444;
+	border-radius: 2px;
+	border-width: 1px;
+}
+
+#XfceNotifyWindow:hover {
+	border-color: #333333;
+}
+
+#XfceNotifyWindow label {
+	color: #f9f9f9;
+	-GtkWidget-link-color: #f0544c;
+}
+
+#XfceNotifyWindow label#summary {
+	font-weight: bold;
+}
+
+#XfceNotifyWindow button {
+	background-color: #444444;
+	color: #eeeeee;
+}
+
+#XfceNotifyWindow button:hover {
+	background-color: #555555;
+}
+
+#XfceNotifyWindow button:active {
+	background-color: #444444;
+}
+
+/* TODO: Implement progressbar style */
