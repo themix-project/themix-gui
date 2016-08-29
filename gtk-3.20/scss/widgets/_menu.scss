@@ -54,15 +54,15 @@
         &:selected { background-color: $selected_bg_color; }
 
         // A little hack to get some extra space above/below menuitem separators
-        separator {
-            border-style: none;
-            background-color: transparent;
-            min-height: 5px;
-            border-bottom-style: solid;
-            border-bottom-width: 1px;
-            border-bottom-color: shade($menu_bg_color, ($contrast + .1));
-            padding: 0;
+        separator,
+        .csd & separator {
+            background-color: shade($menu_bg_color, ($contrast + .1));
+            margin: ($spacing - 2px) 0;
         }
+
+        // Firefox workaround
+        .separator,
+        .csd & .separator { color: shade($menu_bg_color, ($contrast + .1)); }
 
         menuitem {
             min-height: 16px;
