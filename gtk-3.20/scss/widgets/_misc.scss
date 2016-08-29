@@ -305,6 +305,7 @@
             &:disabled { color: mix($selected_fg_color, $selected_bg_color, .5); }
 
             &:backdrop {
+                background-color: $backdrop_selected_bg_color; // Fixed Issue #430
                 color: $backdrop_selected_fg_color;
 
                 &:disabled { color: mix($backdrop_selected_fg_color, $selected_bg_color, .3); }
