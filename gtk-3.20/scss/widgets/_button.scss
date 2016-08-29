@@ -43,6 +43,8 @@
     }
 
     %button {
+        min-height: 16px;
+        min-width: 16px;
         padding: $spacing ($spacing + 2px);
         border-width: 1px;
         border-style: solid;
@@ -372,8 +374,6 @@
     }
 
     button {
-        min-height: 22px;
-        min-width: 24px;
         @include button(shade($bg_color, 1.2), $fg_color);
 
         .inline-toolbar &,
@@ -494,7 +494,7 @@
 
         box button, box entry {
             @extend %linked_button;
-            padding: ($spacing - 2px) ($spacing + 1px);
+            padding: $spacing ($spacing + 2px);
         }
 
         .linked:not(.vertical) > & > box > button.combo {

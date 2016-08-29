@@ -47,7 +47,8 @@
             }
 
             &.primary-toolbar button {
-                padding: 5px 6px;
+                min-width: 28px;
+                padding: 3px;
             }
             
             /* Path Bar */
@@ -66,8 +67,8 @@
         grid {
             > widget:last-child {
                 button {
-                    min-height: 15px;
-                    min-width: 20px;
+                    min-height: 16px;
+                    min-width: 16px;
                 }
 
                 button:first-child {

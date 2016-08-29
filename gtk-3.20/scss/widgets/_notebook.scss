@@ -153,10 +153,7 @@
                 outline: none;
 
                 button, button:hover {
-                    padding: $spacing - 4;
                     margin-left: 15px;
-                    min-height: 18px;
-                    min-width: 18px;
                     opacity: 0;
                     transition: opacity .3s ease-in;
                 }
@@ -198,7 +195,9 @@
                 }
 
                 /* close button styling */
-                button {
+                button.flat {
+                    min-height: 16px;
+                    min-width: 16px;
                     @extend %close_button;
                 }
             }
