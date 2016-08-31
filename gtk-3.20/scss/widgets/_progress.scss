@@ -147,20 +147,7 @@
 
         min-height: 10px;
         min-width: 10px;
-
-        &.horizontal {
-            padding: 6px 0;
-
-            trough { padding: 0 7px; }
-            highlight, fill { margin: 0 -7px; }
-        }
-
-        &.vertical {
-            padding: 0 6px;
-
-            trough { padding: 7px 0; }
-            highlight, fill { margin: -7px 0; }
-        }
+        padding: $spacing ($spacing * 2);
 
         // The slider is inside the trough, negative margin to make it bigger
         slider {
