@@ -9,7 +9,7 @@
     @include linear-gradient($bg);
     @include border($bg);
 
-    padding: $spacing;
+    padding: $spacing * 2;
     color: $fg;
 
     &:disabled {
