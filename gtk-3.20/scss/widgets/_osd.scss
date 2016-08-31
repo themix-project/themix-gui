@@ -8,6 +8,16 @@
 @include exports("osd") {
     overlay.osd { background-color: transparent; }
 
+    button.osd {
+        @include button($osd_bg, $osd_fg);
+
+        &.image-button {
+            padding: 0;
+            min-height: 36px;
+            min-width: 36px;
+        }
+    }
+
     .osd {
         background-color: $osd_bg;
         color: $osd_fg;

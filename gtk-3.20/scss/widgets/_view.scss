@@ -59,7 +59,7 @@
     }
 
     %column_header_button {
-        padding: 0 6px;
+        padding: ($spacing - 2px) ($spacing + 1px);
         border-radius: 0;
         background-image: none;
         text-shadow: none;
