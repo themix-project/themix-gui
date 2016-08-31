@@ -381,7 +381,11 @@
 
         .linked.vertical > & { @include linked_vertical_button(shade($bg_color, 1.2)); }
 
-        &.circular { // FIXME: aggregate to buttons
+        &.circular,
+        &.circular-button { // FIXME: aggregate to buttons
+            padding: 0;
+            min-width: 28px;
+            min-height: 28px;
             border-radius: 9999px; // Fixed: https://github.com/GNOME/gtk/commit/a6409458f0d50d673a4dc370b9251993b7835b6b
             -gtk-outline-radius: 9999px;
 
@@ -453,6 +457,12 @@
         }
 
         &.vertical {
+            button, entry {
+                min-width: 0;
+                padding-left: $spacing - 2px;
+                padding-right: $spacing - 2px;
+            }
+
             entry {
                 // reset all the other props since the spinbutton node is styled here
                 border-radius: 0;
@@ -482,8 +492,8 @@
         button.combo {
             // otherwise the arrow placement is not symmetric
             min-width: 0;
-            padding-left: 8px;
-            padding-right: 8px;
+            padding-left: $spacing + 2px;
+            padding-right: $spacing + 2px;
         }
 
         arrow {
