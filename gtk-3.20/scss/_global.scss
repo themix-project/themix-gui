@@ -74,8 +74,12 @@ $panel_bg_color: $dark_bg_color;
 $panel_fg_color: $dark_fg_color;
 
 $osd_base: $dark_bg_color;
+$osd_text_color: $white;
 $osd_fg: $dark_fg_color;
 $osd_bg: alpha($osd_base, .8);
+$osd_insensitive_bg_color: mix($osd_fg, $osd_bg, .5);
+$osd_insensitive_fg_color: mix($osd_fg, $osd_base, .6);
+$osd_borders_color: shade($osd_bg, .85);
 
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;
