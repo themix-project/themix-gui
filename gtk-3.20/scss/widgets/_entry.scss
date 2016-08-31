@@ -118,7 +118,7 @@
     selection { &:focus, & { @extend %selected_items; } }
 }
 
-@mixin entry($bg, $fg) {
+@mixin entry($bg, $fg, $border: $borders_color) {
     @extend %entry;
     @include linear-gradient($bg, to top);
     @include border($bg);
@@ -128,7 +128,7 @@
     color: $fg;
     caret-color: $fg;
 
-    &:focus, &:active { border-color: border_focus($borders_color); }
+    &:focus, &:active { border-color: border_focus($border); }
 
     &:disabled {
         @include linear-gradient(shade($bg, .9), to top);
