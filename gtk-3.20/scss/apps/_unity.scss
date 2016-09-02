@@ -27,8 +27,8 @@
         .top {
             border: 1px solid $wm_border_focused;
             border-bottom: 0;
-            border-radius: 2px 2px 0 0;
-            padding: 1px ($spacing * 2) 0;
+            border-radius: $roundness $roundness 0 0;
+            padding: 1px ($spacing + 3px) 0 ($spacing + 3px);
             background-color: $titlebar_bg_color;
             color: mix($titlebar_fg_color, $titlebar_bg_color, .1);
             text-shadow: none;
@@ -40,9 +40,9 @@
         }
 
         .left, .right, .bottom {
-            background-color: $wm_border_focused;
+            background-color: $titlebar_bg_color;
 
-            &:backdrop { background-color: $wm_border_unfocused; }
+            &:backdrop { background-color: mix(shade($titlebar_bg_color, .7), $titlebar_fg_color, .21); }
         }
     }
 
