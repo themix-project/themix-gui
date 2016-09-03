@@ -43,7 +43,7 @@
     );
 
     @each $type, $color in $types {
-        .#{$type}-action.button {
+        .#{$type}-action {
             @include button($color, $selected_fg_color);
         }
     }
@@ -62,7 +62,7 @@
             button {
                 @include button($selected_bg_color, $selected_fg_color);
 
-                &.suggested-action { @extend .suggested-action.button; }
+                &.suggested-action { @extend .suggested-action; }
             }
 
             .selection-menu.button {
