@@ -65,7 +65,7 @@
         }
     }
 
-    $_placesidebar_icons_opacity: 0.7;
+    $_placesidebar_icons_opacity: .7;
 
     placessidebar {
         > viewport.frame { border-style: none; }
@@ -73,7 +73,7 @@
         row {
             // Needs overriding of the GtkListBoxRow padding
             min-height: 36px;
-            padding: 0px;
+            padding: 0;
 
             // Using margins/padding directly in the SidebarRow
             // will make the animation of the new bookmark row jump
@@ -95,11 +95,13 @@
                 opacity: $_placesidebar_icons_opacity; // dim the device icons
 
                 &:dir(ltr) { padding-right: 8px; }
+
                 &:dir(rtl) { padding-left: 8px; }
             }
 
             label.sidebar-label {
                 &:dir(ltr) { padding-right: 2px; }
+
                 &:dir(rtl) { padding-left: 2px; }
             }
 

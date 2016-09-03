@@ -99,6 +99,7 @@
         &:selected {
             &:focus, & {
                 @extend %selected_items;
+
                 border-radius: 0;
             }
 
@@ -113,6 +114,7 @@
 
             &:selected {
                 color: mix($selected_fg_color, $selected_bg_color, .4);
+
                 &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, .3); }
             }
 

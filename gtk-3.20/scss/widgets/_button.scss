@@ -4,7 +4,7 @@
 
 @include exports("button_extends") {
     // stuff for .needs-attention
-    $_dot_color: if($variant=='light', $selected_bg_color, lighten($selected_bg_color, .15));
+    $_dot_color: if($variant == 'light', $selected_bg_color, lighten($selected_bg_color, .15));
 
     @keyframes needs_attention {
         from {
@@ -19,7 +19,7 @@
     %needs_attention {
         animation: needs_attention 150ms ease-in;
         $_dot_shadow: _text_shadow_color();
-        $_dot_shadow_r: if($variant=='light', .5, .45);
+        $_dot_shadow_r: if($variant == 'light', .5, .45);
         background-image: -gtk-gradient(radial, center center, 0, center center, .5, to($_dot_color), to(transparent)),
                           -gtk-gradient(radial, center center, 0, center center, $_dot_shadow_r, to($_dot_shadow), to(transparent));
         background-size: 6px 6px, 6px 6px;

@@ -94,17 +94,17 @@ $suffix: if($variant == "dark", "-dark", "");
         padding: $spacing - 1;
         border: none;
         outline: none;
-        transition: background-color 0.3s linear;
+        transition: background-color .3s linear;
         min-width: 88px;
         min-height: 24px;
         background-color: $switch_bg_color;
         color: $switch_fg_color;
-        box-shadow: inset 1px -1px 0px rgba(0, 0, 0, 0.06), inset -1px 1px 0px rgba(0, 0, 0, 0.06);
+        box-shadow: inset 1px -1px 0 alpha($dark_shadow, .06), inset -1px 1px 0 alpha($dark_shadow, .06);
 
         slider {
             background-color: $switch_slider_bg_color;
             transition: all 0.3s ease-in;
-            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.07), 1px 0px 2px 0px rgba(0, 0, 0, 0.07);
+            box-shadow: 0 1px 2px 0 alpha($dark_shadow, .07), 1px 0 2px 0 alpha($dark_shadow, .07);
             border-radius: $roundness;
         }
 
@@ -116,7 +116,7 @@ $suffix: if($variant == "dark", "-dark", "");
 
             slider {
                 background-color: $white;
-                box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 1px 3px 0 alpha($dark_shadow, .1);
             }
         }
 
