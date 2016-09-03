@@ -20,8 +20,6 @@
             progress { min-width: 6px; }
         }
 
-        &.osd { min-height: 4px; }
-
         trough {
             border: 1px solid alpha(border_normal($bg_color), .5);
             background-color: shade($bg_color, 1.08);
