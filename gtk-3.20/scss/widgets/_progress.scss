@@ -145,7 +145,19 @@
 
         min-height: 10px;
         min-width: 10px;
-        padding: $spacing ($spacing * 2);
+        padding: $spacing;
+
+        &.horizontal {
+            trough { padding: 0 3px; }
+
+            highlight, fill { margin: 0 -4px; }
+        }
+
+        &.vertical {
+            trough { padding: 3px 0; }
+
+            highlight, fill { margin: -4px 0; }
+        }
 
         // The slider is inside the trough, negative margin to make it bigger
         slider {
@@ -156,20 +168,10 @@
 
         // Click-and-hold the slider to activate
         &.fine-tune {
-            &.horizontal {
-                padding-top: 4px;
-                padding-bottom: 4px;
-                min-height: 15px;
-            }
-
-            &.vertical {
-                padding-left: 4px;
-                padding-right: 4px;
-                min-width: 15px;
-            }
-
             // Make the trough grow in fine-tune mode
-            slider { margin: -4px; }
+            slider { margin: -7px; }
+
+            highlight { background-color: shade($selected_bg_color, 1.1); }
 
             fill,
             highlight,
