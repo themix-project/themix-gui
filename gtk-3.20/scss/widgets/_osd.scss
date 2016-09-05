@@ -51,6 +51,8 @@
             background-origin: border-box;
         }
 
+        button { @include button($osd_bg, $osd_fg); }
+
         entry { @include entry($osd_base, $osd_text_color, $osd_borders_color); }
 
         /* used by gnome-settings-daemon's media-keys OSD */
