@@ -10,10 +10,25 @@ To install Sass, install Ruby and the gem command using your distribution's pack
 
 `gem install sass`
 
-You'll also need the following commands in your path to generate the gresource binary. Install them using your distribution's package manager.
+You'll also need the ```glib-compile-schemas``` and  ```gdk-pixbuf-pixdata``` commands in your path to generate the gresource binary. Install them using your distribution's package manager.
 
-* `glib-compile-schemas`
-* `gdk-pixbuf-pixdata`
+#### Debian, Ubuntu
+
+ ```sh
+sudo apt-get install libglib2.0-dev libgdk-pixbuf2.0-dev libxml2-utils
+```
+
+#### Fedora
+
+```sh
+sudo dnf install glib2-devel gdk-pixbuf2-devel
+```
+
+#### Arch Linux
+
+```sh
+sudo pacman -S glib2 gdk-pixbuf2
+```
 
 After installing all the dependencies, switch to the cloned directory and, run the following in Terminal,
 
