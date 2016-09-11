@@ -521,5 +521,13 @@
         .linked:not(.vertical) > &:last-child > box > button.combo { @extend %linked_button:last-child; }
 
         .linked:not(.vertical) > &:only-child > box > button.combo { @extend %linked_button:only-child; }
+
+        .linked.vertical > & > box > button.combo { @extend %linked_vertical_middle; }
+
+        .linked.vertical > &:first-child > box > button.combo { @extend %linked_vertical_button:first-child; }
+
+        .linked.vertical > &:last-child > box > button.combo { @extend %linked_vertical_button:last-child; }
+
+        .linked.vertical > &:only-child > box > button.combo { @extend %linked_vertical_button:only-child; }
     }
 }
