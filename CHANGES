@@ -53,4 +53,4 @@
 [2016-07-20 00:21:53 +0530]  [Gtk-3.18] Provide gap between buttons in message dialog. Fixes #498    Khurshid Alam  {58642c3}
 [2016-07-15 08:59:15 +0300]  Fix for issue #492 (#496)                                               Alexey Donoga  {76321bb}
 [2016-07-02 07:44:33 +0200]  GTK 3.20 :: Optimized Nemo and Nautilus design and update searchbar..   Csaba Jakosa   {bd780f0}
-# -*- mode: gfm; -*-
+-*- mode: gfm; -*-
