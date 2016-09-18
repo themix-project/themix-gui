@@ -7,22 +7,26 @@ do_install() {
 	GTK320DIR="${INSTALL_DIR}/gtk-3.20"
 
 	install -dm755 "${INSTALL_DIR}"
+	cp index.theme "${INSTALL_DIR}"
 
 	for _DIR in "${GTKDIR}" "${GTK320DIR}"
 	do
 		GTKVER="${_DIR##*/}"
 
+		cd src
+
 		mkdir -p "${_DIR}"
 
-		cp -rT "${INSTALL_DIR}" \
+		cp -rt "${INSTALL_DIR}" \
 			gtk-2.0 metacity-1 openbox-3 xfce-notify-4.0 xfwm4 unity
 
-		cp -T "${_DIR}" \
+		cp -t "${_DIR}" \
 			"${GTKVER}/gtk.css" \
 			"${GTKVER}/gtk-dark.css" \
 			"${GTKVER}/gtk.gresource" \
-			"${GTKVER}/thumbnail.png" \
-			"${GTKVER}/index.theme"
+			"${GTKVER}/thumbnail.png"
+
+		cd -
 	done
 }
 
