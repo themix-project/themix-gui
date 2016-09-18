@@ -8,7 +8,8 @@
 @include exports("osd") {
     overlay.osd { background-color: transparent; }
 
-    button.osd {
+    button.osd,
+    #XfceNotifyWindow button {
         @include button($osd_bg, $osd_fg);
 
         &.image-button {
@@ -37,7 +38,8 @@
         &.bottom { border-radius: 0; } // positional classes for `attached` osd toolbars
     }
 
-    .osd {
+    .osd,
+    #XfceNotifyWindow {
         background-color: $osd_bg;
         color: $osd_fg;
 
