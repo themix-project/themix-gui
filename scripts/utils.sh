@@ -1,5 +1,32 @@
 #!/bin/bash
 
+do_install() {
+	local GTKDIR GTK320DIR GTKVER INSTALL_DIR
+	INSTALL_DIR="$1"
+	GTKDIR="${INSTALL_DIR}/gtk-3.0"
+	GTK320DIR="${INSTALL_DIR}/gtk-3.20"
+
+	install -dm755 "${INSTALL_DIR}"
+
+	for _DIR in "${GTKDIR}" "${GTK320DIR}"
+	do
+		GTKVER="${_DIR##*/}"
+
+		mkdir -p "${_DIR}"
+
+		cp -rT "${INSTALL_DIR}" \
+			gtk-2.0 metacity-1 openbox-3 xfce-notify-4.0 xfwm4 unity
+
+		cp -T "${_DIR}" \
+			"${GTKVER}/gtk.css" \
+			"${GTKVER}/gtk-dark.css" \
+			"${GTKVER}/gtk.gresource" \
+			"${GTKVER}/thumbnail.png" \
+			"${GTKVER}/index.theme"
+	done
+}
+
+
 update_changes_file() {
 	local LATEST_STABLE_RELEASE
 	LATEST_STABLE_RELEASE=$(git describe --tags $(git rev-list --tags --max-count=1))
@@ -18,10 +45,15 @@ update_changes_file() {
 }
 
 
+
 case $1 in
 	changes)
 		update_changes_file
 		exit $?
+	;;
+
+	install)
+		do_install "$2"
 	;;
 
 	*)
