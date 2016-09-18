@@ -5,7 +5,7 @@
 ****************/
 
 @include exports("xfce") {
-    XfceHeading {
+    /*XfceHeading {
         margin: 0;
         padding: 0;
         border: 0;
@@ -17,10 +17,9 @@
     .xfce4-panel {
         @extend %panel;
 
-        font: normal;
+        font: inherit;
 
         button { @extend %panelbutton; }
+    }*/
 
-        menu, .menu { -gtk-icon-effect: none; }
-    }
 }
