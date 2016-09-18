@@ -54,6 +54,9 @@
 @define-color osd_base #{"" + $osd_base};
 @define-color osd_bg #{"" + $osd_bg};
 @define-color osd_fg #{"" + $osd_fg};
+@define-color osd_insensitive_bg_color #{"" + $osd_insensitive_bg_color};
+@define-color osd_insensitive_fg_color #{"" + $osd_insensitive_fg_color};
+@define-color osd_borders_color #{"" + $osd_borders_color};
 
 /* lightdm greeter colors */
 @define-color lightdm_bg_color #{"" + $lightdm_bg_color};
