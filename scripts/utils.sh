@@ -15,16 +15,20 @@ do_install() {
 
 		cd src
 
-		mkdir -p "${_DIR}"
+		mkdir -p "${_DIR}/dist"
 
 		cp -rt "${INSTALL_DIR}" \
 			gtk-2.0 metacity-1 openbox-3 xfce-notify-4.0 xfwm4 unity
 
 		cp -t "${_DIR}" \
-			"${GTKVER}/dist/gtk.css" \
-			"${GTKVER}/dist/gtk-dark.css" \
+			"${GTKVER}/gtk.css" \
+			"${GTKVER}/gtk-dark.css" \
 			"${GTKVER}/gtk.gresource" \
 			"${GTKVER}/thumbnail.png"
+
+		cp -t "${_DIR}/dist" \
+			"${GTKVER}/dist/gtk.css" \
+			"${GTKVER}/dist/gtk-dark.css"
 
 		cd -
 	done
