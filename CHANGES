@@ -1,3 +1,14 @@
+[2016-09-21 13:13:52 -0500]  reenable old xfce styles in 3.20 until we can rewrite them.            Dustin Falgout  {3dc0bbe}
+[2016-09-21 21:43:04 +0530]  Copy proper gtk.css in utils.sh. Fixes #569                             Khurshid Alam  {679bb1d}
+[2016-09-20 22:12:57 +0530]  [Gtk-3.18] Re-enable xfce style. Fixes #566                             Khurshid Alam  {a0263e7}
+[2016-09-18 06:01:08 -0500]  fix errors in do_install function                                      Dustin Falgout  {a3ab032}
+[2016-09-18 05:50:46 -0500]  update Makefile (moved install commands to utils script)               Dustin Falgout  {a8205ba}
+[2016-09-18 05:15:06 -0500]  move source files into subdirectory instead of being at repo root      Dustin Falgout  {62b93af}
+[2016-09-18 05:02:05 -0500]  Update README.md                                                       Dustin Falgout  {75bebed}
+[2016-09-18 04:59:57 -0500]  Update README.md                                                       Dustin Falgout  {2dccff1}
+[2016-09-18 04:31:07 -0500]  Update CHANGES                                                         Dustin Falgout  {539076b}
+[2016-09-18 04:23:37 -0500]  add emacs mode string to CHANGES file (so hopefully, links to issue..  Dustin Falgout  {ecfd664}
+[2016-09-18 04:15:02 -0500]  RELEASE PREP :: Update CHANGES file.                                   Dustin Falgout  {df8e66d}
 [2016-09-18 04:14:33 -0500]  add task to makefile for generating/updating CHANGES file before re..  Dustin Falgout  {0e6c45b}
 [2016-09-18 03:15:15 -0500]  RELEASE PREP :: Update CHANGES file.                                   Dustin Falgout  {840c1ff}
 [2016-09-18 02:57:43 -0500]  add task to makefile for generating/updating CHANGES file before re..  Dustin Falgout  {040b869}
@@ -53,4 +64,3 @@
 [2016-07-20 00:21:53 +0530]  [Gtk-3.18] Provide gap between buttons in message dialog. Fixes #498    Khurshid Alam  {58642c3}
 [2016-07-15 08:59:15 +0300]  Fix for issue #492 (#496)                                               Alexey Donoga  {76321bb}
 [2016-07-02 07:44:33 +0200]  GTK 3.20 :: Optimized Nemo and Nautilus design and update searchbar..   Csaba Jakosa   {bd780f0}
--*- mode: gfm; -*-
