@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+<defs>
+<filter width="1.09" x="-.045" y="-.18" height="1.36" id="filter3971">
+<feGaussianBlur stdDeviation=".15"/>
+</filter>
+</defs>
+<g transform="translate(0 -1036.3622)">
+<rect width="8" x="4" y="1043.451" height="2" style="fill:#555753;filter:url(#filter3971)"/>
+<rect width="8" x="4" y="7" height="2" style="fill:#d64937" transform="translate(0 1036.3622)"/>
+</g>
+</svg>
