@@ -1,4 +1,8 @@
-[2016-09-21 13:13:52 -0500]  reenable old xfce styles in 3.20 until we can rewrite them.            Dustin Falgout  {3dc0bbe}
+[2016-09-21 22:06:03 -0500]  update install script for what should be the last time (at least fo..  Dustin Falgout  {f8c7f0c}
+[2016-09-21 22:05:08 -0500]  move assets into src directory                                         Dustin Falgout  {8df9804}
+[2016-09-21 22:04:17 -0500]  move assets into src directory                                         Dustin Falgout  {c769c23}
+[2016-09-21 22:01:55 -0500]  move assets into src directory                                         Dustin Falgout  {a0f0e73}
+[2016-09-22 01:21:54 +0530]  Fix code in utils.sh                                                    Khurshid Alam  {a50dee0}[2016-09-21 13:13:52 -0500]  reenable old xfce styles in 3.20 until we can rewrite them.            Dustin Falgout  {3dc0bbe}
 [2016-09-21 21:43:04 +0530]  Copy proper gtk.css in utils.sh. Fixes #569                             Khurshid Alam  {679bb1d}
 [2016-09-20 22:12:57 +0530]  [Gtk-3.18] Re-enable xfce style. Fixes #566                             Khurshid Alam  {a0263e7}
 [2016-09-18 06:01:08 -0500]  fix errors in do_install function                                      Dustin Falgout  {a3ab032}
