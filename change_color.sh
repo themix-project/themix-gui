@@ -47,15 +47,16 @@ if [[ -z "${THEME:-}" ]] ; then
 fi
 
 PATHLIST=(
-	'./openbox-3/'
-	'./gtk-2.0/'
-	'./gtk-3.0/'
-	'./gtk-3.20/'
-	'./xfwm4/'
-	'./metacity-1/'
-	'./unity/'
+	'./src/openbox-3/'
+	'./src/assets/'
+	'./src/gtk-2.0/'
+	'./src/gtk-3.0/'
+	'./src/gtk-3.20/'
+	'./src/xfwm4/'
+	'./src/metacity-1/'
+	'./src/unity/'
 	'Makefile'
-	'index.theme'
+	'./src/index.theme'
 )
 if [ ! -z "${CUSTOM_PATHLIST:-}" ] ; then
 	IFS=', ' read -r -a PATHLIST <<< "${CUSTOM_PATHLIST:-}"
@@ -94,7 +95,7 @@ test "$SRC_PATH" = "$DEST_PATH" && echo "can't do that" && exit 1
 
 rm -r "$DEST_PATH" || true
 mkdir -p "$DEST_PATH"
-cp -r "$SRC_PATH/index.theme" "$DEST_PATH"
+cp -r "$SRC_PATH/src/index.theme" "$DEST_PATH"
 for FILEPATH in "${PATHLIST[@]}"; do
 	cp -r "$SRC_PATH/$FILEPATH" "$DEST_PATH"
 done
@@ -102,7 +103,7 @@ done
 
 cd "$DEST_PATH"
 for FILEPATH in "${PATHLIST[@]}"; do
-	find $FILEPATH -type f -exec sed -i \
+	find $(echo "${FILEPATH}" | sed 's/src\///g' ) -type f -exec sed -i \
 		-e 's/%BG%/'"$BG"'/g' \
 		-e 's/%FG%/'"$FG"'/g' \
 		-e 's/%SEL_BG%/'"$SEL_BG"'/g' \
