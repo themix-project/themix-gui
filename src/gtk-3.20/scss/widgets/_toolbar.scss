@@ -149,7 +149,7 @@
         separator.titlebutton { margin-left: $spacing; }
 
         button {
-            @include button($button_bg_color, $button_fg_color);
+            @include button($header_button_bg_color, $header_button_fg_color);
         }
 
         button.titlebutton + separator.titlebutton {

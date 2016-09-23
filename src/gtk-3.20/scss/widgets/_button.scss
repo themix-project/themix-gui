@@ -273,7 +273,7 @@
     $border_strength: if(lightness($fg) > 50, .1, .2);
     $shadow_strength: if(lightness($bg) > 50, 0, .1);
 
-    $button_bg: $button_bg_color;
+    $button_bg: $bg;
 
     @extend %button;
     @include linear-gradient($button_bg);
