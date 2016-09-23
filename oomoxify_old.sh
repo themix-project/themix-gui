@@ -1,8 +1,6 @@
 #!/bin/bash
 set -ueo pipefail
-
 root="$(readlink -e $(dirname "$0"))"
-SRC_PATH=${root}
 
 
 spotify_apps_path="/usr/share/spotify/Apps"
@@ -61,38 +59,36 @@ do
 	shift
 done
 
-echo $THEME
-
-if [[ ! -z "${THEME:-}" ]] ; then
-	#print_usage
-
-	if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
-		source "$THEME"
-		THEME=$(basename ${THEME})
-	else
-		source "${root}/colors/$THEME"
-	fi
-
-	main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
-	area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG})}"
-	selected_row_bg_fallback="$(darker ${MENU_BG} 5)"
-	selected_area_bg_fallback="$(darker ${MENU_BG} -10)"
-	selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
-	selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
-
-	sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
-	main_fg="${SPOTIFY_MAIN_FG-$FG}"
-	accent_fg_fallback="$(darker ${SEL_BG} 30)"
-	accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
-
-	hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
-	active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
-	inactive_selection_color_fallback="${SEL_BG}"
-	hover_selection_color_fallback="$(darker ${SEL_BG} -10)"
-	inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
-	hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
-
+if [[ -z "${THEME:-}" ]] ; then
+	print_usage
 fi
+
+if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
+	source "$THEME"
+	THEME=$(basename ${THEME})
+else
+	source "${root}/colors/$THEME"
+fi
+
+
+main_bg="${SPOTIFY_MAIN_BG-$BG}"
+area_bg="${SPOTIFY_AREA_BG-$TXT_BG}"
+selected_row_bg_fallback="$(darker ${BG})"
+selected_area_bg_fallback="$(darker ${TXT_BG} 20)"
+selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
+selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
+
+sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
+main_fg="${SPOTIFY_MAIN_FG-$FG}"
+accent_fg_fallback="$(darker ${SEL_BG} 30)"
+accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
+
+hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
+active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
+inactive_selection_color_fallback="$(darker ${SEL_BG} 40)"
+hover_selection_color_fallback="$(darker ${SEL_BG} 20)"
+inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
+hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
 
 
 tmp_dir="$(mktemp -d)"
@@ -136,23 +132,21 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 					-e "s/font-weight: 100/font-weight: 400/g" \
 					"${css}" || true
 			fi
-			if [ ! -z "${THEME:-}" ] ; then
 			sed -i \
-				-e "s/1ed760/oomox_active_selection_color/gI" \
-				-e "s/1ed660/oomox_active_selection_color/gI" \
-				-e "s/1ed760/oomox_active_selection_color/gI" \
-				-e "s/1db954/oomox_inactive_selection_color/gI" \
-				-e "s/1df269/oomox_hover_selection_color/gI" \
-				-e "s/1bd85e/oomox_hover_selection_color/gI" \
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
+				-e "s/ffffff/oomox_accent_fg/gI" \
+				-e "s/fcfcfc/oomox_hover_text/gI" \
+				-e "s/1ed760/oomox_active_selection_color/gI" \
+				-e "s/1ed660/oomox_active_selection_color/gI" \
+				-e "s/1db954/oomox_inactive_selection_color/gI" \
+				-e "s/1df269/oomox_hover_selection_color/gI" \
+				-e "s/1bd85e/oomox_hover_selection_color/gI" \
+				-e "s/a0a0a0/oomox_main_fg/gI" \
+				-e "s/adafb2/oomox_sidebar_fg/gI" \
 				"${css}"
-				#-e "s/ffffff/oomox_accent_fg/gI" \
-				#-e "s/fcfcfc/oomox_hover_text/gI" \
-				#-e "s/a0a0a0/oomox_main_fg/gI" \
-				#-e "s/adafb2/oomox_sidebar_fg/gI" \
 			sed -i \
 				-e "s/oomox_main_bg/${main_bg}/g" \
 				-e "s/oomox_area_bg/${area_bg}/g" \
@@ -166,7 +160,6 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 				-e "s/oomox_main_fg/${main_fg}/gI" \
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
 				"${css}"
-			fi
 			zip "./${filename}" "${css}" > /dev/null
 		done
 		cd "${tmp_dir}"
