@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 
 darker_channel() {
 	value=${1}
