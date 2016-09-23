@@ -1,0 +1,71 @@
+[2016-09-21 22:06:03 -0500]  update install script for what should be the last time (at least fo..  Dustin Falgout  {f8c7f0c}
+[2016-09-21 22:05:08 -0500]  move assets into src directory                                         Dustin Falgout  {8df9804}
+[2016-09-21 22:04:17 -0500]  move assets into src directory                                         Dustin Falgout  {c769c23}
+[2016-09-21 22:01:55 -0500]  move assets into src directory                                         Dustin Falgout  {a0f0e73}
+[2016-09-22 01:21:54 +0530]  Fix code in utils.sh                                                    Khurshid Alam  {a50dee0}
+[2016-09-21 13:13:52 -0500]  reenable old xfce styles in 3.20 until we can rewrite them.            Dustin Falgout  {3dc0bbe}
+[2016-09-21 21:43:04 +0530]  Copy proper gtk.css in utils.sh. Fixes #569                             Khurshid Alam  {679bb1d}
+[2016-09-20 22:12:57 +0530]  [Gtk-3.18] Re-enable xfce style. Fixes #566                             Khurshid Alam  {a0263e7}
+[2016-09-18 06:01:08 -0500]  fix errors in do_install function                                      Dustin Falgout  {a3ab032}
+[2016-09-18 05:50:46 -0500]  update Makefile (moved install commands to utils script)               Dustin Falgout  {a8205ba}
+[2016-09-18 05:15:06 -0500]  move source files into subdirectory instead of being at repo root      Dustin Falgout  {62b93af}
+[2016-09-18 05:02:05 -0500]  Update README.md                                                       Dustin Falgout  {75bebed}
+[2016-09-18 04:59:57 -0500]  Update README.md                                                       Dustin Falgout  {2dccff1}
+[2016-09-18 04:31:07 -0500]  Update CHANGES                                                         Dustin Falgout  {539076b}
+[2016-09-18 04:23:37 -0500]  add emacs mode string to CHANGES file (so hopefully, links to issue..  Dustin Falgout  {ecfd664}
+[2016-09-18 04:15:02 -0500]  RELEASE PREP :: Update CHANGES file.                                   Dustin Falgout  {df8e66d}
+[2016-09-18 04:14:33 -0500]  add task to makefile for generating/updating CHANGES file before re..  Dustin Falgout  {0e6c45b}
+[2016-09-18 03:15:15 -0500]  RELEASE PREP :: Update CHANGES file.                                   Dustin Falgout  {840c1ff}
+[2016-09-18 02:57:43 -0500]  add task to makefile for generating/updating CHANGES file before re..  Dustin Falgout  {040b869}
+[2016-09-18 02:26:56 -0500]  add osd color variables to compiled css output                         Dustin Falgout  {44d407e}
+[2016-09-18 02:26:03 -0500]  disable some unused styles for xfce                                    Dustin Falgout  {7e617ce}
+[2016-09-18 02:24:17 -0500]  move gtk3 styles for xfce4-notifyd into sass                           Dustin Falgout  {30b14f7}
+[2016-09-11 14:01:44 -0500]  Updating readme to specifically list package names. Fixes #555 & #493    Naren Dasan   {dbf231b}
+[2016-09-11 20:59:22 +0200]  Implement combobox vertical code.                                       Csaba Jakosa   {a6f9a10}
+[2016-09-05 20:38:51 +0200]  GTK 3.20 :: Fix #560 (#563)                                             Csaba Jakosa   {f7f927a}
+[2016-09-05 15:40:39 +0200]  [Gtk-3.20] Fix for default osd button color.                            Csaba Jakosa   {69b3706}
+[2016-09-04 08:37:08 +0200]  [Gtk-3.18] Use icon-shadow instead of -gtk-icon-shadow. Fixes #558      Csaba Jakosa   {90d74c5}
+[2016-09-03 11:00:42 +0200]  GTK 3.20 :: Clean code (#553)                                           Csaba Jakosa   {67bf7e2}
+[2016-09-03 10:32:19 +0200]  * Fixes #137 (#554)                                                     Csaba Jakosa   {c997dd3}
+[2016-09-03 10:31:53 +0200]  * Removed osd duplicated code and fixed flowbox selected code. (#543)   Csaba Jakosa   {1c2185a}
+[2016-09-03 10:31:24 +0200]  * [GTK 3.20] Selection mode rewrite. Fixed #545 (#546)                  Csaba Jakosa   {f8354bd}
+[2016-09-03 10:29:40 +0200]  * [GTK 3.20] Fixed #540 (#541)                                          Csaba Jakosa   {ae7ff0d}
+[2016-09-02 17:21:19 +0200]  [Gtk-3.20] Paned separator in the headerbar. Fixes #551                   marmis85     {cb3e031}
+[2016-09-02 17:19:32 +0200]  [Gtk-3.20] Refactor toolbar code. Fixes #486                            Csaba Jakosa   {e2658ff}
+[2016-08-31 20:08:31 +0200]  [Gtk-3.20] Redecorate osd toolbar & fix volume slider. Fixes #463       Csaba Jakosa   {ff98d44}
+[2016-08-31 21:26:48 +0530]  [Gtk-3.20] Re-adjust titlebar(for Unity), headerbar and toolbar hei..   Khurshid Alam  {03bb8b3}
+[2016-08-31 20:03:05 +0530]  Merge pull request #542 from megax/patch15                              Khurshid Alam  {9c07db4}
+[2016-08-31 13:42:27 +0200]  * Minimal fix #452                                                          Megax      {8547acc}
+[2016-08-31 15:47:06 +0530]  [Gtk-3.20] Redecorate OSD: Implement spinbutton and entry. Fixes #457   Khurshid Alam  {23fca70}
+[2016-08-31 11:51:50 +0200]  * Fixed #457 and implement spinbutton and entry osd style.                  Megax      {644e633}
+[2016-08-30 03:23:11 +0530]  Optimize buttons. Fixes #452                                            Khurshid Alam  {6cb9d03}
+[2016-08-29 20:01:21 +0200]  * [GTK 3.20] Fixed #430 (#523)                                          Csaba Jakosa   {4c2cf03}
+[2016-08-29 08:55:26 +0200]  Fix Firefox menu item separator color & optimize separator margin. ..   Csaba Jakosa   {cd2b2df}
+[2016-08-29 08:02:56 +0200]  [Gtk-3.20] Reduce menubar height to match gtk2 theme. Fixes #453        Csaba Jakosa   {e86ef11}
+[2016-08-28 18:43:49 +0200]  Use predefined fg & bg color for backdrop windows. Fixes #447           Csaba Jakosa   {c961b4d}
+[2016-08-28 18:37:43 +0200]  [GTK 3.20] Fixed unity-panel calendar color.                            Csaba Jakosa   {9909cec}
+[2016-08-28 18:36:10 +0200]  [GTK 3.20] Unity-greeter rewrite sass format.                           Csaba Jakosa   {27b4ce7}
+[2016-08-28 15:46:08 +0200]  * [GTK 3.20] Fixes #392 (#533)                                          Csaba Jakosa   {5e9ab2e}
+[2016-08-28 15:35:09 +0200]  Implement basic Gtk3 support for xfce4-notifyd. Fixes #511              Samuel Čavoj   {245c355}
+[2016-08-26 22:12:37 +0530]  [Gtk-3.20] 3.20 port for Unity                                          Khurshid Alam  {57cb0b4}
+[2016-08-25 17:57:29 +0200]  [GTK 3.20] Do not use space among sub-menus. Fixes #439                 Csaba Jakosa   {d24e294}
+[2016-08-25 17:46:51 +0200]  [GTK 3.20] Fixed Circular button radius bug.                            Csaba Jakosa   {622b1a2}
+[2016-08-25 17:34:08 +0200]  Fix selection checkboxes for Gnome apps. Fixes #304                     Csaba Jakosa   {5ea55ab}
+[2016-08-25 17:12:59 +0200]  [Gtk-3.20] Remove deprecated GtkStatusbar:shadow-type. Fixes #506       Csaba Jakosa   {70dec4c}
+[2016-08-25 17:04:46 +0200]  [GTK 3.20] Use homogeneous margin on both side of headerbar separat..   Csaba Jakosa   {85b5247}
+[2016-08-24 15:52:29 +0200]  * Readme update. (#519)                                                 Csaba Jakosa   {ea2a171}
+[2016-08-24 00:37:45 +0200]  * Fixed button disabled. (#517)                                         Csaba Jakosa   {0612667}
+[2016-08-23 06:24:23 -0500]  Fixes #403 and Fixes #509                                              Dustin Falgout  {d56f32f}
+[2016-08-23 13:00:16 +0200]  GTK 3.20 :: Color chooser rewirte (#423)                                Csaba Jakosa   {bbf00f2}
+[2016-08-23 12:25:38 +0200]  * Removed run attribute. (#515)                                         Csaba Jakosa   {0bc870b}
+[2016-08-23 12:21:26 +0200]  GTK 3.20 :: Lightdm rewrite (#516)                                      Csaba Jakosa   {caa0540}
+[2016-08-22 19:28:35 +0200]  [GTK 3.20] Issue #484 fixed                                             Csaba Jakosa   {b1c1fe6}
+[2016-08-22 11:02:05 +0200]  [GTK 3.20] Use old link color. Fixes #499                               Csaba Jakosa   {220dc21}
+[2016-07-27 23:47:11 +0530]  [Gtk-3.18] Use old link color. Fixes #499                               Khurshid Alam  {c65721b}
+[2016-07-27 11:49:25 -0400]  Restore and fix Xfce desktop icon shadows. Fix #492                     Jeremy Bicha   {d2fecfd}
+[2016-07-26 03:06:35 -0400]  Don't install GTK3 source files. Fixes #503 (#504)                      Jeremy Bicha   {b0aaf84}
+[2016-07-21 01:20:28 +0530]  [Gtk-3.18] Use dark mode tabs in gnometerminal (by default). Fixes ..   Khurshid Alam  {749cfa3}
+[2016-07-20 00:37:58 +0530]  Drop support for Gtk-3.16                                               Khurshid Alam  {c565223}
+[2016-07-20 00:21:53 +0530]  [Gtk-3.18] Provide gap between buttons in message dialog. Fixes #498    Khurshid Alam  {58642c3}
+[2016-07-15 08:59:15 +0300]  Fix for issue #492 (#496)                                               Alexey Donoga  {76321bb}
+[2016-07-02 07:44:33 +0200]  GTK 3.20 :: Optimized Nemo and Nautilus design and update searchbar..   Csaba Jakosa   {bd780f0}

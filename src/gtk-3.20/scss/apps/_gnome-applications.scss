@@ -1,0 +1,13 @@
+/****************
+ ! Gnome clocks *
+*****************/
+
+@include exports("gnome-clocks") {
+    .clocks-analog-frame {
+        &.trough { color: mix($fg_color, $bg_color, .85); }
+
+        &.progress { color: mix($bg_color, $selected_bg_color, .5); }
+
+        &.progress-fast { color: shade($selected_bg_color, .7); }
+    }
+}
