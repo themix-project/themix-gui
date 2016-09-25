@@ -34,9 +34,16 @@
                 -GtkWidget-window-dragging: true;
             }
 
-            &.primary-toolbar button {
-                min-width: 28px;
-                padding: 3px;
+            &.primary-toolbar button.image-button {
+                padding: 0 ($spacing + 5px);
+            }
+
+            combobox, button {
+                padding: $spacing;
+
+                &.text-button { padding: $spacing; }
+
+                &.image-button { padding: $spacing; }
             }
 
             /* Path Bar */
