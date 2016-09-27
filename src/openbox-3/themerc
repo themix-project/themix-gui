@@ -4,10 +4,6 @@
 
 # @TODO: finish replacing the colors here
 
-# Common
-border.width: 4
-padding.width: 3
-
 
 # Menu
 menu.border.color: #%FG%
@@ -61,7 +57,7 @@ window.active.button.pressed.image.color: #%MENU_BG%
 
 window.active.button.disabled.bg: flat solid
 window.active.button.disabled.bg.color: #%MENU_BG%
-window.active.button.disabled.image.color: #888888
+window.active.button.disabled.image.color: #%BG%
 
 window.active.button.toggled.bg: Parentrelative
 window.active.button.toggled.image.color: #%MENU_FG%
@@ -75,7 +71,7 @@ window.inactive.title.separator.color: #%MENU_BG%
 window.inactive.text.justify: center
 
 window.inactive.label.bg: parentrelative
-window.inactive.label.text.color: #888888
+window.inactive.label.text.color: #%BG%
 
 window.inactive.handle.bg: flat solid
 window.inactive.handle.bg.color: #%MENU_BG%
@@ -85,7 +81,7 @@ window.inactive.grip.bg.color: #%MENU_BG%
 
 window.inactive.button.unpressed.bg: flat solid
 window.inactive.button.unpressed.bg.color: #%MENU_BG%
-window.inactive.button.unpressed.image.color: #888888
+window.inactive.button.unpressed.image.color: #%BG%
 
 window.inactive.button.pressed.bg: flat solid
 window.inactive.button.pressed.bg.color: #%MENU_BG%
@@ -93,7 +89,7 @@ window.inactive.button.pressed.image.color: #d64937
 
 window.inactive.button.disabled.bg: flat solid
 window.inactive.button.disabled.bg.color: #%MENU_BG%
-window.inactive.button.disabled.image.color: #888888
+window.inactive.button.disabled.image.color: #%BG%
 
 window.inactive.button.hover.bg: flat solid
 window.inactive.button.hover.bg.color: #%MENU_BG%
@@ -119,7 +115,7 @@ osd.border.width: 2
 osd.hilight.bg: Solid Flat
 osd.hilight.bg.color: #%SEL_BG%
 osd.unhilight.bg: flat solid
-osd.unhilight.bg.color: #888888
+osd.unhilight.bg.color: #%BG%
 
 osd.button.unpressed.bg: flat border
 osd.button.unpressed.bg.color: #303030
@@ -144,7 +140,7 @@ menu.title.text.font:shadow=n
 
 
 # Everything else
-border.width: 1
+border.width: 4
 padding.width: 8
 padding.height: 4
 window.handle.width: 0

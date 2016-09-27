@@ -43,7 +43,7 @@
 
 @include exports("menu") {
     menu, .menu {
-        padding: 0;
+        padding: $spacing;
         border-radius: 0;
         border: 0;
         background-color: $menu_bg_color;
