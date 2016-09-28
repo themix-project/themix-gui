@@ -75,8 +75,8 @@ if [[ ! -z "${THEME:-}" ]] ; then
 
 	main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
 	area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG})}"
-	selected_row_bg_fallback="$(darker ${MENU_BG} 5)"
-	selected_area_bg_fallback="$(darker ${MENU_BG} -10)"
+	selected_row_bg_fallback="$(darker ${MENU_BG} -5)"
+	selected_area_bg_fallback="$(darker ${MENU_BG} -15)"
 	selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
 	selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
 
@@ -88,7 +88,7 @@ if [[ ! -z "${THEME:-}" ]] ; then
 	hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
 	active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
 	inactive_selection_color_fallback="${SEL_BG}"
-	hover_selection_color_fallback="$(darker ${SEL_BG} -10)"
+	hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
 	inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
 	hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
 
