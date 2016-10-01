@@ -2,7 +2,22 @@
 ##### A modern flat theme with a combination of light and dark elements. It supports GNOME, Unity, Xfce and Openbox.
 [![By The Numix Project](https://img.shields.io/badge/By-The%20Numix%20Project-f0544c.svg?style=flat-square)](https://numixproject.org/) &nbsp;[![Circle CI](https://img.shields.io/circleci/project/numixproject/numix-gtk-theme/master.svg?circle-token=b14acf911433d315298235b0c2fbf7b2670a92a8&maxAge=2592000&style=flat-square)](https://circleci.com/gh/numixproject/numix-gtk-theme/tree/master) &nbsp;[![GitHub release](https://img.shields.io/github/release/numixproject/numix-gtk-theme.svg?maxAge=3600&style=flat-square)](https://github.com/numixproject/numix-gtk-theme/releases/latest) &nbsp;![Supports GTK+ 3.18](https://img.shields.io/badge/GTK%2B-3.18-4a90d9.svg?style=flat-square) &nbsp;![Supports GTK+ 3.20](https://img.shields.io/badge/GTK%2B-3.22-4a90d9.svg?style=flat-square)
 
-### Manual installation
+## Install It
+
+### Official Distro Packages
+|Distro|Install Command/Links|
+|:----:|:----:|
+|![arch](https://dl.dropboxusercontent.com/u/60521097/archlogo26x26.png)&nbsp;![antergos](https://dl.dropboxusercontent.com/u/60521097/logo-square26x26.png)|`sudo pacman -S numix-themes`|
+|![openSUSE](https://dl.dropboxusercontent.com/u/60521097/Geeko-button-bling7.png)|[1 Click Install](http://software.opensuse.org/ymp/openSUSE:Factory/standard/numix-gtk-theme.ymp) &nbsp;\|&nbsp; [OBS Repo](http://software.opensuse.org/download.html?project=openSUSE%3AFactory&package=numix-gtk-theme)|
+|![fedora](https://dl.dropboxusercontent.com/u/60521097/fedora-logo.png)|`sudo dnf install numix-gtk-theme`|
+
+### Unofficial Distro Packages
+|Distro|Install Command/Links|
+|:----:|:----:|
+|![ubuntu](https://dl.dropboxusercontent.com/u/60521097/ubuntu_orange_hex.png)|[PPA](https://launchpad.net/~numix/+archive/ubuntu/ppa)|
+
+
+## Build It
 
 First, you need to compile the theme using the [Sass](http://sass-lang.com/) compiler.
 
