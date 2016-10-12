@@ -232,12 +232,16 @@
 
 @include exports("gnome-bluetooth") {
     entry.entry.pin-entry {
-        font: regular 50;
+        font-weight: normal;
+        font-size: 50px;
         padding-left: 25px;
         padding-right: 25px;
     }
 
-    label.pin-label { font: regular 50; }
+    label.pin-label {
+        font-weight: normal;
+        font-size: 50px;
+    }
 }
 
 
