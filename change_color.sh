@@ -129,7 +129,7 @@ if [[ ${GTK3_GENERATE_DARK} != "true" ]] ; then
 	cp ./gtk-3.20/scss/gtk.scss ./gtk-3.20/scss/gtk-dark.scss || true
 fi
 if [[ ${GTK2_HIDPI} == "true" ]] ; then
-	cp ./gtk-2.0/gtkrc.hidpi ./gtk-2.0/gtkrc
+	mv ./gtk-2.0/gtkrc.hidpi ./gtk-2.0/gtkrc
 fi
 test ${MAKE_GTK3} = 1 && make "${MAKE_OPTS}"
 
