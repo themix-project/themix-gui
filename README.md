@@ -9,7 +9,7 @@ and gnome-colors icon theme.
   * [Other distributions](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
-  * [Review article](#review-article "")
+  * [Review articles/Usage instructions](#review-articles "")
   * [Demo video](#demo-video "")
 
 
@@ -137,10 +137,11 @@ window decoration {
 
 
 
-#### Review article
+#### Review articles
 
 To learn more about using the application you can check these articles: 
 
+  * https://delightlylinux.wordpress.com/2016/08/22/customize-theme-colors-with-oomox/
   * http://www.webupd8.org/2016/05/easily-create-your-own-numix-based-gtk.html
   * http://www.webupd8.org/2016/06/tool-to-customize-numix-theme-colors.html
 
