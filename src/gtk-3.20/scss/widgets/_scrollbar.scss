@@ -120,12 +120,12 @@
         &.horizontal {
             button {
                 &.down {
-                    -gtk-icon-source: -gtk-icontheme("pan-right-symbolic");
+                    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
                     border-left: 1px solid $borders_color;
                 }
 
                 &.up {
-                    -gtk-icon-source: -gtk-icontheme("pan-left-symbolic");
+                    -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
                     border-right: 1px solid $borders_color;
                 }
             }
