@@ -42,7 +42,9 @@
 *******/
 
 @include exports("menu") {
-    menu, .menu {
+    menu,
+    .menu,
+    .context-menu {
         padding: 0;
         border-radius: 0;
         border: 0;
@@ -138,6 +140,10 @@
                 &:indeterminate,
                 &:indeterminate:backdrop { color: mix($menu_fg_color, $menu_bg_color, .5); }
             }
+
+            // avoids labels color being overridden, see
+            // https://bugzilla.gnome.org/show_bug.cgi?id=767058
+            label { &:dir(rtl), &:dir(ltr) { color: inherit; } }
         }
 
         // overflow arrows
@@ -174,7 +180,7 @@
         }
     }
 
-    .context-menu { font: initial; }
+    .context-menu { font: initial; } // Decouple the font of context menus from their entry/textview
 
     menuitem {
         accelerator {
