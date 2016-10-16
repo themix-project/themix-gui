@@ -49,6 +49,13 @@
     }
 
     treeview entry {
+        &:focus {
+            &:dir(rtl), &:dir(ltr) { // specificity bump hack
+                background-color: $base_color;
+                transition-property: color, background;
+            }
+        }
+
         &.flat, & {
             border-radius: 0;
             background-image: none;
