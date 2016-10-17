@@ -300,7 +300,7 @@ def save_colorscheme(preset_name, colorscheme):
         with open(path, 'w') as f:
             if 'NAME' not in colorscheme:
                 f.write("NAME={}\n".format(preset_name))
-            for key in colorscheme.keys():
+            for key in sorted(colorscheme.keys()):
                 f.write("{}={}\n".format(
                     key, colorscheme[key]
                 ))
