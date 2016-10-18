@@ -24,52 +24,64 @@ THEME_KEYS = [
     {
         'key': 'BG',
         'type': 'color',
+        'display_name': 'Background'
     },
     {
         'key': 'FG',
         'type': 'color',
+        'display_name': 'Foreground/text'
     },
     {
         'key': 'MENU_BG',
         'type': 'color',
+        'display_name': 'Menu/toolbar background'
     },
     {
         'key': 'MENU_FG',
         'type': 'color',
+        'display_name': 'Menu/toolbar text'
     },
     {
         'key': 'SEL_BG',
         'type': 'color',
+        'display_name': 'Selection highlight'
     },
     {
         'key': 'SEL_FG',
         'type': 'color',
+        'display_name': 'Selection text'
     },
     {
         'key': 'TXT_BG',
         'type': 'color',
+        'display_name': 'Textbox background'
     },
     {
         'key': 'TXT_FG',
         'type': 'color',
+        'display_name': 'Textbox text'
     },
     {
         'key': 'BTN_BG',
         'type': 'color',
+        'display_name': 'Button background'
     },
     {
         'key': 'BTN_FG',
         'type': 'color',
+        'display_name': 'Button text'
     },
     {
         'key': 'HDR_BTN_BG',
         'fallback_key': 'BTN_BG',
         'type': 'color',
+        'display_name': 'Header button background'
     },
     {
         'key': 'HDR_BTN_FG',
         'fallback_key': 'BTN_FG',
         'type': 'color',
+        'display_name': 'Header button text'
     },
 
     {
