@@ -1981,16 +1981,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.82442525"
-     inkscape:cx="8.5411068"
-     inkscape:cy="116.23605"
+     inkscape:zoom="6.595402"
+     inkscape:cx="23.649497"
+     inkscape:cy="148.54955"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1280"
-     inkscape:window-height="969"
-     inkscape:window-x="2560"
-     inkscape:window-y="29"
+     inkscape:window-width="1440"
+     inkscape:window-height="852"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -2061,7 +2061,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2104,8 +2104,9 @@
        id="g4227"
        transform="matrix(1.25,0,0,-1.25,0,463.79076)" />
     <g
-       id="g5656"
-       transform="matrix(0.8,0,0,0.8,6,59.329592)">
+       id="checkbox-unchecked"
+       transform="matrix(0.8,0,0,0.8,6,59.329592)"
+       inkscape:label="#g5656">
       <g
          transform="matrix(1.25,0,0,-1.25,0,463.79076)"
          id="g4179">
@@ -2191,8 +2192,9 @@
        id="g4295"
        transform="matrix(1.25,0,0,-1.25,0,463.79076)" />
     <g
-       id="g5670"
-       transform="matrix(0.8,0,0,0.8,4,59.329597)">
+       id="checkbox-mixed"
+       transform="matrix(0.8,0,0,0.8,4,59.329597)"
+       inkscape:label="#g5670">
       <g
          transform="matrix(1.25,0,0,-1.25,0,463.79076)"
          id="g4247">
@@ -2274,8 +2276,9 @@
        id="g4361"
        transform="matrix(1.25,0,0,-1.25,0,463.79076)" />
     <g
-       id="g5683"
-       transform="matrix(0.8,0,0,0.8,2,59.329592)">
+       id="checkbox-checked"
+       transform="matrix(0.8,0,0,0.8,2,59.329592)"
+       inkscape:label="#g5683">
       <g
          transform="matrix(1.25,0,0,-1.25,0,463.79076)"
          id="g4313">
@@ -2328,8 +2331,9 @@
       </g>
     </g>
     <g
-       id="g5630"
-       transform="matrix(0.8,0,0,0.8,6,59.329592)">
+       id="checkbox-unchecked-insensitive"
+       transform="matrix(0.8,0,0,0.8,6,59.329592)"
+       inkscape:label="#g5630">
       <g
          transform="matrix(1.25,0,0,-1.25,0,463.79076)"
          id="g4379">
@@ -2349,8 +2353,9 @@
       </g>
     </g>
     <g
-       id="g5636"
-       transform="matrix(0.8,0,0,0.8,4,59.329597)">
+       id="checkbox-mixed-insensitive"
+       transform="matrix(0.8,0,0,0.8,4,59.329597)"
+       inkscape:label="#g5636">
       <g
          transform="matrix(1.25,0,0,-1.25,0,463.79076)"
          id="g4395">
@@ -2387,8 +2392,9 @@
       </g>
     </g>
     <g
-       id="g5646"
-       transform="matrix(0.8,0,0,0.8,2,59.329592)">
+       id="checkbox-checked-insensitive"
+       transform="matrix(0.8,0,0,0.8,2,59.329592)"
+       inkscape:label="#g5646">
       <g
          transform="matrix(1.25,0,0,-1.25,0,463.79076)"
          id="g4427">
@@ -2457,8 +2463,9 @@
        id="g4698"
        transform="matrix(1.25,0,0,-1.25,230.00003,926.64794)" />
     <g
-       id="g5902"
-       transform="matrix(0.8,0,0,0.8,-178.00002,-422.95615)">
+       id="grid-selection-unchecked"
+       transform="matrix(0.8,0,0,0.8,-178.00002,-422.95615)"
+       inkscape:label="#g5902">
       <g
          transform="matrix(1.25,0,0,-1.25,230.00003,926.64794)"
          id="g4650">
@@ -2544,8 +2551,9 @@
        id="g4766"
        transform="matrix(1.25,0,0,-1.25,230.00003,926.64794)" />
     <g
-       id="g5916"
-       transform="matrix(0.8,0,0,0.8,-184.00002,-422.95615)">
+       id="grid-selection-checked"
+       transform="matrix(0.8,0,0,0.8,-184.00002,-422.95615)"
+       inkscape:label="#g5916">
       <g
          transform="matrix(1.25,0,0,-1.25,230.00003,926.64794)"
          id="g4718">
@@ -2630,8 +2638,9 @@
        id="g4950"
        transform="matrix(1.25,0,0,-1.25,0,583.79078)" />
     <g
-       id="g5603"
-       transform="matrix(0.8,0,0,0.8,6,23.329581)">
+       id="checkbox-unchecked-dark"
+       transform="matrix(0.8,0,0,0.8,6,23.329581)"
+       inkscape:label="#g5603">
       <g
          transform="matrix(1.25,0,0,-1.25,0,583.79078)"
          id="g4902">
@@ -2717,8 +2726,9 @@
        id="g5018"
        transform="matrix(1.25,0,0,-1.25,0,583.79078)" />
     <g
-       id="g5617"
-       transform="matrix(0.8,0,0,0.8,4,23.329581)">
+       id="checkbox-mixed-dark"
+       transform="matrix(0.8,0,0,0.8,4,23.329581)"
+       inkscape:label="#g5617">
       <g
          transform="matrix(1.25,0,0,-1.25,0,583.79078)"
          id="g4970">
@@ -2771,44 +2781,11 @@
       </g>
     </g>
     <g
-       id="g5036"
-       transform="matrix(1,0,0,-1,2,490.3622)">
-      <g
-         id="g5038"
-         clip-path="url(#clipPath5040)">
-        <g
-           id="g5044"
-           clip-path="url(#clipPath5046)">
-          <path
-             d="m 83,69 26,0 0,-26 -26,0 0,26 z"
-             style="fill:#f1544d;fill-opacity:1;fill-rule:nonzero;stroke:none"
-             id="path5050"
-             inkscape:connector-curvature="0" />
-        </g>
-      </g>
-    </g>
-    <g
        id="g5052"
        transform="matrix(1.25,0,0,-1.25,0,583.79078)" />
     <g
        id="g5054"
        transform="matrix(1.25,0,0,-1.25,0,583.79078)" />
-    <g
-       id="g5056"
-       transform="matrix(1,0,0,-1,2,490.3622)">
-      <g
-         id="g5058"
-         transform="matrix(16,0,0,16,88,48)">
-        <image
-           width="1"
-           height="1"
-           preserveAspectRatio="none"
-           transform="matrix(1,0,0,-1,0,1)"
-           xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAB1JREFUOI1jZGBg+M9AAWCiRPOoAaMGjBowmAwAAE1AAR+AZEpMAAAAAElFTkSuQmCC"
-           mask="url(#mask5060)"
-           id="image5064" />
-      </g>
-    </g>
     <g
        id="g5066"
        transform="matrix(1.25,0,0,-1.25,0,583.79078)" />
@@ -2833,25 +2810,64 @@
        id="g5084"
        transform="matrix(1.25,0,0,-1.25,0,583.79078)" />
     <g
-       id="g5086"
-       transform="matrix(1,0,0,-1,1.670925,490.3622)">
+       id="checkbox-checked-dark"
+       inkscape:label="#g5096">
       <g
-         id="g5088"
-         clip-path="url(#clipPath5090)">
+         transform="matrix(1,0,0,-1,2,490.3622)"
+         id="g5036">
         <g
-           id="g5094"
-           clip-path="url(#clipPath5096)">
-          <path
-             d="m 86,65 20.6581,0 0,-17.83035 -20.6581,0 L 86,65 Z"
-             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-             id="path5100"
-             inkscape:connector-curvature="0" />
+           clip-path="url(#clipPath5040)"
+           id="g5038">
+          <g
+             clip-path="url(#clipPath5046)"
+             id="g5044">
+            <path
+               inkscape:connector-curvature="0"
+               id="path5050"
+               style="fill:#f1544d;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               d="m 83,69 26,0 0,-26 -26,0 0,26 z" />
+          </g>
+        </g>
+      </g>
+      <g
+         inkscape:label="#g5056"
+         transform="matrix(1,0,0,-1,2,490.3622)"
+         id="5056">
+        <g
+           transform="matrix(16,0,0,16,88,48)"
+           id="g5058">
+          <image
+             id="image5064"
+             mask="url(#mask5060)"
+             xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAB1JREFUOI1jZGBg+M9AAWCiRPOoAaMGjBowmAwAAE1AAR+AZEpMAAAAAElFTkSuQmCC"
+             transform="matrix(1,0,0,-1,0,1)"
+             preserveAspectRatio="none"
+             height="1"
+             width="1" />
+        </g>
+      </g>
+      <g
+         transform="matrix(1,0,0,-1,1.670925,490.3622)"
+         id="g5086">
+        <g
+           clip-path="url(#clipPath5090)"
+           id="g5088">
+          <g
+             clip-path="url(#clipPath5096)"
+             id="g5094">
+            <path
+               inkscape:connector-curvature="0"
+               id="path5100"
+               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               d="m 86,65 20.6581,0 0,-17.83035 -20.6581,0 L 86,65 Z" />
+          </g>
         </g>
       </g>
     </g>
     <g
-       id="g5696"
-       transform="matrix(0.8,0,0,0.8,6,23.329581)">
+       id="checkbox-unchecked-insensitive-dark"
+       transform="matrix(0.8,0,0,0.8,6,23.329581)"
+       inkscape:label="#g5696">
       <g
          transform="matrix(1.25,0,0,-1.25,0,583.79078)"
          id="g5102">
@@ -2871,8 +2887,9 @@
       </g>
     </g>
     <g
-       id="g5702"
-       transform="matrix(0.8,0,0,0.8,4,23.329581)">
+       id="checkbox-mixed-insensitive-dark"
+       transform="matrix(0.8,0,0,0.8,4,23.329581)"
+       inkscape:label="#g5702">
       <g
          transform="matrix(1.25,0,0,-1.25,0,583.79078)"
          id="g5118">
@@ -2909,8 +2926,9 @@
       </g>
     </g>
     <g
-       id="g5712"
-       transform="matrix(0.8,0,0,0.8,2,23.329581)">
+       id="checkbox-checked-insensitive-dark"
+       transform="matrix(0.8,0,0,0.8,2,23.329581)"
+       inkscape:label="#g5712">
       <g
          transform="matrix(1.25,0,0,-1.25,0,583.79078)"
          id="g5150">
@@ -2979,8 +2997,9 @@
        id="g5421"
        transform="matrix(1.25,0,0,-1.25,230,1052.3622)" />
     <g
-       id="g5929"
-       transform="matrix(0.8,0,0,0.8,-178,-463.52756)">
+       id="grid-selection-unchecked-dark"
+       transform="matrix(0.8,0,0,0.8,-178,-463.52756)"
+       inkscape:label="#g5929">
       <g
          transform="matrix(1.25,0,0,-1.25,230,1052.3622)"
          id="g5373">
@@ -3066,8 +3085,9 @@
        id="g5489"
        transform="matrix(1.25,0,0,-1.25,230,1052.3622)" />
     <g
-       id="g6494"
-       transform="translate(-252.5,-667.5)">
+       id="grid-selection-checked-dark"
+       transform="translate(-252.5,-667.5)"
+       inkscape:label="#g6494">
       <g
          transform="matrix(1,0,0,-1,252.5,1045.8622)"
          id="g5441">
@@ -3123,8 +3143,9 @@
        id="g5611"
        transform="matrix(1.25,0,0,-1.25,0,794.14796)" />
     <g
-       id="g5772"
-       transform="matrix(0.8,0,0,0.8,6,-18.956163)">
+       id="menuitem-checkbox-mixed"
+       transform="matrix(0.8,0,0,0.8,6,-18.956163)"
+       inkscape:label="#g5772">
       <g
          transform="matrix(1.25,0,0,-1.25,0,794.14796)"
          id="g5625">
@@ -3161,8 +3182,9 @@
       </g>
     </g>
     <g
-       id="g5762"
-       transform="matrix(0.8,0,0,0.8,4,-18.956163)">
+       id="menuitem-checkbox-mixed-insensitive"
+       transform="matrix(0.8,0,0,0.8,4,-18.956163)"
+       inkscape:label="#g5762">
       <g
          transform="matrix(1.25,0,0,-1.25,0,794.14796)"
          id="g5657">
@@ -3202,8 +3224,9 @@
       </g>
     </g>
     <g
-       id="g5752"
-       transform="matrix(0.8,0,0,0.8,3,-18.956163)">
+       id="menuitem-checkbox-mixed-hover"
+       transform="matrix(0.8,0,0,0.8,3,-18.956163)"
+       inkscape:label="#g5752">
       <g
          transform="matrix(1.25,0,0,-1.25,0,794.14796)"
          id="g5689">
@@ -3243,8 +3266,9 @@
       </g>
     </g>
     <g
-       id="g5722"
-       transform="matrix(0.8,0,0,0.8,6,-18.956163)">
+       id="menuitem-checkbox-checked"
+       transform="matrix(0.8,0,0,0.8,6,-18.956163)"
+       inkscape:label="#g5722">
       <g
          transform="matrix(1.25,0,0,-1.25,0,794.14796)"
          id="g5721">
@@ -3284,8 +3308,9 @@
       </g>
     </g>
     <g
-       id="g5732"
-       transform="matrix(0.8,0,0,0.8,4,-18.956163)">
+       id="menuitem-checkbox-checked-insensitive"
+       transform="matrix(0.8,0,0,0.8,4,-18.956163)"
+       inkscape:label="#g5732">
       <g
          transform="matrix(1.25,0,0,-1.25,0,794.14796)"
          id="g5753">
@@ -3325,8 +3350,9 @@
       </g>
     </g>
     <g
-       id="g5742"
-       transform="matrix(0.8,0,0,0.8,3,-18.956163)">
+       id="menuitem-checkbox-checked-hover"
+       transform="matrix(0.8,0,0,0.8,3,-18.956163)"
+       inkscape:label="#g5742">
       <g
          transform="matrix(1.25,0,0,-1.25,0,794.14796)"
          id="g5785">
@@ -3366,8 +3392,9 @@
       </g>
     </g>
     <g
-       id="g6472"
-       transform="matrix(0.8,0,0,0.8,5.8463904,-18.970443)">
+       id="menuitem-radio-checked"
+       transform="matrix(0.8,0,0,0.8,5.8463904,-18.970443)"
+       inkscape:label="#g6472">
       <path
          inkscape:connector-curvature="0"
          id="rect6429-7-9"
@@ -3393,8 +3420,9 @@
       </g>
     </g>
     <g
-       id="g6479"
-       transform="matrix(0.8,0,0,0.8,2.3340224,-17.961035)">
+       id="menuitem-radio-checked-insensitive"
+       transform="matrix(0.8,0,0,0.8,2.3340224,-17.961035)"
+       inkscape:label="#g6479">
       <path
          inkscape:connector-curvature="0"
          id="rect6429-7"
@@ -3424,28 +3452,32 @@
     <g
        id="g6486"
        transform="matrix(0.8,0,0,0.8,2.44964,-18.303531)">
-      <path
-         inkscape:connector-curvature="0"
-         id="rect6429"
-         d="m 109.43795,725.83217 c 6.66666,0 13.33334,0 20,0 0,-6.66667 0,-13.33334 0,-20 -6.66666,0 -13.33334,0 -20,0 0,6.66666 0,13.33333 0,20 z"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:1.65014911;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <g
-         style="fill:#8b8b8b;fill-opacity:1"
-         transform="matrix(1.25,0,0,-1.25,0.68795,793.33217)"
-         id="g5849">
+         id="menuitem-radio-checked-hover"
+         inkscape:label="#g5121">
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:1.65014911;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 109.43795,725.83217 c 6.66666,0 13.33334,0 20,0 0,-6.66667 0,-13.33334 0,-20 -6.66666,0 -13.33334,0 -20,0 0,6.66666 0,13.33333 0,20 z"
+           id="rect6429"
+           inkscape:connector-curvature="0" />
         <g
-           style="fill:#8b8b8b;fill-opacity:1"
-           clip-path="url(#clipPath5853)"
-           id="g5851">
+           id="g5849"
+           transform="matrix(1.25,0,0,-1.25,0.68795,793.33217)"
+           style="fill:#ffffff;fill-opacity:1">
           <g
-             style="fill:#8b8b8b;fill-opacity:1"
-             clip-path="url(#clipPath5859)"
-             id="g5857">
-            <path
-               inkscape:connector-curvature="0"
-               id="path5863"
-               style="fill:#8b8b8b;fill-opacity:1;fill-rule:nonzero;stroke:none"
-               d="m 87,70 16,0 0,-16 -16,0 0,16 z" />
+             id="g5851"
+             clip-path="url(#clipPath5853)"
+             style="fill:#ffffff;fill-opacity:1">
+            <g
+               id="g5857"
+               clip-path="url(#clipPath5859)"
+               style="fill:#ffffff;fill-opacity:1">
+              <path
+                 d="m 87,70 16,0 0,-16 -16,0 0,16 z"
+                 style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                 id="path5863"
+                 inkscape:connector-curvature="0" />
+            </g>
           </g>
         </g>
       </g>
@@ -3465,8 +3497,9 @@
       </g>
     </g>
     <g
-       id="g5782"
-       transform="matrix(0.8,0,0,0.8,6,-64.098995)">
+       id="radio-unchecked"
+       transform="matrix(0.8,0,0,0.8,6,-64.098995)"
+       inkscape:label="#g5782">
       <g
          transform="matrix(1.25,0,0,-1.25,0,918.0765)"
          id="g6038"
@@ -3527,8 +3560,9 @@
       </g>
     </g>
     <g
-       id="g5794"
-       transform="matrix(0.8,0,0,0.8,4,-64.098995)">
+       id="radio-mixed"
+       transform="matrix(0.8,0,0,0.8,4,-64.098995)"
+       inkscape:label="#g5794">
       <g
          transform="matrix(1.25,0,0,-1.25,0,918.0765)"
          id="g6106"
@@ -3586,8 +3620,9 @@
       </g>
     </g>
     <g
-       id="g5804"
-       transform="matrix(0.8,0,0,0.8,2,-64.098995)">
+       id="radio-checked"
+       transform="matrix(0.8,0,0,0.8,2,-64.098995)"
+       inkscape:label="#g5804">
       <g
          transform="matrix(1.25,0,0,-1.25,0,918.0765)"
          id="g6172"
@@ -3630,8 +3665,9 @@
       </g>
     </g>
     <g
-       id="g5814"
-       transform="matrix(0.8,0,0,0.8,6,-64.098995)">
+       id="radio-unchecked-insensitive"
+       transform="matrix(0.8,0,0,0.8,6,-64.098995)"
+       inkscape:label="#g5814">
       <g
          transform="matrix(1.25,0,0,-1.25,0,918.0765)"
          id="g6238"
@@ -3648,8 +3684,9 @@
       </g>
     </g>
     <g
-       id="g5820"
-       transform="matrix(0.8,0,0,0.8,4,-64.098995)">
+       id="radio-mixed-insensitive"
+       transform="matrix(0.8,0,0,0.8,4,-64.098995)"
+       inkscape:label="#g5820">
       <g
          transform="matrix(1.25,0,0,-1.25,0,918.0765)"
          id="g6254"
@@ -3680,8 +3717,9 @@
       </g>
     </g>
     <g
-       id="g5828"
-       transform="matrix(0.8,0,0,0.8,2,-64.098995)">
+       id="radio-checked-insensitive"
+       transform="matrix(0.8,0,0,0.8,2,-64.098995)"
+       inkscape:label="#g5828">
       <g
          transform="matrix(1.25,0,0,-1.25,0,918.0765)"
          id="g6286"
@@ -3744,8 +3782,9 @@
        id="g6555"
        transform="matrix(1.25,0,0,-1.25,0,1052.3622)" />
     <g
-       id="g5836"
-       transform="matrix(0.8,0,0,0.8,6,-111.52756)">
+       id="radio-unchecked-dark"
+       transform="matrix(0.8,0,0,0.8,6,-111.52756)"
+       inkscape:label="#g5836">
       <g
          transform="matrix(1.25,0,0,-1.25,0,1052.3622)"
          id="g6507">
@@ -3831,8 +3870,9 @@
        id="g6623"
        transform="matrix(1.25,0,0,-1.25,0,1052.3622)" />
     <g
-       id="g5850"
-       transform="matrix(0.8,0,0,0.8,4,-111.52756)">
+       id="radio-mixed-dark"
+       transform="matrix(0.8,0,0,0.8,4,-111.52756)"
+       inkscape:label="#g5850">
       <g
          transform="matrix(1.25,0,0,-1.25,0,1052.3622)"
          id="g6575">
@@ -3914,8 +3954,9 @@
        id="g6689"
        transform="matrix(1.25,0,0,-1.25,0,1052.3622)" />
     <g
-       id="g5863"
-       transform="matrix(0.8,0,0,0.8,2,-111.52756)">
+       id="radio-checked-dark"
+       transform="matrix(0.8,0,0,0.8,2,-111.52756)"
+       inkscape:label="#g5863">
       <g
          transform="matrix(1.25,0,0,-1.25,0,1052.3622)"
          id="g6641">
@@ -3968,8 +4009,9 @@
       </g>
     </g>
     <g
-       id="g5876"
-       transform="matrix(0.8,0,0,0.8,6,-111.52756)">
+       id="radio-unchecked-insensitive-dark"
+       transform="matrix(0.8,0,0,0.8,6,-111.52756)"
+       inkscape:label="#g5876">
       <g
          transform="matrix(1.25,0,0,-1.25,0,1052.3622)"
          id="g6707">
@@ -3989,8 +4031,9 @@
       </g>
     </g>
     <g
-       id="g5882"
-       transform="matrix(0.8,0,0,0.8,4,-111.52756)">
+       id="radio-mixed-insensitive-dark"
+       transform="matrix(0.8,0,0,0.8,4,-111.52756)"
+       inkscape:label="#g5882">
       <g
          transform="matrix(1.25,0,0,-1.25,0,1052.3622)"
          id="g6723">
@@ -4027,8 +4070,9 @@
       </g>
     </g>
     <g
-       id="g5892"
-       transform="matrix(0.8,0,0,0.8,2,-111.52756)">
+       id="radio-checked-insensitive-dark"
+       transform="matrix(0.8,0,0,0.8,2,-111.52756)"
+       inkscape:label="#g5892">
       <g
          transform="matrix(1.25,0,0,-1.25,0,1052.3622)"
          id="g6755">
@@ -4065,9 +4109,10 @@
       </g>
     </g>
     <g
-       id="g5066-3"
+       id="pane-handle"
        transform="translate(30,-549.99986)"
-       style="color:#000000">
+       style="color:#000000"
+       inkscape:label="#g5066-3">
       <rect
          id="rect5068"
          transform="matrix(0,1,-1,0,0,0)"

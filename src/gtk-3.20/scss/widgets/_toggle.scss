@@ -7,41 +7,54 @@ $suffix: if($variant == "dark", "-dark", "");
 @mixin toggle($type) {
     background-image: none;
 
-    -gtk-icon-source: url("../assets/#{$type}-unchecked#{$suffix}.png");
+    -gtk-icon-source: -gtk-scaled(url("../assets/#{$type}-unchecked#{$suffix}.png"),
+                                  url("../assets/#{$type}-unchecked#{$suffix}@2.png"));
 
-    &:disabled { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.png"); }
+    &:disabled { -gtk-icon-source: -gtk-scaled(url("../assets/#{$type}-unchecked-insensitive#{$suffix}.png"),
+                                               url("../assets/#{$type}-unchecked-insensitive#{$suffix}@2.png")); }
 
     &:checked, &:active {
-        -gtk-icon-source: url("../assets/#{$type}-checked#{$suffix}.png");
+        -gtk-icon-source: -gtk-scaled(url("../assets/#{$type}-checked#{$suffix}.png"),
+                                      url("../assets/#{$type}-checked#{$suffix}@2.png"));
 
-        &:disabled { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.png"); }
+        &:disabled { -gtk-icon-source: -gtk-scaled(url("../assets/#{$type}-checked-insensitive#{$suffix}.png"),
+                                                   url("../assets/#{$type}-checked-insensitive#{$suffix}@2.png")); }
     }
 
     &:indeterminate {
-        -gtk-icon-source: url("../assets/#{$type}-mixed#{$suffix}.png");
+        -gtk-icon-source: -gtk-scaled(url("../assets/#{$type}-mixed#{$suffix}.png"),
+                                      url("../assets/#{$type}-mixed#{$suffix}@2.png"));
 
-        &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.png"); }
+        &:disabled { -gtk-icon-source: -gtk-scaled(url("../assets/#{$type}-mixed-insensitive#{$suffix}.png"),
+                                                   url("../assets/#{$type}-mixed-insensitive#{$suffix}@2.png")); }
     }
 
     menuitem &, modelbutton & {
-        -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png");
+        -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-checked-insensitive.png"),
+                                      url("../assets/menuitem-#{$type}-checked-insensitive@2.png"));
 
         &:disabled { -gtk-icon-source: none; }
 
         &:checked, &:active {
-            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.png");
+            -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-checked.png"),
+                                          url("../assets/menuitem-#{$type}-checked@2.png"));
 
-            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-hover.png"); }
+            &:hover { -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-checked-hover.png"),
+                                                    url("../assets/menuitem-#{$type}-checked-hover@2.png")); }
 
-            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.png"); }
+            &:disabled { -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-checked-insensitive.png"),
+                                                       url("../assets/menuitem-#{$type}-checked-insensitive@2.png")); }
         }
 
         &:indeterminate {
-            -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed.png");
+            -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-mixed.png"),
+                                          url("../assets/menuitem-#{$type}-mixed@2.png"));
 
-            &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-hover.png"); }
+            &:hover { -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-mixed-hover.png"),
+                                                    url("../assets/menuitem-#{$type}-mixed-hover@2.png")); }
 
-            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.png"); }
+            &:disabled { -gtk-icon-source: -gtk-scaled(url("../assets/menuitem-#{$type}-mixed-insensitive.png"),
+                                                       url("../assets/menuitem-#{$type}-mixed-insensitive@2.png")); }
         }
     }
 }
@@ -77,7 +90,8 @@ $suffix: if($variant == "dark", "-dark", "");
                   (':backdrop:checked', '-checked') {
         .view.content-view.check#{$s}:not(list) {
             -gtk-icon-shadow: none;
-            -gtk-icon-source: url("../assets/grid-selection#{$as}#{$suffix}.png");
+            -gtk-icon-source: -gtk-scaled(url("../assets/grid-selection#{$as}#{$suffix}.png"),
+                                          url("../assets/grid-selection#{$as}#{$suffix}@2.png"));
             background-color: transparent;
         }
     }
