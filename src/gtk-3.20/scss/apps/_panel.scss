@@ -9,6 +9,11 @@
         color: $panel_fg_color;
     }
 
+    %panellabel {
+        font-weight: normal;
+        color: $panel_fg_color;
+    }
+
     %panelbutton {
         border-width: 0 1px;
         border-radius: 0;
@@ -38,41 +43,49 @@
         }
     }
 
-    PanelWidget, PanelApplet, PanelToplevel {
+    panel-plug,
+    panel-toplevel.background {
         @extend %panel;
 
         padding: 0;
     }
 
-    PanelApplet {
+    .gp-text-color {
+        color: $black;
+    }
+
+    #clock-applet-button { &, &:backdrop { @extend %panelbutton; } }
+
+    panel-applet {
         border: 0;
 
         button {
-            @extend %panelbutton;
+            &, &:backdrop { @extend %panelbutton; }
         }
     }
 
-    PanelSeparator {
-        @extend %panel;
-
-        border: 0;
-    }
-
-    PanelApplet > GtkMenuBar.menubar, PanelMenuBar.menubar, .gnome-panel-menu-bar {
-        &.menuitem {
+    clock-box,
+    panel-applet > menubar,
+    panel-toplevel .gnome-panel-menu-bar {
+        &, &:backdrop {
             @extend %panel;
 
-            border: 0;
+            menuitem {
+                @extend %panel;
 
-            -PanelMenuBar-icon-visible: true;
+                border: 0;
+
+                label { @extend %panellabel; }
+            }
         }
     }
 
-    PanelAppletFrame {
-        @extend %panel;
-
-        border: 0;
+    gp-calendar-window,
+    #tasklist-button,
+    #clock-applet-button,
+    #showdesktop-button {
+        label { @extend %panellabel; }
     }
 
-    WnckPager, WnckTasklist { @extend %panel; }
+    wnck-pager, wnck-tasklist { @extend %panel; }
 }
