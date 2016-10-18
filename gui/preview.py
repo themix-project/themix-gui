@@ -205,7 +205,7 @@ class ThemePreview(Gtk.Grid):
     def _override_css_style(self):
         css_provider = Gtk.CssProvider()
         try:
-            if Gtk.get_minor_version() == 20:
+            if Gtk.get_minor_version() >= 20:
                 css_provider.load_from_path(
                     os.path.join(script_dir, "theme20.css")
                 )

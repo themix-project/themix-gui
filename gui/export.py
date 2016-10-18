@@ -100,7 +100,7 @@ def _export(window, theme_path, export_args):
 
 
 def export_theme(window, theme_path):
-    if Gtk.get_minor_version() == 20:
+    if Gtk.get_minor_version() >= 20:
         make_opts = "gtk320"
     else:
         make_opts = "gtk3"
