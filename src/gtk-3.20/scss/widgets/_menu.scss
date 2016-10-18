@@ -293,39 +293,34 @@
         }
     }
 
-    modelbutton {
+    modelbutton.flat,
+    menuitem.button.flat {
         padding: $spacing ($spacing + 2px);
-        border: none;
-        transition: 150ms ease;
         outline-color: transparent;
+        transition: none;
 
-        &, &:backdrop, &.flat, &.flat:backdrop {
-            //@extend %undecorated_button;
+        @extend %undecorated_button;
 
-            &:hover { background-color: $selected_bg_color; color: $selected_fg_color }
-
-            &:active, &:selected { &, arrow { @extend %selected_items; } }
-
-            &:checked { color: $fg_color; }
-
-            // FIXME: temporary workaround
-            check:last-child,
-            radio:last-child { margin-left: 8px; }
-
-            check:first-child,
-            radio:first-child { margin-right: 8px; }
-
-            &.flat arrow {
-                &.left { -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
-
-                &.right { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
-            }
+        &:hover {
+            background-color: $selected_bg_color;
+            color: $selected_fg_color;
         }
 
-        &.flat {
-            &, &:hover {
-                transition: none;
-            }
+        &:active, &:selected { &, arrow { @extend %selected_items; } }
+
+        &:checked { color: $fg_color; }
+
+        arrow {
+            &.left { -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
+
+            &.right { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
         }
+
+        // FIXME: temporary workaround
+        check:last-child,
+        radio:last-child { margin-left: 8px; }
+
+        check:first-child,
+        radio:first-child { margin-right: 8px; }
     }
 }
