@@ -3,6 +3,13 @@
 set -ue
 SRC_PATH=$(readlink -e $(dirname $0))
 
+darker () {
+	"${SRC_PATH}/scripts/darker.sh" $@
+}
+mix () {
+	"${SRC_PATH}/scripts/mix.sh" $@
+}
+
 
 print_usage() {
 	echo "usage: $0 [-o OUTPUT_THEME_NAME] [-p PATH_LIST] [-m MAKE_OPTS] PRESET_NAME_OR_PATH"
@@ -87,6 +94,20 @@ GRADIENT=${GRADIENT-0}
 ROUNDNESS=${ROUNDNESS-2}
 ROUNDNESS_GTK2_HIDPI=$(( ${ROUNDNESS} * 2 ))
 
+INACTIVE_FG=$(mix ${FG} ${BG} 0.75)
+INACTIVE_MENU_FG=$(mix ${MENU_FG} ${MENU_BG} 0.75)
+INACTIVE_TXT_FG=$(mix ${MENU_FG} ${MENU_BG} 0.75)
+
+light_folder_base_fallback="$(darker ${SEL_BG} -10)"
+medium_base_fallback="$(darker ${SEL_BG} 37)"
+dark_stroke_fallback="$(darker ${SEL_BG} 50)"
+
+ICONS_LIGHT_FOLDER="${ICONS_LIGHT_FOLDER-$light_folder_base_fallback}"
+ICONS_LIGHT="${ICONS_LIGHT-$SEL_BG}"
+ICONS_MEDIUM="${ICONS_MEDIUM-$medium_base_fallback}"
+ICONS_DARK="${ICONS_DARK-$dark_stroke_fallback}"
+
+
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
 
@@ -120,6 +141,13 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%ROUNDNESS_GTK2_HIDPI%/'"$ROUNDNESS_GTK2_HIDPI"'/g' \
 		-e 's/%SPACING%/'"$SPACING"'/g' \
 		-e 's/%GRADIENT%/'"$GRADIENT"'/g' \
+		-e 's/%INACTIVE_FG%/'"$INACTIVE_FG"'/g' \
+		-e 's/%INACTIVE_TXT_FG%/'"$INACTIVE_TXT_FG"'/g' \
+		-e 's/%INACTIVE_MENU_FG%/'"$INACTIVE_MENU_FG"'/g' \
+		-e 's/%ICONS_DARK%/'"$ICONS_DARK"'/g' \
+		-e 's/%ICONS_MEDIUM%/'"$ICONS_MEDIUM"'/g' \
+		-e 's/%ICONS_LIGHT%/'"$ICONS_LIGHT"'/g' \
+		-e 's/%ICONS_LIGHT_FOLDER%/'"$ICONS_LIGHT_FOLDER"'/g' \
 		-e 's/%OUTPUT_THEME_NAME%/'"$OUTPUT_THEME_NAME"'/g' \
 		{} \; ;
 done
