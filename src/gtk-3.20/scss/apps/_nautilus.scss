@@ -74,4 +74,19 @@
             border-color: shade($disk_space_free, .9);
         }
     }
+
+    // Batch renaming dialog
+    .conflict-row.activatable {
+        &, &:active {
+            color: $error_fg_color;
+            background-color: $error_color;
+        }
+
+        &:hover { background-color: shade($error_color, 1.1); }
+
+        &:selected {
+            color: $selected_fg_color;
+            background-color: $selected_bg_color;
+        }
+    }
 }

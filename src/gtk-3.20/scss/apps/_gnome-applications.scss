@@ -11,3 +11,21 @@
         &.progress-fast { color: shade($selected_bg_color, .7); }
     }
 }
+
+
+/*****************
+ ! Gnome Builder *
+******************/
+
+@include exports("gnome-builder") {
+    workbench.csd > stack.titlebar:not(headerbar) {
+        padding: 0;
+        background: none;
+        border: 0;
+        box-shadow: none;
+
+        headerbar {
+            &, &:first-child, &:last-child { border-radius: $roundness $roundness 0 0; }
+        }
+    }
+}

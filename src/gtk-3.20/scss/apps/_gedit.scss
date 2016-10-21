@@ -79,7 +79,8 @@
         transition: all 200ms ease-in;
     }
 
-    statusbar { border-top: 1px solid border_normal($bg_color); }
+    //Ignore: Global double border separator.
+    //statusbar { border-top: 1px solid border_normal($bg_color); }
 
     statusbar GeditSmallButton, GeditStatusMenuButton {
         text-shadow: none;

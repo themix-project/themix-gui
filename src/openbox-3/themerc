@@ -48,16 +48,21 @@ window.active.handle.bg.color: #%MENU_BG%
 window.active.grip.bg: flat solid
 window.active.grip.bg.color: #%MENU_BG%
 
-window.active.button.unpressed.bg: parentrelative
+window.active.button.unpressed.bg: flat solid
+window.active.button.unpressed.bg.color: #%MENU_BG%
 window.active.button.unpressed.image.color: #%MENU_FG%
 
 window.active.button.pressed.bg: flat solid
-window.active.button.pressed.bg.color: #ec7584
-window.active.button.pressed.image.color: #%MENU_BG%
+window.active.button.pressed.bg.color: #%MENU_BG%
+window.active.button.pressed.image.color: #%MENU_FG%
 
 window.active.button.disabled.bg: flat solid
 window.active.button.disabled.bg.color: #%MENU_BG%
 window.active.button.disabled.image.color: #%BG%
+
+window.active.button.hover.bg: flat solid
+window.active.button.hover.bg.color: #%MENU_BG%
+window.active.button.hover.image.color: #%SEL_BG%
 
 window.active.button.toggled.bg: Parentrelative
 window.active.button.toggled.image.color: #%MENU_FG%
@@ -81,11 +86,11 @@ window.inactive.grip.bg.color: #%MENU_BG%
 
 window.inactive.button.unpressed.bg: flat solid
 window.inactive.button.unpressed.bg.color: #%MENU_BG%
-window.inactive.button.unpressed.image.color: #%BG%
+window.inactive.button.unpressed.image.color: #%MENU_FG%
 
 window.inactive.button.pressed.bg: flat solid
-window.inactive.button.pressed.bg.color: #%MENU_BG%
-window.inactive.button.pressed.image.color: #d64937
+window.inactive.button.pressed.bg.color: #%SEL_BG%
+window.inactive.button.pressed.image.color: #%SEL_FG%
 
 window.inactive.button.disabled.bg: flat solid
 window.inactive.button.disabled.bg.color: #%MENU_BG%
@@ -140,10 +145,10 @@ menu.title.text.font:shadow=n
 
 
 # Everything else
-border.width: 4
+border.width: $spacing
 padding.width: 8
 padding.height: 4
 window.handle.width: 0
 window.client.padding.width: 0
-window.label.text.justify: Center
-menu.overlap: 0
+window.label.text.justify: center
+#menu.overlap: 0

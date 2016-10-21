@@ -96,9 +96,11 @@
 
     &:focus, &:hover, &:active { transition: none; }
 
-    &:selected, &:selected:focus {
-        background-color: $selected_bg_color;
-        color: $selected_fg_color;
+    &:selected {
+        &, &:selected:focus {
+            background-color: $selected_bg_color;
+            color: $selected_fg_color;
+        }
     }
 
     &:disabled { box-shadow: none; }
@@ -115,7 +117,33 @@
 
     image.right { padding-left: $spacing; }
 
-    selection { &:focus, & { @extend %selected_items; } }
+    selection { @extend %selected_items; }
+
+    // entry error and warning style
+    @each $e_type, $e_color, $e_fg_color in (warning, $warning_bg_color, $warning_fg_color),
+                                            (error, $error_bg_color, $error_fg_color),
+                                            // entry.search-missing for Gnome-Builder
+                                            (search-missing, $error_bg_color, $error_fg_color) {
+        &.#{$e_type} {
+            color: $e_fg_color;
+            border-color: border_normal($e_color);
+            background-color: mix($base_color, $e_color, .6);
+
+            image { color: $e_fg_color; }
+
+            &:focus {
+                color: $e_fg_color;
+                border-color: border_focus($e_color);
+                background-color: $e_color;
+                box-shadow: none;
+            }
+
+            selection {
+                background-color: $e_fg_color;
+                color: $e_color;
+            }
+        }
+    }
 }
 
 @mixin entry($bg, $fg, $border: $borders_color) {
