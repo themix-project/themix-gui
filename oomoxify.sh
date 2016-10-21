@@ -28,7 +28,7 @@ examples:
 
 
 darker() {
-	${root}/darker.sh $@
+	${root}/scripts/darker.sh $@
 }
 
 
