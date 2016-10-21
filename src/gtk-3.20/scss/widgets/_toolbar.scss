@@ -218,4 +218,15 @@
             border-top-right-radius: $roundness;
         }
     }
+
+    // Fixed: https://github.com/numixproject/numix-gtk-theme/issues/585
+    // workaround for ugly Ubuntu-related CSD patches
+    .background:not(.csd):not(.ssd):not(.solid-csd) headerbar {
+        &, &:backdrop {
+            &, &:not(:last-child) {
+                border-radius: 0;
+                border-top-color: transparent;
+            }
+        }
+    }
 }
