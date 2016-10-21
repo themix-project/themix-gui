@@ -145,7 +145,7 @@ menu.title.text.font:shadow=n
 
 
 # Everything else
-border.width: $spacing
+border.width: %SPACING%
 padding.width: 8
 padding.height: 4
 window.handle.width: 0
