@@ -12,16 +12,16 @@ do_install() {
 
 	cp index.theme "${INSTALL_DIR}"
 
+	cp -rt "${INSTALL_DIR}" \
+			assets gtk-2.0 metacity-1 openbox-3 xfce-notify-4.0 xfwm4 unity
+
 	for _DIR in "${GTKDIR}" "${GTK320DIR}"
 	do
 		GTKVER="${_DIR##*/}"
 
 		mkdir "${_DIR}"
 
-		cp --preserve=links -rt "${INSTALL_DIR}" \
-			assets gtk-2.0 metacity-1 openbox-3 xfce-notify-4.0 xfwm4 unity
-
-		cp --preserve=links -t "${_DIR}" \
+		cp -t "${_DIR}" \
 			"${GTKVER}/gtk.css" \
 			"${GTKVER}/gtk-dark.css" \
 			"${GTKVER}/gtk.gresource" \
