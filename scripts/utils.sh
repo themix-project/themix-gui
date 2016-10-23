@@ -48,23 +48,30 @@ output_changes_file_version_marker() {
 
 
 update_changes_file() {
-	local LATEST_STABLE_RELEASE
-	LATEST_STABLE_RELEASE=$(git describe --tags $(git rev-list --tags --max-count=1))
+	local LAST_STABLE_RELEASE NEXT_STABLE_RELEASE
+
+	LAST_STABLE_RELEASE=$(git describe --tags $(git rev-list --tags --max-count=1))
+
+	LAST_MAJOR_MINOR="${LAST_STABLE_RELEASE%.*}"
+	LAST_PATCH="${LAST_STABLE_RELEASE##*.}"
+
+	NEXT_PATCH=$(($LAST_PATCH + 1))
+	NEXT_STABLE_RELEASE="${LAST_MAJOR_MINOR}.${NEXT_PATCH}"
 
 	[[ -f CHANGES ]] && mv CHANGES CHANGES.old
 
-	output_changes_file_version_marker "${LATEST_STABLE_RELEASE}" > CHANGES
+	output_changes_file_version_marker "${NEXT_STABLE_RELEASE}" > CHANGES
 
 	{ git log \
 		--pretty=format:"[%ai] %<(69,trunc) %s %><(15) %aN {%h}" \
-		--cherry-pick "${LATEST_STABLE_RELEASE}...HEAD"; } >> CHANGES
+		--cherry-pick "${LAST_STABLE_RELEASE}...HEAD"; } >> CHANGES
 
 
 	[[ -f CHANGES.old ]] && echo "" >> CHANGES && cat CHANGES.old >> CHANGES && rm CHANGES.old
 
-	#git add CHANGES
-	#git commit -m 'RELEASE PREP :: Update CHANGES file.'
-	#git push
+	git add CHANGES
+	git commit -m 'RELEASE PREP :: Update CHANGES file.'
+	git push
 }
 
 
