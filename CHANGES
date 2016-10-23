@@ -1,3 +1,30 @@
+-------------->>>> 2.6.5 <<<<-------------------------->>>> 2.6.5 <<<<-------------------------->>>> 2.6.5 <<<<--------------
+[2016-10-22 20:36:07 -0500]  add zip task to Makefile                                               Dustin Falgout  {5ccc199}
+[2016-10-22 20:18:42 -0500]  utils.sh :: fix errors in do_install function                          Dustin Falgout  {5f85cec}
+[2016-10-22 19:29:07 -0500]  update utils.sh                                                        Dustin Falgout  {b30fb3b}
+[2016-10-22 19:04:32 -0500]  add missing version marker to CHANGES file                             Dustin Falgout  {64cccd8}
+[2016-10-21 20:26:22 +0200]  WebkitGtk Workaround. Fixes #572                                        Csaba Jakosa   {7254e08}
+[2016-10-21 20:14:48 +0200]  [GTK-3.20] Fix backdrop mode in Ubuntu. Fixes #585                      Csaba Jakosa   {a457b8f}
+[2016-10-21 17:19:04 +0200]  Fixed openbox theme color. Fixes #369                                   Csaba Jakosa   {25fa93c}
+[2016-10-20 21:49:56 +0200]  Fix title-bar padding in gnome-builder. Fixes #605                      Csaba Jakosa   {f14b4d4}
+[2016-10-18 17:00:24 +0200]  Optimized modelbutton code.                                             Csaba Jakosa   {690532b}
+[2016-10-18 16:59:38 +0200]  Create and Restructure all assets Adwaita and Arc-theme style.          Csaba Jakosa   {f1c11cd}
+[2016-10-18 16:57:12 +0200]  [Gtk-3.20] Fixed infobar structure and  adding entry error and warn..   Csaba Jakosa   {ed3e728}
+[2016-10-18 16:39:39 +0200]  [Gtk-3.20] Porting gnome-panel code. Fixes #550                         Csaba Jakosa   {9962ab9}
+[2016-10-17 01:23:38 +0200]  * Add a background to cellrendertext. Reference code: https://githu..   Csaba Jakosa   {7304425}
+[2016-10-17 01:23:04 +0200]  * Fixed scrollbar horizontal icon name. Reference code: https://git..   Csaba Jakosa   {dd13e3b}
+[2016-10-16 20:03:53 +0200]  [Gtk-3.20] Fix Combobox menu padding. Fixes #575                        Csaba Jakosa   {e4cb539}
+[2016-10-16 20:00:35 +0200]  Remove duplicated code.                                                 Csaba Jakosa   {51f1578}
+[2016-10-16 18:30:26 +0200]  [Gtk-3.20] Optimized popover padding.                                   Csaba Jakosa   {16840bb}
+[2016-10-16 07:27:34 +0200]  Adding monospace code.                                                  Csaba Jakosa   {e3fa52a}
+[2016-10-16 07:27:02 +0200]  Add conflict-row styling for nautilus. Fixes #576                       Csaba Jakosa   {fa648c5}
+[2016-10-16 07:24:44 +0200]  [Gtk-3.22] Changed font syntax from Pango-style to CSS-style. Fixes..   Csaba Jakosa   {49943fb}
+[2016-10-01 18:53:38 -0500]  Update README.md                                                       Dustin Falgout  {c138b78}
+[2016-10-01 18:00:30 -0500]  remove old svg files (part of #508)                                    Dustin Falgout  {1d56b33}
+[2016-10-02 00:57:50 +0200]  Adding single SVG asset file ready for batch export to PNG (#579)       Set Hallstrom  {f030e61}
+[2016-09-25 15:48:37 +0200]  * Fixes #548 (#568)                                                     Csaba Jakosa   {df38463}
+[2016-09-22 06:35:32 -0500]  Update README.md                                                       Dustin Falgout  {5a0ec95}
+[2016-09-21 23:13:08 -0500]  update utils.sh. fix missing new line in CHANGES file.                 Dustin Falgout  {776e3f1}
 -------------->>>> 2.6.4 <<<<-------------------------->>>> 2.6.4 <<<<-------------------------->>>> 2.6.4 <<<<--------------
 [2016-09-21 22:06:03 -0500]  update install script for what should be the last time (at least fo..  Dustin Falgout  {f8c7f0c}
 [2016-09-21 22:05:08 -0500]  move assets into src directory                                         Dustin Falgout  {8df9804}
