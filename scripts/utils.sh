@@ -48,15 +48,32 @@ output_changes_file_version_marker() {
 
 
 update_changes_file() {
-	local LAST_STABLE_RELEASE NEXT_STABLE_RELEASE
-
-	LAST_STABLE_RELEASE=$(git describe --tags $(git rev-list --tags --max-count=1))
-
+	LAST_STABLE_RELEASE=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
 	LAST_MAJOR_MINOR="${LAST_STABLE_RELEASE%.*}"
+
+	LAST_MAJOR="${LAST_STABLE_RELEASE%%.*}"
+	LAST_MINOR="${LAST_MAJOR_MINOR#*.}"
 	LAST_PATCH="${LAST_STABLE_RELEASE##*.}"
 
-	NEXT_PATCH=$(($LAST_PATCH + 1))
-	NEXT_STABLE_RELEASE="${LAST_MAJOR_MINOR}.${NEXT_PATCH}"
+	case "${PWD##*/}" in
+		Numix)
+			NEXT_PATCH=$(($LAST_PATCH + 1))
+
+			NEXT_STABLE_RELEASE="${LAST_MAJOR_MINOR}.${NEXT_PATCH}"
+		;;
+
+		Numix-Frost)
+			LAST_MAJOR=$(($LAST_MAJOR + 1))
+			NEXT_STABLE_RELEASE="${LAST_MAJOR}.${LAST_MINOR}.${LAST_PATCH}"
+			LAST_PATCH=$(($LAST_PATCH - 1))
+
+			LAST_STABLE_RELEASE="${LAST_MAJOR}.${LAST_MINOR}.${LAST_PATCH}"
+		;;
+
+		*)
+			echo 'Unknown directory!' && exit 1
+		;;
+	esac
 
 	[[ -f CHANGES ]] && mv CHANGES CHANGES.old
 
