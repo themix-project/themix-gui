@@ -364,15 +364,15 @@
         box-shadow: none;
 
         &:focus, &:hover {
-            border: 1px solid alpha($black, .3);
+            border: 1px solid alpha($bg_color, .1);
             background-color: alpha($white, .2);
             background-image: none;
             box-shadow: none;
         }
 
         &:active, &:checked, &:active:hover, &:checked:hover {
-            border: 1px solid alpha($black, .3);
-            background-color: alpha($black, .1);
+            border: 1px solid alpha($selected_bg_color, .2);
+            background-color: alpha($white, .2);
             background-image: none;
             box-shadow: none;
         }

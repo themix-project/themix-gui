@@ -144,7 +144,7 @@
             }
 
             tab {
-                padding: ($spacing + 1) 0 0; // top | left/right | bottom
+                padding: 0;
                 border-style: solid;
                 border-width: 1px;         // for reorderable tabs
                 border-color: transparent; //
@@ -152,18 +152,35 @@
                 box-shadow: none;
                 outline: none;
 
-                button, button:hover {
-                    margin-left: 15px;
-                    opacity: 0;
-                    transition: opacity .3s ease-in;
-                }
-
-                > box, > label {
-                    padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
+                > box,
+                > label,
+                > widget > box {
+                    padding: ($spacing + 2) ($spacing * 3); // top/bottom | left/right
                     border-width: 2px;
                     border-style: solid;
                     border-color: transparent;
-                    transition: border-color .3s ease-out;
+                    transition: border-color .2s linear;
+                }
+
+                &.reorderable-page {
+                    > box,
+                    > label,
+                    > widget > box {
+                        padding: ($spacing + 2) ($spacing * 2) ($spacing + 2) ($spacing * 3); // top | right | bottom | left
+                    }
+                }
+
+                /* close button styling */
+                button,
+                button.flat {
+                    @extend %close_button;
+
+                    min-height: 16px;
+                    min-width: 16px;
+                    padding: 0;
+                    margin-left: $spacing * 3;
+                    border: 1px solid transparent;
+                    transition: all .1s linear;
                 }
 
                 &:hover {
@@ -171,8 +188,9 @@
                     border-color: transparent;
                     outline: none;
 
-                    button, button:hover {
-                        opacity: 1;
+                    button,
+                    button.flat {
+                        border: 1px solid alpha($bg_color, .1);
                     }
                 }
 
@@ -192,15 +210,6 @@
 
                 label {
                     color: mix($text_color, $base_color, .3);
-                }
-
-                /* close button styling */
-                button.flat {
-                    min-height: 16px;
-                    min-width: 16px;
-                    padding: 0;
-
-                    @extend %close_button;
                 }
             }
 
@@ -267,16 +276,11 @@
             }
 
             &.top tab {
-                padding: ($spacing + 1) 0 0; // top | left/right | bottom
                 border-style: solid;
                 border-color: $borders_color;
                 border-width: 0;
                 border-bottom-width: 1px;
-                transition: border-bottom-color .3s ease-out;
-
-                > box, > label {
-                    padding: 0 ($spacing * 3) ($spacing + 1); // top | left/right | bottom
-                }
+                transition: border-bottom-color .2s linear;
 
                 &:hover {
                     outline: none;
@@ -286,7 +290,9 @@
                     border-bottom-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box,
+                    > label,
+                    > widget > box {
                         border-bottom-color: $selected_bg_color;
                     }
 
@@ -302,16 +308,11 @@
             }
 
             &.right tab {
-                padding: 0 ($spacing + 1) 0 0; // top | right | bottom | left
                 border-style: solid;
                 border-color: $borders_color;
                 border-width: 0;
                 border-left-width: 1px;
                 transition: border-left-color .3s ease-out;
-
-                > box, > label {
-                    padding: ($spacing + 1) ($spacing * 3); // top | right | bottom | left
-                }
 
                 &:hover {
                     outline: none;
@@ -337,16 +338,11 @@
             }
 
             &.bottom tab {
-                padding: 0 0 ($spacing + 1); // top | left/right | bottom
                 border-style: solid;
                 border-color: $borders_color;
                 border-width: 0;
                 border-top-width: 1px;
                 transition: border-top-color .3s ease-out;
-
-                > box, > label {
-                    padding: ($spacing + 1) ($spacing * 3) 0;  // top/bottom | left/right
-                }
 
                 &:hover {
                     outline: none;
@@ -372,16 +368,11 @@
             }
 
             &.left tab {
-                padding: 0 0 0 ($spacing + 1); // top | right | bottom | left
                 border-style: solid;
                 border-color: $borders_color;
                 border-width: 0;
                 border-right-width: 1px;
                 transition: border-right-color .3s ease-out;
-
-                > box, > label {
-                    padding: ($spacing + 1) ($spacing * 3); // top/bottom | left/right
-                }
 
                 &:hover {
                     outline: none;
