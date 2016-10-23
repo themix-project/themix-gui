@@ -8,6 +8,7 @@ RES_DIR320=src/gtk-3.20
 SCSS_DIR320=$(RES_DIR320)/scss
 DIST_DIR320=$(RES_DIR320)/dist
 INSTALL_DIR=$(DESTDIR)/usr/share/themes/Numix
+ROOT_DIR=${PWD}
 UTILS=scripts/utils.sh
 
 all: clean gresource
@@ -31,6 +32,7 @@ clean:
 	rm -f $(RES_DIR)/gtk.gresource
 	rm -rf $(DIST_DIR320)
 	rm -f $(RES_DIR320)/gtk.gresource
+	rm -rf $(ROOT_DIR)/dist
 
 install: all
 	$(UTILS) install $(INSTALL_DIR)
@@ -40,6 +42,11 @@ uninstall:
 
 changes:
 	$(UTILS) changes
+
+zip: all
+	mkdir $(ROOT_DIR)/dist
+	$(UTILS) install $(ROOT_DIR)/dist/Numix
+	cd $(ROOT_DIR)/dist && zip --symlinks -rq Numix Numix
 
 
 .PHONY: all
