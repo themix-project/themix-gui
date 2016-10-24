@@ -155,7 +155,7 @@
                 > box,
                 > label,
                 > widget > box {
-                    padding: ($spacing + 2) ($spacing * 3); // top/bottom | left/right
+                    padding: ($spacing - 1px) ($spacing * 2); // top/bottom | left/right
                     border-width: 2px;
                     border-style: solid;
                     border-color: transparent;
@@ -166,7 +166,7 @@
                     > box,
                     > label,
                     > widget > box {
-                        padding: ($spacing + 2) ($spacing * 2) ($spacing + 2) ($spacing * 3); // top | right | bottom | left
+                        padding: ($spacing - 1px) ($spacing * 2) ($spacing - 1px) ($spacing * 3); // top | right | bottom | left
                     }
                 }
 
@@ -322,7 +322,9 @@
                     border-left-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box,
+                    > label,
+                    > widget > box {
                         border-left-color: $selected_bg_color;
                     }
 
@@ -352,7 +354,9 @@
                     border-top-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box,
+                    > label,
+                    > widget > box {
                         border-top-color: $selected_bg_color;
                     }
 
@@ -382,7 +386,9 @@
                     border-right-color: $selected_bg_color;
                     outline: none;
 
-                    > box, > label {
+                    > box,
+                    > label,
+                    > widget > box {
                         border-right-color: $selected_bg_color;
                     }
 
