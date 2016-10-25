@@ -155,7 +155,7 @@
                 > box,
                 > label,
                 > widget > box {
-                    padding: ($spacing - 1px) ($spacing * 2); // top/bottom | left/right
+                    padding: $spacing $spacing * 2; // top/bottom | left/right
                     border-width: 2px;
                     border-style: solid;
                     border-color: transparent;
@@ -166,7 +166,7 @@
                     > box,
                     > label,
                     > widget > box {
-                        padding: ($spacing - 1px) ($spacing * 2) ($spacing - 1px) ($spacing * 3); // top | right | bottom | left
+                        padding: $spacing $spacing * 2; // top | right | bottom | left
                     }
                 }
 
@@ -178,7 +178,7 @@
                     min-height: 16px;
                     min-width: 16px;
                     padding: 0;
-                    margin-left: $spacing * 3;
+                    margin-left: $spacing * 2;
                     border: 1px solid transparent;
                     transition: all .1s linear;
                 }
