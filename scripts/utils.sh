@@ -19,7 +19,7 @@ do_install() {
 	do
 		GTKVER="${_DIR##*/}"
 
-		mkdir "${_DIR}"
+		mkdir -p "${_DIR}"
 
 		cp -t "${_DIR}" \
 			"${GTKVER}/gtk.css" \
@@ -28,7 +28,7 @@ do_install() {
 			"${GTKVER}/thumbnail.png"
 
 		cd "${_DIR}"
-		ln -sr ../assets assets
+		ln -srf ../assets assets
 		cd -
 	done
 }
