@@ -75,13 +75,13 @@
     }
 
     levelbar {
-        block {
+        &.horizontal block {
             min-width: 34px;
-            min-height: 3px;
+            min-height: 4px;
         }
 
         &.vertical block {
-            min-width: 3px;
+            min-width: 4px;
             min-height: 34px;
         }
 
@@ -92,16 +92,17 @@
 
             border: 1px solid alpha(border_normal($bg_color), .5);
             border-radius: $roundness;
+            padding: 2px //make discrete block appear inside levelbar
         }
 
         &.horizontal.discrete block {
-            margin: 0 2px;
+            margin: 0 1px;
 
             &:first-child { margin: 0; }
         }
 
         &.vertical.discrete block {
-            margin: 2px 0;
+            margin: 1px 0;
 
             &:first-child { margin: 0; }
         }
@@ -110,7 +111,7 @@
             @include linear-gradient($selected_bg_color);
 
             border-color: transparent;
-            border-radius: 0;
+            border-radius: $roundness;
 
             &.low {
                 background-color: $warning_color;
@@ -119,12 +120,12 @@
 
             &.high,
             &:not(.empty) {
-                background-color: $selected_bg_color;
+                background-color: $success_color;
                 border-color: transparent;
             }
 
             &.full {
-                background-color: $success_color;
+                background-color: shade($selected_bg_color, 0.8);
                 border-color: transparent;
             }
 
