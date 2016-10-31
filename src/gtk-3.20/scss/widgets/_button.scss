@@ -282,6 +282,11 @@
     color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
+    // Fixed: https://github.com/numixproject/numix-gtk-theme/issues/572
+    // Webkitgtk workaround start
+    &:active { color: $fg; }
+    // Webkitgtk workaround end
+
     &.flat {
         //color: mix($bg, $fg, .2);
         color: $fg;
@@ -369,15 +374,15 @@
         box-shadow: none;
 
         &:focus, &:hover {
-            border: 1px solid alpha($black, .3);
-            background-color: alpha($white, .2);
+            border: 1px solid alpha($bg_color, .3);
+            background-color: alpha($fg_color, .2);
             background-image: none;
             box-shadow: none;
         }
 
         &:active, &:checked, &:active:hover, &:checked:hover {
-            border: 1px solid alpha($black, .3);
-            background-color: alpha($black, .1);
+            border: 1px solid alpha($selected_bg_color, .3);
+            background-color: alpha($selected_fg_color, .1);
             background-image: none;
             box-shadow: none;
         }
