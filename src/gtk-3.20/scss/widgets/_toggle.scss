@@ -105,7 +105,7 @@ $suffix: if($variant == "dark", "-dark", "");
 @include exports("switch") {
     switch {
         border-radius: $roundness;
-        padding: $spacing - 1;
+        padding: $spacing - 1px;
         border: none;
         outline: none;
         transition: background-color .3s linear;

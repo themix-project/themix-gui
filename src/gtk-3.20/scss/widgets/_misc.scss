@@ -165,7 +165,7 @@
             border-top-left-radius: 0;
         }
 
-        .button {
+        button {
             border: 0;
             background-color: transparent;
             background-image: none;
@@ -235,8 +235,8 @@
     entry.entry.pin-entry {
         font-style: normal;
         font-size: 50px;
-        padding-left: 25px;
-        padding-right: 25px;
+        padding-left: $spacing * 5;
+        padding-right: $spacing * 5;
     }
 
     label.pin-label {

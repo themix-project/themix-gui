@@ -92,7 +92,7 @@
 
             border: 1px solid alpha(border_normal($bg_color), .5);
             border-radius: $roundness;
-            padding: 2px; //make discrete block appear inside levelbar
+            padding: 2px; // make discrete block appear inside levelbar
         }
 
         &.horizontal.discrete block {
@@ -125,7 +125,7 @@
             }
 
             &.full {
-                background-color: shade($selected_bg_color, 0.8);
+                background-color: shade($selected_bg_color, .8);
                 border-color: transparent;
             }
 
