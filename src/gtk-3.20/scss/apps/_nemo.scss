@@ -63,7 +63,7 @@
                 button {
                     min-height: 16px;
                     min-width: 16px;
-                    padding: ($spacing - 1px);
+                    padding: ($spacing - 1px) (($spacing * 2) - 2px);
                 }
 
                 button:first-child {

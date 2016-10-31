@@ -8,6 +8,7 @@ RES_DIR320=gtk-3.20
 SCSS_DIR320=$(RES_DIR320)/scss
 DIST_DIR320=$(RES_DIR320)/dist
 INSTALL_DIR=$(DESTDIR)/usr/share/themes/Numix
+ROOT_DIR=${PWD}
 UTILS=scripts/utils.sh
 
 gtk3: clean gresource_gtk3
@@ -37,6 +38,7 @@ clean:
 	rm -f $(RES_DIR)/gtk.gresource
 	rm -rf $(DIST_DIR320)
 	rm -f $(RES_DIR320)/gtk.gresource
+	rm -rf $(ROOT_DIR)/dist
 
 install: all
 	$(UTILS) install $(INSTALL_DIR)
@@ -46,6 +48,11 @@ uninstall:
 
 changes:
 	$(UTILS) changes
+
+zip: all
+	mkdir $(ROOT_DIR)/dist
+	$(UTILS) install $(ROOT_DIR)/dist/$$(basename $(INSTALL_DIR))
+	cd $(ROOT_DIR)/dist && zip --symlinks -rq $$(basename $(INSTALL_DIR)) $$(basename $(INSTALL_DIR))
 
 
 .PHONY: all
