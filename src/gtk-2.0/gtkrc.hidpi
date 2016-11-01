@@ -1,7 +1,7 @@
 # Oomox GTK Theme (Numix Fork)
 
 gtk-color-scheme =
-"base_color:#%TXT_BG%\nbg_color:#%BG%\ntooltip_bg_color:#%BG%\nselected_bg_color:#%SEL_BG%\ntext_color:#%TXT_FG%\nfg_color:#%FG%\ntooltip_fg_color:#%FG%\nselected_fg_color:#%SEL_FG%\nmenubar_bg_color:#%MENU_BG%\nmenubar_fg_color:#%MENU_FG%\ntoolbar_bg_color:#%BG%\ntoolbar_fg_color:#%FG%\nmenu_bg_color:#%MENU_BG%\nmenu_fg_color:#%MENU_FG%\npanel_bg_color:#%BG%\npanel_fg_color:#%FG%\nlink_color:#fc6f5d\nbtn_bg_color:#%BTN_BG%\nbtn_fg_color:#%BTN_FG%\ntitlebar_bg_color:#%MENU_BG%\ntitlebar_fg_color:#%MENU_FG%\n"
+"base_color:#%TXT_BG%\nbg_color:#%BG%\ntooltip_bg_color:#%BG%\nselected_bg_color:#%SEL_BG%\ntext_color:#%TXT_FG%\nfg_color:#%FG%\ntooltip_fg_color:#%FG%\nselected_fg_color:#%SEL_FG%\nmenubar_bg_color:#%MENU_BG%\nmenubar_fg_color:#%MENU_FG%\ntoolbar_bg_color:#%BG%\ntoolbar_fg_color:#%FG%\nmenu_bg_color:#%MENU_BG%\nmenu_fg_color:#%MENU_FG%\npanel_bg_color:#%BG%\npanel_fg_color:#%FG%\nlink_color:#%SEL_BG%\nbtn_bg_color:#%BTN_BG%\nbtn_fg_color:#%BTN_FG%\ntitlebar_bg_color:#%MENU_BG%\ntitlebar_fg_color:#%MENU_FG%\n"
 # Default Style
 
 style "murrine-default" {
@@ -316,7 +316,7 @@ style "clearlooks-radiocheck" = "murrine-default" {
 
 	text[NORMAL] = @selected_bg_color
 	text[PRELIGHT] = @selected_bg_color
-	
+
 	engine "clearlooks" {
 		radius = %ROUNDNESS_GTK2_HIDPI%.0
 	}
