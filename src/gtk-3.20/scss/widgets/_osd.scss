@@ -10,6 +10,19 @@
 
     colorchooser .popover.osd { border-radius: $roundness; }
 
+    button.color {
+        .osd colorswatch:only-child { box-shadow: none; }
+
+        @if $variant == 'light' {
+            .osd & {
+                &:disabled,
+                &:backdrop,
+                &:active,
+                &:checked { colorswatch:only-child { box-shadow: none; } }
+            }
+        }
+    }
+
     button.osd,
     #XfceNotifyWindow button {
         @include button($osd_bg, $osd_fg);
