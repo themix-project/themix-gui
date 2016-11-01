@@ -8,6 +8,8 @@
 @include exports("osd") {
     overlay.osd { background-color: transparent; }
 
+    colorchooser .popover.osd { border-radius: $roundness; }
+
     button.osd,
     #XfceNotifyWindow button {
         @include button($osd_bg, $osd_fg);
@@ -38,6 +40,26 @@
         &.bottom { border-radius: 0; } // positional classes for `attached` osd toolbars
     }
 
+    progressbar.osd { // progressbar.osd used for epiphany page loading progress
+        margin: 2px;
+        min-height: 2px;
+        min-width: 2px;
+
+        trough {
+            border-style: none;
+            border-radius: 0;
+            background-image: none;
+            background-color: transparent;
+        }
+
+        progress {
+            border-style: none;
+            border-radius: 0;
+            background-color: $selected_bg_color;
+            background-image: none;
+        }
+    }
+
     .osd,
     #XfceNotifyWindow {
         background-color: $osd_bg;
@@ -62,6 +84,7 @@
 
         progressbar { background-color: $osd_fg; }
 
+        // Old GTK 3.0 code
         scale {
             slider {
                 @include linear-gradient(shade($osd_bg, 1.08));
@@ -85,6 +108,33 @@
                     border-color: shade($osd_bg, .85);
                     background-color: shade($osd_bg, .9);
                     background-image: none;
+                }
+            }
+        }
+
+        // New GTK 3.20 code
+        scale {
+            //OSD troughs
+            trough {
+                background-color: lighten($osd_bg, 7%);
+
+                highlight { background-color: $selected_bg_color; }
+            }
+
+            // OSD sliders
+            slider {
+                background-clip: border-box;
+                background-color: $selected_bg_color;
+                border-color: $selected_bg_color;
+
+                &:hover {
+                    background-color: lighten($selected_bg_color, 10%);
+                    border-color: lighten($selected_bg_color, 10%);
+                }
+
+                &:active {
+                    background-color: darken($selected_bg_color, 10%);
+                    border-color: darken($selected_bg_color, 10%);
                 }
             }
         }
@@ -125,6 +175,17 @@
             border: 1px solid shade($osd_bg, .9);
             /* when there's no pixbuf yet */
             background-color: $osd_bg;
+        }
+
+        popover.background {
+            box-shadow: 0 2px 7px 3px alpha($black, .5);
+
+            > toolbar button {
+                border-radius: 0;
+                border-width: 0;
+                background-color: transparent;
+                background-image: none;
+            }
         }
 
         spinbutton {
