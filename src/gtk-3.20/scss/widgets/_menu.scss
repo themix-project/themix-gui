@@ -232,17 +232,6 @@
 
         &:backdrop { box-shadow: none; }
 
-        .osd & {
-            box-shadow: 0 2px 7px 3px alpha($black, .5);
-
-            > toolbar button {
-                border-radius: 0;
-                border-width: 0;
-                background-color: transparent;
-                background-image: none;
-            }
-        }
-
         treeview.view {
             &:hover, &:selected, &:selected:focus, &:backdrop:selected, &:backdrop:selected:focus { border-top-color: $selected_bg_color; }
 
