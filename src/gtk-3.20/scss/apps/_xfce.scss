@@ -20,5 +20,11 @@
         font: inherit;
 
         button { @extend %panelbutton; }
+
+        menu {
+            -gtk-icon-effect: none;
+
+            text-shadow: none;
+        }
     }
 }
