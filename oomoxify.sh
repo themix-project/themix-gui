@@ -147,6 +147,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/1df269/oomox_hover_selection_color/gI" \
 				-e "s/1bd85e/oomox_hover_selection_color/gI" \
 				-e "s/282828/oomox_main_bg/g" \
+				-e "s/121212/oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
