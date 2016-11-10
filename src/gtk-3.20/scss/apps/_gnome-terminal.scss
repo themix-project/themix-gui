@@ -14,10 +14,10 @@
             background-color: $osd_base;
             border-color: border_normal($osd_base);
 
-            &:backdrop {
-                background-color: shade($backdrop_osd_bg, .9);
-                border-color: border_normal(shade($backdrop_osd_bg, .9));
-            }
+            //&:backdrop {
+            //    background-color: shade($backdrop_osd_bg, .9);
+            //    border-color: border_normal(shade($backdrop_osd_bg, .9));
+            //}
         }
 
         scrollbar.vertical {
@@ -28,7 +28,7 @@
 
                 &:hover:active { background-color: $selected_bg_color; }
 
-                &:backdrop { background-color: mix($backdrop_osd_fg, $backdrop_osd_bg, .4); }
+                //&:backdrop { background-color: mix($backdrop_osd_fg, $backdrop_osd_bg, .4); }
 
                 &:disabled { background-color: transparent; }
             }
