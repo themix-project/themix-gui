@@ -75,14 +75,14 @@ if [[ ! -z "${THEME:-}" ]] ; then
 
 	main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
 	area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG})}"
-	selected_row_bg_fallback="$(darker ${MENU_BG} -5)"
-	selected_area_bg_fallback="$(darker ${MENU_BG} -15)"
+	selected_row_bg_fallback="$(darker ${MENU_BG} -10)"
+	selected_area_bg_fallback="$(darker ${MENU_BG} -18)"
 	selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
 	selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
 
 	sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
 	main_fg="${SPOTIFY_MAIN_FG-$FG}"
-	accent_fg_fallback="$(darker ${SEL_BG} 30)"
+	accent_fg_fallback="$(darker ${SEL_BG} 20)"
 	accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
 	hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
