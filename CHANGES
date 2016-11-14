@@ -1,3 +1,25 @@
+-------------->>>> 2.6.6 <<<<-------------------------->>>> 2.6.6 <<<<-------------------------->>>> 2.6.6 <<<<--------------
+[2016-11-14 16:22:11 -0600]  update utils.sh script                                                 Dustin Falgout  {795932a}
+[2016-11-10 05:37:27 +0100]  [Gtk-3.20] Fixed gnome-terminal scrollbar color. Disable backdrop m..   Csaba Jakosa   {9574a02}
+[2016-11-01 18:10:06 +0100]  Disable box-shadow for osd button in fine-tune mode. Fixes #561.        Csaba Jakosa   {ad37d7f}
+[2016-11-01 19:08:14 +0200]  [Gtk-3.20] Fix for volume OSD slider. Fixes #623                       Nazar Mokrynskyi {14d2a48}
+[2016-11-01 13:58:47 +0530]  GTKHEADERB 3.22 :: Create global OSD file (#628)                        Khurshid Alam  {9ec47ab}
+[2016-11-01 09:21:28 +0100]  * Fixed code.                                                               Megax      {4d33256}
+[2016-11-01 09:18:25 +0100]  * Create global OSD file.                                                   Megax      {b3ba2ee}
+[2016-11-01 09:18:18 +0100]  [Gtk-3.20] Fixed xfce4 code.                                            Csaba Jakosa   {a4cefd6}
+[2016-10-31 18:58:14 +0100]  [GTK-3.20] Code Cleanup                                                 Csaba Jakosa   {6d54958}
+[2016-10-30 18:30:58 +0200]  [GTK-3.20] Added styling to Raven components of Budgie panel. Fixes..  Nazar Mokrynskyi {bbf9dd6}
+[2016-10-28 21:19:49 +0200]  [GTK 3.20] Optimized sidebar padding                                    Csaba Jakosa   {30132a0}
+[2016-10-27 21:13:29 +0530]  Fix syntax in previous commit                                           Khurshid Alam  {1d1d3a2}
+[2016-10-27 21:09:47 +0530]  Fix discrete filled block inside levelbar. Fixes #619                   Khurshid Alam  {32f0fec}
+[2016-10-27 20:35:00 +0530]  Tweak do_install in utils.sh                                            Khurshid Alam  {588a875}
+[2016-10-25 12:43:37 +0200]  [GTK 3.20] Fixed notebook asymmetrical padding                          Csaba Jakosa   {2f94d4c}
+[2016-10-24 08:39:15 +0200]  [Gtk-3.20] Optimized notebook padding                                   Csaba Jakosa   {023bd6f}
+[2016-10-23 16:33:14 -0500]  fix notebook tab padding issues for some applications. Fixes #588      Dustin Falgout  {7ac68f6}
+[2016-10-23 17:15:11 +0200]  * Nemo statusbar button padding fix. (#611)                             Csaba Jakosa   {aea6d16}
+[2016-10-23 02:14:28 -0500]  also support Numix-Frost-Light                                         Dustin Falgout  {05e6198}
+[2016-10-23 02:11:45 -0500]  update zip task in Makefile to support both Numix and Numix-Frost      Dustin Falgout  {95fe512}
+[2016-10-23 00:11:17 -0500]  utils.sh :: support Numix and Numix Frost when generating CHANGES f..  Dustin Falgout  {ee50385}
 -------------->>>> 2.6.5 <<<<-------------------------->>>> 2.6.5 <<<<-------------------------->>>> 2.6.5 <<<<--------------
 [2016-10-22 20:36:07 -0500]  add zip task to Makefile                                               Dustin Falgout  {5ccc199}
 [2016-10-22 20:18:42 -0500]  utils.sh :: fix errors in do_install function                          Dustin Falgout  {5f85cec}
