@@ -56,7 +56,7 @@ update_changes_file() {
 	LAST_PATCH="${LAST_STABLE_RELEASE##*.}"
 
 	case "${PWD##*/}" in
-		Numix)
+		numix-gtk-theme)
 			NEXT_PATCH=$(($LAST_PATCH + 1))
 
 			NEXT_STABLE_RELEASE="${LAST_MAJOR_MINOR}.${NEXT_PATCH}"
