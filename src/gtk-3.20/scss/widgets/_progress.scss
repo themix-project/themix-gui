@@ -21,7 +21,7 @@
         }
 
         trough {
-            border: 1px solid alpha(border_normal($bg_color), .5);
+            border: 1px solid mix($bg_color, $fg_color, .17);
             background-color: shade($bg_color, 1.08);
             background-image: none;
             border-radius: $roundness;
@@ -70,7 +70,7 @@
         trough {
             @include linear-gradient(shade($bg_color, 1.08), to top);
 
-            border: 1px solid alpha(border_normal($bg_color), .5);
+            border: 1px solid mix($bg_color, $fg_color, .17);
             border-radius: $roundness;
             padding: 2px; // make discrete block appear inside levelbar
         }
@@ -164,7 +164,7 @@
 
         // Trough
         trough {
-            $_scale_trough_bg: if($variant == 'light', shade($bg_color, .8), darken($bg_color, 5%));
+            $_scale_trough_bg: mix($bg_color, $fg_color, .2);
 
             outline-offset: 2px;
             -gtk-outline-radius: 4.5px;
@@ -172,7 +172,7 @@
             border-radius: 2.5px;
             background-color: $_scale_trough_bg;
 
-            &:disabled { background-color: transparentize($_scale_trough_bg, .45); }
+            &:disabled { background-color: mix($bg_color, $fg_color, .1); }
 
             // Troughs in selected list-rows and infobars
             menuitem:hover &,
