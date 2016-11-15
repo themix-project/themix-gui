@@ -155,8 +155,6 @@
             &:checked { colorswatch:only-child { box-shadow: none; } }
         }
     }
-
-    colorchooser .popover.osd { border-radius: $roundness; }
 }
 
 
