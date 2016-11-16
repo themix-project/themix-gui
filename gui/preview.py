@@ -2,7 +2,7 @@ import os
 from gi.repository import Gtk, GLib, GdkPixbuf, Gio
 
 from .helpers import (
-    convert_theme_color_to_gdk,
+    convert_theme_color_to_gdk, mix_theme_colors,
     THEME_KEYS, script_dir
 )
 
@@ -91,6 +91,39 @@ class ThemePreview(Gtk.Grid):
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_roundness,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+
+        for widget, fg, bg, ratio in (
+            (
+                self.button,
+                colorscheme['BTN_FG'],
+                colorscheme['BTN_BG'],
+                0.22
+            ), (
+                self.headerbar_button,
+                colorscheme['HDR_BTN_FG'],
+                colorscheme['HDR_BTN_BG'],
+                0.22
+            ), (
+                self.entry,
+                mix_theme_colors(
+                    colorscheme['TXT_FG'], colorscheme['TXT_BG'], 0.20
+                ),
+                colorscheme['BG'],
+                0.69
+            ),
+        ):
+            border_color = mix_theme_colors(fg, bg, ratio)
+            css_provider_border_color = Gtk.CssProvider()
+            css_provider_border_color.load_from_data("""
+                * {{
+                    border-color: #{border_color};
+                }}
+            """.format(border_color=border_color).encode('ascii'))
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider_border_color,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
