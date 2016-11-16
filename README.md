@@ -1,4 +1,4 @@
-﻿oomox
+oomox
 =====
 
 Graphical application for generating different color variations of Numix theme (GTK2, GTK3)
@@ -109,9 +109,8 @@ cd oomox
 ls colors
 ./oomoxify.sh gnome_noble  # or other theme from above
 ```
-Make sure to remove `~/.config/oomox/spotify_backup` when upgrading Spotify to the new version.
 
-Also you can replace font with `-f` argument, see `-h` for usage.
+Also you can normalize font weight with `-w` argument, see `-h` for usage.
 
 
 
