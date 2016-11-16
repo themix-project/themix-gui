@@ -61,38 +61,35 @@ do
 	shift
 done
 
-echo $THEME
-
-if [[ ! -z "${THEME:-}" ]] ; then
-	#print_usage
-
-	if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
-		source "$THEME"
-		THEME=$(basename ${THEME})
-	else
-		source "${root}/colors/$THEME"
-	fi
-
-	main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
-	area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG})}"
-	selected_row_bg_fallback="$(darker ${MENU_BG} -10)"
-	selected_area_bg_fallback="$(darker ${MENU_BG} -18)"
-	selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
-	selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
-
-	sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
-	main_fg="${SPOTIFY_MAIN_FG-$FG}"
-	accent_fg_fallback="$(darker ${SEL_BG} 20)"
-	accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
-
-	hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
-	active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
-	inactive_selection_color_fallback="${SEL_BG}"
-	hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
-	inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
-	hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
-
+if [[ -z "${THEME:-}" ]] ; then
+	print_usage
 fi
+
+if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
+	source "$THEME"
+	THEME=$(basename ${THEME})
+else
+	source "${root}/colors/$THEME"
+fi
+
+main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
+area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG})}"
+selected_row_bg_fallback="$(darker ${MENU_BG} -10)"
+selected_area_bg_fallback="$(darker ${MENU_BG} -18)"
+selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
+selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
+
+sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
+main_fg="${SPOTIFY_MAIN_FG-$FG}"
+accent_fg_fallback="$(darker ${SEL_BG} 20)"
+accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
+
+hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
+active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
+inactive_selection_color_fallback="${SEL_BG}"
+hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
+inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
+hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
 
 
 tmp_dir="$(mktemp -d)"
@@ -103,9 +100,18 @@ function post_clean_up {
 }
 trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 
+backup_file="${backup_dir}/version.txt"
+spotify_version=$(spotify --version 2>&1 | grep "^Spotify" | cut -d' ' -f3 | tr -d ',')
+if [[ -f "${backup_file}" ]] ; then
+	spotify_version_in_backup=$(cat "${backup_file}")
+	if [[ $spotify_version != $spotify_version_in_backup ]] ; then
+		rm -r "${backup_dir}"
+	fi
+fi
 if [[ ! -d "${backup_dir}" ]] ; then
 	mkdir "${backup_dir}"
 	cp -prf "${spotify_apps_path}"/*.spa "${backup_dir}/"
+	echo "${spotify_version}" > "${backup_file}"
 fi
 
 
