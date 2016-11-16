@@ -16,8 +16,9 @@ $0 [-s /path/to/spotify/Apps] [-f] PRESET_NAME_OR_PATH
 
 options:
 	-s, --spotify-apps-path		path to spotify/Apps
-	-f, --system-font		use system font
-	-w, --font-weight		'normalize' font weight
+	-f, --system-font			use system font
+	-w, --font-weight			'normalize' font weight
+	-g, --gui					use 'gksu' instead of sudo
 
 examples:
 	$0 monovedek
@@ -44,6 +45,9 @@ do
 		;;
 		-w|--font-weight)
 			fix_font_weight="True"
+		;;
+		-g|--gui)
+			gui="True"
 		;;
 		-s|--spotify-apps-path)
 			spotify_apps_path="${2}"
@@ -184,4 +188,9 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	rm "${tmp_dir}/"* -r
 done
 
-sudo cp "${output_dir}/"* "${spotify_apps_path}"/
+if [ ! -z "${gui:-}" ] ; then
+	priv_tool="gksu"
+else
+	priv_tool="sudo"
+fi
+"${priv_tool}" cp "${output_dir}/"* "${spotify_apps_path}"/
