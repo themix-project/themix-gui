@@ -152,11 +152,12 @@ class SpotifyExportDialog(ExportDialog):
         spotify_path = self.spotify_path_entry.get_text()
         normalize_font = self.font_checkbox.get_active()
         button_height = self.apply_button.get_allocated_height()
-        scroller_height = self.scrolled_window.get_allocated_height() + button_height
+        scroller_height = self.scrolled_window.get_allocated_height()
+        new_scroller_height = scroller_height + button_height
         self.options_box.destroy()
         self.apply_button.destroy()
-        self.scrolled_window.set_min_content_height(scroller_height)
-        self.scrolled_window.set_max_content_height(scroller_height)
+        self.scrolled_window.set_min_content_height(new_scroller_height)
+        self.scrolled_window.set_max_content_height(new_scroller_height)
 
         self.spinner.start()
         self.scrolled_window.show()
@@ -214,9 +215,10 @@ class SpotifyExportDialog(ExportDialog):
         self.show_all()
 
         button_height = button.get_allocated_height()
-        scroller_height = self.scrolled_window.get_allocated_height() - button_height
-        self.scrolled_window.set_min_content_height(scroller_height)
-        self.scrolled_window.set_max_content_height(scroller_height)
+        scroller_height = self.scrolled_window.get_allocated_height()
+        new_scroller_height = scroller_height - button_height
+        self.scrolled_window.set_min_content_height(new_scroller_height)
+        self.scrolled_window.set_max_content_height(new_scroller_height)
 
     def __init__(self, parent, theme_path):
         ExportDialog.__init__(self, parent, "Spotify options")
