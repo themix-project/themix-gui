@@ -8,6 +8,8 @@ from .helpers import oomox_root_dir, CenterLabel
 
 class ExportDialog(Gtk.Dialog):
 
+    previous_height = None
+
     def _close_button_callback(self, widget):
         self.destroy()
 
@@ -23,19 +25,32 @@ class ExportDialog(Gtk.Dialog):
         button = Gtk.Button(label="Dismiss")
         button.connect("clicked", self._close_button_callback)
 
-        self.box.add(label)
-        self.box.add(button)
+        self.under_log_box.add(label)
+        self.under_log_box.add(button)
         self.show_all()
 
     def set_text(self, text):
         self.log.get_buffer().set_text(text)
+        self._text_adjustment_callback()
 
-    def _resize_callback(self, widget, event, data=None):
+    def _text_adjustment_callback(self, widget=None, event=None, data=None):
         adj = self.scrolled_window.get_vadjustment()
         adj.set_value(adj.get_upper() - adj.get_page_size())
 
-    def __init__(self, parent):
-        Gtk.Dialog.__init__(self, "Exporting...", parent, 0)
+    def _resize_callback(self, widget, event, data=None):
+        window_height = self.get_allocated_height()
+        if not self.previous_height:
+            self.previous_height = window_height
+        if window_height != self.previous_height:
+            scroller_height = self.scrolled_window.get_allocated_height()
+            scroller_height += window_height - self.previous_height
+            self.previous_height = window_height
+            self.scrolled_window.set_max_content_height(scroller_height)
+            self.scrolled_window.set_min_content_height(scroller_height)
+            self._text_adjustment_callback()
+
+    def __init__(self, parent, headline="Exporting..."):
+        Gtk.Dialog.__init__(self, headline, parent, 0)
         self.set_default_size(150, 80)
 
         self.label = CenterLabel(
@@ -50,19 +65,27 @@ class ExportDialog(Gtk.Dialog):
         # self.log.set_cursor_visible(False)
         self.log.set_monospace(True)
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
-        self.log.connect('size-allocate', self._resize_callback)
 
         self.scrolled_window = Gtk.ScrolledWindow()
+        self.scrolled_window.set_margin_bottom(5)
         self.scrolled_window.set_policy(
             Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scrolled_window.add(self.log)
-        # self.scrolled_window.set_min_content_height(100)
+
+        self.under_log_box = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, spacing=5
+        )
 
         self.box = self.get_content_area()
+        self.box.set_margin_left(5)
+        self.box.set_margin_right(5)
         self.box.add(self.label)
         self.box.add(self.spinner)
         self.box.add(self.scrolled_window)
+        self.box.add(self.under_log_box)
         self.show_all()
+
+        self.connect('size-allocate', self._resize_callback)
 
 
 def _export(window, theme_path, export_args):
