@@ -221,7 +221,7 @@ class SpotifyExportDialog(ExportDialog):
 
         # self.set_default_size(180, 120)
         self.spinner.stop()
-        self.label.set_text("This functionality still in BETA")
+        self.label.set_text("This functionality is still in BETA")
 
         self.options_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5
