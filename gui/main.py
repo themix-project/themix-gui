@@ -1,5 +1,4 @@
 #!/bin/env python3
-import os
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
 from gi.repository import Gtk, GObject
@@ -13,7 +12,7 @@ from .helpers import (
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
-from .export import export_theme, export_icon_theme
+from .export import export_theme, export_icon_theme, export_spotify
 
 
 class NewDialog(Gtk.Dialog):
@@ -114,6 +113,10 @@ class MainWindow(Gtk.Window):
         self.check_unsaved_changes()
         export_icon_theme(window=self, theme_path=self.colorscheme_path)
 
+    def on_export_spotify(self, button):
+        self.check_unsaved_changes()
+        export_spotify(window=self, theme_path=self.colorscheme_path)
+
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()
         self.colorscheme_name = selected_preset
@@ -151,6 +154,10 @@ class MainWindow(Gtk.Window):
         save_button = ImageButton("media-floppy-symbolic", "Save theme")
         save_button.connect("clicked", self.on_save)
         self.headerbar.pack_start(save_button)
+
+        export_spotify_button = Gtk.Button(label="Apply Spotify theme")
+        export_spotify_button.connect("clicked", self.on_export_spotify)
+        self.headerbar.pack_end(export_spotify_button)
 
         export_icons_button = Gtk.Button(label="Export icon theme")
         export_icons_button.connect("clicked", self.on_export_icontheme)
