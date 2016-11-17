@@ -151,9 +151,10 @@ class SpotifyExportDialog(ExportDialog):
     def do_export(self):
         spotify_path = self.spotify_path_entry.get_text()
         normalize_font = self.font_checkbox.get_active()
+        button_height = self.apply_button.get_allocated_height()
+        scroller_height = self.scrolled_window.get_allocated_height() + button_height
         self.options_box.destroy()
         self.apply_button.destroy()
-        scroller_height = self.scrolled_window.get_allocated_height() + 30
         self.scrolled_window.set_min_content_height(scroller_height)
         self.scrolled_window.set_max_content_height(scroller_height)
 
@@ -203,9 +204,6 @@ class SpotifyExportDialog(ExportDialog):
     def stop(self):
         self.spinner.stop()
         self.apply_button.destroy()
-        scroller_height = self.scrolled_window.get_allocated_height() - 30
-        self.scrolled_window.set_min_content_height(scroller_height)
-        self.scrolled_window.set_max_content_height(scroller_height)
 
         self.label.set_text("Theme applied successfully")
 
@@ -214,6 +212,11 @@ class SpotifyExportDialog(ExportDialog):
 
         self.under_log_box.add(button)
         self.show_all()
+
+        button_height = button.get_allocated_height()
+        scroller_height = self.scrolled_window.get_allocated_height() - button_height
+        self.scrolled_window.set_min_content_height(scroller_height)
+        self.scrolled_window.set_max_content_height(scroller_height)
 
     def __init__(self, parent, theme_path):
         ExportDialog.__init__(self, parent, "Spotify options")
