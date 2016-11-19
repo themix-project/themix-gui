@@ -31,6 +31,9 @@ examples:
 darker() {
 	${root}/scripts/darker.sh $@
 }
+is_dark() {
+	${root}/scripts/is_dark.sh $@
+}
 
 
 while [[ $# > 0 ]]
@@ -83,9 +86,21 @@ selected_area_bg_fallback="$(darker ${MENU_BG} -18)"
 selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
 selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
 
-sidebar_fg="${SPOTIFY_SIDEBAR_FG-$FG}"
-main_fg="${SPOTIFY_MAIN_FG-$FG}"
-accent_fg_fallback="$(darker ${SEL_BG} 20)"
+set +e
+is_dark ${MENU_FG}
+fg_is_dark="$?"
+set -e
+if [[ ${fg_is_dark} -eq 0 ]] ; then
+	echo IS DARK
+	main_fg_fallback="$(darker ${MENU_FG} -18)"
+	accent_fg_fallback="$(darker ${MENU_FG} 36)"
+else
+	echo IS LIGHT
+	main_fg_fallback="$(darker ${MENU_FG} 18)"
+	accent_fg_fallback="$(darker ${MENU_FG} -36)"
+fi
+sidebar_fg="${SPOTIFY_SIDEBAR_FG-$MENU_FG}"
+main_fg="${SPOTIFY_MAIN_FG-$main_fg_fallback}"
 accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
 hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
@@ -161,11 +176,12 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/181818/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
+				\
+				-e "s/ffffff/oomox_accent_fg/gI" \
+				-e "s/fcfcfc/oomox_hover_text/gI" \
+				-e "s/a0a0a0/oomox_main_fg/gI" \
+				-e "s/adafb2/oomox_sidebar_fg/gI" \
 				"${css}"
-				#-e "s/ffffff/oomox_accent_fg/gI" \
-				#-e "s/fcfcfc/oomox_hover_text/gI" \
-				#-e "s/a0a0a0/oomox_main_fg/gI" \
-				#-e "s/adafb2/oomox_sidebar_fg/gI" \
 			sed -i \
 				-e "s/oomox_main_bg/${main_bg}/g" \
 				-e "s/oomox_area_bg/${area_bg}/g" \
