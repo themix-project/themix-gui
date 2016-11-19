@@ -10,12 +10,7 @@
 |![arch](https://dl.dropboxusercontent.com/u/60521097/archlogo26x26.png)&nbsp;![antergos](https://dl.dropboxusercontent.com/u/60521097/logo-square26x26.png)|`sudo pacman -S numix-themes`|
 |![openSUSE](https://dl.dropboxusercontent.com/u/60521097/Geeko-button-bling7.png)|[1 Click Install](http://software.opensuse.org/ymp/openSUSE:Factory/standard/numix-gtk-theme.ymp) &nbsp;\|&nbsp; [OBS Repo](http://software.opensuse.org/download.html?project=openSUSE%3AFactory&package=numix-gtk-theme)|
 |![fedora](https://dl.dropboxusercontent.com/u/60521097/fedora-logo.png)|`sudo dnf install numix-gtk-theme`|
-
-### Unofficial Distro Packages
-|Distro|Install Command/Links|
-|:----:|:----:|
-|![ubuntu](https://dl.dropboxusercontent.com/u/60521097/ubuntu_orange_hex.png)|[PPA](https://launchpad.net/~numix/+archive/ubuntu/ppa)|
-
+|[![debian](https://www.debian.org/logos/openlogo-nd-25.jpg)](https://www.debian.org/)&nbsp;![ubuntu](https://dl.dropboxusercontent.com/u/60521097/ubuntu_orange_hex.png)|`apt install numix-gtk-theme`|
 
 ## Build It
 
