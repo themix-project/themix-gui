@@ -1,9 +1,9 @@
 import os
 from gi.repository import Gtk, GLib, GdkPixbuf, Gio
 
+from .theme_model import theme_model
 from .helpers import (
-    convert_theme_color_to_gdk, mix_theme_colors,
-    THEME_KEYS, script_dir
+    convert_theme_color_to_gdk, mix_theme_colors, script_dir
 )
 
 
@@ -20,8 +20,10 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_colors(self, colorscheme):
         converted = {
-            obj['key']: convert_theme_color_to_gdk(colorscheme[obj['key']])
-            for obj in THEME_KEYS if obj['type'] == 'color'
+            theme_value['key']: convert_theme_color_to_gdk(
+                colorscheme[theme_value['key']]
+            )
+            for theme_value in theme_model if theme_value['type'] == 'color'
         }
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
@@ -81,19 +83,6 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-        css_provider_roundness = Gtk.CssProvider()
-        css_provider_roundness.load_from_data("""
-            * {{
-                border-radius: {roundness}px;
-            }}
-        """.format(roundness=colorscheme['ROUNDNESS']).encode('ascii'))
-        for widget in [self.button, self.headerbar_button, self.entry]:
-            Gtk.StyleContext.add_provider(
-                widget.get_style_context(),
-                css_provider_roundness,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            )
-
         for widget, fg, bg, ratio in (
             (
                 self.button,
@@ -119,15 +108,19 @@ class ThemePreview(Gtk.Grid):
             css_provider_border_color.load_from_data("""
                 * {{
                     border-color: #{border_color};
+                    border-radius: {roundness}px;
                 }}
-            """.format(border_color=border_color).encode('ascii'))
+            """.format(
+                border_color=border_color,
+                roundness=colorscheme['ROUNDNESS']
+            ).encode('ascii'))
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_border_color,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-        self._init_icon_templates(colorscheme['ICONS_STYLE'])
+        self.load_icon_templates(colorscheme['ICONS_STYLE'])
         for source_image, target_imagebox in (
             (self.icon_source_user_home, self.icon_user_home),
             (self.icon_source_user_desktop, self.icon_user_desktop),
@@ -160,7 +153,7 @@ class ThemePreview(Gtk.Grid):
         self._init_widgets()
         self._override_css_style()
 
-    def _init_icon_templates(self, prefix='gnome_colors'):
+    def load_icon_templates(self, prefix):
         for template_path, attr_name in (
             ("user-home.svg.template", "icon_source_user_home"),
             ("user-desktop.svg.template", "icon_source_user_desktop"),

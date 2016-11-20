@@ -1,6 +1,8 @@
 from gi.repository import Gtk
+
+from .theme_model import theme_model
 from .helpers import (
-    convert_theme_color_to_gdk, THEME_KEYS, convert_gdk_to_theme_color,
+    convert_theme_color_to_gdk, convert_gdk_to_theme_color,
     load_palette, save_palette
 )
 
@@ -302,31 +304,31 @@ class ThemeColorsList(Gtk.Box):
             row.add(Gtk.Label("Can't be edited in GUI"))
             self.listbox.add(row)
         else:
-            for key_obj in THEME_KEYS:
-                if key_obj.get('filter'):
-                    if not key_obj['filter'](theme):
+            for theme_value in theme_model:
+                if theme_value.get('filter'):
+                    if not theme_value['filter'](theme):
                         continue
-                key = key_obj.get('key')
-                display_name = key_obj.get('display_name', key)
+                key = theme_value.get('key')
+                display_name = theme_value.get('display_name', key)
                 row = None
-                if key_obj['type'] == 'color':
+                if theme_value['type'] == 'color':
                     row = ColorListBoxRow(
                         display_name, key, self.theme[key], self.color_edited,
                         parent=self.parent
                     )
-                elif key_obj['type'] == 'bool':
+                elif theme_value['type'] == 'bool':
                     row = BoolListBoxRow(
                         display_name, key, self.theme[key], self.color_edited
                     )
-                elif key_obj['type'] == 'int':
+                elif theme_value['type'] == 'int':
                     row = IntListBoxRow(
                         display_name, key, self.theme[key], self.color_edited
                     )
-                elif key_obj['type'] == 'float':
+                elif theme_value['type'] == 'float':
                     row = FloatListBoxRow(
                         display_name, key, self.theme[key], self.color_edited
                     )
-                elif key_obj['type'] == 'options':
+                elif theme_value['type'] == 'options':
                     callback = None
                     if key == 'ICONS_STYLE':
                         def _callback(key, value):
@@ -337,10 +339,10 @@ class ThemeColorsList(Gtk.Box):
                         callback = self.color_edited
                     row = OptionsListBoxRow(
                         display_name, key, self.theme[key],
-                        options=key_obj['options'],
+                        options=theme_value['options'],
                         callback=callback
                     )
-                elif key_obj['type'] == 'separator':
+                elif theme_value['type'] == 'separator':
                     row = SeparatorListBoxRow(display_name)
                 if row:
                     self.listbox.add(row)
