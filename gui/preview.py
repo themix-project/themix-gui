@@ -127,6 +127,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
+        self._init_icon_templates(colorscheme['ICONS_STYLE'])
         for source_image, target_imagebox in (
             (self.icon_source_user_home, self.icon_user_home),
             (self.icon_source_user_desktop, self.icon_user_desktop),
@@ -141,6 +142,8 @@ class ThemePreview(Gtk.Grid):
                 "MediumBase", colorscheme["ICONS_MEDIUM"]
             ).replace(
                 "DarkStroke", colorscheme["ICONS_DARK"]
+            ).replace(
+                "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"]
             ).encode('ascii')
             stream = Gio.MemoryInputStream.new_from_bytes(
                 GLib.Bytes.new(new_svg_image)
@@ -154,11 +157,10 @@ class ThemePreview(Gtk.Grid):
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
 
-        self._init_icon_templates()
         self._init_widgets()
         self._override_css_style()
 
-    def _init_icon_templates(self):
+    def _init_icon_templates(self, prefix='gnome_colors'):
         for template_path, attr_name in (
             ("user-home.svg.template", "icon_source_user_home"),
             ("user-desktop.svg.template", "icon_source_user_desktop"),
@@ -166,7 +168,9 @@ class ThemePreview(Gtk.Grid):
              "icon_source_system_file_manager"),
         ):
             with open(
-                os.path.join(script_dir, template_path), "rb"
+                os.path.join(
+                    script_dir, 'icon_previews', prefix, template_path
+                ), "rb"
             ) as f:
                 setattr(self, attr_name, f.read().decode('utf-8'))
 

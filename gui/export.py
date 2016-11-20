@@ -138,10 +138,18 @@ def export_theme(window, theme_path):
     ])
 
 
-def export_icon_theme(window, theme_path):
+def export_gnome_colors_icon_theme(window, theme_path):
     return _export(window, theme_path, [
         "bash",
         os.path.join(oomox_root_dir, "gnome_colors.sh"),
+        theme_path,
+    ])
+
+
+def export_archdroid_icon_theme(window, theme_path):
+    return _export(window, theme_path, [
+        "bash",
+        os.path.join(oomox_root_dir, "archdroid.sh"),
         theme_path,
     ])
 

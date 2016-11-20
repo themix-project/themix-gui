@@ -12,7 +12,10 @@ from .helpers import (
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
-from .export import export_theme, export_icon_theme, export_spotify
+from .export import (
+    export_theme, export_gnome_colors_icon_theme, export_archdroid_icon_theme,
+    export_spotify
+)
 
 
 class NewDialog(Gtk.Dialog):
@@ -111,7 +114,14 @@ class MainWindow(Gtk.Window):
 
     def on_export_icontheme(self, button):
         self.check_unsaved_changes()
-        export_icon_theme(window=self, theme_path=self.colorscheme_path)
+        if self.colorscheme['ICONS_STYLE'] == 'archdroid':
+            export_archdroid_icon_theme(
+                window=self, theme_path=self.colorscheme_path
+            )
+        else:
+            export_gnome_colors_icon_theme(
+                window=self, theme_path=self.colorscheme_path
+            )
 
     def on_export_spotify(self, button):
         self.check_unsaved_changes()
