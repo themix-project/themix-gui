@@ -77,11 +77,13 @@ class MainWindow(Gtk.Window):
     colorscheme_path = None
     colorscheme = None
     theme_edited = False
-    # widgets:
+    # widget sections:
     headerbar = None
     theme_edit = None
     presets_list = None
     preview = None
+    # headerbar widgets:
+    save_button = None
 
     def save(self, name=None):
         if not name:
@@ -135,6 +137,7 @@ class MainWindow(Gtk.Window):
         self.theme_edit.open_theme(self.colorscheme)
         self.preview.update_preview_colors(self.colorscheme)
         self.theme_edited = False
+        self.save_button.set_sensitive(False)
         self.headerbar.props.title = selected_preset
 
     def on_color_edited(self, colorscheme):
@@ -142,6 +145,7 @@ class MainWindow(Gtk.Window):
         self.preview.update_preview_colors(self.colorscheme)
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.headerbar.props.title
+            self.save_button.set_sensitive(True)
         self.theme_edited = True
 
     def on_quit(self, arg1, arg2):
@@ -161,9 +165,9 @@ class MainWindow(Gtk.Window):
         clone_button.connect("clicked", self.on_clone)
         self.headerbar.pack_start(clone_button)
 
-        save_button = ImageButton("media-floppy-symbolic", "Save theme")
-        save_button.connect("clicked", self.on_save)
-        self.headerbar.pack_start(save_button)
+        self.save_button = ImageButton("media-floppy-symbolic", "Save theme")
+        self.save_button.connect("clicked", self.on_save)
+        self.headerbar.pack_start(self.save_button)
 
         export_spotify_button = Gtk.Button(label="Apply Spotify theme")
         export_spotify_button.connect("clicked", self.on_export_spotify)
