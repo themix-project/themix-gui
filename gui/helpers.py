@@ -6,6 +6,8 @@ from collections import defaultdict
 from itertools import groupby
 from gi.repository import Gdk, Gtk, Gio
 
+from .theme_model import theme_model
+
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 oomox_root_dir = os.path.join(script_dir, "../")
@@ -25,164 +27,6 @@ def create_value_filter(key, value):
     def value_filter(colorscheme):
         return colorscheme[key] == value
     return value_filter
-
-
-THEME_KEYS = [
-    {
-        'key': 'BG',
-        'type': 'color',
-        'display_name': 'Background'
-    },
-    {
-        'key': 'FG',
-        'type': 'color',
-        'display_name': 'Foreground/text'
-    },
-    {
-        'key': 'MENU_BG',
-        'type': 'color',
-        'display_name': 'Menu/toolbar background'
-    },
-    {
-        'key': 'MENU_FG',
-        'type': 'color',
-        'display_name': 'Menu/toolbar text'
-    },
-    {
-        'key': 'SEL_BG',
-        'type': 'color',
-        'display_name': 'Selection highlight'
-    },
-    {
-        'key': 'SEL_FG',
-        'type': 'color',
-        'display_name': 'Selection text'
-    },
-    {
-        'key': 'TXT_BG',
-        'type': 'color',
-        'display_name': 'Textbox background'
-    },
-    {
-        'key': 'TXT_FG',
-        'type': 'color',
-        'display_name': 'Textbox text'
-    },
-    {
-        'key': 'BTN_BG',
-        'type': 'color',
-        'display_name': 'Button background'
-    },
-    {
-        'key': 'BTN_FG',
-        'type': 'color',
-        'display_name': 'Button text'
-    },
-    {
-        'key': 'HDR_BTN_BG',
-        'fallback_key': 'BTN_BG',
-        'type': 'color',
-        'display_name': 'Header button background'
-    },
-    {
-        'key': 'HDR_BTN_FG',
-        'fallback_key': 'BTN_FG',
-        'type': 'color',
-        'display_name': 'Header button text'
-    },
-
-    {
-        'type': 'separator',
-        'display_name': 'Options'
-    },
-
-    {
-        'key': 'ROUNDNESS',
-        'type': 'int',
-        'fallback_value': 2,
-        'display_name': 'Roundness'
-    },
-    {
-        'key': 'SPACING',
-        'type': 'int',
-        'fallback_value': 3,
-        'display_name': '(GTK3) Spacing'
-    },
-    {
-        'key': 'GRADIENT',
-        'type': 'float',
-        'fallback_value': 0.0,
-        'display_name': '(GTK3) Gradient'
-    },
-    {
-        'key': 'GTK3_GENERATE_DARK',
-        'type': 'bool',
-        'fallback_value': True,
-        'display_name': '(GTK3) Add dark variant'
-    },
-    {
-        'key': 'GTK2_HIDPI',
-        'type': 'bool',
-        'fallback_value': False,
-        'display_name': '(GTK2) HiDPI'
-    },
-
-    {
-        'type': 'separator',
-        'display_name': 'Iconset'
-    },
-
-    {
-        'key': 'ICONS_STYLE',
-        'type': 'options',
-        'options': [
-            {
-                'value': 'gnome_colors',
-                'display_name': 'Gnome-Colors'
-            }, {
-                'value': 'archdroid',
-                'display_name': 'ArchDroid'
-            }
-        ],
-        'fallback_value': 'gnome_colors',
-        'display_name': 'Icons style'
-    },
-    {
-        'key': 'ICONS_ARCHDROID',
-        'type': 'color',
-        'fallback_key': 'SEL_BG',
-        'display_name': 'Icons color',
-        'filter': create_value_filter('ICONS_STYLE', 'archdroid')
-    },
-    {
-        'key': 'ICONS_LIGHT_FOLDER',
-        'type': 'color',
-        'fallback_key': 'SEL_BG',
-        'display_name': 'Light base (folders)',
-        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
-    },
-    {
-        'key': 'ICONS_LIGHT',
-        'fallback_key': 'SEL_BG',
-        'type': 'color',
-        'display_name': 'Light base',
-        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
-    },
-    {
-        'key': 'ICONS_MEDIUM',
-        'type': 'color',
-        'fallback_key': 'BTN_BG',
-        'display_name': 'Medium base',
-        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
-    },
-    {
-        'key': 'ICONS_DARK',
-        'type': 'color',
-        'fallback_key': 'BTN_FG',
-        'display_name': 'Dark stroke',
-        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
-    },
-]
 
 
 def mkdir_p(dir):
@@ -278,47 +122,24 @@ def convert_gdk_to_theme_color(gdk_color):
     ])
 
 
-def resolve_color_links(colorscheme):
-    # @TODO: rename it
-    for key_obj in THEME_KEYS:
-        key = key_obj.get('key')
-        if not key:
-            continue
-        fallback_key = key_obj.get('fallback_key')
-        fallback_value = key_obj.get('fallback_value')
-        value = colorscheme.get(key)
-        if value is None and (fallback_key or fallback_value is not None):
-            if fallback_value is not None:
-                value = colorscheme[key] = fallback_value
-            else:
-                value = colorscheme[key] = colorscheme[fallback_key]
-        if value is None:
-            colorscheme[key] = "ff3333"
-        elif isinstance(value, str) and value.startswith("$"):
-            try:
-                colorscheme[key] = colorscheme[value.lstrip("$")]
-            except KeyError:
-                colorscheme[key] = "ff3333"
-        if key_obj['type'] == 'bool':
-            if isinstance(value, str):
-                colorscheme[key] = value.lower() == 'true'
-        elif key_obj['type'] == 'int':
-            colorscheme[key] = int(value)
-        elif key_obj['type'] == 'float':
-            colorscheme[key] = float(value)
-    return colorscheme
+def str_to_bool(value):
+    return value.lower() == 'true'
 
 
 def bash_preprocess(preset_path):
     colorscheme = {"NOGUI": True}
+    theme_values_with_keys = [
+        theme_value
+        for theme_value in theme_model
+        if theme_value.get('key')
+    ]
     process = subprocess.run(
         [
             "bash", "-c",
             "source " + preset_path + " ; " +
             "".join(
-                "echo ${{{}-None}} ;".format(obj['key'])
-                for obj in THEME_KEYS
-                if obj.get('key')
+                "echo ${{{}-None}} ;".format(theme_value['key'])
+                for theme_value in theme_values_with_keys
             )
         ],
         stdout=subprocess.PIPE,
@@ -329,37 +150,63 @@ def bash_preprocess(preset_path):
             "Pre-processing failed:\nstdout:\n{}\nstderr:\n{}".format(
                 process.stdout, process.stderr
             )))
-
     lines = process.stdout.decode("UTF-8").split()
-    i = 0
-    for obj in THEME_KEYS:
-        if not obj.get('key'):
-            continue
+    for i, theme_value in enumerate(theme_values_with_keys):
         value = lines[i]
         if value == 'None':
             value = None
-        colorscheme[obj['key']] = value
-        i += 1
-
+        colorscheme[theme_value['key']] = value
     return colorscheme
 
 
 def read_colorscheme_from_path(preset_path):
-    # @TODO: remove legacy stuff
+    # @TODO: remove legacy stuff (using bash logic inside the themes)
     colorscheme = {}
     with open(preset_path) as f:
         for line in f.readlines():
             parsed_line = line.strip().split('=')
-            # migration workaround:
             try:
                 if not parsed_line[0].startswith("#"):
                     colorscheme[parsed_line[0]] = parsed_line[1]
+            # ignore unparseable lines:
             except IndexError:
                 pass
-    # migration workaround #2:
-    if 'NOGUI' in colorscheme:
+
+    # migration workaround:
+    if colorscheme.get('NOGUI'):
         colorscheme = bash_preprocess(preset_path)
-    colorscheme = resolve_color_links(colorscheme)
+
+    for theme_value in theme_model:
+        key = theme_value.get('key')
+        if not key:
+            continue
+        fallback_key = theme_value.get('fallback_key')
+        fallback_value = theme_value.get('fallback_value')
+        value = colorscheme.get(key)
+        if value is None and (fallback_key or fallback_value is not None):
+            if fallback_value is not None:
+                value = colorscheme[key] = fallback_value
+            else:
+                value = colorscheme[key] = colorscheme[fallback_key]
+
+        if value is None:
+            colorscheme[key] = "ff3333"
+        # migration workaround #2: resolve color links
+        elif isinstance(value, str) and value.startswith("$"):
+            try:
+                colorscheme[key] = colorscheme[value.lstrip("$")]
+            except KeyError:
+                colorscheme[key] = "ff3333"
+
+        value_type = theme_value['type']
+        if value_type == 'bool':
+            if isinstance(value, str):
+                colorscheme[key] = str_to_bool(value)
+        elif value_type == 'int':
+            colorscheme[key] = int(value)
+        elif value_type == 'float':
+            colorscheme[key] = float(value)
+
     return colorscheme
 
 
