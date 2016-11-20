@@ -88,6 +88,41 @@ class BoolListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(switch, False, True, 0)
 
 
+class OptionsListBoxRow(Gtk.ListBoxRow):
+
+    def on_dropdown_changed(self, combobox):
+        value_id = combobox.get_active()
+        self.value = self.options[value_id]['value']
+        self.callback(self.key, self.value)
+
+    def __init__(self, display_name, key, value, options, callback):
+        super().__init__()
+
+        self.callback = callback
+        self.key = key
+        self.value = value
+        self.options = options
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.add(hbox)
+        label = Gtk.Label(display_name, xalign=0)
+        hbox.pack_start(label, True, True, 0)
+
+        options_store = Gtk.ListStore(str)
+        selected_value_id = 0
+        for option_id, option in enumerate(self.options):
+            options_store.append([option['display_name']])
+            if value == option['value']:
+                selected_value_id = option_id
+        dropdown = Gtk.ComboBox.new_with_model(options_store)
+        dropdown.set_active(selected_value_id)
+        renderer_text = Gtk.CellRendererText()
+        dropdown.pack_start(renderer_text, True)
+        dropdown.add_attribute(renderer_text, "text", 0)
+        dropdown.connect("changed", self.on_dropdown_changed)
+        hbox.pack_start(dropdown, False, True, 0)
+
+
 palette_cache = None
 
 
@@ -268,6 +303,9 @@ class ThemeColorsList(Gtk.Box):
             self.listbox.add(row)
         else:
             for key_obj in THEME_KEYS:
+                if key_obj.get('filter'):
+                    if not key_obj['filter'](theme):
+                        continue
                 key = key_obj.get('key')
                 display_name = key_obj.get('display_name', key)
                 row = None
@@ -287,6 +325,20 @@ class ThemeColorsList(Gtk.Box):
                 elif key_obj['type'] == 'float':
                     row = FloatListBoxRow(
                         display_name, key, self.theme[key], self.color_edited
+                    )
+                elif key_obj['type'] == 'options':
+                    callback = None
+                    if key == 'ICONS_STYLE':
+                        def _callback(key, value):
+                            self.color_edited(key, value)
+                            self.open_theme(self.theme)
+                        callback = _callback
+                    else:
+                        callback = self.color_edited
+                    row = OptionsListBoxRow(
+                        display_name, key, self.theme[key],
+                        options=key_obj['options'],
+                        callback=callback
                     )
                 elif key_obj['type'] == 'separator':
                     row = SeparatorListBoxRow(display_name)

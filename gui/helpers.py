@@ -20,6 +20,13 @@ user_theme_dir = os.path.join(user_config_dir, "colors/")
 colors_dir = os.path.join(oomox_root_dir, "colors/")
 user_palette_path = os.path.join(user_config_dir, "recent_palette.json")
 
+
+def create_value_filter(key, value):
+    def value_filter(colorscheme):
+        return colorscheme[key] == value
+    return value_filter
+
+
 THEME_KEYS = [
     {
         'key': 'BG',
@@ -126,28 +133,54 @@ THEME_KEYS = [
     },
 
     {
+        'key': 'ICONS_STYLE',
+        'type': 'options',
+        'options': [
+            {
+                'value': 'gnome_colors',
+                'display_name': 'Gnome-Colors'
+            }, {
+                'value': 'archdroid',
+                'display_name': 'ArchDroid'
+            }
+        ],
+        'fallback_value': 'gnome_colors',
+        'display_name': 'Icons style'
+    },
+    {
+        'key': 'ICONS_ARCHDROID',
+        'type': 'color',
+        'fallback_key': 'SEL_BG',
+        'display_name': 'Icons color',
+        'filter': create_value_filter('ICONS_STYLE', 'archdroid')
+    },
+    {
         'key': 'ICONS_LIGHT_FOLDER',
         'type': 'color',
         'fallback_key': 'SEL_BG',
-        'display_name': 'Light base (folders)'
+        'display_name': 'Light base (folders)',
+        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
     {
         'key': 'ICONS_LIGHT',
         'fallback_key': 'SEL_BG',
         'type': 'color',
-        'display_name': 'Light base'
+        'display_name': 'Light base',
+        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
     {
         'key': 'ICONS_MEDIUM',
         'type': 'color',
         'fallback_key': 'BTN_BG',
-        'display_name': 'Medium base'
+        'display_name': 'Medium base',
+        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
     {
         'key': 'ICONS_DARK',
         'type': 'color',
         'fallback_key': 'BTN_FG',
-        'display_name': 'Dark stroke'
+        'display_name': 'Dark stroke',
+        'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
 ]
 
