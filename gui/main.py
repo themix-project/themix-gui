@@ -184,7 +184,7 @@ class AppWindow(Gtk.Window):
         self.check_unsaved_changes()
         export_theme(window=self, theme_path=self.colorscheme_path)
 
-    def on_export_icontheme(self, action, arg):
+    def on_export_icontheme(self, action, arg=None):
         self.check_unsaved_changes()
         if self.colorscheme['ICONS_STYLE'] == 'archdroid':
             export_archdroid_icon_theme(
