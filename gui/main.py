@@ -1,8 +1,9 @@
 #!/bin/env python3
 import os
+import sys
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Gio, GLib
 
 from .helpers import (
     user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
@@ -102,7 +103,7 @@ def dialog_is_yes(dialog):
     return dialog.run() == Gtk.ResponseType.OK
 
 
-class MainWindow(Gtk.Window):
+class AppWindow(Gtk.Window):
 
     colorscheme_name = None
     colorscheme_path = None
@@ -183,7 +184,7 @@ class MainWindow(Gtk.Window):
         self.check_unsaved_changes()
         export_theme(window=self, theme_path=self.colorscheme_path)
 
-    def on_export_icontheme(self, button):
+    def on_export_icontheme(self, action, arg):
         self.check_unsaved_changes()
         if self.colorscheme['ICONS_STYLE'] == 'archdroid':
             export_archdroid_icon_theme(
@@ -194,7 +195,7 @@ class MainWindow(Gtk.Window):
                 window=self, theme_path=self.colorscheme_path
             )
 
-    def on_export_spotify(self, button):
+    def on_export_spotify(self, action, arg):
         self.check_unsaved_changes()
         export_spotify(window=self, theme_path=self.colorscheme_path)
 
@@ -254,13 +255,32 @@ class MainWindow(Gtk.Window):
         self.remove_button.connect("clicked", self.on_remove)
         self.headerbar.pack_start(self.remove_button)
 
-        export_spotify_button = Gtk.Button(label="Apply Spotify theme")
-        export_spotify_button.connect("clicked", self.on_export_spotify)
-        self.headerbar.pack_end(export_spotify_button)
+        #
 
-        export_icons_button = Gtk.Button(label="Export icon theme")
-        export_icons_button.connect("clicked", self.on_export_icontheme)
-        self.headerbar.pack_end(export_icons_button)
+        menu = Gio.Menu()
+        menu.append_item(self.app.create_menu_item(
+            "Export icon theme",
+            "export_icon_theme",
+            self.on_export_icontheme
+        ))
+        menu.append_item(self.app.create_menu_item(
+            "Apply Spotify theme",
+            "export_spotify",
+            self.on_export_spotify
+        ))
+
+        self.menu_button = ImageButton(
+            "open-menu-symbolic", "Remove theme"
+        )
+        self.menu_popover = Gtk.Popover.new_from_model(self.menu_button, menu)
+        self.menu_popover.set_position(Gtk.PositionType.BOTTOM)
+        self.menu_button.connect('clicked',
+                                 lambda _: self.menu_popover.show_all())
+        self.headerbar.pack_end(self.menu_button)
+
+        # export_icons_button = Gtk.Button(label="Export icon theme")
+        # export_icons_button.connect("clicked", self.on_export_icontheme)
+        # self.headerbar.pack_end(export_icons_button)
 
         export_button = Gtk.Button(label="Export theme")
         export_button.connect("clicked", self.on_export)
@@ -269,7 +289,7 @@ class MainWindow(Gtk.Window):
         self.set_titlebar(self.headerbar)
 
     def _init_window(self):
-        Gtk.Window.__init__(self, title="Oo-mox GUI")
+        self.connect("delete-event", self.on_quit)
         self.set_default_size(500, 300)
         self.set_border_width(6)
 
@@ -285,7 +305,9 @@ class MainWindow(Gtk.Window):
         if focus_on_path:
             self.presets_list.focus_preset_by_filepath(focus_on_path)
 
-    def __init__(self):
+    def __init__(self, application=None, title="Oo-mox GUI"):
+        Gtk.Window.__init__(self, application=application, title=title)
+        self.app = application
         self.colorscheme = {}
         mkdir_p(user_theme_dir)
 
@@ -305,13 +327,51 @@ class MainWindow(Gtk.Window):
         self.preview = ThemePreview()
         self.box.pack_start(self.preview, False, False, 0)
 
+        self.show_all()
+
+
+class Application(Gtk.Application):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, application_id="org.example.myapp",
+                         flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
+                         **kwargs)
+        self.window = None
+        # @TODO: use oomox-gui as the only one entrypoint to all cli tools
+        # self.add_main_option("test", ord("t"), GLib.OptionFlags.NONE,
+        # GLib.OptionArg.NONE, "Command line test", None)
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+
+    def do_activate(self):
+        if not self.window:
+            self.window = AppWindow(application=self)
+        self.window.present()
+
+    def do_command_line(self, command_line):
+        # options = command_line.get_options_dict()
+        # if options.contains("test"):
+            # print("Test argument recieved")
+        self.activate()
+        return 0
+
+    def create_menu_item(self, display_name, action_id, callback):
+        action = Gio.SimpleAction.new(action_id, None)
+        action.connect('activate', callback)
+        self.add_action(action)
+        item = Gio.MenuItem.new(display_name, 'app.{}'.format(action_id))
+        return item
+
+    def on_quit(self, action, param):
+        self.win.on_quit()
+        self.quit()
+
 
 def main():
     GObject.threads_init()
-    win = MainWindow()
-    win.connect("delete-event", win.on_quit)
-    win.show_all()
-    Gtk.main()
+    app = Application()
+    app.run(sys.argv)
 
 
 if __name__ == "__main__":
