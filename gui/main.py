@@ -258,11 +258,11 @@ class AppWindow(Gtk.Window):
         #
 
         menu = Gio.Menu()
-        menu.append_item(self.app.create_menu_item(
-            "Export icon theme",
-            "export_icon_theme",
-            self.on_export_icontheme
-        ))
+        # menu.append_item(self.app.create_menu_item(
+            # "Export icon theme",
+            # "export_icon_theme",
+            # self.on_export_icontheme
+        # ))
         menu.append_item(self.app.create_menu_item(
             "Apply Spotify theme",
             "export_spotify",
@@ -278,9 +278,9 @@ class AppWindow(Gtk.Window):
                                  lambda _: self.menu_popover.show_all())
         self.headerbar.pack_end(self.menu_button)
 
-        # export_icons_button = Gtk.Button(label="Export icon theme")
-        # export_icons_button.connect("clicked", self.on_export_icontheme)
-        # self.headerbar.pack_end(export_icons_button)
+        export_icons_button = Gtk.Button(label="Export icons")
+        export_icons_button.connect("clicked", self.on_export_icontheme)
+        self.headerbar.pack_end(export_icons_button)
 
         export_button = Gtk.Button(label="Export theme")
         export_button.connect("clicked", self.on_export)
