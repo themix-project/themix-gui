@@ -235,6 +235,19 @@ def save_colorscheme(preset_name, colorscheme):
     return path
 
 
+def remove_colorscheme(preset_name):
+    path = os.path.join(user_theme_dir, preset_name)
+    os.remove(path)
+
+
+def is_user_colorscheme(preset_path):
+    return preset_path.startswith(user_theme_dir)
+
+
+def is_colorscheme_exists(preset_path):
+    return os.path.exists(preset_path)
+
+
 class CenterLabel(Gtk.Label):
 
     def __init__(self, text):
