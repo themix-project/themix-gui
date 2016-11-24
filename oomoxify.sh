@@ -91,11 +91,9 @@ is_dark ${MENU_FG}
 fg_is_dark="$?"
 set -e
 if [[ ${fg_is_dark} -eq 0 ]] ; then
-	echo IS DARK
 	main_fg_fallback="$(darker ${MENU_FG} -18)"
 	accent_fg_fallback="$(darker ${MENU_FG} 36)"
 else
-	echo IS LIGHT
 	main_fg_fallback="$(darker ${MENU_FG} 18)"
 	accent_fg_fallback="$(darker ${MENU_FG} -36)"
 fi
@@ -104,11 +102,11 @@ main_fg="${SPOTIFY_MAIN_FG-$main_fg_fallback}"
 accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
 hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
-active_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$SEL_BG}"
-inactive_selection_color_fallback="${SEL_BG}"
+selected_text_color="${SPOTIFY_SELECTED_TEXT_COLOR-$SEL_BG}"
+selected_button_color_fallback="${SEL_BG}"
 hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
-inactive_selection_color="${SPOTIFY_INACTIVE_SELECTION_COLOR-$inactive_selection_color_fallback}"
-hover_selection_color="${SPOTIFY_ACTIVE_SELECTION_COLOR-$hover_selection_color_fallback}"
+selected_button_color="${SPOTIFY_SELECTED_BUTTON_COLOR-$selected_button_color_fallback}"
+hover_selection_color="${SPOTIFY_HOVER_SELECTION_COLOR-$hover_selection_color_fallback}"
 
 
 tmp_dir="$(mktemp -d)"
@@ -163,12 +161,11 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 			fi
 			if [ ! -z "${THEME:-}" ] ; then
 			sed -i \
-				-e "s/1ed760/oomox_active_selection_color/gI" \
-				-e "s/1ed660/oomox_active_selection_color/gI" \
-				-e "s/1ed760/oomox_active_selection_color/gI" \
-				-e "s/1db954/oomox_inactive_selection_color/gI" \
-				-e "s/179443/oomox_inactive_selection_color/gI" \
-				-e "s/18ab4d/oomox_inactive_selection_color/gI" \
+				-e "s/1ed660/oomox_selected_text_color/gI" \
+				-e "s/1ed760/oomox_selected_text_color/gI" \
+				-e "s/1db954/oomox_selected_button_color/gI" \
+				-e "s/179443/oomox_selected_button_color/gI" \
+				-e "s/18ab4d/oomox_selected_button_color/gI" \
 				-e "s/1df269/oomox_hover_selection_color/gI" \
 				-e "s/1bd85e/oomox_hover_selection_color/gI" \
 				-e "s/282828/oomox_main_bg/g" \
@@ -189,8 +186,8 @@ for file in $(ls "${backup_dir}"/*.spa | grep -v messages) ; do
 				-e "s/oomox_selected_area_bg/${selected_area_bg}/g" \
 				-e "s/oomox_accent_fg/${accent_fg}/gI" \
 				-e "s/oomox_hover_text/${hover_text}/gI" \
-				-e "s/oomox_active_selection_color/${active_selection_color}/gI" \
-				-e "s/oomox_inactive_selection_color/${inactive_selection_color}/gI" \
+				-e "s/oomox_selected_text_color/${selected_text_color}/gI" \
+				-e "s/oomox_selected_button_color/${selected_button_color}/gI" \
 				-e "s/oomox_hover_selection_color/${hover_selection_color}/gI" \
 				-e "s/oomox_main_fg/${main_fg}/gI" \
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
