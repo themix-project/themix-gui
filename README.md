@@ -35,7 +35,7 @@ oomox-gui
 
 ### Ubuntu
 
-Ubuntu 16.04 and 15.10 / Linux Mint 18 users can install Oomox by using the main WebUpd8 PPA:
+Ubuntu 16.10, 16.04 and 15.10 (and other ubuntu-based like Linux Mint 18 and newer) users can install Oomox by using the main WebUpd8 PPA:
 
 ```bash
 sudo add-apt-repository ppa:nilarimogard/webupd8
