@@ -151,4 +151,4 @@ To learn more about using the application you can check these articles:
 
 One of the users, Spatry, made this cool demo video:
 
-[![video](https://img.youtube.com/vi/Dh5TuIYQ6jo/0.jpg)](https://www.youtube.com/watch?v=Dh5TuIYQ6jo)
+https://www.youtube.com/watch?v=Dh5TuIYQ6jo
