@@ -6,5 +6,6 @@ Encoding=UTF-8
 
 [X-GNOME-Metatheme]
 GtkTheme=Numix
+IconTheme=Numix
 MetacityTheme=Numix
 ButtonLayout=:minimize,maximize,close
