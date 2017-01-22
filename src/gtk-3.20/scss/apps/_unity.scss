@@ -33,6 +33,16 @@
             color: mix($titlebar_fg_color, $titlebar_bg_color, .1);
             text-shadow: none;
 
+            // Fixed: https://github.com/numixproject/numix-gtk-theme/issues/632
+            // for L.I.M's selected menuitem
+            &:hover {
+                border-radius: 0;
+                border-color: mix($panel_bg_color, $panel_fg_color, .21);
+                background-color: mix($panel_bg_color, $panel_fg_color, .21);
+                background-image: none;
+                color: shade($panel_fg_color, 1.08);
+            }
+
             &:backdrop {
                 border: 1px solid $wm_border_unfocused;
                 color: mix($titlebar_fg_color, $titlebar_bg_color, .4);
