@@ -7,5 +7,5 @@ Encoding=UTF-8
 [X-GNOME-Metatheme]
 Name=%OUTPUT_THEME_NAME%
 GtkTheme=%OUTPUT_THEME_NAME%
-MetacityTheme=%OUTPUT_THEME_NAME%
 IconTheme=%OUTPUT_THEME_NAME%
+MetacityTheme=%OUTPUT_THEME_NAME%
