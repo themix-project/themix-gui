@@ -46,6 +46,10 @@
 @define-color borders #{"" + $borders_color};
 @define-color unfocused_borders #{"" + $backdrop_borders_color};
 
+@define-color button_bg_color #{"" + $button_bg_color};
+@define-color button_fg_color #{"" + $button_fg_color};
+@define-color header_button_bg_color #{"" + $header_button_bg_color};
+@define-color header_button_fg_color #{"" + $header_button_fg_color};
 
 @define-color insensitive_bg_color #{"" + $insensitive_bg_color};
 @define-color insensitive_fg_color #{"" + $insensitive_fg_color};
