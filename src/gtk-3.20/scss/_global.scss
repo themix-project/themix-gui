@@ -86,9 +86,9 @@ $panel_bg_color: $dark_bg_color;
 $panel_fg_color: $dark_fg_color;
 
 $osd_base: $dark_bg_color;
-$osd_text_color: $white;
-$osd_fg: $dark_fg_color;
+$osd_text_color: $dark_fg_color;
 $osd_bg: alpha($osd_base, .8);
+$osd_fg: $osd_text_color;
 $osd_insensitive_bg_color: mix($osd_fg, $osd_bg, .5);
 $osd_insensitive_fg_color: mix($osd_fg, $osd_base, .6);
 $osd_borders_color: shade($osd_bg, .85);
@@ -96,9 +96,9 @@ $osd_borders_color: shade($osd_bg, .85);
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;
 
-$wm_bg: $titlebar_bg_color;
-$wm_border_focused: transparent;
-$wm_border_unfocused: transparent;
+$wm_bg: $base_color;
+$wm_border_focused: $selected_bg_color;
+$wm_border_unfocused: $titlebar_bg_color;
 $wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
 $wm_title_unfocused: mix($titlebar_fg_color, $titlebar_bg_color, .4);
 $wm_icons_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
@@ -137,6 +137,8 @@ $backdrop_menu_color: if($variant == 'light', $backdrop_base_color, mix($backdro
 $drop_target_color: #4e9a06;
 
 // widget styles
+$_roundness: %ROUNDNESS%;
+$_spacing: %SPACING%;
 $roundness: %ROUNDNESS%px;
 $spacing: %SPACING%px;
 $gradient: %GRADIENT%;
