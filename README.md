@@ -35,7 +35,7 @@ oomox-gui
 
 ### Ubuntu
 
-Ubuntu 16.04 and 15.10 / Linux Mint 18 users can install Oomox by using the main WebUpd8 PPA:
+Ubuntu 16.10, 16.04 and 15.10 (and other ubuntu-based like Linux Mint 18 and newer) users can install Oomox by using the main WebUpd8 PPA:
 
 ```bash
 sudo add-apt-repository ppa:nilarimogard/webupd8
@@ -63,6 +63,7 @@ You need to have `python3-gobject` binding and those executables:
  - `glib-compile-schemas`
  - `gdk-pixbuf-pixdata`
  - `sass`
+ 
 For GTK2 you need murrine engine which can be not installed by default.
 
 
@@ -150,4 +151,4 @@ To learn more about using the application you can check these articles:
 
 One of the users, Spatry, made this cool demo video:
 
-[![video](https://img.youtube.com/vi/Dh5TuIYQ6jo/0.jpg)](https://www.youtube.com/watch?v=Dh5TuIYQ6jo)
+https://www.youtube.com/watch?v=Dh5TuIYQ6jo
