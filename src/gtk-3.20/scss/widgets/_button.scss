@@ -282,10 +282,6 @@
     color: $fg;
     box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
-    // Fixed: https://github.com/numixproject/numix-gtk-theme/issues/572
-    // Webkitgtk workaround start
-    &:active { color: $fg; }
-    // Webkitgtk workaround end
 
     &.flat {
         //color: mix($bg, $fg, .2);
@@ -462,6 +458,18 @@
                 background-image: none;
                 box-shadow: none;
 
+		/*
+                @if (lightness($bg_color) > 50) {
+                    background-color: shade($bg_color, 1.08);
+                }
+
+                &:hover { 
+                    @if (lightness($bg_color) > 50) {
+                        background-color: shade($bg_color, 1.11);
+                    } 
+                }
+		*/
+
                 &:dir(rtl) { border-style: none solid none none; }
 
                 &:active { box-shadow: inset 0 2px 3px -1px transparentize($black, .8); }
@@ -470,7 +478,6 @@
 
                 &:backdrop:disabled {
                     border-style: none none none solid; // It is needed or it gets overridden
-
                     &:dir(rtl) { border-style: none solid none none; }
                 }
 

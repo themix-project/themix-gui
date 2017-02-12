@@ -50,11 +50,12 @@
 }
 
 @mixin inline-toolbar($bg, $fg) {
-    background-image: none;
+    padding: 1px;
     border-width: 0 1px 1px;
     border-style: solid;
     border-color: $borders_color;
-    background-color: mix($borders_color, $bg_color, .7);
+    background-color: mix($borders_color, $bg_color, .7);;
+    background-image: none;
 
     &:backdrop {
         border-color: $backdrop_borders_color;
