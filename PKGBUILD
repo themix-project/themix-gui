@@ -2,10 +2,10 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.0.rc2
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="Graphical application for generating different color variations
-of Numix theme (GTK2, GTK3) and gnome-colors icon theme. Have a hack for HiDPI in gtk2."
+of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes. Have a hack for HiDPI in gtk2."
 arch=('x86_64' 'i686')
 url="https://github.com/actionless/oomox"
 license=('GPLv3')
@@ -15,6 +15,8 @@ source=(
 md5sums=("SKIP")
 depends=(
 	'bash'
+	'bc'
+	'zip'
 	'glib2'
 	'gdk-pixbuf2'
 	'ruby-sass'
@@ -59,12 +61,20 @@ EOF
 	chmod +x ${pkgdir}/usr/bin/oomox-cli
 
 
-	cat > ${pkgdir}/usr/bin/oomox-icons-cli <<EOF
+	cat > ${pkgdir}/usr/bin/oomox-gnome-colors-icons-cli <<EOF
 #!/bin/sh
 cd /opt/oomox/
 exec ./gnome-colors.sh "\$@"
 EOF
-	chmod +x ${pkgdir}/usr/bin/oomox-icons-cli
+	chmod +x ${pkgdir}/usr/bin/oomox-gnome-colors-icons-cli
+
+
+	cat > ${pkgdir}/usr/bin/oomox-archdroid-icons-cli <<EOF
+#!/bin/sh
+cd /opt/oomox/
+exec ./archdroid.sh "\$@"
+EOF
+	chmod +x ${pkgdir}/usr/bin/oomox-archdroid-icons-cli
 
 
 	cat > ${pkgdir}/usr/bin/oomoxify-cli <<EOF
@@ -77,9 +87,9 @@ EOF
 
 	cat > ${pkgdir}/usr/share/applications/oomox.desktop <<EOF
 [Desktop Entry]
-Name=Oomox
+Name=Oomox: customize icons and GTK themes
 GenericName=Oomox
-Comment=Graphical application for generating different color variations of Numix theme (GTK2, GTK3) and gnome-colors icon theme
+Comment=Graphical application for generating different color variations of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes
 Exec=oomox-gui
 Terminal=false
 Type=Application
