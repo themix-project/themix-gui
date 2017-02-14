@@ -119,11 +119,9 @@ trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 
 backup_file="${backup_dir}/version.txt"
 spotify_version=$(spotify --version 2>&1 | grep "^Spotify" | cut -d' ' -f3 | tr -d ',')
-if [[ -f "${backup_file}" ]] ; then
-	spotify_version_in_backup=$(cat "${backup_file}")
-	if [[ $spotify_version != $spotify_version_in_backup ]] ; then
-		rm -r "${backup_dir}"
-	fi
+spotify_version_in_backup=$(cat "${backup_file}" || true)
+if [[ $spotify_version != $spotify_version_in_backup ]] ; then
+	rm -r "${backup_dir}"
 fi
 if [[ ! -d "${backup_dir}" ]] ; then
 	mkdir "${backup_dir}"
