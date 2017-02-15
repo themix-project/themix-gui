@@ -121,7 +121,9 @@ backup_file="${backup_dir}/version.txt"
 spotify_version=$(spotify --version 2>&1 | grep "^Spotify" | cut -d' ' -f3 | tr -d ',')
 spotify_version_in_backup=$(cat "${backup_file}" || true)
 if [[ $spotify_version != $spotify_version_in_backup ]] ; then
-	rm -r "${backup_dir}"
+	if [[ -d "${backup_dir}" ]] ; then
+		rm -r "${backup_dir}"
+	fi
 fi
 if [[ ! -d "${backup_dir}" ]] ; then
 	mkdir "${backup_dir}"
