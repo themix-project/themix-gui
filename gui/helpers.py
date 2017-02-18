@@ -221,18 +221,16 @@ def read_colorscheme_from_preset(preset_name):
 
 def save_colorscheme(preset_name, colorscheme):
     path = os.path.join(user_theme_dir, preset_name)
-    try:
-        with open(path, 'w') as f:
-            if 'NAME' not in colorscheme:
-                f.write("NAME={}\n".format(preset_name))
-            for key in sorted(colorscheme.keys()):
-                if key not in ('NOGUI'):
-                    f.write("{}={}\n".format(
-                        key, colorscheme[key]
-                    ))
-    except FileNotFoundError:
+    if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
-        return save_colorscheme(preset_name, colorscheme)
+    with open(path, 'w') as f:
+        if 'NAME' not in colorscheme:
+            f.write("NAME={}\n".format(preset_name))
+        for key in sorted(colorscheme.keys()):
+            if key not in ('NOGUI'):
+                f.write("{}={}\n".format(
+                    key, colorscheme[key]
+                ))
     return path
 
 
