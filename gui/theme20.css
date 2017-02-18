@@ -3137,7 +3137,7 @@ menubar, .menubar {
   color: #888a85; }
   menubar > menuitem, .menubar > menuitem {
     min-height: 16px;
-    padding: 2px 4px;
+    padding: 4.5px 7.5px;
     border: 1px solid transparent;
     background-color: transparent;
     background-image: none;
