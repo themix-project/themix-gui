@@ -56,7 +56,7 @@
         &.highlight,
         &.highlight:backdrop {
             font-size: smaller;
-            color: $selected_bg_color;
+            color: mix($selected_bg_color, $fg_color, .5);
         }
 
         &:backdrop {
