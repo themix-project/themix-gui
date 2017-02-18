@@ -44,7 +44,7 @@
 
         > menuitem {
             min-height: 16px;
-            padding: ($spacing - 1px) ($spacing - 1px) * 2;
+            padding: $spacing*1.5 $spacing * 2.5;
             border: 1px solid transparent;
             background-color: transparent;
             background-image: none;
