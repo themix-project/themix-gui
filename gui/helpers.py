@@ -226,9 +226,10 @@ def save_colorscheme(preset_name, colorscheme):
             if 'NAME' not in colorscheme:
                 f.write("NAME={}\n".format(preset_name))
             for key in sorted(colorscheme.keys()):
-                f.write("{}={}\n".format(
-                    key, colorscheme[key]
-                ))
+                if key not in ('NOGUI'):
+                    f.write("{}={}\n".format(
+                        key, colorscheme[key]
+                    ))
     except FileNotFoundError:
         mkdir_p(os.path.dirname(path))
         return save_colorscheme(preset_name, colorscheme)
