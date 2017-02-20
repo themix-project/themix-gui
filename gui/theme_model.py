@@ -67,6 +67,18 @@ theme_model = [
         'type': 'color',
         'display_name': 'Header button text'
     },
+    {
+        'key': 'WM_BORDER_FOCUS',
+        'fallback_key': 'MENU_BG',
+        'type': 'color',
+        'display_name': 'Focused window border'
+    },
+    {
+        'key': 'WM_BORDER_UNFOCUS',
+        'fallback_key': 'MENU_BG',
+        'type': 'color',
+        'display_name': 'Unfocused window border'
+    },
 
     {
         'type': 'separator',
