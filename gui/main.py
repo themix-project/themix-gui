@@ -3,7 +3,7 @@ import os
 import sys
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
-from gi.repository import Gtk, GObject, Gio, GLib
+from gi.repository import Gtk, GObject, Gio
 
 from .helpers import (
     user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
@@ -94,9 +94,11 @@ class UnsavedDialog(YesNoDialog):
 class RemoveDialog(YesNoDialog):
 
     def __init__(self, parent):
-        YesNoDialog.__init__(self, parent,
-                             "Remove theme",
-                             "Are you sure you want to delete the colorscheme?\nThis can not be undone.")
+        YesNoDialog.__init__(
+            self, parent, "Remove theme",
+            "Are you sure you want to delete the colorscheme?\n"
+            "This can not be undone."
+        )
 
 
 def dialog_is_yes(dialog):
@@ -258,11 +260,13 @@ class AppWindow(Gtk.Window):
         #
 
         menu = Gio.Menu()
-        # menu.append_item(self.app.create_menu_item(
-            # "Export icon theme",
-            # "export_icon_theme",
-            # self.on_export_icontheme
-        # ))
+        """
+        menu.append_item(self.app.create_menu_item(
+            "Export icon theme",
+            "export_icon_theme",
+            self.on_export_icontheme
+        ))
+        """
         menu.append_item(self.app.create_menu_item(
             "Apply Spotify theme",
             "export_spotify",

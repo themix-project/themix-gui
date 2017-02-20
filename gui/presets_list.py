@@ -95,7 +95,9 @@ class ThemePresetsList(Gtk.Box):
 
         self.treestore = Gtk.TreeStore(str, str, str)
         self.treestore.set_sort_column_id(0, Gtk.SortType.ASCENDING)
-        self.treeview = Gtk.TreeView(model=self.treestore, headers_visible=False)
+        self.treeview = Gtk.TreeView(
+            model=self.treestore, headers_visible=False
+        )
         self.column = Gtk.TreeViewColumn(
             cell_renderer=Gtk.CellRendererText(), text=0
         )
