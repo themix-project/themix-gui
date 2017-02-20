@@ -28,8 +28,8 @@
   <defs
      id="defs16" />
   <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
+     pagecolor="#%SEL_FG%"
+     bordercolor="#%BG%"
      borderopacity="1"
      objecttolerance="10"
      gridtolerance="10"
@@ -59,12 +59,12 @@
        id="image6" />
   </g>
   <path
-     style="fill:#444444;opacity:0.5"
+     style="fill:#%MENU_BG%;opacity:0.5"
      inkscape:connector-curvature="0"
      id="path10"
      d="m 7,25 c -1.0000065,0 -1,0 -1,1 l 0,2 c 0,1 -1.35e-5,1 1,1 l 40,0 c 1,0 1,0 1,-1 l 0,-2 c 0,-1 0,-1 -1,-1 L 7,25 z" />
   <path
-     style="fill:#f9f9f9"
+     style="fill:#%SEL_FG%"
      inkscape:connector-curvature="0"
      id="path12"
      d="m 7,23 c -3.0000291,0 -3,0 -3,3 l 0,2 c 0,3 -2.91e-5,3 3,3 l 40,0 c 3,0 3,0 3,-3 l 0,-2 c 0,-3 0,-3 -3,-3 z m 0,2 40,0 c 1,0 1,0 1,1 l 0,2 c 0,1 0,1 -1,1 L 7,29 C 5.9999865,29 6,29 6,28 l 0,-2 c 0,-1 -6.5e-6,-1 1,-1 z" />
