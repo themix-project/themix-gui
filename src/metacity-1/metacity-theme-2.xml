@@ -10,8 +10,8 @@
 
 <!-- ::: CONSTANTS ::: -->
 <constant name="C_titlebar" value="#444444" />
-<constant name="C_border_focused" value="#484848" />
-<constant name="C_border_unfocused" value="#393939" />
+<constant name="C_border_focused" value="#%WM_BORDER_FOCUS%" />
+<constant name="C_border_unfocused" value="#%WM_BORDER_UNFOCUS%" />
 <constant name="C_title_focused" value="#eeeeee" />
 <constant name="C_title_unfocused" value="#888888" />
 <constant name="C_icons_focused" value="#eeeeee" />

@@ -32,7 +32,8 @@ menu.separator.padding.height: 4
 window.active.title.separator.color: #%MENU_BG%
 
 # Active window
-window.active.border.color: #%SEL_BG%
+window.active.border.color: #%WM_BORDER_FOCUS%
+
 
 window.active.title.bg: flat solid
 window.active.title.bg.color: #%MENU_BG%
@@ -68,7 +69,7 @@ window.active.button.hover.image.color: #%SEL_BG%
 #window.active.button.toggled.image.color: #%SEL_FG%
 
 # Inactive window
-window.inactive.border.color: #%MENU_BG%
+window.inactive.border.color: #%WM_BORDER_UNFOCUS%
 
 window.inactive.title.bg: flat solid
 window.inactive.title.bg.color: #%MENU_BG%

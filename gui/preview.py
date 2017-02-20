@@ -49,6 +49,24 @@ class ThemePreview(Gtk.Grid):
         self.override_color(self.icon_preview_listbox, self.BG,
                             converted["TXT_BG"])
 
+        css_provider_wm_border_color = Gtk.CssProvider()
+        css_provider_wm_border_color.load_from_data("""
+            * {{
+                border-color: #{border_color};
+                /*border-radius: {roundness}px;*/
+                border-width: 2px;
+                border-style: solid;
+            }}
+        """.format(
+            border_color=colorscheme['WM_BORDER_FOCUS'],
+            roundness=colorscheme['ROUNDNESS']
+        ).encode('ascii'))
+        Gtk.StyleContext.add_provider(
+            self.bg.get_style_context(),
+            css_provider_wm_border_color,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
         gradient = colorscheme['GRADIENT']
         for widget, color in zip(
             [self.button, self.headerbar_button, self.entry],

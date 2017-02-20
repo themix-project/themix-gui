@@ -85,6 +85,8 @@ else
 fi
 HDR_BTN_BG=${HDR_BTN_BG-$BTN_BG}
 HDR_BTN_FG=${HDR_BTN_FG-$BTN_FG}
+WM_BORDER_FOCUS=${WM_BORDER_FOCUS-$MENU_BG}
+WM_BORDER_UNFOCUS=${WM_BORDER_UNFOCUS-$MENU_BG}
 
 GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
 GTK2_HIDPI=$(echo ${GTK2_HIDPI-False} | tr '[:upper:]' '[:lower:]')
@@ -137,6 +139,8 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%BTN_FG%/'"$BTN_FG"'/g' \
 		-e 's/%HDR_BTN_BG%/'"$HDR_BTN_BG"'/g' \
 		-e 's/%HDR_BTN_FG%/'"$HDR_BTN_FG"'/g' \
+		-e 's/%WM_BORDER_FOCUS%/'"$WM_BORDER_FOCUS"'/g' \
+		-e 's/%WM_BORDER_UNFOCUS%/'"$WM_BORDER_UNFOCUS"'/g' \
 		-e 's/%ROUNDNESS%/'"$ROUNDNESS"'/g' \
 		-e 's/%ROUNDNESS_GTK2_HIDPI%/'"$ROUNDNESS_GTK2_HIDPI"'/g' \
 		-e 's/%SPACING%/'"$SPACING"'/g' \
