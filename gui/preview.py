@@ -315,10 +315,9 @@ class ThemePreview(Gtk.Grid):
             self.sel_label,
             self.entry,
             self.button,
-            *self.get_menu_widgets(self.menubar),
             self.headerbar,
             self.headerbar_button
-        ]:
+        ] + self.get_menu_widgets(self.menubar):
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider,
