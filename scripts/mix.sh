@@ -5,7 +5,7 @@ mix_channel() {
 	value1=${1}
 	value2=${2}
 	ratio=${3}
-	result=$(printf '%.0f' $(echo "ibase=16; ${value1} * ${ratio} + ${value2} * (1 - ${ratio})" | bc))
+	result=$(echo "scale=0; ibase=16; (${value1} * ${ratio} + ${value2} * (1 - ${ratio}))/1" | bc)
 	if [[ ${result} -lt 0 ]] ; then
 		result=0
 	fi
