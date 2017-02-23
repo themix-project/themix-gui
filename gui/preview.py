@@ -19,6 +19,11 @@ class ThemePreview(Gtk.Grid):
             return widget.override_color(state, color)
 
     def update_preview_colors(self, colorscheme):
+        def mix(a, b, amount):
+            return convert_theme_color_to_gdk(mix_theme_colors(colorscheme[b],
+                                                               colorscheme[a],
+                                                               amount))
+
         converted = {
             theme_value['key']: convert_theme_color_to_gdk(
                 colorscheme[theme_value['key']]
@@ -37,8 +42,25 @@ class ThemePreview(Gtk.Grid):
                             state=Gtk.StateFlags.SELECTED)
         self.override_color(self.button, self.FG, converted["BTN_FG"])
         self.override_color(self.button, self.BG, converted["BTN_BG"])
-        self.override_color(self.menuitem1, self.FG, converted["MENU_FG"])
-        self.override_color(self.menuitem2, self.FG, converted["MENU_FG"])
+        for item in self.menubar:
+            self.override_color(item, self.FG, converted["MENU_FG"])
+            self.override_color(item, self.BG, mix("MENU_BG", "MENU_FG", 0.21),
+                                state=Gtk.StateFlags.PRELIGHT)
+            # FIXME: :hover { color: shade("MENU_FG", 1.08); }
+            for widget in self.get_menu_widgets(item.get_submenu()):
+                if isinstance(widget, Gtk.MenuShell):
+                    self.override_color(widget, self.BG, converted["MENU_BG"])
+                    self.override_color(widget, self.FG, converted["MENU_FG"])
+                else:
+                    if not widget.get_sensitive():  # :disabled
+                        color = mix("MENU_FG", "MENU_BG", 0.5)
+                    else:
+                        color = converted["MENU_FG"]
+                    self.override_color(widget, self.FG, color)
+                self.override_color(widget, self.BG, converted["SEL_BG"],
+                                    state=Gtk.StateFlags.PRELIGHT)
+                self.override_color(widget, self.FG, converted["SEL_FG"],
+                                    state=Gtk.StateFlags.PRELIGHT)
         self.override_color(self.menubar, self.BG, converted["MENU_BG"])
         self.override_color(self.headerbar, self.BG, converted["MENU_BG"])
         self.override_color(self.headerbar, self.FG, converted["MENU_FG"])
@@ -185,6 +207,18 @@ class ThemePreview(Gtk.Grid):
             ) as f:
                 setattr(self, attr_name, f.read().decode('utf-8'))
 
+    def create_menu(self, n_items, has_submenus=False):
+        menu = Gtk.Menu()
+        for i in range(0, n_items):
+            sensitive = (i + 1) % 3 != 0
+            label = 'Item {id}' if sensitive else 'Insensitive Item {id}'
+            item = Gtk.MenuItem(label=label.format(id=i + 1),
+                                sensitive=sensitive)
+            menu.append(item)
+            if has_submenus and (i + 1) % 2 == 0:
+                item.set_submenu(self.create_menu(2))
+        return menu
+
     def _init_widgets(self):
         preview_label = Gtk.Label("Preview:")
         self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
@@ -202,10 +236,10 @@ class ThemePreview(Gtk.Grid):
 
         self.menubar = Gtk.MenuBar()
         self.menuitem1 = Gtk.MenuItem(label='File')
-        # menuitem.set_submenu(self.create_menu(3, True))
+        self.menuitem1.set_submenu(self.create_menu(3, True))
         self.menubar.append(self.menuitem1)
         self.menuitem2 = Gtk.MenuItem(label='Edit')
-        # menuitem.set_submenu(self.create_menu(4, True))
+        self.menuitem2.set_submenu(self.create_menu(6, True))
         self.menubar.append(self.menuitem2)
 
         self.headerbox.pack_start(self.headerbar, True, True, 0)
@@ -250,6 +284,17 @@ class ThemePreview(Gtk.Grid):
         self.bg.attach_next_to(self.bottom_margin2, self.icon_preview_listbox,
                                Gtk.PositionType.BOTTOM, 1, 1)
 
+    def get_menu_widgets(self, shell):
+        """ gets a menu shell (menu or menubar) and all its children """
+
+        children = [shell]
+        for child in shell:
+            children.append(child)
+            submenu = child.get_submenu()
+            if submenu:
+                children.extend(self.get_menu_widgets(submenu))
+        return children
+
     def _override_css_style(self):
         css_provider = Gtk.CssProvider()
         try:
@@ -270,9 +315,7 @@ class ThemePreview(Gtk.Grid):
             self.sel_label,
             self.entry,
             self.button,
-            self.menuitem1,
-            self.menuitem2,
-            self.menubar,
+            *self.get_menu_widgets(self.menubar),
             self.headerbar,
             self.headerbar_button
         ]:
