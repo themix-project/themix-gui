@@ -25,11 +25,9 @@ class NewDialog(Gtk.Dialog):
     entry = None
     input_data = ''
 
-    def on_cancel(self, button):
-        self.destroy()
-
-    def on_ok(self, button):
-        self.input_data = self.entry.get_text()
+    def do_response(self, response):
+        if response == Gtk.ResponseType.OK:
+            self.input_data = self.entry.get_text()
         self.destroy()
 
     def __init__(self, parent,
@@ -41,15 +39,16 @@ class NewDialog(Gtk.Dialog):
 
         label = Gtk.Label(text)
         self.entry = Gtk.Entry()
+        self.entry.set_activates_default(True)
 
         box = self.get_content_area()
         box.add(label)
         box.add(self.entry)
 
-        cancel_button = self.add_button("Cancel", Gtk.ResponseType.CANCEL)
-        cancel_button.connect("clicked", self.on_cancel)
-        ok_button = self.add_button("OK", Gtk.ResponseType.OK)
-        ok_button.connect("clicked", self.on_ok)
+        cancel_button = self.add_button("_Cancel", Gtk.ResponseType.CANCEL)
+        ok_button = self.add_button("_OK", Gtk.ResponseType.OK)
+
+        self.set_default_response(Gtk.ResponseType.OK)
 
         self.show_all()
 
@@ -62,12 +61,13 @@ class RenameDialog(NewDialog):
 
 class YesNoDialog(Gtk.Dialog):
 
-    def on_choose(self, button):
+    def do_response(self, response):
         self.destroy()
 
     def __init__(self, parent,
                  title="",
-                 text="Are you sure?"):
+                 text="Are you sure?",
+                 default_response=Gtk.ResponseType.NO):
         Gtk.Dialog.__init__(self, title, parent, 0)
         self.set_default_size(150, 100)
 
@@ -75,10 +75,10 @@ class YesNoDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(label)
 
-        cancel_button = self.add_button("No", Gtk.ResponseType.CANCEL)
-        cancel_button.connect("clicked", self.on_choose)
-        ok_button = self.add_button("Yes", Gtk.ResponseType.OK)
-        ok_button.connect("clicked", self.on_choose)
+        cancel_button = self.add_button("_No", Gtk.ResponseType.NO)
+        ok_button = self.add_button("_Yes", Gtk.ResponseType.YES)
+
+        self.set_default_response(default_response)
 
         self.show_all()
 
@@ -102,7 +102,7 @@ class RemoveDialog(YesNoDialog):
 
 
 def dialog_is_yes(dialog):
-    return dialog.run() == Gtk.ResponseType.OK
+    return dialog.run() == Gtk.ResponseType.YES
 
 
 class AppWindow(Gtk.Window):
@@ -158,7 +158,8 @@ class AppWindow(Gtk.Window):
 
     def on_clone(self, button):
         dialog = NewDialog(self)
-        dialog.run()
+        if dialog.run() != Gtk.ResponseType.OK:
+            return
         new_theme_name = dialog.input_data
         if not self.check_colorscheme_exists(new_theme_name):
             new_path = self.save(new_theme_name)
@@ -166,7 +167,8 @@ class AppWindow(Gtk.Window):
 
     def on_rename(self, button):
         dialog = RenameDialog(self)
-        dialog.run()
+        if dialog.run() != Gtk.ResponseType.OK:
+            return
         new_theme_name = dialog.input_data
         if not self.check_colorscheme_exists(new_theme_name):
             self.remove()
