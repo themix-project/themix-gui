@@ -9,7 +9,7 @@ from .helpers import (
     user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
     mkdir_p,
     read_colorscheme_from_path, save_colorscheme, remove_colorscheme,
-    ImageButton, CenterLabel
+    ImageButton, ImageMenuButton, CenterLabel
 )
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
@@ -273,13 +273,11 @@ class AppWindow(Gtk.Window):
             self.on_export_spotify
         ))
 
-        self.menu_button = ImageButton(
+        self.menu_button = ImageMenuButton(
             "open-menu-symbolic", "Remove theme"
         )
-        self.menu_popover = Gtk.Popover.new_from_model(self.menu_button, menu)
-        self.menu_popover.set_position(Gtk.PositionType.BOTTOM)
-        self.menu_button.connect('clicked',
-                                 lambda _: self.menu_popover.show_all())
+        self.menu_button.set_use_popover(True)
+        self.menu_button.set_menu_model(menu)
         self.headerbar.pack_end(self.menu_button)
 
         export_icons_button = Gtk.Button(label="Export icons")
