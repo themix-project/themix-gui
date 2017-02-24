@@ -225,7 +225,6 @@ class AppWindow(Gtk.Window):
 
     def on_quit(self, arg1, arg2):
         self.check_unsaved_changes()
-        Gtk.main_quit(arg1, arg2)
 
     def _init_headerbar(self):
         self.headerbar = Gtk.HeaderBar()
@@ -364,10 +363,6 @@ class Application(Gtk.Application):
         self.add_action(action)
         item = Gio.MenuItem.new(display_name, 'app.{}'.format(action_id))
         return item
-
-    def on_quit(self, action, param):
-        self.win.on_quit()
-        self.quit()
 
 
 def main():
