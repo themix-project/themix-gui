@@ -128,6 +128,7 @@ class AppWindow(Gtk.Window):
         if new_path != self.colorscheme_path:
             self.reload_presets(new_path)
         self.colorscheme_path = new_path
+        self.save_button.set_sensitive(False)
         self.headerbar.props.title = self.colorscheme_name
 
     def remove(self, name=None):
