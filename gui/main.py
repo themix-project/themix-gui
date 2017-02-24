@@ -355,6 +355,12 @@ class Application(Gtk.Application):
     def do_startup(self):
         Gtk.Application.do_startup(self)
 
+        quit_action = Gio.SimpleAction.new("quit", None)
+        quit_action.connect("activate", self.on_quit)
+        self.add_action(quit_action)
+
+        self.set_accels_for_action("app.quit", ["<Primary>Q"])
+
         self.set_accels_for_action("win.clone", ["<Primary>D"])
         self.set_accels_for_action("win.save", ["<Primary>S"])
         self.set_accels_for_action("win.rename", ["F2"])
@@ -375,6 +381,12 @@ class Application(Gtk.Application):
             # print("Test argument recieved")
         self.activate()
         return 0
+
+    def on_quit(self, action, param=None):
+        if self.window:
+            self.window.close()
+        else:
+            self.quit()
 
 
 def main():
