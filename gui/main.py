@@ -164,7 +164,8 @@ class AppWindow(Gtk.Window):
 
     def on_clone(self, button):
         dialog = NewDialog(self)
-        dialog.run()
+        if dialog.run() != Gtk.ResponseType.OK:
+            return
         new_theme_name = dialog.input_data
         if not self.check_colorscheme_exists(new_theme_name):
             new_path = self.save(new_theme_name)
@@ -172,7 +173,8 @@ class AppWindow(Gtk.Window):
 
     def on_rename(self, button):
         dialog = RenameDialog(self)
-        dialog.run()
+        if dialog.run() != Gtk.ResponseType.OK:
+            return
         new_theme_name = dialog.input_data
         if not self.check_colorscheme_exists(new_theme_name):
             self.remove()
