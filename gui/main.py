@@ -262,13 +262,13 @@ class AppWindow(Gtk.Window):
         menu = Gio.Menu()
         """
         menu.append_item(self.app.create_menu_item(
-            "Export icon theme",
+            "_Export icon theme",
             "export_icon_theme",
             self.on_export_icontheme
         ))
         """
         menu.append_item(self.app.create_menu_item(
-            "Apply Spotify theme",
+            "Apply Spotif_y theme",
             "export_spotify",
             self.on_export_spotify
         ))
@@ -280,11 +280,12 @@ class AppWindow(Gtk.Window):
         self.menu_button.set_menu_model(menu)
         self.headerbar.pack_end(self.menu_button)
 
-        export_icons_button = Gtk.Button(label="Export icons")
+        export_icons_button = Gtk.Button(label="Export _icons",
+                                         use_underline=True)
         export_icons_button.connect("clicked", self.on_export_icontheme)
         self.headerbar.pack_end(export_icons_button)
 
-        export_button = Gtk.Button(label="Export theme")
+        export_button = Gtk.Button(label="_Export theme", use_underline=True)
         export_button.connect("clicked", self.on_export)
         self.headerbar.pack_end(export_button)
 
