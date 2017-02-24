@@ -25,11 +25,9 @@ class NewDialog(Gtk.Dialog):
     entry = None
     input_data = ''
 
-    def on_cancel(self, button):
-        self.destroy()
-
-    def on_ok(self, button):
-        self.input_data = self.entry.get_text()
+    def do_response(self, response):
+        if response == Gtk.ResponseType.OK:
+            self.input_data = self.entry.get_text()
         self.destroy()
 
     def __init__(self, parent,
@@ -48,9 +46,7 @@ class NewDialog(Gtk.Dialog):
         box.add(self.entry)
 
         cancel_button = self.add_button("_Cancel", Gtk.ResponseType.CANCEL)
-        cancel_button.connect("clicked", self.on_cancel)
         ok_button = self.add_button("_OK", Gtk.ResponseType.OK)
-        ok_button.connect("clicked", self.on_ok)
 
         self.set_default_response(Gtk.ResponseType.OK)
 
@@ -65,7 +61,7 @@ class RenameDialog(NewDialog):
 
 class YesNoDialog(Gtk.Dialog):
 
-    def on_choose(self, button):
+    def do_response(self, response):
         self.destroy()
 
     def __init__(self, parent,
@@ -80,9 +76,7 @@ class YesNoDialog(Gtk.Dialog):
         box.add(label)
 
         cancel_button = self.add_button("_No", Gtk.ResponseType.NO)
-        cancel_button.connect("clicked", self.on_choose)
         ok_button = self.add_button("_Yes", Gtk.ResponseType.YES)
-        ok_button.connect("clicked", self.on_choose)
 
         self.set_default_response(default_response)
 
