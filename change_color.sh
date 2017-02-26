@@ -90,6 +90,7 @@ WM_BORDER_UNFOCUS=${WM_BORDER_UNFOCUS-$MENU_BG}
 
 GTK3_GENERATE_DARK=$(echo ${GTK3_GENERATE_DARK-True} | tr '[:upper:]' '[:lower:]')
 GTK2_HIDPI=$(echo ${GTK2_HIDPI-False} | tr '[:upper:]' '[:lower:]')
+UNITY_DEFAULT_LAUNCHER_STYLE=$(echo ${UNITY_DEFAULT_LAUNCHER_STYLE-False} | tr '[:upper:]' '[:lower:]')
 
 SPACING=${SPACING-3}
 GRADIENT=${GRADIENT-0}
@@ -164,5 +165,9 @@ if [[ ${GTK2_HIDPI} == "true" ]] ; then
 	mv ./gtk-2.0/gtkrc.hidpi ./gtk-2.0/gtkrc
 fi
 test ${MAKE_GTK3} = 1 && make "${MAKE_OPTS}"
+
+if [[ ${UNITY_DEFAULT_LAUNCHER_STYLE} == "true" ]] ; then
+	rm ./unity/launcher*.svg
+fi
 
 exit 0

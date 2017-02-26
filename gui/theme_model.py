@@ -82,7 +82,7 @@ theme_model = [
 
     {
         'type': 'separator',
-        'display_name': 'Options'
+        'display_name': 'Theme options'
     },
 
     {
@@ -170,5 +170,16 @@ theme_model = [
         'fallback_key': 'BTN_FG',
         'display_name': 'Dark stroke',
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
+    },
+
+    {
+        'type': 'separator',
+        'display_name': 'Other options'
+    },
+    {
+        'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
+        'type': 'bool',
+        'fallback_value': False,
+        'display_name': '(Unity) Use default launcher style'
     },
 ]
