@@ -312,9 +312,7 @@ class AppWindow(Gtk.ApplicationWindow):
         menu.append_item(Gio.MenuItem.new("Apply Spotif_y theme",
                                           win.export_spotify))
 
-        menu_button = ImageMenuButton(
-            "open-menu-symbolic", "Remove theme"
-        )
+        menu_button = ImageMenuButton("open-menu-symbolic")
         menu_button.set_use_popover(True)
         menu_button.set_menu_model(menu)
         self.add_action(Gio.PropertyAction.new(win.menu.name,
