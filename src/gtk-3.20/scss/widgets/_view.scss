@@ -7,6 +7,8 @@
     %view {
         color: $text_color;
         background-color: $base_color;
+        caret-color: $primary_caret_color;
+        -gtk-secondary-caret-color: $secondary_caret_color;
 
         &:backdrop {
             color: $backdrop_text_color;

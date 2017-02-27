@@ -159,7 +159,8 @@
     padding: $spacing;
 
     color: $fg;
-    caret-color: $fg;
+    caret-color: $primary_caret_color;
+    -gtk-secondary-caret-color: $secondary_caret_color;
 
     &:focus, &:active { border-color: border_focus($border); }
 

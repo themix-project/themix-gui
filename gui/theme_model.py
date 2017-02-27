@@ -118,6 +118,29 @@ theme_model = [
 
     {
         'type': 'separator',
+        'display_name': 'Text input caret'
+    },
+    {
+        'key': 'CARET1_FG',
+        'type': 'color',
+        'fallback_key': 'TXT_FG',
+        'display_name': 'Primary caret color'
+    },
+    {
+        'key': 'CARET2_FG',
+        'type': 'color',
+        'fallback_key': 'TXT_FG',
+        'display_name': 'Secondary caret color'
+    },
+    {
+        'key': 'CARET_SIZE',
+        'type': 'float',
+        'fallback_value': 0.04,  # GTK's default
+        'display_name': 'Caret aspect ratio'
+    },
+
+    {
+        'type': 'separator',
         'display_name': 'Iconset'
     },
 

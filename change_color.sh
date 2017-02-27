@@ -110,6 +110,9 @@ ICONS_LIGHT="${ICONS_LIGHT-$SEL_BG}"
 ICONS_MEDIUM="${ICONS_MEDIUM-$medium_base_fallback}"
 ICONS_DARK="${ICONS_DARK-$dark_stroke_fallback}"
 
+CARET1_FG="${CARET1_FG-$TXT_FG}"
+CARET2_FG="${CARET2_FG-$TXT_FG}"
+CARET_SIZE="${CARET_SIZE-0.04}"
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME}"
 DEST_PATH="$HOME/.themes/${OUTPUT_THEME_NAME/\//-}"
@@ -154,6 +157,9 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%ICONS_LIGHT%/'"$ICONS_LIGHT"'/g' \
 		-e 's/%ICONS_LIGHT_FOLDER%/'"$ICONS_LIGHT_FOLDER"'/g' \
 		-e 's/%OUTPUT_THEME_NAME%/'"$OUTPUT_THEME_NAME"'/g' \
+		-e 's/%CARET1_FG%/'"$CARET1_FG"'/g' \
+		-e 's/%CARET2_FG%/'"$CARET2_FG"'/g' \
+		-e 's/%CARET_SIZE%/'"$CARET_SIZE"'/g' \
 		{} \; ;
 done
 
