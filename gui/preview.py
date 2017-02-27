@@ -18,6 +18,32 @@ class ThemePreview(Gtk.Grid):
         elif value == self.FG:
             return widget.override_color(state, color)
 
+    def update_preview_carets(self, colorscheme):
+        css_provider_caret = Gtk.CssProvider()
+        css_provider_caret.load_from_data((
+            (Gtk.get_minor_version() >= 20 and """
+            * {{
+                caret-color: #{primary_caret_color};
+                -gtk-secondary-caret-color: #{secondary_caret_color};
+                -GtkWidget-cursor-aspect-ratio: {caret_aspect_ratio};
+            }}
+            """ or """
+            * {{
+                -GtkWidget-cursor-color: #{primary_caret_color};
+                -GtkWidget-secondary-cursor-color: #{secondary_caret_color};
+                -GtkWidget-cursor-aspect-ratio: {caret_aspect_ratio};
+            }}
+            """).format(
+                primary_caret_color=colorscheme['CARET1_FG'],
+                secondary_caret_color=colorscheme['CARET2_FG'],
+                caret_aspect_ratio=colorscheme['CARET_SIZE']
+        )).encode('ascii'))
+        Gtk.StyleContext.add_provider(
+            self.entry.get_style_context(),
+            css_provider_caret,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
     def update_preview_gradients(self, colorscheme):
         gradient = colorscheme['GRADIENT']
         for widget, color in zip(
@@ -209,6 +235,7 @@ class ThemePreview(Gtk.Grid):
         self.update_preview_gradients(colorscheme)
         self.update_preview_roundness(colorscheme)
         self.update_preview_icons(colorscheme)
+        self.update_preview_carets(colorscheme)
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
