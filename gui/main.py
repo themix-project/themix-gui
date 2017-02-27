@@ -259,6 +259,19 @@ class AppWindow(Gtk.ApplicationWindow):
     def on_quit(self, arg1, arg2):
         self.check_unsaved_changes()
 
+    def action_tooltip(self, action, tooltip):
+        accels = self.get_application().get_accels_for_action(action)
+        if accels:
+            key, mods = Gtk.accelerator_parse(accels[0])
+            tooltip += ' ({})'.format(Gtk.accelerator_get_label(key, mods))
+        return tooltip
+
+    def attach_action(self, widget, action, with_tooltip=True):
+        widget.set_action_name(action)
+        if with_tooltip:
+            tooltip = self.action_tooltip(action, widget.get_tooltip_text())
+            widget.set_tooltip_text(tooltip)
+
     def _init_headerbar(self):
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
@@ -269,24 +282,24 @@ class AppWindow(Gtk.ApplicationWindow):
         # self.headerbar.pack_start(new_button)
 
         clone_button = ImageButton("edit-copy-symbolic", "Clone current theme")
-        clone_button.set_action_name(win.clone)
+        self.attach_action(clone_button, win.clone)
         self.headerbar.pack_start(clone_button)
 
         save_button = ImageButton("document-save-symbolic", "Save theme")
-        save_button.set_action_name(win.save)
+        self.attach_action(save_button, win.save)
         self.headerbar.pack_start(save_button)
 
         rename_button = ImageButton(
             # "preferences-desktop-font-symbolic", "Rename theme"
             "pda-symbolic", "Rename theme"
         )
-        rename_button.set_action_name(win.rename)
+        self.attach_action(rename_button, win.rename)
         self.headerbar.pack_start(rename_button)
 
         remove_button = ImageButton(
             "edit-delete-symbolic", "Remove theme"
         )
-        remove_button.set_action_name(win.remove)
+        self.attach_action(remove_button, win.remove)
         self.headerbar.pack_start(remove_button)
 
         #
