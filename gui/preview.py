@@ -160,6 +160,20 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
+        css_provider_border = Gtk.CssProvider()
+        css_provider_border.load_from_data((
+            """
+            headerbar {
+                border: none;
+            }
+            """
+        ).encode('ascii'))
+        Gtk.StyleContext.add_provider(
+            self.headerbar.get_style_context(),
+            css_provider_border,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
         self.load_icon_templates(colorscheme['ICONS_STYLE'])
         for source_image, target_imagebox in (
             (self.icon_source_user_home, self.icon_user_home),
