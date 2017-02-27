@@ -105,6 +105,40 @@ def dialog_is_yes(dialog):
     return dialog.run() == Gtk.ResponseType.OK
 
 
+class ActionsEnumValue(str):
+    def __new__(cls, target, name):
+        obj = str.__new__(cls, '.'.join([target, name]))
+        obj.target = target
+        obj.name = name
+        return obj
+
+
+class ActionsEnum(type):
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.__target__ = object.__getattribute__(self, '__name__')
+
+    def __getattribute__(self, attribute):
+        target = object.__getattribute__(self, '__target__')
+        name = object.__getattribute__(self, attribute)
+        return ActionsEnumValue(target=target, name=name)
+
+
+class app(metaclass=ActionsEnum):
+    quit = "quit"
+
+
+class win(metaclass=ActionsEnum):
+    clone = "clone"
+    export_icons = "export-icons"
+    export_spotify = "export-spotify"
+    export_theme = "export-theme"
+    menu = "menu"
+    remove = "remove"
+    rename = "rename"
+    save = "save"
+
+
 class AppWindow(Gtk.ApplicationWindow):
 
     colorscheme_name = None
@@ -235,24 +269,24 @@ class AppWindow(Gtk.ApplicationWindow):
         # self.headerbar.pack_start(new_button)
 
         clone_button = ImageButton("edit-copy-symbolic", "Clone current theme")
-        clone_button.set_action_name("win.clone")
+        clone_button.set_action_name(win.clone)
         self.headerbar.pack_start(clone_button)
 
         save_button = ImageButton("document-save-symbolic", "Save theme")
-        save_button.set_action_name("win.save")
+        save_button.set_action_name(win.save)
         self.headerbar.pack_start(save_button)
 
         rename_button = ImageButton(
             # "preferences-desktop-font-symbolic", "Rename theme"
             "pda-symbolic", "Rename theme"
         )
-        rename_button.set_action_name("win.rename")
+        rename_button.set_action_name(win.rename)
         self.headerbar.pack_start(rename_button)
 
         remove_button = ImageButton(
             "edit-delete-symbolic", "Remove theme"
         )
-        remove_button.set_action_name("win.remove")
+        remove_button.set_action_name(win.remove)
         self.headerbar.pack_start(remove_button)
 
         #
@@ -260,26 +294,27 @@ class AppWindow(Gtk.ApplicationWindow):
         menu = Gio.Menu()
         """
         menu.append_item(Gio.MenuItem.new("_Export icon theme",
-                                          "win.export-icons"))
+                                          win.export_icons))
         """
         menu.append_item(Gio.MenuItem.new("Apply Spotif_y theme",
-                                          "win.export-spotify"))
+                                          win.export_spotify))
 
         menu_button = ImageMenuButton(
             "open-menu-symbolic", "Remove theme"
         )
         menu_button.set_use_popover(True)
         menu_button.set_menu_model(menu)
-        self.add_action(Gio.PropertyAction.new("menu", menu_button, "active"))
+        self.add_action(Gio.PropertyAction.new(win.menu.name,
+                                               menu_button, "active"))
         self.headerbar.pack_end(menu_button)
 
         export_icons_button = Gtk.Button(label="Export _icons",
                                          use_underline=True)
-        export_icons_button.set_action_name("win.export-icons")
+        export_icons_button.set_action_name(win.export_icons)
         self.headerbar.pack_end(export_icons_button)
 
         export_button = Gtk.Button(label="_Export theme", use_underline=True)
-        export_button.set_action_name("win.export-theme")
+        export_button.set_action_name(win.export_theme)
         self.headerbar.pack_end(export_button)
 
         self.set_titlebar(self.headerbar)
@@ -296,18 +331,18 @@ class AppWindow(Gtk.ApplicationWindow):
 
     def _init_actions(self):
         def add_simple_action(action_id, callback):
-            action = Gio.SimpleAction.new(action_id, None)
+            action = Gio.SimpleAction.new(action_id.name, None)
             action.connect("activate", callback)
             self.add_action(action)
             return action
 
-        add_simple_action("clone", self.on_clone)
-        self.save_action = add_simple_action("save", self.on_save)
-        self.rename_action = add_simple_action("rename", self.on_rename)
-        self.remove_action = add_simple_action("remove", self.on_remove)
-        add_simple_action("export-theme", self.on_export)
-        add_simple_action("export-icons", self.on_export_icontheme)
-        add_simple_action("export-spotify", self.on_export_spotify)
+        add_simple_action(win.clone, self.on_clone)
+        self.save_action = add_simple_action(win.save, self.on_save)
+        self.rename_action = add_simple_action(win.rename, self.on_rename)
+        self.remove_action = add_simple_action(win.remove, self.on_remove)
+        add_simple_action(win.export_theme, self.on_export)
+        add_simple_action(win.export_icons, self.on_export_icontheme)
+        add_simple_action(win.export_spotify, self.on_export_spotify)
 
     def reload_presets(self, focus_on_path=None):
         if not focus_on_path:
@@ -355,20 +390,20 @@ class Application(Gtk.Application):
     def do_startup(self):
         Gtk.Application.do_startup(self)
 
-        quit_action = Gio.SimpleAction.new("quit", None)
+        quit_action = Gio.SimpleAction.new(app.quit.name, None)
         quit_action.connect("activate", self.on_quit)
         self.add_action(quit_action)
 
-        self.set_accels_for_action("app.quit", ["<Primary>Q"])
+        self.set_accels_for_action(app.quit, ["<Primary>Q"])
 
-        self.set_accels_for_action("win.clone", ["<Primary>D"])
-        self.set_accels_for_action("win.save", ["<Primary>S"])
-        self.set_accels_for_action("win.rename", ["F2"])
-        self.set_accels_for_action("win.remove", ["<Primary>Delete"])
-        self.set_accels_for_action("win.export-theme", ["<Primary>E"])
-        self.set_accels_for_action("win.export-icons", ["<Primary>I"])
-        self.set_accels_for_action("win.export-spotify", [])
-        self.set_accels_for_action("win.menu", ["F10"])
+        self.set_accels_for_action(win.clone, ["<Primary>D"])
+        self.set_accels_for_action(win.save, ["<Primary>S"])
+        self.set_accels_for_action(win.rename, ["F2"])
+        self.set_accels_for_action(win.remove, ["<Primary>Delete"])
+        self.set_accels_for_action(win.export_theme, ["<Primary>E"])
+        self.set_accels_for_action(win.export_icons, ["<Primary>I"])
+        self.set_accels_for_action(win.export_spotify, [])
+        self.set_accels_for_action(win.menu, ["F10"])
 
     def do_activate(self):
         if not self.window:
