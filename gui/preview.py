@@ -18,6 +18,121 @@ class ThemePreview(Gtk.Grid):
         elif value == self.FG:
             return widget.override_color(state, color)
 
+    def update_preview_gradients(self, colorscheme):
+        gradient = colorscheme['GRADIENT']
+        for widget, color in zip(
+            [self.button, self.headerbar_button, self.entry],
+            [
+                colorscheme["BTN_BG"],
+                colorscheme["HDR_BTN_BG"],
+                colorscheme["TXT_BG"]
+            ]
+        ):
+            css_provider_gradient = Gtk.CssProvider()
+            css_provider_gradient.load_from_data((
+                gradient > 0 and """
+                * {{
+                    background-image: linear-gradient(to bottom,
+                        shade(#{color}, {amount1}),
+                        shade(#{color}, {amount2})
+                    );
+                }}
+                """.format(
+                    color=color,
+                    amount1=1 - gradient / 2,
+                    amount2=1 + gradient * 2
+                ) or """
+                * {
+                    background-image: none;
+                }
+                """
+            ).encode('ascii'))
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider_gradient,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+
+    def update_preview_roundness(self, colorscheme):
+        for widget, fg, bg, ratio in (
+            (
+                self.button,
+                colorscheme['BTN_FG'],
+                colorscheme['BTN_BG'],
+                0.22
+            ), (
+                self.headerbar_button,
+                colorscheme['HDR_BTN_FG'],
+                colorscheme['HDR_BTN_BG'],
+                0.22
+            ), (
+                self.entry,
+                mix_theme_colors(
+                    colorscheme['TXT_FG'], colorscheme['TXT_BG'], 0.20
+                ),
+                colorscheme['BG'],
+                0.69
+            ),
+        ):
+            border_color = mix_theme_colors(fg, bg, ratio)
+            css_provider_border_color = Gtk.CssProvider()
+            css_provider_border_color.load_from_data("""
+                * {{
+                    border-color: #{border_color};
+                    border-radius: {roundness}px;
+                }}
+            """.format(
+                border_color=border_color,
+                roundness=colorscheme['ROUNDNESS']
+            ).encode('ascii'))
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider_border_color,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+
+        css_provider_border = Gtk.CssProvider()
+        css_provider_border.load_from_data((
+            """
+            headerbar {
+                border: none;
+            }
+            """
+        ).encode('ascii'))
+        Gtk.StyleContext.add_provider(
+            self.headerbar.get_style_context(),
+            css_provider_border,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
+    def update_preview_icons(self, colorscheme):
+        self.load_icon_templates(colorscheme['ICONS_STYLE'])
+        for source_image, target_imagebox in (
+            (self.icon_source_user_home, self.icon_user_home),
+            (self.icon_source_user_desktop, self.icon_user_desktop),
+            (self.icon_source_system_file_manager,
+             self.icon_system_file_manager),
+        ):
+            new_svg_image = source_image.replace(
+                "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"]
+            ).replace(
+                "LightBase", colorscheme["ICONS_LIGHT"]
+            ).replace(
+                "MediumBase", colorscheme["ICONS_MEDIUM"]
+            ).replace(
+                "DarkStroke", colorscheme["ICONS_DARK"]
+            ).replace(
+                "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"]
+            ).encode('ascii')
+            stream = Gio.MemoryInputStream.new_from_bytes(
+                GLib.Bytes.new(new_svg_image)
+            )
+
+            # @TODO: is it possible to make it faster?
+            pixbuf = GdkPixbuf.Pixbuf.new_from_stream(stream, None)
+
+            target_imagebox.set_from_pixbuf(pixbuf)
+
     def update_preview_colors(self, colorscheme):
         def mix(a, b, amount):
             return convert_theme_color_to_gdk(mix_theme_colors(colorscheme[b],
@@ -89,117 +204,11 @@ class ThemePreview(Gtk.Grid):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-        gradient = colorscheme['GRADIENT']
-        for widget, color in zip(
-            [self.button, self.headerbar_button, self.entry],
-            [
-                colorscheme["BTN_BG"],
-                colorscheme["HDR_BTN_BG"],
-                colorscheme["TXT_BG"]
-            ]
-        ):
-            css_provider_gradient = Gtk.CssProvider()
-            css_provider_gradient.load_from_data((
-                gradient > 0 and """
-                * {{
-                    background-image: linear-gradient(to bottom,
-                        shade(#{color}, {amount1}),
-                        shade(#{color}, {amount2})
-                    );
-                }}
-                """.format(
-                    color=color,
-                    amount1=1 - gradient / 2,
-                    amount2=1 + gradient * 2
-                ) or """
-                * {
-                    background-image: none;
-                }
-                """
-            ).encode('ascii'))
-            Gtk.StyleContext.add_provider(
-                widget.get_style_context(),
-                css_provider_gradient,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            )
-
-        for widget, fg, bg, ratio in (
-            (
-                self.button,
-                colorscheme['BTN_FG'],
-                colorscheme['BTN_BG'],
-                0.22
-            ), (
-                self.headerbar_button,
-                colorscheme['HDR_BTN_FG'],
-                colorscheme['HDR_BTN_BG'],
-                0.22
-            ), (
-                self.entry,
-                mix_theme_colors(
-                    colorscheme['TXT_FG'], colorscheme['TXT_BG'], 0.20
-                ),
-                colorscheme['BG'],
-                0.69
-            ),
-        ):
-            border_color = mix_theme_colors(fg, bg, ratio)
-            css_provider_border_color = Gtk.CssProvider()
-            css_provider_border_color.load_from_data("""
-                * {{
-                    border-color: #{border_color};
-                    border-radius: {roundness}px;
-                }}
-            """.format(
-                border_color=border_color,
-                roundness=colorscheme['ROUNDNESS']
-            ).encode('ascii'))
-            Gtk.StyleContext.add_provider(
-                widget.get_style_context(),
-                css_provider_border_color,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            )
-
-        css_provider_border = Gtk.CssProvider()
-        css_provider_border.load_from_data((
-            """
-            headerbar {
-                border: none;
-            }
-            """
-        ).encode('ascii'))
-        Gtk.StyleContext.add_provider(
-            self.headerbar.get_style_context(),
-            css_provider_border,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
-
-        self.load_icon_templates(colorscheme['ICONS_STYLE'])
-        for source_image, target_imagebox in (
-            (self.icon_source_user_home, self.icon_user_home),
-            (self.icon_source_user_desktop, self.icon_user_desktop),
-            (self.icon_source_system_file_manager,
-             self.icon_system_file_manager),
-        ):
-            new_svg_image = source_image.replace(
-                "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"]
-            ).replace(
-                "LightBase", colorscheme["ICONS_LIGHT"]
-            ).replace(
-                "MediumBase", colorscheme["ICONS_MEDIUM"]
-            ).replace(
-                "DarkStroke", colorscheme["ICONS_DARK"]
-            ).replace(
-                "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"]
-            ).encode('ascii')
-            stream = Gio.MemoryInputStream.new_from_bytes(
-                GLib.Bytes.new(new_svg_image)
-            )
-
-            # @TODO: is it possible to make it faster?
-            pixbuf = GdkPixbuf.Pixbuf.new_from_stream(stream, None)
-
-            target_imagebox.set_from_pixbuf(pixbuf)
+    def update_preview(self, colorscheme):
+        self.update_preview_colors(colorscheme)
+        self.update_preview_gradients(colorscheme)
+        self.update_preview_roundness(colorscheme)
+        self.update_preview_icons(colorscheme)
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)

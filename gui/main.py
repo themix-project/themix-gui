@@ -210,7 +210,7 @@ class AppWindow(Gtk.Window):
         self.colorscheme = read_colorscheme_from_path(selected_preset_path)
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
-        self.preview.update_preview_colors(self.colorscheme)
+        self.preview.update_preview(self.colorscheme)
         self.theme_edited = False
         self.save_button.set_sensitive(False)
         self.rename_button.set_sensitive(self.colorscheme_is_user)
@@ -219,7 +219,7 @@ class AppWindow(Gtk.Window):
 
     def on_color_edited(self, colorscheme):
         self.colorscheme = colorscheme
-        self.preview.update_preview_colors(self.colorscheme)
+        self.preview.update_preview(self.colorscheme)
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.headerbar.props.title
             self.save_button.set_sensitive(True)
