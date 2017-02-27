@@ -320,12 +320,14 @@ class AppWindow(Gtk.ApplicationWindow):
         self.headerbar.pack_end(menu_button)
 
         export_icons_button = Gtk.Button(label="Export _icons",
-                                         use_underline=True)
-        export_icons_button.set_action_name(win.export_icons)
+                                         use_underline=True,
+                                         tooltip_text="Export icon theme")
+        self.attach_action(export_icons_button, win.export_icons)
         self.headerbar.pack_end(export_icons_button)
 
-        export_button = Gtk.Button(label="_Export theme", use_underline=True)
-        export_button.set_action_name(win.export_theme)
+        export_button = Gtk.Button(label="_Export theme", use_underline=True,
+                                   tooltip_text="Export GTK theme")
+        self.attach_action(export_button, win.export_theme)
         self.headerbar.pack_end(export_button)
 
         self.set_titlebar(self.headerbar)
