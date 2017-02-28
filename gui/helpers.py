@@ -259,8 +259,7 @@ class CenterLabel(Gtk.Label):
         self.set_margin_bottom(6)
 
 
-class ImageButton(Gtk.Button):
-
+class ImageContainer(Gtk.Container):
     icon = None
     image = None
 
@@ -271,3 +270,15 @@ class ImageButton(Gtk.Button):
         self.add(self.image)
         if tooltip_text:
             self.set_tooltip_text(tooltip_text)
+
+
+class ImageButton(Gtk.Button, ImageContainer):
+    def __init__(self, *args, **kwargs):
+        Gtk.Button.__init__(self)
+        ImageContainer.__init__(self, *args, *kwargs)
+
+
+class ImageMenuButton(Gtk.MenuButton, ImageContainer):
+    def __init__(self, *args, **kwargs):
+        Gtk.MenuButton.__init__(self)
+        ImageContainer.__init__(self, *args, *kwargs)
