@@ -275,10 +275,10 @@ class ImageContainer(Gtk.Container):
 class ImageButton(Gtk.Button, ImageContainer):
     def __init__(self, *args, **kwargs):
         Gtk.Button.__init__(self)
-        ImageContainer.__init__(self, *args, *kwargs)
+        ImageContainer.__init__(self, *args, **kwargs)
 
 
 class ImageMenuButton(Gtk.MenuButton, ImageContainer):
     def __init__(self, *args, **kwargs):
         Gtk.MenuButton.__init__(self)
-        ImageContainer.__init__(self, *args, *kwargs)
+        ImageContainer.__init__(self, *args, **kwargs)
