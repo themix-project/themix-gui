@@ -317,8 +317,9 @@ class AppWindow(Gtk.ApplicationWindow):
         menu_button = ImageMenuButton("open-menu-symbolic")
         menu_button.set_use_popover(True)
         menu_button.set_menu_model(menu)
-        self.add_action(Gio.PropertyAction.new(win.menu.name,
-                                               menu_button, "active"))
+        self.add_action(Gio.PropertyAction(name=win.menu.name,
+                                           object=menu_button,
+                                           property_name="active"))
         self.headerbar.pack_end(menu_button)
 
         export_icons_button = Gtk.Button(label="Export _icons",
