@@ -1,11 +1,15 @@
 # Oomox GTK Theme (Numix Fork)
 
 gtk-color-scheme =
-"base_color:#%TXT_BG%\nbg_color:#%BG%\ntooltip_bg_color:#%BG%\nselected_bg_color:#%SEL_BG%\ntext_color:#%TXT_FG%\nfg_color:#%FG%\ntooltip_fg_color:#%FG%\nselected_fg_color:#%SEL_FG%\nmenubar_bg_color:#%MENU_BG%\nmenubar_fg_color:#%MENU_FG%\ntoolbar_bg_color:#%BG%\ntoolbar_fg_color:#%FG%\nmenu_bg_color:#%MENU_BG%\nmenu_fg_color:#%MENU_FG%\npanel_bg_color:#%BG%\npanel_fg_color:#%FG%\nlink_color:#%SEL_BG%\nbtn_bg_color:#%BTN_BG%\nbtn_fg_color:#%BTN_FG%\ntitlebar_bg_color:#%MENU_BG%\ntitlebar_fg_color:#%MENU_FG%\n"
+"base_color:#%TXT_BG%\nbg_color:#%BG%\ntooltip_bg_color:#%BG%\nselected_bg_color:#%SEL_BG%\ntext_color:#%TXT_FG%\nfg_color:#%FG%\ntooltip_fg_color:#%FG%\nselected_fg_color:#%SEL_FG%\nmenubar_bg_color:#%MENU_BG%\nmenubar_fg_color:#%MENU_FG%\ntoolbar_bg_color:#%BG%\ntoolbar_fg_color:#%FG%\nmenu_bg_color:#%MENU_BG%\nmenu_fg_color:#%MENU_FG%\npanel_bg_color:#%BG%\npanel_fg_color:#%FG%\nlink_color:#%SEL_BG%\nbtn_bg_color:#%BTN_BG%\nbtn_fg_color:#%BTN_FG%\ntitlebar_bg_color:#%MENU_BG%\ntitlebar_fg_color:#%MENU_FG%\nprimary_caret_color:#%CARET1_FG%\nsecondary_caret_color:#%CARET2_FG%\n"
 # Default Style
 
 style "murrine-default" {
 	GtkArrow::arrow-scaling= 0.6
+
+	GtkWidget::cursor_color = @primary_caret_color
+	GtkWidget::secondary_cursor_color = @secondary_caret_color
+	GtkWidget::cursor_aspect_ratio = %CARET_SIZE%
 
 	GtkButton::child-displacement-x = 0
 	GtkButton::child-displacement-y = 0

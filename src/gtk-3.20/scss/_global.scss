@@ -32,6 +32,11 @@ $dark_fg_color: #%MENU_FG%;
 $dark_shadow: shade($fg_color, .2);
 $light_shadow: lighten($bg_color, .4);
 
+// caret
+$primary_caret_color: #%CARET1_FG%;
+$secondary_caret_color: #%CARET2_FG%;
+$caret_aspect_ratio: %CARET_SIZE%;
+
 // white and black
 $black: #000;
 $white: #fff;

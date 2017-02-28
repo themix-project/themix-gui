@@ -11,6 +11,10 @@
     -GtkWindow-resize-grip-width: 0;
     -WnckTasklist-fade-overlay-rect: 0;
 
+    -GtkWidget-cursor-color: $primary_caret_color;
+    -GtkWidget-secondary-cursor-color: $secondary_caret_color;
+    -GtkWidget-cursor-aspect-ratio: $caret_aspect_ratio;
+
     outline-color: alpha($selected_bg_color, .5);
     outline-style: dashed;
     outline-width: 1px;
