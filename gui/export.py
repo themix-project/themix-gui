@@ -1,7 +1,7 @@
 import subprocess
 import os
 from threading import Thread
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Pango
 
 from .helpers import oomox_root_dir, CenterLabel
 
@@ -10,8 +10,6 @@ DEFAULT_SPOTIFY_PATH = "/usr/share/spotify/Apps"
 
 
 class ExportDialog(Gtk.Dialog):
-
-    previous_height = None
 
     def _close_button_callback(self, widget):
         self.destroy()
@@ -34,23 +32,9 @@ class ExportDialog(Gtk.Dialog):
 
     def set_text(self, text):
         self.log.get_buffer().set_text(text)
-        self._text_adjustment_callback()
 
-    def _text_adjustment_callback(self, widget=None, event=None, data=None):
-        adj = self.scrolled_window.get_vadjustment()
+    def _adj_changed(self, adj):
         adj.set_value(adj.get_upper() - adj.get_page_size())
-
-    def _resize_callback(self, widget, event, data=None):
-        window_height = self.get_allocated_height()
-        if not self.previous_height:
-            self.previous_height = window_height
-        if window_height != self.previous_height:
-            scroller_height = self.scrolled_window.get_allocated_height()
-            scroller_height += window_height - self.previous_height
-            self.previous_height = window_height
-            self.scrolled_window.set_max_content_height(scroller_height)
-            self.scrolled_window.set_min_content_height(scroller_height)
-            self._text_adjustment_callback()
 
     def __init__(self, parent, headline="Exporting..."):
         Gtk.Dialog.__init__(self, headline, parent, 0)
@@ -66,14 +50,18 @@ class ExportDialog(Gtk.Dialog):
         self.log = Gtk.TextView()
         self.log.set_editable(False)
         # self.log.set_cursor_visible(False)
-        self.log.set_monospace(True)
+        if Gtk.get_minor_version() >= 16:
+            self.log.set_monospace(True)
+        else:
+            self.log.override_font(Pango.font_description_from_string("monospace"))
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
 
-        self.scrolled_window = Gtk.ScrolledWindow()
+        self.scrolled_window = Gtk.ScrolledWindow(expand=True)
         self.scrolled_window.set_margin_bottom(5)
-        self.scrolled_window.set_policy(
-            Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scrolled_window.add(self.log)
+
+        adj = self.scrolled_window.get_vadjustment()
+        adj.connect('changed', self._adj_changed)
 
         self.under_log_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5
@@ -87,8 +75,6 @@ class ExportDialog(Gtk.Dialog):
         self.box.add(self.scrolled_window)
         self.box.add(self.under_log_box)
         self.show_all()
-
-        self.connect('size-allocate', self._resize_callback)
 
 
 def _export(window, theme_path, export_args):
@@ -159,13 +145,8 @@ class SpotifyExportDialog(ExportDialog):
     def do_export(self):
         spotify_path = self.spotify_path_entry.get_text()
         normalize_font = self.font_checkbox.get_active()
-        button_height = self.apply_button.get_allocated_height()
-        scroller_height = self.scrolled_window.get_allocated_height()
-        new_scroller_height = scroller_height + button_height
         self.options_box.destroy()
         self.apply_button.destroy()
-        self.scrolled_window.set_min_content_height(new_scroller_height)
-        self.scrolled_window.set_max_content_height(new_scroller_height)
 
         self.spinner.start()
         self.scrolled_window.show()
@@ -221,12 +202,6 @@ class SpotifyExportDialog(ExportDialog):
 
         self.under_log_box.add(button)
         self.show_all()
-
-        button_height = button.get_allocated_height()
-        scroller_height = self.scrolled_window.get_allocated_height()
-        new_scroller_height = scroller_height - button_height
-        self.scrolled_window.set_min_content_height(new_scroller_height)
-        self.scrolled_window.set_max_content_height(new_scroller_height)
 
     def __init__(self, parent, theme_path):
         ExportDialog.__init__(self, parent, "Spotify options")
