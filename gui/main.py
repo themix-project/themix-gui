@@ -5,6 +5,9 @@ import gi
 gi.require_version('Gtk', '3.0')  # noqa
 from gi.repository import Gtk, GObject, Gio
 
+import gettext
+gettext.install('oomox')
+
 from .helpers import (
     user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
     mkdir_p,
@@ -31,8 +34,8 @@ class NewDialog(Gtk.Dialog):
         self.destroy()
 
     def __init__(self, parent,
-                 title="New theme",
-                 text="Please input new theme name:"):
+                 title=_("New theme"),
+                 text=_("Please input new theme name:")):
         Gtk.Dialog.__init__(self, title, parent, 0)
 
         self.set_default_size(150, 100)
@@ -45,8 +48,8 @@ class NewDialog(Gtk.Dialog):
         box.add(label)
         box.add(self.entry)
 
-        cancel_button = self.add_button("_Cancel", Gtk.ResponseType.CANCEL)
-        ok_button = self.add_button("_OK", Gtk.ResponseType.OK)
+        cancel_button = self.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
+        ok_button = self.add_button(_("_OK"), Gtk.ResponseType.OK)
 
         self.set_default_response(Gtk.ResponseType.OK)
 
@@ -56,7 +59,7 @@ class NewDialog(Gtk.Dialog):
 class RenameDialog(NewDialog):
 
     def __init__(self, parent):
-        NewDialog.__init__(self, parent, title="Rename theme")
+        NewDialog.__init__(self, parent, title=_("Rename theme"))
 
 
 class YesNoDialog(Gtk.Dialog):
@@ -66,7 +69,7 @@ class YesNoDialog(Gtk.Dialog):
 
     def __init__(self, parent,
                  title="",
-                 text="Are you sure?",
+                 text=_("Are you sure?"),
                  default_response=Gtk.ResponseType.NO):
         Gtk.Dialog.__init__(self, title, parent, 0)
         self.set_default_size(150, 100)
@@ -75,8 +78,8 @@ class YesNoDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(label)
 
-        cancel_button = self.add_button("_No", Gtk.ResponseType.NO)
-        ok_button = self.add_button("_Yes", Gtk.ResponseType.YES)
+        cancel_button = self.add_button(_("_No"), Gtk.ResponseType.NO)
+        ok_button = self.add_button(_("_Yes"), Gtk.ResponseType.YES)
 
         self.set_default_response(default_response)
 
@@ -87,17 +90,17 @@ class UnsavedDialog(YesNoDialog):
 
     def __init__(self, parent):
         YesNoDialog.__init__(self, parent,
-                             "Unsaved changes",
-                             "There are unsaved changes.\nSave them?")
+                             _("Unsaved changes"),
+                             _("There are unsaved changes.\nSave them?"))
 
 
 class RemoveDialog(YesNoDialog):
 
     def __init__(self, parent):
         YesNoDialog.__init__(
-            self, parent, "Remove theme",
-            "Are you sure you want to delete the colorscheme?\n"
-            "This can not be undone."
+            self, parent, _("Remove theme"),
+            _("Are you sure you want to delete the colorscheme?\n"
+              "This can not be undone.")
         )
 
 
@@ -183,7 +186,8 @@ class AppWindow(Gtk.ApplicationWindow):
         else:
             dialog = Gtk.MessageDialog(
                 self, 0, Gtk.MessageType.WARNING,
-                Gtk.ButtonsType.OK, "Colorscheme with such name already exists"
+                Gtk.ButtonsType.OK,
+                _("Colorscheme with such name already exists")
             )
             dialog.run()
             dialog.destroy()
@@ -277,29 +281,30 @@ class AppWindow(Gtk.ApplicationWindow):
     def _init_headerbar(self):
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
-        self.headerbar.props.title = "Oo-mox GUI"
+        self.headerbar.props.title = _("Oo-mox GUI")
 
         # @TODO:
-        # new_button = ImageButton("text-x-generic-symbolic", "Create new theme")  # noqa
+        # new_button = ImageButton("text-x-generic-symbolic", _("Create new theme"))  # noqa
         # self.headerbar.pack_start(new_button)
 
-        clone_button = ImageButton("edit-copy-symbolic", "Clone current theme")
+        clone_button = ImageButton("edit-copy-symbolic",
+                                   _("Clone current theme"))
         self.attach_action(clone_button, win.clone)
         self.headerbar.pack_start(clone_button)
 
-        save_button = ImageButton("document-save-symbolic", "Save theme")
+        save_button = ImageButton("document-save-symbolic", _("Save theme"))
         self.attach_action(save_button, win.save)
         self.headerbar.pack_start(save_button)
 
         rename_button = ImageButton(
             # "preferences-desktop-font-symbolic", "Rename theme"
-            "pda-symbolic", "Rename theme"
+            "pda-symbolic", _("Rename theme")
         )
         self.attach_action(rename_button, win.rename)
         self.headerbar.pack_start(rename_button)
 
         remove_button = ImageButton(
-            "edit-delete-symbolic", "Remove theme"
+            "edit-delete-symbolic", _("Remove theme")
         )
         self.attach_action(remove_button, win.remove)
         self.headerbar.pack_start(remove_button)
@@ -308,10 +313,10 @@ class AppWindow(Gtk.ApplicationWindow):
 
         menu = Gio.Menu()
         """
-        menu.append_item(Gio.MenuItem.new("_Export icon theme",
+        menu.append_item(Gio.MenuItem.new(_("_Export icon theme"),
                                           win.export_icons))
         """
-        menu.append_item(Gio.MenuItem.new("Apply Spotif_y theme",
+        menu.append_item(Gio.MenuItem.new(_("Apply Spotif_y theme"),
                                           win.export_spotify))
 
         menu_button = ImageMenuButton("open-menu-symbolic")
@@ -322,14 +327,15 @@ class AppWindow(Gtk.ApplicationWindow):
                                            property_name="active"))
         self.headerbar.pack_end(menu_button)
 
-        export_icons_button = Gtk.Button(label="Export _icons",
+        export_icons_button = Gtk.Button(label=_("Export _icons"),
                                          use_underline=True,
-                                         tooltip_text="Export icon theme")
+                                         tooltip_text=_("Export icon theme"))
         self.attach_action(export_icons_button, win.export_icons)
         self.headerbar.pack_end(export_icons_button)
 
-        export_button = Gtk.Button(label="_Export theme", use_underline=True,
-                                   tooltip_text="Export GTK theme")
+        export_button = Gtk.Button(label=_("_Export theme"),
+                                   use_underline=True,
+                                   tooltip_text=_("Export GTK theme"))
         self.attach_action(export_button, win.export_theme)
         self.headerbar.pack_end(export_button)
 
@@ -367,7 +373,7 @@ class AppWindow(Gtk.ApplicationWindow):
         if focus_on_path:
             self.presets_list.focus_preset_by_filepath(focus_on_path)
 
-    def __init__(self, application=None, title="Oo-mox GUI"):
+    def __init__(self, application=None, title=_("Oo-mox GUI")):
         Gtk.ApplicationWindow.__init__(self, application=application, title=title)
         self.colorscheme = {}
         mkdir_p(user_theme_dir)

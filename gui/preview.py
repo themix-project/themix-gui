@@ -261,7 +261,7 @@ class ThemePreview(Gtk.Grid):
         menu = Gtk.Menu()
         for i in range(0, n_items):
             sensitive = (i + 1) % 3 != 0
-            label = 'Item {id}' if sensitive else 'Insensitive Item {id}'
+            label = _('Item {id}') if sensitive else _('Insensitive Item {id}')
             item = Gtk.MenuItem(label=label.format(id=i + 1),
                                 sensitive=sensitive)
             menu.append(item)
@@ -270,7 +270,7 @@ class ThemePreview(Gtk.Grid):
         return menu
 
     def _init_widgets(self):
-        preview_label = Gtk.Label("Preview:")
+        preview_label = Gtk.Label(_("Preview:"))
         self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
         self.attach(preview_label, 1, 1, 3, 1)
         self.attach_next_to(self.bg, preview_label,
@@ -280,26 +280,26 @@ class ThemePreview(Gtk.Grid):
 
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
-        self.headerbar.props.title = "Headerbar"
-        self.headerbar_button = Gtk.Button(label="   Button   ")
+        self.headerbar.props.title = _("Headerbar")
+        self.headerbar_button = Gtk.Button(label="   %s   " % _("Button"))
         self.headerbar.pack_end(self.headerbar_button)
 
         self.menubar = Gtk.MenuBar()
-        self.menuitem1 = Gtk.MenuItem(label='File')
+        self.menuitem1 = Gtk.MenuItem(label=_('File'))
         self.menuitem1.set_submenu(self.create_menu(3, True))
         self.menubar.append(self.menuitem1)
-        self.menuitem2 = Gtk.MenuItem(label='Edit')
+        self.menuitem2 = Gtk.MenuItem(label=_('Edit'))
         self.menuitem2.set_submenu(self.create_menu(6, True))
         self.menubar.append(self.menuitem2)
 
         self.headerbox.pack_start(self.headerbar, True, True, 0)
         self.headerbox.pack_start(self.menubar, True, True, 0)
 
-        self.label = Gtk.Label("This is a label.")
-        self.sel_label = Gtk.Label("Selected item.")
-        self.entry = Gtk.Entry(text="Text entry.")
+        self.label = Gtk.Label(_("This is a label."))
+        self.sel_label = Gtk.Label(_("Selected item."))
+        self.entry = Gtk.Entry(text=_("Text entry."))
 
-        self.button = Gtk.Button(label="Click-click")
+        self.button = Gtk.Button(label=_("Click-click"))
 
         self.icon_preview_listbox = Gtk.ListBox()
         self.icon_preview_listbox.set_selection_mode(Gtk.SelectionMode.NONE)

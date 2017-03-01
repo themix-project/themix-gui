@@ -8,140 +8,140 @@ theme_model = [
     {
         'key': 'BG',
         'type': 'color',
-        'display_name': 'Background'
+        'display_name': _('Background')
     },
     {
         'key': 'FG',
         'type': 'color',
-        'display_name': 'Foreground/text'
+        'display_name': _('Foreground/text')
     },
     {
         'key': 'MENU_BG',
         'type': 'color',
-        'display_name': 'Menu/toolbar background'
+        'display_name': _('Menu/toolbar background')
     },
     {
         'key': 'MENU_FG',
         'type': 'color',
-        'display_name': 'Menu/toolbar text'
+        'display_name': _('Menu/toolbar text')
     },
     {
         'key': 'SEL_BG',
         'type': 'color',
-        'display_name': 'Selection highlight'
+        'display_name': _('Selection highlight')
     },
     {
         'key': 'SEL_FG',
         'type': 'color',
-        'display_name': 'Selection text'
+        'display_name': _('Selection text')
     },
     {
         'key': 'TXT_BG',
         'type': 'color',
-        'display_name': 'Textbox background'
+        'display_name': _('Textbox background')
     },
     {
         'key': 'TXT_FG',
         'type': 'color',
-        'display_name': 'Textbox text'
+        'display_name': _('Textbox text')
     },
     {
         'key': 'BTN_BG',
         'type': 'color',
-        'display_name': 'Button background'
+        'display_name': _('Button background')
     },
     {
         'key': 'BTN_FG',
         'type': 'color',
-        'display_name': 'Button text'
+        'display_name': _('Button text')
     },
     {
         'key': 'HDR_BTN_BG',
         'fallback_key': 'BTN_BG',
         'type': 'color',
-        'display_name': 'Header button background'
+        'display_name': _('Header button background')
     },
     {
         'key': 'HDR_BTN_FG',
         'fallback_key': 'BTN_FG',
         'type': 'color',
-        'display_name': 'Header button text'
+        'display_name': _('Header button text')
     },
     {
         'key': 'WM_BORDER_FOCUS',
         'fallback_key': 'MENU_BG',
         'type': 'color',
-        'display_name': 'Focused window border'
+        'display_name': _('Focused window border')
     },
     {
         'key': 'WM_BORDER_UNFOCUS',
         'fallback_key': 'MENU_BG',
         'type': 'color',
-        'display_name': 'Unfocused window border'
+        'display_name': _('Unfocused window border')
     },
 
     {
         'type': 'separator',
-        'display_name': 'Theme options'
+        'display_name': _('Theme options')
     },
 
     {
         'key': 'ROUNDNESS',
         'type': 'int',
         'fallback_value': 2,
-        'display_name': 'Roundness'
+        'display_name': _('Roundness')
     },
     {
         'key': 'SPACING',
         'type': 'int',
         'fallback_value': 3,
-        'display_name': '(GTK3) Spacing'
+        'display_name': _('(GTK3) Spacing')
     },
     {
         'key': 'GRADIENT',
         'type': 'float',
         'fallback_value': 0.0,
-        'display_name': '(GTK3) Gradient'
+        'display_name': _('(GTK3) Gradient')
     },
     {
         'key': 'GTK3_GENERATE_DARK',
         'type': 'bool',
         'fallback_value': True,
-        'display_name': '(GTK3) Add dark variant'
+        'display_name': _('(GTK3) Add dark variant')
     },
     {
         'key': 'GTK2_HIDPI',
         'type': 'bool',
         'fallback_value': False,
-        'display_name': '(GTK2) HiDPI'
+        'display_name': _('(GTK2) HiDPI')
     },
 
     {
         'type': 'separator',
-        'display_name': 'Text input caret'
+        'display_name': _('Text input caret')
     },
     {
         'key': 'CARET1_FG',
         'type': 'color',
         'fallback_key': 'TXT_FG',
-        'display_name': 'Primary caret color'
+        'display_name': _('Primary caret color')
     },
     {
         'key': 'CARET2_FG',
         'type': 'color',
         'fallback_key': 'TXT_FG',
-        'display_name': 'Secondary caret color'
+        'display_name': _('Secondary caret color')
     },
     {
         'key': 'CARET_SIZE',
         'type': 'float',
         'fallback_value': 0.04,  # GTK's default
-        'display_name': 'Caret aspect ratio'
+        'display_name': _('Caret aspect ratio')
     },
 
     {
         'type': 'separator',
-        'display_name': 'Iconset'
+        'display_name': _('Iconset')
     },
 
     {
@@ -157,52 +157,52 @@ theme_model = [
             }
         ],
         'fallback_value': 'gnome_colors',
-        'display_name': 'Icons style'
+        'display_name': _('Icons style')
     },
     {
         'key': 'ICONS_ARCHDROID',
         'type': 'color',
         'fallback_key': 'SEL_BG',
-        'display_name': 'Icons color',
+        'display_name': _('Icons color'),
         'filter': create_value_filter('ICONS_STYLE', 'archdroid')
     },
     {
         'key': 'ICONS_LIGHT_FOLDER',
         'type': 'color',
         'fallback_key': 'SEL_BG',
-        'display_name': 'Light base (folders)',
+        'display_name': _('Light base (folders)'),
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
     {
         'key': 'ICONS_LIGHT',
         'fallback_key': 'SEL_BG',
         'type': 'color',
-        'display_name': 'Light base',
+        'display_name': _('Light base'),
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
     {
         'key': 'ICONS_MEDIUM',
         'type': 'color',
         'fallback_key': 'BTN_BG',
-        'display_name': 'Medium base',
+        'display_name': _('Medium base'),
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
     {
         'key': 'ICONS_DARK',
         'type': 'color',
         'fallback_key': 'BTN_FG',
-        'display_name': 'Dark stroke',
+        'display_name': _('Dark stroke'),
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
 
     {
         'type': 'separator',
-        'display_name': 'Other options'
+        'display_name': _('Other options')
     },
     {
         'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
         'type': 'bool',
         'fallback_value': False,
-        'display_name': '(Unity) Use default launcher style'
+        'display_name': _('(Unity) Use default launcher style')
     },
 ]
