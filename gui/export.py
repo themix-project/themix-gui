@@ -19,11 +19,11 @@ class ExportDialog(Gtk.Dialog):
         self.spinner.destroy()
 
         label = CenterLabel(
-            "Something went wrong :("
+            _("Something went wrong :(")
         )
         label.set_alignment(0.5, 0.5)
 
-        button = Gtk.Button(label="Dismiss")
+        button = Gtk.Button(label=_("Dismiss"))
         button.connect("clicked", self._close_button_callback)
 
         self.under_log_box.add(label)
@@ -36,12 +36,12 @@ class ExportDialog(Gtk.Dialog):
     def _adj_changed(self, adj):
         adj.set_value(adj.get_upper() - adj.get_page_size())
 
-    def __init__(self, parent, headline="Exporting..."):
+    def __init__(self, parent, headline=_("Exporting...")):
         Gtk.Dialog.__init__(self, headline, parent, 0)
         self.set_default_size(150, 80)
 
         self.label = CenterLabel(
-            "Please wait while\nnew colorscheme will be created"
+            _("Please wait while\nnew colorscheme will be created")
         )
 
         self.spinner = Gtk.Spinner()
@@ -195,32 +195,32 @@ class SpotifyExportDialog(ExportDialog):
         self.spinner.stop()
         self.apply_button.destroy()
 
-        self.label.set_text("Theme applied successfully")
+        self.label.set_text(_("Theme applied successfully"))
 
-        button = Gtk.Button(label="OK")
+        button = Gtk.Button(label=_("OK"))
         button.connect("clicked", self._close_button_callback)
 
         self.under_log_box.add(button)
         self.show_all()
 
     def __init__(self, parent, theme_path):
-        ExportDialog.__init__(self, parent, "Spotify options")
+        ExportDialog.__init__(self, parent, _("Spotify options"))
         self.theme_path = theme_path
 
         # self.set_default_size(180, 120)
         self.spinner.stop()
-        self.label.set_text("This functionality is still in BETA")
+        self.label.set_text(_("This functionality is still in BETA"))
 
         self.options_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5
         )
         self.options_box.set_margin_bottom(10)
 
-        self.font_checkbox = Gtk.CheckButton(label="Normalize font weight")
+        self.font_checkbox = Gtk.CheckButton(label=_("Normalize font weight"))
         self.options_box.add(self.font_checkbox)
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        spotify_path_label = Gtk.Label('Spotify path:')
+        spotify_path_label = Gtk.Label(_('Spotify path:'))
         self.spotify_path_entry = Gtk.Entry(text=DEFAULT_SPOTIFY_PATH)
         hbox.add(spotify_path_label)
         hbox.add(self.spotify_path_entry)
@@ -228,7 +228,7 @@ class SpotifyExportDialog(ExportDialog):
 
         self.under_log_box.add(self.options_box)
 
-        self.apply_button = Gtk.Button(label="Apply")
+        self.apply_button = Gtk.Button(label=_("Apply"))
         self.apply_button.connect("clicked", lambda x: self.do_export())
         self.under_log_box.add(self.apply_button)
 
