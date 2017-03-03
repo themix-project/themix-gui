@@ -39,6 +39,7 @@ pkgver() {
 }
 
 package() {
+	make -C oomox -f po.mk install
 	mkdir -p ${pkgdir}/opt/oomox
 	mv ./oomox/* ${pkgdir}/opt/oomox
 	mkdir -p ${pkgdir}/usr/bin/
