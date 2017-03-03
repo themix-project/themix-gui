@@ -64,15 +64,19 @@ PATHLIST=(
 	'./src/unity/'
 	'Makefile'
 	'./src/index.theme'
+	'./src/qt5ct_palette.conf'
 )
 if [ ! -z "${CUSTOM_PATHLIST:-}" ] ; then
 	IFS=', ' read -r -a PATHLIST <<< "${CUSTOM_PATHLIST:-}"
 fi
 
 MAKE_GTK3=0
+EXPORT_QT5CT=0
 for FILEPATH in "${PATHLIST[@]}"; do
 	if [[ ${FILEPATH} == *Makefile* ]] ;then
 		MAKE_GTK3=1
+	elif [[ ${FILEPATH} == *qt5ct* ]] ;then
+		EXPORT_QT5CT=1
 	fi
 done
 MAKE_OPTS="${MAKE_OPTS-all}"
@@ -99,7 +103,7 @@ ROUNDNESS_GTK2_HIDPI=$(( ${ROUNDNESS} * 2 ))
 
 INACTIVE_FG=$(mix ${FG} ${BG} 0.75)
 INACTIVE_MENU_FG=$(mix ${MENU_FG} ${MENU_BG} 0.75)
-INACTIVE_TXT_FG=$(mix ${MENU_FG} ${MENU_BG} 0.75)
+INACTIVE_TXT_FG=$(mix ${TXT_FG} ${TXT_BG} 0.75)
 
 light_folder_base_fallback="$(darker ${SEL_BG} -10)"
 medium_base_fallback="$(darker ${SEL_BG} 37)"
@@ -170,10 +174,21 @@ fi
 if [[ ${GTK2_HIDPI} == "true" ]] ; then
 	mv ./gtk-2.0/gtkrc.hidpi ./gtk-2.0/gtkrc
 fi
-test ${MAKE_GTK3} = 1 && make "${MAKE_OPTS}"
-
+if [[ ${EXPORT_QT5CT} = 1 ]] ; then
+	config_home=${XDG_CONFIG_HOME:-}
+	if [[ -z "${config_home}" ]] ; then
+		config_home="${HOME}/.config"
+	fi
+	qt5ct_colors_dir="${config_home}/qt5ct/colors/"
+	test -d ${qt5ct_colors_dir} || mkdir -p ${qt5ct_colors_dir}
+	mv ./qt5ct_palette.conf "${qt5ct_colors_dir}/${OUTPUT_THEME_NAME}.conf"
+fi
 if [[ ${UNITY_DEFAULT_LAUNCHER_STYLE} == "true" ]] ; then
 	rm ./unity/launcher*.svg
+fi
+
+if [[ ${MAKE_GTK3} = 1 ]]; then
+	make "${MAKE_OPTS}"
 fi
 
 exit 0
