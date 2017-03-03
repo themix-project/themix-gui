@@ -162,7 +162,8 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
         self.gtk_color = gtk_color
         self.parent_window = parent
 
-        Gtk.ColorSelectionDialog.__init__(self, "Choose a color...", parent, 0)
+        Gtk.ColorSelectionDialog.__init__(self, _("Choose a color..."),
+                                          parent, 0)
         self.set_transient_for(parent)
         self.props.color_selection.set_has_palette(True)
 
@@ -301,7 +302,7 @@ class ThemeColorsList(Gtk.Box):
         self.listbox.foreach(lambda x: self.listbox.remove(x))
         if "NOGUI" in self.theme:
             row = Gtk.ListBoxRow()
-            row.add(Gtk.Label("Can't be edited in GUI"))
+            row.add(Gtk.Label(_("Can't be edited in GUI")))
             self.listbox.add(row)
         else:
             for theme_value in theme_model:
@@ -362,6 +363,6 @@ class ThemeColorsList(Gtk.Box):
         scrolled.add(self.listbox)
 
         theme_edit_label = Gtk.Label()
-        theme_edit_label.set_text("Edit:")
+        theme_edit_label.set_text(_("Edit:"))
         self.pack_start(theme_edit_label, False, False, 0)
         self.pack_start(scrolled, True, True, 0)

@@ -109,6 +109,6 @@ class ThemePresetsList(Gtk.Box):
         scrolled.add(self.treeview)
 
         presets_list_label = Gtk.Label()
-        presets_list_label.set_text("Presets:")
+        presets_list_label.set_text(_("Presets:"))
         self.pack_start(presets_list_label, False, False, 0)
         self.pack_start(scrolled, True, True, 0)
