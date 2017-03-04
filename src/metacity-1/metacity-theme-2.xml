@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <metacity_theme>
 <info>
-	<name>Numix</name>
+	<name>%OUTPUT_THEME_NAME%</name>
 	<author>Satyajit Sahoo</author>
 	<copyright>GPL-3.0+</copyright>
 	<date>11 December 2013</date>
@@ -9,15 +9,15 @@
 </info>
 
 <!-- ::: CONSTANTS ::: -->
-<constant name="C_titlebar" value="#444444" />
+<constant name="C_titlebar" value="#%MENU_BG%" />
 <constant name="C_border_focused" value="#%WM_BORDER_FOCUS%" />
 <constant name="C_border_unfocused" value="#%WM_BORDER_UNFOCUS%" />
-<constant name="C_title_focused" value="#eeeeee" />
-<constant name="C_title_unfocused" value="#888888" />
-<constant name="C_icons_focused" value="#eeeeee" />
+<constant name="C_title_focused" value="#%MENU_FG%" />
+<constant name="C_title_unfocused" value="#%INACTIVE_MENU_FG%" />
+<constant name="C_icons_focused" value="#%MENU_FG%" />
 <constant name="C_icons_focused_prelight" value="gtk:bg[SELECTED])" />
 <constant name="C_icons_focused_pressed" value="shade/gtk:bg[SELECTED]/0.8" />
-<constant name="C_icons_unfocused" value="#888888" />
+<constant name="C_icons_unfocused" value="#%INACTIVE_MENU_FG%" />
 <constant name="C_icons_unfocused_prelight" value="gtk:bg[SELECTED])" />
 <constant name="C_icons_unfocused_pressed" value="shade/gtk:bg[SELECTED]/0.8" />
 
