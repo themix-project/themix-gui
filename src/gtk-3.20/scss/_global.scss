@@ -101,7 +101,7 @@ $osd_borders_color: shade($osd_bg, .85);
 $lightdm_bg_color: $dark_bg_color;
 $lightdm_fg_color: $dark_fg_color;
 
-$wm_bg: $base_color;
+$wm_bg: $titlebar_bg_color;
 $wm_border_focused: #%WM_BORDER_FOCUS%;
 $wm_border_unfocused: #%WM_BORDER_UNFOCUS%;
 $wm_title_focused: mix($titlebar_fg_color, $titlebar_bg_color, .1);
