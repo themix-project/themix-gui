@@ -219,6 +219,9 @@ class AppWindow(Gtk.ApplicationWindow):
         self.save()
 
     def on_export(self, action, param=None):
+        # @TODO: refactor random theme itself
+        if self.colorscheme_name == 'random':
+            self.theme_edited = True
         self.check_unsaved_changes()
         export_theme(window=self, theme_path=self.colorscheme_path)
 
