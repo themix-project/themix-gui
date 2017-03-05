@@ -5,11 +5,6 @@ import gi
 gi.require_version('Gtk', '3.0')  # noqa
 from gi.repository import Gtk, GObject, Gio
 
-import gettext
-_localedir = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                          '..', 'locale')
-gettext.install('oomox', _localedir)
-
 from .helpers import (
     user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
     mkdir_p,
