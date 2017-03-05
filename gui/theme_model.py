@@ -190,7 +190,7 @@ theme_model = [
     {
         'key': 'ICONS_DARK',
         'type': 'color',
-        'fallback_key': 'BTN_FG',
+        'fallback_key': 'MENU_BG',
         'display_name': _('Dark stroke'),
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
     },
