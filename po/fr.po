@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-01 17:35+0100\n"
+"POT-Creation-Date: 2017-03-06 13:10+0100\n"
 "PO-Revision-Date: 2017-03-01 16:39+0100\n"
 "Last-Translator: Colomban Wendling <cwendling@hypra.fr>\n"
 "Language-Team: French\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: gui/export.py:22
+#: oomox_gui/export.py:22
 msgid "Something went wrong :("
 msgstr "Quelque chose s'est mal passé :("
 
-#: gui/export.py:26
+#: oomox_gui/export.py:26
 msgid "Dismiss"
 msgstr "Fermer"
 
-#: gui/export.py:39
+#: oomox_gui/export.py:39
 msgid "Exporting..."
 msgstr "Exportation…"
 
-#: gui/export.py:44
+#: oomox_gui/export.py:44
 msgid ""
 "Please wait while\n"
 "new colorscheme will be created"
@@ -37,83 +37,83 @@ msgstr ""
 "Veuillez patienter pendant que\n"
 "le nouveau thème de couleur est créé"
 
-#: gui/export.py:198
+#: oomox_gui/export.py:198
 msgid "Theme applied successfully"
 msgstr "Thème appliqué avec succès"
 
-#: gui/export.py:200
+#: oomox_gui/export.py:200
 msgid "OK"
 msgstr "OK"
 
-#: gui/export.py:207
+#: oomox_gui/export.py:207
 msgid "Spotify options"
 msgstr "Options de Spotify"
 
-#: gui/export.py:212
+#: oomox_gui/export.py:212
 msgid "This functionality is still in BETA"
 msgstr "Cette fonctionnalité est encore EXPÉRIMENTALE"
 
-#: gui/export.py:219
+#: oomox_gui/export.py:219
 msgid "Normalize font weight"
 msgstr "Normaliser la graisse des polices"
 
-#: gui/export.py:223
+#: oomox_gui/export.py:223
 msgid "Spotify path:"
 msgstr "Chemin de Spotify :"
 
-#: gui/export.py:231
+#: oomox_gui/export.py:231
 msgid "Apply"
 msgstr "Appliquer"
 
-#: gui/colors_list.py:165
+#: oomox_gui/colors_list.py:165
 msgid "Choose a color..."
 msgstr "Sélectionner une couleur…"
 
-#: gui/colors_list.py:305
+#: oomox_gui/colors_list.py:305
 msgid "Can't be edited in GUI"
 msgstr "Ne peut pas être édité dans l'interface"
 
-#: gui/colors_list.py:366
+#: oomox_gui/colors_list.py:366
 msgid "Edit:"
 msgstr "Éditer :"
 
-#: gui/main.py:39
+#: oomox_gui/main.py:34
 msgid "New theme"
 msgstr "Nouveau thème"
 
-#: gui/main.py:40
+#: oomox_gui/main.py:35
 msgid "Please input new theme name:"
 msgstr "Veuillez entrer le nom du nouveau thème :"
 
-#: gui/main.py:53
+#: oomox_gui/main.py:48
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: gui/main.py:54
+#: oomox_gui/main.py:49
 msgid "_OK"
 msgstr "_OK"
 
-#: gui/main.py:64 gui/main.py:303
+#: oomox_gui/main.py:59 oomox_gui/main.py:308
 msgid "Rename theme"
 msgstr "Renommer le thème"
 
-#: gui/main.py:74
+#: oomox_gui/main.py:69
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
-#: gui/main.py:83
+#: oomox_gui/main.py:78
 msgid "_No"
 msgstr "_Non"
 
-#: gui/main.py:84
+#: oomox_gui/main.py:79
 msgid "_Yes"
 msgstr "_Oui"
 
-#: gui/main.py:95
+#: oomox_gui/main.py:90
 msgid "Unsaved changes"
 msgstr "Changements non enregistrés"
 
-#: gui/main.py:96
+#: oomox_gui/main.py:91
 msgid ""
 "There are unsaved changes.\n"
 "Save them?"
@@ -121,11 +121,11 @@ msgstr ""
 "Il y a des changements non enregistrés.\n"
 "Faut-il les sauvegarder?"
 
-#: gui/main.py:103 gui/main.py:309
+#: oomox_gui/main.py:98 oomox_gui/main.py:314
 msgid "Remove theme"
 msgstr "Supprimer le thème"
 
-#: gui/main.py:104
+#: oomox_gui/main.py:99
 msgid ""
 "Are you sure you want to delete the colorscheme?\n"
 "This can not be undone."
@@ -133,220 +133,220 @@ msgstr ""
 "Êtes-vous sûr de vouloir supprimer le thème de couleurs ?\n"
 "Cela ne peut pas être annulé."
 
-#: gui/main.py:192
+#: oomox_gui/main.py:189
 msgid "Colorscheme with such name already exists"
 msgstr "Un thème de couleurs de ce nom existe déjà"
 
-#: gui/main.py:286 gui/main.py:378
+#: oomox_gui/main.py:291 oomox_gui/main.py:383
 msgid "Oo-mox GUI"
 msgstr "Interface Oo-mox"
 
-#: gui/main.py:293
+#: oomox_gui/main.py:298
 msgid "Clone current theme"
 msgstr "Cloner le thème courant"
 
-#: gui/main.py:297
+#: oomox_gui/main.py:302
 msgid "Save theme"
 msgstr "Enregistrer le thème"
 
-#: gui/main.py:321
+#: oomox_gui/main.py:326
 msgid "Apply Spotif_y theme"
 msgstr "Appliquer le thème Spotif_y"
 
-#: gui/main.py:332
+#: oomox_gui/main.py:337
 msgid "Export _icons"
 msgstr "Exporter les _icônes"
 
-#: gui/main.py:334
+#: oomox_gui/main.py:339
 msgid "Export icon theme"
 msgstr "Exporter le thème d'icônes"
 
-#: gui/main.py:338
+#: oomox_gui/main.py:343
 msgid "_Export theme"
 msgstr "_Exporter le thème"
 
-#: gui/main.py:340
+#: oomox_gui/main.py:345
 msgid "Export GTK theme"
 msgstr "Exporter le thème GTK"
 
-#: gui/theme_model.py:11
-msgid "Background"
-msgstr "Arrière-plan"
-
-#: gui/theme_model.py:16
-msgid "Foreground/text"
-msgstr "Avant-plan/texte"
-
-#: gui/theme_model.py:21
-msgid "Menu/toolbar background"
-msgstr "Arrière-plan menu/barre d'outils"
-
-#: gui/theme_model.py:26
-msgid "Menu/toolbar text"
-msgstr "Texte menu/barre d'outils"
-
-#: gui/theme_model.py:31
-msgid "Selection highlight"
-msgstr "Surlignage de la sélection"
-
-#: gui/theme_model.py:36
-msgid "Selection text"
-msgstr "Texte de la sélection"
-
-#: gui/theme_model.py:41
-msgid "Textbox background"
-msgstr "Arrière-plan zone de texte"
-
-#: gui/theme_model.py:46
-msgid "Textbox text"
-msgstr "Zone de texte"
-
-#: gui/theme_model.py:51
-msgid "Button background"
-msgstr "Arrière-plan bouton"
-
-#: gui/theme_model.py:56
-msgid "Button text"
-msgstr "Texte des boutons"
-
-#: gui/theme_model.py:62
-msgid "Header button background"
-msgstr "Arrière-plan bouton d'en-tête"
-
-#: gui/theme_model.py:68
-msgid "Header button text"
-msgstr "Texte des boutons d'en-tête"
-
-#: gui/theme_model.py:74
-msgid "Focused window border"
-msgstr "Bordure de fenêtre focusée"
-
-#: gui/theme_model.py:80
-msgid "Unfocused window border"
-msgstr "Bordure de fenêtre non focusée"
-
-#: gui/theme_model.py:85
-msgid "Theme options"
-msgstr "Options du thème"
-
-#: gui/theme_model.py:92
-msgid "Roundness"
-msgstr "Arrondi"
-
-#: gui/theme_model.py:98
-msgid "(GTK3) Spacing"
-msgstr "(GTK3) Espacement"
-
-#: gui/theme_model.py:104
-msgid "(GTK3) Gradient"
-msgstr "(GTK3) Dégradé"
-
-#: gui/theme_model.py:110
-msgid "(GTK3) Add dark variant"
-msgstr "(GTK3) Ajouter une variante sombre"
-
-#: gui/theme_model.py:116
-msgid "(GTK2) HiDPI"
-msgstr "(GTK2) HiDPI"
-
-#: gui/theme_model.py:121
-msgid "Text input caret"
-msgstr "Point d'insertion"
-
-#: gui/theme_model.py:127
-msgid "Primary caret color"
-msgstr "Couleur primaire"
-
-#: gui/theme_model.py:133
-msgid "Secondary caret color"
-msgstr "Couleur secondaire"
-
-#: gui/theme_model.py:139
-msgid "Caret aspect ratio"
-msgstr "Rapport d'aspect"
-
-#: gui/theme_model.py:144
-msgid "Iconset"
-msgstr "Thème d'icônes"
-
-#: gui/theme_model.py:160
-msgid "Icons style"
-msgstr "Style des icônes"
-
-#: gui/theme_model.py:166
-msgid "Icons color"
-msgstr "Couleur des icônes"
-
-#: gui/theme_model.py:173
-msgid "Light base (folders)"
-msgstr "Base claire (dossiers)"
-
-#: gui/theme_model.py:180
-msgid "Light base"
-msgstr "Base claire"
-
-#: gui/theme_model.py:187
-msgid "Medium base"
-msgstr "Base moyenne"
-
-#: gui/theme_model.py:194
-msgid "Dark stroke"
-msgstr "Trait sombre"
-
-#: gui/theme_model.py:200
-msgid "Other options"
-msgstr "Autres options"
-
-#: gui/theme_model.py:206
-msgid "(Unity) Use default launcher style"
-msgstr "(Unity) Utiliser le style de lanceur par défaut"
-
-#: gui/presets_list.py:112
+#: oomox_gui/presets_list.py:112
 msgid "Presets:"
 msgstr "Préréglages :"
 
-#: gui/preview.py:264
+#: oomox_gui/theme_model.py:11
+msgid "Background"
+msgstr "Arrière-plan"
+
+#: oomox_gui/theme_model.py:16
+msgid "Foreground/text"
+msgstr "Avant-plan/texte"
+
+#: oomox_gui/theme_model.py:21
+msgid "Menu/toolbar background"
+msgstr "Arrière-plan menu/barre d'outils"
+
+#: oomox_gui/theme_model.py:26
+msgid "Menu/toolbar text"
+msgstr "Texte menu/barre d'outils"
+
+#: oomox_gui/theme_model.py:31
+msgid "Selection highlight"
+msgstr "Surlignage de la sélection"
+
+#: oomox_gui/theme_model.py:36
+msgid "Selection text"
+msgstr "Texte de la sélection"
+
+#: oomox_gui/theme_model.py:41
+msgid "Textbox background"
+msgstr "Arrière-plan zone de texte"
+
+#: oomox_gui/theme_model.py:46
+msgid "Textbox text"
+msgstr "Zone de texte"
+
+#: oomox_gui/theme_model.py:51
+msgid "Button background"
+msgstr "Arrière-plan bouton"
+
+#: oomox_gui/theme_model.py:56
+msgid "Button text"
+msgstr "Texte des boutons"
+
+#: oomox_gui/theme_model.py:62
+msgid "Header button background"
+msgstr "Arrière-plan bouton d'en-tête"
+
+#: oomox_gui/theme_model.py:68
+msgid "Header button text"
+msgstr "Texte des boutons d'en-tête"
+
+#: oomox_gui/theme_model.py:74
+msgid "Focused window border"
+msgstr "Bordure de fenêtre focusée"
+
+#: oomox_gui/theme_model.py:80
+msgid "Unfocused window border"
+msgstr "Bordure de fenêtre non focusée"
+
+#: oomox_gui/theme_model.py:85
+msgid "Theme options"
+msgstr "Options du thème"
+
+#: oomox_gui/theme_model.py:92
+msgid "Roundness"
+msgstr "Arrondi"
+
+#: oomox_gui/theme_model.py:98
+msgid "(GTK3) Spacing"
+msgstr "(GTK3) Espacement"
+
+#: oomox_gui/theme_model.py:104
+msgid "(GTK3) Gradient"
+msgstr "(GTK3) Dégradé"
+
+#: oomox_gui/theme_model.py:110
+msgid "(GTK3) Add dark variant"
+msgstr "(GTK3) Ajouter une variante sombre"
+
+#: oomox_gui/theme_model.py:116
+msgid "(GTK2) HiDPI"
+msgstr "(GTK2) HiDPI"
+
+#: oomox_gui/theme_model.py:121
+msgid "Text input caret"
+msgstr "Point d'insertion"
+
+#: oomox_gui/theme_model.py:127
+msgid "Primary caret color"
+msgstr "Couleur primaire"
+
+#: oomox_gui/theme_model.py:133
+msgid "Secondary caret color"
+msgstr "Couleur secondaire"
+
+#: oomox_gui/theme_model.py:139
+msgid "Caret aspect ratio"
+msgstr "Rapport d'aspect"
+
+#: oomox_gui/theme_model.py:144
+msgid "Iconset"
+msgstr "Thème d'icônes"
+
+#: oomox_gui/theme_model.py:160
+msgid "Icons style"
+msgstr "Style des icônes"
+
+#: oomox_gui/theme_model.py:166
+msgid "Icons color"
+msgstr "Couleur des icônes"
+
+#: oomox_gui/theme_model.py:173
+msgid "Light base (folders)"
+msgstr "Base claire (dossiers)"
+
+#: oomox_gui/theme_model.py:180
+msgid "Light base"
+msgstr "Base claire"
+
+#: oomox_gui/theme_model.py:187
+msgid "Medium base"
+msgstr "Base moyenne"
+
+#: oomox_gui/theme_model.py:194
+msgid "Dark stroke"
+msgstr "Trait sombre"
+
+#: oomox_gui/theme_model.py:200
+msgid "Other options"
+msgstr "Autres options"
+
+#: oomox_gui/theme_model.py:206
+msgid "(Unity) Use default launcher style"
+msgstr "(Unity) Utiliser le style de lanceur par défaut"
+
+#: oomox_gui/preview.py:264
 #, python-brace-format
 msgid "Item {id}"
 msgstr "Élément {id}"
 
-#: gui/preview.py:264
+#: oomox_gui/preview.py:264
 #, python-brace-format
 msgid "Insensitive Item {id}"
 msgstr "Élément insensitif {id}"
 
-#: gui/preview.py:273
+#: oomox_gui/preview.py:273
 msgid "Preview:"
 msgstr "Aperçu :"
 
-#: gui/preview.py:283
+#: oomox_gui/preview.py:283
 msgid "Headerbar"
 msgstr "Barre d'en-tête"
 
-#: gui/preview.py:284
+#: oomox_gui/preview.py:284
 msgid "Button"
 msgstr "Bouton"
 
-#: gui/preview.py:288
+#: oomox_gui/preview.py:288
 msgid "File"
 msgstr "Fichier"
 
-#: gui/preview.py:291
+#: oomox_gui/preview.py:291
 msgid "Edit"
 msgstr "Éditer"
 
-#: gui/preview.py:298
+#: oomox_gui/preview.py:298
 msgid "This is a label."
 msgstr "Ceci est un label."
 
-#: gui/preview.py:299
+#: oomox_gui/preview.py:299
 msgid "Selected item."
 msgstr "Élément sélectionné"
 
-#: gui/preview.py:300
+#: oomox_gui/preview.py:300
 msgid "Text entry."
 msgstr "Zone de texte."
 
-#: gui/preview.py:302
+#: oomox_gui/preview.py:302
 msgid "Click-click"
 msgstr "Click-click"
