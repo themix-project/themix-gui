@@ -45,8 +45,8 @@ class NewDialog(Gtk.Dialog):
         box.add(label)
         box.add(self.entry)
 
-        cancel_button = self.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
-        ok_button = self.add_button(_("_OK"), Gtk.ResponseType.OK)
+        self.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
+        self.add_button(_("_OK"), Gtk.ResponseType.OK)
 
         self.set_default_response(Gtk.ResponseType.OK)
 
@@ -75,8 +75,8 @@ class YesNoDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(label)
 
-        cancel_button = self.add_button(_("_No"), Gtk.ResponseType.NO)
-        ok_button = self.add_button(_("_Yes"), Gtk.ResponseType.YES)
+        self.add_button(_("_No"), Gtk.ResponseType.NO)
+        self.add_button(_("_Yes"), Gtk.ResponseType.YES)
 
         self.set_default_response(default_response)
 
@@ -374,7 +374,9 @@ class AppWindow(Gtk.ApplicationWindow):
             self.presets_list.focus_preset_by_filepath(focus_on_path)
 
     def __init__(self, application=None, title=_("Oo-mox GUI")):
-        Gtk.ApplicationWindow.__init__(self, application=application, title=title)
+        Gtk.ApplicationWindow.__init__(
+            self, application=application, title=title
+        )
         self.colorscheme = {}
         mkdir_p(user_theme_dir)
 
