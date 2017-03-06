@@ -133,6 +133,7 @@ To resolve borders/shadow problem in tiling window managers create/append to
 }
 window decoration {
 	margin: 0;
+    border: 0;
 }
 ```
 
