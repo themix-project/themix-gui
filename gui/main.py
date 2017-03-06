@@ -1,5 +1,4 @@
 #!/bin/env python3
-import os
 import sys
 import gi
 gi.require_version('Gtk', '3.0')  # noqa
@@ -7,6 +6,7 @@ from gi.repository import Gtk, GObject, Gio
 
 from .helpers import (
     user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
+    get_user_theme_path,
     mkdir_p,
     read_colorscheme_from_path, save_colorscheme, remove_colorscheme,
     ImageButton, ImageMenuButton, CenterLabel
@@ -155,6 +155,9 @@ class AppWindow(Gtk.ApplicationWindow):
     def save(self, name=None):
         if not name:
             name = self.colorscheme_name
+        if not is_user_colorscheme(self.colorscheme_path):
+            if self.check_colorscheme_exists(name):
+                return self.clone()
         new_path = save_colorscheme(name, self.colorscheme)
         self.theme_edited = False
         if new_path != self.colorscheme_path:
@@ -177,8 +180,7 @@ class AppWindow(Gtk.ApplicationWindow):
                 self.save()
 
     def check_colorscheme_exists(self, colorscheme_name):
-        colorscheme_user_path = os.path.join(user_theme_dir, colorscheme_name)
-        if not is_colorscheme_exists(colorscheme_user_path):
+        if not is_colorscheme_exists(get_user_theme_path(colorscheme_name)):
             return False
         else:
             dialog = Gtk.MessageDialog(
@@ -190,7 +192,7 @@ class AppWindow(Gtk.ApplicationWindow):
             dialog.destroy()
             return True
 
-    def on_clone(self, action, param=None):
+    def clone(self):
         dialog = NewDialog(self)
         if dialog.run() != Gtk.ResponseType.OK:
             return
@@ -198,6 +200,11 @@ class AppWindow(Gtk.ApplicationWindow):
         if not self.check_colorscheme_exists(new_theme_name):
             new_path = self.save(new_theme_name)
             self.reload_presets(new_path)
+        else:
+            return self.on_clone()
+
+    def on_clone(self, action=None, param=None):
+        return self.clone()
 
     def on_rename(self, action, param=None):
         dialog = RenameDialog(self)
