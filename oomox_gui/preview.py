@@ -37,7 +37,8 @@ class ThemePreview(Gtk.Grid):
                 primary_caret_color=colorscheme['CARET1_FG'],
                 secondary_caret_color=colorscheme['CARET2_FG'],
                 caret_aspect_ratio=colorscheme['CARET_SIZE']
-        )).encode('ascii'))
+            )
+        ).encode('ascii'))
         Gtk.StyleContext.add_provider(
             self.entry.get_style_context(),
             css_provider_caret,
