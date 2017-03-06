@@ -219,8 +219,12 @@ def read_colorscheme_from_preset(preset_name):
     return read_colorscheme_from_path(os.path.join(colors_dir, preset_name))
 
 
+def get_user_theme_path(user_theme_name):
+    return os.path.join(user_theme_dir, user_theme_name)
+
+
 def save_colorscheme(preset_name, colorscheme):
-    path = os.path.join(user_theme_dir, preset_name)
+    path = get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
     with open(path, 'w') as f:
