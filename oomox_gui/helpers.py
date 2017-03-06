@@ -66,8 +66,13 @@ def get_presets():
                 path.rsplit(user_theme_dir)
             ),
             "path": path,
+            "default": is_default,
         }
-        for path in ls_r(user_theme_dir) + ls_r(colors_dir)
+        for paths, is_default in (
+            (ls_r(user_theme_dir), False),
+            (ls_r(colors_dir), True)
+        )
+        for path in paths
     ]
     result = defaultdict(list)
     for key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
@@ -95,6 +100,16 @@ def text_to_int(text):
 
 def int_to_text(myint):
     return "{0:02x}".format(int(myint))
+
+
+def mix_gdk_colors(gdk_color_1, gdk_color_2, ratio):
+    result_gdk_color = Gdk.RGBA()
+    for attr in ('red', 'green', 'blue', 'alpha'):
+        setattr(result_gdk_color, attr, (
+            getattr(gdk_color_1, attr) * ratio +
+            getattr(gdk_color_2, attr) * (1 - ratio)
+        ))
+    return result_gdk_color
 
 
 def mix_theme_colors(theme_color_1, theme_color_2, ratio):
