@@ -16,7 +16,9 @@
 
         border-width: $spacing % 2;
         border-style: solid;
-        border-color: $wm_border_focused;
+        //border-color: $wm_border_focused;
+        //@TODO:
+        border-color: $wm_border_unfocused;
 
 
         &:backdrop {
