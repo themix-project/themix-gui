@@ -6,7 +6,7 @@
     decoration {
         $_wm_border: if($variant == 'light', transparentize($black, .77), transparentize($borders_color, .1));
 
-        //border-radius: $roundness $roundness 0 0;
+        border-radius: $roundness $roundness 0 0;
         // lamefun trick to get rounded borders regardless of CSD use
         //border-width: 0;
 
@@ -38,7 +38,7 @@
         .ssd & { box-shadow: 0 0 0 1px $wm_border_focused; } //just doing borders, wm draws actual shadows
 
         .solid-csd & {
-            //border-radius: 0;
+            border-radius: 0;
             //margin: 1px;
             //background-color: $bg_color;
             // Unity/compiz regression: Issue: https://github.com/numixproject/numix-gtk-theme/issues/206
