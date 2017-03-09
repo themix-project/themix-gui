@@ -23,7 +23,7 @@ class ExportDialog(Gtk.Dialog):
         )
         label.set_alignment(0.5, 0.5)
 
-        button = Gtk.Button(label=_("Dismiss"))
+        button = Gtk.Button(label=_("_Dismiss"), use_underline=True)
         button.connect("clicked", self._close_button_callback)
 
         self.under_log_box.add(label)
@@ -197,7 +197,7 @@ class SpotifyExportDialog(ExportDialog):
 
         self.label.set_text(_("Theme applied successfully"))
 
-        button = Gtk.Button(label=_("OK"))
+        button = Gtk.Button(label=_("_OK"), use_underline=True)
         button.connect("clicked", self._close_button_callback)
 
         self.under_log_box.add(button)
@@ -216,19 +216,22 @@ class SpotifyExportDialog(ExportDialog):
         )
         self.options_box.set_margin_bottom(10)
 
-        self.font_checkbox = Gtk.CheckButton(label=_("Normalize font weight"))
+        self.font_checkbox = Gtk.CheckButton(label=_("_Normalize font weight"),
+                                             use_underline=True)
         self.options_box.add(self.font_checkbox)
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        spotify_path_label = Gtk.Label(_('Spotify path:'))
+        spotify_path_label = Gtk.Label(label=_('Spotify _path:'),
+                                       use_underline=True)
         self.spotify_path_entry = Gtk.Entry(text=DEFAULT_SPOTIFY_PATH)
+        spotify_path_label.set_mnemonic_widget(self.spotify_path_entry)
         hbox.add(spotify_path_label)
         hbox.add(self.spotify_path_entry)
         self.options_box.add(hbox)
 
         self.under_log_box.add(self.options_box)
 
-        self.apply_button = Gtk.Button(label=_("Apply"))
+        self.apply_button = Gtk.Button(label=_("_Apply"), use_underline=True)
         self.apply_button.connect("clicked", lambda x: self.do_export())
         self.under_log_box.add(self.apply_button)
 
