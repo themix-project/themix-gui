@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-06 13:10+0100\n"
-"PO-Revision-Date: 2017-03-01 16:39+0100\n"
+"POT-Creation-Date: 2017-03-09 19:14+0100\n"
+"PO-Revision-Date: 2017-03-09 19:15+0100\n"
 "Last-Translator: Colomban Wendling <cwendling@hypra.fr>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -22,8 +22,8 @@ msgid "Something went wrong :("
 msgstr "Quelque chose s'est mal passé :("
 
 #: oomox_gui/export.py:26
-msgid "Dismiss"
-msgstr "Fermer"
+msgid "_Dismiss"
+msgstr "_Fermer"
 
 #: oomox_gui/export.py:39
 msgid "Exporting..."
@@ -41,9 +41,9 @@ msgstr ""
 msgid "Theme applied successfully"
 msgstr "Thème appliqué avec succès"
 
-#: oomox_gui/export.py:200
-msgid "OK"
-msgstr "OK"
+#: oomox_gui/export.py:200 oomox_gui/main.py:49
+msgid "_OK"
+msgstr "_OK"
 
 #: oomox_gui/export.py:207
 msgid "Spotify options"
@@ -54,16 +54,16 @@ msgid "This functionality is still in BETA"
 msgstr "Cette fonctionnalité est encore EXPÉRIMENTALE"
 
 #: oomox_gui/export.py:219
-msgid "Normalize font weight"
-msgstr "Normaliser la graisse des polices"
+msgid "_Normalize font weight"
+msgstr "_Normaliser la graisse des polices"
 
-#: oomox_gui/export.py:223
-msgid "Spotify path:"
-msgstr "Chemin de Spotify :"
+#: oomox_gui/export.py:224
+msgid "Spotify _path:"
+msgstr "_Chemin de Spotify :"
 
-#: oomox_gui/export.py:231
-msgid "Apply"
-msgstr "Appliquer"
+#: oomox_gui/export.py:234
+msgid "_Apply"
+msgstr "_Appliquer"
 
 #: oomox_gui/colors_list.py:165
 msgid "Choose a color..."
@@ -88,10 +88,6 @@ msgstr "Veuillez entrer le nom du nouveau thème :"
 #: oomox_gui/main.py:48
 msgid "_Cancel"
 msgstr "_Annuler"
-
-#: oomox_gui/main.py:49
-msgid "_OK"
-msgstr "_OK"
 
 #: oomox_gui/main.py:59 oomox_gui/main.py:308
 msgid "Rename theme"
@@ -168,10 +164,6 @@ msgstr "_Exporter le thème"
 #: oomox_gui/main.py:345
 msgid "Export GTK theme"
 msgstr "Exporter le thème GTK"
-
-#: oomox_gui/presets_list.py:112
-msgid "Presets:"
-msgstr "Préréglages :"
 
 #: oomox_gui/theme_model.py:11
 msgid "Background"
@@ -305,48 +297,52 @@ msgstr "Autres options"
 msgid "(Unity) Use default launcher style"
 msgstr "(Unity) Utiliser le style de lanceur par défaut"
 
-#: oomox_gui/preview.py:264
+#: oomox_gui/presets_list.py:138
+msgid "Presets:"
+msgstr "Préréglages :"
+
+#: oomox_gui/preview.py:265
 #, python-brace-format
 msgid "Item {id}"
 msgstr "Élément {id}"
 
-#: oomox_gui/preview.py:264
+#: oomox_gui/preview.py:265
 #, python-brace-format
 msgid "Insensitive Item {id}"
 msgstr "Élément insensitif {id}"
 
-#: oomox_gui/preview.py:273
+#: oomox_gui/preview.py:274
 msgid "Preview:"
 msgstr "Aperçu :"
 
-#: oomox_gui/preview.py:283
+#: oomox_gui/preview.py:284
 msgid "Headerbar"
 msgstr "Barre d'en-tête"
 
-#: oomox_gui/preview.py:284
+#: oomox_gui/preview.py:285
 msgid "Button"
 msgstr "Bouton"
 
-#: oomox_gui/preview.py:288
+#: oomox_gui/preview.py:289
 msgid "File"
 msgstr "Fichier"
 
-#: oomox_gui/preview.py:291
+#: oomox_gui/preview.py:292
 msgid "Edit"
 msgstr "Éditer"
 
-#: oomox_gui/preview.py:298
+#: oomox_gui/preview.py:299
 msgid "This is a label."
 msgstr "Ceci est un label."
 
-#: oomox_gui/preview.py:299
+#: oomox_gui/preview.py:300
 msgid "Selected item."
 msgstr "Élément sélectionné"
 
-#: oomox_gui/preview.py:300
+#: oomox_gui/preview.py:301
 msgid "Text entry."
 msgstr "Zone de texte."
 
-#: oomox_gui/preview.py:302
+#: oomox_gui/preview.py:303
 msgid "Click-click"
 msgstr "Click-click"
