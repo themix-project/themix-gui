@@ -6,6 +6,7 @@ Gnome-Colors and Archdroid icon themes.
 
   * [Arch Linux](#arch-linux "")
   * [Ubuntu](#ubuntu "")
+  * [Fedora](#fedora "")
   * [Other distributions](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
@@ -51,6 +52,16 @@ For older Ubuntu releases install the dependencies manually and next follow gene
 ```
 sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
 sudo gem install sass
+```
+
+
+
+### Fedora
+
+Fedora 24 and 25 users users can install Oomox by using a third party copr repository:
+```bash
+sudo dnf copr enable tcg/themes
+sudo dnf install oomox
 ```
 
 
