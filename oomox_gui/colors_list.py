@@ -242,6 +242,15 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
+        self.color_entry = Gtk.Entry(text=value, width_chars=8)
+        self.color_entry.connect("changed", self.on_color_input)
+
+        self.color_button = OomoxColorButton(
+            value,
+            parent_window=self.parent_window,
+            callback=self.on_color_set
+        )
+
         # @TODO:
         if False:
             # unfortunately linked box is causing weird redraw issues
@@ -250,25 +259,11 @@ class ColorListBoxRow(Gtk.ListBoxRow):
             Gtk.StyleContext.add_class(
                 linked_box.get_style_context(), "linked"
             )
-            self.color_entry = Gtk.Entry(text=value, width_chars=8)
-            self.color_entry.connect("changed", self.on_color_input)
             linked_box.add(self.color_entry)
-            self.color_button = OomoxColorButton(
-                value,
-                parent_window=self.parent_window,
-                callback=self.on_color_set
-            )
             linked_box.add(self.color_button)
             hbox.pack_start(linked_box, False, True, 0)
         else:
-            self.color_entry = Gtk.Entry(text=value, width_chars=8)
-            self.color_entry.connect("changed", self.on_color_input)
             hbox.pack_start(self.color_entry, False, True, 0)
-            self.color_button = OomoxColorButton(
-                value,
-                parent_window=self.parent_window,
-                callback=self.on_color_set
-            )
             hbox.pack_start(self.color_button, False, True, 0)
             # ## ### #### ##### ###### #######
 
