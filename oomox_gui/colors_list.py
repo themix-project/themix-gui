@@ -242,7 +242,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        self.color_entry = Gtk.Entry(text=value, width_chars=8)
+        self.color_entry = Gtk.Entry(text=value, width_chars=8, max_length=6)
         self.color_entry.connect("changed", self.on_color_input)
 
         self.color_button = OomoxColorButton(
