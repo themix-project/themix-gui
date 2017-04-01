@@ -349,6 +349,7 @@ class AppWindow(Gtk.ApplicationWindow):
         self.set_titlebar(self.headerbar)
 
     def _init_window(self):
+        self.set_wmclass("oomox", "Oomox")
         self.connect("delete-event", self.on_quit)
         self.set_default_size(500, 300)
         self.set_border_width(6)

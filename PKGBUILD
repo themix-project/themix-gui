@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.2.0
+pkgver=1.2.3
 pkgrel=1
 pkgdesc="Graphical application for generating different color variations
 of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes.
@@ -98,7 +98,7 @@ Type=Application
 Icon=preferences-desktop-theme
 Categories=GNOME;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
 Keywords=color;gtk;highlight;theme;widget;numix;
-StartupWMClass=__main__.py
+StartupWMClass=oomox
 X-GNOME-Gettext-Domain=oomox
 X-Desktop-File-Install-Version=0.22
 EOF
