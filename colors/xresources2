@@ -23,6 +23,7 @@ MENU_BG=$(color_bg)
 MENU_FG=$BG
  BTN_BG=$(color 12)
  BTN_FG=$(color 0)
+WM_BORDER_FOCUS=$(color 10)
 ICONS_LIGHT_FOLDER=$(color 13)
 ICONS_LIGHT=$(color 9)
 ICONS_MEDIUM=$(color 1)
