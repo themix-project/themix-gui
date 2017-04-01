@@ -35,6 +35,8 @@ is_dark() {
 	${root}/scripts/is_dark.sh $@
 }
 
+debug="0"
+
 
 while [[ $# > 0 ]]
 do
@@ -51,6 +53,10 @@ do
 		;;
 		-g|--gui)
 			gui="True"
+		;;
+		-d|--debug)
+			debug="${2}"
+			shift
 		;;
 		-s|--spotify-apps-path)
 			spotify_apps_path="${2}"
@@ -108,6 +114,11 @@ selected_button_color_fallback="${SEL_BG}"
 hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
 selected_button_color="${SPOTIFY_SELECTED_BUTTON_COLOR-$selected_button_color_fallback}"
 hover_selection_color="${SPOTIFY_HOVER_SELECTION_COLOR-$hover_selection_color_fallback}"
+
+#top_and_button_bg="#${SPOTIFY_TOP_AND_BTN_BG-$BTN_BG}"
+top_and_button_bg="#${SPOTIFY_TOP_BTN_BG-$main_bg}"
+#top_and_button_bg="rgba(133, 80, 155, 1)"
+cover_overlay_color="$(${root}/scripts/hex_to_rgba.sh ${main_bg} 0.45)"
 
 
 tmp_dir="$(mktemp -d)"
@@ -169,18 +180,64 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/18ab4d/oomox_selected_button_color/gI" \
 				-e "s/1df269/oomox_hover_selection_color/gI" \
 				-e "s/1bd85e/oomox_hover_selection_color/gI" \
+				-e "s/1cd85e/oomox_hover_selection_color/gI" \
+				\
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/121212/oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
+				-e "s/000000/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
+				-e "s/3f3f3f/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
+				-e "s/rgba(40, 40, 40, 0)/#oomox_area_bg/g" \
+				-e "s/rgba(24, 24, 24, 0)/#oomox_area_bg/g" \
+				-e "s/rgba(24, 24, 24, 0\.[6,8])/#oomox_area_bg/g" \
+				-e "s/rgba(18, 19, 20, 0)/#oomox_area_bg/g" \
+				-e "s/#000011/#oomox_area_bg/g" \
+				-e "s/#0a1a2d/#oomox_area_bg/g" \
 				\
 				-e "s/ffffff/oomox_accent_fg/gI" \
+				-e "s/f8f8f7/oomox_hover_text/gI" \
 				-e "s/fcfcfc/oomox_hover_text/gI" \
-				-e "s/a0a0a0/oomox_main_fg/gI" \
+				-e "s/d9d9d9/oomox_hover_text/gI" \
 				-e "s/adafb2/oomox_sidebar_fg/gI" \
+				-e "s/c8c8c8/oomox_sidebar_fg/gI" \
+				-e "s/a0a0a0/oomox_sidebar_fg/gI" \
+				-e "s/bec0bb/oomox_sidebar_fg/gI" \
+				-e "s/bababa/oomox_sidebar_fg/gI" \
+				-e "s/cccccc/oomox_main_fg/gI" \
+				-e "s/ededed/oomox_main_fg/gI" \
+				\
+				-e "s/rgba(0, 0, 0, [0-9\.]\+)/oomox_cover_overlay/g" \
+				-e "s/rgba(24, 24, 24, [0-9\.]\+)/oomox_top_and_button_bg/g" \
+				-e "s/rgba(160, 160, 160, [0-9\.]\+)/#oomox_main_fg/g" \
+				-e "s/rgba(255, 255, 255, ...)/#oomox_main_fg/gI" \
+				-e "s/#ddd;/#oomox_main_fg;/g" \
+				-e "s/#000;/#oomox_area_bg;/g" \
+				-e "s/#333;/#oomox_selected_row_bg;/gI" \
+				-e "s/#333 /#oomox_selected_row_bg /gI" \
+				-e "s/#444;/#oomox_selected_area_bg;/gI" \
+				-e "s/#444 /#oomox_selected_area_bg /gI" \
+				-e "s/#fff;/#oomox_accent_fg;/gI" \
+				-e "s/#fff /#oomox_accent_fg /gI" \
+				-e "s/ black / #oomox_area_bg /g" \
+				-e "s/ black;/ #oomox_area_b; /g" \
+				-e "s/ gray / #oomox_main_bg /g" \
+				-e "s/ gray;/ #oomox_main_bg;/g" \
+				-e "s/ lightgray / #oomox_main_fg /g" \
+				-e "s/ lightgray;/ #oomox_main_fg;/g" \
+				-e "s/ white;/ #oomox_accent_fg;/gI" \
+				-e "s/ white / #oomox_accent_fg /gI" \
+				\
 				"${css}"
+			if [[ $debug != '0' && $(grep "${debug}" "${css}") ]] >/dev/null ; then
+				echo '-------------------------------------------'
+				echo $css
+				grep ${debug} "${css}" || true
+			fi
 			sed -i \
+				-e "s/oomox_cover_overlay/${cover_overlay_color}/g" \
+				-e "s/oomox_top_and_button_bg/${top_and_button_bg}/g" \
 				-e "s/oomox_main_bg/${main_bg}/g" \
 				-e "s/oomox_area_bg/${area_bg}/g" \
 				-e "s/oomox_selected_row_bg/${selected_row_bg}/g" \
