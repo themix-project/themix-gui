@@ -30,6 +30,7 @@ optdepends=(
 	'imagemagick: for icon theme generation'
 	'inkscape: for icon theme generation'
 	'gnome-colors-common-icon-theme: for using the generated icon theme'
+	'breeze-icons: more fallback icons'
 	'gksu: for applying Spotify theme from GUI'
 	#'gnome-colors-icon-theme: for using the generated icon theme'  it's broken ATM
 )
