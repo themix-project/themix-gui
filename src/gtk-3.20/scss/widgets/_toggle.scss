@@ -9,31 +9,33 @@ $suffix: if($variant == "dark", "-dark", "");
 
     -gtk-icon-source: url("../assets/#{$type}-unchecked#{$suffix}.svg");
 
-    &:disabled { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.svg"); }
+    &:insensitive { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.svg"); }
 
     &:checked, &:active {
         -gtk-icon-source: url("../assets/#{$type}-checked#{$suffix}.svg");
 
-        &:disabled { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.svg"); }
+        &:insensitive { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.svg"); }
     }
 
     &:indeterminate {
         -gtk-icon-source: url("../assets/#{$type}-mixed#{$suffix}.svg");
 
-        &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.svg"); }
+        &:insensitive { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.svg"); }
     }
 
     menuitem &, modelbutton & {
-        -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg");
+        -gtk-icon-source: url("../assets/menuitem-#{$type}-unchecked.svg");
 
-        &:disabled { -gtk-icon-source: none; }
+        &:disabled {
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg");
+        }
 
         &:checked, &:active {
             -gtk-icon-source: url("../assets/menuitem-#{$type}-checked.svg");
 
             &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-hover.svg"); }
 
-            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg"); }
+            &:insensitive { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg"); }
         }
 
         &:indeterminate {
@@ -41,7 +43,7 @@ $suffix: if($variant == "dark", "-dark", "");
 
             &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-hover.svg"); }
 
-            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.svg"); }
+            &:insensitive { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.svg"); }
         }
     }
 }
