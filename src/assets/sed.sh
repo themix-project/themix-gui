@@ -6,4 +6,4 @@ sed -i \
      -e 's/#%SEL_BG%/rgb(0%,50%,0%)/g' \
      -e 's/#%TXT_BG%/rgb(50%,0%,50%)/g' \
      -e 's/#%TXT_FG%/rgb(0%,0%,50%)/g' \
-	*.svg
+	$@
