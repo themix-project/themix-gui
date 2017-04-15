@@ -2,14 +2,13 @@
 #set -x
 
 mix_channel() {
-	value1=${1}
-	value2=${2}
+	value1=$(printf '%03d' 0x${1})
+	value2=$(printf '%03d' 0x${2})
 	ratio=${3}
-	result=$(echo "scale=0; ibase=16; (${value1} * ${ratio} + ${value2} * (1 - ${ratio}))/1" | bc)
+	result=$(echo "scale=0; (${value1} * 100 * ${ratio} + ${value2} * 100 * (1 - ${ratio}))/100" | bc)
 	if [[ ${result} -lt 0 ]] ; then
 		result=0
-	fi
-	if [[ ${result} -gt 255 ]] ; then
+	elif [[ ${result} -gt 255 ]] ; then
 		result=255
 	fi
 	echo "${result}"
