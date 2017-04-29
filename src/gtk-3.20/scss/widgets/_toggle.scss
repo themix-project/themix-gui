@@ -9,25 +9,25 @@ $suffix: if($variant == "dark", "-dark", "");
 
     -gtk-icon-source: url("../assets/#{$type}-unchecked#{$suffix}.svg");
 
-    &:insensitive { -gtk-icon-source: url("../assets/#{$type}-unchecked-insensitive#{$suffix}.svg"); }
+    &:disabled { -gtk-icon-source: url("../assets/#{$type}-unchecked-disabled#{$suffix}.svg"); }
 
     &:checked, &:active {
         -gtk-icon-source: url("../assets/#{$type}-checked#{$suffix}.svg");
 
-        &:insensitive { -gtk-icon-source: url("../assets/#{$type}-checked-insensitive#{$suffix}.svg"); }
+        &:disabled { -gtk-icon-source: url("../assets/#{$type}-checked-disabled#{$suffix}.svg"); }
     }
 
     &:indeterminate {
         -gtk-icon-source: url("../assets/#{$type}-mixed#{$suffix}.svg");
 
-        &:insensitive { -gtk-icon-source: url("../assets/#{$type}-mixed-insensitive#{$suffix}.svg"); }
+        &:disabled { -gtk-icon-source: url("../assets/#{$type}-mixed-disabled#{$suffix}.svg"); }
     }
 
     menuitem &, modelbutton & {
         -gtk-icon-source: url("../assets/menuitem-#{$type}-unchecked.svg");
 
         &:disabled {
-            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg");
+            -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-disabled.svg");
         }
 
         &:checked, &:active {
@@ -35,7 +35,7 @@ $suffix: if($variant == "dark", "-dark", "");
 
             &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-hover.svg"); }
 
-            &:insensitive { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-insensitive.svg"); }
+            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-checked-disabled.svg"); }
         }
 
         &:indeterminate {
@@ -43,7 +43,7 @@ $suffix: if($variant == "dark", "-dark", "");
 
             &:hover { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-hover.svg"); }
 
-            &:insensitive { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-insensitive.svg"); }
+            &:disabled { -gtk-icon-source: url("../assets/menuitem-#{$type}-mixed-disabled.svg"); }
         }
     }
 }
