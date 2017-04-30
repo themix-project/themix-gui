@@ -188,6 +188,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/000000/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
 				-e "s/3f3f3f/oomox_selected_row_bg/g" \
+				-e "s/535353/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
 				-e "s/rgba(40, 40, 40, 0)/#oomox_area_bg/g" \
 				-e "s/rgba(24, 24, 24, 0)/#oomox_area_bg/g" \
