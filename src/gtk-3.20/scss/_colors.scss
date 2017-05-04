@@ -99,7 +99,3 @@
 @define-color wm_icons_unfocused #{"" + $wm_icons_unfocused};
 @define-color wm_icons_unfocused_prelight #{"" + $wm_icons_unfocused_prelight};
 @define-color wm_icons_unfocused_pressed #{"" + $wm_icons_unfocused_pressed};
-
-/* misc numix/oomox-specific */
-@define-color roundness #{"rgb("+$_roundness+", "+$_roundness+", "+$_roundness+")"};
-@define-color spacing #{"rgb("+$_spacing+", "+$_spacing+", "+$_spacing+")"};
