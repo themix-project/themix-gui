@@ -127,7 +127,7 @@ style "murrine-default" {
 		animation = FALSE
 		arrowstyle = 1 # 0 = normal arrows, 1 = filled arrows
 		border_shades = { 1.0, 1.0 } # gradient to draw on border
-		border_colors = { @other_border, @other_border }
+		#border_colors = { @other_border, @other_border }
 		colorize_scrollbar = FALSE
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
 		contrast = 0.8 # overal contrast with borders
@@ -322,7 +322,6 @@ style "clearlooks-radiocheck" = "murrine-default" {
 	text[PRELIGHT] = @selected_bg_color
 
 	engine "clearlooks" {
-		border_colors = { @txt_border, @txt_border }
 		radius = 4.0
 	}
 }
