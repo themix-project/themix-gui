@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -ueo pipefail
 
-root="$(readlink -e $(dirname "$0"))"
+root="$(readlink -f $(dirname "$0"))"
 SRC_PATH=${root}
 
 

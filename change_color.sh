@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -ue
-SRC_PATH=$(readlink -e $(dirname $0))
+SRC_PATH=$(readlink -f $(dirname $0))
 
 darker () {
 	"${SRC_PATH}/scripts/darker.sh" $@
@@ -54,14 +54,14 @@ if [[ -z "${THEME:-}" ]] ; then
 fi
 
 PATHLIST=(
-	'./src/openbox-3/'
-	'./src/assets/'
-	'./src/gtk-2.0/'
-	'./src/gtk-3.0/'
-	'./src/gtk-3.20/'
-	'./src/xfwm4/'
-	'./src/metacity-1/'
-	'./src/unity/'
+	'./src/openbox-3'
+	'./src/assets'
+	'./src/gtk-2.0'
+	'./src/gtk-3.0'
+	'./src/gtk-3.20'
+	'./src/xfwm4'
+	'./src/metacity-1'
+	'./src/unity'
 	'Makefile'
 	'./src/index.theme'
 	'./src/qt5ct_palette.conf'
@@ -134,7 +134,7 @@ done
 
 cd "$DEST_PATH"
 for FILEPATH in "${PATHLIST[@]}"; do
-	find $(echo "${FILEPATH}" | sed 's/src\///g' ) -type f -exec sed -i \
+	find $(echo "${FILEPATH}" | sed -e 's/src\///g' ) -type f -exec sed -i'' \
 		-e 's/%BG%/'"$BG"'/g' \
 		-e 's/%FG%/'"$FG"'/g' \
 		-e 's/%SEL_BG%/'"$SEL_BG"'/g' \
