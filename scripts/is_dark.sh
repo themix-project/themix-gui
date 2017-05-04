@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #set -x
 
-script_dir=$(readlink -e $(dirname "${0}"))
+script_dir=$(readlink -f $(dirname "${0}"))
 
 is_dark() {
 	hexinput=$(echo $1 | tr '[:lower:]' '[:upper:]')
