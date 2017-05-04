@@ -116,17 +116,20 @@ BORDER_FACTOR=${BORDER_FACTOR-0.8}
 case "${BORDER_MODE}" in
 0|mix|oomox) # Mix with widget's foreground color.
 	BTN_BORDER=$(mix ${BTN_BG} ${BTN_FG} ${BORDER_FACTOR})
+	HDR_BTN_BORDER=$(mix ${HDR_BTN_BG} ${HDR_BTN_FG} ${BORDER_FACTOR})
 	TXT_BORDER=$(mix ${TXT_BG} ${TXT_FG} ${BORDER_FACTOR})
 	OTHER_BORDER=$(mix ${BG} ${FG} ${BORDER_FACTOR}) ;;
 1|shade|std) # Shade of widget's background color.
 	BTN_BORDER=$(shade ${BTN_BG} ${BORDER_FACTOR})
+	HDR_BTN_BORDER=$(shade ${HDR_BTN_BG} ${BORDER_FACTOR})
 	TXT_BORDER=$(shade ${TXT_BG} ${BORDER_FACTOR})
 	OTHER_BORDER=$(shade ${BG} ${BORDER_FACTOR}) ;;
 *) # Manual border colors. Just validate.
 	if ! [[ "${BTN_BORDER-}" && "${TXT_BORDER-}" && "${OTHER_BORDER-}" ]]; then
 		echo "If border mode is not mix or shade, manually set BTN_BORDER, TXT_BORDER, and OTHER_BORDER."
 		exit 1
-	fi ;;
+	fi
+	HDR_BTN_BORDER=${HDR_BTN_BORDER-$BTN_BORDER} ;;
 esac
 
 TAB_MODE=${TAB_MODE-oomox}
@@ -198,6 +201,7 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%TOOLTIP_BG%/'"$TOOLTIP_BG"'/g' \
 		-e 's/%TOOLTIP_FG%/'"$TOOLTIP_FG"'/g' \
 		-e 's/%BTN_BORDER%/'"$BTN_BORDER"'/g' \
+		-e 's/%HDR_BTN_BORDER%/'"$BTN_BORDER"'/g' \
 		-e 's/%TXT_BORDER%/'"$TXT_BORDER"'/g' \
 		-e 's/%OTHER_BORDER%/'"$OTHER_BORDER"'/g' \
 		-e 's/%TAB_ACTIVE%/'"$TAB_ACTIVE"'/g' \
