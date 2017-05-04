@@ -1,4 +1,4 @@
-root="$(readlink -e $(dirname "$0"))"
+root="$(readlink -f $(dirname "$0"))"
 darker() {
 	${root}/scripts/darker.sh $@
 }

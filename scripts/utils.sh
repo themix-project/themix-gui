@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 do_install() {
 	local GTKDIR GTK320DIR GTKVER INSTALL_DIR
