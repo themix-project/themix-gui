@@ -3,6 +3,9 @@
 set -ue
 SRC_PATH=$(readlink -e $(dirname $0))
 
+shade () {
+	"${SRC_PATH}/scripts/shade.sh" $@
+}
 darker () {
 	"${SRC_PATH}/scripts/darker.sh" $@
 }
