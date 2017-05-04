@@ -108,6 +108,42 @@ INACTIVE_FG=$(mix ${FG} ${BG} 0.75)
 INACTIVE_MENU_FG=$(mix ${MENU_FG} ${MENU_BG} 0.75)
 INACTIVE_TXT_FG=$(mix ${TXT_FG} ${TXT_BG} 0.75)
 
+[[ "${TOOLTIP_BG-}" ]] || TOOLTIP_BG=$(shade ${MENU_BG} 0.5)
+[[ "${TOOLTIP_FG-}" ]] || TOOLTIP_FG=${MENU_FG}
+
+BORDER_MODE=${BORDER_MODE-mix}
+BORDER_FACTOR=${BORDER_FACTOR-0.8}
+case "${BORDER_MODE}" in
+0|mix|oomox) # Mix with widget's foreground color.
+	BTN_BORDER=$(mix ${BTN_BG} ${BTN_FG} ${BORDER_FACTOR})
+	TXT_BORDER=$(mix ${TXT_BG} ${TXT_FG} ${BORDER_FACTOR})
+	OTHER_BORDER=$(mix ${BG} ${FG} ${BORDER_FACTOR}) ;;
+1|shade|std) # Shade of widget's background color.
+	BTN_BORDER=$(shade ${BTN_BG} ${BORDER_FACTOR})
+	TXT_BORDER=$(shade ${TXT_BG} ${BORDER_FACTOR})
+	OTHER_BORDER=$(shade ${BG} ${BORDER_FACTOR}) ;;
+*) # Manual border colors. Just validate.
+	if ! [[ "${BTN_BORDER-}" && "${TXT_BORDER-}" && "${OTHER_BORDER-}" ]]; then
+		echo "If border mode is not mix or shade, manually set BTN_BORDER, TXT_BORDER, and OTHER_BORDER."
+		exit 1
+	fi ;;
+esac
+
+TAB_MODE=${TAB_MODE-oomox}
+case "${TAB_MODE}" in
+0|oomox|bg) # BG for active, darken for inactive.
+	TAB_ACTIVE=${BG}
+	TAB_INACTIVE=$(shade ${BG} 0.8) ;;
+1|numix|base|txt) # TXT/Base color for active, BG for inactive.
+	TAB_ACTIVE=${TXT_BG}
+	TAB_INACTIVE=${BG} ;;
+*) # Manual tab colors. Just validate.
+	if ! [[ "${TAB_ACTIVE-}" && "${TAB_INACTIVE-}" ]]; then
+		echo "If tab mode is not oomox or numix, manually set TAB_ACTIVE and TAB_INACTIVE."
+		exit 1
+	fi ;;
+esac
+
 light_folder_base_fallback="$(darker ${SEL_BG} -10)"
 medium_base_fallback="$(darker ${SEL_BG} 37)"
 dark_stroke_fallback="$(darker ${SEL_BG} 50)"
@@ -159,6 +195,13 @@ for FILEPATH in "${PATHLIST[@]}"; do
 		-e 's/%INACTIVE_FG%/'"$INACTIVE_FG"'/g' \
 		-e 's/%INACTIVE_TXT_FG%/'"$INACTIVE_TXT_FG"'/g' \
 		-e 's/%INACTIVE_MENU_FG%/'"$INACTIVE_MENU_FG"'/g' \
+		-e 's/%TOOLTIP_BG%/'"$TOOLTIP_BG"'/g' \
+		-e 's/%TOOLTIP_FG%/'"$TOOLTIP_FG"'/g' \
+		-e 's/%BTN_BORDER%/'"$BTN_BORDER"'/g' \
+		-e 's/%TXT_BORDER%/'"$TXT_BORDER"'/g' \
+		-e 's/%OTHER_BORDER%/'"$OTHER_BORDER"'/g' \
+		-e 's/%TAB_ACTIVE%/'"$TAB_ACTIVE"'/g' \
+		-e 's/%TAB_INACTIVE%/'"$TAB_INACTIVE"'/g' \
 		-e 's/%ICONS_DARK%/'"$ICONS_DARK"'/g' \
 		-e 's/%ICONS_MEDIUM%/'"$ICONS_MEDIUM"'/g' \
 		-e 's/%ICONS_LIGHT%/'"$ICONS_LIGHT"'/g' \
