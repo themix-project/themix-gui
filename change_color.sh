@@ -112,18 +112,23 @@ INACTIVE_TXT_FG=$(mix ${TXT_FG} ${TXT_BG} 0.75)
 [[ "${TOOLTIP_FG-}" ]] || TOOLTIP_FG=${MENU_FG}
 
 BORDER_MODE=${BORDER_MODE-mix}
-BORDER_FACTOR=${BORDER_FACTOR-0.8}
+BORDER_FACTOR=${BORDER_FACTOR-0.75}
 case "${BORDER_MODE}" in
 0|mix|oomox) # Mix with widget's foreground color.
 	BTN_BORDER=$(mix ${BTN_BG} ${BTN_FG} ${BORDER_FACTOR})
 	HDR_BTN_BORDER=$(mix ${HDR_BTN_BG} ${HDR_BTN_FG} ${BORDER_FACTOR})
 	TXT_BORDER=$(mix ${TXT_BG} ${TXT_FG} ${BORDER_FACTOR})
 	OTHER_BORDER=$(mix ${BG} ${FG} ${BORDER_FACTOR}) ;;
-1|shade|std) # Shade of widget's background color.
+1|shade) # Shade of widget's background color.
 	BTN_BORDER=$(shade ${BTN_BG} ${BORDER_FACTOR})
 	HDR_BTN_BORDER=$(shade ${HDR_BTN_BG} ${BORDER_FACTOR})
 	TXT_BORDER=$(shade ${TXT_BG} ${BORDER_FACTOR})
 	OTHER_BORDER=$(shade ${BG} ${BORDER_FACTOR}) ;;
+2|shadebg|std) # Shade of regular background color.
+	BTN_BORDER=$(shade ${BG} ${BORDER_FACTOR})
+	HDR_BTN_BORDER=$(shade ${MENU_BG} ${BORDER_FACTOR})
+	TXT_BORDER=${BTN_BORDER}
+	OTHER_BORDER=${BTN_BORDER} ;;
 *) # Manual border colors. Just validate.
 	if ! [[ "${BTN_BORDER-}" && "${TXT_BORDER-}" && "${OTHER_BORDER-}" ]]; then
 		echo "If border mode is not mix or shade, manually set BTN_BORDER, TXT_BORDER, and OTHER_BORDER."
