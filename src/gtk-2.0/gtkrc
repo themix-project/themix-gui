@@ -175,6 +175,7 @@ style "murrine-thin" {
 style "clearlooks-notebook-bg" {
 	bg[NORMAL] = @tab_active
 	bg[ACTIVE] = @tab_inactive
+}
 
 style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 	xthickness = 2
