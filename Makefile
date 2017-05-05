@@ -1,5 +1,5 @@
-SASS=scss
-SASSFLAGS=--sourcemap=none
+SASS=sassc
+SASSFLAGS= -I
 GLIB_COMPILE_RESOURCES=glib-compile-resources
 RES_DIR=gtk-3.0
 SCSS_DIR=$(RES_DIR)/scss
@@ -16,9 +16,17 @@ gtk320: clean gresource_gtk320
 all: clean gresource
 
 css_gtk3:
-	$(SASS) --update $(SASSFLAGS) "$(SCSS_DIR)":"$(DIST_DIR)"
+	mkdir -p $(DIST_DIR)
+	$(SASS) $(SASSFLAGS) "$(SCSS_DIR)" "$(SCSS_DIR)/gtk.scss" "$(DIST_DIR)/gtk.css"
+ifneq ("$(wildcard $(SCSS_DIR)/gtk-dark.scss)","")
+	$(SASS) $(SASSFLAGS) "$(SCSS_DIR320)" "$(SCSS_DIR)/gtk-dark.scss" "$(DIST_DIR320)/gtk-dark.css"
+endif
 css_gtk320:
-	$(SASS) --update $(SASSFLAGS) "$(SCSS_DIR320)":"$(DIST_DIR320)"
+	mkdir -p $(DIST_DIR320)
+	$(SASS) $(SASSFLAGS) "$(SCSS_DIR320)" "$(SCSS_DIR320)/gtk.scss" "$(DIST_DIR320)/gtk.css"
+ifneq ("$(wildcard $(SCSS_DIR320)/gtk-dark.scss)","")
+	$(SASS) $(SASSFLAGS) "$(SCSS_DIR320)" "$(SCSS_DIR320)/gtk-dark.scss" "$(DIST_DIR320)/gtk-dark.css"
+endif
 css: css_gtk3 css_gtk320
 
 gresource_gtk3: css_gtk3
