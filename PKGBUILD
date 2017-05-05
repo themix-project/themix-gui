@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.2.3
+pkgver=1.2.5
 pkgrel=1
 pkgdesc="Graphical application for generating different color variations
 of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes.
@@ -20,7 +20,7 @@ depends=(
 	'zip'
 	'glib2'
 	'gdk-pixbuf2'
-	'ruby-sass'
+	'sassc'
 	'python-gobject'
 	'gtk-engine-murrine'
 	'gtk-engines'
