@@ -50,9 +50,10 @@ If you don't want to add the PPA, you can download the deb from [here](http://pp
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#gui-1 "").
 
 ```
-sudo apt install ruby libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
-sudo gem install sass
+sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
 ```
+
+And install `sassc`: http://crocodillon.com/blog/how-to-install-sassc-and-libsass-on-ubuntu
 
 
 
@@ -74,7 +75,7 @@ sudo dnf install oomox
 You need to have `python3-gobject` binding and those executables:
  - `glib-compile-schemas`
  - `gdk-pixbuf-pixdata`
- - `sass`
+ - `sassc`
  
 For GTK2 you need murrine engine which can be not installed by default.
 
