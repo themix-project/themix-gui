@@ -13,8 +13,14 @@ $header_button_bg_color: #%HDR_BTN_BG%;
 $header_button_fg_color: #%HDR_BTN_FG%;
 $selected_bg_color: #%SEL_BG%;
 $selected_fg_color: #%SEL_FG%;
-$tooltip_bg_color: #%BG%;
-$tooltip_fg_color: #%FG%;
+$tooltip_bg_color: #%TOOLTIP_BG%;
+$tooltip_fg_color: #%TOOLTIP_FG%;
+$tab_active_color: #%TAB_ACTIVE%;
+$tab_inactive_color: #%TAB_INACTIVE%;
+$button_border_color: #%BTN_BORDER%;
+$header_button_border_color: #%HDR_BTN_BORDER%;
+$text_border_color: #%TXT_BORDER%;
+$other_border_color: #%OTHER_BORDER%;
 
 // dark colors
 $dark_bg_color: #%MENU_BG%;

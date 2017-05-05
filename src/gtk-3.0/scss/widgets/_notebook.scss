@@ -9,11 +9,11 @@
     .notebook {
         padding: 0;
         border-style: solid;
-        border-color: border_normal($bg_color);
+        border-color: border_normal($tab_active_color);
         border-radius: 0;
-        @include linear-gradient($bg_color);
+        @include linear-gradient($tab_active_color);
         background-clip: border-box;
-        color: $text_color;
+        color: $fg_color;
 
         -GtkNotebook-initial-gap: 0;
         -GtkNotebook-arrow-spacing: 5;
@@ -45,12 +45,12 @@
         tab {
             padding: ($spacing + 1px) ($spacing * 2);
             border-style: solid;
-            border-color: border_normal(shade($bg_color, 0.80));
-            background-color: shade($bg_color, 0.80);
+            border-color: border_normal($tab_inactive_color);
+            background-color: $tab_inactive_color;
             background-image: none;
 
             &:active {
-                background-color: $bg_color;
+                background-color: $tab_active_color;
                 background-image: none;
             }
 

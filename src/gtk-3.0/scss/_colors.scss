@@ -13,6 +13,12 @@
 @define-color theme_selected_fg_color #{"" + $selected_fg_color};
 @define-color theme_tooltip_bg_color #{"" + $tooltip_bg_color};
 @define-color theme_tooltip_fg_color #{"" + $tooltip_fg_color};
+@define-color theme_tab_active_color #{"" + $tab_active_color};
+@define-color theme_tab_inactive_color #{"" + $tab_inactive_color};
+@define-color theme_button_border_color #{"" + $button_border_color};
+@define-color theme_header_button_border_color #{"" + $header_button_border_color};
+@define-color theme_text_border_color #{"" + $text_border_color};
+@define-color theme_other_border_color #{"" + $other_border_color};
 
 /* shadow effects */
 @define-color light_shadow #{"" + $light_shadow};
@@ -43,6 +49,12 @@
 @define-color menu_fg_color @dark_fg_color;
 @define-color panel_bg_color @dark_bg_color;
 @define-color panel_fg_color @dark_fg_color;
+@define-color tab_active_color @theme_tab_active_color;
+@define-color tab_inactive_color @theme_tab_inactive_color;
+@define-color button_border_color @theme_button_border_color;
+@define-color header_button_border_color @theme_header_button_border_color;
+@define-color text_border_color @theme_text_border_color;
+@define-color other_border_color @theme_other_border_color;
 
 /* osd */
 @define-color osd_base #{"" + $osd_base};

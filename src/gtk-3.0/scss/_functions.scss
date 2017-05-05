@@ -32,6 +32,7 @@ $modules: () !default;
     @return unquote("mix(#{$color1},#{$color2},#{$amount})");
 }
 
+// Regular borders
 @function border_normal($color) {
     @return shade($color, $contrast);
 }
@@ -46,6 +47,23 @@ $modules: () !default;
 
 @function border_insensitive($color) {
     @return shade($color, ($contrast + .05));
+}
+
+// Custom borders
+@function custom_border_normal($color) {
+    @return $color;
+}
+
+@function custom_border_focus($color) {
+    @return shade($color, 0.95);
+}
+
+@function custom_border_active($color) {
+    @return shade($color, 0.9);
+}
+
+@function custom_border_insensitive($color) {
+    @return shade($color, 1.05);
 }
 
 @mixin linear-gradient($color, $direction: to bottom) {
@@ -76,4 +94,19 @@ $modules: () !default;
     &:insensitive { border-color: border_insensitive($color); }
 
     &:active:insensitive, &:checked:insensitive { border-color: border_normal($color); }
+}
+
+@mixin custom_border($color) {
+    border-color: custom_border_normal($color);
+
+    &:focus, &:hover { border-color: custom_border_focus($color); }
+
+    &:active, &:active:hover,
+    &:active:focus, &:active:hover:focus,
+    &:checked, &:checked:hover,
+    &:checked:focus, &:checked:hover:focus { border-color: custom_border_active($color); }
+
+    &:insensitive { border-color: custom_border_insensitive($color); }
+
+    &:active:insensitive, &:checked:insensitive { border-color: custom_border_normal($color); }
 }
