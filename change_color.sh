@@ -168,14 +168,11 @@ for FILEPATH in "${PATHLIST[@]}"; do
 done
 
 if [[ ${GTK3_GENERATE_DARK} != "true" ]] ; then
-	REMOVE_DARK_SEDEX='s/<file>dist\/gtk-dark.css<\/file>//g'
 	if [[ -f ./gtk-3.0/scss/gtk-dark.scss ]] ; then
 		rm ./gtk-3.0/scss/gtk-dark.scss
-		sed -i -e ${REMOVE_DARK_SEDEX} ./gtk-3.0/gtk.gresource.xml
 	fi
 	if [[ -f ./gtk-3.20/scss/gtk-dark.scss ]] ; then
 		rm ./gtk-3.20/scss/gtk-dark.scss
-		sed -i -e ${REMOVE_DARK_SEDEX} ./gtk-3.20/gtk.gresource.xml
 	fi
 fi
 if [[ ${GTK2_HIDPI} == "true" ]] ; then
