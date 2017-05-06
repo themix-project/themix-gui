@@ -19,13 +19,17 @@ css_gtk3:
 	mkdir -p $(DIST_DIR)
 	$(SASS) $(SASSFLAGS) "$(SCSS_DIR)" "$(SCSS_DIR)/gtk.scss" "$(DIST_DIR)/gtk.css"
 ifneq ("$(wildcard $(SCSS_DIR)/gtk-dark.scss)","")
-	$(SASS) $(SASSFLAGS) "$(SCSS_DIR320)" "$(SCSS_DIR)/gtk-dark.scss" "$(DIST_DIR320)/gtk-dark.css"
+	$(SASS) $(SASSFLAGS) "$(SCSS_DIR)" "$(SCSS_DIR)/gtk-dark.scss" "$(DIST_DIR)/gtk-dark.css"
+else
+	cp "$(DIST_DIR)/gtk.css" "$(DIST_DIR)/gtk-dark.css"
 endif
 css_gtk320:
 	mkdir -p $(DIST_DIR320)
 	$(SASS) $(SASSFLAGS) "$(SCSS_DIR320)" "$(SCSS_DIR320)/gtk.scss" "$(DIST_DIR320)/gtk.css"
 ifneq ("$(wildcard $(SCSS_DIR320)/gtk-dark.scss)","")
 	$(SASS) $(SASSFLAGS) "$(SCSS_DIR320)" "$(SCSS_DIR320)/gtk-dark.scss" "$(DIST_DIR320)/gtk-dark.css"
+else
+	cp "$(DIST_DIR320)/gtk.css" "$(DIST_DIR320)/gtk-dark.css"
 endif
 css: css_gtk3 css_gtk320
 
