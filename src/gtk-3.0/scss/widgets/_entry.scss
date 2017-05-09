@@ -62,7 +62,7 @@
 @mixin entry($bg, $fg) {
     @extend %entry;
     @include linear-gradient($bg, to top);
-    @include border($bg);
+    @include custom_border($text_border_color);
 
     color: $fg;
 

@@ -78,11 +78,11 @@
 
     @extend %linked_button;
 
-    box-shadow: inset -1px 0 border_normal(rgba(0, 0, 0, .12 + $border_strength)),
+    box-shadow: inset -1px 0 custom_border_normal($button_border_color),
                 0 1px 2px -1px alpha($dark_shadow, .12 + $shadow_strength);
 
     &:focus, &:hover {
-        box-shadow: inset -1px 0 border_focus(rgba(0, 0, 0, .12 + $border_strength)),
+        box-shadow: inset -1px 0 custom_border_focus($button_border_color),
                     0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
     }
 
@@ -90,7 +90,7 @@
     &:active:focus, &:active:hover:focus,
     &:checked, &:checked:hover,
     &:checked:focus, &:checked:hover:focus {
-        box-shadow: inset -1px 0 border_active(rgba(0, 0, 0, .12 + $border_strength)),
+        box-shadow: inset -1px 0 custom_border_active($button_border_color),
                     inset 0 1px alpha($dark_shadow, .07),
                     inset 0 -1px alpha($dark_shadow, .05);
     }
@@ -143,7 +143,7 @@
     &, &.flat {
         &:focus, &:hover {
             @include linear-gradient(shade($button_bg, 1.2));
-            @include border(rgba(0, 0, 0, .2 + $border_strength));
+            @include custom_border($button_border_color);
 
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .32 + $shadow_strength);
         }

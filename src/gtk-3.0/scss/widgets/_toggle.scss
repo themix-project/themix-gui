@@ -90,11 +90,11 @@ $suffix: if($variant == "dark", "-dark", "");
         &.slider {
             @include linear-gradient(shade($bg_color, 1.2));
 
-            border: 1px solid rgba(0, 0, 0, .2);
+            border: 1px solid custom_border_normal($other_border_color);
             box-shadow: 0 1px 2px -1px alpha($dark_shadow, .12);
 
             &:insensitive {
-                border-color: rgba(0, 0, 0, .1);
+                border-color: custom_border_insensitive($other_border_color);
                 background-color: shade($bg_color, .9);
                 box-shadow: none;
             }
@@ -103,7 +103,7 @@ $suffix: if($variant == "dark", "-dark", "");
         &.trough {
             @include linear-gradient(shade($bg_color, .95), to top);
 
-            border: 1px solid border_normal($bg_color);
+            border: 1px solid custom_border_normal($other_border_color);
             color: $fg_color;
             box-shadow: inset 1px 0 alpha($dark_shadow, .07),
                         inset 0 1px alpha($dark_shadow, .08),
@@ -120,7 +120,7 @@ $suffix: if($variant == "dark", "-dark", "");
             &:insensitive {
                 @include linear-gradient(shade($bg_color, .9), to top);
 
-                border-color: border_insensitive($bg_color);
+                border-color: custom_border_insensitive($other_border_color);
                 color: mix($fg_color, $bg_color, .5);
             }
         }
