@@ -1,7 +1,7 @@
 # Oomox GTK Theme (Numix Fork)
 
 gtk-color-scheme =
-"base_color:#%TXT_BG%\nbg_color:#%BG%\ntooltip_bg_color:#%BG%\nselected_bg_color:#%SEL_BG%\ntext_color:#%TXT_FG%\nfg_color:#%FG%\ntooltip_fg_color:#%FG%\nselected_fg_color:#%SEL_FG%\nmenubar_bg_color:#%MENU_BG%\nmenubar_fg_color:#%MENU_FG%\ntoolbar_bg_color:#%BG%\ntoolbar_fg_color:#%FG%\nmenu_bg_color:#%MENU_BG%\nmenu_fg_color:#%MENU_FG%\npanel_bg_color:#%BG%\npanel_fg_color:#%FG%\nlink_color:#%SEL_BG%\nbtn_bg_color:#%BTN_BG%\nbtn_fg_color:#%BTN_FG%\ntitlebar_bg_color:#%MENU_BG%\ntitlebar_fg_color:#%MENU_FG%\n"
+"base_color:#%TXT_BG%\nbg_color:#%BG%\ntooltip_bg_color:#%TOOLTIP_BG%\nselected_bg_color:#%SEL_BG%\ntext_color:#%TXT_FG%\nfg_color:#%FG%\ntooltip_fg_color:#%TOOLTIP_FG%\nselected_fg_color:#%SEL_FG%\nmenubar_bg_color:#%MENU_BG%\nmenubar_fg_color:#%MENU_FG%\ntoolbar_bg_color:#%BG%\ntoolbar_fg_color:#%FG%\nmenu_bg_color:#%MENU_BG%\nmenu_fg_color:#%MENU_FG%\npanel_bg_color:#%BG%\npanel_fg_color:#%FG%\nlink_color:#%SEL_BG%\nbtn_bg_color:#%BTN_BG%\nbtn_fg_color:#%BTN_FG%\ntitlebar_bg_color:#%MENU_BG%\ntitlebar_fg_color:#%MENU_FG%\nprimary_caret_color:#%CARET1_FG%\nsecondary_caret_color:#%CARET2_FG%\ntab_active:#%TAB_ACTIVE%\ntab_inactive:#%TAB_INACTIVE%\nbtn_border:#%BTN_BORDER%\ntxt_border:#%TXT_BORDER%\nother_border:#%OTHER_BORDER%\n"
 # Default Style
 
 style "murrine-default" {
@@ -123,7 +123,7 @@ style "murrine-default" {
 		animation = FALSE
 		arrowstyle = 1 # 0 = normal arrows, 1 = filled arrows
 		border_shades = { 1.0, 1.0 } # gradient to draw on border
-		border_colors = { mix(0.2, @fg_color, @bg_color), mix(0.2, @fg_color, @bg_color) }
+		#border_colors = { @other_border, @other_border }
 		colorize_scrollbar = FALSE
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
 		contrast = 0.8 # overal contrast with borders
@@ -169,8 +169,8 @@ style "murrine-thin" {
 # Notebook
 
 style "clearlooks-notebook-bg" {
-	bg[NORMAL] = @bg_color
-	bg[ACTIVE] = shade (0.80, @bg_color)
+	bg[NORMAL] = @tab_active
+	bg[ACTIVE] = @tab_inactive
 }
 
 style "clearlooks-notebook" = "clearlooks-notebook-bg" {
@@ -192,7 +192,7 @@ style "murrine-button"  = "murrine-wider" {
 	bg[INSENSITIVE] = shade (0.75, @btn_bg_color)
 
 	engine "murrine" {
-		border_colors = { mix(0.4, @btn_fg_color, @btn_bg_color), mix(0.4, @btn_fg_color, @btn_bg_color) }
+		border_colors = { @btn_border, @btn_border }
 		roundness = %ROUNDNESS_GTK2_HIDPI%
 	}
 }
@@ -329,7 +329,7 @@ style "clearlooks-base-radiocheck" = "clearlooks-radiocheck" {
 style "murrine-entry" = "murrine-wider" {
 	engine "murrine" {
 		#border_shades = { 1.15, 1.15 }
-		border_colors = { mix(0.4, @text_color, @base_color), mix(0.4, @text_color, @base_color) }
+		border_colors = { @txt_border, @txt_border }
 		roundness = %ROUNDNESS_GTK2_HIDPI%
 	}
 }
