@@ -53,7 +53,7 @@ For older Ubuntu releases install the dependencies manually and next follow gene
 sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
 ```
 
-And install `sassc`: http://crocodillon.com/blog/how-to-install-sassc-and-libsass-on-ubuntu
+And install `sassc>=3.4`: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
 
 
 
@@ -75,7 +75,8 @@ sudo dnf install oomox
 You need to have `python3-gobject` binding and those executables:
  - `glib-compile-schemas`
  - `gdk-pixbuf-pixdata`
- - `sassc`
+ - `sassc>=3.4`
+ - `gtk3>=3.18`
  
 For GTK2 you need murrine engine which can be not installed by default.
 
