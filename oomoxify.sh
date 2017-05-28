@@ -115,6 +115,8 @@ hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
 selected_button_color="${SPOTIFY_SELECTED_BUTTON_COLOR-$selected_button_color_fallback}"
 hover_selection_color="${SPOTIFY_HOVER_SELECTION_COLOR-$hover_selection_color_fallback}"
 
+blue_blocks_color="${SPOTIFY_BLUE_BLOCKS-$BTN_BG}"
+
 #top_and_button_bg="#${SPOTIFY_TOP_AND_BTN_BG-$BTN_BG}"
 top_and_button_bg="#${SPOTIFY_TOP_BTN_BG-$main_bg}"
 #top_and_button_bg="rgba(133, 80, 155, 1)"
@@ -209,6 +211,8 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/cccccc/oomox_main_fg/gI" \
 				-e "s/ededed/oomox_main_fg/gI" \
 				\
+				-e "s/4687d6/oomox_blue_blocks/gI" \
+				\
 				-e "s/rgba(0, 0, 0, [0-9\.]\+)/oomox_cover_overlay/g" \
 				-e "s/rgba(24, 24, 24, [0-9\.]\+)/oomox_top_and_button_bg/g" \
 				-e "s/rgba(160, 160, 160, [0-9\.]\+)/#oomox_main_fg/g" \
@@ -250,6 +254,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/oomox_hover_selection_color/${hover_selection_color}/gI" \
 				-e "s/oomox_main_fg/${main_fg}/gI" \
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
+				-e "s/oomox_blue_blocks/${blue_blocks_color}/gI" \
 				"${css}"
 			fi
 			zip "./${filename}" "${css}" > /dev/null
