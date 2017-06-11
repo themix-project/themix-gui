@@ -142,9 +142,10 @@ def export_archdroid_icon_theme(window, theme_path):
 
 class SpotifyExportDialog(ExportDialog):
 
+    font_options = None
+
     def do_export(self):
         spotify_path = self.spotify_path_entry.get_text()
-        normalize_font = self.font_checkbox.get_active()
         self.options_box.destroy()
         self.apply_button.destroy()
 
@@ -157,8 +158,10 @@ class SpotifyExportDialog(ExportDialog):
             '--gui',
             '--spotify-apps-path', spotify_path,
         ]
-        if normalize_font:
+        if self.font_options == "normalize":
             export_args.append('--font-weight')
+        elif self.font_options == "system":
+            export_args.append('--system-font')
 
         captured_log = ""
 
@@ -203,6 +206,38 @@ class SpotifyExportDialog(ExportDialog):
         self.under_log_box.add(button)
         self.show_all()
 
+    def on_font_radio_toggled(self, button, value):
+        if button.get_active():
+            self.font_options = value
+
+    def _init_radios(self):
+        self.font_radio_default = Gtk.RadioButton.new_with_mnemonic_from_widget(
+            None,
+            _("Don't change _default font")
+        )
+        self.font_radio_default.connect(
+            "toggled", self.on_font_radio_toggled, "default"
+        )
+        self.options_box.add(self.font_radio_default)
+
+        self.font_radio_normalize = Gtk.RadioButton.new_with_mnemonic_from_widget(
+            self.font_radio_default,
+            _("_Normalize font weight")
+        )
+        self.font_radio_normalize.connect(
+            "toggled", self.on_font_radio_toggled, "normalize"
+        )
+        self.options_box.add(self.font_radio_normalize)
+
+        self.font_radio_system = Gtk.RadioButton.new_with_mnemonic_from_widget(
+            self.font_radio_default,
+            _("Use system _Sans font")
+        )
+        self.font_radio_system.connect(
+            "toggled", self.on_font_radio_toggled, "system"
+        )
+        self.options_box.add(self.font_radio_system)
+
     def __init__(self, parent, theme_path):
         ExportDialog.__init__(self, parent, _("Spotify options"))
         self.theme_path = theme_path
@@ -216,9 +251,7 @@ class SpotifyExportDialog(ExportDialog):
         )
         self.options_box.set_margin_bottom(10)
 
-        self.font_checkbox = Gtk.CheckButton(label=_("_Normalize font weight"),
-                                             use_underline=True)
-        self.options_box.add(self.font_checkbox)
+        self._init_radios()
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         spotify_path_label = Gtk.Label(label=_('Spotify _path:'),
