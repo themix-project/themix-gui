@@ -53,7 +53,9 @@ class ExportDialog(Gtk.Dialog):
         if Gtk.get_minor_version() >= 16:
             self.log.set_monospace(True)
         else:
-            self.log.override_font(Pango.font_description_from_string("monospace"))
+            self.log.override_font(
+                Pango.font_description_from_string("monospace")
+            )
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
 
         self.scrolled_window = Gtk.ScrolledWindow(expand=True)
@@ -214,19 +216,21 @@ class SpotifyExportDialog(ExportDialog):
             self.font_name_entry.set_sensitive(value == "custom")
 
     def _init_radios(self):
-        self.font_radio_default = Gtk.RadioButton.new_with_mnemonic_from_widget(
-            None,
-            _("Don't change _default font")
-        )
+        self.font_radio_default = \
+            Gtk.RadioButton.new_with_mnemonic_from_widget(
+                None,
+                _("Don't change _default font")
+            )
         self.font_radio_default.connect(
             "toggled", self.on_font_radio_toggled, "default"
         )
         self.options_box.add(self.font_radio_default)
 
-        self.font_radio_normalize = Gtk.RadioButton.new_with_mnemonic_from_widget(
-            self.font_radio_default,
-            _("_Normalize font weight")
-        )
+        self.font_radio_normalize = \
+            Gtk.RadioButton.new_with_mnemonic_from_widget(
+                self.font_radio_default,
+                _("_Normalize font weight")
+            )
         self.font_radio_normalize.connect(
             "toggled", self.on_font_radio_toggled, "normalize"
         )
