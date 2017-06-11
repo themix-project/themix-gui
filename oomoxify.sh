@@ -160,7 +160,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				sed -i \
 					-e "s/'spotify-circular'/${replace_font}/g" \
 					-e "s/'circular_sp_.*'/${replace_font}/g" \
-					-e "s/font-family: circular_.*/font-fmaily: ${replace_font}/g" \
+					-e "s/font-family: circular_.*/font-family: ${replace_font}/g" \
 					-e "s/Monaco/monospace/g" \
 					-e "s/font-weight: 200/font-weight: 400/g" \
 					-e "s/font-weight: 100/font-weight: 400/g" \
