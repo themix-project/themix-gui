@@ -12,17 +12,17 @@ backup_dir="${HOME}/.config/oomox/spotify_backup"
 print_usage() {
 	echo "
 usage:
-$0 [-s /path/to/spotify/Apps] [-f] PRESET_NAME_OR_PATH
+$0 [-s /path/to/spotify/Apps] [-f FONT] PRESET_NAME_OR_PATH
 
 options:
 	-s, --spotify-apps-path		path to spotify/Apps
-	-f, --system-font			use system font
-	-w, --font-weight			'normalize' font weight
-	-g, --gui					use 'gksu' instead of sudo
+	-f \"FONT\", --font \"FONT\"	use \"FONT\"
+	-w, --font-weight		'normalize' font weight
+	-g, --gui			use 'gksu' instead of sudo
 
 examples:
 	$0 monovedek
-	$0 -f ./colors/gnome-colors/shiki-noble
+	$0 -f \"Fantasque Sans Mono\" ./colors/gnome-colors/shiki-noble
 	$0 -o /opt/spotify/Apps ./colors/retro/twg"
 	exit 1
 }
@@ -45,8 +45,16 @@ do
 			print_usage
 			exit 0
 		;;
-		-f|--system-font)
-			use_system_font="True"
+		-f|--font)
+			replace_font="${2}"
+			shift
+			if [[ ! ${replace_font} = "sans-serif" ]] && \
+			   [[ ! ${replace_font} = "serif" ]] && \
+			   [[ ! ${replace_font} = "monospace" ]] && \
+			   [[ ! $(grep '"' <<< ${replace_font}) ]] \
+			; then
+				replace_font='"'${replace_font}'"'
+			fi
 		;;
 		-w|--font-weight)
 			fix_font_weight="True"
@@ -84,6 +92,7 @@ if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
 else
 	source "${root}/colors/$THEME"
 fi
+
 
 main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
 
@@ -145,7 +154,6 @@ if [[ ! -d "${backup_dir}" ]] ; then
 	echo "${spotify_version}" > "${backup_file}"
 fi
 
-
 cd "${root}"
 for file in $(ls "${backup_dir}"/*.spa) ; do
 	filename="$(basename "${file}")"
@@ -155,20 +163,9 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	unzip "./${filename}" > /dev/null
 	if [[ -d ./css/ ]] && [[ -f ./css/style.css ]] ; then
 		for css in $(ls ./css/*.css); do
-			if [ ! -z "${use_system_font:-}" ] ; then
-				replace_font=sans-serif
+			if [ ! -z "${fix_font_weight:-}" ] || [ ! -z "${replace_font:-}" ]; then
 				sed -i \
-					-e "s/'spotify-circular'/${replace_font}/g" \
-					-e "s/'circular_sp_.*'/${replace_font}/g" \
-					-e "s/font-family: circular_.*/font-family: ${replace_font}/g" \
 					-e "s/Monaco/monospace/g" \
-					-e "s/font-weight: 200/font-weight: 400/g" \
-					-e "s/font-weight: 100/font-weight: 400/g" \
-					"${css}" || true
-			fi
-			if [ ! -z "${fix_font_weight:-}" ] ; then
-				replace_font=sans-serif
-				sed -i \
 					-e "s/font-weight: 200/font-weight: 400/g" \
 					-e "s/font-weight: 100/font-weight: 400/g" \
 					"${css}" || true
@@ -256,6 +253,10 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
 				-e "s/oomox_blue_blocks/${blue_blocks_color}/gI" \
 				"${css}"
+			fi
+			if [ ! -z "${replace_font:-}" ] ; then
+				echo "
+				* {font-family: ${replace_font} !important; }" >> "${css}"
 			fi
 			zip "./${filename}" "${css}" > /dev/null
 		done

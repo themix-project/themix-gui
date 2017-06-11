@@ -146,6 +146,7 @@ class SpotifyExportDialog(ExportDialog):
 
     def do_export(self):
         spotify_path = self.spotify_path_entry.get_text()
+        font_name = self.font_name_entry.get_text()
         self.options_box.destroy()
         self.apply_button.destroy()
 
@@ -160,8 +161,9 @@ class SpotifyExportDialog(ExportDialog):
         ]
         if self.font_options == "normalize":
             export_args.append('--font-weight')
-        elif self.font_options == "system":
-            export_args.append('--system-font')
+        elif self.font_options == "custom":
+            export_args.append('--font')
+            export_args.append(font_name)
 
         captured_log = ""
 
@@ -209,6 +211,7 @@ class SpotifyExportDialog(ExportDialog):
     def on_font_radio_toggled(self, button, value):
         if button.get_active():
             self.font_options = value
+            self.font_name_entry.set_sensitive(value == "custom")
 
     def _init_radios(self):
         self.font_radio_default = Gtk.RadioButton.new_with_mnemonic_from_widget(
@@ -231,12 +234,16 @@ class SpotifyExportDialog(ExportDialog):
 
         self.font_radio_system = Gtk.RadioButton.new_with_mnemonic_from_widget(
             self.font_radio_default,
-            _("Use system _Sans font")
+            _("Use custom _font:")
         )
         self.font_radio_system.connect(
-            "toggled", self.on_font_radio_toggled, "system"
+            "toggled", self.on_font_radio_toggled, "custom"
         )
         self.options_box.add(self.font_radio_system)
+
+        self.font_name_entry = Gtk.Entry(text="sans-serif")
+        self.font_name_entry.set_sensitive(False)
+        self.options_box.add(self.font_name_entry)
 
     def __init__(self, parent, theme_path):
         ExportDialog.__init__(self, parent, _("Spotify options"))
