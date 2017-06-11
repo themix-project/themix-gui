@@ -77,7 +77,7 @@ class ExportDialog(Gtk.Dialog):
         self.show_all()
 
 
-def _export(window, theme_path, export_args):
+def _export(window, theme_path, export_args, timeout=120):
     captured_log = ""
 
     def update_ui(text):
@@ -99,7 +99,7 @@ def _export(window, theme_path, export_args):
         for line in iter(proc.stdout.readline, b''):
             captured_log += line.decode("utf-8")
             GLib.idle_add(update_ui, captured_log)
-        proc.communicate(timeout=60)
+        proc.communicate(timeout=timeout)
         if proc.returncode == 0:
             GLib.idle_add(ui_done)
         else:
@@ -129,7 +129,7 @@ def export_gnome_colors_icon_theme(window, theme_path):
         "bash",
         os.path.join(oomox_root_dir, "gnome_colors.sh"),
         theme_path,
-    ])
+    ], timeout=600)
 
 
 def export_archdroid_icon_theme(window, theme_path):
@@ -137,7 +137,7 @@ def export_archdroid_icon_theme(window, theme_path):
         "bash",
         os.path.join(oomox_root_dir, "archdroid.sh"),
         theme_path,
-    ])
+    ], timeout=300)
 
 
 class SpotifyExportDialog(ExportDialog):
@@ -184,7 +184,7 @@ class SpotifyExportDialog(ExportDialog):
             for line in iter(proc.stdout.readline, b''):
                 captured_log += line.decode("utf-8")
                 GLib.idle_add(update_ui, captured_log)
-            proc.communicate(timeout=60)
+            proc.communicate(timeout=120)
             if proc.returncode == 0:
                 GLib.idle_add(ui_done)
             else:
