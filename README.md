@@ -24,7 +24,7 @@ Gnome-Colors and Archdroid icon themes.
 #### Install
 
 ```
-yaourt -S oomox-git
+pacaur -S oomox-git
 ```
 
 #### GUI
