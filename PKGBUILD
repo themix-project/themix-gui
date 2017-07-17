@@ -3,7 +3,7 @@
 
 pkgname=oomox-git
 pkgver=1.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical application for generating different color variations
 of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes.
 Have a hack for HiDPI in gtk2."
@@ -46,6 +46,7 @@ package() {
 	make -C oomox -f po.mk install
 	mkdir -p ${pkgdir}/opt/oomox
 	mv ./oomox/* ${pkgdir}/opt/oomox
+    python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 	mkdir -p ${pkgdir}/usr/bin/
 	mkdir -p ${pkgdir}/usr/share/applications/
 
