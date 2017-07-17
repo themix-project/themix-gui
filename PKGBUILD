@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.2.5
+pkgver=1.2.7
 pkgrel=1
 pkgdesc="Graphical application for generating different color variations
 of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes.
@@ -24,6 +24,8 @@ depends=(
 	'python-gobject'
 	'gtk-engine-murrine'
 	'gtk-engines'
+	'procps-ng'
+	'polkit'
 )
 optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
@@ -31,7 +33,7 @@ optdepends=(
 	'inkscape: for icon theme generation'
 	'gnome-colors-common-icon-theme: for using the generated icon theme'
 	'breeze-icons: more fallback icons'
-	'gksu: for applying Spotify theme from GUI'
+	'gksu: for applying Spotify theme from GUI without polkit'
 	#'gnome-colors-icon-theme: for using the generated icon theme'  it's broken ATM
 )
 
