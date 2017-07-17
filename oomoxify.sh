@@ -18,7 +18,7 @@ options:
 	-s, --spotify-apps-path		path to spotify/Apps
 	-f \"FONT\", --font \"FONT\"	use \"FONT\"
 	-w, --font-weight		'normalize' font weight
-	-g, --gui			use 'gksu' instead of sudo
+	-g, --gui			use polkit or 'gksu' instead of sudo
 
 examples:
 	$0 monovedek
@@ -267,7 +267,11 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 done
 
 if [ ! -z "${gui:-}" ] ; then
-	priv_tool="gksu"
+	if [ "$(pgrep polkit)" ] ; then
+		priv_tool="pkexec"
+	else
+		priv_tool="gksu"
+	fi
 else
 	priv_tool="sudo"
 fi
