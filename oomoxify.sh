@@ -266,13 +266,37 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	rm "${tmp_dir}/"* -r
 done
 
+PKEXEC="pkexec --disable-internal-agent"
 if [ ! -z "${gui:-}" ] ; then
-	if [ "$(pgrep polkit)" ] ; then
-		priv_tool="pkexec"
+	if [ "$(which pkexec)" ] ; then
+		priv_tool=${PKEXEC}
 	else
 		priv_tool="gksu"
 	fi
 else
 	priv_tool="sudo"
 fi
-"${priv_tool}" cp "${output_dir}/"* "${spotify_apps_path}"/
+
+log_file=$(mktemp)
+function post_clean_up {
+	rm "${log_file}"
+}
+trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
+fails_counter=0
+while true; do
+	exit_code=0
+	${priv_tool} cp "${output_dir}/"* "${spotify_apps_path}"/ 2>&1 | tee ${log_file} || exit_code=$?
+	if [ $exit_code -ne 0 ] ; then
+		if [ "${priv_tool}" = "${PKEXEC}" ] && [ "$(grep "No authentication agent found." ${log_file})" ] ; then
+			priv_tool="gksu"
+		else
+			fails_counter=$((fails_counter + 1))
+		fi
+		if [ ${fails_counter} -gt 3 ] ; then
+			break
+		fi
+	else
+		break
+	fi
+done
+exit ${exit_code}
