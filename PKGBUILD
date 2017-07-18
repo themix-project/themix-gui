@@ -2,8 +2,8 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.2.7
-pkgrel=3
+pkgver=1.2.8
+pkgrel=1
 pkgdesc="Graphical application for generating different color variations
 of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes.
 Have a hack for HiDPI in gtk2."
@@ -39,7 +39,7 @@ optdepends=(
 
 pkgver() {
   cd oomox
-  git describe | sed 's/^v//;s/-/./g'
+  git describe | sed 's/^v//;s/-/+/g'
 }
 
 package() {
