@@ -93,27 +93,29 @@ else
 	source "${root}/colors/$THEME"
 fi
 
+SPOTIFY_PROTO_BG="${SPOTIFY_PROTO_BG-$MENU_BG}"
+SPOTIFY_PROTO_FG="${SPOTIFY_PROTO_FG-$MENU_FG}"
 
-main_bg="${SPOTIFY_MAIN_BG-$MENU_BG}"
+main_bg="${SPOTIFY_MAIN_BG-$SPOTIFY_PROTO_BG}"
 
 fg_is_dark=0
-is_dark ${MENU_FG} || fg_is_dark=$?
+is_dark ${SPOTIFY_PROTO_FG} || fg_is_dark=$?
 if [[ ${fg_is_dark} -eq 0 ]] ; then
-	area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG} -10)}"
-	selected_row_bg_fallback="$(darker ${MENU_BG} -18)"
-	selected_area_bg_fallback="$(darker ${MENU_BG} -24)"
-	main_fg_fallback="$(darker ${MENU_FG} -18)"
-	accent_fg_fallback="$(darker ${MENU_FG} 36)"
+	area_bg="${SPOTIFY_AREA_BG-$(darker ${SPOTIFY_PROTO_BG} -10)}"
+	selected_row_bg_fallback="$(darker ${SPOTIFY_PROTO_BG} -18)"
+	selected_area_bg_fallback="$(darker ${SPOTIFY_PROTO_BG} -24)"
+	main_fg_fallback="$(darker ${SPOTIFY_PROTO_FG} -18)"
+	accent_fg_fallback="$(darker ${SPOTIFY_PROTO_FG} 36)"
 else
-	area_bg="${SPOTIFY_AREA_BG-$(darker ${MENU_BG})}"
-	selected_row_bg_fallback="$(darker ${MENU_BG} -10)"
-	selected_area_bg_fallback="$(darker ${MENU_BG} -18)"
-	main_fg_fallback="$(darker ${MENU_FG} 18)"
-	accent_fg_fallback="$(darker ${MENU_FG} -36)"
+	area_bg="${SPOTIFY_AREA_BG-$(darker ${SPOTIFY_PROTO_BG})}"
+	selected_row_bg_fallback="$(darker ${SPOTIFY_PROTO_BG} -10)"
+	selected_area_bg_fallback="$(darker ${SPOTIFY_PROTO_BG} -18)"
+	main_fg_fallback="$(darker ${SPOTIFY_PROTO_FG} 18)"
+	accent_fg_fallback="$(darker ${SPOTIFY_PROTO_FG} -36)"
 fi
 selected_row_bg="${SPOTIFY_SELECTED_ROW_BG-$selected_row_bg_fallback}"
 selected_area_bg="${SPOTIFY_SELECTED_AREA_BG-$selected_area_bg_fallback}"
-sidebar_fg="${SPOTIFY_SIDEBAR_FG-$MENU_FG}"
+sidebar_fg="${SPOTIFY_SIDEBAR_FG-$SPOTIFY_PROTO_FG}"
 main_fg="${SPOTIFY_MAIN_FG-$main_fg_fallback}"
 accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
