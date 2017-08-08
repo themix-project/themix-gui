@@ -69,7 +69,7 @@ theme_model = [
     },
     {
         'key': 'WM_BORDER_FOCUS',
-        'fallback_key': 'MENU_BG',
+        'fallback_key': 'SEL_BG',
         'type': 'color',
         'display_name': _('Focused window border')
     },
