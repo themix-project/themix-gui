@@ -15,8 +15,8 @@ source=(
 	"git+https://github.com/actionless/oomox-gtk-theme.git#branch=master"
 )
 md5sums=(
-    "SKIP"
-    "SKIP"
+	"SKIP"
+	"SKIP"
 )
 depends=(
 	'coreutils'
@@ -56,6 +56,7 @@ prepare(){
 package() {
 	make -C oomox -f po.mk install
 	mkdir -p ${pkgdir}/opt/oomox
+	rm -fr ./gtk-theme/.*
 	mv ./oomox/* ${pkgdir}/opt/oomox
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 	mkdir -p ${pkgdir}/usr/bin/
