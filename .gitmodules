@@ -1,0 +1,3 @@
+[submodule "gtk-theme"]
+	path = gtk-theme
+	url = git@github.com:actionless/oomox-gtk-theme.git
