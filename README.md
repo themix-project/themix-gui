@@ -47,7 +47,7 @@ sudo apt install oomox
 
 If you don't want to add the PPA, you can download the deb from [here](http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/ "").
 
-For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#gui-1 "").
+For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
 
 ```
 sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
@@ -77,25 +77,28 @@ You need to have `python3-gobject` binding and those executables:
  - `gdk-pixbuf-pixdata`
  - `sassc>=3.4`
  - `gtk3>=3.18`
- 
+
 For GTK2 you need murrine engine which can be not installed by default.
 
-
-#### GUI
+#### Installation
 
 ```sh
 git clone https://github.com/actionless/oomox.git --recursive
 cd oomox
+# if you need to generate French locale:
+make -f po.mk install
+```
+
+#### GUI
+
+```sh
 ./gui.sh
 ```
 
 
 #### CLI:
 ```sh
-git clone https://github.com/actionless/oomox.git --recursive
-cd oomox
-ls colors
-./change_color.sh gnome_noble  # or other theme from above
+./gtk-theme/change_color.sh ./colors/gnome-colors/shiki-noble
 ```
 
 next select oomox-current in your appearance config tool (for example, _lxappearance_)
@@ -108,10 +111,7 @@ For icons you need to have `inkscape` and `imagemagick` installed.
 To generate `gnome-colors` iconset with the selected colorscheme:
 
 ```sh
-git clone https://github.com/actionless/oomox.git
-cd oomox
-ls colors
-./gnome_colors.sh gnome_noble  # or other theme from above
+./gnome_colors.sh ./colors/gnome-colors/shiki-noble
 ```
 
 next select oomox-current in your appearance config tool (for example, _lxappearance_)
@@ -119,10 +119,7 @@ next select oomox-current in your appearance config tool (for example, _lxappear
 
 #### Spotify:
 ```sh
-git clone https://github.com/actionless/oomox.git
-cd oomox
-ls colors
-./oomoxify.sh gnome_noble  # or other theme from above
+./oomoxify.sh ./colors/gnome-colors/shiki-noble
 ```
 
 Also you can normalize font weight with `-w` argument, see `-h` for usage.
