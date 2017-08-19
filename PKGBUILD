@@ -54,10 +54,37 @@ prepare(){
 }
 
 package() {
-	make -C oomox -f po.mk install
 	mkdir -p ${pkgdir}/opt/oomox
-	rm -fr ./gtk-theme/.*
-	mv ./oomox/* ${pkgdir}/opt/oomox
+	cd ./oomox
+	make -f po.mk install
+	cp -prf \
+		./CREDITS \
+		./LICENSE \
+		./README.md \
+		./archdroid-icon-theme/ \
+		./archdroid.sh \
+		./colors \
+		./gnome-colors \
+		./gnome_colors.sh \
+		./gui.sh \
+		./locale \
+		./oomox_gui \
+		./oomoxify.sh \
+		./po \
+		./scripts \
+			${pkgdir}/opt/oomox
+	mkdir ${pkgdir}/opt/oomox/gtk-theme
+	cd ./gtk-theme
+	cp -prf \
+		./CHANGES \
+		./CREDITS \
+		./LICENSE \
+		./Makefile \
+		./README.md \
+		./change_color.sh \
+		./scripts \
+		./src \
+			${pkgdir}/opt/oomox/gtk-theme
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 	mkdir -p ${pkgdir}/usr/bin/
 	mkdir -p ${pkgdir}/usr/share/applications/
