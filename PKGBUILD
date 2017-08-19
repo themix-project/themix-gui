@@ -12,8 +12,12 @@ url="https://github.com/actionless/oomox"
 license=('GPLv3')
 source=(
 	"git+https://github.com/actionless/oomox.git#branch=master"
+	"git+https://github.com/actionless/oomox-gtk-theme.git#branch=master"
 )
-md5sums=("SKIP")
+md5sums=(
+    "SKIP"
+    "SKIP"
+)
 depends=(
 	'coreutils'
 	'bash'
@@ -38,8 +42,15 @@ optdepends=(
 )
 
 pkgver() {
-  cd oomox
-  git describe | sed 's/^v//;s/-/+/g'
+	cd oomox
+	git describe | sed 's/^v//;s/-/+/g'
+}
+
+prepare(){
+	cd "${srcdir}/oomox"
+	git submodule init
+	git config submodule.mysubmodule.url $srcdir/oomox-gtk-theme
+	git submodule update
 }
 
 package() {
@@ -61,7 +72,7 @@ EOF
 
 	cat > ${pkgdir}/usr/bin/oomox-cli <<EOF
 #!/bin/sh
-cd /opt/oomox/
+cd /opt/oomox/gtk-theme/
 exec ./change_color.sh "\$@"
 EOF
 	chmod +x ${pkgdir}/usr/bin/oomox-cli

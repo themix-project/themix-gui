@@ -3,7 +3,7 @@ import os
 from threading import Thread
 from gi.repository import Gtk, GLib, Pango
 
-from .helpers import oomox_root_dir, CenterLabel
+from .helpers import oomox_root_dir, CenterLabel, gtk_theme_dir
 
 
 DEFAULT_SPOTIFY_PATH = "/usr/share/spotify/Apps"
@@ -120,7 +120,7 @@ def export_theme(window, theme_path):
         make_opts = "gtk3"
     return _export(window, theme_path, [
         "bash",
-        os.path.join(oomox_root_dir, "change_color.sh"),
+        os.path.join(gtk_theme_dir, "change_color.sh"),
         theme_path,
         "--make-opts", make_opts
     ])

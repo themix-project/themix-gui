@@ -84,7 +84,7 @@ For GTK2 you need murrine engine which can be not installed by default.
 #### GUI
 
 ```sh
-git clone https://github.com/actionless/oomox.git
+git clone https://github.com/actionless/oomox.git --recursive
 cd oomox
 ./gui.sh
 ```
@@ -92,7 +92,7 @@ cd oomox
 
 #### CLI:
 ```sh
-git clone https://github.com/actionless/oomox.git
+git clone https://github.com/actionless/oomox.git --recursive
 cd oomox
 ls colors
 ./change_color.sh gnome_noble  # or other theme from above
