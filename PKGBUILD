@@ -21,6 +21,8 @@ md5sums=(
 depends=(
 	'coreutils'
 	'bash'
+	'grep'
+	'sed'
 	'bc'
 	'zip'
 	'glib2'
