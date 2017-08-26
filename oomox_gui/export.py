@@ -3,7 +3,10 @@ import os
 from threading import Thread
 from gi.repository import Gtk, GLib, Pango
 
-from .helpers import oomox_root_dir, CenterLabel, gtk_theme_dir
+from .helpers import (
+    CenterLabel,
+    oomox_root_dir, gtk_theme_dir, flatplat_theme_dir
+)
 
 
 DEFAULT_SPOTIFY_PATH = "/usr/share/spotify/Apps"
@@ -123,6 +126,14 @@ def export_theme(window, theme_path):
         os.path.join(gtk_theme_dir, "change_color.sh"),
         theme_path,
         "--make-opts", make_opts
+    ])
+
+
+def export_flatplat_theme(window, theme_path):
+    return _export(window, theme_path, [
+        "bash",
+        os.path.join(flatplat_theme_dir, "change_color.sh"),
+        theme_path,
     ])
 
 

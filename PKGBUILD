@@ -11,10 +11,12 @@ arch=('x86_64' 'i686')
 url="https://github.com/actionless/oomox"
 license=('GPLv3')
 source=(
-	"git+https://github.com/actionless/oomox.git#branch=master"
+	"git+https://github.com/actionless/oomox.git#branch=flat-plat-theme"
 	"git+https://github.com/actionless/oomox-gtk-theme.git#branch=master"
+	"git+https://github.com/actionless/Flat-Plat.git#branch=oomox"
 )
 md5sums=(
+	"SKIP"
 	"SKIP"
 	"SKIP"
 )
@@ -32,6 +34,7 @@ depends=(
 	'gtk-engine-murrine'
 	'gtk-engines'
 	'polkit'
+	'parallel'
 )
 optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
@@ -51,7 +54,8 @@ pkgver() {
 prepare(){
 	cd "${srcdir}/oomox"
 	git submodule init
-	git config submodule.mysubmodule.url $srcdir/oomox-gtk-theme
+	git config submodule.gtk_theme.url $srcdir/oomox-gtk-theme
+	git config submodule.flatplat_theme.url $srcdir/Flat-Plat
 	git submodule update
 }
 

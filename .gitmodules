@@ -1,3 +1,6 @@
 [submodule "gtk-theme"]
 	path = gtk-theme
 	url = git@github.com:actionless/oomox-gtk-theme.git
+[submodule "flat-plat-theme"]
+	path = flat-plat-theme
+	url = git@github.com:actionless/Flat-Plat.git

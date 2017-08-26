@@ -12,6 +12,9 @@ class ThemePreview(Gtk.Grid):
     BG = 'bg'
     FG = 'fg'
 
+    current_theme = None
+    _need_size_update = False
+
     def override_color(self, widget, value, color, state=Gtk.StateType.NORMAL):
         if value == self.BG:
             return widget.override_background_color(state, color)
@@ -232,6 +235,7 @@ class ThemePreview(Gtk.Grid):
         )
 
     def update_preview(self, colorscheme):
+        self.override_css_style(colorscheme)
         self.update_preview_colors(colorscheme)
         self.update_preview_gradients(colorscheme)
         self.update_preview_roundness(colorscheme)
@@ -240,9 +244,7 @@ class ThemePreview(Gtk.Grid):
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
-
         self._init_widgets()
-        self._override_css_style()
 
     def load_icon_templates(self, prefix):
         for template_path, attr_name in (
@@ -301,6 +303,7 @@ class ThemePreview(Gtk.Grid):
         self.entry = Gtk.Entry(text=_("Text entry."))
 
         self.button = Gtk.Button(label=_("Click-click"))
+        self.button.connect("style-updated", self._queue_resize)
 
         self.icon_preview_listbox = Gtk.ListBox()
         self.icon_preview_listbox.set_selection_mode(Gtk.SelectionMode.NONE)
@@ -334,6 +337,7 @@ class ThemePreview(Gtk.Grid):
         self.bottom_margin2 = Gtk.Label()
         self.bg.attach_next_to(self.bottom_margin2, self.icon_preview_listbox,
                                Gtk.PositionType.BOTTOM, 1, 1)
+        self.show_all()
 
     def get_menu_widgets(self, shell):
         """ gets a menu shell (menu or menubar) and all its children """
@@ -346,16 +350,31 @@ class ThemePreview(Gtk.Grid):
                 children.extend(self.get_menu_widgets(submenu))
         return children
 
-    def _override_css_style(self):
+    def override_css_style(self, colorscheme):
         css_provider = Gtk.CssProvider()
+        new_theme_style = colorscheme["THEME_STYLE"]
+        if new_theme_style == self.current_theme:
+            return
+        else:
+            if self.current_theme:
+                for child in self.get_children():
+                    child.destroy()
+                    self.remove(child)
+                self._init_widgets()
+        self.current_theme = new_theme_style
+        css_postfix = '_flatplat' if self.current_theme == 'flatplat' else ''
         try:
             if Gtk.get_minor_version() >= 20:
                 css_provider.load_from_path(
-                    os.path.join(script_dir, "theme20.css")
+                    os.path.join(
+                        script_dir, "theme{}20.css".format(css_postfix)
+                    )
                 )
             else:
                 css_provider.load_from_path(
-                    os.path.join(script_dir, "theme.css")
+                    os.path.join(
+                        script_dir, "theme{}.css".format(css_postfix)
+                    )
                 )
         except GLib.Error as e:
             print(e)
@@ -374,3 +393,7 @@ class ThemePreview(Gtk.Grid):
                 css_provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
+
+    def _queue_resize(self, *args):
+        # print(args)
+        self.queue_resize()

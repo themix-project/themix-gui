@@ -6,6 +6,21 @@ def create_value_filter(key, value):
 
 theme_model = [
     {
+        'key': 'THEME_STYLE',
+        'type': 'options',
+        'options': [
+            {
+                'value': 'oomox',
+                'display_name': 'Numix-based'
+            }, {
+                'value': 'flatplat',
+                'display_name': 'Flat-Plat'
+            }
+        ],
+        'fallback_value': 'oomox',
+        'display_name': _('Theme style')
+    },
+    {
         'key': 'BG',
         'type': 'color',
         'display_name': _('Background')
@@ -23,7 +38,8 @@ theme_model = [
     {
         'key': 'MENU_FG',
         'type': 'color',
-        'display_name': _('Menu/toolbar text')
+        'display_name': _('Menu/toolbar text'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'SEL_BG',
@@ -33,7 +49,8 @@ theme_model = [
     {
         'key': 'SEL_FG',
         'type': 'color',
-        'display_name': _('Selection text')
+        'display_name': _('Selection text'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'TXT_BG',
@@ -53,90 +70,111 @@ theme_model = [
     {
         'key': 'BTN_FG',
         'type': 'color',
-        'display_name': _('Button text')
+        'display_name': _('Button text'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'HDR_BTN_BG',
         'fallback_key': 'BTN_BG',
         'type': 'color',
-        'display_name': _('Header button background')
+        'display_name': _('Header button background'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'HDR_BTN_FG',
         'fallback_key': 'BTN_FG',
         'type': 'color',
-        'display_name': _('Header button text')
+        'display_name': _('Header button text'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'WM_BORDER_FOCUS',
         'fallback_key': 'SEL_BG',
         'type': 'color',
-        'display_name': _('Focused window border')
+        'display_name': _('Focused window border'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'WM_BORDER_UNFOCUS',
         'fallback_key': 'MENU_BG',
         'type': 'color',
-        'display_name': _('Unfocused window border')
+        'display_name': _('Unfocused window border'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
 
     {
         'type': 'separator',
-        'display_name': _('Theme options')
+        'display_name': _('Theme options'),
     },
 
     {
         'key': 'ROUNDNESS',
         'type': 'int',
         'fallback_value': 2,
-        'display_name': _('Roundness')
+        'display_name': _('Roundness'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'SPACING',
         'type': 'int',
         'fallback_value': 3,
-        'display_name': _('(GTK3) Spacing')
+        'display_name': _('(GTK3) Spacing'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'GRADIENT',
         'type': 'float',
         'fallback_value': 0.0,
-        'display_name': _('(GTK3) Gradient')
+        'display_name': _('(GTK3) Gradient'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'GTK3_GENERATE_DARK',
         'type': 'bool',
         'fallback_value': True,
-        'display_name': _('(GTK3) Add dark variant')
+        'display_name': _('(GTK3) Add dark variant'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'GTK2_HIDPI',
         'type': 'bool',
         'fallback_value': False,
-        'display_name': _('(GTK2) HiDPI')
+        'display_name': _('(GTK2) HiDPI'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
+    },
+    {
+        'key': 'FLATPACK_STYLE_COMPACT',
+        'type': 'bool',
+        'fallback_value': True,
+        'display_name': _('Compact style'),
+        'filter': create_value_filter('THEME_STYLE', 'flatplat'),
     },
 
     {
         'type': 'separator',
-        'display_name': _('Text input caret')
+        'display_name': _('Text input caret'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'CARET1_FG',
         'type': 'color',
         'fallback_key': 'TXT_FG',
-        'display_name': _('Primary caret color')
+        'display_name': _('Primary caret color'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'CARET2_FG',
         'type': 'color',
         'fallback_key': 'TXT_FG',
-        'display_name': _('Secondary caret color')
+        'display_name': _('Secondary caret color'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'CARET_SIZE',
         'type': 'float',
         'fallback_value': 0.04,  # GTK's default
-        'display_name': _('Caret aspect ratio')
+        'display_name': _('Caret aspect ratio'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
 
     {
