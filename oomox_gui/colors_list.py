@@ -326,7 +326,7 @@ class ThemeColorsList(Gtk.Box):
                     )
                 elif theme_value['type'] == 'options':
                     callback = None
-                    if key == 'ICONS_STYLE':
+                    if key in ['ICONS_STYLE', 'THEME_STYLE']:
                         def _callback(key, value):
                             self.color_edited(key, value)
                             self.open_theme(self.theme)
