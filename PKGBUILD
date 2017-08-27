@@ -12,9 +12,9 @@ arch=('x86_64' 'i686')
 url="https://github.com/actionless/oomox"
 license=('GPLv3')
 source=(
-	"git+https://github.com/actionless/oomox.git#branch=flat-plat-theme"
+	"git+https://github.com/actionless/oomox.git#branch=master"
 	"git+https://github.com/actionless/oomox-gtk-theme.git#branch=master"
-	"git+https://github.com/actionless/Flat-Plat.git#branch=oomox"
+	"git+https://github.com/nana-4/Flat-Plat.git#branch=master"
 )
 md5sums=(
 	"SKIP"
