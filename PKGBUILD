@@ -39,8 +39,6 @@ depends=(
 	'optipng'
 	'inkscape'
 	'imagemagick'
-	'gnome-colors-common-icon-theme'
-	#'gnome-colors-icon-theme'  it's broken ATM
 )
 optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
