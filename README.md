@@ -50,7 +50,7 @@ If you don't want to add the PPA, you can download the deb from [here](http://pp
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
 
 ```
-sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine
+sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine bc sed zip inkscape imagemagick optipng parallel
 ```
 
 And install `sassc>=3.4`: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
@@ -77,6 +77,13 @@ You need to have `python3-gobject` binding and those executables:
  - `gdk-pixbuf-pixdata`
  - `sassc>=3.4`
  - `gtk3>=3.18`
+ - `bc`
+ - `sed`
+ - `zip` - optional, for spotify theme
+ - `inkscape` - optional, for gnome-colors icons and Flat-Plat theme
+ - `imagemagick` - optional, for gnome-colors icons
+ - `optipng` - optional, for Flat-Plat theme
+ - `parallel` - optional, for Flat-Plat theme
 
 For GTK2 you need murrine engine which can be not installed by default.
 
