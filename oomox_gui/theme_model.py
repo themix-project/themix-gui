@@ -133,7 +133,6 @@ theme_model = [
         'type': 'bool',
         'fallback_value': True,
         'display_name': _('(GTK3) Add dark variant'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'GTK2_HIDPI',
