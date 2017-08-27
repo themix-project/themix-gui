@@ -53,6 +53,13 @@ theme_model = [
         'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
+        'key': 'ACCENT_BG',
+        'fallback_key': 'SEL_BG',
+        'type': 'color',
+        'display_name': _('Accent color (checkboxes, radios)'),
+        'filter': create_value_filter('THEME_STYLE', 'flatplat'),
+    },
+    {
         'key': 'TXT_BG',
         'type': 'color',
         'display_name': _('Textbox background')
