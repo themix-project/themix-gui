@@ -1,8 +1,7 @@
 oomox
 =====
 
-Graphical application for generating different color variations of Numix theme (GTK2, GTK3),
-Gnome-Colors and Archdroid icon themes.
+Graphical application for generating different color variations of a Numix-based and Flat-Plat themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
   * [Arch Linux](#arch-linux "")
   * [Ubuntu](#ubuntu "")
