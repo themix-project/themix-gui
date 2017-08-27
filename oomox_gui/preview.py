@@ -60,7 +60,7 @@ class ThemePreview(Gtk.Grid):
         ):
             css_provider_gradient = Gtk.CssProvider()
             css_provider_gradient.load_from_data((
-                gradient > 0 and """
+                 """
                 * {{
                     background-image: linear-gradient(to bottom,
                         shade(#{color}, {amount1}),
@@ -71,7 +71,7 @@ class ThemePreview(Gtk.Grid):
                     color=color,
                     amount1=1 - gradient / 2,
                     amount2=1 + gradient * 2
-                ) or """
+                    ) if (gradient > 0) else """
                 * {
                     background-image: none;
                 }
@@ -83,7 +83,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def update_preview_roundness(self, colorscheme):
+    def update_preview_borders(self, colorscheme):
         for widget, fg, bg, ratio in (
             (
                 self.button,
@@ -106,34 +106,21 @@ class ThemePreview(Gtk.Grid):
         ):
             border_color = mix_theme_colors(fg, bg, ratio)
             css_provider_border_color = Gtk.CssProvider()
-            css_provider_border_color.load_from_data("""
-                * {{
-                    border-color: #{border_color};
-                    border-radius: {roundness}px;
-                }}
-            """.format(
-                border_color=border_color,
-                roundness=colorscheme['ROUNDNESS']
-            ).encode('ascii'))
+            css_provider_border_color.load_from_data(''.join([
+                "* {",
+                "border-color: #{border_color};" .format(
+                    border_color=border_color,
+                ),
+                "border-radius: {roundness}px;" .format(
+                    roundness=colorscheme["ROUNDNESS"],
+                ) if self.current_theme == "oomox" else '',
+                "}"
+            ]).encode('ascii'))
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_border_color,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
-
-        css_provider_border = Gtk.CssProvider()
-        css_provider_border.load_from_data((
-            """
-            headerbar {
-                border: none;
-            }
-            """
-        ).encode('ascii'))
-        Gtk.StyleContext.add_provider(
-            self.headerbar.get_style_context(),
-            css_provider_border,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
 
     def update_preview_icons(self, colorscheme):
         self.load_icon_templates(colorscheme['ICONS_STYLE'])
@@ -213,34 +200,37 @@ class ThemePreview(Gtk.Grid):
                             converted["HDR_BTN_FG"])
         self.override_color(self.headerbar_button, self.BG,
                             converted["HDR_BTN_BG"])
+
         self.override_color(self.icon_preview_listbox, self.BG,
                             converted["TXT_BG"])
 
-        css_provider_wm_border_color = Gtk.CssProvider()
-        css_provider_wm_border_color.load_from_data("""
-            * {{
-                border-color: #{border_color};
-                /*border-radius: {roundness}px;*/
-                border-width: 2px;
-                border-style: solid;
-            }}
-        """.format(
-            border_color=colorscheme['WM_BORDER_FOCUS'],
-            roundness=colorscheme['ROUNDNESS']
-        ).encode('ascii'))
-        Gtk.StyleContext.add_provider(
-            self.bg.get_style_context(),
-            css_provider_wm_border_color,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
+        if self.current_theme == "oomox":
+            css_provider_wm_border_color = Gtk.CssProvider()
+            css_provider_wm_border_color.load_from_data("""
+                * {{
+                    border-color: #{border_color};
+                    /*border-radius: {roundness}px;*/
+                    border-width: 2px;
+                    border-style: solid;
+                }}
+            """.format(
+                border_color=colorscheme['WM_BORDER_FOCUS'],
+                roundness=colorscheme['ROUNDNESS']
+            ).encode('ascii'))
+            Gtk.StyleContext.add_provider(
+                self.bg.get_style_context(),
+                css_provider_wm_border_color,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
 
     def update_preview(self, colorscheme):
         self.override_css_style(colorscheme)
         self.update_preview_colors(colorscheme)
-        self.update_preview_gradients(colorscheme)
-        self.update_preview_roundness(colorscheme)
+        self.update_preview_borders(colorscheme)
+        if self.current_theme == "oomox":
+            self.update_preview_gradients(colorscheme)
+            self.update_preview_carets(colorscheme)
         self.update_preview_icons(colorscheme)
-        self.update_preview_carets(colorscheme)
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
@@ -337,7 +327,6 @@ class ThemePreview(Gtk.Grid):
         self.bottom_margin2 = Gtk.Label()
         self.bg.attach_next_to(self.bottom_margin2, self.icon_preview_listbox,
                                Gtk.PositionType.BOTTOM, 1, 1)
-        self.show_all()
 
     def get_menu_widgets(self, shell):
         """ gets a menu shell (menu or menubar) and all its children """
@@ -355,12 +344,11 @@ class ThemePreview(Gtk.Grid):
         new_theme_style = colorscheme["THEME_STYLE"]
         if new_theme_style == self.current_theme:
             return
-        else:
-            if self.current_theme:
-                for child in self.get_children():
-                    child.destroy()
-                    self.remove(child)
-                self._init_widgets()
+        if self.current_theme:
+            for child in self.get_children():
+                child.destroy()
+                self.remove(child)
+            self._init_widgets()
         self.current_theme = new_theme_style
         css_postfix = '_flatplat' if self.current_theme == 'flatplat' else ''
         try:
@@ -393,6 +381,20 @@ class ThemePreview(Gtk.Grid):
                 css_provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
+        css_provider_border = Gtk.CssProvider()
+        css_provider_border.load_from_data((
+            """
+            headerbar {
+                border: none;
+            }
+            """
+        ).encode('ascii'))
+        Gtk.StyleContext.add_provider(
+            self.headerbar.get_style_context(),
+            css_provider_border,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+        self.show_all()
 
     def _queue_resize(self, *args):
         # print(args)
