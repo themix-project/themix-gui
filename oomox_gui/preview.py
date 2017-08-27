@@ -151,10 +151,11 @@ class ThemePreview(Gtk.Grid):
             target_imagebox.set_from_pixbuf(pixbuf)
 
     def update_preview_colors(self, colorscheme):
+
         def mix(a, b, amount):
-            return convert_theme_color_to_gdk(mix_theme_colors(colorscheme[b],
-                                                               colorscheme[a],
-                                                               amount))
+            return convert_theme_color_to_gdk(
+                mix_theme_colors(colorscheme[b], colorscheme[a], amount)
+            )
 
         converted = {
             theme_value['key']: convert_theme_color_to_gdk(
@@ -162,6 +163,15 @@ class ThemePreview(Gtk.Grid):
             )
             for theme_value in theme_model if theme_value['type'] == 'color'
         }
+        if self.current_theme == "flatplat":
+            converted["SEL_FG"] = converted["TXT_BG"]
+            converted["MENU_FG"] = converted["TXT_BG"]
+            converted["BTN_FG"] = converted["FG"]
+            converted["HDR_BTN_FG"] = converted["TXT_BG"]
+            converted["HDR_BTN_BG"] = converted["MENU_BG"]
+            converted["WM_BORDER_FOCUS"] = converted["MENU_BG"]
+            converted["WM_BORDER_UNFOCUS"] = converted["BTN_BG"]
+
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
         self.override_color(self.sel_label, self.FG, converted["SEL_FG"])
