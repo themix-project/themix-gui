@@ -36,15 +36,16 @@ depends=(
 	'gtk-engines'
 	'polkit'
 	'parallel'
+	'optipng'
+	'inkscape'
+	'imagemagick'
+	'gnome-colors-common-icon-theme'
+	#'gnome-colors-icon-theme'  it's broken ATM
 )
 optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
-	'imagemagick: for icon theme generation'
-	'inkscape: for icon theme generation'
-	'gnome-colors-common-icon-theme: for using the generated icon theme'
 	'breeze-icons: more fallback icons'
 	'gksu: for applying Spotify theme from GUI without polkit'
-	#'gnome-colors-icon-theme: for using the generated icon theme'  it's broken ATM
 )
 
 pkgver() {
@@ -64,6 +65,7 @@ package() {
 	mkdir -p ${pkgdir}/opt/oomox
 	cd ./oomox
 	make -f po.mk install
+
 	cp -prf \
 		./CREDITS \
 		./LICENSE \
@@ -80,6 +82,7 @@ package() {
 		./po \
 		./scripts \
 			${pkgdir}/opt/oomox
+
 	mkdir ${pkgdir}/opt/oomox/gtk-theme
 	cd ./gtk-theme
 	cp -prf \
@@ -92,6 +95,22 @@ package() {
 		./scripts \
 		./src \
 			${pkgdir}/opt/oomox/gtk-theme
+	cd ..
+
+	mkdir ${pkgdir}/opt/oomox/flat-plat-theme
+	cd ./flat-plat-theme
+	cp -prf \
+		./COPYING \
+		./HACKING.md \
+		./README.md \
+		./change_color.sh \
+		./install.sh \
+		./parse-sass.sh \
+		./scripts \
+		./src \
+			${pkgdir}/opt/oomox/flat-plat-theme
+	cd ..
+
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 	mkdir -p ${pkgdir}/usr/bin/
 	mkdir -p ${pkgdir}/usr/share/applications/
