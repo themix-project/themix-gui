@@ -3,7 +3,7 @@
 
 pkgname=oomox-git
 pkgver=1.3.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Graphical application for generating different color variations
 of Numix and Flat-Plat themes (GTK2, GTK3),
 gnome-colors and ArchDroid icon themes.
@@ -40,6 +40,9 @@ depends=(
 	'inkscape'
 	'imagemagick'
 )
+makedepends=(
+	'git'
+)
 optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
 	'breeze-icons: more fallback icons'
@@ -54,8 +57,8 @@ pkgver() {
 prepare(){
 	cd "${srcdir}/oomox"
 	git submodule init
-	git config submodule.gtk_theme.url $srcdir/oomox-gtk-theme
-	git config submodule.flatplat_theme.url $srcdir/Flat-Plat
+	git config submodule.gtk-theme.url $srcdir/oomox-gtk-theme
+	git config submodule.flat-plat-theme.url $srcdir/Flat-Plat
 	git submodule update
 }
 
