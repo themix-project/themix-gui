@@ -3,7 +3,7 @@
 
 pkgname=oomox-git
 pkgver=1.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Graphical application for generating different color variations
 of Numix and Flat-Plat themes (GTK2, GTK3),
 gnome-colors and ArchDroid icon themes.
