@@ -146,7 +146,6 @@ theme_model = [
         'type': 'bool',
         'fallback_value': False,
         'display_name': _('(GTK2) HiDPI'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'FLATPACK_STYLE_COMPACT',
