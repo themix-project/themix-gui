@@ -85,8 +85,8 @@ class BoolListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(label, True, True, 0)
 
         switch = Gtk.Switch()
-        switch.connect("notify::active", self.on_switch_activated)
         switch.set_active(value)
+        switch.connect("notify::active", self.on_switch_activated)
         hbox.pack_start(switch, False, True, 0)
 
 
