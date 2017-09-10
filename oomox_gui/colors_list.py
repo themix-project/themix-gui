@@ -227,7 +227,6 @@ class ColorListBoxRow(Gtk.ListBoxRow):
     def on_color_set(self, gtk_value):
         self.value = convert_gdk_to_theme_color(gtk_value)
         self.color_entry.set_text(self.value)
-        self.color_set_callback(self.key, self.value)
 
     def __init__(self, display_name, key, value, color_set_callback, parent):
         self.parent_window = parent
