@@ -3,7 +3,7 @@ from gi.repository import Gtk
 from .theme_model import theme_model
 from .helpers import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
-    load_palette, save_palette
+    load_palette, save_palette, FALLBACK_COLOR
 )
 
 
@@ -204,7 +204,7 @@ class OomoxColorButton(Gtk.Button):
 
     def __init__(self, value, parent_window, callback):
         self.parent_window = parent_window
-        self.gtk_color = convert_theme_color_to_gdk(value)
+        self.gtk_color = convert_theme_color_to_gdk(value or FALLBACK_COLOR)
         self.callback = callback
         Gtk.Button.__init__(self)
         self.color_button = Gtk.ColorButton.new_with_rgba(
@@ -221,7 +221,10 @@ class ColorListBoxRow(Gtk.ListBoxRow):
 
     def on_color_input(self, widget):
         self.value = widget.get_text()
-        self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
+        if self.value == '':
+            self.value = None
+        if self.value:
+            self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
         self.color_set_callback(self.key, self.value)
 
     def on_color_set(self, gtk_value):
@@ -241,7 +244,9 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        self.color_entry = Gtk.Entry(text=value, width_chars=8, max_length=6)
+        self.color_entry = Gtk.Entry(
+            text=value or _('<none>'), width_chars=8, max_length=6
+        )
         self.color_entry.connect("changed", self.on_color_input)
 
         self.color_button = OomoxColorButton(
@@ -308,7 +313,7 @@ class ThemeColorsList(Gtk.Box):
                 row = None
                 if theme_value['type'] == 'color':
                     row = ColorListBoxRow(
-                        display_name, key, self.theme[key], self.color_edited,
+                        display_name, key, self.theme.get(key), self.color_edited,
                         parent=self.parent
                     )
                 elif theme_value['type'] == 'bool':
