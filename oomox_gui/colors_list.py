@@ -113,7 +113,7 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
         options_store = Gtk.ListStore(str)
         selected_value_id = 0
         for option_id, option in enumerate(self.options):
-            options_store.append([option['display_name']])
+            options_store.append([option.get('display_name', option['value'])])
             if value == option['value']:
                 selected_value_id = option_id
         dropdown = Gtk.ComboBox.new_with_model(options_store)
