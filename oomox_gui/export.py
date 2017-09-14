@@ -39,9 +39,14 @@ class ExportDialog(Gtk.Dialog):
     def _adj_changed(self, adj):
         adj.set_value(adj.get_upper() - adj.get_page_size())
 
-    def __init__(self, parent, headline=_("Exporting...")):
+    def __init__(
+        self, parent,
+        headline=_("Exporting..."),
+        width=150,
+        height=80
+    ):
         Gtk.Dialog.__init__(self, headline, parent, 0)
-        self.set_default_size(150, 80)
+        self.set_default_size(width, height)
 
         self.label = CenterLabel(
             _("Please wait while\nnew colorscheme will be created")
