@@ -6,31 +6,11 @@ from collections import defaultdict
 from itertools import groupby
 from gi.repository import Gdk, Gtk, Gio
 
+from .config import user_palette_path, colors_dir, user_theme_dir
 from .theme_model import theme_model
 
 
-script_dir = os.path.dirname(os.path.realpath(__file__))
-oomox_root_dir = os.path.join(script_dir, "../")
-gtk_theme_dir = os.path.join(oomox_root_dir, "gtk-theme/")
-flatplat_theme_dir = os.path.join(oomox_root_dir, "flat-plat-theme/")
-user_config_dir = os.path.join(
-    os.environ.get(
-        "XDG_CONFIG_HOME",
-        os.path.join(os.environ.get("HOME"), ".config/")
-    ),
-    "oomox/"
-)
-user_theme_dir = os.path.join(user_config_dir, "colors/")
-colors_dir = os.path.join(oomox_root_dir, "colors/")
-user_palette_path = os.path.join(user_config_dir, "recent_palette.json")
-
-FALLBACK_COLOR = "333333"
-
-
-def create_value_filter(key, value):
-    def value_filter(colorscheme):
-        return colorscheme[key] == value
-    return value_filter
+FALLBACK_COLOR = "F33333"
 
 
 def mkdir_p(dir):
@@ -211,7 +191,7 @@ def read_colorscheme_from_path(preset_path):
             else:
                 value = colorscheme[key] = colorscheme[fallback_key]
 
-        if value is None:
+        if value is None and fallback_value is False:
             colorscheme[key] = FALLBACK_COLOR
         # migration workaround #2: resolve color links
         elif isinstance(value, str) and value.startswith("$"):

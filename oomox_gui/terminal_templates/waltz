@@ -1,0 +1,34 @@
+*background: #1f1f1f
+URxvt*background: [95]#1f1f1f
+
+*foreground:        #bebebe
+*cursorColor:       #bebebe
+*colorUL:           #7e62b3
+*underlineColor:    #7e62b3
+!black
+*color0:	#050505
+!*color0:	#000000
+*color8:	#6d6d6d
+!red
+*color1:	#8c4665
+*color9:	#bf4d80
+!green
+*color2:	#287373
+*color10:	#53a6a6
+!yellow
+*color3:	#dac663
+*color11:	#e7d47b
+!blue
+*color4:	#395573
+*color12:	#477ab3
+!purple
+*color5:	#5e468c
+*color13:	#7e62b3
+!cyan
+*color6:	#31658c
+*color14:	#6096bf
+!white
+*color7:	#c3c7bf
+*color15:	#e3e7df
+
+! vim:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:

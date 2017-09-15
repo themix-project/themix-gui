@@ -3,10 +3,9 @@ import os
 from threading import Thread
 from gi.repository import Gtk, GLib, Pango
 
-from .helpers import (
-    CenterLabel,
-    oomox_root_dir, gtk_theme_dir, flatplat_theme_dir
-)
+from .terminal import generate_theme_from_oomox, generate_xresources
+from .helpers import CenterLabel
+from .config import oomox_root_dir, gtk_theme_dir, flatplat_theme_dir
 
 
 DEFAULT_SPOTIFY_PATH = "/usr/share/spotify/Apps"
@@ -301,3 +300,21 @@ class SpotifyExportDialog(ExportDialog):
 
 def export_spotify(window, theme_path):
     return SpotifyExportDialog(window, theme_path)
+
+
+def export_terminal_theme(window, colorscheme):
+    dialog = ExportDialog(
+        window,
+        headline=_("Terminal colorscheme"),
+        height=440
+    )
+    dialog.spinner.destroy()
+    dialog.label.set_text(_('Paste this colorscheme to your ~/.Xresources'))
+    try:
+        term_colorscheme = generate_theme_from_oomox(colorscheme)
+        xresources_theme = generate_xresources(term_colorscheme)
+    except Exception as e:
+        dialog.set_text(e)
+        dialog.show_error()
+    else:
+        dialog.set_text(xresources_theme)

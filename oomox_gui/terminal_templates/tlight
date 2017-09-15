@@ -1,0 +1,48 @@
+*background: #f8f8f8
+*foreground: #0e0e0e
+*cursorColor: #181512
+
+!black
+*color0:     #373737
+*color8:     #474747
+
+!red
+*color1:     #CC4141
+*color9:     #BA2929
+
+!green
+!*color2:     #43803D
+!*color10:    #2F632A
+!*color2:     #3d8176
+!*color10:    #2d6353
+*color2:     #4d9186
+*color10:    #3d7363
+
+!yellow
+!*color3:     #DBAB3B
+!*color11:    #C79520
+*color3:     #E39036
+*color11:    #C97820
+
+!blue
+*color4:     #7882BF
+*color12:    #596196
+
+!magenta
+*color5:     #BF849C
+*color13:    #B06A86
+
+!cyan
+*color6:     #6AA9B0
+!*color14:    #4D8B91
+*color14:    #5D8Bc1
+
+!white (pink)
+!*color7:     #E39036
+!*color15:    #C97820
+!white
+*color7:	#888888
+*color15:	#ffffff
+!
+
+! vim:ft=xdefaults:

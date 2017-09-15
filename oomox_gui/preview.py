@@ -2,9 +2,94 @@ import os
 from gi.repository import Gtk, GLib, GdkPixbuf, Gio
 
 from .theme_model import theme_model
+from .terminal import generate_theme_from_oomox
 from .helpers import (
-    convert_theme_color_to_gdk, mix_theme_colors, script_dir
+    convert_theme_color_to_gdk, mix_theme_colors, FALLBACK_COLOR
 )
+from .config import script_dir
+
+
+WIDGET_SPACING = 10
+
+
+class TerminalThemePreview(Gtk.Grid):
+
+    LEFT_MARGIN = 18
+
+    COLOR_ROWS = (
+        (_("black"), 0, 8),
+        (_("red"), 1, 9),
+        (_("green"), 2, 10),
+        (_("yellow"), 3, 11),
+        (_("blue"), 4, 12),
+        (_("purple"), 5, 13),
+        (_("cyan"), 6, 14),
+        (_("white"), 7, 15),
+    )
+    terminal_widgets = None
+
+    def __init__(self):
+        super().__init__(row_spacing=6, column_spacing=6)
+        self.set_margin_left(WIDGET_SPACING)
+        self.set_margin_right(WIDGET_SPACING)
+
+        self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
+        self.bg.set_margin_top(WIDGET_SPACING/2)
+        self.bg.set_margin_bottom(WIDGET_SPACING)
+
+        self.terminal_widgets = {}
+        tw = self.terminal_widgets
+
+        tw["normal"] = Gtk.Label()
+        tw["normal"].set_markup("<tt>{}</tt>".format(_("terminal colors:")))
+        self.bg.attach(tw["normal"], 1, 1, 2, 1)
+        previous_row = tw["normal"]
+        previous_row.set_margin_left(self.LEFT_MARGIN)
+        for color_row in self.COLOR_ROWS:
+            color_name, normal_id, highlight_id = color_row
+            key1 = "color{}".format(normal_id)
+            key2 = "color{}".format(highlight_id)
+            tw[key1] = Gtk.Label()
+            tw[key2] = Gtk.Label()
+            tw[key1].set_markup("<tt>{}</tt>".format(color_name))
+            tw[key2].set_markup("<tt>{}</tt>".format(color_name))
+            self.bg.attach_next_to(
+                tw[key1], previous_row,
+                Gtk.PositionType.BOTTOM, 1, 1
+            )
+            self.bg.attach_next_to(
+                tw[key2], tw[key1],
+                Gtk.PositionType.RIGHT, 1, 1
+            )
+            previous_row = tw[key1]
+            previous_row.set_margin_left(self.LEFT_MARGIN)
+        self.attach(self.bg, 1, 1, 1, 1)
+
+    def update_preview(self, colorscheme):
+        term_colorscheme = generate_theme_from_oomox(colorscheme)
+        # print(term_colorscheme)
+        converted = {
+            key: convert_theme_color_to_gdk(theme_value)
+            for key, theme_value in term_colorscheme.items()
+        }
+        term_bg = converted["background"]
+        self.terminal_widgets["normal"].override_color(
+            Gtk.StateType.NORMAL, converted["foreground"]
+        )
+        self.override_background_color(Gtk.StateType.NORMAL, term_bg)
+        for color_row in self.COLOR_ROWS:
+            color_name, normal_id, highlight_id = color_row
+            key1 = "color{}".format(normal_id)
+            key2 = "color{}".format(highlight_id)
+            self.terminal_widgets[key1].override_color(
+                Gtk.StateType.NORMAL, converted[key1]
+            )
+            self.terminal_widgets[key2].override_color(
+                Gtk.StateType.NORMAL, term_bg
+            )
+            self.terminal_widgets[key2].override_background_color(
+                Gtk.StateType.NORMAL, converted[key2]
+            )
 
 
 class ThemePreview(Gtk.Grid):
@@ -14,6 +99,8 @@ class ThemePreview(Gtk.Grid):
 
     current_theme = None
     _need_size_update = False
+
+    terminal_preview = None
 
     def override_color(self, widget, value, color, state=Gtk.StateType.NORMAL):
         if value == self.BG:
@@ -159,9 +246,12 @@ class ThemePreview(Gtk.Grid):
 
         converted = {
             theme_value['key']: convert_theme_color_to_gdk(
-                colorscheme[theme_value['key']]
+                colorscheme[theme_value['key']] or FALLBACK_COLOR
             )
-            for theme_value in theme_model if theme_value['type'] == 'color'
+            for theme_value in theme_model if (
+                theme_value['type'] == 'color' and
+                not theme_value['key'].startswith('TERMINAL_')
+            )
         }
         if self.current_theme == "flatplat":
             converted["SEL_FG"] = converted["TXT_BG"]
@@ -241,6 +331,7 @@ class ThemePreview(Gtk.Grid):
             self.update_preview_gradients(colorscheme)
             self.update_preview_carets(colorscheme)
         self.update_preview_icons(colorscheme)
+        self.terminal_preview.update_preview(colorscheme)
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
@@ -274,10 +365,33 @@ class ThemePreview(Gtk.Grid):
 
     def _init_widgets(self):
         preview_label = Gtk.Label(_("Preview:"))
-        self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
         self.attach(preview_label, 1, 1, 3, 1)
+        self.bg = Gtk.Grid(row_spacing=WIDGET_SPACING, column_spacing=6)
         self.attach_next_to(self.bg, preview_label,
                             Gtk.PositionType.BOTTOM, 1, 1)
+
+        self._init_widgets_gtk()
+        self.gtk_preview.set_margin_bottom(WIDGET_SPACING)
+        self.bg.attach(self.gtk_preview, 1, 3, 1, 1)
+
+        self._init_widgets_icons()
+        self.bg.attach_next_to(
+            self.icon_preview_listbox, self.gtk_preview,
+            Gtk.PositionType.BOTTOM, 1, 1
+        )
+
+        if self.terminal_preview:
+            self.terminal_preview.destroy()
+        self.terminal_preview = TerminalThemePreview()
+        self.terminal_preview.set_margin_bottom(WIDGET_SPACING)
+        self.bg.attach_next_to(
+            self.terminal_preview, self.icon_preview_listbox,
+            Gtk.PositionType.BOTTOM, 1, 1
+        )
+        self.bg.set_margin_bottom(WIDGET_SPACING)
+
+    def _init_widgets_gtk(self):
+        self.gtk_preview = Gtk.Grid(row_spacing=6, column_spacing=6)
 
         self.headerbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
@@ -305,7 +419,19 @@ class ThemePreview(Gtk.Grid):
         self.button = Gtk.Button(label=_("Click-click"))
         self.button.connect("style-updated", self._queue_resize)
 
+        self.gtk_preview.attach(self.headerbox, 1, 1, 5, 2)
+        self.gtk_preview.attach(self.label, 3, 3, 1, 1)
+        self.gtk_preview.attach_next_to(self.sel_label, self.label,
+                                        Gtk.PositionType.BOTTOM, 1, 1)
+        self.gtk_preview.attach_next_to(self.entry, self.sel_label,
+                                        Gtk.PositionType.BOTTOM, 1, 1)
+        self.gtk_preview.attach_next_to(self.button, self.entry,
+                                        Gtk.PositionType.BOTTOM, 1, 1)
+
+    def _init_widgets_icons(self):
         self.icon_preview_listbox = Gtk.ListBox()
+        self.icon_preview_listbox.set_margin_left(WIDGET_SPACING)
+        self.icon_preview_listbox.set_margin_right(WIDGET_SPACING)
         self.icon_preview_listbox.set_selection_mode(Gtk.SelectionMode.NONE)
         row = Gtk.ListBoxRow()
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -319,24 +445,6 @@ class ThemePreview(Gtk.Grid):
             hbox.pack_start(getattr(self, attr_name), True, True, 0)
         self.icon_preview_listbox.add(row)
         self.icon_preview_listbox.show_all()
-
-        self.bg.attach(self.headerbox, 1, 1, 5, 2)
-        self.bg.attach(self.label, 3, 3, 1, 1)
-        self.bg.attach_next_to(self.sel_label, self.label,
-                               Gtk.PositionType.BOTTOM, 1, 1)
-        self.bg.attach_next_to(self.entry, self.sel_label,
-                               Gtk.PositionType.BOTTOM, 1, 1)
-        self.bg.attach_next_to(self.button, self.entry,
-                               Gtk.PositionType.BOTTOM, 1, 1)
-        # hack to have margin inside children box instead of the parent one:
-        self.bottom_margin = Gtk.Label()
-        self.bg.attach_next_to(self.bottom_margin, self.button,
-                               Gtk.PositionType.BOTTOM, 1, 1)
-        self.bg.attach_next_to(self.icon_preview_listbox, self.bottom_margin,
-                               Gtk.PositionType.BOTTOM, 1, 1)
-        self.bottom_margin2 = Gtk.Label()
-        self.bg.attach_next_to(self.bottom_margin2, self.icon_preview_listbox,
-                               Gtk.PositionType.BOTTOM, 1, 1)
 
     def get_menu_widgets(self, shell):
         """ gets a menu shell (menu or menubar) and all its children """
@@ -356,8 +464,8 @@ class ThemePreview(Gtk.Grid):
             return
         if self.current_theme:
             for child in self.get_children():
-                child.destroy()
                 self.remove(child)
+                child.destroy()
             self._init_widgets()
         self.current_theme = new_theme_style
         css_postfix = '_flatplat' if self.current_theme == 'flatplat' else ''

@@ -4,10 +4,10 @@ import gi
 gi.require_version('Gtk', '3.0')  # noqa
 from gi.repository import Gtk, GObject, Gio
 
+from .config import user_theme_dir
 from .helpers import (
-    user_theme_dir, is_user_colorscheme, is_colorscheme_exists,
-    get_user_theme_path,
-    mkdir_p,
+    is_user_colorscheme, is_colorscheme_exists,
+    get_user_theme_path, mkdir_p,
     read_colorscheme_from_path, save_colorscheme, remove_colorscheme,
     ImageButton, ImageMenuButton, CenterLabel
 )
@@ -133,6 +133,7 @@ class win(metaclass=ActionsEnum):
     export_icons = "export-icons"
     export_spotify = "export-spotify"
     export_theme = "export-theme"
+    export_terminal = "export-terminal"
     menu = "menu"
     remove = "remove"
     rename = "rename"
@@ -250,6 +251,10 @@ class AppWindow(Gtk.ApplicationWindow):
                 window=self, theme_path=self.colorscheme_path
             )
 
+    def on_export_terminal(self, action, arg=None):
+        from .export import export_terminal_theme
+        export_terminal_theme(window=self, colorscheme=self.colorscheme)
+
     def on_export_spotify(self, action, arg):
         self.check_unsaved_changes()
         export_spotify(window=self, theme_path=self.colorscheme_path)
@@ -341,6 +346,14 @@ class AppWindow(Gtk.ApplicationWindow):
                                            property_name="active"))
         self.headerbar.pack_end(menu_button)
 
+        export_terminal_button = Gtk.Button(
+            label=_("Export _terminal"),
+            use_underline=True,
+            tooltip_text=_("Export terminal theme")
+        )
+        self.attach_action(export_terminal_button, win.export_terminal)
+        self.headerbar.pack_end(export_terminal_button)
+
         export_icons_button = Gtk.Button(label=_("Export _icons"),
                                          use_underline=True,
                                          tooltip_text=_("Export icon theme"))
@@ -379,6 +392,7 @@ class AppWindow(Gtk.ApplicationWindow):
         self.remove_action = add_simple_action(win.remove, self.on_remove)
         add_simple_action(win.export_theme, self.on_export)
         add_simple_action(win.export_icons, self.on_export_icontheme)
+        add_simple_action(win.export_terminal, self.on_export_terminal)
         add_simple_action(win.export_spotify, self.on_export_spotify)
 
     def reload_presets(self, focus_on_path=None):

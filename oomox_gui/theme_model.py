@@ -1,6 +1,13 @@
-def create_value_filter(key, value):
+import os
+
+from .config import terminal_template_dir
+
+
+def create_value_filter(key, *values):
     def value_filter(colorscheme):
-        return colorscheme[key] == value
+        for value in values:
+            if colorscheme[key] == value:
+                return True
     return value_filter
 
 
@@ -157,33 +164,6 @@ theme_model = [
 
     {
         'type': 'separator',
-        'display_name': _('Text input caret'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
-    },
-    {
-        'key': 'CARET1_FG',
-        'type': 'color',
-        'fallback_key': 'TXT_FG',
-        'display_name': _('Primary caret color'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
-    },
-    {
-        'key': 'CARET2_FG',
-        'type': 'color',
-        'fallback_key': 'TXT_FG',
-        'display_name': _('Secondary caret color'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
-    },
-    {
-        'key': 'CARET_SIZE',
-        'type': 'float',
-        'fallback_value': 0.04,  # GTK's default
-        'display_name': _('Caret aspect ratio'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
-    },
-
-    {
-        'type': 'separator',
         'display_name': _('Iconset')
     },
 
@@ -236,6 +216,194 @@ theme_model = [
         'fallback_key': 'MENU_BG',
         'display_name': _('Dark stroke'),
         'filter': create_value_filter('ICONS_STYLE', 'gnome_colors')
+    },
+
+    {
+        'type': 'separator',
+        'display_name': _('Terminal')
+    },
+    {
+        'key': 'TERMINAL_THEME_MODE',
+        'type': 'options',
+        'options': [
+            {'value': 'auto', 'display_name': _('Auto')},
+            {'value': 'basic', 'display_name': _('Basic')},
+            {'value': 'manual', 'display_name': _('Manual')},
+        ],
+        'fallback_value': 'auto',
+        'display_name': _('Theme options')
+    },
+    {
+        'key': 'TERMINAL_BASE_TEMPLATE',
+        'type': 'options',
+        'options': [
+            {'value': template_name}
+            for template_name in sorted(os.listdir(terminal_template_dir))
+        ],
+        'fallback_value': 'monovedek_old',
+        'display_name': _('Theme style'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'auto', 'basic')
+    },
+    {
+        'key': 'TERMINAL_THEME_AUTO_BGFG',
+        'type': 'bool',
+        'fallback_value': True,
+        'display_name': _('Auto-swap BG/FG'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'auto', 'basic')
+    },
+    {
+        'key': 'TERMINAL_BACKGROUND',
+        'type': 'color',
+        'fallback_key': 'TXT_BG',
+        # 'fallback_key': 'MENU_BG',
+        'display_name': _('Terminal background'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'basic', 'manual')
+    },
+    {
+        'key': 'TERMINAL_FOREGROUND',
+        'type': 'color',
+        'fallback_key': 'TXT_FG',
+        # 'fallback_key': 'MENU_FG',
+        'display_name': _('Terminal foreground'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'basic', 'manual')
+    },
+    {
+        'key': 'TERMINAL_ACCENT_COLOR',
+        'type': 'color',
+        'fallback_key': 'SEL_BG',
+        'display_name': _('Terminal accent color'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'basic')
+    },
+    # Black
+    {
+        'key': 'TERMINAL_COLOR0',
+        'type': 'color',
+        'display_name': _('Black'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR8',
+        'type': 'color',
+        'display_name': _('Black highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # Red
+    {
+        'key': 'TERMINAL_COLOR1',
+        'type': 'color',
+        'display_name': _('Red'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR9',
+        'type': 'color',
+        'display_name': _('Red highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # Green
+    {
+        'key': 'TERMINAL_COLOR2',
+        'type': 'color',
+        'display_name': _('Green'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR10',
+        'type': 'color',
+        'display_name': _('Green highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # Yellow
+    {
+        'key': 'TERMINAL_COLOR3',
+        'type': 'color',
+        'display_name': _('Yellow'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR11',
+        'type': 'color',
+        'display_name': _('Yellow highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # Blue
+    {
+        'key': 'TERMINAL_COLOR4',
+        'type': 'color',
+        'display_name': _('Blue'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR12',
+        'type': 'color',
+        'display_name': _('Blue highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # Purple
+    {
+        'key': 'TERMINAL_COLOR5',
+        'type': 'color',
+        'display_name': _('Purple'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR13',
+        'type': 'color',
+        'display_name': _('Purple highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # Cyan
+    {
+        'key': 'TERMINAL_COLOR6',
+        'type': 'color',
+        'display_name': _('Cyan'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR14',
+        'type': 'color',
+        'display_name': _('Cyan highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    # White
+    {
+        'key': 'TERMINAL_COLOR7',
+        'type': 'color',
+        'display_name': _('White'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+    {
+        'key': 'TERMINAL_COLOR15',
+        'type': 'color',
+        'display_name': _('White highlight'),
+        'filter': create_value_filter('TERMINAL_THEME_MODE', 'manual')
+    },
+
+    {
+        'type': 'separator',
+        'display_name': _('Text input caret'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
+    },
+    {
+        'key': 'CARET1_FG',
+        'type': 'color',
+        'fallback_key': 'TXT_FG',
+        'display_name': _('Primary caret color'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
+    },
+    {
+        'key': 'CARET2_FG',
+        'type': 'color',
+        'fallback_key': 'TXT_FG',
+        'display_name': _('Secondary caret color'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
+    },
+    {
+        'key': 'CARET_SIZE',
+        'type': 'float',
+        'fallback_value': 0.04,  # GTK's default
+        'display_name': _('Caret aspect ratio'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
 
     {

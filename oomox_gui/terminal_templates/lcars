@@ -1,0 +1,33 @@
+*background: #000000
+URxvt*background: [85]#000000
+
+*foreground:        #ffffc6
+*cursorColor:       #cc6699
+*colorUL:           #ffffff
+*underlineColor:    #ffffff
+!black
+*color0:	#000000
+*color8:	#666699
+!red
+*color1:	#cc6666
+*color9:	#ff3300
+!green (really orange ;) )
+*color2:	#ff9966
+*color10:	#ff9900
+!yellow
+*color3:	#cc9966
+*color11:	#ffcc66
+!blue
+*color4:	#9966ff
+*color12:	#9999ff
+!purple
+*color5:	#cc6699
+*color13:	#cc99cc
+!cyan
+*color6:	#9999cc
+*color14:	#99ccff
+!white
+*color7:	#ffcc99
+*color15:	#ccccff
+
+! vim:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:

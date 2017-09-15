@@ -1,0 +1,41 @@
+!###### Color list ###################
+!## B2FBA4 C3ECE9 Green            ###
+!## FBA4A8 a3c5e7 5d7caf Blue      ###
+!## ff6ffa 5F8BFF 490a47 1f0042    ###
+!#####################################
+*background: #1c1c1c
+*foreground: #dcdcdc
+
+! Black
+*color0:   #333333
+*color8:   #3D3D3D
+
+! Red
+*color1:   #8C4665
+*color9:   #BF4D80
+
+! Green
+*color2:   #287373
+*color10:  #53A6A6
+
+! Yellow
+*color3:   #7C7C99
+*color11:  #9E9ECB
+
+! Blue
+*color4:   #395573
+*color12:  #477AB3
+
+! Magneta
+*color5:   #5E468C
+*color13:  #7E62B3
+
+! Cyan
+*color6:   #31658C
+*color14:  #6096BF
+
+! White
+*color7:   #899CA1
+*color15:  #C0C0C0
+
+! vim: et sw=2 syn=xdefaults
