@@ -185,12 +185,12 @@ class OomoxColorButton(Gtk.Button):
     gtk_color = None
     callback = None
     parent_window = None
-    color_button = None
+    gtk_color_button = None
     color_image = None
 
     def set_rgba(self, gtk_color):
         self.gtk_color = gtk_color
-        self.color_button.set_rgba(gtk_color)
+        self.gtk_color_button.set_rgba(gtk_color)
 
     def on_click(self, widget):
         color_selection_dialog = OomoxColorSelectionDialog(
@@ -207,10 +207,10 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color = convert_theme_color_to_gdk(value or FALLBACK_COLOR)
         self.callback = callback
         Gtk.Button.__init__(self)
-        self.color_button = Gtk.ColorButton.new_with_rgba(
+        self.gtk_color_button = Gtk.ColorButton.new_with_rgba(
             self.gtk_color
         )
-        self.color_image = self.color_button.get_child()
+        self.color_image = self.gtk_color_button.get_child()
         self.set_image(self.color_image)
         self.connect("clicked", self.on_click)
 
