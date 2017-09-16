@@ -298,7 +298,9 @@ class ThemeColorsList(Gtk.Box):
 
     def open_theme(self, theme):
         self.theme = theme
-        self.listbox.foreach(lambda x: self.listbox.remove(x))
+        for child in self.listbox.get_children():
+            self.listbox.remove(child)
+            child.destroy()
         if "NOGUI" in self.theme:
             row = Gtk.ListBoxRow()
             row.add(Gtk.Label(_("Can't be edited in GUI")))
