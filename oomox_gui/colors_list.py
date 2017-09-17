@@ -299,6 +299,8 @@ class ThemeColorsList(Gtk.Box):
     def open_theme(self, theme):
         self.theme = theme
         for child in self.listbox.get_children():
+            # @TODO: refactor: populate listbox on init; and only
+            # show/hide listbox items when opening the theme
             self.listbox.remove(child)
             child.destroy()
         if "NOGUI" in self.theme:
