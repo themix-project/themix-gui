@@ -119,6 +119,8 @@ class ActionsEnum(type):
         self.__target__ = object.__getattribute__(self, '__name__')
 
     def __getattribute__(self, attribute):
+        if attribute.startswith('_'):
+            return super().__getattribute__(attribute)
         target = object.__getattribute__(self, '__target__')
         name = object.__getattribute__(self, attribute)
         return ActionsEnumValue(target=target, name=name)
