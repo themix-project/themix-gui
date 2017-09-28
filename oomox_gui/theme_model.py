@@ -240,7 +240,7 @@ theme_model = [
             {'value': template_name}
             for template_name in sorted(os.listdir(terminal_template_dir))
         ],
-        'fallback_value': 'monovedek_old',
+        'fallback_value': 'monovedek',
         'display_name': _('Theme style'),
         'filter': create_value_filter('TERMINAL_THEME_MODE', 'auto', 'basic')
     },
