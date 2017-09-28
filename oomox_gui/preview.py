@@ -220,7 +220,6 @@ class ThemePreview(Gtk.Grid):
             border_color = mix_theme_colors(fg, bg, ratio)
             css_provider_border_color = self.css_providers_border_color.get(widget_name)
             if not css_provider_border_color:
-                print(widget_name)
                 css_provider_border_color = \
                     self.css_providers_border_color[widget_name] = \
                     Gtk.CssProvider()
