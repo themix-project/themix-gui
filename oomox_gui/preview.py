@@ -98,9 +98,30 @@ class ThemePreview(Gtk.Grid):
     FG = 'fg'
 
     current_theme = None
+    terminal_preview = None
+
     _need_size_update = False
 
-    terminal_preview = None
+    css_provider = None
+    css_provider_caret = None
+    css_provider_wm_border_color = None
+    css_provider_headerbar_border = None
+    css_providers_gradient = None
+    css_providers_border_color = None
+
+    icon_user_home = None
+    icon_user_desktop = None
+    icon_system_file_manager = None
+
+    def __init__(self):
+        super().__init__(row_spacing=6, column_spacing=6)
+        self.css_provider = Gtk.CssProvider()
+        self.css_provider_caret = Gtk.CssProvider()
+        self.css_provider_wm_border_color = Gtk.CssProvider()
+        self.css_provider_headerbar_border = Gtk.CssProvider()
+        self.css_providers_gradient = {}
+        self.css_providers_border_color = {}
+        self._init_widgets()
 
     def override_color(self, widget, value, color, state=Gtk.StateType.NORMAL):
         if value == self.BG:
@@ -109,8 +130,7 @@ class ThemePreview(Gtk.Grid):
             return widget.override_color(state, color)
 
     def update_preview_carets(self, colorscheme):
-        css_provider_caret = Gtk.CssProvider()
-        css_provider_caret.load_from_data((
+        self.css_provider_caret.load_from_data((
             (Gtk.get_minor_version() >= 20 and """
             * {{
                 caret-color: #{primary_caret_color};
@@ -131,21 +151,26 @@ class ThemePreview(Gtk.Grid):
         ).encode('ascii'))
         Gtk.StyleContext.add_provider(
             self.entry.get_style_context(),
-            css_provider_caret,
+            self.css_provider_caret,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
     def update_preview_gradients(self, colorscheme):
         gradient = colorscheme['GRADIENT']
-        for widget, color in zip(
+        for widget, color_key in zip(
             [self.button, self.headerbar_button, self.entry],
             [
-                colorscheme["BTN_BG"],
-                colorscheme["HDR_BTN_BG"],
-                colorscheme["TXT_BG"]
+                "BTN_BG",
+                "HDR_BTN_BG",
+                "TXT_BG"
             ]
         ):
-            css_provider_gradient = Gtk.CssProvider()
+            color = colorscheme[color_key]
+            css_provider_gradient = self.css_providers_gradient.get(color_key)
+            if not css_provider_gradient:
+                css_provider_gradient = \
+                        self.css_providers_gradient[color_key] = \
+                        Gtk.CssProvider()
             css_provider_gradient.load_from_data((
                  """
                 * {{
@@ -171,19 +196,19 @@ class ThemePreview(Gtk.Grid):
             )
 
     def update_preview_borders(self, colorscheme):
-        for widget, fg, bg, ratio in (
+        for widget_name, fg, bg, ratio in (
             (
-                self.button,
+                "button",
                 colorscheme['BTN_FG'],
                 colorscheme['BTN_BG'],
                 0.22
             ), (
-                self.headerbar_button,
+                "headerbar_button",
                 colorscheme['HDR_BTN_FG'],
                 colorscheme['HDR_BTN_BG'],
                 0.22
             ), (
-                self.entry,
+                "entry",
                 mix_theme_colors(
                     colorscheme['TXT_FG'], colorscheme['TXT_BG'], 0.20
                 ),
@@ -191,8 +216,14 @@ class ThemePreview(Gtk.Grid):
                 0.69
             ),
         ):
+            widget = getattr(self, widget_name)
             border_color = mix_theme_colors(fg, bg, ratio)
-            css_provider_border_color = Gtk.CssProvider()
+            css_provider_border_color = self.css_providers_border_color.get(widget_name)
+            if not css_provider_border_color:
+                print(widget_name)
+                css_provider_border_color = \
+                    self.css_providers_border_color[widget_name] = \
+                    Gtk.CssProvider()
             css_provider_border_color.load_from_data(''.join([
                 "* {",
                 "border-color: #{border_color};" .format(
@@ -305,8 +336,7 @@ class ThemePreview(Gtk.Grid):
                             converted["TXT_BG"])
 
         if self.current_theme == "oomox":
-            css_provider_wm_border_color = Gtk.CssProvider()
-            css_provider_wm_border_color.load_from_data("""
+            self.css_provider_wm_border_color.load_from_data("""
                 * {{
                     border-color: #{border_color};
                     /*border-radius: {roundness}px;*/
@@ -319,7 +349,7 @@ class ThemePreview(Gtk.Grid):
             ).encode('ascii'))
             Gtk.StyleContext.add_provider(
                 self.bg.get_style_context(),
-                css_provider_wm_border_color,
+                self.css_provider_wm_border_color,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
@@ -332,10 +362,6 @@ class ThemePreview(Gtk.Grid):
             self.update_preview_carets(colorscheme)
         self.update_preview_icons(colorscheme)
         self.terminal_preview.update_preview(colorscheme)
-
-    def __init__(self):
-        super().__init__(row_spacing=6, column_spacing=6)
-        self._init_widgets()
 
     def load_icon_templates(self, prefix):
         for template_path, attr_name in (
@@ -458,7 +484,6 @@ class ThemePreview(Gtk.Grid):
         return children
 
     def override_css_style(self, colorscheme):
-        css_provider = Gtk.CssProvider()
         new_theme_style = colorscheme["THEME_STYLE"]
         if new_theme_style == self.current_theme:
             return
@@ -471,13 +496,13 @@ class ThemePreview(Gtk.Grid):
         css_postfix = '_flatplat' if self.current_theme == 'flatplat' else ''
         try:
             if Gtk.get_minor_version() >= 20:
-                css_provider.load_from_path(
+                self.css_provider.load_from_path(
                     os.path.join(
                         script_dir, "theme{}20.css".format(css_postfix)
                     )
                 )
             else:
-                css_provider.load_from_path(
+                self.css_provider.load_from_path(
                     os.path.join(
                         script_dir, "theme{}.css".format(css_postfix)
                     )
@@ -485,22 +510,17 @@ class ThemePreview(Gtk.Grid):
         except GLib.Error as e:
             print(e)
 
-        for widget in [
-            self,
-            self.label,
-            self.sel_label,
-            self.entry,
-            self.button,
-            self.headerbar,
-            self.headerbar_button
-        ] + self.get_menu_widgets(self.menubar):
+        def apply_css(widget, provider):
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
-                css_provider,
+                provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
-        css_provider_border = Gtk.CssProvider()
-        css_provider_border.load_from_data((
+            if isinstance(widget, Gtk.Container):
+                widget.forall(apply_css, provider)
+        apply_css(self, self.css_provider)
+
+        self.css_provider_headerbar_border.load_from_data((
             """
             headerbar {
                 border: none;
@@ -509,9 +529,10 @@ class ThemePreview(Gtk.Grid):
         ).encode('ascii'))
         Gtk.StyleContext.add_provider(
             self.headerbar.get_style_context(),
-            css_provider_border,
+            self.css_provider_headerbar_border,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
+
         self.show_all()
 
     def _queue_resize(self, *args):
