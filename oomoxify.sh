@@ -123,8 +123,10 @@ hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
 selected_text_color="${SPOTIFY_SELECTED_TEXT_COLOR-$SEL_BG}"
 selected_button_color_fallback="${SEL_BG}"
 hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
+pressed_selection_color_fallback="$(darker ${SEL_BG} 20)"
 selected_button_color="${SPOTIFY_SELECTED_BUTTON_COLOR-$selected_button_color_fallback}"
 hover_selection_color="${SPOTIFY_HOVER_SELECTION_COLOR-$hover_selection_color_fallback}"
+pressed_selection_color="${SPOTIFY_PRESSED_SELECTION_COLOR-$pressed_selection_color_fallback}"
 
 blue_blocks_color="${SPOTIFY_BLUE_BLOCKS-$BTN_BG}"
 
@@ -176,12 +178,15 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 			sed -i \
 				-e "s/1ed660/oomox_selected_text_color/gI" \
 				-e "s/1ed760/oomox_selected_text_color/gI" \
-				-e "s/1db954/oomox_selected_button_color/gI" \
-				-e "s/179443/oomox_selected_button_color/gI" \
-				-e "s/18ab4d/oomox_selected_button_color/gI" \
+				-e "s/1db954/oomox_hover_selection_color/gI" \
+				-e "s/1df369/oomox_hover_selection_color/gI" \
 				-e "s/1df269/oomox_hover_selection_color/gI" \
-				-e "s/1bd85e/oomox_hover_selection_color/gI" \
 				-e "s/1cd85e/oomox_hover_selection_color/gI" \
+				-e "s/1bd85e/oomox_hover_selection_color/gI" \
+				-e "s/18ac4d/oomox_selected_button_color/gI" \
+				-e "s/18ab4d/oomox_selected_button_color/gI" \
+				-e "s/179443/oomox_pressed_selection_color/gI" \
+				-e "s/14833B/oomox_pressed_selection_color/gI" \
 				\
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/121212/oomox_main_bg/g" \
@@ -251,6 +256,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/oomox_selected_text_color/${selected_text_color}/gI" \
 				-e "s/oomox_selected_button_color/${selected_button_color}/gI" \
 				-e "s/oomox_hover_selection_color/${hover_selection_color}/gI" \
+				-e "s/oomox_pressed_selection_color/${pressed_selection_color}/gI" \
 				-e "s/oomox_main_fg/${main_fg}/gI" \
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
 				-e "s/oomox_blue_blocks/${blue_blocks_color}/gI" \
