@@ -266,7 +266,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				echo "
 				* {font-family: ${replace_font} !important; }" >> "${css}"
 			fi
-			zip "./${filename}" "${css}" > /dev/null
+			zip -0 "./${filename}" "${css}" > /dev/null
 		done
 		cd "${tmp_dir}"
 		mv "./${filename}" "${output_dir}/"
