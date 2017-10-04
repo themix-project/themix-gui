@@ -1,6 +1,6 @@
 [submodule "gtk-theme"]
 	path = gtk-theme
 	url = https://github.com/actionless/oomox-gtk-theme.git
-[submodule "flat-plat-theme"]
-	path = flat-plat-theme
-	url = https://github.com/nana-4/Flat-Plat.git
+[submodule "materia-theme"]
+	path = materia-theme
+	url = https://github.com/nana-4/materia-theme.git

@@ -3,8 +3,9 @@ import os
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 oomox_root_dir = os.path.join(script_dir, "../")
+gtk_preview_css_dir = os.path.join(script_dir, "gtk_preview_css/")
 gtk_theme_dir = os.path.join(oomox_root_dir, "gtk-theme/")
-flatplat_theme_dir = os.path.join(oomox_root_dir, "flat-plat-theme/")
+materia_theme_dir = os.path.join(oomox_root_dir, "materia-theme/")
 user_config_dir = os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",

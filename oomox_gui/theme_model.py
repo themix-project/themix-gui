@@ -20,8 +20,8 @@ theme_model = [
                 'value': 'oomox',
                 'display_name': 'Numix-based'
             }, {
-                'value': 'flatplat',
-                'display_name': 'Flat-Plat'
+                'value': 'materia',
+                'display_name': 'Materia'
             }
         ],
         'fallback_value': 'oomox',
@@ -64,7 +64,7 @@ theme_model = [
         'fallback_key': 'SEL_BG',
         'type': 'color',
         'display_name': _('Accent color (checkboxes, radios)'),
-        'filter': create_value_filter('THEME_STYLE', 'flatplat'),
+        'filter': create_value_filter('THEME_STYLE', 'materia'),
     },
     {
         'key': 'TXT_BG',
@@ -155,11 +155,11 @@ theme_model = [
         'display_name': _('(GTK2) HiDPI'),
     },
     {
-        'key': 'FLATPACK_STYLE_COMPACT',
+        'key': 'MATERIA_STYLE_COMPACT',
         'type': 'bool',
         'fallback_value': True,
         'display_name': _('Compact style'),
-        'filter': create_value_filter('THEME_STYLE', 'flatplat'),
+        'filter': create_value_filter('THEME_STYLE', 'materia'),
     },
 
     {

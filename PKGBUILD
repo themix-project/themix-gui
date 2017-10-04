@@ -2,10 +2,10 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.4.0
-pkgrel=1
+pkgver=1.4.1
+pkgrel=2
 pkgdesc="Graphical application for generating different color variations
-of Numix and Flat-Plat themes (GTK2, GTK3),
+of Numix and Materia (ex-Flat-Plat) themes (GTK2, GTK3),
 gnome-colors and ArchDroid icon themes.
 Have a hack for HiDPI in gtk2."
 arch=('x86_64' 'i686')
@@ -14,7 +14,7 @@ license=('GPLv3')
 source=(
 	"git+https://github.com/actionless/oomox.git#branch=master"
 	"git+https://github.com/actionless/oomox-gtk-theme.git#branch=master"
-	"git+https://github.com/nana-4/Flat-Plat.git#branch=master"
+	"git+https://github.com/nana-4/materia-theme.git#branch=master"
 )
 md5sums=(
 	"SKIP"
@@ -58,7 +58,7 @@ prepare(){
 	cd "${srcdir}/oomox"
 	git submodule init
 	git config submodule.gtk-theme.url $srcdir/oomox-gtk-theme
-	git config submodule.flat-plat-theme.url $srcdir/Flat-Plat
+	git config submodule.materia-theme.url $srcdir/materia-theme
 	git submodule update
 }
 
@@ -98,8 +98,8 @@ package() {
 			${pkgdir}/opt/oomox/gtk-theme
 	cd ..
 
-	mkdir ${pkgdir}/opt/oomox/flat-plat-theme
-	cd ./flat-plat-theme
+	mkdir ${pkgdir}/opt/oomox/materia-theme
+	cd ./materia-theme
 	cp -prf \
 		./COPYING \
 		./HACKING.md \
@@ -109,7 +109,7 @@ package() {
 		./parse-sass.sh \
 		./scripts \
 		./src \
-			${pkgdir}/opt/oomox/flat-plat-theme
+			${pkgdir}/opt/oomox/materia-theme
 	cd ..
 
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui

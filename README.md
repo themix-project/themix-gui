@@ -1,7 +1,7 @@
 oomox theme designer
 =====
 
-Graphical application for generating different color variations of a Numix-based and Flat-Plat themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
+Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
   * [Arch Linux](#arch-linux "")
   * [Ubuntu](#ubuntu "")
@@ -79,10 +79,10 @@ You need to have `python3-gobject` binding and those executables:
  - `bc`
  - `sed`
  - `zip` - optional, for spotify theme
- - `inkscape` - optional, for gnome-colors icons and Flat-Plat theme
+ - `inkscape` - optional, for gnome-colors icons and Materia theme
  - `imagemagick` - optional, for gnome-colors icons
- - `optipng` - optional, for Flat-Plat theme
- - `parallel` - optional, for Flat-Plat theme
+ - `optipng` - optional, for Materia theme
+ - `parallel` - optional, for Materia theme
 
 For GTK2 you need murrine engine which can be not installed by default.
 

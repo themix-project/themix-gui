@@ -6,7 +6,7 @@ from .terminal import generate_theme_from_oomox
 from .helpers import (
     convert_theme_color_to_gdk, mix_theme_colors, FALLBACK_COLOR
 )
-from .config import script_dir
+from .config import script_dir, gtk_preview_css_dir
 
 
 WIDGET_SPACING = 10
@@ -283,7 +283,7 @@ class ThemePreview(Gtk.Grid):
                 not theme_value['key'].startswith('TERMINAL_')
             )
         }
-        if self.current_theme == "flatplat":
+        if self.current_theme == "materia":
             converted["SEL_FG"] = converted["TXT_BG"]
             converted["MENU_FG"] = converted["TXT_BG"]
             converted["BTN_FG"] = converted["FG"]
@@ -492,18 +492,18 @@ class ThemePreview(Gtk.Grid):
                 child.destroy()
             self._init_widgets()
         self.current_theme = new_theme_style
-        css_postfix = '_flatplat' if self.current_theme == 'flatplat' else ''
+        css_postfix = '_materia' if self.current_theme == 'materia' else ''
         try:
             if Gtk.get_minor_version() >= 20:
                 self.css_provider.load_from_path(
                     os.path.join(
-                        script_dir, "theme{}20.css".format(css_postfix)
+                        gtk_preview_css_dir, "theme{}20.css".format(css_postfix)
                     )
                 )
             else:
                 self.css_provider.load_from_path(
                     os.path.join(
-                        script_dir, "theme{}.css".format(css_postfix)
+                        gtk_preview_css_dir, "theme{}.css".format(css_postfix)
                     )
                 )
         except GLib.Error as e:
