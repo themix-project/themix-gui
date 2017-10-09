@@ -129,6 +129,7 @@ hover_selection_color="${SPOTIFY_HOVER_SELECTION_COLOR-$hover_selection_color_fa
 pressed_selection_color="${SPOTIFY_PRESSED_SELECTION_COLOR-$pressed_selection_color_fallback}"
 
 blue_blocks_color="${SPOTIFY_BLUE_BLOCKS-$BTN_BG}"
+blue_blocks_hover_color="$(darker ${blue_blocks_color} -15)"
 
 #top_and_button_bg="#${SPOTIFY_TOP_AND_BTN_BG-$BTN_BG}"
 top_and_button_bg="#${SPOTIFY_TOP_BTN_BG-$main_bg}"
@@ -216,6 +217,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/ededed/oomox_main_fg/gI" \
 				\
 				-e "s/4687d6/oomox_blue_blocks/gI" \
+				-e "s/2e77d0/oomox_blue_blocks_hover/gI" \
 				\
 				-e "s/rgba(0, 0, 0, [0-9\.]\+)/oomox_cover_overlay/g" \
 				-e "s/rgba(24, 24, 24, [0-9\.]\+)/oomox_top_and_button_bg/g" \
@@ -260,6 +262,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/oomox_main_fg/${main_fg}/gI" \
 				-e "s/oomox_sidebar_fg/${sidebar_fg}/gI" \
 				-e "s/oomox_blue_blocks/${blue_blocks_color}/gI" \
+				-e "s/oomox_blue_blocks_hover/${blue_blocks_hover_color}/gI" \
 				"${css}"
 			fi
 			if [ ! -z "${replace_font:-}" ] ; then
