@@ -1,95 +1,16 @@
 import os
-from gi.repository import Gtk, GLib, GdkPixbuf, Gio
+from gi.repository import Gtk, GLib
 
 from .theme_model import theme_model
-from .terminal import generate_theme_from_oomox
 from .helpers import (
     convert_theme_color_to_gdk, mix_theme_colors, FALLBACK_COLOR
 )
-from .config import script_dir, gtk_preview_css_dir
+from .config import gtk_preview_css_dir
+from .preview_terminal import TerminalThemePreview
+from .preview_icons import IconThemePreview
 
 
 WIDGET_SPACING = 10
-
-
-class TerminalThemePreview(Gtk.Grid):
-
-    LEFT_MARGIN = 18
-
-    COLOR_ROWS = (
-        (_("black"), 0, 8),
-        (_("red"), 1, 9),
-        (_("green"), 2, 10),
-        (_("yellow"), 3, 11),
-        (_("blue"), 4, 12),
-        (_("purple"), 5, 13),
-        (_("cyan"), 6, 14),
-        (_("white"), 7, 15),
-    )
-    terminal_widgets = None
-
-    def __init__(self):
-        super().__init__(row_spacing=6, column_spacing=6)
-        self.set_margin_left(WIDGET_SPACING)
-        self.set_margin_right(WIDGET_SPACING)
-
-        self.bg = Gtk.Grid(row_spacing=6, column_spacing=6)
-        self.bg.set_margin_top(WIDGET_SPACING/2)
-        self.bg.set_margin_bottom(WIDGET_SPACING)
-
-        self.terminal_widgets = {}
-        tw = self.terminal_widgets
-
-        tw["normal"] = Gtk.Label()
-        tw["normal"].set_markup("<tt>{}</tt>".format(_("terminal colors:")))
-        self.bg.attach(tw["normal"], 1, 1, 2, 1)
-        previous_row = tw["normal"]
-        previous_row.set_margin_left(self.LEFT_MARGIN)
-        for color_row in self.COLOR_ROWS:
-            color_name, normal_id, highlight_id = color_row
-            key1 = "color{}".format(normal_id)
-            key2 = "color{}".format(highlight_id)
-            tw[key1] = Gtk.Label()
-            tw[key2] = Gtk.Label()
-            tw[key1].set_markup("<tt>{}</tt>".format(color_name))
-            tw[key2].set_markup("<tt>{}</tt>".format(color_name))
-            self.bg.attach_next_to(
-                tw[key1], previous_row,
-                Gtk.PositionType.BOTTOM, 1, 1
-            )
-            self.bg.attach_next_to(
-                tw[key2], tw[key1],
-                Gtk.PositionType.RIGHT, 1, 1
-            )
-            previous_row = tw[key1]
-            previous_row.set_margin_left(self.LEFT_MARGIN)
-        self.attach(self.bg, 1, 1, 1, 1)
-
-    def update_preview(self, colorscheme):
-        term_colorscheme = generate_theme_from_oomox(colorscheme)
-        # print(term_colorscheme)
-        converted = {
-            key: convert_theme_color_to_gdk(theme_value)
-            for key, theme_value in term_colorscheme.items()
-        }
-        term_bg = converted["background"]
-        self.terminal_widgets["normal"].override_color(
-            Gtk.StateType.NORMAL, converted["foreground"]
-        )
-        self.override_background_color(Gtk.StateType.NORMAL, term_bg)
-        for color_row in self.COLOR_ROWS:
-            color_name, normal_id, highlight_id = color_row
-            key1 = "color{}".format(normal_id)
-            key2 = "color{}".format(highlight_id)
-            self.terminal_widgets[key1].override_color(
-                Gtk.StateType.NORMAL, converted[key1]
-            )
-            self.terminal_widgets[key2].override_color(
-                Gtk.StateType.NORMAL, term_bg
-            )
-            self.terminal_widgets[key2].override_background_color(
-                Gtk.StateType.NORMAL, converted[key2]
-            )
 
 
 class ThemePreview(Gtk.Grid):
@@ -99,6 +20,7 @@ class ThemePreview(Gtk.Grid):
 
     current_theme = None
     terminal_preview = None
+    icons_preview = None
 
     _need_size_update = False
 
@@ -108,10 +30,6 @@ class ThemePreview(Gtk.Grid):
     css_provider_headerbar_border = None
     css_providers_gradient = None
     css_providers_border_color = None
-
-    icon_user_home = None
-    icon_user_desktop = None
-    icon_system_file_manager = None
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
@@ -239,34 +157,6 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def update_preview_icons(self, colorscheme):
-        self.load_icon_templates(colorscheme['ICONS_STYLE'])
-        for source_image, target_imagebox in (
-            (self.icon_source_user_home, self.icon_user_home),
-            (self.icon_source_user_desktop, self.icon_user_desktop),
-            (self.icon_source_system_file_manager,
-             self.icon_system_file_manager),
-        ):
-            new_svg_image = source_image.replace(
-                "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"]
-            ).replace(
-                "LightBase", colorscheme["ICONS_LIGHT"]
-            ).replace(
-                "MediumBase", colorscheme["ICONS_MEDIUM"]
-            ).replace(
-                "DarkStroke", colorscheme["ICONS_DARK"]
-            ).replace(
-                "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"]
-            ).encode('ascii')
-            stream = Gio.MemoryInputStream.new_from_bytes(
-                GLib.Bytes.new(new_svg_image)
-            )
-
-            # @TODO: is it possible to make it faster?
-            pixbuf = GdkPixbuf.Pixbuf.new_from_stream(stream, None)
-
-            target_imagebox.set_from_pixbuf(pixbuf)
-
     def update_preview_colors(self, colorscheme):
 
         def mix(a, b, amount):
@@ -331,7 +221,7 @@ class ThemePreview(Gtk.Grid):
         self.override_color(self.headerbar_button, self.BG,
                             converted["HDR_BTN_BG"])
 
-        self.override_color(self.icon_preview_listbox, self.BG,
+        self.override_color(self.icons_preview, self.BG,
                             converted["TXT_BG"])
 
         if self.current_theme == "oomox":
@@ -359,22 +249,8 @@ class ThemePreview(Gtk.Grid):
         if self.current_theme == "oomox":
             self.update_preview_gradients(colorscheme)
             self.update_preview_carets(colorscheme)
-        self.update_preview_icons(colorscheme)
+        self.icons_preview.update_preview(colorscheme)
         self.terminal_preview.update_preview(colorscheme)
-
-    def load_icon_templates(self, prefix):
-        for template_path, attr_name in (
-            ("user-home.svg.template", "icon_source_user_home"),
-            ("user-desktop.svg.template", "icon_source_user_desktop"),
-            ("system-file-manager.svg.template",
-             "icon_source_system_file_manager"),
-        ):
-            with open(
-                os.path.join(
-                    script_dir, 'icon_previews', prefix, template_path
-                ), "rb"
-            ) as f:
-                setattr(self, attr_name, f.read().decode('utf-8'))
 
     def create_menu(self, n_items, has_submenus=False):
         menu = Gtk.Menu()
@@ -399,9 +275,11 @@ class ThemePreview(Gtk.Grid):
         self.gtk_preview.set_margin_bottom(WIDGET_SPACING)
         self.bg.attach(self.gtk_preview, 1, 3, 1, 1)
 
-        self._init_widgets_icons()
+        if self.icons_preview:
+            self.icons_preview.destroy()
+        self.icons_preview = IconThemePreview()
         self.bg.attach_next_to(
-            self.icon_preview_listbox, self.gtk_preview,
+            self.icons_preview, self.gtk_preview,
             Gtk.PositionType.BOTTOM, 1, 1
         )
 
@@ -410,7 +288,7 @@ class ThemePreview(Gtk.Grid):
         self.terminal_preview = TerminalThemePreview()
         self.terminal_preview.set_margin_bottom(WIDGET_SPACING)
         self.bg.attach_next_to(
-            self.terminal_preview, self.icon_preview_listbox,
+            self.terminal_preview, self.icons_preview,
             Gtk.PositionType.BOTTOM, 1, 1
         )
         self.bg.set_margin_bottom(WIDGET_SPACING)
@@ -452,24 +330,6 @@ class ThemePreview(Gtk.Grid):
                                         Gtk.PositionType.BOTTOM, 1, 1)
         self.gtk_preview.attach_next_to(self.button, self.entry,
                                         Gtk.PositionType.BOTTOM, 1, 1)
-
-    def _init_widgets_icons(self):
-        self.icon_preview_listbox = Gtk.ListBox()
-        self.icon_preview_listbox.set_margin_left(WIDGET_SPACING)
-        self.icon_preview_listbox.set_margin_right(WIDGET_SPACING)
-        self.icon_preview_listbox.set_selection_mode(Gtk.SelectionMode.NONE)
-        row = Gtk.ListBoxRow()
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-        row.add(hbox)
-        for attr_name in (
-            "icon_user_home",
-            "icon_user_desktop",
-            "icon_system_file_manager"
-        ):
-            setattr(self, attr_name, Gtk.Image())
-            hbox.pack_start(getattr(self, attr_name), True, True, 0)
-        self.icon_preview_listbox.add(row)
-        self.icon_preview_listbox.show_all()
 
     def get_menu_widgets(self, shell):
         """ gets a menu shell (menu or menubar) and all its children """
