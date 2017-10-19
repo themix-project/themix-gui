@@ -3,10 +3,14 @@ oomox theme designer
 
 Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
+Installation:
   * [Arch Linux](#arch-linux "")
-  * [Ubuntu](#ubuntu "")
   * [Fedora](#fedora "")
+  * [Slackware](#slackware "")
+  * [Ubuntu](#ubuntu "")
   * [Other distributions](#other-distributions "")
+ 
+Other topics:
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
   * [Review articles/Usage instructions](#review-articles "")
@@ -26,34 +30,11 @@ Graphical application for generating different color variations of a Numix-based
 pacaur -S oomox-git
 ```
 
-#### GUI
+#### Open the GUI
 
 ```
 oomox-gui
 ```
-
-
-
-### Ubuntu
-
-Ubuntu 16.10, 16.04 and 15.10 (and other ubuntu-based like Linux Mint 18 and newer) users can install Oomox by using the main WebUpd8 PPA:
-
-```bash
-sudo add-apt-repository ppa:nilarimogard/webupd8
-sudo apt update
-sudo apt install oomox
-```
-
-If you don't want to add the PPA, you can download the deb from [here](http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/ "").
-
-For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
-
-```
-sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine bc sed zip inkscape imagemagick optipng parallel
-```
-
-And install `sassc>=3.4`: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
-
 
 
 ### Fedora
@@ -63,6 +44,35 @@ Fedora 24 and 25 users users can install Oomox by using a third party copr repos
 sudo dnf copr enable tcg/themes
 sudo dnf install oomox
 ```
+
+
+### Slackware
+
+There is a slackbuild:
+https://slackbuilds.org/repository/14.2/desktop/oomox/
+
+
+### Ubuntu
+
+Ubuntu 17.04, 16.10, 16.04 and 15.10 (and other ubuntu-based like Linux Mint 18 and newer) users can install Oomox by using the main WebUpd8 PPA:
+
+```bash
+sudo add-apt-repository ppa:nilarimogard/webupd8
+sudo apt update
+sudo apt install oomox
+```
+
+If you don't want to add the PPA, you can download the deb from [here](http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/ "").
+
+> WARNING! Repository can be not up-to-date with the latest Oomox version in that case you can proceed to the manual installation instructions for Ubuntu below.
+
+For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
+
+```
+sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine bc sed zip inkscape imagemagick optipng parallel
+```
+
+And install `sassc>=3.4`: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
 
 
 
