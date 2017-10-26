@@ -139,9 +139,11 @@ cover_overlay_color="$(${root}/scripts/hex_to_rgba.sh ${main_bg} 0.45)"
 
 tmp_dir="$(mktemp -d)"
 output_dir="$(mktemp -d)"
+log_file=$(mktemp)
 function post_clean_up {
 	rm -r "${tmp_dir}" || true
 	rm -r "${output_dir}" || true
+	rm "${log_file}" || true
 }
 trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 
@@ -288,11 +290,6 @@ else
 	priv_tool="sudo"
 fi
 
-log_file=$(mktemp)
-function post_clean_up {
-	rm "${log_file}"
-}
-trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 fails_counter=0
 while true; do
 	exit_code=0
