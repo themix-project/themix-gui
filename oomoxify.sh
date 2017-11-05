@@ -95,6 +95,7 @@ fi
 
 SPOTIFY_PROTO_BG="${SPOTIFY_PROTO_BG-$MENU_BG}"
 SPOTIFY_PROTO_FG="${SPOTIFY_PROTO_FG-$MENU_FG}"
+SPOTIFY_PROTO_SEL="${SPOTIFY_PROTO_SEL-$SEL_BG}"
 
 main_bg="${SPOTIFY_MAIN_BG-$SPOTIFY_PROTO_BG}"
 
@@ -119,11 +120,11 @@ sidebar_fg="${SPOTIFY_SIDEBAR_FG-$SPOTIFY_PROTO_FG}"
 main_fg="${SPOTIFY_MAIN_FG-$main_fg_fallback}"
 accent_fg="${SPOTIFY_ACCENT_FG-$accent_fg_fallback}"
 
-hover_text="${SPOTIFY_HOVER_TEXT-$SEL_BG}"
-selected_text_color="${SPOTIFY_SELECTED_TEXT_COLOR-$SEL_BG}"
-selected_button_color_fallback="${SEL_BG}"
-hover_selection_color_fallback="$(darker ${SEL_BG} -25)"
-pressed_selection_color_fallback="$(darker ${SEL_BG} 20)"
+hover_text="${SPOTIFY_HOVER_TEXT-$SPOTIFY_PROTO_SEL}"
+selected_text_color="${SPOTIFY_SELECTED_TEXT_COLOR-$SPOTIFY_PROTO_SEL}"
+selected_button_color_fallback="${SPOTIFY_PROTO_SEL}"
+hover_selection_color_fallback="$(darker ${SPOTIFY_PROTO_SEL} -25)"
+pressed_selection_color_fallback="$(darker ${SPOTIFY_PROTO_SEL} 20)"
 selected_button_color="${SPOTIFY_SELECTED_BUTTON_COLOR-$selected_button_color_fallback}"
 hover_selection_color="${SPOTIFY_HOVER_SELECTION_COLOR-$hover_selection_color_fallback}"
 pressed_selection_color="${SPOTIFY_PRESSED_SELECTION_COLOR-$pressed_selection_color_fallback}"

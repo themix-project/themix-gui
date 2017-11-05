@@ -381,6 +381,29 @@ theme_model = [
 
     {
         'type': 'separator',
+        'display_name': _('Spotify')
+    },
+    {
+        'key': 'SPOTIFY_PROTO_BG',
+        'type': 'color',
+        'fallback_key': 'MENU_BG',
+        'display_name': _('Spotify background'),
+    },
+    {
+        'key': 'SPOTIFY_PROTO_FG',
+        'type': 'color',
+        'fallback_key': 'MENU_FG',
+        'display_name': _('Spotify foreground'),
+    },
+    {
+        'key': 'SPOTIFY_PROTO_SEL',
+        'type': 'color',
+        'fallback_key': 'SEL_BG',
+        'display_name': _('Spotify accent color'),
+    },
+
+    {
+        'type': 'separator',
         'display_name': _('Text input caret'),
         'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
