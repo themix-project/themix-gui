@@ -5,7 +5,7 @@ Graphical application for generating different color variations of a Numix-based
 
 Installation:
   * [Arch Linux](#arch-linux "")
-  * [Fedora](#fedora "")
+  * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
   * [Slackware](#slackware "")
   * [Ubuntu](#ubuntu "")
   * [Other distributions](#other-distributions "")
@@ -40,9 +40,9 @@ oomox-gui
 ```
 
 
-### Fedora
+### CentOS, Fedora, Mageia
 
-Fedora 24 and 25 users users can install Oomox by using a third party copr repository:
+Oomox can be installed by using a third party COPR repository:
 ```bash
 sudo dnf copr enable tcg/themes
 sudo dnf install oomox
