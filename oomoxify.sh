@@ -268,9 +268,16 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/oomox_blue_blocks_hover/${blue_blocks_hover_color}/gI" \
 				"${css}"
 			fi
+			echo "
+			.SearchInput__input {
+				background-color: #${area_bg} !important;
+				color: #${main_fg} !important;
+			}
+			" >> "${css}"
 			if [ ! -z "${replace_font:-}" ] ; then
 				echo "
-				* {font-family: ${replace_font} !important; }" >> "${css}"
+				* {font-family: ${replace_font} !important; }
+				" >> "${css}"
 			fi
 			zip -0 "./${filename}" "${css}" > /dev/null
 		done
