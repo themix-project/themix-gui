@@ -25,7 +25,7 @@ theme_model = [
             }
         ],
         'fallback_value': 'oomox',
-        'display_name': _('Theme style')
+        'display_name': _('Theme style'),
     },
     {
         'key': 'BG',
@@ -74,7 +74,8 @@ theme_model = [
     {
         'key': 'TXT_FG',
         'type': 'color',
-        'display_name': _('Textbox text')
+        'display_name': _('Textbox text'),
+        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'BTN_BG',
