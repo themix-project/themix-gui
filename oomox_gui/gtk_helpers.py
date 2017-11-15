@@ -36,3 +36,38 @@ class ImageMenuButton(Gtk.MenuButton, ImageContainer):
         Gtk.MenuButton.__init__(self)
         ImageContainer.__init__(self, *args, **kwargs)
 
+
+class EntryDialog(Gtk.Dialog):
+
+    entry = None
+    entry_text = ''
+
+    def do_response(self, response):
+        if response == Gtk.ResponseType.OK:
+            self.entry_text = self.entry.get_text()
+        self.destroy()
+
+    def __init__(
+        self, parent,
+        title, text, entry_text=None
+    ):
+        Gtk.Dialog.__init__(self, title, parent, 0)
+
+        self.set_default_size(150, 100)
+
+        label = Gtk.Label(text)
+        self.entry = Gtk.Entry()
+        self.entry.set_activates_default(True)
+        if entry_text:
+            self.entry.set_text(entry_text)
+
+        box = self.get_content_area()
+        box.add(label)
+        box.add(self.entry)
+
+        self.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
+        self.add_button(_("_OK"), Gtk.ResponseType.OK)
+
+        self.set_default_response(Gtk.ResponseType.OK)
+
+        self.show_all()

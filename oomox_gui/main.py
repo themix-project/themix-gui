@@ -9,7 +9,7 @@ from .helpers import (
     mkdir_p, ActionsEnum
 )
 from .gtk_helpers import (
-    ImageButton, ImageMenuButton, CenterLabel,
+    ImageButton, ImageMenuButton, CenterLabel, EntryDialog
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
@@ -24,15 +24,7 @@ from .export import (
 )
 
 
-class NewDialog(Gtk.Dialog):
-
-    entry = None
-    entry_text = ''
-
-    def do_response(self, response):
-        if response == Gtk.ResponseType.OK:
-            self.entry_text = self.entry.get_text()
-        self.destroy()
+class NewDialog(EntryDialog):
 
     def __init__(
         self, parent,
@@ -40,26 +32,10 @@ class NewDialog(Gtk.Dialog):
         text=_("Please input new theme name:"),
         entry_text=None
     ):
-        Gtk.Dialog.__init__(self, title, parent, 0)
-
-        self.set_default_size(150, 100)
-
-        label = Gtk.Label(text)
-        self.entry = Gtk.Entry()
-        self.entry.set_activates_default(True)
-        if entry_text:
-            self.entry.set_text(entry_text)
-
-        box = self.get_content_area()
-        box.add(label)
-        box.add(self.entry)
-
-        self.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
-        self.add_button(_("_OK"), Gtk.ResponseType.OK)
-
-        self.set_default_response(Gtk.ResponseType.OK)
-
-        self.show_all()
+        EntryDialog.__init__(
+            self, parent=parent,
+            title=title, text=text, entry_text=entry_text
+        )
 
 
 class RenameDialog(NewDialog):
