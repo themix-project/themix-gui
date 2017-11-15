@@ -9,7 +9,8 @@ from .helpers import (
     mkdir_p, ActionsEnum
 )
 from .gtk_helpers import (
-    ImageButton, ImageMenuButton, CenterLabel, EntryDialog
+    ImageButton, ImageMenuButton,
+    EntryDialog, YesNoDialog
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
@@ -46,30 +47,6 @@ class RenameDialog(NewDialog):
             title=_("Rename theme"),
             entry_text=entry_text
         )
-
-
-class YesNoDialog(Gtk.Dialog):
-
-    def do_response(self, response):
-        self.destroy()
-
-    def __init__(self, parent,
-                 title="",
-                 text=_("Are you sure?"),
-                 default_response=Gtk.ResponseType.NO):
-        Gtk.Dialog.__init__(self, title, parent, 0)
-        self.set_default_size(150, 100)
-
-        label = CenterLabel(text)
-        box = self.get_content_area()
-        box.add(label)
-
-        self.add_button(_("_No"), Gtk.ResponseType.NO)
-        self.add_button(_("_Yes"), Gtk.ResponseType.YES)
-
-        self.set_default_response(default_response)
-
-        self.show_all()
 
 
 class UnsavedDialog(YesNoDialog):

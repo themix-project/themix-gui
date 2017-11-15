@@ -71,3 +71,27 @@ class EntryDialog(Gtk.Dialog):
         self.set_default_response(Gtk.ResponseType.OK)
 
         self.show_all()
+
+
+class YesNoDialog(Gtk.Dialog):
+
+    def do_response(self, response):
+        self.destroy()
+
+    def __init__(self, parent,
+                 title="",
+                 text=_("Are you sure?"),
+                 default_response=Gtk.ResponseType.NO):
+        Gtk.Dialog.__init__(self, title, parent, 0)
+        self.set_default_size(150, 100)
+
+        label = CenterLabel(text)
+        box = self.get_content_area()
+        box.add(label)
+
+        self.add_button(_("_No"), Gtk.ResponseType.NO)
+        self.add_button(_("_Yes"), Gtk.ResponseType.YES)
+
+        self.set_default_response(default_response)
+
+        self.show_all()
