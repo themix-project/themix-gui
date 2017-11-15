@@ -122,7 +122,7 @@ class ActionsEnumValue(str):
         return obj
 
 
-class ActionsEnum(type):
+class ActionsEnumMeta(type):
     def __init__(self, *args):
         super().__init__(*args)
         self.__target__ = object.__getattribute__(self, '__name__')
@@ -135,11 +135,15 @@ class ActionsEnum(type):
         return ActionsEnumValue(target=target, name=name)
 
 
-class app(metaclass=ActionsEnum):
+class ActionsEnum(metaclass=ActionsEnumMeta):
+    pass
+
+
+class app(ActionsEnum):
     quit = "quit"
 
 
-class win(metaclass=ActionsEnum):
+class win(ActionsEnum):
     clone = "clone"
     export_icons = "export-icons"
     export_spotify = "export-spotify"
