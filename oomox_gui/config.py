@@ -17,3 +17,4 @@ user_theme_dir = os.path.join(user_config_dir, "colors/")
 colors_dir = os.path.join(oomox_root_dir, "colors/")
 user_palette_path = os.path.join(user_config_dir, "recent_palette.json")
 terminal_template_dir = os.path.join(script_dir, "terminal_templates/")
+FALLBACK_COLOR = "F33333"

@@ -1,7 +1,9 @@
 from gi.repository import Gtk
 from .helpers import (
-    get_presets, is_user_colorscheme,
     mix_gdk_colors, convert_gdk_to_theme_color
+)
+from .theme_file import (
+    is_user_colorscheme, get_presets
 )
 
 

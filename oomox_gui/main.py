@@ -6,10 +6,12 @@ from gi.repository import Gtk, GObject, Gio
 
 from .config import user_theme_dir
 from .helpers import (
-    is_user_colorscheme, is_colorscheme_exists,
-    get_user_theme_path, mkdir_p,
+    ImageButton, ImageMenuButton, CenterLabel,
+    mkdir_p, ActionsEnum
+)
+from .theme_file import (
+    get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
     read_colorscheme_from_path, save_colorscheme, remove_colorscheme,
-    ImageButton, ImageMenuButton, CenterLabel
 )
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
@@ -112,31 +114,6 @@ class RemoveDialog(YesNoDialog):
 
 def dialog_is_yes(dialog):
     return dialog.run() == Gtk.ResponseType.YES
-
-
-class ActionsEnumValue(str):
-    def __new__(cls, target, name):
-        obj = str.__new__(cls, '.'.join([target, name]))
-        obj.target = target
-        obj.name = name
-        return obj
-
-
-class ActionsEnumMeta(type):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.__target__ = object.__getattribute__(self, '__name__')
-
-    def __getattribute__(self, attribute):
-        if attribute.startswith('_'):
-            return super().__getattribute__(attribute)
-        target = object.__getattribute__(self, '__target__')
-        name = object.__getattribute__(self, attribute)
-        return ActionsEnumValue(target=target, name=name)
-
-
-class ActionsEnum(metaclass=ActionsEnumMeta):
-    pass
 
 
 class app(ActionsEnum):
