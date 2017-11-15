@@ -75,12 +75,20 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_gradients(self, colorscheme):
         gradient = colorscheme['GRADIENT']
+        if gradient == 0:
+            return self.reset_gradients()
         for widget, color_key in zip(
-            [self.button, self.headerbar_button, self.entry],
+            [
+                self.button,
+                self.headerbar_button,
+                self.entry,
+                self.headerbar,
+            ],
             [
                 "BTN_BG",
                 "HDR_BTN_BG",
-                "TXT_BG"
+                "TXT_BG",
+                "MENU_BG"
             ]
         ):
             color = colorscheme[color_key]
@@ -98,15 +106,36 @@ class ThemePreview(Gtk.Grid):
                     );
                 }}
                 """.format(
-                    color=color,
-                    amount1=1 - gradient / 2,
-                    amount2=1 + gradient * 2
-                    ) if (gradient > 0) else """
+                        color=color,
+                        amount1=1 - gradient / 2,
+                        amount2=1 + gradient * 2
+                    )
+            ).encode('ascii'))
+            Gtk.StyleContext.add_provider(
+                widget.get_style_context(),
+                css_provider_gradient,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+
+    def reset_gradients(self):
+        css_provider_gradient = self.css_providers_gradient.get("reset")
+        if not css_provider_gradient:
+            css_provider_gradient = \
+                    self.css_providers_gradient["reset"] = \
+                    Gtk.CssProvider()
+            css_provider_gradient.load_from_data((
+                 """
                 * {
                     background-image: none;
                 }
                 """
             ).encode('ascii'))
+        for widget in [
+            self.button,
+            self.headerbar_button,
+            self.entry,
+            self.headerbar,
+        ]:
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_gradient,
@@ -247,8 +276,10 @@ class ThemePreview(Gtk.Grid):
         self.update_preview_colors(colorscheme)
         self.update_preview_borders(colorscheme)
         if self.current_theme == "oomox":
-            self.update_preview_gradients(colorscheme)
             self.update_preview_carets(colorscheme)
+            self.update_preview_gradients(colorscheme)
+        else:
+            self.reset_gradients()
         self.icons_preview.update_preview(colorscheme)
         self.terminal_preview.update_preview(colorscheme)
 
