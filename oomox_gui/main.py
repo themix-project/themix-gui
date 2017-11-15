@@ -6,8 +6,10 @@ from gi.repository import Gtk, GObject, Gio
 
 from .config import user_theme_dir
 from .helpers import (
-    ImageButton, ImageMenuButton, CenterLabel,
     mkdir_p, ActionsEnum
+)
+from .gtk_helpers import (
+    ImageButton, ImageMenuButton, CenterLabel,
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,

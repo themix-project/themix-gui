@@ -4,7 +4,7 @@ from threading import Thread
 from gi.repository import Gtk, GLib, Pango
 
 from .terminal import generate_theme_from_oomox, generate_xresources
-from .helpers import CenterLabel
+from .gtk_helpers import CenterLabel
 from .config import oomox_root_dir, gtk_theme_dir, materia_theme_dir
 
 
