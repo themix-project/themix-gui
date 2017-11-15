@@ -30,9 +30,12 @@ class NewDialog(Gtk.Dialog):
             self.input_data = self.entry.get_text()
         self.destroy()
 
-    def __init__(self, parent,
-                 title=_("New theme"),
-                 text=_("Please input new theme name:")):
+    def __init__(
+        self, parent,
+        title=_("New theme"),
+        text=_("Please input new theme name:"),
+        entry_text=None
+    ):
         Gtk.Dialog.__init__(self, title, parent, 0)
 
         self.set_default_size(150, 100)
@@ -40,6 +43,8 @@ class NewDialog(Gtk.Dialog):
         label = Gtk.Label(text)
         self.entry = Gtk.Entry()
         self.entry.set_activates_default(True)
+        if entry_text:
+            self.entry.set_text(entry_text)
 
         box = self.get_content_area()
         box.add(label)
@@ -55,8 +60,12 @@ class NewDialog(Gtk.Dialog):
 
 class RenameDialog(NewDialog):
 
-    def __init__(self, parent):
-        NewDialog.__init__(self, parent, title=_("Rename theme"))
+    def __init__(self, parent, entry_text):
+        NewDialog.__init__(
+            self, parent=parent,
+            title=_("Rename theme"),
+            entry_text=entry_text
+        )
 
 
 class YesNoDialog(Gtk.Dialog):
@@ -210,7 +219,7 @@ class AppWindow(Gtk.ApplicationWindow):
         return self.clone()
 
     def on_rename(self, action, param=None):
-        dialog = RenameDialog(self)
+        dialog = RenameDialog(self, entry_text=self.colorscheme_name)
         if dialog.run() != Gtk.ResponseType.OK:
             return
         new_theme_name = dialog.input_data
