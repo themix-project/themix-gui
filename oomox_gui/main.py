@@ -16,7 +16,7 @@ from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export import (
     export_theme, export_gnome_colors_icon_theme, export_archdroid_icon_theme,
-    export_spotify, export_materia_theme
+    export_spotify
 )
 
 
@@ -233,14 +233,10 @@ class AppWindow(Gtk.ApplicationWindow):
         if not self.colorscheme_is_user and self.colorscheme_name == 'random':
             self.theme_edited = True
         self.check_unsaved_changes()
-        if self.colorscheme["THEME_STYLE"] == "materia":
-            export_materia_theme(
-                window=self, theme_path=self.colorscheme_path
-            )
-        else:
-            export_theme(
-                window=self, theme_path=self.colorscheme_path
-            )
+        export_theme(
+            window=self,
+            theme_path=self.colorscheme_path, colorscheme=self.colorscheme
+        )
 
     def on_export_icontheme(self, action, arg=None):
         self.check_unsaved_changes()

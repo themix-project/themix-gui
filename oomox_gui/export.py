@@ -120,7 +120,18 @@ def _export(window, theme_path, export_args, timeout=120):
     thread.start()
 
 
-def export_theme(window, theme_path):
+def export_theme(window, theme_path, colorscheme):
+    if colorscheme["THEME_STYLE"] == "materia":
+        export_materia_theme(
+            window=window, theme_path=theme_path
+        )
+    else:
+        export_oomox_theme(
+            window=window, theme_path=theme_path
+        )
+
+
+def export_oomox_theme(window, theme_path):
     if Gtk.get_minor_version() >= 20:
         make_opts = "gtk320"
     else:
