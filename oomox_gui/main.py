@@ -23,11 +23,11 @@ from .export import (
 class NewDialog(Gtk.Dialog):
 
     entry = None
-    input_data = ''
+    entry_text = ''
 
     def do_response(self, response):
         if response == Gtk.ResponseType.OK:
-            self.input_data = self.entry.get_text()
+            self.entry_text = self.entry.get_text()
         self.destroy()
 
     def __init__(
@@ -208,7 +208,7 @@ class AppWindow(Gtk.ApplicationWindow):
         dialog = NewDialog(self)
         if dialog.run() != Gtk.ResponseType.OK:
             return
-        new_theme_name = dialog.input_data
+        new_theme_name = dialog.entry_text
         if not self.check_colorscheme_exists(new_theme_name):
             new_path = self.save(new_theme_name)
             self.reload_presets(new_path)
@@ -222,7 +222,7 @@ class AppWindow(Gtk.ApplicationWindow):
         dialog = RenameDialog(self, entry_text=self.colorscheme_name)
         if dialog.run() != Gtk.ResponseType.OK:
             return
-        new_theme_name = dialog.input_data
+        new_theme_name = dialog.entry_text
         if not self.check_colorscheme_exists(new_theme_name):
             self.remove()
             new_path = self.save(new_theme_name)
