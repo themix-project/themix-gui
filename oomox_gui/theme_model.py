@@ -38,6 +38,22 @@ theme_model = [
         'display_name': _('Foreground/text')
     },
     {
+        'key': 'MATERIA_MENUBAR_STYLE',
+        'type': 'options',
+        'options': [
+            {
+                'value': 'contrast',
+                'display_name': _('Contrast to background')
+            }, {
+                'value': 'same',
+                'display_name': _('Similar to background')
+            }
+        ],
+        'fallback_value': 'contrast',
+        'display_name': _('Menubar style'),
+        'filter': create_value_filter('THEME_STYLE', 'materia'),
+    },
+    {
         'key': 'MENU_BG',
         'type': 'color',
         'display_name': _('Menu/toolbar background')
