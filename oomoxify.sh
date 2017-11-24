@@ -216,6 +216,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/a0a0a0/oomox_sidebar_fg/gI" \
 				-e "s/bec0bb/oomox_sidebar_fg/gI" \
 				-e "s/bababa/oomox_sidebar_fg/gI" \
+				-e "s/b3b3b3/oomox_sidebar_fg/gI" \
 				-e "s/cccccc/oomox_main_fg/gI" \
 				-e "s/ededed/oomox_main_fg/gI" \
 				\
