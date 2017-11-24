@@ -334,7 +334,7 @@ class ThemePreview(Gtk.Grid):
         self.headerbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
         self.headerbar = Gtk.HeaderBar()
-        self.headerbar.set_show_close_button(True)
+        self.headerbar.set_show_close_button(False)
         self.headerbar.props.title = _("Headerbar")
         self.headerbar_button = Gtk.Button(label="   %s   " % _("Button"))
         self.headerbar.pack_end(self.headerbar_button)
