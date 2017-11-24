@@ -103,8 +103,8 @@ fg_is_dark=0
 is_dark ${SPOTIFY_PROTO_FG} || fg_is_dark=$?
 if [[ ${fg_is_dark} -eq 0 ]] ; then
 	area_bg="${SPOTIFY_AREA_BG-$(darker ${SPOTIFY_PROTO_BG} -10)}"
-	selected_row_bg_fallback="$(darker ${SPOTIFY_PROTO_BG} -18)"
-	selected_area_bg_fallback="$(darker ${SPOTIFY_PROTO_BG} -24)"
+	selected_row_bg_fallback="$(darker ${area_bg} -8)"
+	selected_area_bg_fallback="$(darker ${area_bg} -14)"
 	main_fg_fallback="$(darker ${SPOTIFY_PROTO_FG} -18)"
 	accent_fg_fallback="$(darker ${SPOTIFY_PROTO_FG} 36)"
 else
