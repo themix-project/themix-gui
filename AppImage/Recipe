@@ -1,0 +1,234 @@
+#!/bin/bash -x
+set -ueo pipefail
+
+
+srcdir="/src"
+app=OomoxAppImage
+export LOWERAPP=oomox
+export ARCH=x86_64
+VERSION=$(cd ${srcdir} && git describe | sed 's/^v//;s/-/+/g')
+builddir=${srcdir}/${app}
+appdir=${builddir}/${app}.appdir
+
+
+# Import AppImage functions:
+cd ${builddir}/
+#wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
+set +ueo pipefail
+#. ./functions.sh
+. ${srcdir}/AppImage/functions.sh
+# Override AppImage generation under docker:
+generate_type2_appimage()
+{
+    pwd
+    ls -lah
+  URL="https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${SYSTEM_ARCH}.AppImage"
+  wget -c "$URL" -O appimagetool
+  chmod a+x ./appimagetool
+  glibc_needed=${glibc_needed:=$(glibc_needed)}
+
+  # extract appimage
+  ./appimagetool --appimage-extract
+  # call extracted appimage
+  version=$version.glibc$glibc_needed \
+      squashfs-root/AppRun  \
+      -n --bintray-user $bintray_user --bintray-repo $bintray_repo \
+      -v ./$app.appdir/
+  # clean up a bit
+  rm -rf squashfs-root/
+
+  mkdir -p ../out/ || true
+  mv *.AppImage* ../out/
+}
+
+
+
+cd ${appdir}
+#find -L usr/lib/x86_64-linux-gnu/ -xtype l -exec sed -i \
+    #-e 's|/usr/lib/|../../../usr/lib/|g' \
+    #-e 's|/usr/|../../../usr/|g' \
+    #-e 's|/lib/|../../../lib/|g' {} \
+    #\; || true
+
+for link in $(find -L usr/lib/x86_64-linux-gnu/ -xtype l) ; do
+    echo "Fixing link $link $(readlink ${link})"
+    ln -sfn "$(readlink ${link} | sed \
+        -e 's|^/usr/|../../../usr/|g' \
+        -e 's|^/lib/|../../../lib/|g' \
+    )" ${link}
+    if [[ ! -f $(readlink ${link}) ]]; then
+        echo "!!Removing broken link ${link} -> $(readlink ${link})"
+        #rm ${link}
+    fi
+done
+#for link in $(find -L . -xtype l) ; do
+    #if [[ ! -f $(readlink ${link}) ]]; then
+        #echo "%%% broken link found ${link} -> $(readlink ${link})"
+        ##echo "!!Removing broken link ${link} $(readlink ${link})"
+        ##rm ${link}
+    #fi
+#done
+
+
+cd ${appdir}
+#echo "!!!!!!!!!!!!!!!!!!BROKEN!!!!!!!!!!!!!!!!!!!:"
+#find . -type l -exec sh -c "file -b {} | grep -q ^broken" \; -print
+#echo "!!!!!!!!!!"
+mv usr/lib/girepository-1.0/* usr/lib/x86_64-linux-gnu/girepository-1.0/ || true
+
+
+
+set -ueo pipefail
+cd ${srcdir}
+#------------------------------------------------------------------------------
+# @TODO: share this common part with PKGBUILD:
+#------------------------------------------------------------------------------
+	make -f po.mk install
+
+    mkdir -p ${appdir}/opt/oomox
+	cp -prf \
+		./CREDITS \
+		./LICENSE \
+		./README.md \
+		./archdroid-icon-theme/ \
+		./archdroid.sh \
+		./colors \
+		./gnome-colors \
+		./gnome_colors.sh \
+		./gui.sh \
+		./locale \
+		./oomox_gui \
+		./oomoxify.sh \
+		./po \
+		./scripts \
+			${appdir}/opt/oomox
+
+	mkdir ${appdir}/opt/oomox/gtk-theme
+	cd ./gtk-theme
+	cp -prf \
+		./CHANGES \
+		./CREDITS \
+		./LICENSE \
+		./Makefile \
+		./README.md \
+		./change_color.sh \
+		./scripts \
+		./src \
+			${appdir}/opt/oomox/gtk-theme
+	cd ..
+
+	mkdir ${appdir}/opt/oomox/materia-theme
+	cd ./materia-theme
+	cp -prf \
+		./COPYING \
+		./HACKING.md \
+		./README.md \
+		./change_color.sh \
+		./install.sh \
+		./parse-sass.sh \
+		./scripts \
+		./src \
+			${appdir}/opt/oomox/materia-theme
+	cd ..
+
+	python3 -O -m compileall ${appdir}/opt/oomox/oomox_gui
+#------------------------------------------------------------------------------
+
+cd ${appdir}
+#find . -type f -executable -exec strip {} \;
+
+
+cat >> ${appdir}/usr/lib/python3.5/sitecustomize.py <<\EOF
+import sys,os
+prefix = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(sys.path[0]))))
+sys.path = [ prefix+s for s in sys.path if not s.startswith(prefix) ]
+EOF
+
+
+#apt-get -y --no-install-recommends install libgdk-pixbuf2.0-dev
+apt-get -y --no-install-recommends install libglib2.0-bin
+#set -x
+#gdk-pixbuf-query-loaders > ${appdir}/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+glib-compile-schemas ${appdir}/usr/share/glib-2.0/schemas
+#set +x
+
+
+# Create application entrypoint:
+cat > ./AppRun <<\EOF
+#!/usr/bin/env bash
+# GTK+/GIO/GdkPixbuf environment variables
+# http://askubuntu.com/questions/251712/how-can-i-install-a-gsettings-schema-without-root-privileges
+
+set -e
+APPDIR="$(dirname "$(readlink -e "$0")")"
+
+export LD_LIBRARY_PATH="${APPDIR}"/usr/lib:${APPDIR}"/usr/lib/x86_64-linux-gnu/:${APPDIR}"/lib:"${APPDIR}"/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+export PATH="${APPDIR}"/usr/bin:"${APPDIR}"/bin:$PATH
+
+export GTK_THEME=Adwaita
+export GTK3_MODULES=
+export GTK_IM_MODULE=
+export CLUTTER_IM_MODULE=
+export XMODIFIERS=
+export TEXTDOMAIN=
+export TEXTDOMAINDIR=
+
+#export XDG_DATA_DIRS=${APPDIR}/usr/share:${XDG_DATA_DIRS}
+export XDG_DATA_DIRS=${APPDIR}/usr/share
+export XDG_CONFIG_DIRS=${APPDIR}/etc/xdg:${XDG_CONFIG_DIRS}
+
+export GI_TYPELIB_PATH="${APPDIR}"/usr/lib/x86_64-linux-gnu/girepository-1.0
+
+export GSETTINGS_SCHEMA_DIR=${APPDIR}/share/glib-2.0/schemas/
+
+#export GTK_PATH=${APPDIR}/lib/gtk-3.0
+export GTK_PATH=${APPDIR}/usr/lib/gtk-3.0
+export GTK_DATA_PREFIX=${APPDIR}
+export GTK_EXE_PREFIX=${APPDIR}
+
+export GDK_PIXBUF_MODULE_DIR=${APPDIR}/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+export GDK_PIXBUF_MODULEDIR=${GDK_PIXBUF_MODULE_DIR}
+loaders_cache=$(mktemp)
+gdk-pixbuf-query-loaders > ${loaders_cache}
+export GDK_PIXBUF_MODULE_FILE=${loaders_cache}
+
+cd ${APPDIR}/opt/oomox/
+if [[ ! -z $1 ]] && [[ "$1" == shell ]] ; then
+  shift
+  exec bash $@
+fi
+exec "${APPDIR}/usr/bin/python3.5" -m oomox_gui "$@"
+EOF
+chmod a+x ./AppRun
+
+
+# Create application launcher:
+# @TODO: share with PKGBUILD
+cat > ./oomox.desktop <<\EOF
+[Desktop Entry]
+Name=Oomox-Theme-Designer
+GenericName=Oomox
+Comment=Graphical application for generating different color variations of Numix theme (GTK2, GTK3), gnome-colors and ArchDroid icon themes
+Exec=oomox-gui
+Terminal=false
+Type=Application
+Icon=oomox
+Categories=GNOME;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
+Keywords=color;gtk;highlight;theme;widget;numix;
+StartupWMClass=oomox
+X-GNOME-Gettext-Domain=oomox
+X-Desktop-File-Install-Version=0.22
+EOF
+
+
+# Create application icon:
+cp /src/gnome-colors/gnome-colors-common/32x32/apps/preferences-desktop-theme.png ./${LOWERAPP}.png
+get_icon
+
+
+
+cd ${builddir}
+set +u
+generate_type2_appimage
+
+# vim: ft=sh
