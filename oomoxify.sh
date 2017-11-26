@@ -169,7 +169,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	cp "${file}" "${tmp_dir}/"
 	cd "${tmp_dir}"
 	unzip "./${filename}" > /dev/null
-	if [[ -d ./css/ ]] && [[ -f ./css/style.css ]] ; then
+	if [[ -d ./css/ ]] ; then
 		for css in $(ls ./css/*.css); do
 			if [ ! -z "${fix_font_weight:-}" ] || [ ! -z "${replace_font:-}" ]; then
 				sed -i \
