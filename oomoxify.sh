@@ -236,7 +236,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/#fff;/#oomox_accent_fg;/gI" \
 				-e "s/#fff /#oomox_accent_fg /gI" \
 				-e "s/ black / #oomox_area_bg /g" \
-				-e "s/ black;/ #oomox_area_b; /g" \
+				-e "s/ black;/ #oomox_area_bg; /g" \
 				-e "s/ gray / #oomox_main_bg /g" \
 				-e "s/ gray;/ #oomox_main_bg;/g" \
 				-e "s/ lightgray / #oomox_main_fg /g" \
