@@ -132,10 +132,9 @@ pressed_selection_color="${SPOTIFY_PRESSED_SELECTION_COLOR-$pressed_selection_co
 blue_blocks_color="${SPOTIFY_BLUE_BLOCKS-$BTN_BG}"
 blue_blocks_hover_color="$(darker ${blue_blocks_color} -15)"
 
-#top_and_button_bg="#${SPOTIFY_TOP_AND_BTN_BG-$BTN_BG}"
-top_and_button_bg="#${SPOTIFY_TOP_BTN_BG-$main_bg}"
-#top_and_button_bg="rgba(133, 80, 155, 1)"
-cover_overlay_color="$(${root}/scripts/hex_to_rgba.sh ${main_bg} 0.45)"
+#top_and_button_bg="${SPOTIFY_TOP_AND_BTN_BG-$BTN_BG}"
+top_and_button_bg="${SPOTIFY_TOP_BTN_BG-$main_bg}"
+cover_overlay_color="$(${root}/scripts/hex_to_rgba.sh ${main_bg} 0.55)"
 
 
 tmp_dir="$(mktemp -d)"
@@ -171,6 +170,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	unzip "./${filename}" > /dev/null
 	if [[ -d ./css/ ]] ; then
 		for css in $(ls ./css/*.css); do
+			#echo " -- ${css}"
 			if [ ! -z "${fix_font_weight:-}" ] || [ ! -z "${replace_font:-}" ]; then
 				sed -i \
 					-e "s/Monaco/monospace/g" \
@@ -195,12 +195,14 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/121212/oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
+				-e "s/rgba(18,19,20,[0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/000000/oomox_area_bg/g" \
 				-e "s/333333/oomox_selected_row_bg/g" \
 				-e "s/3f3f3f/oomox_selected_row_bg/g" \
 				-e "s/535353/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
-				-e "s/rgba(40, 40, 40, 0)/#oomox_area_bg/g" \
+				-e "s/rgba(40, 40, 40, [0-9\.]\+)/#oomox_area_bg/g" \
+				-e "s/rgba(40,40,40,[0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/rgba(24, 24, 24, 0)/#oomox_area_bg/g" \
 				-e "s/rgba(24, 24, 24, 0\.[6,8])/#oomox_area_bg/g" \
 				-e "s/rgba(18, 19, 20, 0)/#oomox_area_bg/g" \
@@ -217,14 +219,15 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/bec0bb/oomox_sidebar_fg/gI" \
 				-e "s/bababa/oomox_sidebar_fg/gI" \
 				-e "s/b3b3b3/oomox_sidebar_fg/gI" \
+				-e "s/rgba(179, 179, 179, [0-9\.]\+)/#oomox_sidebar_fg/g" \
 				-e "s/cccccc/oomox_main_fg/gI" \
 				-e "s/ededed/oomox_main_fg/gI" \
 				\
 				-e "s/4687d6/oomox_blue_blocks/gI" \
 				-e "s/2e77d0/oomox_blue_blocks_hover/gI" \
 				\
-				-e "s/rgba(0, 0, 0, [0-9\.]\+)/oomox_cover_overlay/g" \
-				-e "s/rgba(24, 24, 24, [0-9\.]\+)/oomox_top_and_button_bg/g" \
+				-e "s/rgba(24, 24, 24, [0-9\.]\+)/#oomox_top_and_button_bg/g" \
+				-e "s/rgba(25,20,20,[0-9\.]\+)/#oomox_top_and_button_bg/g" \
 				-e "s/rgba(160, 160, 160, [0-9\.]\+)/#oomox_main_fg/g" \
 				-e "s/rgba(255, 255, 255, ...)/#oomox_main_fg/gI" \
 				-e "s/#ddd;/#oomox_main_fg;/g" \
@@ -243,12 +246,17 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/ lightgray;/ #oomox_main_fg;/g" \
 				-e "s/ white;/ #oomox_accent_fg;/gI" \
 				-e "s/ white / #oomox_accent_fg /gI" \
+				-e "s/#fff/#oomox_accent_fg/gI" \
+				-e "s/#000/#oomox_area_bg/gI" \
+				\
+				-e "s/rgba(0, 0, 0, [0-9\.]\+)/oomox_cover_overlay/g" \
+				-e "s/rgba(0,0,0,[0-9\.]\+)/oomox_cover_overlay/g" \
 				\
 				"${css}"
 			if [[ $debug != '0' && $(grep "${debug}" "${css}") ]] >/dev/null ; then
 				echo '-------------------------------------------'
 				echo $css
-				grep ${debug} "${css}" || true
+				grep "${debug}" "${css}" || true
 			fi
 			sed -i \
 				-e "s/oomox_cover_overlay/${cover_overlay_color}/g" \
