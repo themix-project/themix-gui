@@ -10,6 +10,7 @@ colors_dir = os.path.join(oomox_root_dir, "colors/")
 gtk_theme_dir = os.path.join(oomox_root_dir, "gtk-theme/")
 materia_theme_dir = os.path.join(oomox_root_dir, "materia-theme/")
 archdroid_theme_dir = os.path.join(oomox_root_dir, "archdroid-icon-theme/")
+gnome_colors_icon_theme_dir = os.path.join(oomox_root_dir, "gnome-colors-icon-theme/")
 
 user_config_dir = os.path.join(
     os.environ.get(

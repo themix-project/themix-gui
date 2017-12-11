@@ -6,7 +6,9 @@ from gi.repository import Gtk, GLib, Pango
 from .terminal import generate_theme_from_oomox, generate_xresources
 from .gtk_helpers import CenterLabel
 from .config import (
-    oomox_root_dir, gtk_theme_dir, materia_theme_dir, archdroid_theme_dir,
+    oomox_root_dir,
+    gtk_theme_dir, materia_theme_dir,
+    archdroid_theme_dir, gnome_colors_icon_theme_dir,
 )
 
 
@@ -157,7 +159,7 @@ def export_materia_theme(window, theme_path):
 def export_gnome_colors_icon_theme(window, theme_path):
     return _export(window, theme_path, [
         "bash",
-        os.path.join(oomox_root_dir, "gnome_colors.sh"),
+        os.path.join(gnome_colors_icon_theme_dir, "change_color.sh"),
         theme_path,
     ], timeout=600)
 

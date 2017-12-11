@@ -7,3 +7,6 @@
 [submodule "archdroid-icon-theme"]
 	path = archdroid-icon-theme
 	url = https://github.com/actionless/oomox-archdroid-icon-theme.git
+[submodule "gnome-colors-icon-theme"]
+	path = gnome-colors-icon-theme
+	url = https://github.com/actionless/oomox-gnome-colors-icon-theme.git

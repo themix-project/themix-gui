@@ -3,7 +3,7 @@
 
 pkgname=oomox-git
 pkgver=1.4.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Graphical application for generating different color variations
 of Numix and Materia (ex-Flat-Plat) themes (GTK2, GTK3),
 gnome-colors and ArchDroid icon themes.
@@ -16,8 +16,10 @@ source=(
 	"git+https://github.com/actionless/oomox-gtk-theme.git#branch=master"
 	"git+https://github.com/nana-4/materia-theme.git#branch=master"
 	"git+https://github.com/actionless/oomox-archdroid-icon-theme.git#branch=master"
+	"git+https://github.com/actionless/oomox-gnome-colors-icon-theme.git#branch=master"
 )
 md5sums=(
+	"SKIP"
 	"SKIP"
 	"SKIP"
 	"SKIP"
@@ -65,6 +67,7 @@ prepare(){
 	git config submodule.gtk-theme.url $srcdir/oomox-gtk-theme
 	git config submodule.materia-theme.url $srcdir/materia-theme
 	git config submodule.archdroid-icon-theme.url $srcdir/oomox-archdroid-icon-theme
+	git config submodule.gnome-colors-icon-theme.url $srcdir/oomox-gnome-colors-icon-theme
 	git submodule update
 }
 
@@ -78,8 +81,6 @@ package() {
 		./LICENSE \
 		./README.md \
 		./colors \
-		./gnome-colors \
-		./gnome_colors.sh \
 		./gui.sh \
 		./locale \
 		./oomox_gui \
@@ -127,6 +128,15 @@ package() {
 			${pkgdir}/opt/oomox/archdroid-icon-theme
 	cd ..
 
+	mkdir ${pkgdir}/opt/oomox/gnome-colors-icon-theme
+	cd ./gnome-colors-icon-theme
+	cp -prf \
+		./gnome-colors \
+		./README.md \
+		./change_color.sh \
+			${pkgdir}/opt/oomox/gnome-colors-icon-theme
+	cd ..
+
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 	mkdir -p ${pkgdir}/usr/bin/
 	mkdir -p ${pkgdir}/usr/share/applications/
@@ -142,16 +152,24 @@ EOF
 
 	cat > ${pkgdir}/usr/bin/oomox-cli <<EOF
 #!/bin/sh
-cd /opt/oomox/gtk-theme/
-exec ./change_color.sh "\$@"
+cd /opt/oomox/
+exec ./gtk-theme/change_color.sh "\$@"
 EOF
 	chmod +x ${pkgdir}/usr/bin/oomox-cli
+
+
+	cat > ${pkgdir}/usr/bin/oomox-materia-cli <<EOF
+#!/bin/sh
+cd /opt/oomox/
+exec ./materia-theme/change_color.sh "\$@"
+EOF
+	chmod +x ${pkgdir}/usr/bin/oomox-materia-cli
 
 
 	cat > ${pkgdir}/usr/bin/oomox-gnome-colors-icons-cli <<EOF
 #!/bin/sh
 cd /opt/oomox/
-exec ./gnome-colors.sh "\$@"
+exec ./gnome-colors-icon-theme/change_color.sh "\$@"
 EOF
 	chmod +x ${pkgdir}/usr/bin/oomox-gnome-colors-icons-cli
 

@@ -130,7 +130,7 @@ For icons you need to have `inkscape` and `imagemagick` installed.
 To generate `gnome-colors` iconset with the selected colorscheme:
 
 ```sh
-./gnome_colors.sh ./colors/gnome-colors/shiki-noble
+./gnome-colors-icon-theme/change_color.sh ./colors/gnome-colors/shiki-noble
 ```
 
 next select oomox-current in your appearance config tool (for example, _lxappearance_)
