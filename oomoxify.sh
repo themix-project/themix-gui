@@ -170,13 +170,6 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	unzip "./${filename}" > /dev/null
 	if [[ -d ./css/ ]] ; then
 		for css in $(ls ./css/*.css); do
-			if [ ! -z "${fix_font_weight:-}" ] || [ ! -z "${replace_font:-}" ]; then
-				sed -i \
-					-e "s/Monaco/monospace/g" \
-					-e "s/font-weight: 200/font-weight: 400/g" \
-					-e "s/font-weight: 100/font-weight: 400/g" \
-					"${css}" || true
-			fi
 			if [ ! -z "${THEME:-}" ] ; then
 			sed -i \
 				-e "s/1ed660/oomox_selected_text_color/gI" \
@@ -284,7 +277,17 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 			" >> "${css}"
 			if [ ! -z "${replace_font:-}" ] ; then
 				echo "
-				* {font-family: ${replace_font} !important; }
+				* {
+					font-family: ${replace_font} !important;
+					font-weight: 400 !important;
+				}
+				" >> "${css}"
+			fi
+			if [ ! -z "${fix_font_weight:-}" ] && [ -z "${replace_font:-}" ] ; then
+				echo "
+				* {
+					font-weight: 400 !important;
+				}
 				" >> "${css}"
 			fi
 			zip -0 "./${filename}" "${css}" > /dev/null
