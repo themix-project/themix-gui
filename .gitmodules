@@ -4,3 +4,6 @@
 [submodule "materia-theme"]
 	path = materia-theme
 	url = https://github.com/nana-4/materia-theme.git
+[submodule "archdroid-icon-theme"]
+	path = archdroid-icon-theme
+	url = https://github.com/actionless/oomox-archdroid-icon-theme.git

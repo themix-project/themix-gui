@@ -170,7 +170,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 	unzip "./${filename}" > /dev/null
 	if [[ -d ./css/ ]] ; then
 		for css in $(ls ./css/*.css); do
-			#echo " -- ${css}"
+			echo " -- ${css}"
 			if [ ! -z "${fix_font_weight:-}" ] || [ ! -z "${replace_font:-}" ]; then
 				sed -i \
 					-e "s/Monaco/monospace/g" \
@@ -256,7 +256,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 			if [[ $debug != '0' && $(grep "${debug}" "${css}") ]] >/dev/null ; then
 				echo '-------------------------------------------'
 				echo $css
-				grep "${debug}" "${css}" || true
+				grep -B 3 -A 8 "${debug}" "${css}" || true
 			fi
 			sed -i \
 				-e "s/oomox_cover_overlay/${cover_overlay_color}/g" \

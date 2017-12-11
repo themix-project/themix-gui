@@ -5,7 +5,9 @@ from gi.repository import Gtk, GLib, Pango
 
 from .terminal import generate_theme_from_oomox, generate_xresources
 from .gtk_helpers import CenterLabel
-from .config import oomox_root_dir, gtk_theme_dir, materia_theme_dir
+from .config import (
+    oomox_root_dir, gtk_theme_dir, materia_theme_dir, archdroid_theme_dir,
+)
 
 
 DEFAULT_SPOTIFY_PATH = "/usr/share/spotify/Apps"
@@ -163,9 +165,9 @@ def export_gnome_colors_icon_theme(window, theme_path):
 def export_archdroid_icon_theme(window, theme_path):
     return _export(window, theme_path, [
         "bash",
-        os.path.join(oomox_root_dir, "archdroid.sh"),
+        os.path.join(archdroid_theme_dir, "change_color.sh"),
         theme_path,
-    ], timeout=300)
+    ], timeout=100)
 
 
 class SpotifyExportDialog(ExportDialog):
