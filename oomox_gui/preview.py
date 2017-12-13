@@ -204,14 +204,8 @@ class ThemePreview(Gtk.Grid):
         }
         if self.current_theme == "materia":
             converted["TXT_FG"] = converted["FG"]
-            converted["SEL_FG"] = converted["TXT_BG"]
-            converted["BTN_FG"] = converted["FG"]
             converted["WM_BORDER_FOCUS"] = converted["MENU_BG"]
             converted["WM_BORDER_UNFOCUS"] = converted["BTN_BG"]
-            if colorscheme.get("MATERIA_MENUBAR_STYLE", "contrast") == "contrast":
-                converted["MENU_FG"] = converted["TXT_BG"]
-            else:
-                converted["MENU_FG"] = converted["FG"]
             converted["HDR_BTN_FG"] = converted["MENU_FG"]
             converted["HDR_BTN_BG"] = converted["MENU_BG"]
 

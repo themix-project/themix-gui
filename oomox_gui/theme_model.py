@@ -38,22 +38,6 @@ theme_model = [
         'display_name': _('Foreground/text')
     },
     {
-        'key': 'MATERIA_MENUBAR_STYLE',
-        'type': 'options',
-        'options': [
-            {
-                'value': 'contrast',
-                'display_name': _('Contrast to background')
-            }, {
-                'value': 'same',
-                'display_name': _('Similar to background')
-            }
-        ],
-        'fallback_value': 'contrast',
-        'display_name': _('Menubar style'),
-        'filter': create_value_filter('THEME_STYLE', 'materia'),
-    },
-    {
         'key': 'MENU_BG',
         'type': 'color',
         'display_name': _('Menu/toolbar background')
@@ -62,7 +46,6 @@ theme_model = [
         'key': 'MENU_FG',
         'type': 'color',
         'display_name': _('Menu/toolbar text'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'SEL_BG',
@@ -73,7 +56,6 @@ theme_model = [
         'key': 'SEL_FG',
         'type': 'color',
         'display_name': _('Selection text'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'ACCENT_BG',
@@ -102,7 +84,6 @@ theme_model = [
         'key': 'BTN_FG',
         'type': 'color',
         'display_name': _('Button text'),
-        'filter': create_value_filter('THEME_STYLE', 'oomox'),
     },
     {
         'key': 'HDR_BTN_BG',
