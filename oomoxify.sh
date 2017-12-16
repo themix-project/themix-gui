@@ -186,6 +186,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				\
 				-e "s/282828/oomox_main_bg/g" \
 				-e "s/121212/oomox_main_bg/g" \
+				-e "s/rgba(18, 18, 18, [0-9\.]\+)/#oomox_main_bg/g" \
 				-e "s/181818/oomox_area_bg/g" \
 				-e "s/rgba(18,19,20,[0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/000000/oomox_area_bg/g" \
@@ -193,11 +194,12 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/3f3f3f/oomox_selected_row_bg/g" \
 				-e "s/535353/oomox_selected_row_bg/g" \
 				-e "s/404040/oomox_selected_area_bg/g" \
+				-e "s/rgba(80,55,80,[0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/rgba(40, 40, 40, [0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/rgba(40,40,40,[0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/rgba(24, 24, 24, 0)/#oomox_area_bg/g" \
 				-e "s/rgba(24, 24, 24, 0\.[6,8])/#oomox_area_bg/g" \
-				-e "s/rgba(18, 19, 20, 0)/#oomox_area_bg/g" \
+				-e "s/rgba(18, 19, 20, [0-9\.]\+)/#oomox_area_bg/g" \
 				-e "s/#000011/#oomox_area_bg/g" \
 				-e "s/#0a1a2d/#oomox_area_bg/g" \
 				\
@@ -216,7 +218,10 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/ededed/oomox_main_fg/gI" \
 				\
 				-e "s/4687d6/oomox_blue_blocks/gI" \
+				-e "s/rgba(70, 135, 214, [0-9\.]\+)/#oomox_blue_blocks/g" \
 				-e "s/2e77d0/oomox_blue_blocks_hover/gI" \
+				-e "s/rgba(51,153,255,[0-9\.]\+)/#oomox_blue_blocks_hover/g" \
+				-e "s/rgba(30,50,100,[0-9\.]\+)/#oomox_blue_blocks_hover/g" \
 				\
 				-e "s/rgba(24, 24, 24, [0-9\.]\+)/#oomox_top_and_button_bg/g" \
 				-e "s/rgba(25,20,20,[0-9\.]\+)/#oomox_top_and_button_bg/g" \
@@ -224,6 +229,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/rgba(255, 255, 255, ...)/#oomox_main_fg/gI" \
 				-e "s/#ddd;/#oomox_main_fg;/g" \
 				-e "s/#000;/#oomox_area_bg;/g" \
+				-e "s/#000 /#oomox_area_bg /g" \
 				-e "s/#333;/#oomox_selected_row_bg;/gI" \
 				-e "s/#333 /#oomox_selected_row_bg /gI" \
 				-e "s/#444;/#oomox_selected_area_bg;/gI" \
@@ -231,20 +237,20 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				-e "s/#fff;/#oomox_accent_fg;/gI" \
 				-e "s/#fff /#oomox_accent_fg /gI" \
 				-e "s/ black / #oomox_area_bg /g" \
-				-e "s/ black;/ #oomox_area_bg; /g" \
+				-e "s/ black;/ #oomox_area_bg;/g" \
 				-e "s/ gray / #oomox_main_bg /g" \
 				-e "s/ gray;/ #oomox_main_bg;/g" \
 				-e "s/ lightgray / #oomox_main_fg /g" \
 				-e "s/ lightgray;/ #oomox_main_fg;/g" \
 				-e "s/ white;/ #oomox_accent_fg;/gI" \
 				-e "s/ white / #oomox_accent_fg /gI" \
-				-e "s/#fff/#oomox_accent_fg/gI" \
-				-e "s/#000/#oomox_area_bg/gI" \
 				\
 				-e "s/rgba(0, 0, 0, [0-9\.]\+)/oomox_cover_overlay/g" \
 				-e "s/rgba(0,0,0,[0-9\.]\+)/oomox_cover_overlay/g" \
 				\
 				"${css}"
+				#-e "s/#fff/#oomox_accent_fg/gI" \
+				#-e "s/#000/#oomox_area_bg/gI" \
 			if [[ $debug != '0' && $(grep "${debug}" "${css}") ]] >/dev/null ; then
 				echo '-------------------------------------------'
 				echo " -- ${css}"
@@ -290,6 +296,7 @@ for file in $(ls "${backup_dir}"/*.spa) ; do
 				}
 				" >> "${css}"
 			fi
+			#border-radius: ${ROUNDNESS}px !important;
 			zip -0 "./${filename}" "${css}" > /dev/null
 		done
 		cd "${tmp_dir}"
