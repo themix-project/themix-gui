@@ -147,12 +147,6 @@ theme_model = [
         'display_name': _('(GTK3) Add dark variant'),
     },
     {
-        'key': 'GTK2_HIDPI',
-        'type': 'bool',
-        'fallback_value': False,
-        'display_name': _('(GTK2) HiDPI'),
-    },
-    {
         'key': 'MATERIA_STYLE_COMPACT',
         'type': 'bool',
         'fallback_value': True,

@@ -14,17 +14,13 @@ class SpotifyExportDialog(ExportDialog):
 
     theme_path = None
     export_config = None
+    timeout = 120
 
     def do_export(self):
         self.export_config['font_name'] = self.font_name_entry.get_text()
         self.export_config['spotify_path'] = self.spotify_path_entry.get_text()
         self.export_config.save()
 
-        self.options_box.destroy()
-        self.apply_button.destroy()
-
-        self.spinner.start()
-        self.scrolled_window.show()
         export_args = [
             "bash",
             oomoxify_script_path,
@@ -38,7 +34,7 @@ class SpotifyExportDialog(ExportDialog):
             export_args.append('--font')
             export_args.append(self.export_config['font_name'])
 
-        super().do_export(export_args, timeout=120)
+        super().do_export(export_args)
 
     def stop(self):
         self.spinner.stop()
@@ -109,11 +105,6 @@ class SpotifyExportDialog(ExportDialog):
         self.spinner.stop()
         self.label.set_text(_("Please choose the font options:"))
 
-        self.options_box = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL, spacing=5
-        )
-        self.options_box.set_margin_bottom(10)
-
         self._init_radios()
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -123,13 +114,10 @@ class SpotifyExportDialog(ExportDialog):
         spotify_path_label.set_mnemonic_widget(self.spotify_path_entry)
         hbox.add(spotify_path_label)
         hbox.add(self.spotify_path_entry)
+
         self.options_box.add(hbox)
-
-        self.under_log_box.add(self.options_box)
-
-        self.apply_button = Gtk.Button(label=_("_Apply"), use_underline=True)
-        self.apply_button.connect("clicked", lambda x: self.do_export())
-        self.under_log_box.add(self.apply_button)
+        self.options_box.show()
+        self.apply_button.show()
 
         self.show_all()
         self.scrolled_window.hide()

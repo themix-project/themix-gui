@@ -74,6 +74,18 @@ class ExportDialog(Gtk.Dialog):
             orientation=Gtk.Orientation.VERTICAL, spacing=5
         )
 
+        self.options_box = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, spacing=5
+        )
+        self.options_box.set_margin_bottom(10)
+        self.under_log_box.add(self.options_box)
+        self.options_box.hide()
+
+        self.apply_button = Gtk.Button(label=_("_Apply"), use_underline=True)
+        self.apply_button.connect("clicked", lambda x: self.do_export())
+        self.under_log_box.add(self.apply_button)
+        self.apply_button.hide()
+
         self.box = self.get_content_area()
         self.box.set_margin_left(5)
         self.box.set_margin_right(5)
@@ -84,6 +96,13 @@ class ExportDialog(Gtk.Dialog):
         self.show_all()
 
     def do_export(self, export_args, timeout=120):
+        timeout = timeout or self.timeout
+
+        self.options_box.hide()
+        self.apply_button.hide()
+
+        self.spinner.start()
+        self.scrolled_window.show()
 
         def update_ui(text):
             self.set_text(text)
