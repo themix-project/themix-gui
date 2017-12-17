@@ -28,4 +28,3 @@ ICONS_LIGHT_FOLDER=$(color 13)
 ICONS_LIGHT=$(color 9)
 ICONS_MEDIUM=$(color 1)
 ICONS_DARK=$(color 5)
-GTK2_HIDPI=True
