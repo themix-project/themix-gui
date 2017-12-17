@@ -10,3 +10,6 @@
 [submodule "gnome-colors-icon-theme"]
 	path = gnome-colors-icon-theme
 	url = https://github.com/actionless/oomox-gnome-colors-icon-theme.git
+[submodule "oomoxify"]
+	path = oomoxify
+	url = https://github.com/actionless/oomoxify.git
