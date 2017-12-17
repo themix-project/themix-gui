@@ -1,7 +1,4 @@
-import subprocess
-from threading import Thread
-
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk
 
 from ..config import oomoxify_script_path
 
@@ -41,34 +38,7 @@ class SpotifyExportDialog(ExportDialog):
             export_args.append('--font')
             export_args.append(self.export_config['font_name'])
 
-        def update_ui(text):
-            self.set_text(text)
-
-        def ui_done():
-            self.stop()
-
-        def ui_error():
-            self.show_error()
-
-        def export_worker():
-            captured_log = ""
-            proc = subprocess.Popen(
-                export_args,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT
-            )
-            for line in iter(proc.stdout.readline, b''):
-                captured_log += line.decode("utf-8")
-                GLib.idle_add(update_ui, captured_log)
-            proc.communicate(timeout=120)
-            if proc.returncode == 0:
-                GLib.idle_add(ui_done)
-            else:
-                GLib.idle_add(ui_error)
-
-        thread = Thread(target=export_worker)
-        thread.daemon = True
-        thread.start()
+        super().do_export(export_args, timeout=120)
 
     def stop(self):
         self.spinner.stop()

@@ -7,7 +7,6 @@ from gi.repository import Gtk, GLib, Pango
 from ..terminal import generate_theme_from_oomox, generate_xresources
 from ..gtk_helpers import CenterLabel
 from ..config import (
-    gtk_theme_dir, materia_theme_dir,
     archdroid_theme_dir, gnome_colors_icon_theme_dir,
 )
 
@@ -48,9 +47,7 @@ class ExportDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self, headline, parent, 0)
         self.set_default_size(width, height)
 
-        self.label = CenterLabel(
-            _("Please wait while\nnew colorscheme will be created")
-        )
+        self.label = CenterLabel()
 
         self.spinner = Gtk.Spinner()
         self.spinner.start()
@@ -86,74 +83,41 @@ class ExportDialog(Gtk.Dialog):
         self.box.add(self.under_log_box)
         self.show_all()
 
+    def do_export(self, export_args, timeout=120):
 
-def _export(window, theme_path, export_args, timeout=120):
+        def update_ui(text):
+            self.set_text(text)
 
-    def update_ui(text):
-        export_dialog.set_text(text)
+        def ui_done():
+            self.destroy()
 
-    def ui_done():
-        export_dialog.destroy()
+        def ui_error():
+            self.show_error()
 
-    def ui_error():
-        export_dialog.show_error()
+        def do_export():
+            self.label.set_text(_("Please wait while\nnew colorscheme will be created"))
+            captured_log = ""
+            proc = subprocess.Popen(
+                export_args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT
+            )
+            for line in iter(proc.stdout.readline, b''):
+                captured_log += line.decode("utf-8")
+                GLib.idle_add(update_ui, captured_log)
+            proc.communicate(timeout=timeout)
+            if proc.returncode == 0:
+                GLib.idle_add(ui_done)
+            else:
+                GLib.idle_add(ui_error)
 
-    def do_export():
-        captured_log = ""
-        proc = subprocess.Popen(
-            export_args,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
-        )
-        for line in iter(proc.stdout.readline, b''):
-            captured_log += line.decode("utf-8")
-            GLib.idle_add(update_ui, captured_log)
-        proc.communicate(timeout=timeout)
-        if proc.returncode == 0:
-            GLib.idle_add(ui_done)
-        else:
-            GLib.idle_add(ui_error)
-
-    export_dialog = ExportDialog(window)
-    thread = Thread(target=do_export)
-    thread.daemon = True
-    thread.start()
-
-
-def export_theme(window, theme_path, colorscheme):
-    if colorscheme["THEME_STYLE"] == "materia":
-        export_materia_theme(
-            window=window, theme_path=theme_path
-        )
-    else:
-        export_oomox_theme(
-            window=window, theme_path=theme_path
-        )
-
-
-def export_oomox_theme(window, theme_path):
-    if Gtk.get_minor_version() >= 20:
-        make_opts = "gtk320"
-    else:
-        make_opts = "gtk3"
-    return _export(window, theme_path, [
-        "bash",
-        os.path.join(gtk_theme_dir, "change_color.sh"),
-        theme_path,
-        "--make-opts", make_opts
-    ], timeout=100)
-
-
-def export_materia_theme(window, theme_path):
-    return _export(window, theme_path, [
-        "bash",
-        os.path.join(materia_theme_dir, "change_color.sh"),
-        theme_path,
-    ], timeout=1000)
+        thread = Thread(target=do_export)
+        thread.daemon = True
+        thread.start()
 
 
 def export_gnome_colors_icon_theme(window, theme_path):
-    return _export(window, theme_path, [
+    return ExportDialog(window).do_export([
         "bash",
         os.path.join(gnome_colors_icon_theme_dir, "change_color.sh"),
         theme_path,
@@ -161,7 +125,7 @@ def export_gnome_colors_icon_theme(window, theme_path):
 
 
 def export_archdroid_icon_theme(window, theme_path):
-    return _export(window, theme_path, [
+    return ExportDialog(window).do_export([
         "bash",
         os.path.join(archdroid_theme_dir, "change_color.sh"),
         theme_path,

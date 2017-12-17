@@ -2,8 +2,10 @@ from gi.repository import Gtk, Gio
 
 
 class CenterLabel(Gtk.Label):
-    def __init__(self, text):
-        super().__init__(text)
+    def __init__(self, text=None):
+        super().__init__()
+        if text:
+            self.set_text(text)
         self.set_justify(Gtk.Justification.CENTER)
         self.set_alignment(0.5, 0.5)
         self.set_margin_left(6)

@@ -31,7 +31,6 @@ class ExportConfig(object):
     def save(self):
         if not os.path.exists(user_export_config_dir):
             os.makedirs(user_export_config_dir)
-        print(self.config)
         with open(self.config_path, 'w') as f:
             return json.dump(self.config, f)
 
