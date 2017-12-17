@@ -138,7 +138,7 @@ next select oomox-current in your appearance config tool (for example, _lxappear
 
 #### Spotify:
 ```sh
-./oomoxify.sh ./colors/gnome-colors/shiki-noble
+./oomoxify/oomoxify.sh ./colors/gnome-colors/shiki-noble
 ```
 
 Also you can normalize font weight with `-w` argument, see `-h` for usage.
