@@ -11,6 +11,7 @@ gtk_theme_dir = os.path.join(oomox_root_dir, "gtk-theme/")
 materia_theme_dir = os.path.join(oomox_root_dir, "materia-theme/")
 archdroid_theme_dir = os.path.join(oomox_root_dir, "archdroid-icon-theme/")
 gnome_colors_icon_theme_dir = os.path.join(oomox_root_dir, "gnome-colors-icon-theme/")
+oomoxify_script_path = os.path.join(oomox_root_dir, "oomoxify.sh")
 
 user_config_dir = os.path.join(
     os.environ.get(
@@ -21,5 +22,6 @@ user_config_dir = os.path.join(
 )
 user_theme_dir = os.path.join(user_config_dir, "colors/")
 user_palette_path = os.path.join(user_config_dir, "recent_palette.json")
+user_export_config_dir = os.path.join(user_config_dir, "export_config/")
 
 FALLBACK_COLOR = "F33333"

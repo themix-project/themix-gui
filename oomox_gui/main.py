@@ -21,7 +21,7 @@ from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export import (
     export_theme, export_gnome_colors_icon_theme, export_archdroid_icon_theme,
-    export_spotify
+    export_spotify, export_terminal_theme
 )
 
 
@@ -195,7 +195,6 @@ class AppWindow(Gtk.ApplicationWindow):
             )
 
     def on_export_terminal(self, action, arg=None):
-        from .export import export_terminal_theme
         export_terminal_theme(window=self, colorscheme=self.colorscheme)
 
     def on_export_spotify(self, action, arg):
