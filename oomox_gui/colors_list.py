@@ -25,7 +25,8 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         self.connect_changed_signal()
 
     def on_value_changed(self, spinbutton):
-        self.value = spinbutton.get_value()
+        raw_value = spinbutton.get_value()
+        self.value = int(raw_value*100)/100  # limit float to 2 digits
         self.color_set_callback(self.key, self.value)
 
     def __init__(self, display_name, key, callback, value=None):
@@ -39,10 +40,18 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
-        adjustment = Gtk.Adjustment(value or 0, 0.0, 4.0, 0.01, 10.0, 0)
-        spinbutton = Gtk.SpinButton()
-        spinbutton.set_digits(2)
-        spinbutton.set_adjustment(adjustment)
+        adjustment = Gtk.Adjustment(
+            value=value or 0.0,
+            lower=0.0,
+            upper=10.0,
+            step_increment=0.01,
+            page_increment=1.0,
+            page_size=0.0
+        )
+        spinbutton = Gtk.SpinButton(
+            adjustment=adjustment,
+            digits=2,
+        )
         spinbutton.set_numeric(True)
         spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
         self.spinbutton = spinbutton
