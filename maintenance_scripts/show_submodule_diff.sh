@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 for submodule in $(git config --file .gitmodules --get-regexp path | awk '{ print $2 }') ; do
-	hashes=$(git diff | grep ${submodule} -A 3 | grep -e "^.Subproject" | cut -d ' ' -f3 | cut -d- -f1 | paste -sd '%' -)
+	hashes=$(git diff | grep ${submodule} -A 3 | grep -e "^[+-]Subproject" | cut -d ' ' -f3 | cut -d- -f1 | paste -sd '%' -) || hashes=''
 	if [[ ! -z "${hashes}" ]] ; then
 		echo
 		echo SUBMODULE ${submodule}:
