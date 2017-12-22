@@ -1,6 +1,6 @@
 from gi.repository import Gtk
 
-from .terminal import generate_theme_from_oomox
+from .terminal import generate_xrdb_theme_from_oomox
 from .helpers import convert_theme_color_to_gdk
 
 
@@ -61,7 +61,7 @@ class TerminalThemePreview(Gtk.Grid):
         self.attach(self.bg, 1, 1, 1, 1)
 
     def update_preview(self, colorscheme):
-        term_colorscheme = generate_theme_from_oomox(colorscheme)
+        term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
         # print(term_colorscheme)
         converted = {
             key: convert_theme_color_to_gdk(theme_value)

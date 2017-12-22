@@ -23,6 +23,7 @@ from .export import (
     export_theme, export_gnome_colors_icon_theme, export_archdroid_icon_theme,
     export_spotify, export_terminal_theme
 )
+from .terminal import generate_terminal_colors_for_oomox
 
 
 class NewDialog(EntryDialog):
@@ -216,6 +217,17 @@ class AppWindow(Gtk.ApplicationWindow):
         self.headerbar.props.title = selected_preset
 
     def on_color_edited(self, colorscheme):
+        # @TODO: don't write unused term colorscheme values?
+        updated_colorscheme = generate_terminal_colors_for_oomox(colorscheme)
+        delete_keys = []
+        for theme_key, theme_value in colorscheme.items():
+            if theme_key not in updated_colorscheme:
+                delete_keys.append(theme_key)
+        for theme_key in delete_keys:
+            del colorscheme[theme_key]
+        for theme_key, theme_value in updated_colorscheme.items():
+            colorscheme[theme_key] = updated_colorscheme[theme_key]
+
         self.colorscheme = colorscheme
         self.preview.update_preview(self.colorscheme)
         if not self.theme_edited:

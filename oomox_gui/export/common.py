@@ -4,7 +4,7 @@ from threading import Thread
 
 from gi.repository import Gtk, GLib, Pango
 
-from ..terminal import generate_theme_from_oomox, generate_xresources
+from ..terminal import generate_xrdb_theme_from_oomox, generate_xresources
 from ..gtk_helpers import CenterLabel
 from ..config import (
     archdroid_theme_dir, gnome_colors_icon_theme_dir,
@@ -160,7 +160,7 @@ def export_terminal_theme(window, colorscheme):
     dialog.spinner.destroy()
     dialog.label.set_text(_('Paste this colorscheme to your ~/.Xresources'))
     try:
-        term_colorscheme = generate_theme_from_oomox(colorscheme)
+        term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
         xresources_theme = generate_xresources(term_colorscheme)
     except Exception as e:
         dialog.set_text(e)

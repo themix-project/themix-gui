@@ -164,7 +164,9 @@ def generate_theme(
     return modified_colors
 
 
-def generate_theme_from_oomox(colorscheme):
+def generate_themes_from_oomox(original_colorscheme):
+    colorscheme = {}
+    colorscheme.update(original_colorscheme)
     if colorscheme['TERMINAL_THEME_MODE'] == 'auto':
         colorscheme["TERMINAL_ACCENT_COLOR"] = colorscheme["SEL_BG"]
         colorscheme["TERMINAL_BACKGROUND"] = colorscheme["TXT_BG"]
@@ -189,7 +191,22 @@ def generate_theme_from_oomox(colorscheme):
             else:
                 colorscheme[theme_key] = \
                     term_colorscheme[term_key]
+    return term_colorscheme, colorscheme
+
+
+def generate_xrdb_theme_from_oomox(colorscheme):
+    term_colorscheme, _ = generate_themes_from_oomox(colorscheme)
     return term_colorscheme
+
+
+def generate_terminal_colors_for_oomox(colorscheme):
+    _, new_colorscheme = generate_themes_from_oomox(colorscheme)
+    if new_colorscheme['TERMINAL_THEME_MODE'] != 'manual':
+        for i in range(16):
+            theme_key = "TERMINAL_COLOR{}".format(i)
+            if new_colorscheme.get(theme_key):
+                del new_colorscheme[theme_key]
+    return new_colorscheme
 
 
 def natural_sort(l):
