@@ -380,8 +380,8 @@ class ThemeColorsList(Gtk.Box):
         self.color_edited_callback(self.theme)
 
     def build_theme_model_rows(self):
-        self._no_gui_row = Gtk.ListBoxRow()
-        self._no_gui_row.add(Gtk.Label(_("Can't be edited in GUI")))
+        self._no_gui_row = SeparatorListBoxRow(_("Can't be edited in GUI"))
+        self.listbox.add(self._no_gui_row)
         self._all_rows = {}
         for theme_value in theme_model:
             key = theme_value.get('key') or theme_value['display_name']
@@ -426,28 +426,29 @@ class ThemeColorsList(Gtk.Box):
                 )
             if row:
                 self._all_rows[key] = row
+                self.listbox.add(row)
 
     def open_theme(self, theme):
         self.theme = theme
-        for child in self.listbox.get_children():
-            # @TODO: refactor: populate listbox on init(done); and only
-            # show/hide listbox items when opening the theme
-            self.listbox.remove(child)
         if "NOGUI" in self.theme:
-            self.listbox.add(self._no_gui_row)
+            self._no_gui_row.show()
         else:
-            for theme_value in theme_model:
-                if theme_value.get('filter'):
-                    if not theme_value['filter'](theme):
-                        continue
-                key = theme_value.get('key') or theme_value['display_name']
-                row = self._all_rows.get(key)
-                if not row:
+            self._no_gui_row.hide()
+        for theme_value in theme_model:
+            key = theme_value.get('key') or theme_value['display_name']
+            row = self._all_rows.get(key)
+            if not row:
+                continue
+            if "NOGUI" in self.theme:
+                row.hide()
+                continue
+            if theme_value.get('filter'):
+                if not theme_value['filter'](theme):
+                    row.hide()
                     continue
-                if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float']:
-                    row.set_value(self.theme[key])
-                self.listbox.add(row)
-        self.listbox.show_all()
+            if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float']:
+                row.set_value(self.theme[key])
+            row.show()
 
     def __init__(self, color_edited_callback, parent):
         self.parent = parent
