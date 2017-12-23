@@ -4,7 +4,7 @@ oomox theme designer
 Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
 Installation:
-  * [Arch Linux](#arch-linux "")
+  * [Arch Linux, Manjaro](#arch-linux "")
   * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
   * [Slackware](#slackware "")
   * [Ubuntu](#ubuntu "")
