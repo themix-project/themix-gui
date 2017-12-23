@@ -161,7 +161,7 @@ To resolve borders/shadow problem in tiling window managers create/append to
   border-radius: 0;
 }
 window decoration {
-	margin: 0;
+    margin: 0;
     border: 0;
 }
 ```
