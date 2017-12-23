@@ -1,10 +1,13 @@
 import os
+import tempfile
 
 from gi.repository import Gtk
 
 from ..config import (
     gtk_theme_dir, materia_theme_dir,
 )
+from ..theme_file import save_colorscheme
+from ..terminal import generate_terminal_colors_for_oomox
 
 from .common import ExportDialog
 from .export_config import ExportConfig
@@ -16,14 +19,20 @@ class GtkThemeExportConfig(ExportConfig):
 
 class GtkThemeExportDialog(ExportDialog):
 
-    theme_path = None
+    temp_theme_path = None
 
     def on_hidpi_checkbox_toggled(self, widget):
         self.export_config['gtk2_hidpi'] = widget.get_active()
 
-    def __init__(self, window, theme_path):
+    def __init__(self, window, colorscheme, theme_name):
         ExportDialog.__init__(self, window)
-        self.theme_path = theme_path
+        self.theme_name = 'oomox-' + theme_name.split('/')[-1]
+        colorscheme_copy = generate_terminal_colors_for_oomox(colorscheme)
+        self.temp_theme_path = save_colorscheme(
+            preset_name=theme_name,
+            colorscheme=colorscheme_copy,
+            path=tempfile.mkstemp()[1]
+        )
 
         self.export_config = GtkThemeExportConfig({
             "gtk2_hidpi": False,
@@ -52,6 +61,9 @@ class GtkThemeExportDialog(ExportDialog):
         self.export_config.save()
         super().do_export(export_args)
 
+    def __del__(self):
+        os.remove(self.temp_theme_path)
+
 
 class OomoxThemeExportDialog(GtkThemeExportDialog):
     timeout = 100
@@ -66,7 +78,8 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             os.path.join(gtk_theme_dir, "change_color.sh"),
             "--make-opts", make_opts,
             "--hidpi", str(self.export_config['gtk2_hidpi']),
-            self.theme_path,
+            "--output", self.theme_name,
+            self.temp_theme_path,
         ]
         super().do_export(export_args)
 
@@ -78,17 +91,19 @@ class MateriaThemeExportDialog(GtkThemeExportDialog):
         export_args = [
             "bash",
             os.path.join(materia_theme_dir, "change_color.sh"),
-            self.theme_path,
+            "--hidpi", str(self.export_config['gtk2_hidpi']),
+            "--output", self.theme_name,
+            self.temp_theme_path,
         ]
         super().do_export(export_args)
 
 
-def export_theme(window, theme_path, colorscheme):
+def export_theme(window, theme_name, colorscheme):
     if colorscheme["THEME_STYLE"] == "materia":
         MateriaThemeExportDialog(
-            window=window, theme_path=theme_path
+            window=window, theme_name=theme_name, colorscheme=colorscheme
         )
     else:
         OomoxThemeExportDialog(
-            window=window, theme_path=theme_path
+            window=window, theme_name=theme_name, colorscheme=colorscheme
         )

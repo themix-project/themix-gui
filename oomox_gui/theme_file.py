@@ -129,13 +129,12 @@ def get_user_theme_path(user_theme_name):
     return os.path.join(user_theme_dir, user_theme_name)
 
 
-def save_colorscheme(preset_name, colorscheme):
-    path = get_user_theme_path(preset_name)
+def save_colorscheme(preset_name, colorscheme, path=None):
+    colorscheme["NAME"] = preset_name
+    path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
     with open(path, 'w') as f:
-        if 'NAME' not in colorscheme:
-            f.write("NAME={}\n".format(preset_name))
         for key in sorted(colorscheme.keys()):
             if key not in ('NOGUI'):
                 f.write("{}={}\n".format(

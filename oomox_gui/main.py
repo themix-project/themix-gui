@@ -175,13 +175,10 @@ class AppWindow(Gtk.ApplicationWindow):
         self.save()
 
     def on_export(self, action, param=None):
-        # @TODO: refactor random theme itself
-        if not self.colorscheme_is_user and self.colorscheme_name == 'random':
-            self.theme_edited = True
-        self.check_unsaved_changes()
         export_theme(
             window=self,
-            theme_path=self.colorscheme_path, colorscheme=self.colorscheme
+            theme_name=self.colorscheme_name,
+            colorscheme=self.colorscheme
         )
 
     def on_export_icontheme(self, action, arg=None):
@@ -217,16 +214,12 @@ class AppWindow(Gtk.ApplicationWindow):
         self.headerbar.props.title = selected_preset
 
     def on_color_edited(self, colorscheme):
-        # @TODO: don't write unused term colorscheme values?
-        updated_colorscheme = generate_terminal_colors_for_oomox(colorscheme)
-        delete_keys = []
-        for theme_key, theme_value in colorscheme.items():
-            if theme_key not in updated_colorscheme:
-                delete_keys.append(theme_key)
-        for theme_key in delete_keys:
-            del colorscheme[theme_key]
-        for theme_key, theme_value in updated_colorscheme.items():
-            colorscheme[theme_key] = updated_colorscheme[theme_key]
+        colorscheme.update(generate_terminal_colors_for_oomox(colorscheme))
+        if colorscheme['TERMINAL_THEME_MODE'] != 'manual':
+            for i in range(16):
+                theme_key = "TERMINAL_COLOR{}".format(i)
+                if colorscheme.get(theme_key):
+                    del colorscheme[theme_key]
 
         self.colorscheme = colorscheme
         self.preview.update_preview(self.colorscheme)
