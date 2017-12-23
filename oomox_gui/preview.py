@@ -25,18 +25,36 @@ class ThemePreview(Gtk.Grid):
     _need_size_update = False
 
     css_provider = None
+    css_providers_theme = None
     css_provider_caret = None
     css_provider_wm_border_color = None
     css_provider_headerbar_border = None
     css_providers_gradient = None
     css_providers_border_color = None
+    css_provider_reset_external_styles = None
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
-        self.css_provider = Gtk.CssProvider()
+        self.css_providers_theme = {}
+        self.css_provider_reset_external_styles = Gtk.CssProvider()
+        self.css_provider_reset_external_styles.load_from_data((
+            """
+            * {
+                box-shadow:none;
+                border: none;
+            }
+            """
+        ).encode('ascii'))
         self.css_provider_caret = Gtk.CssProvider()
         self.css_provider_wm_border_color = Gtk.CssProvider()
         self.css_provider_headerbar_border = Gtk.CssProvider()
+        self.css_provider_headerbar_border.load_from_data((
+            """
+            headerbar {
+                border: none;
+            }
+            """
+        ).encode('ascii'))
         self.css_providers_gradient = {}
         self.css_providers_border_color = {}
         self._init_widgets()
@@ -242,7 +260,7 @@ class ThemePreview(Gtk.Grid):
                                     state=Gtk.StateFlags.PRELIGHT)
         self.override_color(self.menubar, self.BG, converted["MENU_BG"])
         self.override_color(self.headerbar, self.BG, converted["MENU_BG"])
-        self.override_color(self.headerbar, self.FG, converted["MENU_FG"])
+        self.override_color(self.headerbar_title, self.FG, converted["MENU_FG"])
         self.override_color(self.headerbar_button, self.FG,
                             converted["HDR_BTN_FG"])
         self.override_color(self.headerbar_button, self.BG,
@@ -329,7 +347,8 @@ class ThemePreview(Gtk.Grid):
 
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(False)
-        self.headerbar.props.title = _("Headerbar")
+        self.headerbar_title = Gtk.Label(_("Headerbar"))
+        self.headerbar.props.custom_title = self.headerbar_title
         self.headerbar_button = Gtk.Button(label="   %s   " % _("Button"))
         self.headerbar.pack_end(self.headerbar_button)
 
@@ -371,6 +390,27 @@ class ThemePreview(Gtk.Grid):
                 children.extend(self.get_menu_widgets(submenu))
         return children
 
+    def get_theme_css_provider(self, colorscheme):
+        css_postfix = '_materia' if self.current_theme == 'materia' else ''
+        if Gtk.get_minor_version() >= 20:
+            css_name = "theme{}20.css".format(css_postfix)
+        else:
+            css_name = "theme{}.css".format(css_postfix)
+        css_provider = self.css_providers_theme.get(css_name)
+        if css_provider:
+            return css_provider
+        css_provider = Gtk.CssProvider()
+        try:
+            css_provider.load_from_path(
+                os.path.join(
+                    gtk_preview_css_dir, css_name
+                )
+            )
+        except GLib.Error as e:
+            print(e)
+        self.css_providers_theme[css_name] = css_provider
+        return css_provider
+
     def override_css_style(self, colorscheme):
         new_theme_style = colorscheme["THEME_STYLE"]
         if new_theme_style == self.current_theme:
@@ -381,40 +421,24 @@ class ThemePreview(Gtk.Grid):
                 child.destroy()
             self._init_widgets()
         self.current_theme = new_theme_style
-        css_postfix = '_materia' if self.current_theme == 'materia' else ''
-        try:
-            if Gtk.get_minor_version() >= 20:
-                self.css_provider.load_from_path(
-                    os.path.join(
-                        gtk_preview_css_dir, "theme{}20.css".format(css_postfix)
-                    )
-                )
-            else:
-                self.css_provider.load_from_path(
-                    os.path.join(
-                        gtk_preview_css_dir, "theme{}.css".format(css_postfix)
-                    )
-                )
-        except GLib.Error as e:
-            print(e)
+        base_theme_css_provider = self.get_theme_css_provider(colorscheme)
 
-        def apply_css(widget, provider):
+        def apply_css(widget):
+            widget_style_context = widget.get_style_context()
             Gtk.StyleContext.add_provider(
-                widget.get_style_context(),
-                provider,
+                widget_style_context,
+                self.css_provider_reset_external_styles,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+            Gtk.StyleContext.add_provider(
+                widget_style_context,
+                base_theme_css_provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
             if isinstance(widget, Gtk.Container):
-                widget.forall(apply_css, provider)
-        apply_css(self, self.css_provider)
+                widget.forall(apply_css)
+        apply_css(self)
 
-        self.css_provider_headerbar_border.load_from_data((
-            """
-            headerbar {
-                border: none;
-            }
-            """
-        ).encode('ascii'))
         Gtk.StyleContext.add_provider(
             self.headerbar.get_style_context(),
             self.css_provider_headerbar_border,
