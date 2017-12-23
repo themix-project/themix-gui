@@ -152,13 +152,13 @@ To resolve borders/shadow problem in tiling window managers create/append to
 
 ```css
 .window-frame, .window-frame:backdrop {
-  box-shadow: 0 0 0 black;
-  border-style: none;
-  margin: 0;
-  border-radius: 0;
+    box-shadow: 0 0 0 black;
+    border-style: none;
+    margin: 0;
+    border-radius: 0;
 }
 .titlebar {
-  border-radius: 0;
+    border-radius: 0;
 }
 window decoration {
     margin: 0;
