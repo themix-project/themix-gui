@@ -13,6 +13,9 @@ from .common import ExportDialog
 from .export_config import ExportConfig
 
 
+OPTION_GTK2_HIDPI = 'gtk2_hidpi'
+
+
 class GtkThemeExportConfig(ExportConfig):
     name = 'gtk_theme'
 
@@ -22,7 +25,7 @@ class GtkThemeExportDialog(ExportDialog):
     temp_theme_path = None
 
     def on_hidpi_checkbox_toggled(self, widget):
-        self.export_config['gtk2_hidpi'] = widget.get_active()
+        self.export_config[OPTION_GTK2_HIDPI] = widget.get_active()
 
     def __init__(self, window, colorscheme, theme_name):
         ExportDialog.__init__(self, window)
@@ -35,7 +38,7 @@ class GtkThemeExportDialog(ExportDialog):
         )
 
         self.export_config = GtkThemeExportConfig({
-            "gtk2_hidpi": False,
+            OPTION_GTK2_HIDPI: False,
         })
 
         self.spinner.stop()
@@ -48,7 +51,9 @@ class GtkThemeExportDialog(ExportDialog):
         self.hidpi_checkbox.connect(
             "toggled", self.on_hidpi_checkbox_toggled
         )
-        self.hidpi_checkbox.set_active(self.export_config['gtk2_hidpi'])
+        self.hidpi_checkbox.set_active(
+            self.export_config[OPTION_GTK2_HIDPI]
+        )
         self.options_box.add(self.hidpi_checkbox)
 
         self.options_box.show()
@@ -77,7 +82,7 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             "bash",
             os.path.join(gtk_theme_dir, "change_color.sh"),
             "--make-opts", make_opts,
-            "--hidpi", str(self.export_config['gtk2_hidpi']),
+            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
             "--output", self.theme_name,
             self.temp_theme_path,
         ]
@@ -91,7 +96,7 @@ class MateriaThemeExportDialog(GtkThemeExportDialog):
         export_args = [
             "bash",
             os.path.join(materia_theme_dir, "change_color.sh"),
-            "--hidpi", str(self.export_config['gtk2_hidpi']),
+            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
             "--output", self.theme_name,
             self.temp_theme_path,
         ]

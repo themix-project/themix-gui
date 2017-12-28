@@ -6,6 +6,14 @@ from .export_config import ExportConfig
 from .common import ExportDialog
 
 
+OPTION_SPOTIFY_PATH = 'spotify_path'
+OPTION_FONT_NAME = 'font_name'
+OPTION_FONT_OPTIONS = 'font_options'
+VALUE_FONT_DEFAULT = 'default'
+VALUE_FONT_NORMALIZE = 'normalize'
+VALUE_FONT_CUSTOM = 'custom'
+
+
 class SpotifyExportConfig(ExportConfig):
     name = 'spotify'
 
@@ -17,8 +25,8 @@ class SpotifyExportDialog(ExportDialog):
     timeout = 120
 
     def do_export(self):
-        self.export_config['font_name'] = self.font_name_entry.get_text()
-        self.export_config['spotify_path'] = self.spotify_path_entry.get_text()
+        self.export_config[OPTION_FONT_NAME] = self.font_name_entry.get_text()
+        self.export_config[OPTION_SPOTIFY_PATH] = self.spotify_path_entry.get_text()
         self.export_config.save()
 
         export_args = [
@@ -26,13 +34,13 @@ class SpotifyExportDialog(ExportDialog):
             oomoxify_script_path,
             self.theme_path,
             '--gui',
-            '--spotify-apps-path', self.export_config['spotify_path'],
+            '--spotify-apps-path', self.export_config[OPTION_SPOTIFY_PATH],
         ]
-        if self.export_config['font_options'] == "normalize":
+        if self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_NORMALIZE:
             export_args.append('--font-weight')
-        elif self.export_config['font_options'] == "custom":
+        elif self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_CUSTOM:
             export_args.append('--font')
-            export_args.append(self.export_config['font_name'])
+            export_args.append(self.export_config[OPTION_FONT_NAME])
 
         super().do_export(export_args)
 
@@ -50,8 +58,8 @@ class SpotifyExportDialog(ExportDialog):
 
     def on_font_radio_toggled(self, button, value):
         if button.get_active():
-            self.export_config['font_options'] = value
-            self.font_name_entry.set_sensitive(value == "custom")
+            self.export_config[OPTION_FONT_OPTIONS] = value
+            self.font_name_entry.set_sensitive(value == VALUE_FONT_CUSTOM)
 
     def _init_radios(self):
         self.font_radio_default = \
@@ -60,7 +68,7 @@ class SpotifyExportDialog(ExportDialog):
                 _("Don't change _default font")
             )
         self.font_radio_default.connect(
-            "toggled", self.on_font_radio_toggled, "default"
+            "toggled", self.on_font_radio_toggled, VALUE_FONT_DEFAULT
         )
         self.options_box.add(self.font_radio_default)
 
@@ -70,7 +78,7 @@ class SpotifyExportDialog(ExportDialog):
                 _("_Normalize font weight")
             )
         self.font_radio_normalize.connect(
-            "toggled", self.on_font_radio_toggled, "normalize"
+            "toggled", self.on_font_radio_toggled, VALUE_FONT_NORMALIZE
         )
         self.options_box.add(self.font_radio_normalize)
 
@@ -79,26 +87,28 @@ class SpotifyExportDialog(ExportDialog):
             _("Use custom _font:")
         )
         self.font_radio_custom.connect(
-            "toggled", self.on_font_radio_toggled, "custom"
+            "toggled", self.on_font_radio_toggled, VALUE_FONT_CUSTOM
         )
         self.options_box.add(self.font_radio_custom)
 
-        self.font_name_entry = Gtk.Entry(text=self.export_config['font_name'])
+        self.font_name_entry = Gtk.Entry(text=self.export_config[OPTION_FONT_NAME])
         self.options_box.add(self.font_name_entry)
 
-        self.font_name_entry.set_sensitive(self.export_config['font_options'] == "custom")
-        if self.export_config['font_options'] == 'normalize':
+        self.font_name_entry.set_sensitive(
+            self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_CUSTOM
+        )
+        if self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_NORMALIZE:
             self.font_radio_normalize.set_active(True)
-        if self.export_config['font_options'] == 'custom':
+        if self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_CUSTOM:
             self.font_radio_custom.set_active(True)
 
     def __init__(self, parent, theme_path):
         ExportDialog.__init__(self, parent, headline=_("Spotify options"))
         self.theme_path = theme_path
         self.export_config = SpotifyExportConfig({
-            "spotify_path": "/usr/share/spotify/Apps",
-            "font_name": "sans-serif",
-            "font_options": "default",
+            OPTION_SPOTIFY_PATH: "/usr/share/spotify/Apps",
+            OPTION_FONT_NAME: "sans-serif",
+            OPTION_FONT_OPTIONS: VALUE_FONT_DEFAULT,
         })
 
         # self.set_default_size(180, 120)
@@ -110,7 +120,7 @@ class SpotifyExportDialog(ExportDialog):
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         spotify_path_label = Gtk.Label(label=_('Spotify _path:'),
                                        use_underline=True)
-        self.spotify_path_entry = Gtk.Entry(text=self.export_config['spotify_path'])
+        self.spotify_path_entry = Gtk.Entry(text=self.export_config[OPTION_SPOTIFY_PATH])
         spotify_path_label.set_mnemonic_widget(self.spotify_path_entry)
         hbox.add(spotify_path_label)
         hbox.add(self.spotify_path_entry)
