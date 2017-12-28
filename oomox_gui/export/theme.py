@@ -41,7 +41,6 @@ class GtkThemeExportDialog(ExportDialog):
             OPTION_GTK2_HIDPI: False,
         })
 
-        self.spinner.stop()
         self.label.set_text(_("Please choose theme export options:"))
 
         self.hidpi_checkbox = \
@@ -56,11 +55,10 @@ class GtkThemeExportDialog(ExportDialog):
         )
         self.options_box.add(self.hidpi_checkbox)
 
-        self.options_box.show()
+        self.box.add(self.options_box)
+        self.options_box.show_all()
+        self.box.add(self.apply_button)
         self.apply_button.show()
-
-        self.show_all()
-        self.scrolled_window.hide()
 
     def do_export(self, export_args):
         self.export_config.save()

@@ -44,18 +44,6 @@ class SpotifyExportDialog(ExportDialog):
 
         super().do_export(export_args)
 
-    def stop(self):
-        self.spinner.stop()
-        self.apply_button.destroy()
-
-        self.label.set_text(_("Theme applied successfully"))
-
-        button = Gtk.Button(label=_("_OK"), use_underline=True)
-        button.connect("clicked", self._close_button_callback)
-
-        self.under_log_box.add(button)
-        self.show_all()
-
     def on_font_radio_toggled(self, button, value):
         if button.get_active():
             self.export_config[OPTION_FONT_OPTIONS] = value
@@ -111,8 +99,6 @@ class SpotifyExportDialog(ExportDialog):
             OPTION_FONT_OPTIONS: VALUE_FONT_DEFAULT,
         })
 
-        # self.set_default_size(180, 120)
-        self.spinner.stop()
         self.label.set_text(_("Please choose the font options:"))
 
         self._init_radios()
@@ -126,11 +112,11 @@ class SpotifyExportDialog(ExportDialog):
         hbox.add(self.spotify_path_entry)
 
         self.options_box.add(hbox)
-        self.options_box.show()
-        self.apply_button.show()
 
-        self.show_all()
-        self.scrolled_window.hide()
+        self.box.add(self.options_box)
+        self.options_box.show_all()
+        self.box.add(self.apply_button)
+        self.apply_button.show()
 
 
 def export_spotify(window, theme_path):

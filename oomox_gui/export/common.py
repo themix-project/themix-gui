@@ -17,20 +17,21 @@ class ExportDialog(Gtk.Dialog):
         self.destroy()
 
     def show_error(self):
-        self.label.destroy()
-        self.spinner.destroy()
+        self.box.remove(self.label)
+        self.box.remove(self.spinner)
 
-        label = CenterLabel(
+        self.error_label = CenterLabel(
             _("Something went wrong :(")
         )
-        label.set_alignment(0.5, 0.5)
+        self.error_label.set_alignment(0.5, 0.5)
 
-        button = Gtk.Button(label=_("_Dismiss"), use_underline=True)
-        button.connect("clicked", self._close_button_callback)
+        self.error_dismiss_button = Gtk.Button(label=_("_Dismiss"), use_underline=True)
+        self.error_dismiss_button.connect("clicked", self._close_button_callback)
 
-        self.under_log_box.add(label)
-        self.under_log_box.add(button)
-        self.show_all()
+        self.error_box.add(self.error_label)
+        self.error_box.add(self.error_dismiss_button)
+        self.error_box.show_all()
+        self.box.add(self.error_box)
 
     def set_text(self, text):
         self.log.get_buffer().set_text(text)
@@ -50,8 +51,8 @@ class ExportDialog(Gtk.Dialog):
         self.label = CenterLabel()
 
         self.spinner = Gtk.Spinner()
-        self.spinner.start()
 
+        # Scrollable log window:
         self.log = Gtk.TextView()
         self.log.set_editable(False)
         # self.log.set_cursor_visible(False)
@@ -62,47 +63,46 @@ class ExportDialog(Gtk.Dialog):
                 Pango.font_description_from_string("monospace")
             )
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
-
+        #
         self.scrolled_window = Gtk.ScrolledWindow(expand=True)
         self.scrolled_window.set_margin_bottom(5)
         self.scrolled_window.add(self.log)
-
+        #
         adj = self.scrolled_window.get_vadjustment()
         adj.connect('changed', self._adj_changed)
-
-        self.under_log_box = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL, spacing=5
-        )
 
         self.options_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5
         )
         self.options_box.set_margin_bottom(10)
-        self.under_log_box.add(self.options_box)
-        self.options_box.hide()
 
         self.apply_button = Gtk.Button(label=_("_Apply"), use_underline=True)
         self.apply_button.connect("clicked", lambda x: self.do_export())
-        self.under_log_box.add(self.apply_button)
-        self.apply_button.hide()
+
+        self.error_box = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, spacing=5
+        )
+        self.error_box.set_margin_bottom(10)
 
         self.box = self.get_content_area()
         self.box.set_margin_left(5)
         self.box.set_margin_right(5)
+        self.box.set_spacing(5)
         self.box.add(self.label)
-        self.box.add(self.spinner)
-        self.box.add(self.scrolled_window)
-        self.box.add(self.under_log_box)
+
         self.show_all()
 
     def do_export(self, export_args, timeout=120):
         timeout = timeout or self.timeout
 
-        self.options_box.hide()
-        self.apply_button.hide()
-
+        self.box.remove(self.options_box)
+        self.box.remove(self.apply_button)
+        self.box.add(self.spinner)
+        self.box.add(self.scrolled_window)
+        self.scrolled_window.set_size_request(-1, 200)
+        self.scrolled_window.show_all()
+        self.spinner.show()
         self.spinner.start()
-        self.scrolled_window.show()
 
         def update_ui(text):
             self.set_text(text)
@@ -157,7 +157,8 @@ def export_terminal_theme(window, colorscheme):
         headline=_("Terminal colorscheme"),
         height=440
     )
-    dialog.spinner.destroy()
+    dialog.box.add(dialog.scrolled_window)
+    dialog.scrolled_window.show_all()
     dialog.label.set_text(_('Paste this colorscheme to your ~/.Xresources'))
     try:
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
