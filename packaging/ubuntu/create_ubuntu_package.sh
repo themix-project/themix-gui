@@ -17,5 +17,5 @@ ${srcdir}/packaging/install.sh ${srcdir} ${pkgdir}
 cd ${pkgdir}
 dpkg-deb --build . oomox.deb
 
-echo DONE
+echo DEB PACKAGING DONE
 exit 0
