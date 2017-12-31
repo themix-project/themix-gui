@@ -60,7 +60,7 @@ For Ubuntu 17.04+ you can download `oomox.deb` package here:
 https://github.com/actionless/oomox/releases
 
 ```sh
-sudo dpkg -i ./oomox.dev
+sudo dpkg -i ./oomox.deb
 sudo apt install -f
 ```
 
