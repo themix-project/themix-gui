@@ -56,8 +56,13 @@ https://slackbuilds.org/repository/14.2/desktop/oomox/
 
 ### Ubuntu
 
-For Ubuntu 17.04+ you can download `.deb` package here:
+For Ubuntu 17.04+ you can download `oomox.deb` package here:
 https://github.com/actionless/oomox/releases
+
+```sh
+sudo dpkg -i ./oomox.dev
+sudo apt install -f
+```
 
 
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
