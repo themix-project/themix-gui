@@ -8,6 +8,7 @@ case "$1" in
     if [ -x /usr/bin/desktop-file-install ]; then
         desktop-file-install /usr/share/applications/oomox.desktop > /dev/null 2>&1
     fi
+    python3 -O -m compileall /opt/oomox/oomox_gui
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
