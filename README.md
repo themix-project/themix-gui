@@ -56,17 +56,9 @@ https://slackbuilds.org/repository/14.2/desktop/oomox/
 
 ### Ubuntu
 
-Ubuntu 17.04, 16.10, 16.04 and 15.10 (and other ubuntu-based like Linux Mint 18 and newer) users can install Oomox by using the main WebUpd8 PPA:
+For Ubuntu 17.04+ you can download `.deb` package here:
+https://github.com/actionless/oomox/releases
 
-```bash
-sudo add-apt-repository ppa:nilarimogard/webupd8
-sudo apt update
-sudo apt install oomox
-```
-
-If you don't want to add the PPA, you can download the deb from [here](http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/o/oomox/ "").
-
-> WARNING! Repository can be not up-to-date with the latest Oomox version in that case you can proceed to the manual installation instructions for Ubuntu below.
 
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
 
