@@ -148,6 +148,7 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
 
     dropdown = None
     changed_signal = None
+    _description_label_added = False
 
     def connect_changed_signal(self):
         self.changed_signal = self.dropdown.connect("changed", self.on_dropdown_changed)
@@ -167,7 +168,16 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
         for option_id, option in enumerate(self.options):
             if value == option['value']:
                 self.dropdown.set_active(option_id)
+                if 'description' in option:
+                    self.show_description_label()
+                    self.description_label.set_text(option['description'])
         self.connect_changed_signal()
+
+    def show_description_label(self):
+        if not self._description_label_added:
+            self.vbox.add(self.description_label)
+            self.description_label.show()
+            self._description_label_added = True
 
     def __init__(self, display_name, key, options, callback, value=None):
         super().__init__()
@@ -176,20 +186,30 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
         self.key = key
         self.options = options
 
+        self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(self.vbox)
+
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
-        self.add(hbox)
+        self.vbox.add(hbox)
+
         label = Gtk.Label(display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
         options_store = Gtk.ListStore(str)
         for option_id, option in enumerate(self.options):
             options_store.append([option.get('display_name', option['value'])])
+
         dropdown = Gtk.ComboBox.new_with_model(options_store)
         renderer_text = Gtk.CellRendererText()
         dropdown.pack_start(renderer_text, True)
         dropdown.add_attribute(renderer_text, "text", 0)
         self.dropdown = dropdown
         hbox.pack_start(dropdown, False, True, 0)
+
+        self.description_label = Gtk.Label(xalign=1)
+        self.description_label.set_margin_top(3)
+        self.description_label.set_margin_bottom(7)
+        self.description_label.set_state_flags(Gtk.StateFlags.INSENSITIVE, False)
 
         if value:
             self.set_value(value)

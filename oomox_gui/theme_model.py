@@ -18,10 +18,12 @@ theme_model = [
         'options': [
             {
                 'value': 'oomox',
-                'display_name': 'Numix-based'
+                'display_name': 'Numix-based',
+                'description': '(GTK+2, GTK+3, Metacity, Openbox, Qt5ct, Unity, Xfwm)',
             }, {
                 'value': 'materia',
-                'display_name': 'Materia'
+                'display_name': 'Materia',
+                'description': '(GTK+2, GTK+3, Gnome Shell, Metacity, Unity, Xfwm)',
             }
         ],
         'fallback_value': 'oomox',
