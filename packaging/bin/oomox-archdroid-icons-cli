@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /opt/oomox/
+exec ./archdroid-icon-theme/change_color.sh "$@"
