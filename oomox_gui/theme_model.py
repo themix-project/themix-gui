@@ -155,6 +155,13 @@ theme_model = [
         'display_name': _('Compact style'),
         'filter': create_value_filter('THEME_STYLE', 'materia'),
     },
+    {
+        'key': 'GNOME_SHELL_PANEL_OPACITY',
+        'type': 'float',
+        'fallback_value': 0.6,
+        'display_name': _('Gnome Shell panel opacity'),
+        'filter': create_value_filter('THEME_STYLE', 'materia'),
+    },
 
     {
         'type': 'separator',
