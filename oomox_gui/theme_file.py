@@ -71,14 +71,19 @@ def bash_preprocess(preset_path):
 
 
 def read_colorscheme_from_path(preset_path):
+    theme_keys = [item['key'] for item in theme_model if 'key' in item]
+
     # @TODO: remove legacy stuff (using bash logic inside the themes)
+    theme_keys.append('NOGUI')
     colorscheme = {}
     with open(preset_path) as f:
         for line in f.readlines():
             parsed_line = line.strip().split('=')
+            key = parsed_line[0]
             try:
-                if not parsed_line[0].startswith("#"):
-                    colorscheme[parsed_line[0]] = parsed_line[1]
+                if not key.startswith("#"):
+                    if key in theme_keys:
+                        colorscheme[key] = parsed_line[1]
             # ignore unparseable lines:
             except IndexError:
                 pass
