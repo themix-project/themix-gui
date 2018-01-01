@@ -11,6 +11,7 @@ docker cp oomox_ubuntu_zesty_build:/opt/oomox/ubuntu_package/oomox.deb ${here}
 docker rm -v oomox_ubuntu_zesty_build
 rm ${srcdir}/Dockerfile
 sudo rm -fr ${srcdir}/ubuntu_package
+git -C ${srcdir} checkout po
 
 echo DOCKER DONE
 exit 0
