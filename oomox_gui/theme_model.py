@@ -159,6 +159,7 @@ theme_model = [
         'key': 'GNOME_SHELL_PANEL_OPACITY',
         'type': 'float',
         'fallback_value': 0.6,
+        'max_value': 1.0,
         'display_name': _('Gnome Shell panel opacity'),
         'filter': create_value_filter('THEME_STYLE', 'materia'),
     },

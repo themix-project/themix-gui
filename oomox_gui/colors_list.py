@@ -29,8 +29,9 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         self.value = int(raw_value*100)/100  # limit float to 2 digits
         self.color_set_callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback, value=None):
+    def __init__(self, display_name, key, callback, value=None, max_value=None):
         super().__init__()
+        max_value = max_value or 10.0
 
         self.color_set_callback = callback
         self.key = key
@@ -43,7 +44,7 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         adjustment = Gtk.Adjustment(
             value=value or 0.0,
             lower=0.0,
-            upper=10.0,
+            upper=max_value,
             step_increment=0.01,
             page_increment=1.0,
             page_size=0.0
@@ -432,7 +433,8 @@ class ThemeColorsList(Gtk.Box):
                 )
             elif theme_value['type'] == 'float':
                 row = FloatListBoxRow(
-                    display_name, key, callback=self.color_edited
+                    display_name, key, callback=self.color_edited,
+                    max_value=theme_value.get('max_value')
                 )
             elif theme_value['type'] == 'separator':
                 row = SeparatorListBoxRow(display_name)
