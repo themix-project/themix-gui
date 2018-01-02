@@ -7,6 +7,21 @@ from .helpers import (
 )
 
 
+def check_value_filter(value_filter_data, colorscheme):
+    filter_results = []
+    for key, values in value_filter_data.items():
+        if not isinstance(values, list):
+            values = [values, ]
+        value_found = False
+        for value in values:
+            if colorscheme[key] == value:
+                value_found = True
+                continue
+        filter_results.append(value_found)
+    all_filters_passed = min(filter_results) is not False
+    return all_filters_passed
+
+
 class FloatListBoxRow(Gtk.ListBoxRow):
 
     changed_signal = None
@@ -475,6 +490,10 @@ class ThemeColorsList(Gtk.Box):
                 continue
             if theme_value.get('filter'):
                 if not theme_value['filter'](theme):
+                    row.hide()
+                    continue
+            if theme_value.get('value_filter'):
+                if not check_value_filter(theme_value['value_filter'], theme):
                     row.hide()
                     continue
             if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float']:
