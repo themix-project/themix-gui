@@ -12,7 +12,7 @@ def get_base_keys(base_theme_model):
     }
 
 
-def merge_some_theme_model_with_base(
+def merge_model_with_base(
         whole_theme_model, base_theme_model, plugin_model_name,
         value_filter_key, plugins
 ):
@@ -24,35 +24,30 @@ def merge_some_theme_model_with_base(
 
     base_keys = get_base_keys(base_theme_model)
     for theme_plugin in plugins.values():
-        theme_name = theme_plugin.name
-        for theme_value in getattr(theme_plugin, "theme_model_"+plugin_model_name):
-            key = theme_value['key']
-            if key not in base_keys:
+        plugin_theme_model = getattr(theme_plugin, "theme_model_"+plugin_model_name)
+        for theme_value in plugin_theme_model:
+            if theme_value['key'] not in base_keys:
                 base_theme_model.append(theme_value)
                 base_keys = get_base_keys(base_theme_model)
-                base_theme_value = theme_value
         plugin_theme_model_keys = [
-            theme_value['key'] for theme_value in getattr(
-                theme_plugin, "theme_model_"+plugin_model_name
-            )
+            theme_value['key'] for theme_value in plugin_theme_model
         ]
         plugin_enabled_keys = getattr(
             theme_plugin, "enabled_keys_"+plugin_model_name
         )
         for key in plugin_theme_model_keys + plugin_enabled_keys:
-            base_index = base_keys[key]
-            base_theme_value = base_theme_model[base_index]
+            base_theme_value = base_theme_model[base_keys[key]]
             value_filter = base_theme_value.setdefault('value_filter', {})
             value_filter_theme_style = value_filter.setdefault(value_filter_key, [])
             if not isinstance(value_filter_theme_style, list):
                 value_filter_theme_style = [value_filter_theme_style, ]
-            value_filter_theme_style.append(theme_name)
+            value_filter_theme_style.append(theme_plugin.name)
             base_theme_value['value_filter'][value_filter_key] = value_filter_theme_style
     whole_theme_model += base_theme_model
 
 
 def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
-    return merge_some_theme_model_with_base(
+    return merge_model_with_base(
         whole_theme_model=whole_theme_model,
         base_theme_model=base_theme_model,
         plugin_model_name=plugin_model_name,
@@ -62,7 +57,7 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
 
 
 def merge_icons_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
-    return merge_some_theme_model_with_base(
+    return merge_model_with_base(
         whole_theme_model=whole_theme_model,
         base_theme_model=base_theme_model,
         plugin_model_name=plugin_model_name,
