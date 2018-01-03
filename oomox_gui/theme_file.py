@@ -23,7 +23,7 @@ def get_presets():
         for path in paths
     ]
     result = defaultdict(list)
-    for key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
+    for _key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
         group = sorted(list(group), key=lambda x: x['name'])
         display_name = group[0]['name']
         if display_name in result:
@@ -41,10 +41,10 @@ def save_colorscheme(preset_name, colorscheme, path=None):
     path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
-    with open(path, 'w') as f:
+    with open(path, 'w') as file_object:
         for key in sorted(colorscheme.keys()):
-            if key not in ('NOGUI'):
-                f.write("{}={}\n".format(
+            if key not in ('NOGUI', ):
+                file_object.write("{}={}\n".format(
                     key, colorscheme[key]
                 ))
     return path
