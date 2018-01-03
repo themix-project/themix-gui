@@ -25,11 +25,11 @@ from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export import (
-    export_gnome_colors_icon_theme, export_archdroid_icon_theme,
+    export_gnome_colors_icon_theme,
     export_spotify, export_terminal_theme
 )
 from .terminal import generate_terminal_colors_for_oomox
-from .plugin_loader import theme_plugins
+from .plugin_loader import theme_plugins, icons_plugins
 
 
 class NewDialog(EntryDialog):
@@ -129,6 +129,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     theme_edited = False
     #
     plugin_theme = None
+    plugin_icons = None
     #
     # actions:
     save_action = None
@@ -193,16 +194,29 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         dialog.destroy()
         return True
 
-    def select_theme_plugin(self, theme_plugin_name):
+    def select_theme_plugin(self):
+        theme_plugin_name = self.colorscheme['THEME_STYLE']
         self.plugin_theme = None
         for theme_plugin in theme_plugins.values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
+    def select_icons_plugin(self):
+        icons_plugin_name = self.colorscheme['ICONS_STYLE']
+        self.plugin_icons = None
+        for icons_plugin in icons_plugins.values():
+            if icons_plugin.name == icons_plugin_name:
+                self.plugin_icons = icons_plugin
+
     def load_colorscheme(self, colorscheme):
         self.colorscheme = colorscheme
-        self.select_theme_plugin(self.colorscheme['THEME_STYLE'])
-        self.preview.update_preview(self.colorscheme, self.plugin_theme)
+        self.select_theme_plugin()
+        self.select_icons_plugin()
+        self.preview.update_preview(
+            colorscheme=self.colorscheme,
+            theme_plugin=self.plugin_theme,
+            icons_plugin=self.plugin_icons,
+        )
 
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()
@@ -274,8 +288,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def on_export_icontheme(self, _action, _param=None):
         export_dialog = export_gnome_colors_icon_theme
-        if self.colorscheme['ICONS_STYLE'] == 'archdroid':
-            export_dialog = export_archdroid_icon_theme
+        if self.plugin_icons:
+            export_dialog = self.plugin_icons.export_dialog
         export_dialog(
             parent=self,
             theme_name=self.colorscheme_name,

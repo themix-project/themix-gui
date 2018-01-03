@@ -10,7 +10,7 @@ from ..terminal import generate_terminal_colors_for_oomox
 from ..terminal import generate_xrdb_theme_from_oomox, generate_xresources
 from ..gtk_helpers import CenterLabel
 from ..config import (
-    archdroid_theme_dir, gnome_colors_icon_theme_dir,
+    gnome_colors_icon_theme_dir,
 )
 
 
@@ -182,26 +182,6 @@ class GnomeColorsIconsExportDialog(FileBasedExportDialog):
 
 def export_gnome_colors_icon_theme(parent, theme_name, colorscheme):
     return GnomeColorsIconsExportDialog(
-        parent=parent,
-        theme_name=theme_name,
-        colorscheme=colorscheme
-    ).do_export()
-
-
-class ArchdroidIconsExportDialog(FileBasedExportDialog):
-    timeout = 100
-
-    def do_export(self):
-        self.command = [
-            "bash",
-            os.path.join(archdroid_theme_dir, "change_color.sh"),
-            self.temp_theme_path,
-        ]
-        super().do_export()
-
-
-def export_archdroid_icon_theme(parent, theme_name, colorscheme):
-    return ArchdroidIconsExportDialog(
         parent=parent,
         theme_name=theme_name,
         colorscheme=colorscheme

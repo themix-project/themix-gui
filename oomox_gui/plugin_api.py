@@ -1,4 +1,4 @@
-from abc import ABCMeta, abstractproperty
+from abc import ABCMeta, abstractproperty, abstractmethod
 
 
 class OomoxPlugin(object, metaclass=ABCMeta):
@@ -44,7 +44,17 @@ class OomoxThemePlugin(OomoxPlugin):
 
 
 class OomoxIconsPlugin(OomoxPlugin):
-    pass
+
+    enabled_keys_icons = []
+    theme_model_icons = []
+
+    @abstractproperty
+    def preview_svg_dir(self):
+        pass
+
+    @abstractmethod
+    def preview_transform_function(self, svg_template, colorscheme):
+        pass
 
 
 class OomoxExportPlugin(OomoxPlugin):

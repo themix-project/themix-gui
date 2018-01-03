@@ -8,7 +8,6 @@ oomox_root_dir = os.path.join(script_dir, "../")
 colors_dir = os.path.join(oomox_root_dir, "colors/")
 plugins_dir = os.path.join(oomox_root_dir, "plugins/")
 
-archdroid_theme_dir = os.path.join(oomox_root_dir, "archdroid-icon-theme/")
 gnome_colors_icon_theme_dir = os.path.join(oomox_root_dir, "gnome-colors-icon-theme/")
 oomoxify_script_path = os.path.join(oomox_root_dir, "oomoxify/oomoxify.sh")
 

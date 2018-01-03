@@ -33,6 +33,7 @@ rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/{D,d}ocker*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/maintenance*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/screenshot*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/test*
+rm -r ${pkgdir}/opt/oomox/plugins/icons_archdroid/archdroid-icon-theme/.git*
 
 mkdir ${pkgdir}/opt/oomox/archdroid-icon-theme
 cd ./archdroid-icon-theme

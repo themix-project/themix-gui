@@ -1,7 +1,7 @@
 import os
 
 from .config import terminal_template_dir
-from .plugin_loader import theme_plugins
+from .plugin_loader import theme_plugins, icons_plugins
 
 
 def get_base_keys(base_theme_model):
@@ -12,15 +12,18 @@ def get_base_keys(base_theme_model):
     }
 
 
-def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
+def merge_some_theme_model_with_base(
+        whole_theme_model, base_theme_model, plugin_model_name,
+        value_filter_key, plugins
+):
     for theme_value in base_theme_model:
         if 'key' in theme_value:
             theme_value['value_filter'] = {
-                'THEME_STYLE': []
+                value_filter_key: []
             }
 
     base_keys = get_base_keys(base_theme_model)
-    for theme_plugin in theme_plugins.values():
+    for theme_plugin in plugins.values():
         theme_name = theme_plugin.name
         for theme_value in getattr(theme_plugin, "theme_model_"+plugin_model_name):
             key = theme_value['key']
@@ -40,12 +43,32 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
             base_index = base_keys[key]
             base_theme_value = base_theme_model[base_index]
             value_filter = base_theme_value.setdefault('value_filter', {})
-            value_filter_theme_style = value_filter.setdefault('THEME_STYLE', [])
+            value_filter_theme_style = value_filter.setdefault(value_filter_key, [])
             if not isinstance(value_filter_theme_style, list):
                 value_filter_theme_style = [value_filter_theme_style, ]
             value_filter_theme_style.append(theme_name)
-            base_theme_value['value_filter']['THEME_STYLE'] = value_filter_theme_style
+            base_theme_value['value_filter'][value_filter_key] = value_filter_theme_style
     whole_theme_model += base_theme_model
+
+
+def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
+    return merge_some_theme_model_with_base(
+        whole_theme_model=whole_theme_model,
+        base_theme_model=base_theme_model,
+        plugin_model_name=plugin_model_name,
+        value_filter_key='THEME_STYLE',
+        plugins=theme_plugins,
+    )
+
+
+def merge_icons_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
+    return merge_some_theme_model_with_base(
+        whole_theme_model=whole_theme_model,
+        base_theme_model=base_theme_model,
+        plugin_model_name=plugin_model_name,
+        value_filter_key='ICONS_STYLE',
+        plugins=icons_plugins,
+    )
 
 
 theme_model = [  # pylint: disable=invalid-name
@@ -175,7 +198,7 @@ BASE_THEME_MODEL_OPTIONS = [
 ]
 merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OPTIONS, 'options')
 
-theme_model += [
+BASE_ICONTHEME_MODEL = [
     {
         'type': 'separator',
         'display_name': _('Iconset')
@@ -187,22 +210,16 @@ theme_model += [
             {
                 'value': 'gnome_colors',
                 'display_name': 'Gnome-Colors'
-            }, {
-                'value': 'archdroid',
-                'display_name': 'ArchDroid'
+            },
+        ] + [
+            {
+                'value': icons_plugin.name,
+                'display_name': icons_plugin.display_name,
             }
+            for icons_plugin in icons_plugins.values()
         ],
         'fallback_value': 'gnome_colors',
         'display_name': _('Icons style')
-    },
-    {
-        'key': 'ICONS_ARCHDROID',
-        'type': 'color',
-        'fallback_key': 'SEL_BG',
-        'display_name': _('Icons color'),
-        'value_filter': {
-            'ICONS_STYLE': 'archdroid',
-        },
     },
     {
         'key': 'ICONS_LIGHT_FOLDER',
@@ -241,6 +258,7 @@ theme_model += [
         },
     },
 ]
+merge_icons_model_with_base(theme_model, BASE_ICONTHEME_MODEL, 'icons')
 
 theme_model += [
     {

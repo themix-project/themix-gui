@@ -283,9 +283,10 @@ class ThemePreview(Gtk.Grid):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-    def update_preview(self, _colorscheme, theme_plugin):
+    def update_preview(self, colorscheme, theme_plugin, icons_plugin):
         if not theme_plugin:
             return
+        _colorscheme = colorscheme
         colorscheme = {}
         colorscheme.update(_colorscheme)
         theme_plugin.preview_before_load_callback(self, colorscheme)
@@ -296,7 +297,7 @@ class ThemePreview(Gtk.Grid):
         self.update_preview_carets(colorscheme)
         self.update_preview_gradients(colorscheme)
 
-        self.icons_preview.update_preview(colorscheme)
+        self.icons_preview.update_preview(colorscheme, icons_plugin)
         self.terminal_preview.update_preview(colorscheme)
 
     def create_menu(self, n_items, has_submenus=False):
