@@ -11,19 +11,16 @@ if [[ -d ${pkgdir}/opt/oomox ]] ; then
 fi
 mkdir -p ${pkgdir}/opt/oomox
 
-cd ${srcdir}
-make -f po.mk install
-
 cp -prf \
 	./CREDITS \
 	./LICENSE \
 	./README.md \
 	./colors \
 	./gui.sh \
-	./locale \
 	./oomox_gui \
 	./plugins \
 	./po \
+	./po.mk \
 		${pkgdir}/opt/oomox
 rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.git*
@@ -44,11 +41,15 @@ cp -prf \
 		${pkgdir}/opt/oomox/oomoxify
 cd ..
 
+cd ${pkgdir}/opt/oomox/
+# will update ./po and produce ./locale dir:
+make -f po.mk install
+rm ${pkgdir}/opt/oomox/po.mk
 
 mkdir -p ${pkgdir}/usr/bin/
-cp ./packaging/bin/* ${pkgdir}/usr/bin/
+cp ${srcdir}/packaging/bin/* ${pkgdir}/usr/bin/
 
 mkdir -p ${pkgdir}/usr/share/applications/
-cp ./packaging/oomox.desktop ${pkgdir}/usr/share/applications/
+cp ${srcdir}/packaging/oomox.desktop ${pkgdir}/usr/share/applications/
 
 exit 0
