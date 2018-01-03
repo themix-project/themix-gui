@@ -3,9 +3,7 @@ import tempfile
 
 from gi.repository import Gtk
 
-from ..config import (
-    gtk_theme_dir, materia_theme_dir,
-)
+from ..config import gtk_theme_dir
 from ..theme_file import save_colorscheme
 from ..terminal import generate_terminal_colors_for_oomox
 
@@ -85,28 +83,3 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             self.temp_theme_path,
         ]
         super().do_export(export_args)
-
-
-class MateriaThemeExportDialog(GtkThemeExportDialog):
-    timeout = 1000
-
-    def do_export(self):
-        export_args = [
-            "bash",
-            os.path.join(materia_theme_dir, "change_color.sh"),
-            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
-            "--output", self.theme_name,
-            self.temp_theme_path,
-        ]
-        super().do_export(export_args)
-
-
-def export_theme(window, theme_name, colorscheme):
-    if colorscheme["THEME_STYLE"] == "materia":
-        MateriaThemeExportDialog(
-            window=window, theme_name=theme_name, colorscheme=colorscheme
-        )
-    else:
-        OomoxThemeExportDialog(
-            window=window, theme_name=theme_name, colorscheme=colorscheme
-        )

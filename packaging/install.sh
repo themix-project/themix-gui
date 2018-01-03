@@ -22,8 +22,10 @@ cp -prf \
 	./gui.sh \
 	./locale \
 	./oomox_gui \
+	./plugins \
 	./po \
 		${pkgdir}/opt/oomox
+rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git
 
 mkdir ${pkgdir}/opt/oomox/gtk-theme
 cd ./gtk-theme
@@ -37,20 +39,6 @@ cp -prf \
 	./scripts \
 	./src \
 		${pkgdir}/opt/oomox/gtk-theme
-cd ..
-
-mkdir ${pkgdir}/opt/oomox/materia-theme
-cd ./materia-theme
-cp -prf \
-	./COPYING \
-	./HACKING.md \
-	./README.md \
-	./change_color.sh \
-	./install.sh \
-	./parse-sass.sh \
-	./scripts \
-	./src \
-		${pkgdir}/opt/oomox/materia-theme
 cd ..
 
 mkdir ${pkgdir}/opt/oomox/archdroid-icon-theme

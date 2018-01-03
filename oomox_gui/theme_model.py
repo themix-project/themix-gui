@@ -1,6 +1,44 @@
 import os
 
 from .config import terminal_template_dir
+from .plugin_loader import theme_plugins
+
+
+def get_base_keys(base_theme_model):
+    return {
+        theme_value['key']: index
+        for index, theme_value in enumerate(base_theme_model)
+        if 'key' in theme_value
+    }
+
+
+def merge_theme_model_with_base(theme_model, base_theme_model, plugin_model_name):
+    # @TODO: remove this after oomox theme will be refactored into plugin
+    for theme_value in base_theme_model:
+        if 'key' in theme_value:
+            theme_value['value_filter'] = {
+                'THEME_STYLE': 'oomox'
+            }
+    # endTODO
+
+    base_keys = get_base_keys(base_theme_model)
+    for theme_plugin in theme_plugins.values():
+        theme_name = theme_plugin.name
+        for theme_value in getattr(theme_plugin, plugin_model_name):
+            key = theme_value['key']
+            if key not in base_keys:
+                base_theme_model.append(theme_value)
+                base_theme_value = theme_value
+            else:
+                base_index = base_keys[key]
+                base_theme_value = base_theme_model[base_index]
+            value_filter = base_theme_value.setdefault('value_filter', {})
+            value_filter_theme_style = value_filter.setdefault('THEME_STYLE', [])
+            if not isinstance(value_filter_theme_style, list):
+                value_filter_theme_style = [value_filter_theme_style, ]
+            value_filter_theme_style.append(theme_name)
+            base_theme_value['value_filter']['THEME_STYLE'] = value_filter_theme_style
+    theme_model += base_theme_model
 
 
 theme_model = [
@@ -12,15 +50,21 @@ theme_model = [
                 'value': 'oomox',
                 'display_name': 'Numix-based',
                 'description': '(GTK+2, GTK+3, Metacity, Openbox, Qt5ct, Unity, Xfwm)',
-            }, {
-                'value': 'materia',
-                'display_name': 'Materia',
-                'description': '(GTK+2, GTK+3, Gnome Shell, Metacity, Unity, Xfwm)',
+            },
+        ] + [
+            {
+                'value': theme_plugin.name,
+                'display_name': theme_plugin.display_name,
+                'description': theme_plugin.description,
             }
+            for theme_plugin in theme_plugins.values()
         ],
         'fallback_value': 'oomox',
         'display_name': _('Theme style'),
     },
+]
+
+base_theme_model_gtk = [
     {
         'key': 'BG',
         'type': 'color',
@@ -52,15 +96,6 @@ theme_model = [
         'display_name': _('Selection text'),
     },
     {
-        'key': 'ACCENT_BG',
-        'fallback_key': 'SEL_BG',
-        'type': 'color',
-        'display_name': _('Accent color (checkboxes, radios)'),
-        'value_filter': {
-            'THEME_STYLE': 'materia'
-        },
-    },
-    {
         'key': 'TXT_BG',
         'type': 'color',
         'display_name': _('Textbox background')
@@ -69,9 +104,6 @@ theme_model = [
         'key': 'TXT_FG',
         'type': 'color',
         'display_name': _('Textbox text'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'BTN_BG',
@@ -88,69 +120,50 @@ theme_model = [
         'fallback_key': 'BTN_BG',
         'type': 'color',
         'display_name': _('Header button background'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'HDR_BTN_FG',
         'fallback_key': 'BTN_FG',
         'type': 'color',
         'display_name': _('Header button text'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'WM_BORDER_FOCUS',
         'fallback_key': 'SEL_BG',
         'type': 'color',
         'display_name': _('Focused window border'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'WM_BORDER_UNFOCUS',
         'fallback_key': 'MENU_BG',
         'type': 'color',
         'display_name': _('Unfocused window border'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
+]
+merge_theme_model_with_base(theme_model, base_theme_model_gtk, 'theme_model_gtk')
 
+base_theme_model_options = [
     {
         'type': 'separator',
         'display_name': _('Theme options'),
     },
-
     {
         'key': 'ROUNDNESS',
         'type': 'int',
         'fallback_value': 2,
         'display_name': _('Roundness'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'SPACING',
         'type': 'int',
         'fallback_value': 3,
         'display_name': _('(GTK3) Spacing'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'GRADIENT',
         'type': 'float',
         'fallback_value': 0.0,
         'display_name': _('(GTK3) Gradient'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
     {
         'key': 'GTK3_GENERATE_DARK',
@@ -158,31 +171,14 @@ theme_model = [
         'fallback_value': True,
         'display_name': _('(GTK3) Add dark variant'),
     },
-    {
-        'key': 'MATERIA_STYLE_COMPACT',
-        'type': 'bool',
-        'fallback_value': True,
-        'display_name': _('Compact style'),
-        'value_filter': {
-            'THEME_STYLE': 'materia'
-        },
-    },
-    {
-        'key': 'GNOME_SHELL_PANEL_OPACITY',
-        'type': 'float',
-        'fallback_value': 0.6,
-        'max_value': 1.0,
-        'display_name': _('Gnome Shell panel opacity'),
-        'value_filter': {
-            'THEME_STYLE': 'materia'
-        },
-    },
+]
+merge_theme_model_with_base(theme_model, base_theme_model_options, 'theme_model_options')
 
+theme_model += [
     {
         'type': 'separator',
         'display_name': _('Iconset')
     },
-
     {
         'key': 'ICONS_STYLE',
         'type': 'options',
@@ -243,7 +239,9 @@ theme_model = [
             'ICONS_STYLE': 'gnome_colors',
         },
     },
+]
 
+theme_model += [
     {
         'type': 'separator',
         'display_name': _('Terminal')
@@ -446,7 +444,9 @@ theme_model = [
             'TERMINAL_THEME_MODE': ['manual', ],
         },
     },
+]
 
+theme_model += [
     {
         'type': 'separator',
         'display_name': _('Spotify')
@@ -469,7 +469,9 @@ theme_model = [
         'fallback_key': 'SEL_BG',
         'display_name': _('Spotify accent color'),
     },
+]
 
+theme_model += [
     {
         'type': 'separator',
         'display_name': _('Text input caret'),
@@ -504,28 +506,18 @@ theme_model = [
             'THEME_STYLE': 'oomox'
         },
     },
+]
 
+base_theme_model_other = [
     {
         'type': 'separator',
         'display_name': _('Other options'),
-    },
-    {
-        'key': 'GNOME_SHELL_PANEL_OPACITY',
-        'type': 'float',
-        'fallback_value': 0.6,
-        'max_value': 1.0,
-        'display_name': _('Gnome Shell panel opacity'),
-        'value_filter': {
-            'THEME_STYLE': 'materia'
-        },
     },
     {
         'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
         'type': 'bool',
         'fallback_value': False,
         'display_name': _('(Unity) Use default launcher style'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
     },
 ]
+merge_theme_model_with_base(theme_model, base_theme_model_other, 'theme_model_other')

@@ -181,12 +181,24 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
     def set_value(self, value):
         self.disconnect_changed_signal()
         self.value = value
+        option_found = False
         for option_id, option in enumerate(self.options):
             if value == option['value']:
                 self.dropdown.set_active(option_id)
                 if 'description' in option:
                     self.show_description_label()
                     self.description_label.set_text(option['description'])
+                option_found = True
+                break
+        if not option_found:
+            self.dropdown.set_active(0)
+            self.description_label.set_text(
+                "{} '{}' is not one of [{}]".format(
+                    self.display_name,
+                    value,
+                    ', '.join([option['value'] for option in self.options])
+                )
+            )
         self.connect_changed_signal()
 
     def show_description_label(self):
@@ -198,9 +210,10 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
     def __init__(self, display_name, key, options, callback, value=None):
         super().__init__()
 
-        self.callback = callback
+        self.display_name = display_name
         self.key = key
         self.options = options
+        self.callback = callback
 
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self.vbox)
@@ -208,7 +221,7 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.vbox.add(hbox)
 
-        label = Gtk.Label(display_name, xalign=0)
+        label = Gtk.Label(self.display_name, xalign=0)
         hbox.pack_start(label, True, True, 0)
 
         options_store = Gtk.ListStore(str)

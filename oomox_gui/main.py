@@ -14,16 +14,21 @@ from .gtk_helpers import (
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
-    read_colorscheme_from_path, save_colorscheme, remove_colorscheme,
+    save_colorscheme, remove_colorscheme,
+)
+from .theme_file_load import (
+    read_colorscheme_from_path,
 )
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export import (
-    export_theme, export_gnome_colors_icon_theme, export_archdroid_icon_theme,
+    export_gnome_colors_icon_theme, export_archdroid_icon_theme,
     export_spotify, export_terminal_theme
 )
 from .terminal import generate_terminal_colors_for_oomox
+from .plugin_loader import theme_plugins
+from oomox_gui.export.theme import OomoxThemeExportDialog
 
 
 class NewDialog(EntryDialog):
@@ -100,6 +105,8 @@ class AppWindow(Gtk.ApplicationWindow):
     theme_edit = None
     presets_list = None
     preview = None
+    #
+    plugin_theme = None
 
     def save(self, name=None):
         if not name:
@@ -175,7 +182,12 @@ class AppWindow(Gtk.ApplicationWindow):
         self.save()
 
     def on_export(self, action, param=None):
-        export_theme(
+        # @TODO: remove this after oomox theme will be refactored into a plugin
+        export_dialog = OomoxThemeExportDialog
+        # endTODO
+        if self.plugin_theme:
+            export_dialog = self.plugin_theme.export_dialog
+        export_dialog(
             window=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
@@ -199,14 +211,24 @@ class AppWindow(Gtk.ApplicationWindow):
         self.check_unsaved_changes()
         export_spotify(window=self, theme_path=self.colorscheme_path)
 
+    def select_theme_plugin(self, theme_plugin_name):
+        self.plugin_theme = None
+        for theme_plugin in theme_plugins.values():
+            if theme_plugin.name == theme_plugin_name:
+                self.plugin_theme = theme_plugin
+
+    def load_colorscheme(self, colorscheme):
+        self.colorscheme = colorscheme
+        self.select_theme_plugin(self.colorscheme['THEME_STYLE'])
+        self.preview.update_preview(self.colorscheme, self.plugin_theme)
+
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()
         self.colorscheme_name = selected_preset
         self.colorscheme_path = selected_preset_path
-        self.colorscheme = read_colorscheme_from_path(selected_preset_path)
+        self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
-        self.preview.update_preview(self.colorscheme)
         self.theme_edited = False
         self.save_action.set_enabled(False)
         self.rename_action.set_enabled(self.colorscheme_is_user)
@@ -221,8 +243,7 @@ class AppWindow(Gtk.ApplicationWindow):
                 if colorscheme.get(theme_key):
                     del colorscheme[theme_key]
 
-        self.colorscheme = colorscheme
-        self.preview.update_preview(self.colorscheme)
+        self.load_colorscheme(colorscheme)
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.headerbar.props.title
             self.save_action.set_enabled(True)

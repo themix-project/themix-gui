@@ -18,7 +18,9 @@ class ThemePreview(Gtk.Grid):
     BG = 'bg'
     FG = 'fg'
 
-    current_theme = None
+    WM_BORDER_WIDTH = 2
+
+    theme_plugin_name = None
     terminal_preview = None
     icons_preview = None
 
@@ -188,16 +190,17 @@ class ThemePreview(Gtk.Grid):
                 css_provider_border_color = \
                     self.css_providers_border_color[widget_name] = \
                     Gtk.CssProvider()
-            css_provider_border_color.load_from_data(''.join([
-                "* {",
-                "border-color: #{border_color};" .format(
+            css_provider_border_color.load_from_data(
+                """
+                * {{
+                    border-color: #{border_color};
+                    border-radius: {roundness}px;
+                }}
+                """.format(
                     border_color=border_color,
-                ),
-                "border-radius: {roundness}px;" .format(
                     roundness=colorscheme["ROUNDNESS"],
-                ) if self.current_theme == "oomox" else '',
-                "}"
-            ]).encode('ascii'))
+                ).encode('ascii')
+            )
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_border_color,
@@ -220,12 +223,6 @@ class ThemePreview(Gtk.Grid):
                 not theme_value['key'].startswith('TERMINAL_')
             )
         }
-        if self.current_theme == "materia":
-            converted["TXT_FG"] = converted["FG"]
-            converted["WM_BORDER_FOCUS"] = converted["MENU_BG"]
-            converted["WM_BORDER_UNFOCUS"] = converted["BTN_BG"]
-            converted["HDR_BTN_FG"] = converted["MENU_FG"]
-            converted["HDR_BTN_BG"] = converted["MENU_BG"]
 
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
@@ -269,33 +266,42 @@ class ThemePreview(Gtk.Grid):
         self.override_color(self.icons_preview, self.BG,
                             converted["TXT_BG"])
 
-        if self.current_theme == "oomox":
-            self.css_provider_wm_border_color.load_from_data("""
-                * {{
-                    border-color: #{border_color};
-                    /*border-radius: {roundness}px;*/
-                    border-width: 2px;
-                    border-style: solid;
-                }}
-            """.format(
-                border_color=colorscheme['WM_BORDER_FOCUS'],
-                roundness=colorscheme['ROUNDNESS']
-            ).encode('ascii'))
-            Gtk.StyleContext.add_provider(
-                self.bg.get_style_context(),
-                self.css_provider_wm_border_color,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            )
+        self.css_provider_wm_border_color.load_from_data("""
+            * {{
+                border-color: #{border_color};
+                /*border-radius: {roundness}px;*/
+                border-width: {wm_border_width}px;
+                border-style: solid;
+            }}
+        """.format(
+            border_color=colorscheme['WM_BORDER_FOCUS'],
+            roundness=colorscheme['ROUNDNESS'],
+            wm_border_width=self.WM_BORDER_WIDTH
+        ).encode('ascii'))
+        Gtk.StyleContext.add_provider(
+            self.bg.get_style_context(),
+            self.css_provider_wm_border_color,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
-    def update_preview(self, colorscheme):
-        self.override_css_style(colorscheme)
+    def update_preview(self, _colorscheme, theme_plugin):
+        colorscheme = {}
+        colorscheme.update(_colorscheme)
+        # @TODO: remove this after oomox theme will be refactored into a plugin
+        if theme_plugin:
+            # endTODO
+            theme_plugin.preview_before_load_callback(self, colorscheme)
+        # @TODO: remove this after oomox theme will be refactored into a plugin
+        else:
+            self.WM_BORDER_WIDTH = 2
+        # endTODO
+
+        self.override_css_style(colorscheme, theme_plugin)
         self.update_preview_colors(colorscheme)
         self.update_preview_borders(colorscheme)
-        if self.current_theme == "oomox":
-            self.update_preview_carets(colorscheme)
-            self.update_preview_gradients(colorscheme)
-        else:
-            self.reset_gradients()
+        self.update_preview_carets(colorscheme)
+        self.update_preview_gradients(colorscheme)
+
         self.icons_preview.update_preview(colorscheme)
         self.terminal_preview.update_preview(colorscheme)
 
@@ -390,38 +396,38 @@ class ThemePreview(Gtk.Grid):
                 children.extend(self.get_menu_widgets(submenu))
         return children
 
-    def get_theme_css_provider(self, colorscheme):
-        css_postfix = '_materia' if self.current_theme == 'materia' else ''
-        if Gtk.get_minor_version() >= 20:
-            css_name = "theme{}20.css".format(css_postfix)
-        else:
-            css_name = "theme{}.css".format(css_postfix)
-        css_provider = self.css_providers_theme.get(css_name)
+    def get_theme_css_provider(self, colorscheme, theme_plugin):
+        css_name = "theme{}.css".format(
+            '20' if Gtk.get_minor_version() >= 20 else ''
+        )
+        # @TODO: remove this after oomox theme will be refactored into a plugin
+        css_dir = gtk_preview_css_dir
+        if theme_plugin:
+            # endTODO
+            css_dir = theme_plugin.gtk_preview_css_dir
+        css_path = os.path.join(css_dir, css_name)
+        css_provider = self.css_providers_theme.get(css_path)
         if css_provider:
             return css_provider
         css_provider = Gtk.CssProvider()
         try:
-            css_provider.load_from_path(
-                os.path.join(
-                    gtk_preview_css_dir, css_name
-                )
-            )
+            css_provider.load_from_path(css_path)
         except GLib.Error as e:
             print(e)
-        self.css_providers_theme[css_name] = css_provider
+        self.css_providers_theme[css_path] = css_provider
         return css_provider
 
-    def override_css_style(self, colorscheme):
-        new_theme_style = colorscheme["THEME_STYLE"]
-        if new_theme_style == self.current_theme:
+    def override_css_style(self, colorscheme, theme_plugin):
+        new_theme_plugin_name = colorscheme["THEME_STYLE"]
+        if new_theme_plugin_name == self.theme_plugin_name:
             return
-        if self.current_theme:
+        if self.theme_plugin_name:
             for child in self.get_children():
                 self.remove(child)
                 child.destroy()
             self._init_widgets()
-        self.current_theme = new_theme_style
-        base_theme_css_provider = self.get_theme_css_provider(colorscheme)
+        self.theme_plugin_name = new_theme_plugin_name
+        base_theme_css_provider = self.get_theme_css_provider(colorscheme, theme_plugin)
 
         def apply_css(widget):
             widget_style_context = widget.get_style_context()
