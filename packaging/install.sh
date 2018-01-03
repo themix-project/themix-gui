@@ -25,7 +25,7 @@ cp -prf \
 	./plugins \
 	./po \
 		${pkgdir}/opt/oomox
-rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git
+rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
 
 mkdir ${pkgdir}/opt/oomox/gtk-theme
 cd ./gtk-theme
