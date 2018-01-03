@@ -3,7 +3,8 @@ from gi.repository import Gtk, GLib
 
 from .theme_model import theme_model
 from .helpers import (
-    convert_theme_color_to_gdk, mix_theme_colors, FALLBACK_COLOR
+    convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors,
+    FALLBACK_COLOR
 )
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
@@ -208,20 +209,18 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_colors(self, colorscheme):
 
-        def mix(a, b, amount):
-            return convert_theme_color_to_gdk(
-                mix_theme_colors(colorscheme[b], colorscheme[a], amount)
-            )
-
         converted = {
             theme_value['key']: convert_theme_color_to_gdk(
-                colorscheme[theme_value['key']] or FALLBACK_COLOR
+                colorscheme[theme_value['key']]
             )
             for theme_value in theme_model if (
                 theme_value['type'] == 'color' and
                 not theme_value['key'].startswith('TERMINAL_')
             )
         }
+
+        def mix(a, b, amount):
+            return mix_gdk_colors(converted[b], converted[a], amount)
 
         self.override_color(self.bg, self.BG, converted["BG"])
         self.override_color(self.label, self.FG, converted["FG"])
@@ -291,11 +290,20 @@ class ThemePreview(Gtk.Grid):
         colorscheme.update(_colorscheme)
         theme_plugin.preview_before_load_callback(self, colorscheme)
 
-        self.override_css_style(colorscheme, theme_plugin)
-        self.update_preview_colors(colorscheme)
-        self.update_preview_borders(colorscheme)
-        self.update_preview_carets(colorscheme)
-        self.update_preview_gradients(colorscheme)
+        colorscheme_with_fallbacks = {}
+        for theme_value in theme_model:
+            if 'key' not in theme_value:
+                continue
+            result = colorscheme.get(theme_value['key'])
+            if not result and theme_value['type'] == 'color':
+                result = FALLBACK_COLOR
+            colorscheme_with_fallbacks[theme_value['key']] = result
+
+        self.override_css_style(colorscheme_with_fallbacks, theme_plugin)
+        self.update_preview_colors(colorscheme_with_fallbacks)
+        self.update_preview_borders(colorscheme_with_fallbacks)
+        self.update_preview_carets(colorscheme_with_fallbacks)
+        self.update_preview_gradients(colorscheme_with_fallbacks)
 
         self.icons_preview.update_preview(colorscheme, icons_plugin)
         self.terminal_preview.update_preview(colorscheme)

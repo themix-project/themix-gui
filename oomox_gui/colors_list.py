@@ -337,14 +337,13 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         if self.changed_signal:
             self.color_entry.disconnect(self.changed_signal)
 
-    def on_color_input(self, widget, skip_callback=False):
-        self.value = widget.get_text()
+    def on_color_input(self, widget, skip_callback=False, value=None):
+        self.value = value or widget.get_text()
         if self.value == '':
             self.value = None
         if self.value:
             self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
-        if not skip_callback:
-            self.callback(self.key, self.value)
+        self.callback(self.key, self.value)
 
     def on_color_set(self, gtk_value):
         self.value = convert_gdk_to_theme_color(gtk_value)
@@ -353,8 +352,12 @@ class ColorListBoxRow(Gtk.ListBoxRow):
     def set_value(self, value):
         self.disconnect_changed_signal()
         self.value = value
-        self.color_entry.set_text(self.value)
-        self.on_color_input(self.color_entry, skip_callback=True)
+        if value:
+            self.color_entry.set_text(self.value)
+            self.color_button.set_rgba(convert_theme_color_to_gdk(value))
+        else:
+            self.color_entry.set_text(_('<N/A>'))
+            self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
         self.connect_changed_signal()
 
     def __init__(self, display_name, key, callback, parent, value=None):

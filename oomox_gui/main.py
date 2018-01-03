@@ -211,11 +211,15 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme = colorscheme
         self.select_theme_plugin()
         self.select_icons_plugin()
-        self.preview.update_preview(
-            colorscheme=self.colorscheme,
-            theme_plugin=self.plugin_theme,
-            icons_plugin=self.plugin_icons,
-        )
+        try:
+            self.preview.update_preview(
+                colorscheme=self.colorscheme,
+                theme_plugin=self.plugin_theme,
+                icons_plugin=self.plugin_icons,
+            )
+        except Exception as exc:
+            import traceback
+            traceback.print_exc()
 
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()

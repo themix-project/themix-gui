@@ -1,5 +1,6 @@
 import os
 
+from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export.common import FileBasedExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
 
@@ -42,5 +43,5 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         return svg_template.replace(
-            "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"]
+            "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"] or FALLBACK_COLOR
         )

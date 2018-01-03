@@ -1,5 +1,6 @@
 import os
 
+from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export.common import FileBasedExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
 
@@ -60,11 +61,11 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         return svg_template.replace(
-            "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"]
+            "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
         ).replace(
-            "LightBase", colorscheme["ICONS_LIGHT"]
+            "LightBase", colorscheme["ICONS_LIGHT"] or FALLBACK_COLOR
         ).replace(
-            "MediumBase", colorscheme["ICONS_MEDIUM"]
+            "MediumBase", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
         ).replace(
-            "DarkStroke", colorscheme["ICONS_DARK"]
+            "DarkStroke", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
         )
