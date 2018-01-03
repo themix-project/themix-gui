@@ -1,3 +1,3 @@
 #!/bin/sh
 cd /opt/oomox/
-exec ./materia-theme/change_color.sh "$@"
+exec ./plugins/theme_materia/materia-theme/change_color.sh "$@"
