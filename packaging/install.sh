@@ -27,6 +27,12 @@ cp -prf \
 		${pkgdir}/opt/oomox
 rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.git*
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.editorconfig
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.*.yml
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/{D,d}ocker*
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/maintenance*
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/screenshot*
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/test*
 
 mkdir ${pkgdir}/opt/oomox/archdroid-icon-theme
 cd ./archdroid-icon-theme
