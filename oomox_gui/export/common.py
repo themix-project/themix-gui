@@ -14,42 +14,49 @@ from ..config import (
 )
 
 
-class ExportDialog(Gtk.Dialog):
+class ExportDialog(Gtk.Dialog):  # pylint: disable=too-many-instance-attributes
 
     command = None
     timeout = 120
 
-    def _close_button_callback(self, widget):
+    # widgets:
+    box = None
+    label = None
+    spinner = None
+    options_box = None
+    scrolled_window = None
+    log = None
+    error_box = None
+    apply_button = None
+
+    def _close_button_callback(self, _widget):
         self.destroy()
 
     def show_error(self):
         self.box.remove(self.label)
         self.box.remove(self.spinner)
 
-        self.error_label = CenterLabel(
+        error_label = CenterLabel(
             _("Something went wrong :(")
         )
-        self.error_label.set_alignment(0.5, 0.5)
+        error_label.set_alignment(0.5, 0.5)
 
-        self.error_dismiss_button = Gtk.Button(label=_("_Dismiss"), use_underline=True)
-        self.error_dismiss_button.connect("clicked", self._close_button_callback)
+        error_dismiss_button = Gtk.Button(label=_("_Dismiss"), use_underline=True)
+        error_dismiss_button.connect("clicked", self._close_button_callback)
 
-        self.error_box.add(self.error_label)
-        self.error_box.add(self.error_dismiss_button)
+        self.error_box.add(error_label)
+        self.error_box.add(error_dismiss_button)
         self.error_box.show_all()
         self.box.add(self.error_box)
 
     def set_text(self, text):
         self.log.get_buffer().set_text(text)
 
-    def _adj_changed(self, adj):
-        adj.set_value(adj.get_upper() - adj.get_page_size())
-
     def __init__(
-        self, parent,
-        headline=_("Exporting..."),
-        width=150,
-        height=80
+            self, parent,
+            headline=_("Exporting..."),
+            width=150,
+            height=80
     ):
         Gtk.Dialog.__init__(self, headline, parent, 0)
         self.set_default_size(width, height)
@@ -75,7 +82,10 @@ class ExportDialog(Gtk.Dialog):
         self.scrolled_window.add(self.log)
         #
         adj = self.scrolled_window.get_vadjustment()
-        adj.connect('changed', self._adj_changed)
+        adj.connect(
+            'changed',
+            lambda adj: adj.set_value(adj.get_upper() - adj.get_page_size())
+        )
 
         self.options_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5
@@ -141,6 +151,7 @@ class ExportDialog(Gtk.Dialog):
 
 class FileBasedExportDialog(ExportDialog):
 
+    theme_name = None
     temp_theme_path = None
 
     def __init__(self, parent, colorscheme, theme_name, **kwargs):
@@ -209,8 +220,8 @@ def export_terminal_theme(parent, colorscheme):
     try:
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
         xresources_theme = generate_xresources(term_colorscheme)
-    except Exception as e:
-        dialog.set_text(e)
+    except Exception as exc:
+        dialog.set_text(exc)
         dialog.show_error()
     else:
         dialog.set_text(xresources_theme)
