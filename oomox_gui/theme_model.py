@@ -12,7 +12,7 @@ def get_base_keys(base_theme_model):
     }
 
 
-def merge_theme_model_with_base(theme_model, base_theme_model, plugin_model_name):
+def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
     for theme_value in base_theme_model:
         if 'key' in theme_value:
             theme_value['value_filter'] = {
@@ -28,9 +28,15 @@ def merge_theme_model_with_base(theme_model, base_theme_model, plugin_model_name
                 base_theme_model.append(theme_value)
                 base_keys = get_base_keys(base_theme_model)
                 base_theme_value = theme_value
-        for key in [
-            theme_value['key'] for theme_value in getattr(theme_plugin, "theme_model_"+plugin_model_name)
-        ] + getattr(theme_plugin, "enabled_keys_"+plugin_model_name):
+        plugin_theme_model_keys = [
+            theme_value['key'] for theme_value in getattr(
+                theme_plugin, "theme_model_"+plugin_model_name
+            )
+        ]
+        plugin_enabled_keys = getattr(
+            theme_plugin, "enabled_keys_"+plugin_model_name
+        )
+        for key in plugin_theme_model_keys + plugin_enabled_keys:
             base_index = base_keys[key]
             base_theme_value = base_theme_model[base_index]
             value_filter = base_theme_value.setdefault('value_filter', {})
@@ -39,10 +45,10 @@ def merge_theme_model_with_base(theme_model, base_theme_model, plugin_model_name
                 value_filter_theme_style = [value_filter_theme_style, ]
             value_filter_theme_style.append(theme_name)
             base_theme_value['value_filter']['THEME_STYLE'] = value_filter_theme_style
-    theme_model += base_theme_model
+    whole_theme_model += base_theme_model
 
 
-theme_model = [
+theme_model = [  # pylint: disable=invalid-name
     {
         'key': 'THEME_STYLE',
         'type': 'options',
@@ -59,7 +65,7 @@ theme_model = [
     },
 ]
 
-base_theme_model_gtk = [
+BASE_THEME_MODEL_GTK = [
     {
         'key': 'BG',
         'type': 'color',
@@ -135,9 +141,9 @@ base_theme_model_gtk = [
         'display_name': _('Unfocused window border'),
     },
 ]
-merge_theme_model_with_base(theme_model, base_theme_model_gtk, 'gtk')
+merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_GTK, 'gtk')
 
-base_theme_model_options = [
+BASE_THEME_MODEL_OPTIONS = [
     {
         'type': 'separator',
         'display_name': _('Theme options'),
@@ -167,7 +173,7 @@ base_theme_model_options = [
         'display_name': _('(GTK3) Add dark variant'),
     },
 ]
-merge_theme_model_with_base(theme_model, base_theme_model_options, 'options')
+merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OPTIONS, 'options')
 
 theme_model += [
     {
@@ -503,10 +509,10 @@ theme_model += [
     },
 ]
 
-base_theme_model_other = [
+BASE_THEME_MODEL_OTHER = [
     {
         'type': 'separator',
         'display_name': _('Other options'),
     },
 ]
-merge_theme_model_with_base(theme_model, base_theme_model_other, 'other')
+merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OTHER, 'other')
