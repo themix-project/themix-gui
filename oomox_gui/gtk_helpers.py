@@ -44,14 +44,14 @@ class EntryDialog(Gtk.Dialog):
     entry = None
     entry_text = ''
 
-    def do_response(self, response):
+    def do_response(self, response):  # pylint: disable=arguments-differ
         if response == Gtk.ResponseType.OK:
             self.entry_text = self.entry.get_text()
         self.destroy()
 
     def __init__(
-        self, parent,
-        title, text, entry_text=None
+            self, parent,
+            title, text, entry_text=None
     ):
         Gtk.Dialog.__init__(self, title, parent, 0)
 
@@ -77,7 +77,7 @@ class EntryDialog(Gtk.Dialog):
 
 class YesNoDialog(Gtk.Dialog):
 
-    def do_response(self, response):
+    def do_response(self, _response):  # pylint: disable=arguments-differ
         self.destroy()
 
     def __init__(self, parent,
