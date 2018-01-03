@@ -76,6 +76,6 @@ prepare(){
 
 package() {
 	cd "${srcdir}/oomox"
-	./packaging/install.sh $(pwd) "${pkgdir}"
+	./packaging/install.sh ./ "${pkgdir}"
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 }

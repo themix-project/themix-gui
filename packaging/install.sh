@@ -3,8 +3,8 @@ set -ueo pipefail
 
 # @TODO: mb rewrite it as a Makefile
 
-srcdir=$1
-pkgdir=$2
+srcdir=$(readlink -e $1)
+pkgdir=$(readlink -e $2)
 
 if [[ -d ${pkgdir}/opt/oomox ]] ; then
 	rm -r ${pkgdir}/opt/oomox
