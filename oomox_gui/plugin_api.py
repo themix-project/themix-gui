@@ -37,6 +37,7 @@ class OomoxThemePlugin(OomoxPlugin):
     theme_model_gtk = []
     theme_model_options = []
     theme_model_other = []
+    theme_model_extra = []
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         pass

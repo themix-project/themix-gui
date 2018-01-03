@@ -1,6 +1,6 @@
 import subprocess
 
-from .config import colors_dir, FALLBACK_COLOR
+from .config import FALLBACK_COLOR
 from .theme_model import theme_model
 from .helpers import str_to_bool
 
@@ -75,12 +75,6 @@ def read_colorscheme_from_path(preset_path):
 
         if value is None and fallback_value is False:
             colorscheme[key] = FALLBACK_COLOR
-        # migration workaround #2: resolve color links
-        elif isinstance(value, str) and value.startswith("$"):
-            try:
-                colorscheme[key] = colorscheme[value.lstrip("$")]
-            except KeyError:
-                colorscheme[key] = FALLBACK_COLOR
 
         value_type = theme_value['type']
         if value_type == 'bool':
@@ -92,9 +86,3 @@ def read_colorscheme_from_path(preset_path):
             colorscheme[key] = float(value)
 
     return colorscheme
-
-
-def read_colorscheme_from_preset(preset_name):
-    return read_colorscheme_from_path(os.path.join(colors_dir, preset_name))
-
-

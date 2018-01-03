@@ -70,5 +70,8 @@ class Plugin(OomoxThemePlugin):
         },
     ]
 
+    theme_model_extra = [
+    ]
+
     def preview_before_load_callback(self, preview_object, colorscheme):
         preview_object.WM_BORDER_WIDTH = 2
