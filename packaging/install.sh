@@ -11,6 +11,7 @@ if [[ -d ${pkgdir}/opt/oomox ]] ; then
 fi
 mkdir -p ${pkgdir}/opt/oomox
 
+cd ${srcdir}
 cp -prf \
 	./CREDITS \
 	./LICENSE \
@@ -34,7 +35,7 @@ rm -r ${pkgdir}/opt/oomox/plugins/icons_archdroid/archdroid-icon-theme/.git*
 rm -r ${pkgdir}/opt/oomox/plugins/icons_gnomecolors/gnome-colors-icon-theme/.git*
 
 mkdir ${pkgdir}/opt/oomox/oomoxify
-cd ./oomoxify
+cd ${srcdir}/oomoxify
 cp -prf \
 	./scripts \
 	./oomoxify.sh \
