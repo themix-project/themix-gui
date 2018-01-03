@@ -25,9 +25,9 @@ def is_dark(color_text):
 
 
 class ColorDiff(object):
-    r = None
-    g = None
-    b = None
+    r = None  # pylint: disable=invalid-name
+    g = None  # pylint: disable=invalid-name
+    b = None  # pylint: disable=invalid-name
 
     @property
     def list(self):
@@ -86,7 +86,7 @@ def find_closest_color(color_hex, colors_hex, highlight=True):
     highlight_keys = ["color{}".format(i) for i in range(8, 15+1)]
     for preset_key, preset_color in colors_hex.items():
         if (
-            highlight
+                highlight
         ) and (
             "color" not in preset_key
         ) or (
@@ -101,7 +101,7 @@ def find_closest_color(color_hex, colors_hex, highlight=True):
     return smallest_key, smallest_diff
 
 
-valid_color_chars = [
+VALID_COLOR_CHARS = [
     chr(i) for i in range(ord('a'), ord('f')+1)
 ] + [
     str(i) for i in range(10)
@@ -110,8 +110,8 @@ valid_color_chars = [
 
 def import_xcolors(path):
     hex_colors = {}
-    with open(os.path.expanduser(path)) as f:
-        for line in f.read().split('\n'):
+    with open(os.path.expanduser(path)) as file_object:
+        for line in file_object.read().split('\n'):
             if line.strip().startswith('!'):
                 continue
             pair = list([s.strip() for s in line.split(':')])
@@ -121,28 +121,28 @@ def import_xcolors(path):
             key = key.replace('*', '')
             value = value.replace('#', '').lower()
             for char in value:
-                if char not in valid_color_chars:
+                if char not in VALID_COLOR_CHARS:
                     break
             else:
                 hex_colors[key] = value
     return hex_colors
 
 
-def generate_theme(
-    template_path, theme_color, theme_bg, theme_fg,
-    theme_hint=None, auto_swap_colors=True
+def generate_theme(  # pylint: disable=too-many-arguments
+        template_path, theme_color, theme_bg, theme_fg,
+        theme_hint=None, auto_swap_colors=True
 ):
     hex_colors = import_xcolors(template_path)
     if auto_swap_colors and (
-        is_dark(theme_bg) != is_dark(hex_colors['background'])
+            is_dark(theme_bg) != is_dark(hex_colors['background'])
     ):
         theme_bg, theme_fg = theme_fg, theme_bg
-    closest_key, diff = None, None
+    _closest_key, diff = None, None
     if theme_hint:
-        closest_key = theme_hint
+        _closest_key = theme_hint
         diff = ColorDiff(hex_colors[theme_hint], theme_color)
     else:
-        closest_key, diff = find_closest_color(
+        _closest_key, diff = find_closest_color(
             theme_color, hex_colors, highlight=False
         )
     modified_colors = {
@@ -152,8 +152,8 @@ def generate_theme(
     modified_colors["background"] = theme_bg
     modified_colors["foreground"] = theme_fg
     for source, destinations in {
-        "background": ("color0", "color8",),
-        "foreground": ("color7", "color15",),
+            "background": ("color0", "color8",),
+            "foreground": ("color7", "color15",),
     }.items():
         for key in destinations:
             modified_colors[key] = ColorDiff(
@@ -172,7 +172,7 @@ def generate_themes_from_oomox(original_colorscheme):
         colorscheme["TERMINAL_BACKGROUND"] = colorscheme["TXT_BG"]
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
     term_colorscheme = generate_theme(
-        os.path.join(
+        template_path=os.path.join(
             terminal_template_dir, colorscheme["TERMINAL_BASE_TEMPLATE"]
         ),
         theme_color=colorscheme["TERMINAL_ACCENT_COLOR"],
@@ -198,19 +198,19 @@ def generate_xrdb_theme_from_oomox(colorscheme):
     return term_colorscheme
 
 
-def generate_terminal_colors_for_oomox(colorscheme):
-    _, new_colorscheme = generate_themes_from_oomox(colorscheme)
-    return new_colorscheme
+def generate_terminal_colors_for_oomox(colorscheme):  # pylint: disable=invalid-name
+    _, new_oomox_colorscheme = generate_themes_from_oomox(colorscheme)
+    return new_oomox_colorscheme
 
 
-def natural_sort(l):
+def natural_sort(list_to_sort):
     def convert(text):
         return int(text) if text.isdigit() else text.lower()
 
     def alphanum_key(key):
         return [convert(c) for c in re.split('([0-9]+)', key)]
 
-    return sorted(l, key=alphanum_key)
+    return sorted(list_to_sort, key=alphanum_key)
 
 
 def generate_xresources(colorscheme):
@@ -233,7 +233,7 @@ def generate_xresources(colorscheme):
     ])
 
 
-if __name__ == '__main__':
+def cli():
     args = sys.argv
     if len(args) < 5:
         print(
@@ -249,9 +249,18 @@ if __name__ == '__main__':
     theme_bg = args[3]
     theme_fg = args[4]
     theme_hint = args[5] if len(args) > 5 else None
-    swap_colors = (args[6] not in ["y", "yes", "true", "1"]) \
+    auto_swap_colors = (args[6] not in ["y", "yes", "true", "1"]) \
         if len(args) > 6 else None
     term_colorscheme = generate_theme(
-        template_path, theme_color, theme_bg, theme_fg, theme_hint, swap_colors
+        template_path=template_path,
+        theme_color=theme_color,
+        theme_bg=theme_bg,
+        theme_fg=theme_fg,
+        theme_hint=theme_hint,
+        auto_swap_colors=auto_swap_colors,
     )
     print(generate_xresources(term_colorscheme))
+
+
+if __name__ == '__main__':
+    cli()
