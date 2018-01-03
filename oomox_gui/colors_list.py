@@ -385,27 +385,18 @@ class ColorListBoxRow(Gtk.ListBoxRow):
             parent_window=self.parent_window,
             callback=self.on_color_set
         )
-        # @TODO:
-        if True:
-            self.color_entry = Gtk.Entry(
-                text=value or _('<none>'), width_chars=7, max_length=6
-            )
-            # unfortunately linked box is causing weird redraw issues
-            # in current GTK version, let's leave it for later
-            linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-            Gtk.StyleContext.add_class(
-                linked_box.get_style_context(), "linked"
-            )
-            linked_box.add(self.color_entry)
-            linked_box.add(self.color_button)
-            hbox.pack_start(linked_box, False, True, 0)
-        else:
-            self.color_entry = Gtk.Entry(
-                text=value or _('<none>'), width_chars=8, max_length=6
-            )
-            hbox.pack_start(self.color_entry, False, True, 0)
-            hbox.pack_start(self.color_button, False, True, 0)
-            # ## ### #### ##### ###### #######
+        self.color_entry = Gtk.Entry(
+            text=value or _('<none>'), width_chars=7, max_length=6
+        )
+        # unfortunately linked box is causing weird redraw issues
+        # in current GTK version, let's leave it for later
+        linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.StyleContext.add_class(
+            linked_box.get_style_context(), "linked"
+        )
+        linked_box.add(self.color_entry)
+        linked_box.add(self.color_button)
+        hbox.pack_start(linked_box, False, True, 0)
         if value:
             self.set_value(value)
 
