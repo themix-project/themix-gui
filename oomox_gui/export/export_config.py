@@ -22,8 +22,8 @@ class ExportConfig(object):
 
     def load(self):
         try:
-            with open(self.config_path, 'r') as f:
-                self.config = json.load(f)
+            with open(self.config_path, 'r') as file_object:
+                self.config = json.load(file_object)
         except FileNotFoundError:
             pass
         return self.config
@@ -31,8 +31,8 @@ class ExportConfig(object):
     def save(self):
         if not os.path.exists(user_export_config_dir):
             os.makedirs(user_export_config_dir)
-        with open(self.config_path, 'w') as f:
-            return json.dump(self.config, f)
+        with open(self.config_path, 'w') as file_object:
+            return json.dump(self.config, file_object)
 
     def __getitem__(self, item):
         return self.config[item]

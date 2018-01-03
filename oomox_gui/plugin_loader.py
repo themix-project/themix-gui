@@ -8,18 +8,18 @@ from .plugin_api import (
 )
 
 
-all_plugin_paths = {}
+all_plugin_paths = {}  # pylint: disable=invalid-name
 for _plugins_dir in (plugins_dir, user_plugins_dir):
     if not os.path.exists(_plugins_dir):
         continue
     for plugin_name in os.listdir(_plugins_dir):
         all_plugin_paths[plugin_name] = os.path.join(_plugins_dir, plugin_name)
 
-all_plugins = {}
-import_plugins = {}
-theme_plugins = {}
-icons_plugins = {}
-export_plugins = {}
+all_plugins = {}  # pylint: disable=invalid-name
+import_plugins = {}  # pylint: disable=invalid-name
+theme_plugins = {}  # pylint: disable=invalid-name
+icons_plugins = {}  # pylint: disable=invalid-name
+export_plugins = {}  # pylint: disable=invalid-name
 for plugin_name, plugin_path in all_plugin_paths.items():
     spec = importlib.util.spec_from_file_location(
         plugin_name,
