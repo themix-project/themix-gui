@@ -1,9 +1,12 @@
 import subprocess
 import os
+import tempfile
 from threading import Thread
 
 from gi.repository import Gtk, GLib, Pango
 
+from ..theme_file import save_colorscheme
+from ..terminal import generate_terminal_colors_for_oomox
 from ..terminal import generate_xrdb_theme_from_oomox, generate_xresources
 from ..gtk_helpers import CenterLabel
 from ..config import (
@@ -14,7 +17,7 @@ from ..config import (
 class ExportDialog(Gtk.Dialog):
 
     command = None
-    timeout = None
+    timeout = 120
 
     def _close_button_callback(self, widget):
         self.destroy()
@@ -45,16 +48,11 @@ class ExportDialog(Gtk.Dialog):
     def __init__(
         self, parent,
         headline=_("Exporting..."),
-        command=None,
-        timeout=120,
         width=150,
         height=80
     ):
         Gtk.Dialog.__init__(self, headline, parent, 0)
         self.set_default_size(width, height)
-
-        self.command = command
-        self.timeout = timeout
 
         self.label = CenterLabel()
 
@@ -141,25 +139,67 @@ class ExportDialog(Gtk.Dialog):
         thread.start()
 
 
-def export_gnome_colors_icon_theme(window, theme_path):
-    return ExportDialog(window, timeout=600, command=[
-        "bash",
-        os.path.join(gnome_colors_icon_theme_dir, "change_color.sh"),
-        theme_path,
-    ]).do_export()
+class FileBasedExportDialog(ExportDialog):
+
+    temp_theme_path = None
+
+    def __init__(self, parent, colorscheme, theme_name, **kwargs):
+        super().__init__(parent=parent, **kwargs)
+        self.theme_name = 'oomox-' + theme_name.split('/')[-1]
+        colorscheme_copy = generate_terminal_colors_for_oomox(colorscheme)
+        self.temp_theme_path = save_colorscheme(
+            preset_name=theme_name,
+            colorscheme=colorscheme_copy,
+            path=tempfile.mkstemp()[1]
+        )
+
+    def __del__(self):
+        os.remove(self.temp_theme_path)
 
 
-def export_archdroid_icon_theme(window, theme_path):
-    return ExportDialog(window, timeout=100, command=[
-        "bash",
-        os.path.join(archdroid_theme_dir, "change_color.sh"),
-        theme_path,
-    ]).do_export()
+class GnomeColorsIconsExportDialog(FileBasedExportDialog):
+    timeout = 600
+
+    def do_export(self):
+        self.command = [
+            "bash",
+            os.path.join(gnome_colors_icon_theme_dir, "change_color.sh"),
+            self.temp_theme_path,
+        ]
+        super().do_export()
 
 
-def export_terminal_theme(window, colorscheme):
+def export_gnome_colors_icon_theme(parent, theme_name, colorscheme):
+    return GnomeColorsIconsExportDialog(
+        parent=parent,
+        theme_name=theme_name,
+        colorscheme=colorscheme
+    ).do_export()
+
+
+class ArchdroidIconsExportDialog(FileBasedExportDialog):
+    timeout = 100
+
+    def do_export(self):
+        self.command = [
+            "bash",
+            os.path.join(archdroid_theme_dir, "change_color.sh"),
+            self.temp_theme_path,
+        ]
+        super().do_export()
+
+
+def export_archdroid_icon_theme(parent, theme_name, colorscheme):
+    return ArchdroidIconsExportDialog(
+        parent=parent,
+        theme_name=theme_name,
+        colorscheme=colorscheme
+    ).do_export()
+
+
+def export_terminal_theme(parent, colorscheme):
     dialog = ExportDialog(
-        window,
+        parent=parent,
         headline=_("Terminal colorscheme"),
         height=440
     )

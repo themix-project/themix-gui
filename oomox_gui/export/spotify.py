@@ -3,7 +3,7 @@ from gi.repository import Gtk
 from ..config import oomoxify_script_path
 
 from .export_config import ExportConfig
-from .common import ExportDialog
+from .common import FileBasedExportDialog
 
 
 OPTION_SPOTIFY_PATH = 'spotify_path'
@@ -18,9 +18,8 @@ class SpotifyExportConfig(ExportConfig):
     name = 'spotify'
 
 
-class SpotifyExportDialog(ExportDialog):
+class SpotifyExportDialog(FileBasedExportDialog):
 
-    theme_path = None
     export_config = None
     timeout = 120
 
@@ -32,7 +31,7 @@ class SpotifyExportDialog(ExportDialog):
         export_args = [
             "bash",
             oomoxify_script_path,
-            self.theme_path,
+            self.temp_theme_path,
             '--gui',
             '--spotify-apps-path', self.export_config[OPTION_SPOTIFY_PATH],
         ]
@@ -91,9 +90,13 @@ class SpotifyExportDialog(ExportDialog):
         if self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_CUSTOM:
             self.font_radio_custom.set_active(True)
 
-    def __init__(self, parent, theme_path):
-        ExportDialog.__init__(self, parent, headline=_("Spotify options"))
-        self.theme_path = theme_path
+    def __init__(self, parent, colorscheme, theme_name):
+        super().__init__(
+            parent=parent,
+            headline=_("Spotify options"),
+            colorscheme=colorscheme,
+            theme_name=theme_name
+        )
         self.export_config = SpotifyExportConfig({
             OPTION_SPOTIFY_PATH: "/usr/share/spotify/Apps",
             OPTION_FONT_NAME: "sans-serif",
@@ -120,5 +123,9 @@ class SpotifyExportDialog(ExportDialog):
         self.apply_button.show()
 
 
-def export_spotify(window, theme_path):
-    return SpotifyExportDialog(window, theme_path)
+def export_spotify(parent, colorscheme, theme_name):
+    return SpotifyExportDialog(
+        parent=parent,
+        theme_name=theme_name,
+        colorscheme=colorscheme
+    )

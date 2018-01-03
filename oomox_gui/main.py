@@ -267,28 +267,30 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def on_export(self, _action, _param=None):
         export_dialog = self.plugin_theme.export_dialog
         export_dialog(
-            window=self,
+            parent=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
     def on_export_icontheme(self, _action, _param=None):
-        self.check_unsaved_changes()
+        export_dialog = export_gnome_colors_icon_theme
         if self.colorscheme['ICONS_STYLE'] == 'archdroid':
-            export_archdroid_icon_theme(
-                window=self, theme_path=self.colorscheme_path
-            )
-        else:
-            export_gnome_colors_icon_theme(
-                window=self, theme_path=self.colorscheme_path
-            )
+            export_dialog = export_archdroid_icon_theme
+        export_dialog(
+            parent=self,
+            theme_name=self.colorscheme_name,
+            colorscheme=self.colorscheme
+        )
 
     def on_export_terminal(self, _action, _param=None):
-        export_terminal_theme(window=self, colorscheme=self.colorscheme)
+        export_terminal_theme(parent=self, colorscheme=self.colorscheme)
 
     def on_export_spotify(self, _action, _param=None):
-        self.check_unsaved_changes()
-        export_spotify(window=self, theme_path=self.colorscheme_path)
+        export_spotify(
+            parent=self,
+            theme_name=self.colorscheme_name,
+            colorscheme=self.colorscheme
+        )
 
     def on_quit(self, _arg1, _arg2):
         self.check_unsaved_changes()

@@ -1,12 +1,6 @@
-import os
-import tempfile
-
 from gi.repository import Gtk
 
-from ..theme_file import save_colorscheme
-from ..terminal import generate_terminal_colors_for_oomox
-
-from .common import ExportDialog
+from .common import FileBasedExportDialog
 from .export_config import ExportConfig
 
 
@@ -17,21 +11,15 @@ class GtkThemeExportConfig(ExportConfig):
     name = 'gtk_theme'
 
 
-class GtkThemeExportDialog(ExportDialog):
-
-    temp_theme_path = None
+class GtkThemeExportDialog(FileBasedExportDialog):
 
     def on_hidpi_checkbox_toggled(self, widget):
         self.export_config[OPTION_GTK2_HIDPI] = widget.get_active()
 
-    def __init__(self, window, colorscheme, theme_name):
-        ExportDialog.__init__(self, window)
-        self.theme_name = 'oomox-' + theme_name.split('/')[-1]
-        colorscheme_copy = generate_terminal_colors_for_oomox(colorscheme)
-        self.temp_theme_path = save_colorscheme(
-            preset_name=theme_name,
-            colorscheme=colorscheme_copy,
-            path=tempfile.mkstemp()[1]
+    def __init__(self, parent, colorscheme, theme_name, **kwargs):
+        super().__init__(
+            parent=parent, colorscheme=colorscheme, theme_name=theme_name,
+            **kwargs
         )
 
         self.export_config = GtkThemeExportConfig({
@@ -60,6 +48,3 @@ class GtkThemeExportDialog(ExportDialog):
     def do_export(self):
         self.export_config.save()
         super().do_export()
-
-    def __del__(self):
-        os.remove(self.temp_theme_path)
