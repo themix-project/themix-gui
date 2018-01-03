@@ -84,5 +84,9 @@ def read_colorscheme_from_path(preset_path):
             colorscheme[key] = int(value)
         elif value_type == 'float':
             colorscheme[key] = float(value)
+        elif value_type == 'options':
+            available_options = [option['value'] for option in theme_value['options']]
+            if value not in available_options:
+                colorscheme[key] = fallback_value
 
     return colorscheme
