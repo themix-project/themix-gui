@@ -26,6 +26,10 @@ class OomoxThemePlugin(OomoxPlugin):
     def export_dialog(self):
         pass
 
+    @abstractproperty
+    def gtk_preview_css_dir(self):
+        pass
+
     theme_model_gtk = []
     theme_model_options = []
     theme_model_other = []
