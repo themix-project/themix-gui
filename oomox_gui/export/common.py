@@ -13,6 +13,9 @@ from ..config import (
 
 class ExportDialog(Gtk.Dialog):
 
+    command = None
+    timeout = None
+
     def _close_button_callback(self, widget):
         self.destroy()
 
@@ -42,11 +45,16 @@ class ExportDialog(Gtk.Dialog):
     def __init__(
         self, parent,
         headline=_("Exporting..."),
+        command=None,
+        timeout=120,
         width=150,
         height=80
     ):
         Gtk.Dialog.__init__(self, headline, parent, 0)
         self.set_default_size(width, height)
+
+        self.command = command
+        self.timeout = timeout
 
         self.label = CenterLabel()
 
@@ -92,9 +100,7 @@ class ExportDialog(Gtk.Dialog):
 
         self.show_all()
 
-    def do_export(self, export_args, timeout=120):
-        timeout = timeout or self.timeout
-
+    def do_export(self):
         self.box.remove(self.options_box)
         self.box.remove(self.apply_button)
         self.box.add(self.spinner)
@@ -117,14 +123,14 @@ class ExportDialog(Gtk.Dialog):
             self.label.set_text(_("Please wait while\nnew colorscheme will be created"))
             captured_log = ""
             proc = subprocess.Popen(
-                export_args,
+                self.command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT
             )
             for line in iter(proc.stdout.readline, b''):
                 captured_log += line.decode("utf-8")
                 GLib.idle_add(update_ui, captured_log)
-            proc.communicate(timeout=timeout)
+            proc.communicate(timeout=self.timeout)
             if proc.returncode == 0:
                 GLib.idle_add(ui_done)
             else:
@@ -136,19 +142,19 @@ class ExportDialog(Gtk.Dialog):
 
 
 def export_gnome_colors_icon_theme(window, theme_path):
-    return ExportDialog(window).do_export([
+    return ExportDialog(window, timeout=600, command=[
         "bash",
         os.path.join(gnome_colors_icon_theme_dir, "change_color.sh"),
         theme_path,
-    ], timeout=600)
+    ]).do_export()
 
 
 def export_archdroid_icon_theme(window, theme_path):
-    return ExportDialog(window).do_export([
+    return ExportDialog(window, timeout=100, command=[
         "bash",
         os.path.join(archdroid_theme_dir, "change_color.sh"),
         theme_path,
-    ], timeout=100)
+    ]).do_export()
 
 
 def export_terminal_theme(window, colorscheme):

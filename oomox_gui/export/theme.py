@@ -57,9 +57,9 @@ class GtkThemeExportDialog(ExportDialog):
         self.box.add(self.apply_button)
         self.apply_button.show()
 
-    def do_export(self, export_args):
+    def do_export(self):
         self.export_config.save()
-        super().do_export(export_args)
+        super().do_export()
 
     def __del__(self):
         os.remove(self.temp_theme_path)

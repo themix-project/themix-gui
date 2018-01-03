@@ -1,16 +1,17 @@
 import os
 import random
 import json
+from enum import Enum
 
 from gi.repository import Gdk
 
 from .config import user_palette_path, FALLBACK_COLOR
 
 
-def mkdir_p(dir):
-    if os.path.isdir(dir):
+def mkdir_p(path):
+    if os.path.isdir(path):
         return
-    os.makedirs(dir)
+    os.makedirs(path)
 
 
 def ls_r(path):
@@ -22,15 +23,15 @@ def ls_r(path):
 
 def load_palette():
     try:
-        with open(user_palette_path, 'r') as f:
-            return json.load(f)
+        with open(user_palette_path, 'r') as file_object:
+            return json.load(file_object)
     except FileNotFoundError:
         return []
 
 
 def save_palette(palette):
-    with open(user_palette_path, 'w') as f:
-        return json.dump(palette, f)
+    with open(user_palette_path, 'w') as file_object:
+        return json.dump(palette, file_object)
 
 
 def get_random_gdk_color():
@@ -91,26 +92,10 @@ def str_to_bool(value):
     return value.lower() == 'true'
 
 
-class ActionsEnumValue(str):
-    def __new__(cls, target, name):
-        obj = str.__new__(cls, '.'.join([target, name]))
-        obj.target = target
-        obj.name = name
-        return obj
+class ActionsEnum(Enum):
 
+    def get_name(self):
+        return self.name
 
-class ActionsEnumMeta(type):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.__target__ = object.__getattribute__(self, '__name__')
-
-    def __getattribute__(self, attribute):
-        if attribute.startswith('_'):
-            return super().__getattribute__(attribute)
-        target = object.__getattribute__(self, '__target__')
-        name = object.__getattribute__(self, attribute)
-        return ActionsEnumValue(target=target, name=name)
-
-
-class ActionsEnum(metaclass=ActionsEnumMeta):
-    pass
+    def get_id(self):
+        return '.'.join([self._target.value, self.name])

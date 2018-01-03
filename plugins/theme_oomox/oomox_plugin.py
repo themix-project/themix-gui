@@ -6,8 +6,8 @@ from oomox_gui.export.theme import GtkThemeExportDialog, OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 
 
-plugin_dir = os.path.dirname(os.path.realpath(__file__))
-gtk_theme_dir = os.path.join(plugin_dir, "gtk-theme/")
+PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
+GTK_THEME_DIR = os.path.join(PLUGIN_DIR, "gtk-theme/")
 
 
 class OomoxThemeExportDialog(GtkThemeExportDialog):
@@ -18,15 +18,15 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             make_opts = "gtk320"
         else:
             make_opts = "gtk3"
-        export_args = [
+        self.command = [
             "bash",
-            os.path.join(gtk_theme_dir, "change_color.sh"),
+            os.path.join(GTK_THEME_DIR, "change_color.sh"),
             "--make-opts", make_opts,
             "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
             "--output", self.theme_name,
             self.temp_theme_path,
         ]
-        super().do_export(export_args)
+        super().do_export()
 
 
 class Plugin(OomoxThemePlugin):
@@ -35,7 +35,7 @@ class Plugin(OomoxThemePlugin):
     display_name = 'Numix-based'
     description = '(GTK+2, GTK+3, Metacity, Openbox, Qt5ct, Unity, Xfwm)'
     export_dialog = OomoxThemeExportDialog
-    gtk_preview_css_dir = os.path.join(plugin_dir, "gtk_preview_css/")
+    gtk_preview_css_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
 
     enabled_keys_gtk = [
         'BG',

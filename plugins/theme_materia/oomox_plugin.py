@@ -4,22 +4,22 @@ from oomox_gui.export.theme import GtkThemeExportDialog, OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 
 
-plugin_dir = os.path.dirname(os.path.realpath(__file__))
+PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
+THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")
 
 
 class MateriaThemeExportDialog(GtkThemeExportDialog):
     timeout = 1000
-    theme_dir = os.path.join(plugin_dir, "materia-theme/")
 
     def do_export(self):
-        export_args = [
+        self.command = [
             "bash",
-            os.path.join(self.theme_dir, "change_color.sh"),
+            os.path.join(THEME_DIR, "change_color.sh"),
             "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
             "--output", self.theme_name,
             self.temp_theme_path,
         ]
-        super().do_export(export_args)
+        super().do_export()
 
 
 class Plugin(OomoxThemePlugin):
@@ -28,7 +28,7 @@ class Plugin(OomoxThemePlugin):
     display_name = 'Materia'
     description = '(GTK+2, GTK+3, Gnome Shell, Metacity, Unity, Xfwm)'
     export_dialog = MateriaThemeExportDialog
-    gtk_preview_css_dir = os.path.join(plugin_dir, "gtk_preview_css/")
+    gtk_preview_css_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
 
     enabled_keys_gtk = [
         'BG',

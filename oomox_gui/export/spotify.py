@@ -42,7 +42,8 @@ class SpotifyExportDialog(ExportDialog):
             export_args.append('--font')
             export_args.append(self.export_config[OPTION_FONT_NAME])
 
-        super().do_export(export_args)
+        self.command = export_args
+        super().do_export()
 
     def on_font_radio_toggled(self, button, value):
         if button.get_active():
