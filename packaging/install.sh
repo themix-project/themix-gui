@@ -34,15 +34,7 @@ rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/maintenance*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/screenshot*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/test*
 rm -r ${pkgdir}/opt/oomox/plugins/icons_archdroid/archdroid-icon-theme/.git*
-
-mkdir ${pkgdir}/opt/oomox/gnome-colors-icon-theme
-cd ./gnome-colors-icon-theme
-cp -prf \
-	./gnome-colors \
-	./README.md \
-	./change_color.sh \
-		${pkgdir}/opt/oomox/gnome-colors-icon-theme
-cd ..
+rm -r ${pkgdir}/opt/oomox/plugins/icons_gnomecolors/gnome-colors-icon-theme/.git*
 
 mkdir ${pkgdir}/opt/oomox/oomoxify
 cd ./oomoxify

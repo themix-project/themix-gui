@@ -9,9 +9,6 @@ from ..theme_file import save_colorscheme
 from ..terminal import generate_terminal_colors_for_oomox
 from ..terminal import generate_xrdb_theme_from_oomox, generate_xresources
 from ..gtk_helpers import CenterLabel
-from ..config import (
-    gnome_colors_icon_theme_dir,
-)
 
 
 class ExportDialog(Gtk.Dialog):  # pylint: disable=too-many-instance-attributes
@@ -166,26 +163,6 @@ class FileBasedExportDialog(ExportDialog):
 
     def __del__(self):
         os.remove(self.temp_theme_path)
-
-
-class GnomeColorsIconsExportDialog(FileBasedExportDialog):
-    timeout = 600
-
-    def do_export(self):
-        self.command = [
-            "bash",
-            os.path.join(gnome_colors_icon_theme_dir, "change_color.sh"),
-            self.temp_theme_path,
-        ]
-        super().do_export()
-
-
-def export_gnome_colors_icon_theme(parent, theme_name, colorscheme):
-    return GnomeColorsIconsExportDialog(
-        parent=parent,
-        theme_name=theme_name,
-        colorscheme=colorscheme
-    ).do_export()
 
 
 def export_terminal_theme(parent, colorscheme):

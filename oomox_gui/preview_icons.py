@@ -3,8 +3,6 @@ from enum import Enum
 
 from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 
-from .config import script_dir
-
 
 WIDGET_SPACING = 10
 
@@ -45,21 +43,8 @@ class IconThemePreview(Gtk.ListBox):
         self.show_all()
 
     def update_preview(self, colorscheme, theme_plugin):
-        # @TODO:
-        def transform_function(icon_template, colorscheme):
-            return icon_template.replace(
-                "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"]
-            ).replace(
-                "LightBase", colorscheme["ICONS_LIGHT"]
-            ).replace(
-                "MediumBase", colorscheme["ICONS_MEDIUM"]
-            ).replace(
-                "DarkStroke", colorscheme["ICONS_DARK"]
-            )
-        if theme_plugin:
-            # TODOend
-            transform_function = theme_plugin.preview_transform_function
-        self.load_icon_templates(colorscheme['ICONS_STYLE'], theme_plugin)
+        transform_function = theme_plugin.preview_transform_function
+        self.load_icon_templates(theme_plugin)
         for icon in IconsNames:
             source_image = self.icons_templates[icon.name]
             target_imagebox = self.icons_imageboxes[icon.name]
@@ -75,18 +60,15 @@ class IconThemePreview(Gtk.ListBox):
 
             target_imagebox.set_from_pixbuf(pixbuf)
 
-    def load_icon_templates(self, prefix, theme_plugin):
-        if prefix == self.icons_plugin_name:
+    def load_icon_templates(self, theme_plugin):
+        if theme_plugin.name == self.icons_plugin_name:
             return
-        self.icons_plugin_name = prefix
-        preview_dir = theme_plugin.preview_svg_dir if theme_plugin else os.path.join(
-            script_dir, 'icon_previews', prefix
-        )
+        self.icons_plugin_name = theme_plugin.name
         for icon in IconsNames:
             template_path = "{}.svg.template".format(icon.value)
             with open(
                 os.path.join(
-                    preview_dir, template_path
+                    theme_plugin.preview_svg_dir, template_path
                 ), "rb"
             ) as file_object:
                 self.icons_templates[icon.name] = file_object.read().decode('utf-8')

@@ -25,7 +25,6 @@ from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export import (
-    export_gnome_colors_icon_theme,
     export_spotify, export_terminal_theme
 )
 from .terminal import generate_terminal_colors_for_oomox
@@ -279,18 +278,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.save_theme()
 
     def on_export(self, _action, _param=None):
-        export_dialog = self.plugin_theme.export_dialog
-        export_dialog(
+        self.plugin_theme.export_dialog(
             parent=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
     def on_export_icontheme(self, _action, _param=None):
-        export_dialog = export_gnome_colors_icon_theme
-        if self.plugin_icons:
-            export_dialog = self.plugin_icons.export_dialog
-        export_dialog(
+        self.plugin_icons.export_dialog(
             parent=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme

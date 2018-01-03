@@ -208,11 +208,6 @@ BASE_ICONTHEME_MODEL = [
         'type': 'options',
         'options': [
             {
-                'value': 'gnome_colors',
-                'display_name': 'Gnome-Colors'
-            },
-        ] + [
-            {
                 'value': icons_plugin.name,
                 'display_name': icons_plugin.display_name,
             }
@@ -220,42 +215,6 @@ BASE_ICONTHEME_MODEL = [
         ],
         'fallback_value': 'gnome_colors',
         'display_name': _('Icons style')
-    },
-    {
-        'key': 'ICONS_LIGHT_FOLDER',
-        'type': 'color',
-        'fallback_key': 'SEL_BG',
-        'display_name': _('Light base (folders)'),
-        'value_filter': {
-            'ICONS_STYLE': 'gnome_colors',
-        },
-    },
-    {
-        'key': 'ICONS_LIGHT',
-        'fallback_key': 'SEL_BG',
-        'type': 'color',
-        'display_name': _('Light base'),
-        'value_filter': {
-            'ICONS_STYLE': 'gnome_colors',
-        },
-    },
-    {
-        'key': 'ICONS_MEDIUM',
-        'type': 'color',
-        'fallback_key': 'BTN_BG',
-        'display_name': _('Medium base'),
-        'value_filter': {
-            'ICONS_STYLE': 'gnome_colors',
-        },
-    },
-    {
-        'key': 'ICONS_DARK',
-        'type': 'color',
-        'fallback_key': 'MENU_BG',
-        'display_name': _('Dark stroke'),
-        'value_filter': {
-            'ICONS_STYLE': 'gnome_colors',
-        },
     },
 ]
 merge_icons_model_with_base(theme_model, BASE_ICONTHEME_MODEL, 'icons')
