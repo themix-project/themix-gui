@@ -9,14 +9,10 @@ from .theme_file import (
 
 class ThemePresetsList(Gtk.Box):
 
-    presets = None
-    current_theme = None
-    current_preset_path = None
     treeview_default_fg = None
-
     update_signal = None
-    liststore = None
-    treeiter = None
+    treestore = None
+    treeview = None
     preset_select_callback = None
 
     DISPLAY_NAME = 0
@@ -27,17 +23,11 @@ class ThemePresetsList(Gtk.Box):
         treepath = widget.get_cursor()[0]
         if not treepath:
             return
-        list_index = treepath.to_string()
-        selected_preset = list(
-            self.treestore[list_index]
-        )
-        self.current_theme = selected_preset[self.THEME_NAME]
-        self.current_preset_path = selected_preset[self.THEME_PATH]
+        treeiter = self.treestore.get_iter(treepath)
+        current_theme = self.treestore.get_value(treeiter, self.THEME_NAME)
+        current_preset_path = self.treestore.get_value(treeiter, self.THEME_PATH)
         self.preset_select_callback(
-            self.current_theme, self.current_preset_path
-        )
-        self.treeiter = self.treestore.get_iter(
-            Gtk.TreePath.new_from_string(list_index)
+            current_theme, current_preset_path
         )
 
     def add_preset(self, preset_name, preset_path, display_name=None):
@@ -50,7 +40,7 @@ class ThemePresetsList(Gtk.Box):
         ))
 
     def _find_treepath_by_filepath(
-        self, store, target_filepath, treeiter=None
+            self, store, target_filepath, treeiter=None
     ):
         if not treeiter:
             treeiter = self.treestore.get_iter_first()
@@ -66,6 +56,7 @@ class ThemePresetsList(Gtk.Box):
                 if child_result:
                     return child_result
             treeiter = store.iter_next(treeiter)
+        return None
 
     def focus_preset_by_filepath(self, filepath):
         treepath = self._find_treepath_by_filepath(
@@ -81,8 +72,7 @@ class ThemePresetsList(Gtk.Box):
         if self.update_signal:
             self.treeview.disconnect(self.update_signal)
         self.treestore.clear()
-        self.presets = get_presets()
-        for preset_dir, preset_list in self.presets.items():
+        for preset_dir, preset_list in get_presets().items():
             sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
             first_preset = sorted_preset_list[0]
             color = self.treeview_default_fg if first_preset['default'] \
@@ -126,10 +116,10 @@ class ThemePresetsList(Gtk.Box):
             model=self.treestore, headers_visible=False
         )
         self._get_color_for_default_preset_names()
-        self.column = Gtk.TreeViewColumn(
+        column = Gtk.TreeViewColumn(
             cell_renderer=Gtk.CellRendererText(), text=0, foreground=3
         )
-        self.treeview.append_column(self.column)
+        self.treeview.append_column(column)
         self.load_presets()
 
         scrolled = Gtk.ScrolledWindow()
