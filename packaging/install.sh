@@ -26,20 +26,7 @@ cp -prf \
 	./po \
 		${pkgdir}/opt/oomox
 rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
-
-mkdir ${pkgdir}/opt/oomox/gtk-theme
-cd ./gtk-theme
-cp -prf \
-	./CHANGES \
-	./CREDITS \
-	./LICENSE \
-	./Makefile \
-	./README.md \
-	./change_color.sh \
-	./scripts \
-	./src \
-		${pkgdir}/opt/oomox/gtk-theme
-cd ..
+rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.git*
 
 mkdir ${pkgdir}/opt/oomox/archdroid-icon-theme
 cd ./archdroid-icon-theme
