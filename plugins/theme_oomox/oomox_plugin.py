@@ -1,0 +1,74 @@
+import os
+
+from gi.repository import Gtk
+
+from oomox_gui.export.theme import GtkThemeExportDialog, OPTION_GTK2_HIDPI
+from oomox_gui.plugin_api import OomoxThemePlugin
+
+
+plugin_dir = os.path.dirname(os.path.realpath(__file__))
+gtk_theme_dir = os.path.join(plugin_dir, "gtk-theme/")
+
+
+class OomoxThemeExportDialog(GtkThemeExportDialog):
+    timeout = 100
+
+    def do_export(self):
+        if Gtk.get_minor_version() >= 20:
+            make_opts = "gtk320"
+        else:
+            make_opts = "gtk3"
+        export_args = [
+            "bash",
+            os.path.join(gtk_theme_dir, "change_color.sh"),
+            "--make-opts", make_opts,
+            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
+            "--output", self.theme_name,
+            self.temp_theme_path,
+        ]
+        super().do_export(export_args)
+
+
+class Plugin(OomoxThemePlugin):
+
+    name = 'oomox'
+    display_name = 'Numix-based'
+    description = '(GTK+2, GTK+3, Metacity, Openbox, Qt5ct, Unity, Xfwm)'
+    export_dialog = OomoxThemeExportDialog
+    gtk_preview_css_dir = os.path.join(plugin_dir, "gtk_preview_css/")
+
+    enabled_keys_gtk = [
+        'BG',
+        'FG',
+        'MENU_BG',
+        'MENU_FG',
+        'SEL_BG',
+        'SEL_FG',
+        'TXT_BG',
+        'TXT_FG',
+        'BTN_BG',
+        'BTN_FG',
+        'HDR_BTN_BG',
+        'HDR_BTN_FG',
+        'WM_BORDER_FOCUS',
+        'WM_BORDER_UNFOCUS',
+    ]
+
+    enabled_keys_options = [
+        'ROUNDNESS',
+        'SPACING',
+        'GRADIENT',
+        'GTK3_GENERATE_DARK',
+    ]
+
+    theme_model_other = [
+        {
+            'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
+            'type': 'bool',
+            'fallback_value': False,
+            'display_name': _('(Unity) Use default launcher style'),
+        },
+    ]
+
+    def preview_before_load_callback(self, preview_object, colorscheme):
+        preview_object.WM_BORDER_WIDTH = 2

@@ -30,57 +30,24 @@ class Plugin(OomoxThemePlugin):
     export_dialog = MateriaThemeExportDialog
     gtk_preview_css_dir = os.path.join(plugin_dir, "gtk_preview_css/")
 
+    enabled_keys_gtk = [
+        'BG',
+        'FG',
+        'MENU_BG',
+        'MENU_FG',
+        'SEL_BG',
+        'SEL_FG',
+        'TXT_BG',
+        'BTN_BG',
+        'BTN_FG',
+    ]
+
     theme_model_gtk = [
-        {
-            'key': 'BG',
-            'type': 'color',
-            'display_name': _('Background')
-        },
-        {
-            'key': 'FG',
-            'type': 'color',
-            'display_name': _('Foreground/text')
-        },
-        {
-            'key': 'MENU_BG',
-            'type': 'color',
-            'display_name': _('Menu/toolbar background')
-        },
-        {
-            'key': 'MENU_FG',
-            'type': 'color',
-            'display_name': _('Menu/toolbar text'),
-        },
-        {
-            'key': 'SEL_BG',
-            'type': 'color',
-            'display_name': _('Selection highlight')
-        },
-        {
-            'key': 'SEL_FG',
-            'type': 'color',
-            'display_name': _('Selection text'),
-        },
         {
             'key': 'ACCENT_BG',
             'fallback_key': 'SEL_BG',
             'type': 'color',
             'display_name': _('Accent color (checkboxes, radios)'),
-        },
-        {
-            'key': 'TXT_BG',
-            'type': 'color',
-            'display_name': _('Textbox background')
-        },
-        {
-            'key': 'BTN_BG',
-            'type': 'color',
-            'display_name': _('Button background')
-        },
-        {
-            'key': 'BTN_FG',
-            'type': 'color',
-            'display_name': _('Button text'),
         },
     ]
 

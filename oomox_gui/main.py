@@ -28,7 +28,6 @@ from .export import (
 )
 from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import theme_plugins
-from oomox_gui.export.theme import OomoxThemeExportDialog
 
 
 class NewDialog(EntryDialog):
@@ -182,11 +181,7 @@ class AppWindow(Gtk.ApplicationWindow):
         self.save()
 
     def on_export(self, action, param=None):
-        # @TODO: remove this after oomox theme will be refactored into a plugin
-        export_dialog = OomoxThemeExportDialog
-        # endTODO
-        if self.plugin_theme:
-            export_dialog = self.plugin_theme.export_dialog
+        export_dialog = self.plugin_theme.export_dialog
         export_dialog(
             window=self,
             theme_name=self.colorscheme_name,

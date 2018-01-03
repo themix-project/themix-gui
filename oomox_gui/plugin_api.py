@@ -30,6 +30,10 @@ class OomoxThemePlugin(OomoxPlugin):
     def gtk_preview_css_dir(self):
         pass
 
+    enabled_keys_gtk = []
+    enabled_keys_options = []
+    enabled_keys_other = []
+
     theme_model_gtk = []
     theme_model_options = []
     theme_model_other = []

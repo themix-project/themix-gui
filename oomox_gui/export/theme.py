@@ -3,7 +3,6 @@ import tempfile
 
 from gi.repository import Gtk
 
-from ..config import gtk_theme_dir
 from ..theme_file import save_colorscheme
 from ..terminal import generate_terminal_colors_for_oomox
 
@@ -64,22 +63,3 @@ class GtkThemeExportDialog(ExportDialog):
 
     def __del__(self):
         os.remove(self.temp_theme_path)
-
-
-class OomoxThemeExportDialog(GtkThemeExportDialog):
-    timeout = 100
-
-    def do_export(self):
-        if Gtk.get_minor_version() >= 20:
-            make_opts = "gtk320"
-        else:
-            make_opts = "gtk3"
-        export_args = [
-            "bash",
-            os.path.join(gtk_theme_dir, "change_color.sh"),
-            "--make-opts", make_opts,
-            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
-            "--output", self.theme_name,
-            self.temp_theme_path,
-        ]
-        super().do_export(export_args)

@@ -5,7 +5,6 @@ from .theme_model import theme_model
 from .helpers import (
     convert_theme_color_to_gdk, mix_theme_colors, FALLBACK_COLOR
 )
-from .config import gtk_preview_css_dir
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
 
@@ -285,16 +284,11 @@ class ThemePreview(Gtk.Grid):
         )
 
     def update_preview(self, _colorscheme, theme_plugin):
+        if not theme_plugin:
+            return
         colorscheme = {}
         colorscheme.update(_colorscheme)
-        # @TODO: remove this after oomox theme will be refactored into a plugin
-        if theme_plugin:
-            # endTODO
-            theme_plugin.preview_before_load_callback(self, colorscheme)
-        # @TODO: remove this after oomox theme will be refactored into a plugin
-        else:
-            self.WM_BORDER_WIDTH = 2
-        # endTODO
+        theme_plugin.preview_before_load_callback(self, colorscheme)
 
         self.override_css_style(colorscheme, theme_plugin)
         self.update_preview_colors(colorscheme)
@@ -400,11 +394,7 @@ class ThemePreview(Gtk.Grid):
         css_name = "theme{}.css".format(
             '20' if Gtk.get_minor_version() >= 20 else ''
         )
-        # @TODO: remove this after oomox theme will be refactored into a plugin
-        css_dir = gtk_preview_css_dir
-        if theme_plugin:
-            # endTODO
-            css_dir = theme_plugin.gtk_preview_css_dir
+        css_dir = theme_plugin.gtk_preview_css_dir
         css_path = os.path.join(css_dir, css_name)
         css_provider = self.css_providers_theme.get(css_path)
         if css_provider:

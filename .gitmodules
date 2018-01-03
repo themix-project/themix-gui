@@ -1,5 +1,5 @@
 [submodule "gtk-theme"]
-	path = gtk-theme
+	path = plugins/theme_oomox/gtk-theme
 	url = https://github.com/actionless/oomox-gtk-theme.git
 [submodule "materia-theme"]
 	path = plugins/theme_materia/materia-theme

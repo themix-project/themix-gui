@@ -13,25 +13,26 @@ def get_base_keys(base_theme_model):
 
 
 def merge_theme_model_with_base(theme_model, base_theme_model, plugin_model_name):
-    # @TODO: remove this after oomox theme will be refactored into plugin
     for theme_value in base_theme_model:
         if 'key' in theme_value:
             theme_value['value_filter'] = {
-                'THEME_STYLE': 'oomox'
+                'THEME_STYLE': []
             }
-    # endTODO
 
     base_keys = get_base_keys(base_theme_model)
     for theme_plugin in theme_plugins.values():
         theme_name = theme_plugin.name
-        for theme_value in getattr(theme_plugin, plugin_model_name):
+        for theme_value in getattr(theme_plugin, "theme_model_"+plugin_model_name):
             key = theme_value['key']
             if key not in base_keys:
                 base_theme_model.append(theme_value)
+                base_keys = get_base_keys(base_theme_model)
                 base_theme_value = theme_value
-            else:
-                base_index = base_keys[key]
-                base_theme_value = base_theme_model[base_index]
+        for key in [
+            theme_value['key'] for theme_value in getattr(theme_plugin, "theme_model_"+plugin_model_name)
+        ] + getattr(theme_plugin, "enabled_keys_"+plugin_model_name):
+            base_index = base_keys[key]
+            base_theme_value = base_theme_model[base_index]
             value_filter = base_theme_value.setdefault('value_filter', {})
             value_filter_theme_style = value_filter.setdefault('THEME_STYLE', [])
             if not isinstance(value_filter_theme_style, list):
@@ -46,12 +47,6 @@ theme_model = [
         'key': 'THEME_STYLE',
         'type': 'options',
         'options': [
-            {
-                'value': 'oomox',
-                'display_name': 'Numix-based',
-                'description': '(GTK+2, GTK+3, Metacity, Openbox, Qt5ct, Unity, Xfwm)',
-            },
-        ] + [
             {
                 'value': theme_plugin.name,
                 'display_name': theme_plugin.display_name,
@@ -140,7 +135,7 @@ base_theme_model_gtk = [
         'display_name': _('Unfocused window border'),
     },
 ]
-merge_theme_model_with_base(theme_model, base_theme_model_gtk, 'theme_model_gtk')
+merge_theme_model_with_base(theme_model, base_theme_model_gtk, 'gtk')
 
 base_theme_model_options = [
     {
@@ -172,7 +167,7 @@ base_theme_model_options = [
         'display_name': _('(GTK3) Add dark variant'),
     },
 ]
-merge_theme_model_with_base(theme_model, base_theme_model_options, 'theme_model_options')
+merge_theme_model_with_base(theme_model, base_theme_model_options, 'options')
 
 theme_model += [
     {
@@ -513,11 +508,5 @@ base_theme_model_other = [
         'type': 'separator',
         'display_name': _('Other options'),
     },
-    {
-        'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
-        'type': 'bool',
-        'fallback_value': False,
-        'display_name': _('(Unity) Use default launcher style'),
-    },
 ]
-merge_theme_model_with_base(theme_model, base_theme_model_other, 'theme_model_other')
+merge_theme_model_with_base(theme_model, base_theme_model_other, 'other')
