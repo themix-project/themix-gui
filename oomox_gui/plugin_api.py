@@ -12,10 +12,6 @@ class OomoxPlugin(object, metaclass=ABCMeta):
         pass
 
 
-class OomoxImportPlugin(OomoxPlugin):
-    pass
-
-
 class OomoxThemePlugin(OomoxPlugin):
 
     @abstractproperty
@@ -57,5 +53,15 @@ class OomoxIconsPlugin(OomoxPlugin):
         pass
 
 
+class OomoxImportPlugin(OomoxPlugin):
+
+    @abstractproperty
+    def import_dialog(self):
+        pass
+
+
 class OomoxExportPlugin(OomoxPlugin):
-    pass
+
+    @abstractproperty
+    def export_dialog(self):
+        pass
