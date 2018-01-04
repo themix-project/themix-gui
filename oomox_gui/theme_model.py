@@ -1,6 +1,6 @@
 import os
 
-from .config import terminal_template_dir
+from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import theme_plugins, icons_plugins
 
 
@@ -235,7 +235,7 @@ theme_model += [
         'type': 'options',
         'options': [
             {'value': template_name}
-            for template_name in sorted(os.listdir(terminal_template_dir))
+            for template_name in sorted(os.listdir(TERMINAL_TEMPLATE_DIR))
         ],
         'fallback_value': 'monovedek',
         'display_name': _('Theme style'),

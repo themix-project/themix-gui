@@ -1,7 +1,7 @@
 import os
 import json
 
-from ..config import user_export_config_dir
+from ..config import USER_EXPORT_CONFIG_DIR
 
 
 class ExportConfig(object):
@@ -15,7 +15,7 @@ class ExportConfig(object):
         self.default_config = default_config
         self.config = self.default_config or {}
         self.config_path = os.path.join(
-            user_export_config_dir,
+            USER_EXPORT_CONFIG_DIR,
             "{}.json".format(self.name)
         )
         self.load()
@@ -29,8 +29,8 @@ class ExportConfig(object):
         return self.config
 
     def save(self):
-        if not os.path.exists(user_export_config_dir):
-            os.makedirs(user_export_config_dir)
+        if not os.path.exists(USER_EXPORT_CONFIG_DIR):
+            os.makedirs(USER_EXPORT_CONFIG_DIR)
         with open(self.config_path, 'w') as file_object:
             return json.dump(self.config, file_object)
 

@@ -5,7 +5,7 @@ from enum import Enum
 
 from gi.repository import Gdk
 
-from .config import user_palette_path, FALLBACK_COLOR
+from .config import USER_PALETTE_PATH, FALLBACK_COLOR
 
 
 def mkdir_p(path):
@@ -23,14 +23,14 @@ def ls_r(path):
 
 def load_palette():
     try:
-        with open(user_palette_path, 'r') as file_object:
+        with open(USER_PALETTE_PATH, 'r') as file_object:
             return json.load(file_object)
     except FileNotFoundError:
         return []
 
 
 def save_palette(palette):
-    with open(user_palette_path, 'w') as file_object:
+    with open(USER_PALETTE_PATH, 'w') as file_object:
         return json.dump(palette, file_object)
 
 

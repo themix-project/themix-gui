@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-from .config import terminal_template_dir
+from .config import TERMINAL_TEMPLATE_DIR
 
 
 def text_to_int(text):
@@ -173,7 +173,7 @@ def generate_themes_from_oomox(original_colorscheme):
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
     term_colorscheme = generate_theme(
         template_path=os.path.join(
-            terminal_template_dir, colorscheme["TERMINAL_BASE_TEMPLATE"]
+            TERMINAL_TEMPLATE_DIR, colorscheme["TERMINAL_BASE_TEMPLATE"]
         ),
         theme_color=colorscheme["TERMINAL_ACCENT_COLOR"],
         theme_bg=colorscheme["TERMINAL_BACKGROUND"],

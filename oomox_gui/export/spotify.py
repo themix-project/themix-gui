@@ -1,6 +1,6 @@
 from gi.repository import Gtk
 
-from ..config import oomoxify_script_path
+from ..config import OOMOXIFY_SCRIPT_PATH
 
 from .export_config import ExportConfig
 from .common import FileBasedExportDialog
@@ -30,7 +30,7 @@ class SpotifyExportDialog(FileBasedExportDialog):
 
         export_args = [
             "bash",
-            oomoxify_script_path,
+            OOMOXIFY_SCRIPT_PATH,
             self.temp_theme_path,
             '--gui',
             '--spotify-apps-path', self.export_config[OPTION_SPOTIFY_PATH],

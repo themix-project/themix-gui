@@ -2,7 +2,7 @@ import os
 from collections import defaultdict
 from itertools import groupby
 
-from .config import colors_dir, user_theme_dir
+from .config import COLORS_DIR, USER_COLORS_DIR
 from .helpers import ls_r, mkdir_p
 
 
@@ -10,15 +10,15 @@ def get_presets():
     file_paths = [
         {
             "name": "".join(
-                path.startswith(colors_dir) and path.rsplit(colors_dir) or
-                path.rsplit(user_theme_dir)
+                path.startswith(COLORS_DIR) and path.rsplit(COLORS_DIR) or
+                path.rsplit(USER_COLORS_DIR)
             ),
             "path": path,
             "default": is_default,
         }
         for paths, is_default in (
-            (ls_r(user_theme_dir), False),
-            (ls_r(colors_dir), True)
+            (ls_r(USER_COLORS_DIR), False),
+            (ls_r(COLORS_DIR), True)
         )
         for path in paths
     ]
@@ -33,7 +33,7 @@ def get_presets():
 
 
 def get_user_theme_path(user_theme_name):
-    return os.path.join(user_theme_dir, user_theme_name)
+    return os.path.join(USER_COLORS_DIR, user_theme_name)
 
 
 def save_colorscheme(preset_name, colorscheme, path=None):
@@ -51,12 +51,12 @@ def save_colorscheme(preset_name, colorscheme, path=None):
 
 
 def remove_colorscheme(preset_name):
-    path = os.path.join(user_theme_dir, preset_name)
+    path = os.path.join(USER_COLORS_DIR, preset_name)
     os.remove(path)
 
 
 def is_user_colorscheme(preset_path):
-    return preset_path.startswith(user_theme_dir)
+    return preset_path.startswith(USER_COLORS_DIR)
 
 
 def is_colorscheme_exists(preset_path):

@@ -1,7 +1,7 @@
 import os
 import importlib.util
 
-from .config import plugins_dir, user_plugins_dir
+from .config import PLUGINS_DIR, USER_PLUGINS_DIR
 from .plugin_api import (
     OomoxPlugin,
     OomoxImportPlugin, OomoxThemePlugin, OomoxIconsPlugin, OomoxExportPlugin,
@@ -9,7 +9,7 @@ from .plugin_api import (
 
 
 all_plugin_paths = {}  # pylint: disable=invalid-name
-for _plugins_dir in (plugins_dir, user_plugins_dir):
+for _plugins_dir in (PLUGINS_DIR, USER_PLUGINS_DIR):
     if not os.path.exists(_plugins_dir):
         continue
     for plugin_name in os.listdir(_plugins_dir):

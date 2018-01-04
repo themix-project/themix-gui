@@ -1,6 +1,5 @@
 import subprocess
 
-from .config import FALLBACK_COLOR
 from .theme_model import theme_model
 from .helpers import str_to_bool
 

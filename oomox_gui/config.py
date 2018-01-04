@@ -1,25 +1,45 @@
 import os
 
 
-script_dir = os.path.dirname(os.path.realpath(__file__))
-terminal_template_dir = os.path.join(script_dir, "terminal_templates/")
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+TERMINAL_TEMPLATE_DIR = os.path.join(
+    SCRIPT_DIR, "terminal_templates/"
+)
 
-oomox_root_dir = os.path.join(script_dir, "../")
-colors_dir = os.path.join(oomox_root_dir, "colors/")
-plugins_dir = os.path.join(oomox_root_dir, "plugins/")
 
-oomoxify_script_path = os.path.join(oomox_root_dir, "oomoxify/oomoxify.sh")
+OOMOX_ROOT_DIR = os.path.join(SCRIPT_DIR, "../")
+COLORS_DIR = os.path.join(
+    OOMOX_ROOT_DIR, "colors/"
+)
+PLUGINS_DIR = os.path.join(
+    OOMOX_ROOT_DIR, "plugins/"
+)
 
-user_config_dir = os.path.join(
+
+OOMOXIFY_SCRIPT_PATH = os.path.join(
+    OOMOX_ROOT_DIR, "oomoxify/oomoxify.sh"
+)
+
+
+USER_CONFIG_DIR = os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",
         os.path.join(os.environ.get("HOME"), ".config/")
     ),
     "oomox/"
 )
-user_theme_dir = os.path.join(user_config_dir, "colors/")
-user_plugins_dir = os.path.join(user_config_dir, "plugins/")
-user_palette_path = os.path.join(user_config_dir, "recent_palette.json")
-user_export_config_dir = os.path.join(user_config_dir, "export_config/")
+USER_COLORS_DIR = os.path.join(
+    USER_CONFIG_DIR, "colors/"
+)
+USER_PLUGINS_DIR = os.path.join(
+    USER_CONFIG_DIR, "plugins/"
+)
+USER_PALETTE_PATH = os.path.join(
+    USER_CONFIG_DIR, "recent_palette.json"
+)
+USER_EXPORT_CONFIG_DIR = os.path.join(
+    USER_CONFIG_DIR, "export_config/"
+)
+
 
 FALLBACK_COLOR = "F33333"

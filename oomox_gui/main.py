@@ -6,7 +6,7 @@ import gi
 gi.require_version('Gtk', '3.0')  # noqa  # pylint: disable=wrong-import-position
 from gi.repository import Gtk, GObject, Gio
 
-from .config import user_theme_dir
+from .config import USER_COLORS_DIR
 from .helpers import (
     mkdir_p, ActionsEnum
 )
@@ -416,7 +416,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self, application=application, title=title
         )
         self.colorscheme = {}
-        mkdir_p(user_theme_dir)
+        mkdir_p(USER_COLORS_DIR)
 
         self._init_actions()
         self._init_window()
