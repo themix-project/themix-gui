@@ -42,10 +42,10 @@ def save_colorscheme(preset_name, colorscheme, path=None):
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
     with open(path, 'w') as file_object:
-        for key in sorted(colorscheme.keys()):
-            if key not in ('NOGUI', ):
+        for key, value in sorted(colorscheme.items()):
+            if key not in ('NOGUI', ) and value is not None:
                 file_object.write("{}={}\n".format(
-                    key, colorscheme[key]
+                    key, value
                 ))
     return path
 
