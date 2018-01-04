@@ -1,9 +1,10 @@
 from gi.repository import Gtk
 
 from .theme_model import theme_model
+from .palette_cache import PaletteCache
 from .helpers import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
-    load_palette, save_palette, FALLBACK_COLOR
+    FALLBACK_COLOR
 )
 
 
@@ -138,7 +139,7 @@ class BoolListBoxRow(Gtk.ListBoxRow):
         self.switch.set_active(value)
         self.connect_changed_signal()
 
-    def on_switch_activated(self, switch, gparam):
+    def on_switch_activated(self, switch, _gparam):
         self.value = switch.get_active()
         self.color_set_callback(self.key, self.value)
 
@@ -213,7 +214,7 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(label, True, True, 0)
 
         options_store = Gtk.ListStore(str)
-        for option_id, option in enumerate(self.options):
+        for option in self.options:
             options_store.append([option.get('display_name', option['value'])])
 
         dropdown = Gtk.ComboBox.new_with_model(options_store)
@@ -232,42 +233,27 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
             self.set_value(value)
 
 
-palette_cache = None
-
-
 class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
 
-    parent_window = None
     gtk_color = None
+    parent_window = None
 
-    def on_cancel(self, button):
+    def _on_cancel(self, _button):
         self.gtk_color = None
         self.destroy()
 
-    def on_ok(self, button):
-        global palette_cache
+    def _on_ok(self, _button):
         self.gtk_color = self.props.color_selection.get_current_rgba()
-        gtk_color_converted = self.gtk_color.to_color().to_string()
-        palette_cache_list = [
-            string for string in palette_cache.split(':')
-            if string != ''
-        ]
-        if gtk_color_converted not in palette_cache_list:
-            palette_cache_list = (
-                [gtk_color_converted] + palette_cache_list
-            )[:20]
-            palette_cache = ':'.join(palette_cache_list)
-            save_palette(palette_cache_list)
+        PaletteCache.add_color(self.gtk_color)
         self.destroy()
 
-    def on_response(self, widget, result):
-        if result == -4:
-            return self.on_cancel(widget)
+    def _on_response(self, widget, result):
+        if result == Gtk.ResponseType.DELETE_EVENT:
+            self._on_cancel(widget)
 
     def __init__(self, parent, gtk_color):
-        global palette_cache
-        self.gtk_color = gtk_color
         self.parent_window = parent
+        self.gtk_color = gtk_color
 
         Gtk.ColorSelectionDialog.__init__(self, _("Choose a color..."),
                                           parent, 0)
@@ -275,14 +261,12 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
         self.props.color_selection.set_has_palette(True)
 
         self.props.color_selection.set_current_rgba(self.gtk_color)
-        if not palette_cache:
-            palette_cache = ':'.join(load_palette())
 
-        Gtk.Settings.get_default().props.gtk_color_palette = palette_cache
+        Gtk.Settings.get_default().props.gtk_color_palette = PaletteCache.get_gtk()
 
-        self.props.cancel_button.connect("clicked", self.on_cancel)
-        self.props.ok_button.connect("clicked", self.on_ok)
-        self.connect("response", self.on_response)
+        self.props.cancel_button.connect("clicked", self._on_cancel)
+        self.props.ok_button.connect("clicked", self._on_ok)
+        self.connect("response", self._on_response)
 
         self.show_all()
 
@@ -451,8 +435,8 @@ class ThemeColorsList(Gtk.Box):
             elif theme_value['type'] == 'options':
                 callback = None
                 if key in [
-                    'ICONS_STYLE', 'THEME_STYLE',
-                    'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE'
+                        'ICONS_STYLE', 'THEME_STYLE',
+                        'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE'
                 ]:
                     def _callback(key, value):
                         self.color_edited(key, value)

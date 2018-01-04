@@ -1,11 +1,10 @@
 import os
 import random
-import json
 from enum import Enum
 
 from gi.repository import Gdk
 
-from .config import USER_PALETTE_PATH, FALLBACK_COLOR
+from .config import FALLBACK_COLOR
 
 
 def mkdir_p(path):
@@ -19,19 +18,6 @@ def ls_r(path):
         os.path.join(files[0], file)
         for files in os.walk(path) for file in files[2]
     ]
-
-
-def load_palette():
-    try:
-        with open(USER_PALETTE_PATH, 'r') as file_object:
-            return json.load(file_object)
-    except FileNotFoundError:
-        return []
-
-
-def save_palette(palette):
-    with open(USER_PALETTE_PATH, 'w') as file_object:
-        return json.dump(palette, file_object)
 
 
 def get_random_gdk_color():
