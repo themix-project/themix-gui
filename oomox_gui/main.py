@@ -74,7 +74,7 @@ class RemoveDialog(YesNoDialog):
 
 
 def dialog_is_yes(dialog):
-    return dialog.run() == Gtk.ResponseType.YES
+    return dialog.run() in (Gtk.ResponseType.YES, Gtk.ResponseType.OK)
 
 
 class AppActions(ActionsEnum):
@@ -167,7 +167,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def clone_theme(self):
         dialog = NewDialog(self)
-        if dialog.run() != Gtk.ResponseType.OK:
+        if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
         if not self.check_colorscheme_exists(new_theme_name):
@@ -175,6 +175,16 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.reload_presets(new_path)
         else:
             self.clone_theme()
+
+    def rename_theme(self):
+        dialog = RenameDialog(self, entry_text=self.colorscheme_name)
+        if not dialog_is_yes(dialog):
+            return
+        new_theme_name = dialog.entry_text
+        if not self.check_colorscheme_exists(new_theme_name):
+            new_path = self.save_theme(new_theme_name)
+            self.remove_theme()
+            self.reload_presets(new_path)
 
     def check_unsaved_changes(self):
         if self.theme_edited:
@@ -219,6 +229,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             )
         except Exception as exc:
             import traceback
+            print("ERROR: Can't show theme preview:")
+            print(exc)
             traceback.print_exc()
 
     def on_preset_selected(self, selected_preset, selected_preset_path):
@@ -259,53 +271,46 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     # Signal handlers:
     ###########################################################################
 
-    def on_clone(self, _action, _param=None):
+    def _on_clone(self, _action, _param=None):
         return self.clone_theme()
 
-    def on_rename(self, _action, _param=None):
-        dialog = RenameDialog(self, entry_text=self.colorscheme_name)
-        if dialog.run() != Gtk.ResponseType.OK:
-            return
-        new_theme_name = dialog.entry_text
-        if not self.check_colorscheme_exists(new_theme_name):
-            self.remove_theme()
-            new_path = self.save_theme(new_theme_name)
-            self.reload_presets(new_path)
+    def _on_rename(self, _action, _param=None):
+        self.rename_theme()
 
-    def on_remove(self, _action, _param=None):
+    def _on_remove(self, _action, _param=None):
         if not dialog_is_yes(RemoveDialog(self)):
             return
         self.remove_theme()
         self.reload_presets()
 
-    def on_save(self, _action, _param=None):
+    def _on_save(self, _action, _param=None):
         self.save_theme()
 
-    def on_export(self, _action, _param=None):
+    def _on_export_theme(self, _action, _param=None):
         self.plugin_theme.export_dialog(
             parent=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
-    def on_export_icontheme(self, _action, _param=None):
+    def _on_export_icontheme(self, _action, _param=None):
         self.plugin_icons.export_dialog(
             parent=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
-    def on_export_terminal(self, _action, _param=None):
+    def _on_export_terminal(self, _action, _param=None):
         export_terminal_theme(parent=self, colorscheme=self.colorscheme)
 
-    def on_export_spotify(self, _action, _param=None):
+    def _on_export_spotify(self, _action, _param=None):
         export_spotify(
             parent=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
-    def on_quit(self, _arg1, _arg2):
+    def _on_quit(self, _arg1, _arg2):
         self.check_unsaved_changes()
 
     ###########################################################################
@@ -392,7 +397,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _init_window(self):
         self.set_wmclass("oomox", "Oomox")
-        self.connect("delete-event", self.on_quit)
+        self.connect("delete-event", self._on_quit)
         self.set_default_size(500, 300)
         self.set_border_width(6)
 
@@ -402,14 +407,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add(self.box)
 
     def _init_actions(self):
-        self.add_simple_action(WindowActions.clone, self.on_clone)
-        self.save_action = self.add_simple_action(WindowActions.save, self.on_save)
-        self.rename_action = self.add_simple_action(WindowActions.rename, self.on_rename)
-        self.remove_action = self.add_simple_action(WindowActions.remove, self.on_remove)
-        self.add_simple_action(WindowActions.export_theme, self.on_export)
-        self.add_simple_action(WindowActions.export_icons, self.on_export_icontheme)
-        self.add_simple_action(WindowActions.export_terminal, self.on_export_terminal)
-        self.add_simple_action(WindowActions.export_spotify, self.on_export_spotify)
+        self.add_simple_action(WindowActions.clone, self._on_clone)
+        self.save_action = self.add_simple_action(WindowActions.save, self._on_save)
+        self.rename_action = self.add_simple_action(WindowActions.rename, self._on_rename)
+        self.remove_action = self.add_simple_action(WindowActions.remove, self._on_remove)
+        self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
+        self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
+        self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
+        self.add_simple_action(WindowActions.export_spotify, self._on_export_spotify)
 
     def __init__(self, application=None, title=_("Oo-mox GUI")):
         Gtk.ApplicationWindow.__init__(  # pylint: disable=non-parent-init-called
@@ -459,7 +464,7 @@ class OomoxGtkApplication(Gtk.Application):
         quit_action = Gio.SimpleAction.new(
             AppActions.get_name(AppActions.quit), None
         )
-        quit_action.connect("activate", self.on_quit)
+        quit_action.connect("activate", self._on_quit)
         self.add_action(quit_action)
 
         set_accels_for_action(AppActions.quit, ["<Primary>Q"])
@@ -484,7 +489,7 @@ class OomoxGtkApplication(Gtk.Application):
         self.activate()
         return 0
 
-    def on_quit(self, _action, _param=None):
+    def _on_quit(self, _action, _param=None):
         if self.window:
             self.window.close()
         else:
