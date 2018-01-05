@@ -16,6 +16,12 @@ RUN pacman -Syu --noconfirm && \
         cd /home/user/python35 && \
         makepkg --install --syncdeps --noconfirm"
 
+# python3.4 virtualenv deps
+RUN sudo -u user bash -c "\
+        git clone https://aur.archlinux.org/python34 /home/user/python34 && \
+        cd /home/user/python34 && \
+        makepkg --install --syncdeps --noconfirm"
+
 # run test
 COPY . /opt/oomox-build/
 RUN bash -c "\
@@ -27,8 +33,10 @@ RUN bash -c "\
     python --version ; \
     export DISPLAY=:99 ; \
     sleep 3 ; \
+    \
     pylint oomox_gui ; \
     echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 pylint ; \
+    \
     virtualenv --system-site-packages -p python3.5 env35 ; \
     set +u ; \
     source env35/bin/activate ; \
@@ -39,4 +47,16 @@ RUN bash -c "\
     pylint oomox_gui ; \
     echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 pylint ; \
     deactivate ; \
+    \
+    virtualenv --system-site-packages -p python3.4 env34 ; \
+    set +u ; \
+    source env34/bin/activate ; \
+    set -u ; \
+    pip install pylint PyGObject ; \
+    echo '== Running on python 3.4' ; \
+    python --version ; \
+    pylint oomox_gui ; \
+    echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 pylint ; \
+    deactivate ; \
+    \
     killall Xvfb"
