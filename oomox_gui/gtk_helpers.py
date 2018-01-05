@@ -3,10 +3,10 @@ from gi.types import GObjectMeta
 
 
 class CenterLabel(Gtk.Label):
-    def __init__(self, text=None):
+    def __init__(self, label=None):
         super().__init__()
-        if text:
-            self.set_text(text)
+        if label:
+            self.set_text(label)
         self.set_justify(Gtk.Justification.CENTER)
         self.set_alignment(0.5, 0.5)
         self.set_margin_left(6)
@@ -51,14 +51,18 @@ class EntryDialog(Gtk.Dialog):
         self.destroy()
 
     def __init__(
-            self, parent,
+            self, transient_for,
             title, text, entry_text=None
     ):
-        Gtk.Dialog.__init__(self, title, parent, 0)
+        super().__init__(
+            title=title,
+            transient_for=transient_for,
+            flags=0
+        )
 
         self.set_default_size(150, 100)
 
-        label = Gtk.Label(text)
+        label = Gtk.Label(label=text)
         self.entry = Gtk.Entry()
         self.entry.set_activates_default(True)
         if entry_text:
@@ -81,14 +85,18 @@ class YesNoDialog(Gtk.Dialog):
     def do_response(self, _response):  # pylint: disable=arguments-differ
         self.destroy()
 
-    def __init__(self, parent,
+    def __init__(self, transient_for,
                  title="",
                  text=_("Are you sure?"),
                  default_response=Gtk.ResponseType.NO):
-        Gtk.Dialog.__init__(self, title, parent, 0)
+        super().__init__(
+            title=title,
+            transient_for=transient_for,
+            flags=0
+        )
         self.set_default_size(150, 100)
 
-        label = CenterLabel(text)
+        label = CenterLabel(label=text)
         box = self.get_content_area()
         box.add(label)
 
@@ -108,8 +116,8 @@ class GObjectABCMeta(GObjectMeta):
 
     ABS_METHODS = '__abstract_methods__'
 
-    def __init__(cls, name, parents, data):
-        super().__init__(name, parents, data)
+    def __init__(cls, name, transient_fors, data):
+        super().__init__(name, transient_fors, data)
         for property_name in dir(cls):
             if getattr(cls, property_name) is GObjectABCMetaAbstractProperty:
                 setattr(

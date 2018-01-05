@@ -56,7 +56,7 @@ class PreviewHeaderbar(Gtk.HeaderBar):
     def __init__(self):
         super().__init__()
         self.set_show_close_button(False)
-        self.title = Gtk.Label(_("Headerbar"))
+        self.title = Gtk.Label(label=_("Headerbar"))
         self.props.custom_title = self.title
         self.button = Gtk.Button(label="   %s   " % _("Button"))
         self.pack_end(self.button)
@@ -91,8 +91,8 @@ class PreviewWidgets():
         headerbox.pack_start(self.headerbar, True, True, 0)
         headerbox.pack_start(self.menubar, True, True, 0)
 
-        self.label = Gtk.Label(_("This is a label."))
-        self.sel_label = Gtk.Label(_("Selected item."))
+        self.label = Gtk.Label(label=_("This is a label."))
+        self.sel_label = Gtk.Label(label=_("Selected item."))
         self.entry = Gtk.Entry(text=_("Text entry."))
 
         self.button = Gtk.Button(label=_("Click-click"))
@@ -158,7 +158,7 @@ class ThemePreview(Gtk.Grid):
     def init_widgets(self):
         self.gtk_preview = PreviewWidgets()
         self.background = Gtk.Grid(row_spacing=WIDGET_SPACING, column_spacing=6)
-        preview_label = Gtk.Label(_("Preview:"))
+        preview_label = Gtk.Label(label=_("Preview:"))
         self.attach(preview_label, 1, 1, 3, 1)
         self.attach_next_to(self.background, preview_label,
                             Gtk.PositionType.BOTTOM, 1, 1)

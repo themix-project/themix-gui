@@ -90,9 +90,9 @@ class SpotifyExportDialog(FileBasedExportDialog):
         if self.export_config[OPTION_FONT_OPTIONS] == VALUE_FONT_CUSTOM:
             self.font_radio_custom.set_active(True)
 
-    def __init__(self, parent, colorscheme, theme_name):
+    def __init__(self, transient_for, colorscheme, theme_name):
         super().__init__(
-            parent=parent,
+            transient_for=transient_for,
             headline=_("Spotify options"),
             colorscheme=colorscheme,
             theme_name=theme_name
@@ -123,9 +123,9 @@ class SpotifyExportDialog(FileBasedExportDialog):
         self.apply_button.show()
 
 
-def export_spotify(parent, colorscheme, theme_name):
+def export_spotify(transient_for, colorscheme, theme_name):
     return SpotifyExportDialog(
-        parent=parent,
+        transient_for=transient_for,
         theme_name=theme_name,
         colorscheme=colorscheme
     )

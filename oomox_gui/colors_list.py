@@ -45,7 +45,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
 
         self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
         self.add(self.hbox)
-        label = Gtk.Label(display_name, xalign=0)
+        label = Gtk.Label(label=display_name, xalign=0)
         self.hbox.pack_start(label, True, True, 0)
 
         self.value_widget = value_widget
@@ -223,7 +223,7 @@ class OptionsListBoxRow(OomoxListBoxRow):
 class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
 
     gtk_color = None
-    parent_window = None
+    transient_for = None
 
     def _on_cancel(self, _button):
         self.gtk_color = None
@@ -238,13 +238,16 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
         if result == Gtk.ResponseType.DELETE_EVENT:
             self._on_cancel(widget)
 
-    def __init__(self, parent, gtk_color):
-        self.parent_window = parent
+    def __init__(self, transient_for, gtk_color):
+        self.transient_for = transient_for
         self.gtk_color = gtk_color
 
-        Gtk.ColorSelectionDialog.__init__(self, _("Choose a color..."),
-                                          parent, 0)
-        self.set_transient_for(parent)
+        super().__init__(
+            title=_("Choose a color..."),
+            transient_for=transient_for,
+            flags=0
+        )
+        self.set_transient_for(transient_for)
         self.props.color_selection.set_has_palette(True)
 
         self.props.color_selection.set_current_rgba(self.gtk_color)
@@ -262,7 +265,7 @@ class OomoxColorButton(Gtk.Button):
 
     gtk_color = None
     callback = None
-    parent_window = None
+    transient_for = None
     gtk_color_button = None
     color_image = None
 
@@ -272,7 +275,7 @@ class OomoxColorButton(Gtk.Button):
 
     def on_click(self, _widget):
         color_selection_dialog = OomoxColorSelectionDialog(
-            self.parent_window, self.gtk_color
+            self.transient_for, self.gtk_color
         )
         color_selection_dialog.run()
         new_color = color_selection_dialog.gtk_color
@@ -283,8 +286,8 @@ class OomoxColorButton(Gtk.Button):
     def set_value(self, value):
         self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
 
-    def __init__(self, parent_window, callback):
-        self.parent_window = parent_window
+    def __init__(self, transient_for, callback):
+        self.transient_for = transient_for
 
         self.callback = callback
         Gtk.Button.__init__(self)
@@ -329,9 +332,9 @@ class ColorListBoxRow(OomoxListBoxRow):
             self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
         self.connect_changed_signal()
 
-    def __init__(self, display_name, key, callback, parent):
+    def __init__(self, display_name, key, callback, transient_for):
         self.color_button = OomoxColorButton(
-            parent_window=parent,
+            transient_for=transient_for,
             callback=self.on_color_set
         )
         self.color_entry = Gtk.Entry(
@@ -371,7 +374,7 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
 class ThemeColorsList(Gtk.Box):
 
     color_edited_callback = None
-    parent = None
+    transient_for = None
     theme = None
 
     listbox = None
@@ -394,7 +397,7 @@ class ThemeColorsList(Gtk.Box):
                 row = ColorListBoxRow(
                     display_name, key,
                     callback=self.color_edited,
-                    parent=self.parent
+                    transient_for=self.transient_for
                 )
             elif theme_value['type'] == 'bool':
                 row = BoolListBoxRow(
@@ -459,8 +462,8 @@ class ThemeColorsList(Gtk.Box):
                 row.set_value(self.theme[key])
             row.show()
 
-    def __init__(self, color_edited_callback, parent):
-        self.parent = parent
+    def __init__(self, color_edited_callback, transient_for):
+        self.transient_for = transient_for
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.color_edited_callback = color_edited_callback
 

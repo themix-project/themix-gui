@@ -16,9 +16,9 @@ class GtkThemeExportDialog(FileBasedExportDialog):
     def on_hidpi_checkbox_toggled(self, widget):
         self.export_config[OPTION_GTK2_HIDPI] = widget.get_active()
 
-    def __init__(self, parent, colorscheme, theme_name, **kwargs):
+    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
         super().__init__(
-            parent=parent, colorscheme=colorscheme, theme_name=theme_name,
+            transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
             **kwargs
         )
 

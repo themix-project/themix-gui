@@ -34,7 +34,7 @@ class ExportDialog(Gtk.Dialog):  # pylint: disable=too-many-instance-attributes
         self.box.remove(self.spinner)
 
         error_label = CenterLabel(
-            _("Something went wrong :(")
+            label=_("Something went wrong :(")
         )
         error_label.set_alignment(0.5, 0.5)
 
@@ -50,12 +50,12 @@ class ExportDialog(Gtk.Dialog):  # pylint: disable=too-many-instance-attributes
         self.log.get_buffer().set_text(text)
 
     def __init__(
-            self, parent,
+            self, transient_for,
             headline=_("Exporting..."),
             width=150,
             height=80
     ):
-        Gtk.Dialog.__init__(self, headline, parent, 0)
+        Gtk.Dialog.__init__(self, headline, transient_for, 0)
         self.set_default_size(width, height)
 
         self.label = CenterLabel()
@@ -151,8 +151,8 @@ class FileBasedExportDialog(ExportDialog):
     theme_name = None
     temp_theme_path = None
 
-    def __init__(self, parent, colorscheme, theme_name, **kwargs):
-        super().__init__(parent=parent, **kwargs)
+    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+        super().__init__(transient_for=transient_for, **kwargs)
         self.theme_name = 'oomox-' + theme_name.split('/')[-1]
         colorscheme_copy = generate_terminal_colors_for_oomox(colorscheme)
         self.temp_theme_path = save_colorscheme(
@@ -165,9 +165,9 @@ class FileBasedExportDialog(ExportDialog):
         os.remove(self.temp_theme_path)
 
 
-def export_terminal_theme(parent, colorscheme):
+def export_terminal_theme(transient_for, colorscheme):
     dialog = ExportDialog(
-        parent=parent,
+        transient_for=transient_for,
         headline=_("Terminal colorscheme"),
         height=440
     )

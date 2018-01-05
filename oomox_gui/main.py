@@ -3,7 +3,7 @@ import sys
 
 import gi
 gi.require_version('Gtk', '3.0')  # noqa  # pylint: disable=wrong-import-position
-from gi.repository import Gtk, GObject, Gio
+from gi.repository import Gtk, Gio
 
 from .config import USER_COLORS_DIR
 from .helpers import (
@@ -33,22 +33,24 @@ from .plugin_loader import theme_plugins, icons_plugins
 class NewDialog(EntryDialog):
 
     def __init__(
-            self, parent,
+            self, transient_for,
             title=_("New theme"),
             text=_("Please input new theme name:"),
             entry_text=None
     ):
-        EntryDialog.__init__(
-            self, parent=parent,
-            title=title, text=text, entry_text=entry_text
+        super().__init__(
+            transient_for=transient_for,
+            title=title,
+            text=text,
+            entry_text=entry_text
         )
 
 
 class RenameDialog(NewDialog):
 
-    def __init__(self, parent, entry_text):
-        NewDialog.__init__(
-            self, parent=parent,
+    def __init__(self, transient_for, entry_text):
+        super().__init__(
+            transient_for=transient_for,
             title=_("Rename theme"),
             entry_text=entry_text
         )
@@ -56,19 +58,22 @@ class RenameDialog(NewDialog):
 
 class UnsavedDialog(YesNoDialog):
 
-    def __init__(self, parent):
-        YesNoDialog.__init__(self, parent,
-                             _("Unsaved changes"),
-                             _("There are unsaved changes.\nSave them?"))
+    def __init__(self, transient_for):
+        super().__init__(
+            transient_for=transient_for,
+            title=_("Unsaved changes"),
+            text=_("There are unsaved changes.\nSave them?")
+        )
 
 
 class RemoveDialog(YesNoDialog):
 
-    def __init__(self, parent):
-        YesNoDialog.__init__(
-            self, parent, _("Remove theme"),
-            _("Are you sure you want to delete the colorscheme?\n"
-              "This can not be undone.")
+    def __init__(self, transient_for):
+        super().__init__(
+            transient_for=transient_for,
+            title=_("Remove theme"),
+            text=_("Are you sure you want to delete the colorscheme?\n"
+                   "This can not be undone.")
         )
 
 
@@ -150,9 +155,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 return
         new_path = save_colorscheme(name, self.colorscheme)
         self.theme_edited = False
-        if new_path != self.colorscheme_path:
-            self.reload_presets(new_path)
+        old_path = self.colorscheme_path
+        self.colorscheme_name = name
         self.colorscheme_path = new_path
+        if old_path != new_path:
+            self.reload_presets()
         self.save_action.set_enabled(False)
         self.headerbar.props.title = self.colorscheme_name
 
@@ -165,38 +172,41 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             pass
 
     def clone_theme(self):
-        dialog = NewDialog(self)
+        dialog = NewDialog(transient_for=self)
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
         if not self.check_colorscheme_exists(new_theme_name):
-            new_path = self.save_theme(new_theme_name)
-            self.reload_presets(new_path)
+            self.save_theme(new_theme_name)
+            self.reload_presets()
         else:
             self.clone_theme()
 
     def rename_theme(self):
-        dialog = RenameDialog(self, entry_text=self.colorscheme_name)
+        dialog = RenameDialog(transient_for=self, entry_text=self.colorscheme_name)
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
         if not self.check_colorscheme_exists(new_theme_name):
-            new_path = self.save_theme(new_theme_name)
-            self.remove_theme()
-            self.reload_presets(new_path)
+            old_theme_name = self.colorscheme_name
+            self.save_theme(new_theme_name)
+            self.remove_theme(old_theme_name)
+            self.reload_presets()
 
     def check_unsaved_changes(self):
         if self.theme_edited:
-            if dialog_is_yes(UnsavedDialog(self)):
+            if dialog_is_yes(UnsavedDialog(transient_for=self)):
                 self.save_theme()
 
     def check_colorscheme_exists(self, colorscheme_name):
         if not is_colorscheme_exists(get_user_theme_path(colorscheme_name)):
             return False
         dialog = Gtk.MessageDialog(
-            self, 0, Gtk.MessageType.WARNING,
-            Gtk.ButtonsType.OK,
-            _("Colorscheme with such name already exists")
+            transient_for=self,
+            flags=0,
+            message_type=Gtk.MessageType.WARNING,
+            buttons=Gtk.ButtonsType.OK,
+            message_format=_("Colorscheme with such name already exists")
         )
         dialog.run()
         dialog.destroy()
@@ -259,12 +269,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.save_action.set_enabled(True)
         self.theme_edited = True
 
-    def reload_presets(self, focus_on_path=None):
-        if not focus_on_path:
-            focus_on_path = self.colorscheme_path
+    def reload_presets(self):
         self.presets_list.load_presets()
-        if focus_on_path:
-            self.presets_list.focus_preset_by_filepath(focus_on_path)
+        self.presets_list.focus_preset_by_filepath(self.colorscheme_path)
 
     ###########################################################################
     # Signal handlers:
@@ -277,7 +284,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.rename_theme()
 
     def _on_remove(self, _action, _param=None):
-        if not dialog_is_yes(RemoveDialog(self)):
+        if not dialog_is_yes(RemoveDialog(transient_for=self)):
             return
         self.remove_theme()
         self.reload_presets()
@@ -287,24 +294,24 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_export_theme(self, _action, _param=None):
         self.plugin_theme.export_dialog(
-            parent=self,
+            transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
     def _on_export_icontheme(self, _action, _param=None):
         self.plugin_icons.export_dialog(
-            parent=self,
+            transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
 
     def _on_export_terminal(self, _action, _param=None):
-        export_terminal_theme(parent=self, colorscheme=self.colorscheme)
+        export_terminal_theme(transient_for=self, colorscheme=self.colorscheme)
 
     def _on_export_spotify(self, _action, _param=None):
         export_spotify(
-            parent=self,
+            transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
         )
@@ -416,7 +423,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_spotify, self._on_export_spotify)
 
     def __init__(self, application=None, title=_("Oo-mox GUI")):
-        Gtk.ApplicationWindow.__init__(  # pylint: disable=non-parent-init-called
+        Gtk.ApplicationWindow.__init__(  # pylint: disable=non-transient_for-init-called
             self, application=application, title=title
         )
         self.colorscheme = {}
@@ -432,7 +439,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         self.theme_edit = ThemeColorsList(
             color_edited_callback=self.on_color_edited,
-            parent=self
+            transient_for=self
         )
         self.box.pack_start(self.theme_edit, True, True, 0)
 
@@ -496,7 +503,6 @@ class OomoxGtkApplication(Gtk.Application):
 
 
 def main():
-    GObject.threads_init()
     app = OomoxGtkApplication()
     app.run(sys.argv)
 
