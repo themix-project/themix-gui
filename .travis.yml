@@ -2,8 +2,9 @@ language: python
 python:
   - "3.5"
   - "3.6"
+before_install:
+  - "sudo apt-get install -qq gobject-introspection"
 install:
-  - "apt-get install gobject-introspection"
   - "python3 -m pip install pylint PyGObject"
 script:
   - "python3 -m pylint oomox_gui"
