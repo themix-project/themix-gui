@@ -2,7 +2,9 @@ import os
 import gettext
 
 import gi
-gi.require_version('Gtk', '3.0')  # noqa  # pylint: disable=wrong-import-position
+
+
+gi.require_version('Gtk', '3.0')
 
 
 LOCALEDIR = os.path.join(

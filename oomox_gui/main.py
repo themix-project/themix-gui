@@ -449,11 +449,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
 class OomoxGtkApplication(Gtk.Application):
 
+    window = None
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, application_id="org.gtk.oomox",
                          flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
                          **kwargs)
-        self.window = None
         # @TODO: use oomox-gui as the only one entrypoint to all cli tools
         # self.add_main_option("test", ord("t"), GLib.OptionFlags.NONE,
         # GLib.OptionArg.NONE, "Command line test", None)
