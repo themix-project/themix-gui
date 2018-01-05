@@ -7,7 +7,6 @@ RUN pacman -Syu --noconfirm && \
 COPY . /opt/oomox-build/
 RUN bash -c "\
     set -ueo pipefail ; \
-    set -x ; \
     Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp & \
     echo '== Started Xvfb' ; \
     export DISPLAY=:99 ; \
