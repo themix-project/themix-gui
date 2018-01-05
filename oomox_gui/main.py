@@ -1,6 +1,5 @@
 #!/bin/env python3
 import sys
-from enum import auto
 
 import gi
 gi.require_version('Gtk', '3.0')  # noqa  # pylint: disable=wrong-import-position
@@ -78,21 +77,21 @@ def dialog_is_yes(dialog):
 
 
 class AppActions(ActionsEnum):
-    _target = 'app'
-    quit = auto()
+    _target = "app"
+    quit = "quit"
 
 
 class WindowActions(ActionsEnum):
-    _target = 'win'
-    clone = auto()
-    export_icons = auto()
-    export_spotify = auto()
-    export_theme = auto()
-    export_terminal = auto()
-    menu = auto()
-    remove = auto()
-    rename = auto()
-    save = auto()
+    _target = "win"
+    clone = "clone"
+    export_icons = "icons"
+    export_spotify = "spotify"
+    export_theme = "theme"
+    export_terminal = "terminal"
+    menu = "menu"
+    remove = "remove"
+    rename = "rename"
+    save = "save"
 
 
 class WindowWithActions(Gtk.ApplicationWindow):
