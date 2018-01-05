@@ -4,6 +4,9 @@ env:
     - PYVER=34
     - PYVER=35
     - PYVER=current
+matrix:
+  allow_failures:
+    - env: PYVER=34
 services:
   - docker
 before_install:
