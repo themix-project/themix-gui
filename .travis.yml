@@ -1,5 +1,8 @@
 language: python
-install: "pip3 install pylint"
+python:
+  - "3.5"
+  - "3.6"
+install: "python3 -m pip install pylint"
 script:
   - "python3 -m pylint oomox_gui"
   - "echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 python3 -m pylint"
