@@ -420,7 +420,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
         self.add_simple_action(WindowActions.export_spotify, self._on_export_spotify)
 
-    def __init__(self, application=None, title=_("Oo-mox GUI")):
+    def __init__(self, application, title=_("Oo-mox GUI")):
         super().__init__(
             application=application, title=title
         )
