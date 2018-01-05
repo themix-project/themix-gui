@@ -1,6 +1,12 @@
+language: python
+env:
+  matrix:
+    - PYVER=34
+    - PYVER=35
+    - PYVER=current
 services:
   - docker
 before_install:
   - docker pull base/archlinux
 script:
-  - docker build .
+  - docker build . -f Dockerfile_$PYVER
