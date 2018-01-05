@@ -1,8 +1,6 @@
 #!/bin/env python3
 import sys
 
-import gi
-gi.require_version('Gtk', '3.0')  # noqa  # pylint: disable=wrong-import-position
 from gi.repository import Gtk, Gio
 
 from .config import USER_COLORS_DIR
@@ -423,8 +421,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_spotify, self._on_export_spotify)
 
     def __init__(self, application=None, title=_("Oo-mox GUI")):
-        Gtk.ApplicationWindow.__init__(  # pylint: disable=non-transient_for-init-called
-            self, application=application, title=title
+        super().__init__(
+            application=application, title=title
         )
         self.colorscheme = {}
         mkdir_p(USER_COLORS_DIR)
