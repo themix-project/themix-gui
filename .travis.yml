@@ -1,11 +1,6 @@
-language: python
-python:
-  - "3.5"
-  - "3.6"
+services:
+  - docker
 before_install:
-  - "sudo apt-get install -qq gobject-introspection"
-install:
-  - "python3 -m pip install pylint PyGObject"
+  - docker pull base/archlinux
 script:
-  - "python3 -m pylint oomox_gui"
-  - "echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 python3 -m pylint"
+  - docker build .
