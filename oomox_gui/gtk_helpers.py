@@ -1,4 +1,5 @@
 from gi.repository import Gtk, Gio
+from gi.types import GObjectMeta
 
 
 class CenterLabel(Gtk.Label):
@@ -97,3 +98,39 @@ class YesNoDialog(Gtk.Dialog):
         self.set_default_response(default_response)
 
         self.show_all()
+
+
+class GObjectABCMetaAbstractProperty():
+    pass
+
+
+class GObjectABCMeta(GObjectMeta):
+
+    ABS_METHODS = '__abstract_methods__'
+
+    def __init__(cls, name, parents, data):
+        super().__init__(name, parents, data)
+        for property_name in dir(cls):
+            if getattr(cls, property_name) is GObjectABCMetaAbstractProperty:
+                setattr(
+                    cls, cls.ABS_METHODS,
+                    getattr(cls, cls.ABS_METHODS, []) + [property_name]
+                )
+                delattr(cls, property_name)
+        if not (getattr(cls, cls.ABS_METHODS) and not any(
+                cls.ABS_METHODS in B.__dict__ for B in cls.__mro__[1:]
+        )):
+            required_methods = getattr(cls, cls.ABS_METHODS)
+            for method_name in required_methods:
+                if any(method_name in B.__dict__ for B in cls.__mro__):
+                    return
+            raise TypeError(
+                "Can't instantiate abstract class {} with abstract methods {}".format(
+                    cls.__name__,
+                    ','.join(required_methods)
+                )
+            )
+
+
+def g_abstractproperty(_function):
+    return GObjectABCMetaAbstractProperty

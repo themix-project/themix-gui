@@ -6,6 +6,7 @@ from .helpers import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
     FALLBACK_COLOR
 )
+from .gtk_helpers import GObjectABCMeta, g_abstractproperty
 
 
 def check_value_filter(value_filter_data, colorscheme):
@@ -23,42 +24,59 @@ def check_value_filter(value_filter_data, colorscheme):
     return all_filters_passed
 
 
-class FloatListBoxRow(Gtk.ListBoxRow):
+class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
 
+    key = None
+    value = None
     changed_signal = None
+    callback = None
+    value_widget = None
+    hbox = None
 
-    def connect_changed_signal(self):
-        self.changed_signal = self.spinbutton.connect("value-changed", self.on_value_changed)
+    @g_abstractproperty
+    def set_value(self, value):
+        pass
+
+    def __init__(self, display_name, key, callback, value_widget):
+        super().__init__()
+
+        self.callback = callback
+        self.key = key
+
+        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.add(self.hbox)
+        label = Gtk.Label(display_name, xalign=0)
+        self.hbox.pack_start(label, True, True, 0)
+
+        self.value_widget = value_widget
+        self.hbox.pack_start(self.value_widget, False, True, 0)
 
     def disconnect_changed_signal(self):
         if self.changed_signal:
-            self.spinbutton.disconnect(self.changed_signal)
+            self.value_widget.disconnect(self.changed_signal)
+
+
+class FloatListBoxRow(OomoxListBoxRow):
+
+    def connect_changed_signal(self):
+        self.changed_signal = self.value_widget.connect("value-changed", self.on_value_changed)
 
     def set_value(self, value):
         self.disconnect_changed_signal()
         self.value = value
-        self.spinbutton.set_value(value)
+        self.value_widget.set_value(value)
         self.connect_changed_signal()
 
     def on_value_changed(self, spinbutton):
         raw_value = spinbutton.get_value()
         self.value = int(raw_value*100)/100  # limit float to 2 digits
-        self.color_set_callback(self.key, self.value)
+        self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback, value=None, max_value=None):
-        super().__init__()
+    def __init__(self, display_name, key, callback, max_value=None):
         max_value = max_value or 10.0
 
-        self.color_set_callback = callback
-        self.key = key
-
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
-        self.add(hbox)
-        label = Gtk.Label(display_name, xalign=0)
-        hbox.pack_start(label, True, True, 0)
-
         adjustment = Gtk.Adjustment(
-            value=value or 0.0,
+            value=0.0,
             lower=0.0,
             upper=max_value,
             step_increment=0.01,
@@ -71,108 +89,85 @@ class FloatListBoxRow(Gtk.ListBoxRow):
         )
         spinbutton.set_numeric(True)
         spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
-        self.spinbutton = spinbutton
-        hbox.pack_start(spinbutton, False, False, 0)
 
-        if value:
-            self.set_value(value)
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=spinbutton
+        )
 
 
-class IntListBoxRow(Gtk.ListBoxRow):
-
-    changed_signal = None
+class IntListBoxRow(OomoxListBoxRow):
 
     def connect_changed_signal(self):
-        self.changed_signal = self.spinbutton.connect("value-changed", self.on_value_changed)
-
-    def disconnect_changed_signal(self):
-        if self.changed_signal:
-            self.spinbutton.disconnect(self.changed_signal)
+        self.changed_signal = self.value_widget.connect("value-changed", self.on_value_changed)
 
     def set_value(self, value):
         self.disconnect_changed_signal()
         self.value = value
-        self.spinbutton.set_value(value)
+        self.value_widget.set_value(value)
         self.connect_changed_signal()
 
     def on_value_changed(self, spinbutton):
         self.value = spinbutton.get_value_as_int()
-        self.color_set_callback(self.key, self.value)
+        self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback, value=None):
-        super().__init__()
-
-        self.color_set_callback = callback
-        self.key = key
-
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
-        self.add(hbox)
-        label = Gtk.Label(display_name, xalign=0)
-        hbox.pack_start(label, True, True, 0)
-
-        adjustment = Gtk.Adjustment(value or 0, 0, 20, 1, 10, 0)
+    def __init__(self, display_name, key, callback):
+        adjustment = Gtk.Adjustment(
+            value=0,
+            lower=0,
+            upper=20,
+            step_increment=1,
+            page_increment=10,
+            page_size=0
+        )
         spinbutton = Gtk.SpinButton()
         spinbutton.set_adjustment(adjustment)
         spinbutton.set_numeric(True)
         spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
-        self.spinbutton = spinbutton
-        hbox.pack_start(spinbutton, False, False, 0)
 
-        if value:
-            self.set_value(value)
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=spinbutton
+        )
 
 
-class BoolListBoxRow(Gtk.ListBoxRow):
-
-    changed_signal = None
+class BoolListBoxRow(OomoxListBoxRow):
 
     def connect_changed_signal(self):
-        self.changed_signal = self.switch.connect("notify::active", self.on_switch_activated)
-
-    def disconnect_changed_signal(self):
-        if self.changed_signal:
-            self.switch.disconnect(self.changed_signal)
+        self.changed_signal = self.value_widget.connect("notify::active", self.on_switch_activated)
 
     def set_value(self, value):
         self.disconnect_changed_signal()
         self.value = value
-        self.switch.set_active(value)
+        self.value_widget.set_active(value)
         self.connect_changed_signal()
 
     def on_switch_activated(self, switch, _gparam):
         self.value = switch.get_active()
-        self.color_set_callback(self.key, self.value)
+        self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback, value=None):
-        super().__init__()
-
-        self.color_set_callback = callback
-        self.key = key
-
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
-        self.add(hbox)
-        label = Gtk.Label(display_name, xalign=0)
-        hbox.pack_start(label, True, True, 0)
-
-        self.switch = Gtk.Switch()
-        hbox.pack_start(self.switch, False, True, 0)
-
-        if value is not None:
-            self.set_value(value)
+    def __init__(self, display_name, key, callback):
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=Gtk.Switch()
+        )
 
 
-class OptionsListBoxRow(Gtk.ListBoxRow):
+class OptionsListBoxRow(OomoxListBoxRow):
 
-    dropdown = None
-    changed_signal = None
+    options = None
+    vbox = None
+    description_label = None
     _description_label_added = False
 
     def connect_changed_signal(self):
-        self.changed_signal = self.dropdown.connect("changed", self.on_dropdown_changed)
-
-    def disconnect_changed_signal(self):
-        if self.changed_signal:
-            self.dropdown.disconnect(self.changed_signal)
+        self.changed_signal = self.value_widget.connect("changed", self.on_dropdown_changed)
 
     def on_dropdown_changed(self, combobox):
         value_id = combobox.get_active()
@@ -184,7 +179,7 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
         self.value = value
         for option_id, option in enumerate(self.options):
             if value == option['value']:
-                self.dropdown.set_active(option_id)
+                self.value_widget.set_active(option_id)
                 if 'description' in option:
                     self.show_description_label()
                     self.description_label.set_text(option['description'])
@@ -197,40 +192,32 @@ class OptionsListBoxRow(Gtk.ListBoxRow):
             self.description_label.show()
             self._description_label_added = True
 
-    def __init__(self, display_name, key, options, callback, value=None):
-        super().__init__()
-
-        self.key = key
+    def __init__(self, display_name, key, options, callback):
         self.options = options
-        self.callback = callback
-
-        self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.add(self.vbox)
-
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
-        self.vbox.add(hbox)
-
-        label = Gtk.Label(display_name, xalign=0)
-        hbox.pack_start(label, True, True, 0)
-
         options_store = Gtk.ListStore(str)
         for option in self.options:
             options_store.append([option.get('display_name', option['value'])])
-
         dropdown = Gtk.ComboBox.new_with_model(options_store)
         renderer_text = Gtk.CellRendererText()
         dropdown.pack_start(renderer_text, True)
         dropdown.add_attribute(renderer_text, "text", 0)
-        self.dropdown = dropdown
-        hbox.pack_start(dropdown, False, True, 0)
+
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=dropdown
+        )
+
+        self.remove(self.hbox)
+        self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(self.vbox)
+        self.vbox.add(self.hbox)
 
         self.description_label = Gtk.Label(xalign=1)
         self.description_label.set_margin_top(3)
         self.description_label.set_margin_bottom(7)
         self.description_label.set_state_flags(Gtk.StateFlags.INSENSITIVE, False)
-
-        if value:
-            self.set_value(value)
 
 
 class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
@@ -283,7 +270,7 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color = gtk_color
         self.gtk_color_button.set_rgba(gtk_color)
 
-    def on_click(self, widget):
+    def on_click(self, _widget):
         color_selection_dialog = OomoxColorSelectionDialog(
             self.parent_window, self.gtk_color
         )
@@ -296,7 +283,7 @@ class OomoxColorButton(Gtk.Button):
     def set_value(self, value):
         self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
 
-    def __init__(self, parent_window, callback, value=None):
+    def __init__(self, parent_window, callback):
         self.parent_window = parent_window
 
         self.callback = callback
@@ -305,14 +292,12 @@ class OomoxColorButton(Gtk.Button):
         self.color_image = self.gtk_color_button.get_child()
         self.set_image(self.color_image)
         self.connect("clicked", self.on_click)
-        if value:
-            self.set_value(value)
 
 
-class ColorListBoxRow(Gtk.ListBoxRow):
+class ColorListBoxRow(OomoxListBoxRow):
 
-    parent_window = None
-    changed_signal = None
+    color_button = None
+    color_entry = None
 
     def connect_changed_signal(self):
         self.changed_signal = self.color_entry.connect("changed", self.on_color_input)
@@ -321,7 +306,7 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         if self.changed_signal:
             self.color_entry.disconnect(self.changed_signal)
 
-    def on_color_input(self, widget, skip_callback=False, value=None):
+    def on_color_input(self, widget, value=None):
         self.value = value or widget.get_text()
         if self.value == '':
             self.value = None
@@ -344,24 +329,13 @@ class ColorListBoxRow(Gtk.ListBoxRow):
             self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
         self.connect_changed_signal()
 
-    def __init__(self, display_name, key, callback, parent, value=None):
-        self.parent_window = parent
-        super().__init__()
-
-        self.callback = callback
-        self.key = key
-
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
-        self.add(hbox)
-        label = Gtk.Label(display_name, xalign=0)
-        hbox.pack_start(label, True, True, 0)
-
+    def __init__(self, display_name, key, callback, parent):
         self.color_button = OomoxColorButton(
-            parent_window=self.parent_window,
+            parent_window=parent,
             callback=self.on_color_set
         )
         self.color_entry = Gtk.Entry(
-            text=value or _('<none>'), width_chars=7, max_length=6
+            text=_('<none>'), width_chars=7, max_length=6
         )
         # unfortunately linked box is causing weird redraw issues
         # in current GTK version, let's leave it for later
@@ -371,9 +345,12 @@ class ColorListBoxRow(Gtk.ListBoxRow):
         )
         linked_box.add(self.color_entry)
         linked_box.add(self.color_button)
-        hbox.pack_start(linked_box, False, True, 0)
-        if value:
-            self.set_value(value)
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=linked_box
+        )
 
 
 class SeparatorListBoxRow(Gtk.ListBoxRow):
@@ -393,9 +370,11 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
 
 class ThemeColorsList(Gtk.Box):
 
-    theme = None
+    color_edited_callback = None
     parent = None
+    theme = None
 
+    listbox = None
     _all_rows = None
     _no_gui_row = None
 
@@ -445,7 +424,8 @@ class ThemeColorsList(Gtk.Box):
                 else:
                     callback = self.color_edited
                 row = OptionsListBoxRow(
-                    display_name, key,
+                    key=key,
+                    display_name=display_name,
                     options=theme_value['options'],
                     callback=callback
                 )
