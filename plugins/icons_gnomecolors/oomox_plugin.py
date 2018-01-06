@@ -16,6 +16,7 @@ class GnomeColorsIconsExportDialog(FileBasedExportDialog):
         self.command = [
             "bash",
             os.path.join(GNOME_COLORS_ICON_THEME_DIR, "change_color.sh"),
+            "-o", self.theme_name,
             self.temp_theme_path,
         ]
         super().do_export()
