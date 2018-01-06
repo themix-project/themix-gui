@@ -1,4 +1,4 @@
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 from gi.types import GObjectMeta
 
 
@@ -38,6 +38,57 @@ class ImageMenuButton(Gtk.MenuButton, ImageContainer):
     def __init__(self, *args, **kwargs):
         Gtk.MenuButton.__init__(self)
         ImageContainer.__init__(self, *args, **kwargs)
+
+
+class ScaledImage(Gtk.Image):
+
+    scale_factor = None
+    oomox_width = None
+    oomox_height = None
+
+    def __init__(self, *args, width=None, height=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not width or height:
+            raise TypeError('Either "width" or "height" should be set')
+        self.oomox_width = width
+        self.oomox_height = height
+        style_context = self.get_style_context()
+        self.scale_factor = style_context.get_scale()
+
+    def do_draw(self, cr):  # pylint: disable=arguments-differ
+        cr.scale(1/self.scale_factor, 1/self.scale_factor)
+        cr.translate(
+            self.oomox_width - self.oomox_width/self.scale_factor,
+            self.oomox_height - self.oomox_height/self.scale_factor
+        )
+        Gtk.Image.do_draw(self, cr)
+
+    def do_get_preferred_width(self):  # pylint: disable=arguments-differ
+        if self.oomox_width:
+            return self.oomox_width, self.oomox_width
+        return Gtk.Image.do_get_preferred_width(self)
+
+    def do_get_preferred_height(self):  # pylint: disable=arguments-differ
+        if self.oomox_height:
+            return self.oomox_height, self.oomox_height
+        return Gtk.Image.do_get_preferred_height(self)
+
+    def set_from_bytes(self, bytes_sequence):
+        stream = Gio.MemoryInputStream.new_from_bytes(
+            GLib.Bytes.new(bytes_sequence)
+        )
+
+        # @TODO: is it possible to make it faster?
+        pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(
+            stream,
+            self.oomox_width*self.scale_factor if self.oomox_width else -1,
+            self.oomox_height*self.scale_factor if self.oomox_height else -1,
+            True,
+            None
+        )
+        self.oomox_width = pixbuf.props.width // self.scale_factor
+        self.oomox_height = pixbuf.props.height // self.scale_factor
+        self.set_from_pixbuf(pixbuf)
 
 
 class EntryDialog(Gtk.Dialog):
