@@ -61,6 +61,21 @@ class Plugin(OomoxThemePlugin):
         'GTK3_GENERATE_DARK',
     ]
 
+    theme_model_options = [
+        {
+            'key': 'OUTLINE_WIDTH',
+            'type': 'int',
+            'fallback_value': 1,
+            'display_name': _('(GTK3) Focused outline width'),
+        },
+        {
+            'key': 'BTN_OUTLINE_WIDTH',
+            'type': 'int',
+            'fallback_value': 2,
+            'display_name': _('(GTK3) Focused button outline width'),
+        },
+    ]
+
     theme_model_other = [
         {
             'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
