@@ -23,16 +23,16 @@ cp -prf \
 	./po \
 	./po.mk \
 		${pkgdir}/opt/oomox
-rm -r ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
-rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.git*
-rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.editorconfig
-rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.*.yml
+rm -rf ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
+rm -rf ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.git*
+rm -rf ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.editorconfig
+rm -rf ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.*.yml
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/{D,d}ocker*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/maintenance*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/screenshot*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/test*
-rm -r ${pkgdir}/opt/oomox/plugins/icons_archdroid/archdroid-icon-theme/.git*
-rm -r ${pkgdir}/opt/oomox/plugins/icons_gnomecolors/gnome-colors-icon-theme/.git*
+rm -rf ${pkgdir}/opt/oomox/plugins/icons_archdroid/archdroid-icon-theme/.git*
+rm -rf ${pkgdir}/opt/oomox/plugins/icons_gnomecolors/gnome-colors-icon-theme/.git*
 
 mkdir ${pkgdir}/opt/oomox/oomoxify
 cd ${srcdir}/oomoxify
