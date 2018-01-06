@@ -4,6 +4,13 @@ set -euo pipefail
 here=$(pwd)
 srcdir="$(readlink -e $(dirname ${0})/../..)"
 
+old_srcdir=${srcdir}
+srcdir=${srcdir}.ubuntu_build
+echo "== Copying to temporary directory..."
+cp -prf ${old_srcdir} ${srcdir}
+echo "== Removing unstaged git files:"
+git -C ${srcdir} clean -f -d -x
+
 cp ${srcdir}/packaging/ubuntu/Dockerfile ${srcdir}/
 container_is_running=1
 docker ps -a | grep oomox_ubuntu_zesty_build || container_is_running=
@@ -15,8 +22,7 @@ docker run -t --name oomox_ubuntu_zesty_build -v ${srcdir}:/opt/oomox oomox_ubun
 docker cp oomox_ubuntu_zesty_build:/opt/oomox/ubuntu_package/oomox.deb ${here}
 docker rm -v oomox_ubuntu_zesty_build
 rm ${srcdir}/Dockerfile
-sudo rm -fr ${srcdir}/ubuntu_package
-#git -C ${srcdir} checkout po
+sudo rm -fr ${srcdir}
 
 echo DOCKER DONE
 exit 0
