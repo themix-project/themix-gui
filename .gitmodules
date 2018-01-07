@@ -11,5 +11,5 @@
 	path = plugins/icons_gnomecolors/gnome-colors-icon-theme
 	url = https://github.com/actionless/oomox-gnome-colors-icon-theme.git
 [submodule "oomoxify"]
-	path = oomoxify
+	path = plugins/oomoxify
 	url = https://github.com/actionless/oomoxify.git

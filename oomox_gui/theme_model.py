@@ -1,7 +1,7 @@
 import os
 
 from .config import TERMINAL_TEMPLATE_DIR
-from .plugin_loader import theme_plugins, icons_plugins
+from .plugin_loader import theme_plugins, icons_plugins, export_plugins
 
 
 def get_base_keys(base_theme_model):
@@ -13,28 +13,36 @@ def get_base_keys(base_theme_model):
 
 
 def merge_model_with_base(
-        whole_theme_model, base_theme_model, plugin_model_name,
-        value_filter_key, plugins
+        whole_theme_model, plugin_model_name,
+        plugins, base_theme_model=None, value_filter_key=None
 ):
-    for theme_value in base_theme_model:
-        if 'key' in theme_value:
-            theme_value['value_filter'] = {
-                value_filter_key: []
-            }
+    if base_theme_model is None:
+        base_theme_model = []
+
+    if value_filter_key:
+        for theme_value in base_theme_model:
+            if 'key' in theme_value:
+                theme_value['value_filter'] = {
+                    value_filter_key: []
+                }
 
     base_keys = get_base_keys(base_theme_model)
     for theme_plugin in plugins.values():
         plugin_theme_model = getattr(theme_plugin, "theme_model_"+plugin_model_name)
         for theme_value in plugin_theme_model:
-            if theme_value['key'] not in base_keys:
+            if 'key' not in theme_value or theme_value['key'] not in base_keys:
                 base_theme_model.append(theme_value)
                 base_keys = get_base_keys(base_theme_model)
         plugin_theme_model_keys = [
-            theme_value['key'] for theme_value in plugin_theme_model
+            theme_value['key']
+            for theme_value in plugin_theme_model
+            if 'key' in theme_value
         ]
         plugin_enabled_keys = getattr(
-            theme_plugin, "enabled_keys_"+plugin_model_name
+            theme_plugin, "enabled_keys_"+plugin_model_name, None
         )
+        if not plugin_enabled_keys or not value_filter_key:
+            continue
         for key in plugin_theme_model_keys + plugin_enabled_keys:
             base_theme_value = base_theme_model[base_keys[key]]
             value_filter = base_theme_value.setdefault('value_filter', {})
@@ -419,30 +427,12 @@ theme_model += [
     },
 ]
 
-theme_model += [
-    {
-        'type': 'separator',
-        'display_name': _('Spotify')
-    },
-    {
-        'key': 'SPOTIFY_PROTO_BG',
-        'type': 'color',
-        'fallback_key': 'MENU_BG',
-        'display_name': _('Spotify background'),
-    },
-    {
-        'key': 'SPOTIFY_PROTO_FG',
-        'type': 'color',
-        'fallback_key': 'MENU_FG',
-        'display_name': _('Spotify foreground'),
-    },
-    {
-        'key': 'SPOTIFY_PROTO_SEL',
-        'type': 'color',
-        'fallback_key': 'SEL_BG',
-        'display_name': _('Spotify accent color'),
-    },
-]
+merge_theme_model_with_base(theme_model, [], 'extra')
+merge_model_with_base(
+    plugins=export_plugins,
+    whole_theme_model=theme_model,
+    plugin_model_name='extra',
+)
 
 theme_model += [
     {

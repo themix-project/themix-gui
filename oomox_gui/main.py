@@ -21,11 +21,9 @@ from .theme_file_load import (
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
-from .export import (
-    export_spotify, export_terminal_theme
-)
+from .export import export_terminal_theme
 from .terminal import generate_terminal_colors_for_oomox
-from .plugin_loader import theme_plugins, icons_plugins
+from .plugin_loader import theme_plugins, icons_plugins, export_plugins
 
 
 class NewDialog(EntryDialog):
@@ -88,7 +86,6 @@ class WindowActions(ActionsEnum):
     _target = "win"
     clone = "clone"
     export_icons = "icons"
-    export_spotify = "spotify"
     export_theme = "theme"
     export_terminal = "terminal"
     menu = "menu"
@@ -114,11 +111,14 @@ class WindowWithActions(Gtk.ApplicationWindow):
             tooltip = self.action_tooltip(action_enum, widget.get_tooltip_text())
             widget.set_tooltip_text(tooltip)
 
-    def add_simple_action(self, action_enum, callback):
-        action = Gio.SimpleAction.new(action_enum.name, None)
+    def add_simple_action_by_name(self, action_name, callback):
+        action = Gio.SimpleAction.new(action_name, None)
         action.connect("activate", callback)
         self.add_action(action)
         return action
+
+    def add_simple_action(self, action_enum, callback):
+        return self.add_simple_action_by_name(action_enum.name, callback)
 
 
 class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes
@@ -307,8 +307,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _on_export_terminal(self, _action, _param=None):
         export_terminal_theme(transient_for=self, colorscheme=self.colorscheme)
 
-    def _on_export_spotify(self, _action, _param=None):
-        export_spotify(
+    def _on_export_plugin(self, action, _param=None):
+        plugin = export_plugins[
+            action.props.name.replace('export_plugin_', '')
+        ]
+        plugin.export_dialog(
             transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
@@ -358,14 +361,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         #
 
         menu = Gio.Menu()
-        # menu.append_item(Gio.MenuItem.new(
-        #     _("_Export icon theme"),
-        #     WindowActions.get_id(WindowActions.export_icons)
-        # ))
-        menu.append_item(Gio.MenuItem.new(
-            _("Apply Spotif_y theme"),
-            WindowActions.get_id(WindowActions.export_spotify)
-        ))
+        for plugin_name, plugin in export_plugins.items():
+            menu.append_item(Gio.MenuItem.new(
+                plugin.display_name,
+                "win.export_plugin_{}".format(plugin_name)
+            ))
 
         menu_button = ImageMenuButton("open-menu-symbolic")
         menu_button.set_use_popover(True)
@@ -418,7 +418,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
-        self.add_simple_action(WindowActions.export_spotify, self._on_export_spotify)
+        for plugin_name in export_plugins:
+            self.add_simple_action_by_name(
+                "export_plugin_{}".format(plugin_name), self._on_export_plugin
+            )
 
     def __init__(self, application, title=_("Oo-mox GUI")):
         super().__init__(
@@ -479,7 +482,6 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.remove, ["<Primary>Delete"])
         set_accels_for_action(WindowActions.export_theme, ["<Primary>E"])
         set_accels_for_action(WindowActions.export_icons, ["<Primary>I"])
-        set_accels_for_action(WindowActions.export_spotify, [])
         set_accels_for_action(WindowActions.menu, ["F10"])
 
     def do_activate(self):  # pylint: disable=arguments-differ

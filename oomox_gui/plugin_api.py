@@ -65,3 +65,5 @@ class OomoxExportPlugin(OomoxPlugin):
     @abstractproperty
     def export_dialog(self):
         pass
+
+    theme_model_extra = []

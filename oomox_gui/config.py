@@ -16,11 +16,6 @@ PLUGINS_DIR = os.path.join(
 )
 
 
-OOMOXIFY_SCRIPT_PATH = os.path.join(
-    OOMOX_ROOT_DIR, "oomoxify/oomoxify.sh"
-)
-
-
 USER_CONFIG_DIR = os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",
