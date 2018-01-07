@@ -22,6 +22,7 @@ cp -prf \
 	./plugins \
 	./po \
 	./po.mk \
+	./terminal_templates \
 		${pkgdir}/opt/oomox
 rm -rf ${pkgdir}/opt/oomox/plugins/theme_materia/materia-theme/.git*
 rm -rf ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/.git*
@@ -33,14 +34,7 @@ rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/screenshot*
 rm -r ${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/test*
 rm -rf ${pkgdir}/opt/oomox/plugins/icons_archdroid/archdroid-icon-theme/.git*
 rm -rf ${pkgdir}/opt/oomox/plugins/icons_gnomecolors/gnome-colors-icon-theme/.git*
-
-mkdir ${pkgdir}/opt/oomox/oomoxify
-cd ${srcdir}/oomoxify
-cp -prf \
-	./scripts \
-	./oomoxify.sh \
-		${pkgdir}/opt/oomox/oomoxify
-cd ..
+rm -rf ${pkgdir}/opt/oomox/plugins/oomoxify/.git*
 
 cd ${pkgdir}/opt/oomox/
 # will update ./po and produce ./locale dir:
