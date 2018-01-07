@@ -1,7 +1,7 @@
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
-from oomox_gui.export.common import FileBasedExportDialog
+from oomox_gui.export_common import FileBasedExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
 
 

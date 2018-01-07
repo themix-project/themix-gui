@@ -1,6 +1,6 @@
 import os
 
-from oomox_gui.export.theme import GtkThemeExportDialog, OPTION_GTK2_HIDPI
+from oomox_gui.export_common import GtkThemeExportDialog, OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 
 

@@ -1,7 +1,7 @@
 import os
 import json
 
-from ..config import USER_EXPORT_CONFIG_DIR
+from .config import USER_EXPORT_CONFIG_DIR
 
 
 class ExportConfig(object):

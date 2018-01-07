@@ -21,7 +21,7 @@ from .theme_file_load import (
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
-from .export import export_terminal_theme
+from .export_common import export_terminal_theme
 from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import theme_plugins, icons_plugins, export_plugins
 
