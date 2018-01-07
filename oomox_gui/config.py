@@ -2,17 +2,17 @@ import os
 
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-TERMINAL_TEMPLATE_DIR = os.path.join(
-    SCRIPT_DIR, "terminal_templates/"
-)
-
 
 OOMOX_ROOT_DIR = os.path.join(SCRIPT_DIR, "../")
+
 COLORS_DIR = os.path.join(
     OOMOX_ROOT_DIR, "colors/"
 )
 PLUGINS_DIR = os.path.join(
     OOMOX_ROOT_DIR, "plugins/"
+)
+TERMINAL_TEMPLATE_DIR = os.path.join(
+    OOMOX_ROOT_DIR, "terminal_templates/"
 )
 
 
