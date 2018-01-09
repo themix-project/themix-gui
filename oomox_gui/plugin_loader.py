@@ -25,9 +25,9 @@ for plugin_name, plugin_path in all_plugin_paths.items():
         plugin_name,
         os.path.join(plugin_path, "oomox_plugin.py")
     )
-    foo = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(foo)
-    plugin_class = foo.Plugin
+    plugin_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(plugin_module)
+    plugin_class = plugin_module.Plugin
     plugin = plugin_class()
     if not issubclass(plugin_class, OomoxPlugin):
         continue

@@ -3,6 +3,18 @@ from .helpers import str_to_bool, get_random_theme_color
 from .xrdb import XrdbCache
 
 
+def parse_theme_color_value(result_value):
+    if not result_value:
+        return None
+    if result_value == 'random_color':
+        result_value = get_random_theme_color()
+    elif result_value.startswith('xrdb.'):
+        xrdb_color = XrdbCache.get().get(result_value.replace('xrdb.', ''))
+        if xrdb_color and xrdb_color.startswith('#'):
+            result_value = xrdb_color.replace('#', '')
+    return result_value
+
+
 def parse_theme_value(theme_value, colorscheme):
     result_value = colorscheme.get(theme_value['key'])
     fallback_key = theme_value.get('fallback_key')
@@ -16,13 +28,7 @@ def parse_theme_value(theme_value, colorscheme):
 
     value_type = theme_value['type']
     if value_type == 'color':
-        if result_value:
-            if result_value == 'random_color':
-                result_value = get_random_theme_color()
-            elif result_value.startswith('xrdb.'):
-                xrdb_color = XrdbCache.get().get(result_value.replace('xrdb.', ''))
-                if xrdb_color and xrdb_color.startswith('#'):
-                    result_value = xrdb_color.replace('#', '')
+        result_value = parse_theme_color_value(result_value)
     if value_type == 'bool':
         if isinstance(result_value, str):
             result_value = str_to_bool(result_value)
@@ -51,13 +57,9 @@ def read_colorscheme_from_path(preset_path):
         for line in file_object.readlines():
             parsed_line = line.strip().split('=')
             key = parsed_line[0]
-            try:
-                if not key.startswith("#"):
-                    if key in theme_keys:
-                        colorscheme[key] = parsed_line[1]
-            # ignore unparseable lines:
-            except IndexError:
-                pass
+            if not key.startswith("#"):
+                if key in theme_keys and len(parsed_line) > 1:
+                    colorscheme[key] = parsed_line[1]
 
     for theme_model_item in theme_model:
         key = theme_model_item.get('key')

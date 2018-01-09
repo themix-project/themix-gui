@@ -21,7 +21,7 @@ class XrdbCache(object):
         )
         for line in iter(proc.stdout.readline, b''):
             line = line.decode("utf-8")
-            key, value, *rest = line.split(':')
+            key, value, *_rest = line.split(':')
             key = key.lstrip('*').lstrip('.')
             value = value.strip()
             result[key] = value
@@ -30,6 +30,7 @@ class XrdbCache(object):
             cls._cache = result
             return result
         print('xrdb not found')
+        return None
 
     @classmethod
     def clear(cls):

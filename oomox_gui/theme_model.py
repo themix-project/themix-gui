@@ -189,7 +189,7 @@ BASE_THEME_MODEL_OPTIONS = [
 ]
 merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OPTIONS, 'options')
 
-theme_model += [
+BASE_ICON_THEME_MODEL = [
     {
         'type': 'separator',
         'display_name': _('Iconset')
@@ -208,6 +208,7 @@ theme_model += [
         'display_name': _('Icons style')
     },
 ]
+theme_model += BASE_ICON_THEME_MODEL
 merge_model_with_base(
     whole_theme_model=theme_model,
     plugin_model_name='icons',
