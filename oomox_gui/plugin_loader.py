@@ -21,12 +21,11 @@ theme_plugins = {}  # pylint: disable=invalid-name
 icons_plugins = {}  # pylint: disable=invalid-name
 export_plugins = {}  # pylint: disable=invalid-name
 for plugin_name, plugin_path in all_plugin_paths.items():
-    spec = importlib.util.spec_from_file_location(
+    loader = importlib.machinery.SourceFileLoader(
         plugin_name,
         os.path.join(plugin_path, "oomox_plugin.py")
     )
-    plugin_module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(plugin_module)
+    plugin_module = loader.load_module()
     plugin_class = plugin_module.Plugin
     plugin = plugin_class()
     if not issubclass(plugin_class, OomoxPlugin):
