@@ -12,7 +12,7 @@ from .plugin_api import (
 def get_plugin_module(name, path):
     if sys.version_info.minor >= 5:
         spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
-        module = importlib.util.module_from_spec(spec)
+        module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
         spec.loader.exec_module(module)
     else:
         loader = importlib.machinery.SourceFileLoader(name, path)
