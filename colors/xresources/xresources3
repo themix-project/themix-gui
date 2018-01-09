@@ -15,3 +15,23 @@
         ICONS_LIGHT=xrdb.color9
        ICONS_MEDIUM=xrdb.color1
          ICONS_DARK=xrdb.color5
+
+TERMINAL_THEME_MODE=manual
+TERMINAL_BACKGROUND=xrdb.background
+TERMINAL_FOREGROUND=xrdb.foreground
+ TERMINAL_COLOR0=xrdb.color0
+ TERMINAL_COLOR1=xrdb.color1
+ TERMINAL_COLOR2=xrdb.color2
+ TERMINAL_COLOR3=xrdb.color3
+ TERMINAL_COLOR4=xrdb.color4
+ TERMINAL_COLOR5=xrdb.color5
+ TERMINAL_COLOR6=xrdb.color6
+ TERMINAL_COLOR7=xrdb.color7
+ TERMINAL_COLOR8=xrdb.color8
+ TERMINAL_COLOR9=xrdb.color9
+TERMINAL_COLOR10=xrdb.color10
+TERMINAL_COLOR11=xrdb.color11
+TERMINAL_COLOR12=xrdb.color12
+TERMINAL_COLOR13=xrdb.color13
+TERMINAL_COLOR14=xrdb.color14
+TERMINAL_COLOR15=xrdb.color15
