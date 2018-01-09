@@ -6,10 +6,6 @@
 gtk.gresource
 dist
 
-# Jetbrains IDEs
-.idea
-*.iml
-
 # python stuff
 __pycache__
 
@@ -17,8 +13,13 @@ __pycache__
 oomox/
 pkg/
 *.tar.xz
+oomox_*.deb
 
 # gettext stuff
 locale/
 po/oomox.pot
 po/*.mo
+
+# temporary/dev files
+colors/randomized/
+colors/test/
