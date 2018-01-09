@@ -1,11 +1,23 @@
 import os
-import importlib.util
+import importlib
+import sys
 
 from .config import PLUGINS_DIR, USER_PLUGINS_DIR
 from .plugin_api import (
     OomoxPlugin,
     OomoxImportPlugin, OomoxThemePlugin, OomoxIconsPlugin, OomoxExportPlugin,
 )
+
+
+def get_plugin_module(name, path):
+    if sys.version_info.minor >= 5:
+        spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+    else:
+        loader = importlib.machinery.SourceFileLoader(name, path)
+        module = loader.load_module()  # pylint: disable=deprecated-method
+    return module
 
 
 all_plugin_paths = {}  # pylint: disable=invalid-name
@@ -21,11 +33,10 @@ theme_plugins = {}  # pylint: disable=invalid-name
 icons_plugins = {}  # pylint: disable=invalid-name
 export_plugins = {}  # pylint: disable=invalid-name
 for plugin_name, plugin_path in all_plugin_paths.items():
-    loader = importlib.machinery.SourceFileLoader(
+    plugin_module = get_plugin_module(
         plugin_name,
         os.path.join(plugin_path, "oomox_plugin.py")
     )
-    plugin_module = loader.load_module()
     plugin_class = plugin_module.Plugin
     plugin = plugin_class()
     if not issubclass(plugin_class, OomoxPlugin):
