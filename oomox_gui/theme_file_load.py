@@ -1,40 +1,6 @@
-import subprocess
-
 from .theme_model import theme_model
-from .helpers import str_to_bool
-
-
-def bash_preprocess(preset_path):
-    colorscheme = {"NOGUI": True}
-    theme_values_with_keys = [
-        theme_value
-        for theme_value in theme_model
-        if theme_value.get('key')
-    ]
-    process = subprocess.run(
-        [
-            "bash", "-c",
-            "source " + preset_path + " ; " +
-            "".join(
-                "echo ${{{}-None}} ;".format(theme_value['key'])
-                for theme_value in theme_values_with_keys
-            )
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
-    if process.stderr:
-        raise(Exception(
-            "Pre-processing failed:\nstdout:\n{}\nstderr:\n{}".format(
-                process.stdout, process.stderr
-            )))
-    lines = process.stdout.decode("UTF-8").split()
-    for i, theme_value in enumerate(theme_values_with_keys):
-        value = lines[i]
-        if value == 'None':
-            value = None
-        colorscheme[theme_value['key']] = value
-    return colorscheme
+from .helpers import str_to_bool, get_random_theme_color
+from .xrdb import XrdbCache
 
 
 def parse_theme_value(theme_value, colorscheme):
@@ -49,6 +15,14 @@ def parse_theme_value(theme_value, colorscheme):
             result_value = colorscheme[fallback_key]
 
     value_type = theme_value['type']
+    if value_type == 'color':
+        if result_value:
+            if result_value == 'random_color':
+                result_value = get_random_theme_color()
+            elif result_value.startswith('xrdb.'):
+                xrdb_color = XrdbCache().get(result_value.replace('xrdb.', ''))
+                if xrdb_color and xrdb_color.startswith('#'):
+                    result_value = xrdb_color.replace('#', '')
     if value_type == 'bool':
         if isinstance(result_value, str):
             result_value = str_to_bool(result_value)
@@ -70,7 +44,6 @@ def parse_theme_value(theme_value, colorscheme):
 def read_colorscheme_from_path(preset_path):
     theme_keys = [item['key'] for item in theme_model if 'key' in item]
 
-    # @TODO: remove legacy stuff (using bash logic inside the themes)
     theme_keys.append('NOGUI')
 
     colorscheme = {}
@@ -86,14 +59,11 @@ def read_colorscheme_from_path(preset_path):
             except IndexError:
                 pass
 
-    # @TODO: remove migration workaround #2:
-    if colorscheme.get('NOGUI'):
-        colorscheme = bash_preprocess(preset_path)
-
     for theme_model_item in theme_model:
         key = theme_model_item.get('key')
         if not key:
             continue
         colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
 
+    XrdbCache.clear()
     return colorscheme

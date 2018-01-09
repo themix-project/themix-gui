@@ -20,14 +20,25 @@ def ls_r(path):
     ]
 
 
-def get_random_gdk_color():
-    return Gdk.RGBA(random.random(), random.random(), random.random(), 1)
-
-
 def convert_theme_color_to_gdk(theme_color):
     gdk_color = Gdk.RGBA()
     gdk_color.parse("#" + theme_color)
     return gdk_color
+
+
+def convert_gdk_to_theme_color(gdk_color):
+    return "".join([
+        int_to_text(n * 255)
+        for n in (gdk_color.red, gdk_color.green, gdk_color.blue)
+    ])
+
+
+def get_random_gdk_color():
+    return Gdk.RGBA(random.random(), random.random(), random.random(), 1)
+
+
+def get_random_theme_color():
+    return convert_gdk_to_theme_color(get_random_gdk_color())
 
 
 def text_to_int(text):
@@ -65,13 +76,6 @@ def mix_theme_colors(theme_color_1, theme_color_2, ratio):
             return FALLBACK_COLOR
         result += int_to_text(channel_1 * ratio + channel_2 * (1 - ratio))
     return result
-
-
-def convert_gdk_to_theme_color(gdk_color):
-    return "".join([
-        int_to_text(n * 255)
-        for n in (gdk_color.red, gdk_color.green, gdk_color.blue)
-    ])
 
 
 def str_to_bool(value):
