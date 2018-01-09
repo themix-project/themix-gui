@@ -20,7 +20,7 @@ def parse_theme_value(theme_value, colorscheme):
             if result_value == 'random_color':
                 result_value = get_random_theme_color()
             elif result_value.startswith('xrdb.'):
-                xrdb_color = XrdbCache().get(result_value.replace('xrdb.', ''))
+                xrdb_color = XrdbCache.get().get(result_value.replace('xrdb.', ''))
                 if xrdb_color and xrdb_color.startswith('#'):
                     result_value = xrdb_color.replace('#', '')
     if value_type == 'bool':

@@ -34,6 +34,3 @@ class XrdbCache(object):
     @classmethod
     def clear(cls):
         cls._cache = None
-
-    def __init__(self):
-        return self._cache
