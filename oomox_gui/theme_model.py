@@ -18,15 +18,13 @@ def merge_model_with_base(
 ):
     if base_theme_model is None:
         base_theme_model = []
+    base_keys = get_base_keys(base_theme_model)
 
     if value_filter_key:
         for theme_value in base_theme_model:
             if 'key' in theme_value:
-                theme_value['value_filter'] = {
-                    value_filter_key: []
-                }
+                theme_value.setdefault('value_filter', {}).setdefault(value_filter_key, [])
 
-    base_keys = get_base_keys(base_theme_model)
     for theme_plugin in plugins.values():
         plugin_theme_model = getattr(theme_plugin, "theme_model_"+plugin_model_name)
         for theme_value in plugin_theme_model:
@@ -39,9 +37,9 @@ def merge_model_with_base(
             if 'key' in theme_value
         ]
         plugin_enabled_keys = getattr(
-            theme_plugin, "enabled_keys_"+plugin_model_name, None
+            theme_plugin, "enabled_keys_"+plugin_model_name, []
         )
-        if not plugin_enabled_keys or not value_filter_key:
+        if not value_filter_key:
             continue
         for key in plugin_theme_model_keys + plugin_enabled_keys:
             base_theme_value = base_theme_model[base_keys[key]]
@@ -61,16 +59,6 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
         plugin_model_name=plugin_model_name,
         value_filter_key='THEME_STYLE',
         plugins=theme_plugins,
-    )
-
-
-def merge_icons_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
-    return merge_model_with_base(
-        whole_theme_model=whole_theme_model,
-        base_theme_model=base_theme_model,
-        plugin_model_name=plugin_model_name,
-        value_filter_key='ICONS_STYLE',
-        plugins=icons_plugins,
     )
 
 
@@ -201,7 +189,7 @@ BASE_THEME_MODEL_OPTIONS = [
 ]
 merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OPTIONS, 'options')
 
-BASE_ICONTHEME_MODEL = [
+theme_model += [
     {
         'type': 'separator',
         'display_name': _('Iconset')
@@ -220,7 +208,12 @@ BASE_ICONTHEME_MODEL = [
         'display_name': _('Icons style')
     },
 ]
-merge_icons_model_with_base(theme_model, BASE_ICONTHEME_MODEL, 'icons')
+merge_model_with_base(
+    whole_theme_model=theme_model,
+    plugin_model_name='icons',
+    value_filter_key='ICONS_STYLE',
+    plugins=icons_plugins,
+)
 
 theme_model += [
     {
