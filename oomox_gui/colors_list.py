@@ -58,6 +58,10 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
 
 class NumericListBoxRow(OomoxListBoxRow):
 
+    @g_abstractproperty
+    def on_value_changed(self, widget):
+        pass
+
     def connect_changed_signal(self):
         self.changed_signal = self.value_widget.connect("value-changed", self.on_value_changed)
 
