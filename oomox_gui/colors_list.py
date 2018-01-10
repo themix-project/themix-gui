@@ -106,8 +106,8 @@ class NumericListBoxRow(OomoxListBoxRow):
 
 class FloatListBoxRow(NumericListBoxRow):
 
-    def on_value_changed(self, spinbutton):
-        raw_value = spinbutton.get_value()
+    def on_value_changed(self, widget):
+        raw_value = widget.get_value()
         self.value = int(raw_value*100)/100  # limit float to 2 digits
         self.callback(self.key, self.value)
 
@@ -131,8 +131,8 @@ class FloatListBoxRow(NumericListBoxRow):
 
 class IntListBoxRow(NumericListBoxRow):
 
-    def on_value_changed(self, spinbutton):
-        self.value = spinbutton.get_value_as_int()
+    def on_value_changed(self, widget):
+        self.value = widget.get_value_as_int()
         self.callback(self.key, self.value)
 
     def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
