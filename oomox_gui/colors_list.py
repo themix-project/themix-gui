@@ -56,7 +56,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
             self.value_widget.disconnect(self.changed_signal)
 
 
-class FloatListBoxRow(OomoxListBoxRow):
+class NumericListBoxRow(OomoxListBoxRow):
 
     def connect_changed_signal(self):
         self.changed_signal = self.value_widget.connect("value-changed", self.on_value_changed)
@@ -66,72 +66,85 @@ class FloatListBoxRow(OomoxListBoxRow):
         self.value = value
         self.value_widget.set_value(value)
         self.connect_changed_signal()
+
+    def __init__(
+                self,
+                display_name, key,
+                callback,
+                init_value,
+                min_value, max_value,
+                step_increment,
+                page_increment,
+                page_size
+            ):
+
+        adjustment = Gtk.Adjustment(
+            value=init_value,
+            lower=min_value,
+            upper=max_value,
+            step_increment=step_increment,
+            page_increment=page_increment,
+            page_size=page_size
+        )
+        spinbutton = Gtk.SpinButton(
+            adjustment=adjustment,
+        )
+        spinbutton.set_numeric(True)
+        spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
+
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=spinbutton
+        )
+
+
+class FloatListBoxRow(NumericListBoxRow):
 
     def on_value_changed(self, spinbutton):
         raw_value = spinbutton.get_value()
         self.value = int(raw_value*100)/100  # limit float to 2 digits
         self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback, max_value=None):
+    def __init__(self, display_name, key, callback,
+                 min_value=None, max_value=None):
+        min_value = min_value or 0.0
         max_value = max_value or 10.0
-
-        adjustment = Gtk.Adjustment(
-            value=0.0,
-            lower=0.0,
-            upper=max_value,
-            step_increment=0.01,
-            page_increment=1.0,
-            page_size=0.0
-        )
-        spinbutton = Gtk.SpinButton(
-            adjustment=adjustment,
-            digits=2,
-        )
-        spinbutton.set_numeric(True)
-        spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
-
         super().__init__(
             display_name=display_name,
             key=key,
             callback=callback,
-            value_widget=spinbutton
+            init_value=0.0,
+            min_value=min_value,
+            max_value=max_value,
+            step_increment=0.01,
+            page_increment=1.0,
+            page_size=0.0
         )
+        self.value_widget.set_digits(2)
 
 
-class IntListBoxRow(OomoxListBoxRow):
-
-    def connect_changed_signal(self):
-        self.changed_signal = self.value_widget.connect("value-changed", self.on_value_changed)
-
-    def set_value(self, value):
-        self.disconnect_changed_signal()
-        self.value = value
-        self.value_widget.set_value(value)
-        self.connect_changed_signal()
+class IntListBoxRow(NumericListBoxRow):
 
     def on_value_changed(self, spinbutton):
         self.value = spinbutton.get_value_as_int()
         self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback):
-        adjustment = Gtk.Adjustment(
-            value=0,
-            lower=0,
-            upper=20,
-            step_increment=1,
-            page_increment=10,
-            page_size=0
-        )
-        spinbutton = Gtk.SpinButton()
-        spinbutton.set_adjustment(adjustment)
-        spinbutton.set_numeric(True)
-        spinbutton.set_update_policy(Gtk.SpinButtonUpdatePolicy.IF_VALID)
-
+    def __init__(self, display_name, key, callback,
+                 min_value=None, max_value=None):
+        min_value = min_value or 0
+        max_value = max_value or 20
         super().__init__(
             display_name=display_name,
             key=key,
             callback=callback,
-            value_widget=spinbutton
+            init_value=0,
+            min_value=min_value,
+            max_value=max_value,
+            step_increment=1,
+            page_increment=10,
+            page_size=0
         )
 
 
@@ -405,11 +418,14 @@ class ThemeColorsList(Gtk.Box):
                 )
             elif theme_value['type'] == 'int':
                 row = IntListBoxRow(
-                    display_name, key, callback=self.color_edited
+                    display_name, key, callback=self.color_edited,
+                    min_value=theme_value.get('min_value'),
+                    max_value=theme_value.get('max_value')
                 )
             elif theme_value['type'] == 'float':
                 row = FloatListBoxRow(
                     display_name, key, callback=self.color_edited,
+                    min_value=theme_value.get('min_value'),
                     max_value=theme_value.get('max_value')
                 )
             elif theme_value['type'] == 'separator':
