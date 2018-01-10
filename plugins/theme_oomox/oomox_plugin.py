@@ -71,8 +71,15 @@ class Plugin(OomoxThemePlugin):
         {
             'key': 'BTN_OUTLINE_WIDTH',
             'type': 'int',
-            'fallback_value': 2,
+            'fallback_value': 1,
             'display_name': _('(GTK3) Focused button outline width'),
+        },
+        {
+            'key': 'BTN_OUTLINE_OFFSET',
+            'type': 'int',
+            'fallback_value': -3,
+            'min_value': -20,
+            'display_name': _('(GTK3) Focused button outline offset'),
         },
     ]
 
