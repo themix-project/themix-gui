@@ -67,16 +67,16 @@ class NumericListBoxRow(OomoxListBoxRow):
         self.value_widget.set_value(value)
         self.connect_changed_signal()
 
-    def __init__(
-                self,
-                display_name, key,
-                callback,
-                init_value,
-                min_value, max_value,
-                step_increment,
-                page_increment,
-                page_size
-            ):
+    def __init__(  # pylint: disable=too-many-arguments
+            self,
+            display_name, key,
+            callback,
+            init_value,
+            min_value, max_value,
+            step_increment,
+            page_increment,
+            page_size
+    ):
 
         adjustment = Gtk.Adjustment(
             value=init_value,
@@ -107,7 +107,7 @@ class FloatListBoxRow(NumericListBoxRow):
         self.value = int(raw_value*100)/100  # limit float to 2 digits
         self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback,
+    def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
                  min_value=None, max_value=None):
         min_value = min_value or 0.0
         max_value = max_value or 10.0
@@ -131,7 +131,7 @@ class IntListBoxRow(NumericListBoxRow):
         self.value = spinbutton.get_value_as_int()
         self.callback(self.key, self.value)
 
-    def __init__(self, display_name, key, callback,
+    def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
                  min_value=None, max_value=None):
         min_value = min_value or 0
         max_value = max_value or 20
