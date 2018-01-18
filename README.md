@@ -113,6 +113,9 @@ If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugi
 
 
 #### Spotify:
+
+Spotify theme can be also exported from GUI, but if you prefer commandline interface:
+
 ```sh
 ./oomoxify/oomoxify.sh ./colors/gnome-colors/shiki-noble
 ```
