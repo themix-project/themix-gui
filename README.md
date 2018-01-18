@@ -101,32 +101,15 @@ cd oomox
 make -f po.mk install
 ```
 
-#### GUI
+#### Running
 
 ```sh
 ./gui.sh
 ```
 
+After exporting a theme select the generated theme (oomox-YOUR-THEME-NAME) in your appearance config tool (for example, _lxappearance_ or _gnome-tweak-tool_).
 
-#### CLI:
-```sh
-./gtk-theme/change_color.sh ./colors/gnome-colors/shiki-noble
-```
-
-next select oomox-current in your appearance config tool (for example, _lxappearance_)
-
-
-#### Icons:
-
-For icons you need to have `inkscape` and `imagemagick` installed.
-
-To generate `gnome-colors` iconset with the selected colorscheme:
-
-```sh
-./gnome-colors-icon-theme/change_color.sh ./colors/gnome-colors/shiki-noble
-```
-
-next select oomox-current in your appearance config tool (for example, _lxappearance_)
+If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugins/`.
 
 
 #### Spotify:
