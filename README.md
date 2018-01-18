@@ -66,12 +66,8 @@ sudo apt install -f
 
 
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
-
-```
-sudo apt install libgdk-pixbuf2.0-dev libxml2-utils python3-gi gtk2-engines-murrine bc sed zip inkscape imagemagick optipng parallel
-```
-
-And install `sassc>=3.4`: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
+ - [List of dependencies](https://github.com/actionless/oomox/blob/master/packaging/ubuntu/control#L5)
+ - [How to install `sassc>=3.4`](https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04)
 
 
 
@@ -80,18 +76,19 @@ And install `sassc>=3.4`: https://askubuntu.com/questions/849057/how-to-install-
 
 #### Prerequisites
 
-You need to have `python3-gobject` binding and those executables:
+You need to have `python3-gobject` binding and those libraries/executables:
  - `glib-compile-schemas`
  - `gdk-pixbuf-pixdata`
  - `sassc>=3.4`
  - `gtk3>=3.18`
  - `bc`
  - `sed`
+ - `rsvg-convert` from `librsvg`
  - `zip` - optional, for spotify theme
- - `inkscape` - optional, for gnome-colors icons and Materia theme
  - `imagemagick` - optional, for gnome-colors icons
  - `optipng` - optional, for Materia theme
  - `parallel` - optional, for Materia theme
+ - `inkscape` - optional, for gnome-colors icons and Materia theme
 
 For GTK2 you need murrine engine which can be not installed by default.
 
