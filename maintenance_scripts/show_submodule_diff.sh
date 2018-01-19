@@ -5,7 +5,7 @@ for submodule in $(git config --file .gitmodules --get-regexp path | awk '{ prin
 	if [[ ! -z "${hashes}" ]] ; then
 		echo
 		echo SUBMODULE ${submodule}:
-		echo
+		echo "================================================================================="
 		hash1=$(cut -d% -f1 <<< ${hashes})
 		hash2=$(cut -d% -f2 <<< ${hashes})
 		if [[ ${hash1} = ${hash2} ]] ; then
