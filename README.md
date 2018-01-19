@@ -84,11 +84,11 @@ You need to have `python3-gobject` binding and those libraries/executables:
  - `bc`
  - `sed`
  - `rsvg-convert` from `librsvg`
+ - `imagemagick`
  - `zip` - optional, for spotify theme
- - `imagemagick` - optional, for gnome-colors icons
  - `optipng` - optional, for Materia theme
  - `parallel` - optional, for Materia theme
- - `inkscape` - optional, for gnome-colors icons and Materia theme
+ - `inkscape` - optional, for Materia theme
 
 For GTK2 you need murrine engine which can be not installed by default.
 

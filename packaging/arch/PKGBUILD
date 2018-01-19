@@ -44,8 +44,9 @@ depends=(
 	'polkit'
 	'parallel'
 	'optipng'
-	'inkscape'
+	'librsvg'
 	'imagemagick'
+	'inkscape'
 )
 makedepends=(
 	'git'
