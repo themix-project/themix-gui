@@ -117,7 +117,7 @@ If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugi
 Spotify theme can be also exported from GUI, but if you prefer commandline interface:
 
 ```sh
-./oomoxify/oomoxify.sh ./colors/gnome-colors/shiki-noble
+./plugins/oomoxify/oomoxify.sh ./colors/gnome-colors/shiki-noble
 ```
 
 Also you can normalize font weight with `-w` argument, see `-h` for usage.
