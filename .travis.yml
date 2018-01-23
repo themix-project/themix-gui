@@ -1,9 +1,9 @@
 language: python
 env:
   matrix:
-    - PYVER=34
-    - PYVER=35
-    - PYVER=current
+    - PYVER=python34_deprecated
+    - PYVER=python35_ubuntu_1604
+    - PYVER=current_arch
 services:
   - docker
 before_install:
