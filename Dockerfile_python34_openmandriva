@@ -1,0 +1,26 @@
+FROM openmandriva/3.0
+WORKDIR /opt/oomox-build/
+
+# App and test (xvfb, pylint) deps
+RUN urpmi.update -a && \
+    urpmi gtk+3.0 python-pip x11-server-xvfb psmisc \
+        python-gobject python-gi-cairo gnome-tweak-tool \
+        pango lib64gl1 lib64python-devel python-libxml2 python-notify adwaita-icon-theme
+RUN pip install setuptools && \
+    pip install pylint
+
+# run test
+COPY . /opt/oomox-build/
+RUN bash -c "\
+    set -ueo pipefail ; \
+    Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp & \
+    echo '== Started Xvfb' ; \
+    echo '== Running on system python' ; \
+    python3 --version ; \
+    export DISPLAY=:99 ; \
+    sleep 3 ; \
+    \
+    pylint oomox_gui ; \
+    echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 pylint ; \
+    \
+    killall Xvfb"
