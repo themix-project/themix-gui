@@ -1,7 +1,6 @@
 language: python
 env:
   matrix:
-    - PYVER=python34_deprecated
     - PYVER=python34_openmandriva
     - PYVER=python35_ubuntu_1604
     - PYVER=current_arch
