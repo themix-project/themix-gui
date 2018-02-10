@@ -29,7 +29,7 @@ Other topics:
 #### Install
 
 ```
-trizen -S oomox-git
+pikaur -S oomox-git
 ```
 
 #### Open the GUI
