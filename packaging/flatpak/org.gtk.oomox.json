@@ -1,0 +1,113 @@
+{
+    "app-id": "org.gtk.oomox",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.26",
+    "sdk": "org.gnome.Sdk",
+    "command": "oomox-gui",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--filesystem=~/.themes",
+        "--filesystem=~/.icons",
+        "--socket=session-bus",
+        "--socket=system-bus",
+        "--socket=x11"
+    ],
+    "modules": [
+        {
+            "name": "sassc",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cd ./deps/libsass ; autoreconf -i ; ./configure --prefix=/app ; make ; make DESTDIR=/ install",
+                "cd ./deps/sassc ; autoreconf -i ; ./configure --prefix=/app ; make ; make DESTDIR=/ install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/sass/libsass/archive/3.4.7.tar.gz",
+                    "sha256": "855c40528b897d06ae4d24606c2db3cd09bb38de5b46b28e835f9d4fd4d7ab95",
+                    "dest": "./deps/libsass/"
+                },
+                {
+                    "type": "archive",
+                    "url": "https://github.com/sass/sassc/archive/3.4.2.tar.gz",
+                    "sha256": "ad805f2d404d17cf2980c8079a7413cd58d2f2085120167997b85420a722e079",
+                    "dest": "./deps/sassc/"
+                }
+            ]
+        },
+        {
+            "name": "imagemagick",
+            "config-opts": [
+                "--enable-static=no",
+                "--disable-docs",
+                "--disable-deprecated",
+                "--without-autotrace",
+                "--without-bzlib",
+                "--without-djvu",
+                "--without-dps",
+                "--without-fftw",
+                "--without-fontconfig",
+                "--without-fpx",
+                "--without-freetype",
+                "--without-gvc",
+                "--without-jbig",
+                "--without-jpeg",
+                "--without-lcms",
+                "--without-lzma",
+                "--without-magick-plus-plus",
+                "--without-openexr",
+                "--without-openjp2",
+                "--without-pango",
+                "--without-raqm",
+                "--without-tiff",
+                "--without-webp",
+                "--without-wmf",
+                "--without-x",
+                "--without-xml",
+                "--without-zlib"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.imagemagick.org/download/ImageMagick-7.0.7-22.tar.xz",
+                    "sha256": "49de9e08ea255a1f939158d85d50dfa29285bccbdcb7fee0fe4309061d438489"
+                }
+            ]
+        },
+        {
+            "name": "oomox",
+            "buildsystem": "simple",
+            "build-commands": [
+                "rm -r ./plugins/{oomoxify,theme_materia}",
+                "sed -i -e 's/\\/opt\\/oomox\\//\\/app\\/opt\\/oomox\\//g' ./packaging/bin/*",
+                "./packaging/install.sh ./ /app/",
+                "python3 -O -m compileall /app/opt/oomox/oomox_gui",
+
+                "mkdir /app/bin -p",
+                "mv /app/usr/bin/* /app/bin/"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/actionless/oomox.git"
+                }
+            ]
+        },
+        {
+          "name": "appdata",
+          "buildsystem": "simple",
+          "build-commands": [
+            "mkdir -p ${FLATPAK_DEST}/share/appdata",
+            "cp org.gtk.oomox.appdata.xml ${FLATPAK_DEST}/share/appdata",
+            "#appstream-compose --basename=org.gtk.oomox --prefix=${FLATPAK_DEST} --origin=flatpak org.gtk.oomox"
+          ],
+          "sources": [
+            {
+              "type": "file",
+              "path": "org.gtk.oomox.appdata.xml"
+            }
+          ]
+        }
+    ]
+}

@@ -47,6 +47,6 @@ mkdir -p "${pkgdir}/usr/bin/"
 cp "${srcdir}/packaging/bin/"* "${pkgdir}/usr/bin/"
 
 mkdir -p "${pkgdir}/usr/share/applications/"
-cp "${srcdir}/packaging/oomox.desktop" "${pkgdir}/usr/share/applications/"
+cp "${srcdir}/packaging/org.gtk.oomox.desktop" "${pkgdir}/usr/share/applications/"
 
 exit 0

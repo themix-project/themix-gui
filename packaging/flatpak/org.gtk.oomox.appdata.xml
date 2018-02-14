@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="runtime">
+  <id>org.gtk.oomox</id>
+  <metadata_license>GPLv3</metadata_license>
+  <name>Oomox theme designer</name>
+  <summary>Oomox theme designer</summary>
+  <description>
+    <p>Graphical application for generating different color variations of Numix and Materia (ex-Flat-Plat) themes (GTK2, GTK3), gnome-colors and ArchDroid icon themes. Have a hack for HiDPI in gtk2.</p>
+  </description>
+  <url type="homepage">https://github.com/actionless/oomox</url>
+</component>
