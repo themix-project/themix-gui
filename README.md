@@ -9,6 +9,7 @@ Installation:
   * [Slackware](#slackware "")
   * [Ubuntu](#ubuntu "")
   * [Other distributions](#other-distributions "")
+  * [Flatpak](#flatpak "")
  
 Other topics:
   * [Using with tiling WMs](#using-with-tiling-wms "")
@@ -36,6 +37,17 @@ pikaur -S oomox-git
 
 ```
 oomox-gui
+```
+
+
+### Flatpak
+
+You can build and run the latest application version in any
+distribution with flatpak available with the following commands:
+```bash
+cd ./packaging/flatpak/
+./flatpak-builder-build.sh
+./flatpak-builder-run.sh
 ```
 
 
@@ -68,7 +80,6 @@ sudo apt install -f
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
  - [List of dependencies](https://github.com/actionless/oomox/blob/master/packaging/ubuntu/control#L5)
  - [How to install `sassc>=3.4`](https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04)
-
 
 
 ### Other distributions:
