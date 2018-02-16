@@ -360,22 +360,23 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         #
 
-        menu = Gio.Menu()
-        for plugin_name, plugin in export_plugins.items():
-            menu.append_item(Gio.MenuItem.new(
-                plugin.display_name,
-                "win.export_plugin_{}".format(plugin_name)
-            ))
+        if export_plugins:
+            menu = Gio.Menu()
+            for plugin_name, plugin in export_plugins.items():
+                menu.append_item(Gio.MenuItem.new(
+                    plugin.display_name,
+                    "win.export_plugin_{}".format(plugin_name)
+                ))
 
-        menu_button = ImageMenuButton("open-menu-symbolic")
-        menu_button.set_use_popover(True)
-        menu_button.set_menu_model(menu)
-        self.add_action(Gio.PropertyAction(
-            name=WindowActions.get_name(WindowActions.menu),
-            object=menu_button,
-            property_name="active"
-        ))
-        self.headerbar.pack_end(menu_button)
+            menu_button = ImageMenuButton("open-menu-symbolic")
+            menu_button.set_use_popover(True)
+            menu_button.set_menu_model(menu)
+            self.add_action(Gio.PropertyAction(
+                name=WindowActions.get_name(WindowActions.menu),
+                object=menu_button,
+                property_name="active"
+            ))
+            self.headerbar.pack_end(menu_button)
 
         export_terminal_button = Gtk.Button(
             label=_("Export _terminal"),
