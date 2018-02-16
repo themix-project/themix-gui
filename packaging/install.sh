@@ -50,8 +50,8 @@ mkdir -p "${pkgdir}/usr/share/applications/"
 cp "${srcdir}/packaging/com.github.actionless.oomox.desktop" "${pkgdir}/usr/share/applications/"
 
 mkdir -p "${pkgdir}/usr/share/icons/hicolor/"{64x64,128x128,666x666}/apps/
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-64.png"  "${pkgdir}/share/icons/hicolor/64x64/apps/com.github.actionless.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-128.png" "${pkgdir}/share/icons/hicolor/128x128/apps/com.github.actionless.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-666.png" "${pkgdir}/share/icons/hicolor/666x666/apps/com.github.actionless.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-64.png"  "${pkgdir}/usr/share/icons/hicolor/64x64/apps/com.github.actionless.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-128.png" "${pkgdir}/usr/share/icons/hicolor/128x128/apps/com.github.actionless.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-666.png" "${pkgdir}/usr/share/icons/hicolor/666x666/apps/com.github.actionless.oomox.png"
 
 exit 0
