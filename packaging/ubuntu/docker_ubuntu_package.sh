@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#set -x
 set -euo pipefail
 
 here=$(pwd)
@@ -7,6 +8,7 @@ srcdir="$(readlink -e $(dirname ${0})/../..)"
 old_srcdir=${srcdir}
 srcdir=${srcdir}.ubuntu_build
 echo "== Copying to temporary directory..."
+rm -fr ${srcdir}
 cp -prf ${old_srcdir} ${srcdir}
 echo "== Removing unstaged git files:"
 git -C ${srcdir} clean -f -d -x
