@@ -1,15 +1,13 @@
 {
     "app-id": "com.github.actionless.oomox",
-    "runtime": "org.gnome.Platform",
+    "runtime": "org.gnome.Sdk",
     "runtime-version": "3.26",
     "sdk": "org.gnome.Sdk",
     "command": "oomox-gui",
     "finish-args": [
-        "--share=network",
         "--share=ipc",
         "--filesystem=~/.themes:create",
         "--filesystem=~/.icons:create",
-        "--socket=session-bus",
         "--socket=x11"
     ],
     "modules": [
@@ -83,8 +81,8 @@
                 "./packaging/install.sh ./ /app/",
                 "python3 -O -m compileall /app/opt/oomox/oomox_gui",
 
-                "install --target-directory=/app/bin /app/usr/bin/*",
-                "rm -r /app/usr/bin/"
+                "cp -prf /app/usr/* /app/",
+                "rm -r /app/usr/"
             ],
             "sources": [
                 {
@@ -102,7 +100,7 @@
             "install -Dp -m 644 com.github.actionless.oomox.appdata.xml /app/share/appdata",
             "install -Dp -m 644 com.github.actionless.oomox-64.png /app/share/icons/hicolor/64x64/apps/com.github.actionless.oomox.png",
             "install -Dp -m 644 com.github.actionless.oomox-128.png /app/share/icons/hicolor/128x128/apps/com.github.actionless.oomox.png",
-            "install -Dp -m 644 com.github.actionless.oomox.png /app/share/icons/hicolor/scalablexscalable/apps/com.github.actionless.oomox.png",
+            "install -Dp -m 644 com.github.actionless.oomox-666.png /app/share/icons/hicolor/666x666/apps/com.github.actionless.oomox.png",
             "#appstream-compose --basename=com.github.actionless.oomox --prefix=/app/ --origin=flatpak com.github.actionless.oomox"
           ],
           "sources": [
@@ -120,7 +118,7 @@
             },
             {
               "type": "file",
-              "path": "com.github.actionless.oomox.png"
+              "path": "com.github.actionless.oomox-666.png"
             }
           ]
         }
