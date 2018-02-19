@@ -76,13 +76,7 @@
             "name": "oomox",
             "buildsystem": "simple",
             "build-commands": [
-                "rm -r ./plugins/{oomoxify,theme_materia}",
-                "sed -i -e 's/\\/opt\\/oomox\\//\\/app\\/opt\\/oomox\\//g' ./packaging/bin/*",
-                "./packaging/install.sh ./ /app/",
-                "python3 -O -m compileall /app/opt/oomox/oomox_gui",
-
-                "cp -prf /app/usr/* /app/",
-                "rm -r /app/usr/"
+                "./packaging/flatpak/install.sh"
             ],
             "sources": [
                 {
