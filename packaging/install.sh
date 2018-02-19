@@ -43,13 +43,14 @@ cd "${pkgdir}/opt/oomox/"
 make -f po.mk install
 rm "${pkgdir}/opt/oomox/po.mk"
 
-mkdir -p "${pkgdir}/usr/bin/"
-cp "${srcdir}/packaging/bin/"* "${pkgdir}/usr/bin/"
+install -Dp -m 755 --target-directory="${pkgdir}/usr/bin/" "${srcdir}/packaging/bin/"*
 
-mkdir -p "${pkgdir}/usr/share/applications/"
-cp "${srcdir}/packaging/com.github.actionless.oomox.desktop" "${pkgdir}/usr/share/applications/"
+install -d "${pkgdir}/usr/share/applications/"
+install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox.desktop" "${pkgdir}/usr/share/applications/"
 
-mkdir -p "${pkgdir}/usr/share/icons/hicolor/"{64x64,128x128,666x666}/apps/
+install -d "${pkgdir}/usr/share/appdata/"
+install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox.appdata.xml" "${pkgdir}/usr/share/appdata/"
+
 install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-64.png"  "${pkgdir}/usr/share/icons/hicolor/64x64/apps/com.github.actionless.oomox.png"
 install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-128.png" "${pkgdir}/usr/share/icons/hicolor/128x128/apps/com.github.actionless.oomox.png"
 install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-666.png" "${pkgdir}/usr/share/icons/hicolor/666x666/apps/com.github.actionless.oomox.png"

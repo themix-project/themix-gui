@@ -91,21 +91,6 @@
                     "tag": "1.5.0.4"
                 }
             ]
-        },
-        {
-          "name": "appdata",
-          "buildsystem": "simple",
-          "build-commands": [
-            "mkdir -p /app/share/appdata",
-            "install -Dp -m 644 com.github.actionless.oomox.appdata.xml /app/share/appdata",
-            "#appstream-compose --basename=com.github.actionless.oomox --prefix=/app/ --origin=flatpak com.github.actionless.oomox"
-          ],
-          "sources": [
-            {
-              "type": "file",
-              "path": "com.github.actionless.oomox.appdata.xml"
-            }
-          ]
         }
     ]
 }
