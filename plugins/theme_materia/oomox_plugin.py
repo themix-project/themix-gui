@@ -37,19 +37,13 @@ class Plugin(OomoxThemePlugin):
         'MENU_FG',
         'SEL_BG',
         'SEL_FG',
+        'ACCENT_BG',
         'TXT_BG',
         'BTN_BG',
         'BTN_FG',
     ]
 
-    theme_model_gtk = [
-        {
-            'key': 'ACCENT_BG',
-            'fallback_key': 'SEL_BG',
-            'type': 'color',
-            'display_name': _('Accent color (checkboxes, radios)'),
-        },
-    ]
+    theme_model_gtk = []
 
     theme_model_options = [
         {

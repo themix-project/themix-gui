@@ -44,6 +44,7 @@ class Plugin(OomoxThemePlugin):
         'MENU_FG',
         'SEL_BG',
         'SEL_FG',
+        'ACCENT_BG',
         'TXT_BG',
         'TXT_FG',
         'BTN_BG',

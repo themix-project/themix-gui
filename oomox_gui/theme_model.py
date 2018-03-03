@@ -111,6 +111,12 @@ BASE_THEME_MODEL_GTK = [
         'display_name': _('Selection text'),
     },
     {
+        'key': 'ACCENT_BG',
+        'fallback_key': 'SEL_BG',
+        'type': 'color',
+        'display_name': _('Accent color (checkboxes, radios)'),
+    },
+    {
         'key': 'TXT_BG',
         'type': 'color',
         'display_name': _('Textbox background')
