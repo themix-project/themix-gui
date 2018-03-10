@@ -1,4 +1,4 @@
-from .theme_model import theme_model
+from .theme_model import THEME_MODEL
 from .helpers import str_to_bool, get_random_theme_color
 from .xrdb import XrdbCache
 from .plugin_loader import theme_format_plugins
@@ -58,7 +58,7 @@ def read_colorscheme_from_path(preset_path):
             from_plugin = plugin_name
             break
     if not colorscheme:
-        theme_keys = [item['key'] for item in theme_model if 'key' in item]
+        theme_keys = [item['key'] for item in THEME_MODEL if 'key' in item]
 
         theme_keys.append('NOGUI')
 
@@ -70,7 +70,7 @@ def read_colorscheme_from_path(preset_path):
                     if key in theme_keys and len(parsed_line) > 1:
                         colorscheme[key] = parsed_line[1]
 
-    for theme_model_item in theme_model:
+    for theme_model_item in THEME_MODEL:
         key = theme_model_item.get('key')
         if not key:
             continue

@@ -76,7 +76,7 @@ class OomoxThemeFormatPlugin(OomoxPlugin):
         pass
 
     @abstractmethod
-    def read_colorscheme_from_path(preset_path):
+    def read_colorscheme_from_path(self, preset_path):
         pass
 
     theme_model_gtk = []

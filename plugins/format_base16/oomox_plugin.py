@@ -89,7 +89,7 @@ class Plugin(OomoxThemeFormatPlugin):
     }
 
     def read_colorscheme_from_path(self, preset_path):
-        from oomox_gui.theme_model import theme_model_by_key
+        from oomox_gui.theme_model import THEME_MODEL_BY_KEY
 
         base16_theme = {}
         with open(preset_path) as f:
@@ -106,7 +106,7 @@ class Plugin(OomoxThemeFormatPlugin):
         oomox_theme.update(self.default_theme)
         translation = {}
         translation.update(self.translation_common)
-        if theme_model_by_key.get('BASE16_GENERATE_DARK', {}).get('fallback_value'):
+        if THEME_MODEL_BY_KEY.get('BASE16_GENERATE_DARK', {}).get('fallback_value'):
             translation.update(self.translation_dark)
         else:
             translation.update(self.translation_light)

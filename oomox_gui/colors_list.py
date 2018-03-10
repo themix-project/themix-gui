@@ -1,6 +1,6 @@
 from gi.repository import Gtk
 
-from .theme_model import theme_model
+from .theme_model import THEME_MODEL, THEME_MODEL_BY_KEY
 from .palette_cache import PaletteCache
 from .helpers import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
@@ -407,17 +407,15 @@ class ThemeColorsList(Gtk.Box):
         self._no_gui_row = SeparatorListBoxRow(_("Can't be edited in GUI"))
         self.listbox.add(self._no_gui_row)
         self._all_rows = {}
-        for theme_value in theme_model:
+        for theme_value in THEME_MODEL:
             key = theme_value.get('key') or theme_value['display_name']
             display_name = theme_value.get('display_name', key)
             row = None
 
             callback = None
             if theme_value.get('reload_theme'):
-                this_theme_value = theme_value
-
-                def _callback(key, value, widget=None):
-                    this_theme_value['fallback_value'] = value
+                def _callback(key, value):
+                    THEME_MODEL_BY_KEY[key]['fallback_value'] = value
                     self.theme = self.theme_reload_callback()
                 callback = _callback
             elif key in [
@@ -472,7 +470,7 @@ class ThemeColorsList(Gtk.Box):
             self._no_gui_row.show()
         else:
             self._no_gui_row.hide()
-        for theme_value in theme_model:
+        for theme_value in THEME_MODEL:
             key = theme_value.get('key') or theme_value['display_name']
             row = self._all_rows.get(key)
             if not row:

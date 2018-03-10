@@ -64,7 +64,7 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
     )
 
 
-theme_model = [  # pylint: disable=invalid-name
+THEME_MODEL = [
     {
         'key': 'THEME_STYLE',
         'type': 'options',
@@ -81,7 +81,7 @@ theme_model = [  # pylint: disable=invalid-name
     },
 ]
 merge_model_with_base(
-    whole_theme_model=theme_model,
+    whole_theme_model=THEME_MODEL,
     plugin_model_name='gtk',
     value_filter_key='FROM_PLUGIN',
     plugins=theme_format_plugins,
@@ -169,7 +169,7 @@ BASE_THEME_MODEL_GTK = [
         'display_name': _('Unfocused window border'),
     },
 ]
-merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_GTK, 'gtk')
+merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_GTK, 'gtk')
 
 BASE_THEME_MODEL_OPTIONS = [
     {
@@ -201,7 +201,7 @@ BASE_THEME_MODEL_OPTIONS = [
         'display_name': _('(GTK3) Add dark variant'),
     },
 ]
-merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OPTIONS, 'options')
+merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OPTIONS, 'options')
 
 BASE_ICON_THEME_MODEL = [
     {
@@ -222,15 +222,15 @@ BASE_ICON_THEME_MODEL = [
         'display_name': _('Icons style')
     },
 ]
-theme_model += BASE_ICON_THEME_MODEL
+THEME_MODEL += BASE_ICON_THEME_MODEL
 merge_model_with_base(
-    whole_theme_model=theme_model,
+    whole_theme_model=THEME_MODEL,
     plugin_model_name='icons',
     value_filter_key='ICONS_STYLE',
     plugins=icons_plugins,
 )
 
-theme_model += [
+THEME_MODEL += [
     {
         'type': 'separator',
         'display_name': _('Terminal')
@@ -435,14 +435,14 @@ theme_model += [
     },
 ]
 
-merge_theme_model_with_base(theme_model, [], 'extra')
+merge_theme_model_with_base(THEME_MODEL, [], 'extra')
 merge_model_with_base(
     plugins=export_plugins,
-    whole_theme_model=theme_model,
+    whole_theme_model=THEME_MODEL,
     plugin_model_name='extra',
 )
 
-theme_model += [
+THEME_MODEL += [
     {
         'type': 'separator',
         'display_name': _('Text input caret'),
@@ -485,10 +485,10 @@ BASE_THEME_MODEL_OTHER = [
         'display_name': _('Other options'),
     },
 ]
-merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OTHER, 'other')
+merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OTHER, 'other')
 
-theme_model_by_key = {
+THEME_MODEL_BY_KEY = {
     value['key']: value
-    for value in theme_model
+    for value in THEME_MODEL
     if 'key' in value
 }
