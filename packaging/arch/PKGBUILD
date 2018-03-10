@@ -27,6 +27,7 @@ md5sums=(
 	"SKIP"
 	"SKIP"
 	"SKIP"
+	"SKIP"
 )
 depends=(
 	'coreutils'
