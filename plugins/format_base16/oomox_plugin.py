@@ -92,10 +92,10 @@ class Plugin(OomoxThemeFormatPlugin):
         from oomox_gui.theme_model import THEME_MODEL_BY_KEY
 
         base16_theme = {}
-        with open(preset_path) as f:
-            for line in f.readlines():
+        with open(preset_path) as preset_file:
+            for line in preset_file.readlines():
                 try:
-                    key, value, *rest = line.split()
+                    key, value, *_rest = line.split()
                     key = key.rstrip(':').lower()
                     value = value.strip('\'"').lower()
                     base16_theme[key] = value
