@@ -67,3 +67,16 @@ class OomoxExportPlugin(OomoxPlugin):
         pass
 
     theme_model_extra = []
+
+
+class OomoxThemeFormatPlugin(OomoxPlugin):
+
+    @abstractproperty
+    def file_extension(self):
+        pass
+
+    @abstractmethod
+    def read_colorscheme_from_path(preset_path):
+        pass
+
+    theme_model_gtk = []

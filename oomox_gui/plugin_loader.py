@@ -6,6 +6,7 @@ from .config import PLUGINS_DIR, USER_PLUGINS_DIR
 from .plugin_api import (
     OomoxPlugin,
     OomoxImportPlugin, OomoxThemePlugin, OomoxIconsPlugin, OomoxExportPlugin,
+    OomoxThemeFormatPlugin,
 )
 
 
@@ -32,6 +33,7 @@ import_plugins = {}  # pylint: disable=invalid-name
 theme_plugins = {}  # pylint: disable=invalid-name
 icons_plugins = {}  # pylint: disable=invalid-name
 export_plugins = {}  # pylint: disable=invalid-name
+theme_format_plugins = {}  # pylint: disable=invalid-name
 for plugin_name, plugin_path in all_plugin_paths.items():
     plugin_module = get_plugin_module(
         plugin_name,
@@ -50,6 +52,8 @@ for plugin_name, plugin_path in all_plugin_paths.items():
         icons_plugins[plugin_name] = plugin
     if issubclass(plugin_class, OomoxExportPlugin):
         export_plugins[plugin_name] = plugin
+    if issubclass(plugin_class, OomoxThemeFormatPlugin):
+        theme_format_plugins[plugin_name] = plugin
 
 
 if __name__ == "__main__":
@@ -66,6 +70,8 @@ if __name__ == "__main__":
     print(icons_plugins)
     print("export plugins:")
     print(export_plugins)
+    print("theme format plugins:")
+    print(theme_format_plugins)
     print()
     print("all plugins:")
     print(all_plugins)

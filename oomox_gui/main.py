@@ -253,6 +253,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.remove_action.set_enabled(self.colorscheme_is_user)
         self.headerbar.props.title = selected_preset
 
+    def theme_reload(self):
+        self.on_preset_selected(
+            self.colorscheme_name, self.colorscheme_path
+        )
+        return self.colorscheme
+
     def on_color_edited(self, colorscheme):
         colorscheme.update(generate_terminal_colors_for_oomox(colorscheme))
         if colorscheme['TERMINAL_THEME_MODE'] != 'manual':
@@ -441,6 +447,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         self.theme_edit = ThemeColorsList(
             color_edited_callback=self.on_color_edited,
+            theme_reload_callback=self.theme_reload,
             transient_for=self
         )
         self.box.pack_start(self.theme_edit, True, True, 0)

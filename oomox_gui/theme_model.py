@@ -1,7 +1,9 @@
 import os
 
 from .config import TERMINAL_TEMPLATE_DIR
-from .plugin_loader import theme_plugins, icons_plugins, export_plugins
+from .plugin_loader import (
+    theme_plugins, icons_plugins, export_plugins, theme_format_plugins,
+)
 
 
 def get_base_keys(base_theme_model):
@@ -78,6 +80,12 @@ theme_model = [  # pylint: disable=invalid-name
         'display_name': _('Theme style'),
     },
 ]
+merge_model_with_base(
+    whole_theme_model=theme_model,
+    plugin_model_name='gtk',
+    value_filter_key='FROM_PLUGIN',
+    plugins=theme_format_plugins,
+)
 
 BASE_THEME_MODEL_GTK = [
     {
@@ -478,3 +486,9 @@ BASE_THEME_MODEL_OTHER = [
     },
 ]
 merge_theme_model_with_base(theme_model, BASE_THEME_MODEL_OTHER, 'other')
+
+theme_model_by_key = {
+    value['key']: value
+    for value in theme_model
+    if 'key' in value
+}

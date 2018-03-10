@@ -16,7 +16,7 @@ def check_value_filter(value_filter_data, colorscheme):
             values = [values, ]
         value_found = False
         for value in values:
-            if colorscheme[key] == value:
+            if colorscheme.get(key) == value:
                 value_found = True
                 continue
         filter_results.append(value_found)
@@ -391,6 +391,7 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
 class ThemeColorsList(Gtk.Box):
 
     color_edited_callback = None
+    theme_reload_callback = None
     transient_for = None
     theme = None
 
@@ -410,42 +411,51 @@ class ThemeColorsList(Gtk.Box):
             key = theme_value.get('key') or theme_value['display_name']
             display_name = theme_value.get('display_name', key)
             row = None
+
+            callback = None
+            if theme_value.get('reload_theme'):
+                this_theme_value = theme_value
+
+                def _callback(key, value, widget=None):
+                    this_theme_value['fallback_value'] = value
+                    self.theme = self.theme_reload_callback()
+                callback = _callback
+            elif key in [
+                    'ICONS_STYLE', 'THEME_STYLE',
+                    'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE'
+            ]:
+                def _callback(key, value):
+                    self.color_edited(key, value)
+                    self.open_theme(self.theme)
+                callback = _callback
+            else:
+                callback = self.color_edited
+
             if theme_value['type'] == 'color':
                 row = ColorListBoxRow(
                     display_name, key,
-                    callback=self.color_edited,
+                    callback=callback,
                     transient_for=self.transient_for
                 )
             elif theme_value['type'] == 'bool':
                 row = BoolListBoxRow(
-                    display_name, key, callback=self.color_edited
+                    display_name, key, callback=callback
                 )
             elif theme_value['type'] == 'int':
                 row = IntListBoxRow(
-                    display_name, key, callback=self.color_edited,
+                    display_name, key, callback=callback,
                     min_value=theme_value.get('min_value'),
                     max_value=theme_value.get('max_value')
                 )
             elif theme_value['type'] == 'float':
                 row = FloatListBoxRow(
-                    display_name, key, callback=self.color_edited,
+                    display_name, key, callback=callback,
                     min_value=theme_value.get('min_value'),
                     max_value=theme_value.get('max_value')
                 )
             elif theme_value['type'] == 'separator':
                 row = SeparatorListBoxRow(display_name)
             elif theme_value['type'] == 'options':
-                callback = None
-                if key in [
-                        'ICONS_STYLE', 'THEME_STYLE',
-                        'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE'
-                ]:
-                    def _callback(key, value):
-                        self.color_edited(key, value)
-                        self.open_theme(self.theme)
-                    callback = _callback
-                else:
-                    callback = self.color_edited
                 row = OptionsListBoxRow(
                     key=key,
                     display_name=display_name,
@@ -482,10 +492,11 @@ class ThemeColorsList(Gtk.Box):
                 row.set_value(self.theme[key])
             row.show()
 
-    def __init__(self, color_edited_callback, transient_for):
+    def __init__(self, color_edited_callback, theme_reload_callback, transient_for):
         self.transient_for = transient_for
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
         self.color_edited_callback = color_edited_callback
+        self.theme_reload_callback = theme_reload_callback
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)

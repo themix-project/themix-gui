@@ -1,6 +1,7 @@
 from .theme_model import theme_model
 from .helpers import str_to_bool, get_random_theme_color
 from .xrdb import XrdbCache
+from .plugin_loader import theme_format_plugins
 
 
 def parse_theme_color_value(result_value):
@@ -48,24 +49,34 @@ def parse_theme_value(theme_value, colorscheme):
 
 
 def read_colorscheme_from_path(preset_path):
-    theme_keys = [item['key'] for item in theme_model if 'key' in item]
-
-    theme_keys.append('NOGUI')
-
     colorscheme = {}
-    with open(preset_path) as file_object:
-        for line in file_object.readlines():
-            parsed_line = line.strip().split('=')
-            key = parsed_line[0]
-            if not key.startswith("#"):
-                if key in theme_keys and len(parsed_line) > 1:
-                    colorscheme[key] = parsed_line[1]
+
+    from_plugin = None
+    for plugin_name, plugin in theme_format_plugins.items():
+        if preset_path.endswith(plugin.file_extension):
+            colorscheme = plugin.read_colorscheme_from_path(preset_path)
+            from_plugin = plugin_name
+            break
+    if not colorscheme:
+        theme_keys = [item['key'] for item in theme_model if 'key' in item]
+
+        theme_keys.append('NOGUI')
+
+        with open(preset_path) as file_object:
+            for line in file_object.readlines():
+                parsed_line = line.strip().split('=')
+                key = parsed_line[0]
+                if not key.startswith("#"):
+                    if key in theme_keys and len(parsed_line) > 1:
+                        colorscheme[key] = parsed_line[1]
 
     for theme_model_item in theme_model:
         key = theme_model_item.get('key')
         if not key:
             continue
         colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
+    if from_plugin:
+        colorscheme['FROM_PLUGIN'] = from_plugin
 
     XrdbCache.clear()
     return colorscheme

@@ -18,6 +18,7 @@ source=(
 	"git+https://github.com/actionless/oomox-archdroid-icon-theme.git#branch=master"
 	"git+https://github.com/actionless/oomox-gnome-colors-icon-theme.git#branch=master"
 	"git+https://github.com/actionless/oomoxify.git#branch=master"
+	"git+https://github.com/base16-builder/base16-builder#branch=master"
 )
 md5sums=(
 	"SKIP"
@@ -73,6 +74,7 @@ prepare(){
 	git config submodule.archdroid-icon-theme.url $srcdir/oomox-archdroid-icon-theme
 	git config submodule.gnome-colors-icon-theme.url $srcdir/oomox-gnome-colors-icon-theme
 	git config submodule.oomoxify.url $srcdir/oomoxify
+	git config submodule.base16-builder.url $srcdir/base16-builder
 	git submodule update
 }
 
