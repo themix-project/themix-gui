@@ -20,6 +20,13 @@ class Plugin(OomoxThemeFormatPlugin):
             'display_name': _('Generate dark Base16 variant'),
             'reload_theme': True,
         },
+        {
+            'display_name': _('Override Base16 template:'),
+            'type': 'separator',
+            'value_filter': {
+                'FROM_PLUGIN': 'format_base16',
+            },
+        },
     ]
 
     default_theme = {
