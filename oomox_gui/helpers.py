@@ -20,6 +20,14 @@ def ls_r(path):
     ]
 
 
+def hex_to_int(text):
+    return int("0x{}".format(text), 0)
+
+
+def int_to_hex(myint):
+    return "{0:02x}".format(int(myint))
+
+
 def convert_theme_color_to_gdk(theme_color):
     gdk_color = Gdk.RGBA()
     gdk_color.parse("#" + theme_color)
@@ -39,14 +47,6 @@ def get_random_gdk_color():
 
 def get_random_theme_color():
     return convert_gdk_to_theme_color(get_random_gdk_color())
-
-
-def hex_to_int(text):
-    return int("0x{}".format(text), 0)
-
-
-def int_to_hex(myint):
-    return "{0:02x}".format(int(myint))
 
 
 def mix_gdk_colors(gdk_color_1, gdk_color_2, ratio):
