@@ -3,24 +3,21 @@ import sys
 import re
 
 from .config import TERMINAL_TEMPLATE_DIR
+from .helpers import hex_to_int, int_to_hex
 
 
-def text_to_int(text):
-    return int("0x{}".format(text), 0)
-
-
-def int_to_text(myint):
-    return "{0:02x}".format(int(myint))
-
-
-def color_list_from_text(color_text):
+def color_list_from_hex(color_text):
     return [color_text[:2], color_text[2:4], color_text[4:]]
+
+
+def color_hex_from_list(color_list):
+    return ''.join([int_to_hex(i) for i in color_list])
 
 
 def is_dark(color_text):
     return sum([
-        text_to_int(channel_text)
-        for channel_text in color_list_from_text(color_text)
+        hex_to_int(channel_text)
+        for channel_text in color_list_from_hex(color_text)
     ]) < 384
 
 
@@ -59,24 +56,24 @@ class ColorDiff(object):
     channels = ['r', 'g', 'b']
 
     def __init__(self, theme_color_1, theme_color_2):
-        color_list_1 = color_list_from_text(theme_color_1)
-        color_list_2 = color_list_from_text(theme_color_2)
+        color_list_1 = color_list_from_hex(theme_color_1)
+        color_list_2 = color_list_from_hex(theme_color_2)
         for channel_index, channel_1_text in enumerate(color_list_1):
-            channel_1 = text_to_int(channel_1_text)
-            channel_2 = text_to_int(color_list_2[channel_index])
+            channel_1 = hex_to_int(channel_1_text)
+            channel_2 = hex_to_int(color_list_2[channel_index])
             setattr(self, self.channels[channel_index], channel_1-channel_2)
 
     def apply_to(self, color_text):
-        color_list = color_list_from_text(color_text)
+        color_list = color_list_from_hex(color_text)
         result = ''
         for channel_index, channel_text in enumerate(color_list):
-            channel = text_to_int(channel_text)
+            channel = hex_to_int(channel_text)
             int_result = channel - getattr(self, self.channels[channel_index])
             if int_result < 0:
                 int_result = 0
             if int_result > 255:
                 int_result = 255
-            result += int_to_text(int_result)
+            result += int_to_hex(int_result)
         return result
 
 

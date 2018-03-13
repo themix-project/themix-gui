@@ -28,7 +28,7 @@ def convert_theme_color_to_gdk(theme_color):
 
 def convert_gdk_to_theme_color(gdk_color):
     return "".join([
-        int_to_text(n * 255)
+        int_to_hex(n * 255)
         for n in (gdk_color.red, gdk_color.green, gdk_color.blue)
     ])
 
@@ -41,11 +41,11 @@ def get_random_theme_color():
     return convert_gdk_to_theme_color(get_random_gdk_color())
 
 
-def text_to_int(text):
+def hex_to_int(text):
     return int("0x{}".format(text), 0)
 
 
-def int_to_text(myint):
+def int_to_hex(myint):
     return "{0:02x}".format(int(myint))
 
 
@@ -70,11 +70,11 @@ def mix_theme_colors(theme_color_1, theme_color_2, ratio):
     result = ''
     for channel_index, channel_1_text in enumerate(color_list_1):
         try:
-            channel_1 = text_to_int(channel_1_text)
-            channel_2 = text_to_int(color_list_2[channel_index])
+            channel_1 = hex_to_int(channel_1_text)
+            channel_2 = hex_to_int(color_list_2[channel_index])
         except ValueError:
             return FALLBACK_COLOR
-        result += int_to_text(channel_1 * ratio + channel_2 * (1 - ratio))
+        result += int_to_hex(channel_1 * ratio + channel_2 * (1 - ratio))
     return result
 
 
