@@ -1,5 +1,5 @@
 from gi.repository import Gtk
-from .helpers import (
+from .color import (
     mix_gdk_colors, convert_gdk_to_theme_color
 )
 from .theme_file import (

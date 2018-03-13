@@ -4,20 +4,17 @@ import sys
 from gi.repository import Gtk, Gio
 
 from .config import USER_COLORS_DIR
-from .helpers import (
-    mkdir_p, ActionsEnum
-)
+from .helpers import mkdir_p
 from .gtk_helpers import (
     ImageButton, ImageMenuButton,
-    EntryDialog, YesNoDialog
+    EntryDialog, YesNoDialog,
+    ActionsEnum,
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
     save_colorscheme, remove_colorscheme,
 )
-from .theme_file_parse import (
-    read_colorscheme_from_path,
-)
+from .theme_file_parse import read_colorscheme_from_path
 from .presets_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview

@@ -3,12 +3,12 @@ import os
 from gi.repository import Gtk, GLib
 
 from .theme_model import THEME_MODEL
-from .helpers import (
+from .color import (
     convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors,
-    FALLBACK_COLOR
 )
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
+from .config import FALLBACK_COLOR
 
 
 WIDGET_SPACING = 10

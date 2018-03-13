@@ -1,5 +1,16 @@
+from enum import Enum
+
 from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 from gi.types import GObjectMeta
+
+
+class ActionsEnum(Enum):
+
+    def get_name(self):
+        return self.name
+
+    def get_id(self):
+        return '.'.join([self._target.value, self.name])
 
 
 class CenterLabel(Gtk.Label):

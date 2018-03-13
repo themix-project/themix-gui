@@ -3,101 +3,11 @@ import sys
 import re
 
 from .config import TERMINAL_TEMPLATE_DIR
-from .helpers import hex_to_int, int_to_hex
+from .color import SMALLEST_DIFF, ColorDiff, is_dark
 
 
-def color_list_from_hex(color_text):
-    return [color_text[:2], color_text[2:4], color_text[4:]]
-
-
-def color_hex_from_list(color_list):
-    return ''.join([int_to_hex(i) for i in color_list])
-
-
-def is_dark(color_text):
-    return sum([
-        hex_to_int(channel_text)
-        for channel_text in color_list_from_hex(color_text)
-    ]) < 384
-
-
-class ColorDiff(object):
-    r = None  # pylint: disable=invalid-name
-    g = None  # pylint: disable=invalid-name
-    b = None  # pylint: disable=invalid-name
-
-    @property
-    def list(self):
-        return [self.r, self.g, self.b]
-
-    @property
-    def abs_list(self):
-        return [abs(c) for c in self.list]
-
-    @property
-    def min(self):
-        return min(self.abs_list)
-
-    @property
-    def abs(self):
-        return sum(self.abs_list)
-
-    @property
-    def minabs(self):
-        return self.min + self.abs
-
-    @property
-    def avg(self):
-        return self.abs / 3
-
-    @property
-    def sat(self):
-        r, g, b = self.abs_list
-        return abs(r-g)+abs(r-b) + abs(g-r)+abs(g-b) + abs(b-g)+abs(b-r)
-
-    def __repr__(self):
-        return str(self.abs)
-
-    channels = ['r', 'g', 'b']
-
-    def __init__(self, theme_color_1, theme_color_2):
-        color_list_1 = color_list_from_hex(theme_color_1)
-        color_list_2 = color_list_from_hex(theme_color_2)
-        for channel_index, channel_1_text in enumerate(color_list_1):
-            channel_1 = hex_to_int(channel_1_text)
-            channel_2 = hex_to_int(color_list_2[channel_index])
-            setattr(self, self.channels[channel_index], channel_1-channel_2)
-
-    def apply_to(self, color_text):
-        color_list = color_list_from_hex(color_text)
-        result = ''
-        for channel_index, channel_text in enumerate(color_list):
-            channel = hex_to_int(channel_text)
-            int_result = channel - getattr(self, self.channels[channel_index])
-            if int_result < 0:
-                int_result = 0
-            if int_result > 255:
-                int_result = 255
-            result += int_to_hex(int_result)
-        return result
-
-
-_smallest_diff = ColorDiff("000000", "ffffff")
-
-
-def find_closest_color_raw(color_hex, colors_hex):
-    smallest_diff = _smallest_diff
-    closest_color = None
-    for preset_color in colors_hex:
-        diff = ColorDiff(preset_color, color_hex)
-        if diff.abs < smallest_diff.abs:
-            smallest_diff = diff
-            closest_color = preset_color
-    return closest_color, smallest_diff
-
-
-def find_closest_color(color_hex, colors_hex, highlight=True):
-    smallest_diff = _smallest_diff
+def find_closest_color_key(color_hex, colors_hex, highlight=True):
+    smallest_diff = SMALLEST_DIFF
     smallest_key = None
     highlight_keys = ["color{}".format(i) for i in range(8, 15+1)]
     for preset_key, preset_color in colors_hex.items():
@@ -158,7 +68,7 @@ def generate_theme(  # pylint: disable=too-many-arguments
         _closest_key = theme_hint
         diff = ColorDiff(hex_colors[theme_hint], theme_color)
     else:
-        _closest_key, diff = find_closest_color(
+        _closest_key, diff = find_closest_color_key(
             theme_color, hex_colors, highlight=False
         )
     modified_colors = {

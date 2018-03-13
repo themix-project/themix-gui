@@ -2,11 +2,11 @@ from gi.repository import Gtk
 
 from .theme_model import THEME_MODEL, THEME_MODEL_BY_KEY
 from .palette_cache import PaletteCache
-from .helpers import (
+from .color import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
-    FALLBACK_COLOR
 )
 from .gtk_helpers import GObjectABCMeta, g_abstractproperty, ScaledImage
+from .config import FALLBACK_COLOR
 
 
 def check_value_filter(value_filter_data, colorscheme):
@@ -376,18 +376,9 @@ class ColorListBoxRow(OomoxListBoxRow):
 class ImagePathListBoxRow(OomoxListBoxRow):
 
     def set_value(self, value):
-        with open(value, 'rb') as f:
-            img_bytes = f.read()
+        with open(value, 'rb') as image_file:
+            img_bytes = image_file.read()
             self.value_widget.set_from_bytes(img_bytes)
-        # self.disconnect_changed_signal()
-        # self.value = value
-        # if value:
-            # self.color_entry.set_text(self.value)
-            # self.color_button.set_rgba(convert_theme_color_to_gdk(value))
-        # else:
-            # self.color_entry.set_text(_('<N/A>'))
-            # self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
-        # self.connect_changed_signal()
 
     def __init__(self, display_name, key, callback):
 
@@ -399,7 +390,6 @@ class ImagePathListBoxRow(OomoxListBoxRow):
             callback=callback,
             value_widget=image
         )
-
 
 
 class SeparatorListBoxRow(Gtk.ListBoxRow):
@@ -415,6 +405,7 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(label, True, True, 4)
 
         self.add(hbox)
+
 
 class ThemeColorsList(Gtk.Box):
 

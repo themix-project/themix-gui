@@ -1,7 +1,11 @@
 from .theme_model import THEME_MODEL
-from .helpers import str_to_bool, get_random_theme_color
+from .color import get_random_theme_color
 from .xrdb import XrdbCache
 from .plugin_loader import theme_format_plugins
+
+
+def str_to_bool(value):
+    return value.lower() == 'true'
 
 
 def parse_theme_color_value(result_value):
