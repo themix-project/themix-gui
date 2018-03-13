@@ -50,6 +50,11 @@ class ColorDiff(object):
     def avg(self):
         return self.abs / 3
 
+    @property
+    def sat(self):
+        r, g, b = self.abs_list
+        return abs(r-g)+abs(r-b) + abs(g-r)+abs(g-b) + abs(b-g)+abs(b-r)
+
     def __repr__(self):
         return str(self.abs)
 
