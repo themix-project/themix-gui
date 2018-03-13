@@ -82,8 +82,22 @@ class ColorDiff(object):
         return result
 
 
+_smallest_diff = ColorDiff("000000", "ffffff")
+
+
+def find_closest_color_raw(color_hex, colors_hex):
+    smallest_diff = _smallest_diff
+    closest_color = None
+    for preset_color in colors_hex:
+        diff = ColorDiff(preset_color, color_hex)
+        if diff.abs < smallest_diff.abs:
+            smallest_diff = diff
+            closest_color = preset_color
+    return closest_color, smallest_diff
+
+
 def find_closest_color(color_hex, colors_hex, highlight=True):
-    smallest_diff = ColorDiff("000000", "ffffff")
+    smallest_diff = _smallest_diff
     smallest_key = None
     highlight_keys = ["color{}".format(i) for i in range(8, 15+1)]
     for preset_key, preset_color in colors_hex.items():
