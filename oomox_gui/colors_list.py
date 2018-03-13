@@ -6,7 +6,7 @@ from .helpers import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
     FALLBACK_COLOR
 )
-from .gtk_helpers import GObjectABCMeta, g_abstractproperty
+from .gtk_helpers import GObjectABCMeta, g_abstractproperty, ScaledImage
 
 
 def check_value_filter(value_filter_data, colorscheme):
@@ -373,6 +373,35 @@ class ColorListBoxRow(OomoxListBoxRow):
         )
 
 
+class ImagePathListBoxRow(OomoxListBoxRow):
+
+    def set_value(self, value):
+        with open(value, 'rb') as f:
+            img_bytes = f.read()
+            self.value_widget.set_from_bytes(img_bytes)
+        # self.disconnect_changed_signal()
+        # self.value = value
+        # if value:
+            # self.color_entry.set_text(self.value)
+            # self.color_button.set_rgba(convert_theme_color_to_gdk(value))
+        # else:
+            # self.color_entry.set_text(_('<N/A>'))
+            # self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
+        # self.connect_changed_signal()
+
+    def __init__(self, display_name, key, callback):
+
+        image = ScaledImage(width=120)
+
+        super().__init__(
+            display_name=display_name,
+            key=key,
+            callback=callback,
+            value_widget=image
+        )
+
+
+
 class SeparatorListBoxRow(Gtk.ListBoxRow):
 
     def __init__(self, display_name):
@@ -386,7 +415,6 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
         hbox.pack_start(label, True, True, 4)
 
         self.add(hbox)
-
 
 class ThemeColorsList(Gtk.Box):
 
@@ -453,6 +481,8 @@ class ThemeColorsList(Gtk.Box):
                 )
             elif theme_value['type'] == 'separator':
                 row = SeparatorListBoxRow(display_name)
+            elif theme_value['type'] == 'image_path':
+                row = ImagePathListBoxRow(display_name, key, callback)
             elif theme_value['type'] == 'options':
                 row = OptionsListBoxRow(
                     key=key,
@@ -486,7 +516,7 @@ class ThemeColorsList(Gtk.Box):
                 if not check_value_filter(theme_value['value_filter'], theme):
                     row.hide()
                     continue
-            if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float']:
+            if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float', 'image_path']:
                 row.set_value(self.theme[key])
             row.show()
 
