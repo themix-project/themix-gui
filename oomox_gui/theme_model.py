@@ -2,7 +2,7 @@ import os
 
 from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import (
-    theme_plugins, icons_plugins, export_plugins, theme_format_plugins,
+    theme_plugins, icons_plugins, export_plugins, import_plugins,
 )
 
 
@@ -84,7 +84,7 @@ merge_model_with_base(
     whole_theme_model=THEME_MODEL,
     plugin_model_name='gtk',
     value_filter_key='FROM_PLUGIN',
-    plugins=theme_format_plugins,
+    plugins=import_plugins,
 )
 
 BASE_THEME_MODEL_GTK = [

@@ -14,5 +14,5 @@
 	path = plugins/oomoxify
 	url = https://github.com/actionless/oomoxify.git
 [submodule "base16-builder"]
-	path = plugins/format_base16/base16-data
+	path = plugins/import_base16/base16-data
 	url = https://github.com/base16-builder/base16-builder

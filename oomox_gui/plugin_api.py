@@ -53,13 +53,6 @@ class OomoxIconsPlugin(OomoxPlugin):
         pass
 
 
-class OomoxImportPlugin(OomoxPlugin):
-
-    @abstractproperty
-    def import_dialog(self):
-        pass
-
-
 class OomoxExportPlugin(OomoxPlugin):
 
     @abstractproperty
@@ -69,7 +62,11 @@ class OomoxExportPlugin(OomoxPlugin):
     theme_model_extra = []
 
 
-class OomoxThemeFormatPlugin(OomoxPlugin):
+class OomoxImportPlugin(OomoxPlugin):
+
+    # @abstractproperty
+    # def import_dialog(self):
+        # pass
 
     @abstractproperty
     def file_extension(self):

@@ -1,7 +1,7 @@
 from .theme_model import THEME_MODEL
 from .color import get_random_theme_color
 from .xrdb import XrdbCache
-from .plugin_loader import theme_format_plugins
+from .plugin_loader import import_plugins
 
 
 def str_to_bool(value):
@@ -56,7 +56,7 @@ def read_colorscheme_from_path(preset_path):
     colorscheme = {}
 
     from_plugin = None
-    for plugin_name, plugin in theme_format_plugins.items():
+    for plugin_name, plugin in import_plugins.items():
         if preset_path.endswith(plugin.file_extension):
             colorscheme = plugin.read_colorscheme_from_path(preset_path)
             from_plugin = plugin_name

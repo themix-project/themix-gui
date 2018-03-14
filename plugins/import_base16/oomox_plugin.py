@@ -1,14 +1,14 @@
 import os
 
-from oomox_gui.plugin_api import OomoxThemeFormatPlugin
+from oomox_gui.plugin_api import OomoxImportPlugin
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
-class Plugin(OomoxThemeFormatPlugin):
+class Plugin(OomoxImportPlugin):
 
-    name = 'format_base16'
+    name = 'import_base16'
     display_name = 'Base16 YML format import'
     file_extension = '.yml'
 
@@ -24,7 +24,7 @@ class Plugin(OomoxThemeFormatPlugin):
             'display_name': _('Override Base16 template:'),
             'type': 'separator',
             'value_filter': {
-                'FROM_PLUGIN': 'format_base16',
+                'FROM_PLUGIN': 'import_base16',
             },
         },
     ]
