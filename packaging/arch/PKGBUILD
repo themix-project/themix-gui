@@ -44,11 +44,8 @@ depends=(
 	'gtk-engine-murrine'
 	'gtk-engines'
 	'polkit'
-	'parallel'
-	'optipng'
 	'librsvg'
 	'imagemagick'
-	'inkscape'
 )
 makedepends=(
 	'git'
@@ -57,6 +54,9 @@ optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
 	'breeze-icons: more fallback icons'
 	'gksu: for applying Spotify theme from GUI without polkit'
+	'parallel: for Materia theme'
+	'optipng: for Materia theme'
+	'inkscape: for Materia theme'
 )
 options=(
 	'!strip'
