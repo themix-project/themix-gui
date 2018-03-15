@@ -64,8 +64,14 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
     )
 
 
-THEME_MODEL = [
-    {
+THEME_MODEL = []
+merge_model_with_base(
+    whole_theme_model=THEME_MODEL,
+    plugin_model_name='import',
+    value_filter_key='FROM_PLUGIN',
+    plugins=import_plugins,
+)
+THEME_MODEL += [{
         'key': 'THEME_STYLE',
         'type': 'options',
         'options': [
@@ -80,12 +86,6 @@ THEME_MODEL = [
         'display_name': _('Theme style'),
     },
 ]
-merge_model_with_base(
-    whole_theme_model=THEME_MODEL,
-    plugin_model_name='gtk',
-    value_filter_key='FROM_PLUGIN',
-    plugins=import_plugins,
-)
 
 BASE_THEME_MODEL_GTK = [
     {

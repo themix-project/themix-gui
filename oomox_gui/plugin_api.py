@@ -76,4 +76,4 @@ class OomoxImportPlugin(OomoxPlugin):
     def read_colorscheme_from_path(self, preset_path):
         pass
 
-    theme_model_gtk = []
+    theme_model_import = []

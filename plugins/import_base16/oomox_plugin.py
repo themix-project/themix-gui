@@ -12,16 +12,23 @@ class Plugin(OomoxImportPlugin):
     display_name = 'Base16 YML format import'
     file_extension = '.yml'
 
-    theme_model_gtk = [
+    theme_model_import = [
+        {
+            'display_name': _('Import Base16 colortheme:'),
+            'type': 'separator',
+            'value_filter': {
+                'FROM_PLUGIN': 'import_base16',
+            },
+        },
         {
             'key': 'BASE16_GENERATE_DARK',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('Generate dark Base16 variant'),
+            'display_name': _('Generate dark GUI variant'),
             'reload_theme': True,
         },
         {
-            'display_name': _('Override Base16 template:'),
+            'display_name': _('Theme options:'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': 'import_base16',
