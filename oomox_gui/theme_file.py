@@ -46,9 +46,9 @@ def save_colorscheme(preset_name, colorscheme, path=None):
             if (
                     key not in ('NOGUI', )
             ) and (
-                    not key.startswith('_')
+                not key.startswith('_')
             ) and (
-                    value is not None
+                value is not None
             ):
                 file_object.write("{}={}\n".format(
                     key, value

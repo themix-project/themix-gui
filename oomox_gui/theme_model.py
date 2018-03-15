@@ -71,7 +71,8 @@ merge_model_with_base(
     value_filter_key='FROM_PLUGIN',
     plugins=import_plugins,
 )
-THEME_MODEL += [{
+THEME_MODEL = THEME_MODEL + [
+    {
         'key': 'THEME_STYLE',
         'type': 'options',
         'options': [
