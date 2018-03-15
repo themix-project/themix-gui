@@ -43,7 +43,13 @@ def save_colorscheme(preset_name, colorscheme, path=None):
         mkdir_p(os.path.dirname(path))
     with open(path, 'w') as file_object:
         for key, value in sorted(colorscheme.items()):
-            if key not in ('NOGUI', ) and value is not None:
+            if (
+                    key not in ('NOGUI', )
+            ) and (
+                    not key.startswith('_')
+            ) and (
+                    value is not None
+            ):
                 file_object.write("{}={}\n".format(
                     key, value
                 ))
