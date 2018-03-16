@@ -2,8 +2,11 @@ import os
 
 from gi.repository import Gtk
 
-from oomox_gui.export_common import GtkThemeExportDialog, OPTION_GTK2_HIDPI
+from oomox_gui.export_common import OPTION_GTK2_HIDPI, GtkThemeExportDialog
 from oomox_gui.plugin_api import OomoxThemePlugin
+
+
+OPTION_GTK3_CURRENT_VERSION_ONLY = 'OPTION_GTK3_CURRENT_VERSION_ONLY'
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -12,21 +15,40 @@ GTK_THEME_DIR = os.path.join(PLUGIN_DIR, "gtk-theme/")
 
 class OomoxThemeExportDialog(GtkThemeExportDialog):
     timeout = 100
+    config_name = 'gtk_theme_oomox'
 
     def do_export(self):
-        if Gtk.get_minor_version() >= 20:
-            make_opts = "gtk320"
-        else:
-            make_opts = "gtk3"
         self.command = [
             "bash",
             os.path.join(GTK_THEME_DIR, "change_color.sh"),
-            "--make-opts", make_opts,
             "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
             "--output", self.theme_name,
             self.temp_theme_path,
         ]
+        if self.export_config[OPTION_GTK3_CURRENT_VERSION_ONLY]:
+            if Gtk.get_minor_version() >= 20:
+                make_opts = "gtk320"
+            else:
+                make_opts = "gtk3"
+            self.command += [
+                "--make-opts", make_opts,
+            ]
+        print(self.command)
         super().do_export()
+
+    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+        super().__init__(
+            transient_for=transient_for,
+            colorscheme=colorscheme,
+            theme_name=theme_name,
+            add_options={
+                OPTION_GTK3_CURRENT_VERSION_ONLY: {
+                    'default': False,
+                    'display_name': _("Generate theme only for the _current GTK+3 version"),
+                },
+            },
+            **kwargs
+        )
 
 
 class Plugin(OomoxThemePlugin):
