@@ -2,8 +2,8 @@
 # Upstream URL: https://github.com/actionless/oomox
 
 pkgname=oomox-git
-pkgver=1.5.0.5
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="Graphical application for generating different color variations
 of Numix and Materia (ex-Flat-Plat) themes (GTK2, GTK3),
 gnome-colors and ArchDroid icon themes.
