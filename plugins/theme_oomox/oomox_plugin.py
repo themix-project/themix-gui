@@ -32,6 +32,8 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
                 make_opts += ["gtk320"]
             else:
                 make_opts += ["gtk3"]
+        else:
+            make_opts += ["gtk3", "gtk320"]
         if self.export_config[OPTION_EXPORT_CINNAMON_THEME]:
             make_opts += ["css_cinnamon"]
         if make_opts:
