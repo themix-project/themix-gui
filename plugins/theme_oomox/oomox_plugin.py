@@ -48,7 +48,8 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             add_options={
                 OPTION_GTK3_CURRENT_VERSION_ONLY: {
                     'default': False,
-                    'display_name': _("Generate theme only for the current _GTK+3 version"),
+                    'display_name': _("Generate theme only for the current _GTK+3 version\n"
+                                      "instead of both 3.18 and 3.20+"),
                 },
                 # OPTION_EXPORT_CINNAMON_THEME: {
                     # 'default': False,
