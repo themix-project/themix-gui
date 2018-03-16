@@ -11,7 +11,8 @@ class ExportConfig(object):
     config = None
     default_config = None
 
-    def __init__(self, default_config=None):
+    def __init__(self, config_name, default_config=None):
+        self.name = config_name
         self.default_config = default_config
         self.config = self.default_config or {}
         self.config_path = os.path.join(
@@ -23,7 +24,8 @@ class ExportConfig(object):
     def load(self):
         try:
             with open(self.config_path, 'r') as file_object:
-                self.config = json.load(file_object)
+                for key, value in json.load(file_object).items():
+                    self.config[key] = value
         except FileNotFoundError:
             pass
         return self.config

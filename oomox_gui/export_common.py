@@ -191,38 +191,55 @@ def export_terminal_theme(transient_for, colorscheme):
 OPTION_GTK2_HIDPI = 'gtk2_hidpi'
 
 
-class GtkThemeExportConfig(ExportConfig):
-    name = 'gtk_theme'
-
-
 class GtkThemeExportDialog(FileBasedExportDialog):
 
-    def on_hidpi_checkbox_toggled(self, widget):
-        self.export_config[OPTION_GTK2_HIDPI] = widget.get_active()
+    config_name = 'gtk_theme'
 
-    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+    def _create_option_checkbox_callback(self, option_id):
+        def callback(widget):
+            self.export_config[option_id] = widget.get_active()
+        return callback
+
+    def __init__(
+            self, transient_for, colorscheme, theme_name,
+            add_options=None,
+            **kwargs
+    ):
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
             **kwargs
         )
 
-        self.export_config = GtkThemeExportConfig({
-            OPTION_GTK2_HIDPI: False,
-        })
+        export_options = {
+            OPTION_GTK2_HIDPI: {
+                'default': False,
+                'display_name': _("Generate 2x scaled (_HiDPI) assets for GTK+2"),
+            },
+        }
+        if add_options:
+            export_options.update(add_options)
+        self.export_config = ExportConfig(
+            config_name=self.config_name,
+            default_config={
+                option_name: option['default']
+                for option_name, option in export_options.items()
+            }
+        )
 
         self.label.set_text(_("Please choose theme export options:"))
 
-        self.hidpi_checkbox = \
-            Gtk.CheckButton.new_with_mnemonic(
-                _("Generate 2x scaled (_HiDPI) assets for GTK+2")
+        for option_name, option in export_options.items():
+            checkbox = \
+                Gtk.CheckButton.new_with_mnemonic(
+                    option['display_name']
+                )
+            checkbox.connect(
+                "toggled", self._create_option_checkbox_callback(option_name)
             )
-        self.hidpi_checkbox.connect(
-            "toggled", self.on_hidpi_checkbox_toggled
-        )
-        self.hidpi_checkbox.set_active(
-            self.export_config[OPTION_GTK2_HIDPI]
-        )
-        self.options_box.add(self.hidpi_checkbox)
+            checkbox.set_active(
+                self.export_config[option_name]
+            )
+            self.options_box.add(checkbox)
 
         self.box.add(self.options_box)
         self.options_box.show_all()
