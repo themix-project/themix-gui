@@ -7,6 +7,7 @@ from oomox_gui.plugin_api import OomoxThemePlugin
 
 
 OPTION_GTK3_CURRENT_VERSION_ONLY = 'OPTION_GTK3_CURRENT_VERSION_ONLY'
+OPTION_EXPORT_CINNAMON_THEME = 'OPTION_EXPORT_CINNAMON_THEME'
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -25,15 +26,18 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             "--output", self.theme_name,
             self.temp_theme_path,
         ]
+        make_opts = []
         if self.export_config[OPTION_GTK3_CURRENT_VERSION_ONLY]:
             if Gtk.get_minor_version() >= 20:
-                make_opts = "gtk320"
+                make_opts += ["gtk320"]
             else:
-                make_opts = "gtk3"
+                make_opts += ["gtk3"]
+        # if self.export_config[OPTION_EXPORT_CINNAMON_THEME]:
+            # make_opts += ["css_cinnamon"]
+        if make_opts:
             self.command += [
-                "--make-opts", make_opts,
+                "--make-opts", " ".join(make_opts),
             ]
-        print(self.command)
         super().do_export()
 
     def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
@@ -44,8 +48,12 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
             add_options={
                 OPTION_GTK3_CURRENT_VERSION_ONLY: {
                     'default': False,
-                    'display_name': _("Generate theme only for the _current GTK+3 version"),
+                    'display_name': _("Generate theme only for the current _GTK+3 version"),
                 },
+                # OPTION_EXPORT_CINNAMON_THEME: {
+                    # 'default': False,
+                    # 'display_name': _("Generate theme for _Cinnamon"),
+                # },
             },
             **kwargs
         )
