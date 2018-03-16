@@ -66,10 +66,7 @@ class Plugin(OomoxThemePlugin):
             'type': 'float',
             'fallback_value': 0.6,
             'max_value': 1.0,
-            'display_name': _('Gnome Shell panel opacity'),
-            'value_filter': {
-                'THEME_STYLE': 'materia'
-            },
+            'display_name': _('(Gnome Shell) Panel opacity'),
         },
     ]
 

@@ -32,8 +32,8 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
                 make_opts += ["gtk320"]
             else:
                 make_opts += ["gtk3"]
-        # if self.export_config[OPTION_EXPORT_CINNAMON_THEME]:
-            # make_opts += ["css_cinnamon"]
+        if self.export_config[OPTION_EXPORT_CINNAMON_THEME]:
+            make_opts += ["css_cinnamon"]
         if make_opts:
             self.command += [
                 "--make-opts", " ".join(make_opts),
@@ -51,10 +51,10 @@ class OomoxThemeExportDialog(GtkThemeExportDialog):
                     'display_name': _("Generate theme only for the current _GTK+3 version\n"
                                       "instead of both 3.18 and 3.20+"),
                 },
-                # OPTION_EXPORT_CINNAMON_THEME: {
-                    # 'default': False,
-                    # 'display_name': _("Generate theme for _Cinnamon"),
-                # },
+                OPTION_EXPORT_CINNAMON_THEME: {
+                    'default': False,
+                    'display_name': _("Generate theme for _Cinnamon"),
+                },
             },
             **kwargs
         )
@@ -121,6 +121,13 @@ class Plugin(OomoxThemePlugin):
             'type': 'bool',
             'fallback_value': False,
             'display_name': _('(Unity) Use default launcher style'),
+        },
+        {
+            'key': 'CINNAMON_OPACITY',
+            'type': 'float',
+            'fallback_value': 1.0,
+            'max_value': 1.0,
+            'display_name': _('(Cinnamon) Opacity'),
         },
     ]
 
