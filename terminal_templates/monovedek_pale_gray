@@ -1,0 +1,51 @@
+! subtle medium bg:
+!*background: #232028
+! neutral dark gray:
+!*background: #181818
+! darker than usual:
+!*background: #070010
+! sorta solarized-ish but darker:
+!*background: #090f18
+! classic:
+*background: #0f0f0f
+URxvt*background: [95]#0f0f0f
+xterm*background: #0f0f0f
+
+!*foreground:        #bcbcbc
+*foreground:        #d0d2cd
+
+*cursorColor:       #AE81FF
+*colorUL:           #ffffff
+*underlineColor:    #ffffff
+!black
+*color0:	#181a15
+*color8:	#465457
+!*color8:	#4e4051
+!red
+*color1:	#aa3683
+*color9:	#c57595
+!green
+*color2:	#83aa36
+*color10:	#95c575
+!yellow
+!*color3:	#aa8336
+!*color3:	#ab6327
+*color3:	#b36829
+*color11:	#c59575
+!blue
+!*color4:	#8336aa
+*color4:	#6f36be
+!*color12:	#9575c5
+*color12:	#8175d9
+!purple
+*color5:	#963696
+*color13:	#ad75ad
+!cyan
+*color6:	#46a696
+!*color14:	#65bdad
+*color14:	#7bbaaf
+!white
+*color7:	#888a85
+*color15:	#bbbcb7
+
+! vim:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
