@@ -63,18 +63,24 @@ class ScaledImage(Gtk.Image):
         super().__init__(*args, **kwargs)
         if not width or height:
             raise TypeError('Either "width" or "height" should be set')
-        self.orig_width = width
-        self.orig_height = height
+        self._set_orig_dimensions(width=width, height=height)
         style_context = self.get_style_context()
         self.scale_factor = style_context.get_scale()
 
+    def _set_orig_dimensions(self, width=None, height=None):
+        if width:
+            self.orig_width = width
+        if height:
+            self.orig_height = height
+
     def do_draw(self, cr):  # pylint: disable=arguments-differ
-        cr.scale(1/self.scale_factor, 1/self.scale_factor)
-        cr.translate(
-            self.oomox_width - self.oomox_width/self.scale_factor,
-            self.oomox_height - self.oomox_height/self.scale_factor
-        )
-        Gtk.Image.do_draw(self, cr)
+        if self.oomox_width:
+            cr.scale(1/self.scale_factor, 1/self.scale_factor)
+            cr.translate(
+                self.oomox_width - self.oomox_width/self.scale_factor,
+                self.oomox_height - self.oomox_height/self.scale_factor
+            )
+            Gtk.Image.do_draw(self, cr)
 
     def do_get_preferred_width(self):  # pylint: disable=arguments-differ
         if self.oomox_width:
@@ -86,7 +92,8 @@ class ScaledImage(Gtk.Image):
             return self.oomox_height, self.oomox_height
         return Gtk.Image.do_get_preferred_height(self)
 
-    def set_from_bytes(self, bytes_sequence):
+    def set_from_bytes(self, bytes_sequence, width=None, height=None):
+        self._set_orig_dimensions(width=width, height=height)
         stream = Gio.MemoryInputStream.new_from_bytes(
             GLib.Bytes.new(bytes_sequence)
         )
