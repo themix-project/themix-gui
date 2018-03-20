@@ -97,20 +97,18 @@ class PreviewWidgets():
         self.label = Gtk.Label(label=_("This is a label."))
         self.sel_label = Gtk.Label(label=_("Selected item."))
         self.entry = Gtk.Entry(text=_("Text entry."))
+        self.button = Gtk.Button(label=_("Click-click"))
 
         self.preview_imageboxes = {}
         self.preview_imageboxes_templates = {}
         self.preview_imageboxes['CHECKBOX'] = ScaledImage(width=16)
 
-        self.button = Gtk.Button(label=_("Click-click"))
-
-        self.background.attach(headerbox, 1, 1, 5, 2)
         fake_checkbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-        # self.background.attach(self.preview_imageboxes['CHECKBOX'], 1, 3, 1, 1)
-        # self.background.attach(self.label, 3, 3, 1, 1)
         fake_checkbox.pack_start(self.preview_imageboxes['CHECKBOX'], False, False, 0)
         fake_checkbox.pack_start(self.label, False, False, 0)
         fake_checkbox.set_margin_left(20)
+
+        self.background.attach(headerbox, 1, 1, 5, 2)
         self.background.attach(fake_checkbox, 3, 3, 1, 1)
         self.background.attach_next_to(
             self.sel_label, fake_checkbox, Gtk.PositionType.BOTTOM, 1, 1
@@ -135,9 +133,6 @@ class PreviewWidgets():
         return menu
 
     def load_imageboxes_templates(self, theme_plugin):
-        # if theme_plugin.name == self.theme_plugin_name:
-            # return
-        self.icons_plugin_name = theme_plugin.name
         for icon in theme_plugin.PreviewImageboxesNames:
             template_path = "{}.svg.template".format(icon.value)
             with open(

@@ -49,8 +49,9 @@ class OomoxThemePlugin(OomoxPlugin):
     }
 
     def preview_transform_function(self, svg_template, colorscheme):
+        # pylint: disable=no-self-use
         for key in (
-            "SEL_BG", "ACCENT_BG", "TXT_BG", "BG", "FG",
+                "SEL_BG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):
             svg_template = svg_template.replace(
                 "%{}%".format(key), colorscheme.get(key) or FALLBACK_COLOR

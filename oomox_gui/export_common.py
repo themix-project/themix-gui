@@ -15,7 +15,7 @@ from .terminal import (
 from .gtk_helpers import CenterLabel
 
 
-class ExportDialog(Gtk.Dialog):  # pylint: disable=too-many-instance-attributes
+class ExportDialog(Gtk.Dialog):
 
     command = None
     timeout = 120
