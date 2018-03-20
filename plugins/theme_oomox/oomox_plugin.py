@@ -68,7 +68,7 @@ class Plugin(OomoxThemePlugin):
     display_name = 'Numix-based'
     description = '(GTK+2, GTK+3, Cinnamon, Metacity, Openbox, Qt5ct, Unity, Xfwm)'
     export_dialog = OomoxThemeExportDialog
-    gtk_preview_css_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
+    gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
 
     enabled_keys_gtk = [
         'BG',

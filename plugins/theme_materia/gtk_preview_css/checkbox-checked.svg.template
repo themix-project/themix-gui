@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="133pt" height="133pt" viewBox="0 0 24 24" version="1.1">
+<defs>
+    <linearGradient
+       id="color-accent">
+      <stop
+         stop-color="#%ACCENT_BG%"
+         id="stop34" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#color-accent"
+       id="linearGradient6158"
+       gradientUnits="userSpaceOnUse"
+       x1="40"
+       y1="8"
+       x2="64"
+       y2="8" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath5656">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#g5652"
+         id="use5658"
+         width="100%"
+         height="100%" />
+    </clipPath>
+    <path
+       id="checkbox-checked-path"
+       d="M 19,3 H 5 C 3.89,3 3,3.9 3,5 v 14 c 0,1.1 0.89,2 2,2 h 14 c 1.11,0 2,-0.9 2,-2 V 5 C 21,3.9 20.11,3 19,3 Z M 10,17 5,12 6.41,10.59 10,14.17 17.59,6.58 19,8 Z"
+       inkscape:connector-curvature="0" />
+</defs>
+    <g
+       id="base-checkbox-checked">
+      <use
+         xlink:href="#button-fill"
+         id="use139"
+         style="opacity:0"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         xlink:href="#checkbox-checked-path"
+         id="use141"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </g>
+  <g
+     id="g5843"
+     transform="translate(-40,-8)"
+     style="display:inline"
+     inkscape:groupmode="layer">
+    <g
+       clip-path="url(#clipPath5656)"
+       id="g5654">
+      <g
+         id="g5652"
+         inkscape:label="Clip">
+        <use
+           x="40"
+           y="8"
+           xlink:href="#base-checkbox-checked"
+           id="checkbox-checked"
+           style="fill:url(#linearGradient6158);fill-opacity:1"
+           width="100%"
+           height="100%" />
+      </g>
+    </g>
+  </g>
+</svg>

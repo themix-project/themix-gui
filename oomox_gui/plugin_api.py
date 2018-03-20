@@ -1,4 +1,7 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
+from enum import Enum
+
+from oomox_gui.config import FALLBACK_COLOR
 
 
 class OomoxPlugin(object, metaclass=ABCMeta):
@@ -23,7 +26,7 @@ class OomoxThemePlugin(OomoxPlugin):
         pass
 
     @abstractproperty
-    def gtk_preview_css_dir(self):
+    def gtk_preview_dir(self):
         pass
 
     enabled_keys_gtk = []
@@ -37,6 +40,22 @@ class OomoxThemePlugin(OomoxPlugin):
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         pass
+
+    class PreviewImageboxesNames(Enum):
+        CHECKBOX = 'checkbox-checked'
+
+    preview_sizes = {
+        PreviewImageboxesNames.CHECKBOX.name: 16,
+    }
+
+    def preview_transform_function(self, svg_template, colorscheme):
+        for key in (
+            "SEL_BG", "ACCENT_BG", "TXT_BG", "BG", "FG",
+        ):
+            svg_template = svg_template.replace(
+                "%{}%".format(key), colorscheme.get(key) or FALLBACK_COLOR
+            )
+        return svg_template
 
 
 class OomoxIconsPlugin(OomoxPlugin):

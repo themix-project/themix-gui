@@ -28,7 +28,10 @@ class Plugin(OomoxThemePlugin):
     display_name = 'Materia'
     description = '(GTK+2, GTK+3, Gnome Shell, Metacity, Unity, Xfwm)'
     export_dialog = MateriaThemeExportDialog
-    gtk_preview_css_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
+    gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
+    preview_sizes = {
+        OomoxThemePlugin.PreviewImageboxesNames.CHECKBOX.name: 24,
+    }
 
     enabled_keys_gtk = [
         'BG',

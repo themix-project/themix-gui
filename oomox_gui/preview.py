@@ -6,6 +6,7 @@ from .theme_model import THEME_MODEL
 from .color import (
     convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors,
 )
+from .gtk_helpers import ScaledImage
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
 from .config import FALLBACK_COLOR
@@ -71,6 +72,8 @@ class PreviewWidgets():
     label = None
     sel_label = None
     entry = None
+    preview_imageboxes = None
+    preview_imageboxes_templates = None
     button = None
 
     def __init__(self):
@@ -95,12 +98,22 @@ class PreviewWidgets():
         self.sel_label = Gtk.Label(label=_("Selected item."))
         self.entry = Gtk.Entry(text=_("Text entry."))
 
+        self.preview_imageboxes = {}
+        self.preview_imageboxes_templates = {}
+        self.preview_imageboxes['CHECKBOX'] = ScaledImage(width=16)
+
         self.button = Gtk.Button(label=_("Click-click"))
 
         self.background.attach(headerbox, 1, 1, 5, 2)
-        self.background.attach(self.label, 3, 3, 1, 1)
+        fake_checkbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        # self.background.attach(self.preview_imageboxes['CHECKBOX'], 1, 3, 1, 1)
+        # self.background.attach(self.label, 3, 3, 1, 1)
+        fake_checkbox.pack_start(self.preview_imageboxes['CHECKBOX'], False, False, 0)
+        fake_checkbox.pack_start(self.label, False, False, 0)
+        fake_checkbox.set_margin_left(20)
+        self.background.attach(fake_checkbox, 3, 3, 1, 1)
         self.background.attach_next_to(
-            self.sel_label, self.label, Gtk.PositionType.BOTTOM, 1, 1
+            self.sel_label, fake_checkbox, Gtk.PositionType.BOTTOM, 1, 1
         )
         self.background.attach_next_to(
             self.entry, self.sel_label, Gtk.PositionType.BOTTOM, 1, 1
@@ -120,6 +133,31 @@ class PreviewWidgets():
             if has_submenus and (i + 1) % 2 == 0:
                 item.set_submenu(self.create_menu(2))
         return menu
+
+    def load_imageboxes_templates(self, theme_plugin):
+        # if theme_plugin.name == self.theme_plugin_name:
+            # return
+        self.icons_plugin_name = theme_plugin.name
+        for icon in theme_plugin.PreviewImageboxesNames:
+            template_path = "{}.svg.template".format(icon.value)
+            with open(
+                os.path.join(
+                    theme_plugin.gtk_preview_dir, template_path
+                ), "rb"
+            ) as file_object:
+                self.preview_imageboxes_templates[icon.name] = file_object.read().decode('utf-8')
+
+    def update_preview_imageboxes(self, colorscheme, theme_plugin):
+        transform_function = theme_plugin.preview_transform_function
+        self.load_imageboxes_templates(theme_plugin)
+        for icon in theme_plugin.PreviewImageboxesNames:
+            new_svg_image = transform_function(
+                self.preview_imageboxes_templates[icon.name],
+                colorscheme
+            ).encode('ascii')
+            self.preview_imageboxes[icon.name].set_from_bytes(
+                new_svg_image, width=theme_plugin.preview_sizes[icon.name]
+            )
 
 
 def _get_menu_widgets(shell):
@@ -448,6 +486,7 @@ class ThemePreview(Gtk.Grid):
         self.update_preview_borders(colorscheme_with_fallbacks)
         self.update_preview_carets(colorscheme_with_fallbacks)
         self.update_preview_gradients(colorscheme_with_fallbacks)
+        self.gtk_preview.update_preview_imageboxes(colorscheme_with_fallbacks, theme_plugin)
 
         self.icons_preview.update_preview(colorscheme, icons_plugin)
         self.terminal_preview.update_preview(colorscheme)
@@ -456,7 +495,7 @@ class ThemePreview(Gtk.Grid):
         css_name = "theme{}.css".format(
             '20' if Gtk.get_minor_version() >= 20 else ''
         )
-        css_dir = theme_plugin.gtk_preview_css_dir
+        css_dir = theme_plugin.gtk_preview_dir
         css_path = os.path.join(css_dir, css_name)
         css_provider = self.css_providers.theme.get(css_path)
         if css_provider:
