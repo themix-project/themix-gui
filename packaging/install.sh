@@ -30,10 +30,10 @@ rm -rf "${pkgdir}/opt/oomox/plugins/oomoxify/".git*
 rm -rf "${pkgdir}/opt/oomox/plugins"/*/*/.git*
 rm -rf "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/".editorconfig
 rm -rf "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/".*.yml
-rm -r "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"{D,d}ocker*
-rm -r "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"maintenance*
-rm -r "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"screenshot*
-rm -r "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"test*
+rm -rf "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"{D,d}ocker*
+rm -rf "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"maintenance*
+rm -rf "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"screenshot*
+rm -rf "${pkgdir}/opt/oomox/plugins/theme_oomox/gtk-theme/"test*
 
 cd "${pkgdir}/opt/oomox/"
 # will update ./po and produce ./locale dir:
