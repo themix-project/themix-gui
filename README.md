@@ -89,25 +89,59 @@ For older Ubuntu releases install the dependencies manually and next follow gene
 
 #### Prerequisites
 
-You need to have `python3-gobject` binding and those libraries/executables:
+For GUI app itself:
+ - `python3-gobject`
  - `gtk3>=3.18`
- - `glib-compile-schemas` from `glib2` - for Oomox and Materia themes
- - `gdk-pixbuf-pixdata` from `gdk-pixbuf2`
- - `sassc>=3.4` - for Oomox and Materia themes
- - `bc` - for Oomox and Materia themes, Gnome-Colors icons and spotify theme
- - `sed` - for Oomox and Materia themes, Gnome-Colors and Archdroid icons
- - `find` - for Oomox and Materia themes, Gnome-Colors and Archdroid icons
- - `grep` - for Oomox and Materia themes, Gnome-Colors icons and spotify theme
- - `rsvg-convert` from `librsvg` - for Oomox theme and Gnome-Colors icons
- - `imagemagick` - for Gnome-Colors icons
- - `polkit` or `gksu` - for spotify theme
- - `zip` - for spotify theme
- - `optipng` - for Materia theme
- - `parallel` - for Materia theme
- - `inkscape` - for Materia theme
- - `python3 PIL or Pillow` - for plugin which imports colors from the images
+ - `gdk-pixbuf2`
+ - `xorg-xrdb` - optional, for xresources themes
 
-For GTK+2 themes you need murrine engine which can be not installed by default.
+##### For plugins:
+
+Oomox theme:
+ - `sassc>=3.4`
+ - `rsvg-convert` from `librsvg`
+ - `glib-compile-schemas` from `glib2`
+ - `gdk-pixbuf2`
+ - `bc`
+ - `sed`
+ - `find`
+ - `grep`
+
+Materia theme:
+ - `sassc>=3.4`
+ - `glib-compile-schemas` from `glib2`
+ - `gdk-pixbuf2`
+ - `bc`
+ - `sed`
+ - `find`
+ - `grep`
+ - `optipng`
+ - `parallel`
+ - `inkscape`
+ - `gtk2-engine-murrine`
+
+Gnome-Colors icons:
+ - `bc`
+ - `sed`
+ - `find`
+ - `grep`
+ - `rsvg-convert` from `librsvg`
+ - `imagemagick`
+ - `breeze-icons` - optional, to provide more fallbacks
+
+Archdroid icons:
+ - `sed`
+ - `find`
+ - `breeze-icons` - optional, to provide more fallbacks
+
+Spotify theme:
+ - `polkit` or `gksu`
+ - `zip`
+ - `bc`
+ - `grep`
+
+Import colors from images:
+ - `python3 PIL or Pillow`
 
 #### Installation
 
