@@ -90,20 +90,24 @@ For older Ubuntu releases install the dependencies manually and next follow gene
 #### Prerequisites
 
 You need to have `python3-gobject` binding and those libraries/executables:
- - `glib-compile-schemas`
- - `gdk-pixbuf-pixdata`
- - `sassc>=3.4`
  - `gtk3>=3.18`
- - `bc`
- - `sed`
- - `rsvg-convert` from `librsvg`
- - `imagemagick`
- - `zip` - optional, for spotify theme
- - `optipng` - optional, for Materia theme
- - `parallel` - optional, for Materia theme
- - `inkscape` - optional, for Materia theme
+ - `glib-compile-schemas` from `glib2` - for Oomox and Materia themes
+ - `gdk-pixbuf-pixdata` from `gdk-pixbuf2`
+ - `sassc>=3.4` - for Oomox and Materia themes
+ - `bc` - for Oomox and Materia themes, Gnome-Colors icons and spotify theme
+ - `sed` - for Oomox and Materia themes, Gnome-Colors and Archdroid icons
+ - `find` - for Oomox and Materia themes, Gnome-Colors and Archdroid icons
+ - `grep` - for Oomox and Materia themes, Gnome-Colors icons and spotify theme
+ - `rsvg-convert` from `librsvg` - for Oomox theme and Gnome-Colors icons
+ - `imagemagick` - for Gnome-Colors icons
+ - `polkit` or `gksu` - for spotify theme
+ - `zip` - for spotify theme
+ - `optipng` - for Materia theme
+ - `parallel` - for Materia theme
+ - `inkscape` - for Materia theme
+ - `python3 PIL or Pillow` - for plugin which imports colors from the images
 
-For GTK2 you need murrine engine which can be not installed by default.
+For GTK+2 themes you need murrine engine which can be not installed by default.
 
 #### Installation
 
