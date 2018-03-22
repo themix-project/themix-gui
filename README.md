@@ -30,7 +30,9 @@ Other topics:
 #### Install
 
 ```
-pikaur -S oomox-git
+git clone https://aur.archlinux.org/oomox.git
+cd oomox
+makepkg -si
 ```
 
 #### Open the GUI
