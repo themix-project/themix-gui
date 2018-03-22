@@ -41,7 +41,7 @@ depends=(
 	'sed'  # oomox, materia, gnome-colors, archdroid
 	'findutils'  # oomox, materia, gnome-colors, arch-droid
 	'grep'  # oomoxify, oomox, materia, gnome-colors
-	'bc'  # oomoxify, oomox, materia
+	'bc'  # oomoxify, oomox, materia, gnome-colors
 	'zip'  # oomoxify
 	'polkit'  # oomoxify
 	'imagemagick'  # gnome-colors
