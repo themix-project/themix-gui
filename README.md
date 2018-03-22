@@ -33,7 +33,7 @@ Other topics:
 pikaur -S oomox-git
 ```
 
-AUR helpers are [not officialy supported](https://wiki.archlinux.org/index.php/AUR_helpers), so you can also [install it manually](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages) from either [rolling-release](https://aur.archlinux.org/oomox-git.git) or [stable](https://aur.archlinux.org/oomox.git) PKGBUILD.
+AUR helpers are [not officialy supported](https://wiki.archlinux.org/index.php/AUR_helpers), so you can also [install it manually](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages) from either [rolling-release](https://aur.archlinux.org/packages/oomox-git/) or [stable](https://aur.archlinux.org/packages/oomox/) PKGBUILD.
 
 #### Open the GUI
 
