@@ -7,7 +7,7 @@ from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.config import TERMINAL_TEMPLATE_DIR
 from oomox_gui.color import (
     hex_to_int, color_list_from_hex, color_hex_from_list,
-    find_closest_color,
+    find_closest_color, hex_darker
 )
 from oomox_gui.terminal import (
     import_xcolors,
@@ -42,13 +42,6 @@ def sort_by_saturation(c):
     return abs(c[0]-c[1])+abs(c[0]-c[2]) + \
         abs(c[1]-c[0])+abs(c[1]-c[2]) + \
         abs(c[2]-c[1])+abs(c[2]-c[0])
-
-
-def hex_darker(color_text, darken_amount=10):
-    return color_hex_from_list([
-        max(min(hex_to_int(channel_text) - darken_amount, 255), 0)
-        for channel_text in color_list_from_hex(color_text)
-    ])
 
 
 def get_gray_colors(palette):

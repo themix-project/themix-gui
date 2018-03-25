@@ -28,6 +28,13 @@ def is_dark(color_text):
     ]) < 384
 
 
+def hex_darker(color_text, darken_amount=10):
+    return color_hex_from_list([
+        max(min(hex_to_int(channel_text) - darken_amount, 255), 0)
+        for channel_text in color_list_from_hex(color_text)
+    ])
+
+
 class ColorDiff(object):
     r = None  # pylint: disable=invalid-name
     g = None  # pylint: disable=invalid-name
