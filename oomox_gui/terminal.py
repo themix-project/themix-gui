@@ -3,7 +3,10 @@ import sys
 import re
 
 from .config import TERMINAL_TEMPLATE_DIR
-from .color import SMALLEST_DIFF, ColorDiff, is_dark
+from .color import (
+    SMALLEST_DIFF, ColorDiff, is_dark,
+    hex_to_int, color_list_from_hex, color_hex_from_list, hex_darker
+)
 
 
 def find_closest_color_key(color_hex, colors_hex, highlight=True):
@@ -54,7 +57,7 @@ def import_xcolors(path):
     return hex_colors
 
 
-def generate_theme(  # pylint: disable=too-many-arguments
+def generate_theme_from_hint(  # pylint: disable=too-many-arguments
         template_path, theme_color, theme_bg, theme_fg,
         theme_hint=None, auto_swap_colors=True
 ):
@@ -90,38 +93,305 @@ def generate_theme(  # pylint: disable=too-many-arguments
     return modified_colors
 
 
+def get_bright_colors(palette, brightness_margin=20):
+    # brightness_margin = 30
+    # brightness_margin = 40
+    list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
+    bright_colors = []
+    for c in list_of_colors:
+        if abs(c[0]-c[1]) > brightness_margin or abs(c[0]-c[2]) > brightness_margin or \
+            abs(c[1]-c[0]) > brightness_margin or abs(c[1]-c[2]) > brightness_margin or \
+                abs(c[2]-c[1]) > brightness_margin or abs(c[2]-c[0]) > brightness_margin:
+            bright_colors.append(c)
+
+    bright_colors.sort(key=sum)
+    bright_colors = [color_hex_from_list(c) for c in bright_colors if 565 > sum(c) > 200]
+    return bright_colors
+
+
+def get_all_colors_from_oomox_colorscheme(palette):
+    from .theme_model import THEME_MODEL
+
+    all_colors = []
+    for theme_model_item in THEME_MODEL:
+        if theme_model_item.get('type') != 'color':
+            continue
+        color_name = theme_model_item.get('key')
+        # if not color_name or color_name.startswith('TERMINAL') or color_name.startswith('ICON'):
+        if not color_name or color_name.startswith('TERMINAL'):
+            continue
+        color_value = palette.get(theme_model_item['key'])
+        if not color_value or color_value in all_colors:
+            continue
+        all_colors.append(color_value)
+    return all_colors
+
+
+class ContinueNext(Exception):
+    pass
+
+
+# @TODO:
+# These two functions are temporary until progressbar API won't be implemented in UI
+def get_term_width() -> int:
+    import shutil
+    return shutil.get_terminal_size((80, 80)).columns
+
+
+class ProgressBar(object):
+
+    message = None
+    print_ratio = None
+    index = 0
+    progress = 0
+
+    LEFT_DECORATION = '['
+    RIGHT_DECORATION = ']'
+    EMPTY = '-'
+    FULL = '#'
+
+    def __init__(self, length, message=None):
+        message = message or str(length)
+        self.message = message
+        width = (
+            get_term_width() - len(message) -
+            len(self.LEFT_DECORATION) - len(self.RIGHT_DECORATION)
+        )
+        self.print_ratio = length / width
+        sys.stderr.write(message)
+        sys.stderr.write(self.LEFT_DECORATION + self.EMPTY * width + self.RIGHT_DECORATION)
+        sys.stderr.write(f'{(chr(27))}[\bb' * (width + len(self.RIGHT_DECORATION)))
+        sys.stderr.flush()
+
+    def update(self):
+        self.index += 1
+        if self.index / self.print_ratio > self.progress:
+            self.progress += 1
+            sys.stderr.write(self.FULL)
+            sys.stderr.flush()
+
+    def __enter__(self):
+        return self.update
+
+    def __exit__(self, *exc_details):
+        sys.stderr.write('\n')
+# ######## END
+
+
+def _generate_theme_from_full_palette(
+        template_path, all_colors, accuracy=None, extend_palette=False
+):  # pylint: disable=invalid-name
+
+    # how far should be the colors to be counted as similar (0 .. 255*3)
+    # DIFF_MARGIN = 30
+    DIFF_MARGIN = 60
+
+    # criterias to recognize bright colors (0 .. 255*3)
+    MIN_LIGHTNESS = 10
+    BRIGHTNESS_MARGIN = 20
+
+    # 1 means similarity to template the same important as mathing color palette
+    # SIMILARITY_IMPORTANCE = 2
+    SIMILARITY_IMPORTANCE = 2.5
+
+    accuracy = accuracy or 0x20
+    hex_colors = import_xcolors(template_path)
+    hex_colors_as_color_lists = {
+        key: [
+            hex_to_int(s) for s in color_list_from_hex(value)
+        ] for key, value in hex_colors.items()
+    }
+    if extend_palette:
+        for color in all_colors[:]:
+            for i in (20, 40, 60):
+                all_colors.append(hex_darker(color, i))
+                all_colors.append(hex_darker(color, -i))
+
+    bright_colors = get_bright_colors(all_colors, brightness_margin=BRIGHTNESS_MARGIN)
+    bright_colors_as_color_lists = [
+        [
+            hex_to_int(s) for s in color_list_from_hex(value)
+        ] for value in bright_colors
+    ]
+
+    START = [-0xff, -0xff, -0xff]
+    END = [0xff, 0xff, 0xff]
+    best_diff_color_values = [0, 0, 0]
+    biggest_number_of_similar = None
+    prev_biggest_number_of_similar = 'not_found'
+    best_result = None
+
+    _debug_iteration_counter = 0
+
+    while accuracy > 0:
+        _debug_iteration_counter += 1
+        print()
+        print(('ITERATION', _debug_iteration_counter))
+        progress = ProgressBar(
+            length=((int(abs(START[0] - END[0])/accuracy) + 2) ** 3)
+        )
+        red = START[0]
+        while red < END[0] + accuracy:
+            green = START[1]
+            while green < END[1] + accuracy:
+                blue = START[2]
+                while blue < END[2] + accuracy:
+                    try:
+
+                        color_list = [red, green, blue]
+                        modified_colors = {}
+                        for key, value in hex_colors_as_color_lists.items():
+                            if not key.startswith('color'):
+                                continue
+                            new_value = value[:]
+                            for i in range(3):
+                                new_value[i] = min(
+                                    255,
+                                    max(
+                                        0,
+                                        new_value[i] + (red, green, blue)[i]
+                                    )
+                                )
+                            if key not in ['color0', 'color7', 'color8', 'color15']:
+                                if (MIN_LIGHTNESS > sum(new_value)) or (sum(new_value) > (255*3 - MIN_LIGHTNESS)):
+                                    raise ContinueNext()
+                            modified_colors[key] = new_value
+
+                        num_of_similar = 0
+                        for modified_color in modified_colors.values():
+                            for bright_color in bright_colors_as_color_lists:
+                                abs_diff = 0
+                                for i in range(3):
+                                    abs_diff += abs(modified_color[i] - bright_color[i])
+                                if abs_diff < DIFF_MARGIN:
+                                    num_of_similar += 1
+
+                        similarity_to_reference = (
+                            255*3 - sum([abs(c) for c in color_list]) * SIMILARITY_IMPORTANCE
+                        ) / (255*3)
+                        num_of_similar *= similarity_to_reference
+
+                        if biggest_number_of_similar is None or num_of_similar > biggest_number_of_similar:
+                            biggest_number_of_similar = num_of_similar
+                            best_result = modified_colors
+                            best_diff_color_values[0] = red
+                            best_diff_color_values[1] = green
+                            best_diff_color_values[2] = blue
+
+                    except ContinueNext:
+                        pass
+                    progress.update()
+                    blue += accuracy
+                green += accuracy
+            red += accuracy
+
+        if biggest_number_of_similar == prev_biggest_number_of_similar:
+            print('good enough')
+            break
+        prev_biggest_number_of_similar = biggest_number_of_similar
+        for i in range(3):
+            START[i] = max(best_diff_color_values[i] - accuracy, -255)
+            END[i] = min(best_diff_color_values[i] + accuracy, 255)
+        accuracy = round(accuracy / 2)
+        print(('DEEPER!', accuracy))
+
+    # from fabulous.color import bg256
+    # for bright_color in bright_colors:
+    #     print(bg256(bright_color, bright_color))
+
+    modified_colors = {
+        key: color_hex_from_list(c)
+        for key, c in best_result.items()
+    }
+    return modified_colors
+
+
+_FULL_PALETTE_CACHE = {}
+
+
+def generate_theme_from_full_palette(
+        palette, theme_bg, theme_fg, *args, auto_swap_colors=True, **kwargs
+):  # pylint: disable=invalid-name
+    all_colors = sorted(get_all_colors_from_oomox_colorscheme(palette))
+    cache_id = str(
+        list(args) + [
+            kwargs[name] for name in sorted(kwargs, key=lambda x: x[0])
+        ] + all_colors
+    )
+    if cache_id not in _FULL_PALETTE_CACHE:
+        # from time import time
+        # before = time()
+        _FULL_PALETTE_CACHE[cache_id] = _generate_theme_from_full_palette(
+            *args, all_colors=all_colors, **kwargs
+        )
+        # print(time() - before)
+    modified_colors = {}
+    modified_colors.update(_FULL_PALETTE_CACHE[cache_id])
+    if auto_swap_colors:
+        theme_bg, theme_fg = theme_fg, theme_bg
+    modified_colors["background"] = theme_bg
+    modified_colors["foreground"] = theme_fg
+    return modified_colors
+
+
 def generate_themes_from_oomox(original_colorscheme):
     colorscheme = {}
     colorscheme.update(original_colorscheme)
-    if colorscheme['TERMINAL_THEME_MODE'] == 'auto':
+    term_colorscheme = None
+    if colorscheme['TERMINAL_THEME_MODE'] in ('auto', 'smarty'):
         colorscheme["TERMINAL_ACCENT_COLOR"] = colorscheme["SEL_BG"]
         colorscheme["TERMINAL_BACKGROUND"] = colorscheme["TXT_BG"]
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
-    term_colorscheme = generate_theme(
-        template_path=os.path.join(
-            TERMINAL_TEMPLATE_DIR, colorscheme["TERMINAL_BASE_TEMPLATE"]
-        ),
-        theme_color=colorscheme["TERMINAL_ACCENT_COLOR"],
-        theme_bg=colorscheme["TERMINAL_BACKGROUND"],
-        theme_fg=colorscheme["TERMINAL_FOREGROUND"],
-        theme_hint=None,
-        auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"]
-    )
+    if colorscheme['TERMINAL_THEME_MODE'] == 'smarty':
+        term_colorscheme = generate_theme_from_full_palette(
+            template_path=os.path.join(
+                TERMINAL_TEMPLATE_DIR, colorscheme["TERMINAL_BASE_TEMPLATE"]
+            ),
+            palette=colorscheme,
+            theme_bg=colorscheme["TERMINAL_BACKGROUND"],
+            theme_fg=colorscheme["TERMINAL_FOREGROUND"],
+            auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
+            extend_palette=colorscheme["TERMINAL_THEME_EXTEND_PALETTE"],
+            accuracy=colorscheme.get("TERMINAL_THEME_ACCURACY")
+        )
+    elif colorscheme['TERMINAL_THEME_MODE'] in ('basic', 'auto'):
+        term_colorscheme = generate_theme_from_hint(
+            template_path=os.path.join(
+                TERMINAL_TEMPLATE_DIR, colorscheme["TERMINAL_BASE_TEMPLATE"]
+            ),
+            theme_color=colorscheme["TERMINAL_ACCENT_COLOR"],
+            theme_bg=colorscheme["TERMINAL_BACKGROUND"],
+            theme_fg=colorscheme["TERMINAL_FOREGROUND"],
+            theme_hint=None,
+            auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"]
+        )
+    else:
+        term_colorscheme = convert_oomox_theme_to_xrdb(colorscheme)
+    for i in range(16):
+        theme_key = "TERMINAL_COLOR{}".format(i)
+        term_key = "color{}".format(i)
+        colorscheme[theme_key] = term_colorscheme[term_key]
+    if colorscheme['TERMINAL_THEME_MODE'] != 'manual':
+        colorscheme['TERMINAL_BACKGROUND'] = term_colorscheme['background']
+        colorscheme['TERMINAL_FOREGROUND'] = term_colorscheme['foreground']
+    return term_colorscheme, colorscheme
+
+
+def convert_oomox_theme_to_xrdb(colorscheme):
+    term_colorscheme = {}
     for i in range(16):
         theme_key = "TERMINAL_COLOR{}".format(i)
         term_key = "color{}".format(i)
         if colorscheme.get(theme_key):
             term_colorscheme[term_key] = \
                     colorscheme[theme_key]
-        else:
-            colorscheme[theme_key] = \
-                term_colorscheme[term_key]
-    return term_colorscheme, colorscheme
+    term_colorscheme['background'] = colorscheme['TERMINAL_BACKGROUND']
+    term_colorscheme['foreground'] = colorscheme['TERMINAL_FOREGROUND']
+    return term_colorscheme
 
 
 def generate_xrdb_theme_from_oomox(colorscheme):
-    term_colorscheme, _ = generate_themes_from_oomox(colorscheme)
-    return term_colorscheme
+    return convert_oomox_theme_to_xrdb(colorscheme)
 
 
 def generate_terminal_colors_for_oomox(colorscheme):  # pylint: disable=invalid-name
@@ -177,7 +447,7 @@ def cli():
     theme_hint = args[5] if len(args) > 5 else None
     auto_swap_colors = (args[6] not in ["y", "yes", "true", "1"]) \
         if len(args) > 6 else None
-    term_colorscheme = generate_theme(
+    term_colorscheme = generate_theme_from_hint(
         template_path=template_path,
         theme_color=theme_color,
         theme_bg=theme_bg,

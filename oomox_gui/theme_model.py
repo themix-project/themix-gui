@@ -243,6 +243,7 @@ THEME_MODEL += [
             {'value': 'auto', 'display_name': _('Auto')},
             {'value': 'basic', 'display_name': _('Basic')},
             {'value': 'manual', 'display_name': _('Manual')},
+            {'value': 'smarty', 'display_name': _('Experimental')},
         ],
         'fallback_value': 'auto',
         'display_name': _('Theme options')
@@ -257,7 +258,7 @@ THEME_MODEL += [
         'fallback_value': 'monovedek',
         'display_name': _('Theme style'),
         'value_filter': {
-            'TERMINAL_THEME_MODE': ['auto', 'basic'],
+            'TERMINAL_THEME_MODE': ['auto', 'basic', 'smarty', ],
         },
     },
     {
@@ -266,8 +267,28 @@ THEME_MODEL += [
         'fallback_value': True,
         'display_name': _('Auto-swap BG/FG'),
         'value_filter': {
-            'TERMINAL_THEME_MODE': ['auto', 'basic'],
+            'TERMINAL_THEME_MODE': ['auto', 'basic', 'smarty', ],
         },
+    },
+    {
+        'key': 'TERMINAL_THEME_EXTEND_PALETTE',
+        'type': 'bool',
+        'fallback_value': False,
+        'display_name': _('Extend palette with more lighter/darker colors'),
+        'value_filter': {
+            'TERMINAL_THEME_MODE': ['smarty', ],
+        },
+    },
+    {
+        'key': 'TERMINAL_THEME_ACCURACY',
+        'type': 'int',
+        'fallback_value': 128,
+        'display_name': _('Palette generation accuracy'),
+        'value_filter': {
+            'TERMINAL_THEME_MODE': ['smarty', ],
+        },
+        'min_value': 8,
+        'max_value': 255,
     },
     {
         'key': 'TERMINAL_BACKGROUND',
