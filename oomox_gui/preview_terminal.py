@@ -62,7 +62,6 @@ class TerminalThemePreview(Gtk.Grid):
 
     def update_preview(self, colorscheme):
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
-        # print(term_colorscheme)
         converted = {
             key: convert_theme_color_to_gdk(theme_value)
             for key, theme_value in term_colorscheme.items()
