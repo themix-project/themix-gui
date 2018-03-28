@@ -413,7 +413,7 @@ def generate_xrdb_theme_from_oomox(colorscheme):
     return convert_oomox_theme_to_xrdb(colorscheme)
 
 
-def generate_terminal_colors_for_oomox(colorscheme):  # pylint: disable=invalid-name
+def generate_terminal_colors_for_oomox(colorscheme):
     _, new_oomox_colorscheme = generate_themes_from_oomox(colorscheme)
     return new_oomox_colorscheme
 

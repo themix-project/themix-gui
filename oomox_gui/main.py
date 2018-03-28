@@ -20,7 +20,7 @@ from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export_common import export_terminal_theme
 from .terminal import generate_terminal_colors_for_oomox
-from .plugin_loader import theme_plugins, icons_plugins, export_plugins
+from .plugin_loader import THEME_PLUGINS, ICONS_PLUGINS, EXPORT_PLUGINS
 
 
 class NewDialog(EntryDialog):
@@ -210,14 +210,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def select_theme_plugin(self):
         theme_plugin_name = self.colorscheme['THEME_STYLE']
         self.plugin_theme = None
-        for theme_plugin in theme_plugins.values():
+        for theme_plugin in THEME_PLUGINS.values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
     def select_icons_plugin(self):
         icons_plugin_name = self.colorscheme['ICONS_STYLE']
         self.plugin_icons = None
-        for icons_plugin in icons_plugins.values():
+        for icons_plugin in ICONS_PLUGINS.values():
             if icons_plugin.name == icons_plugin_name:
                 self.plugin_icons = icons_plugin
 
@@ -311,7 +311,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         export_terminal_theme(transient_for=self, colorscheme=self.colorscheme)
 
     def _on_export_plugin(self, action, _param=None):
-        plugin = export_plugins[
+        plugin = EXPORT_PLUGINS[
             action.props.name.replace('export_plugin_', '')
         ]
         plugin.export_dialog(
@@ -363,9 +363,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         #
 
-        if export_plugins:
+        if EXPORT_PLUGINS:
             menu = Gio.Menu()
-            for plugin_name, plugin in export_plugins.items():
+            for plugin_name, plugin in EXPORT_PLUGINS.items():
                 menu.append_item(Gio.MenuItem.new(
                     plugin.display_name,
                     "win.export_plugin_{}".format(plugin_name)
@@ -422,7 +422,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
-        for plugin_name in export_plugins:
+        for plugin_name in EXPORT_PLUGINS:
             self.add_simple_action_by_name(
                 "export_plugin_{}".format(plugin_name), self._on_export_plugin
             )

@@ -2,7 +2,7 @@ import os
 
 from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import (
-    theme_plugins, icons_plugins, export_plugins, import_plugins,
+    THEME_PLUGINS, ICONS_PLUGINS, EXPORT_PLUGINS, IMPORT_PLUGINS,
 )
 
 
@@ -60,7 +60,7 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
         base_theme_model=base_theme_model,
         plugin_model_name=plugin_model_name,
         value_filter_key='THEME_STYLE',
-        plugins=theme_plugins,
+        plugins=THEME_PLUGINS,
     )
 
 
@@ -69,7 +69,7 @@ merge_model_with_base(
     whole_theme_model=THEME_MODEL,
     plugin_model_name='import',
     value_filter_key='FROM_PLUGIN',
-    plugins=import_plugins,
+    plugins=IMPORT_PLUGINS,
 )
 THEME_MODEL = THEME_MODEL + [
     {
@@ -81,7 +81,7 @@ THEME_MODEL = THEME_MODEL + [
                 'display_name': theme_plugin.display_name,
                 'description': theme_plugin.description,
             }
-            for theme_plugin in theme_plugins.values()
+            for theme_plugin in THEME_PLUGINS.values()
         ],
         'fallback_value': 'oomox',
         'display_name': _('Theme style'),
@@ -217,7 +217,7 @@ BASE_ICON_THEME_MODEL = [
                 'value': icons_plugin.name,
                 'display_name': icons_plugin.display_name,
             }
-            for icons_plugin in icons_plugins.values()
+            for icons_plugin in ICONS_PLUGINS.values()
         ],
         'fallback_value': 'gnome_colors',
         'display_name': _('Icons style')
@@ -228,7 +228,7 @@ merge_model_with_base(
     whole_theme_model=THEME_MODEL,
     plugin_model_name='icons',
     value_filter_key='ICONS_STYLE',
-    plugins=icons_plugins,
+    plugins=ICONS_PLUGINS,
 )
 
 THEME_MODEL += [
@@ -459,7 +459,7 @@ THEME_MODEL += [
 
 merge_theme_model_with_base(THEME_MODEL, [], 'extra')
 merge_model_with_base(
-    plugins=export_plugins,
+    plugins=EXPORT_PLUGINS,
     whole_theme_model=THEME_MODEL,
     plugin_model_name='extra',
 )
