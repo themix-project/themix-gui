@@ -143,7 +143,7 @@ class ContinueNext(Exception):
 
 # @TODO:
 # These two functions are temporary until progressbar API won't be implemented in UI
-def get_term_width() -> int:
+def get_term_width():
     import shutil
     return shutil.get_terminal_size((80, 80)).columns
 
@@ -170,7 +170,7 @@ class ProgressBar(object):
         self.print_ratio = length / width
         sys.stderr.write(message)
         sys.stderr.write(self.LEFT_DECORATION + self.EMPTY * width + self.RIGHT_DECORATION)
-        sys.stderr.write(f'{(chr(27))}[\bb' * (width + len(self.RIGHT_DECORATION)))
+        sys.stderr.write('{}[\bb'.format(chr(27)) * (width + len(self.RIGHT_DECORATION)))
         sys.stderr.flush()
 
     def update(self):
