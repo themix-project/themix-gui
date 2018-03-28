@@ -278,10 +278,10 @@ const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
 docstring-min-length=-1
 
 # Naming hint for function names
-function-name-hint=(([a-z][a-z0-9_]{2,30})|(_[a-z0-9_]*))$
+function-name-hint=(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*))$
 
 # Regular expression matching correct function names
-function-rgx=(([a-z][a-z0-9_]{2,30})|(_[a-z0-9_]*))$
+function-rgx=(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*))$
 
 # Good variable names which should always be accepted, separated by a comma
 good-names=i,j,k,ex,Run,_

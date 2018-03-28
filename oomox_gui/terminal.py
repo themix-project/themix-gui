@@ -9,10 +9,15 @@ from .color import (
 )
 
 
+RED = 0
+GREEN = 1
+BLUE = 2
+
+
 def find_closest_color_key(color_hex, colors_hex, highlight=True):
     smallest_diff = SMALLEST_DIFF
     smallest_key = None
-    highlight_keys = ["color{}".format(i) for i in range(8, 15+1)]
+    highlight_keys = ["color{}".format(i) for i in range(8, 15 + 1)]
     for preset_key, preset_color in colors_hex.items():
         if (
                 highlight
@@ -31,7 +36,7 @@ def find_closest_color_key(color_hex, colors_hex, highlight=True):
 
 
 VALID_COLOR_CHARS = [
-    chr(i) for i in range(ord('a'), ord('f')+1)
+    chr(i) for i in range(ord('a'), ord('f') + 1)
 ] + [
     str(i) for i in range(10)
 ]
@@ -98,11 +103,16 @@ def get_bright_colors(palette, brightness_margin=20):
     # brightness_margin = 40
     list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
     bright_colors = []
-    for c in list_of_colors:
-        if abs(c[0]-c[1]) > brightness_margin or abs(c[0]-c[2]) > brightness_margin or \
-            abs(c[1]-c[0]) > brightness_margin or abs(c[1]-c[2]) > brightness_margin or \
-                abs(c[2]-c[1]) > brightness_margin or abs(c[2]-c[0]) > brightness_margin:
-            bright_colors.append(c)
+    for color in list_of_colors:
+        if max(
+                abs(color[RED]-color[GREEN]) > brightness_margin,
+                abs(color[RED]-color[BLUE]) > brightness_margin,
+                abs(color[GREEN]-color[RED]) > brightness_margin,
+                abs(color[GREEN]-color[BLUE]) > brightness_margin,
+                abs(color[BLUE]-color[GREEN]) > brightness_margin,
+                abs(color[BLUE]-color[RED]) > brightness_margin
+        ):
+            bright_colors.append(color)
 
     bright_colors.sort(key=sum)
     bright_colors = [color_hex_from_list(c) for c in bright_colors if 565 > sum(c) > 200]
@@ -180,7 +190,8 @@ class ProgressBar(object):
 
 def _generate_theme_from_full_palette(
         template_path, all_colors, accuracy=None, extend_palette=False
-):  # pylint: disable=invalid-name
+):  # pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
+    # @TODO: refactor it some day :3
 
     # how far should be the colors to be counted as similar (0 .. 255*3)
     # DIFF_MARGIN = 30
@@ -230,12 +241,12 @@ def _generate_theme_from_full_palette(
         progress = ProgressBar(
             length=((int(abs(START[0] - END[0])/accuracy) + 2) ** 3)
         )
-        red = START[0]
-        while red < END[0] + accuracy:
-            green = START[1]
-            while green < END[1] + accuracy:
-                blue = START[2]
-                while blue < END[2] + accuracy:
+        red = START[RED]
+        while red < END[RED] + accuracy:
+            green = START[GREEN]
+            while green < END[GREEN] + accuracy:
+                blue = START[BLUE]
+                while blue < END[BLUE] + accuracy:
                     try:
 
                         color_list = [red, green, blue]
@@ -253,7 +264,11 @@ def _generate_theme_from_full_palette(
                                     )
                                 )
                             if key not in ['color0', 'color7', 'color8', 'color15']:
-                                if (MIN_LIGHTNESS > sum(new_value)) or (sum(new_value) > (255*3 - MIN_LIGHTNESS)):
+                                if (
+                                        MIN_LIGHTNESS > sum(new_value)
+                                ) or (
+                                    sum(new_value) > (255*3 - MIN_LIGHTNESS)
+                                ):
                                     raise ContinueNext()
                             modified_colors[key] = new_value
 
@@ -271,12 +286,16 @@ def _generate_theme_from_full_palette(
                         ) / (255*3)
                         num_of_similar *= similarity_to_reference
 
-                        if biggest_number_of_similar is None or num_of_similar > biggest_number_of_similar:
+                        if (
+                                biggest_number_of_similar is None
+                        ) or (
+                            num_of_similar > biggest_number_of_similar
+                        ):
                             biggest_number_of_similar = num_of_similar
                             best_result = modified_colors
-                            best_diff_color_values[0] = red
-                            best_diff_color_values[1] = green
-                            best_diff_color_values[2] = blue
+                            best_diff_color_values[RED] = red
+                            best_diff_color_values[GREEN] = green
+                            best_diff_color_values[BLUE] = blue
 
                     except ContinueNext:
                         pass
