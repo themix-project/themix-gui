@@ -225,6 +225,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme = colorscheme
         self.select_theme_plugin()
         self.select_icons_plugin()
+        self.generate_terminal_colors()
         try:
             self.preview.update_preview(
                 colorscheme=self.colorscheme,
@@ -233,9 +234,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             )
         except Exception as exc:
             import traceback
+            print()
             print("ERROR: Can't show theme preview:")
             print(exc)
             traceback.print_exc()
+            print()
 
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.check_unsaved_changes()
@@ -249,7 +252,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.rename_action.set_enabled(self.colorscheme_is_user)
         self.remove_action.set_enabled(self.colorscheme_is_user)
         self.headerbar.props.title = selected_preset
-        self.generate_terminal_colors()
 
     def theme_reload(self):
         self.on_preset_selected(
