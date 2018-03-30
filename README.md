@@ -163,6 +163,7 @@ Spotify theme can be also exported from GUI, but if you prefer commandline inter
 
 Also you can normalize font weight with `-w` argument, see `-h` for usage.
 
+Spotify theme settings are backed up to `~/.config/oomox/spotify_backup`. To undo the changes made by oomoxify, these files can be copied back to their original location `/usr/share/spotify/Apps`. Spotify can also be reinstalled, which will reset these files as well.
 
 
 ### Using with tiling WMs:
