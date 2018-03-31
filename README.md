@@ -10,7 +10,7 @@ Installation:
   * [Ubuntu](#ubuntu "")
   * [Other distributions](#other-distributions "")
   * [Flatpak](#flatpak "")
- 
+
 Other topics:
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
@@ -153,20 +153,6 @@ If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugi
 
 
 
-### Flatpak
-
-You can build and run the latest application version in any
-distribution with flatpak available with the following commands:
-```bash
-cd ./packaging/flatpak/
-./flatpak-builder-build.sh
-./flatpak-builder-run.sh
-```
-
-WARNING! Flatpak build scripts are not officially supported since it unstable before it reach version 1.0. Use with caution.
-
-
-
 #### Spotify:
 
 Spotify theme can be also exported from GUI, but if you prefer commandline interface:
@@ -181,7 +167,7 @@ Also you can normalize font weight with `-w` argument, see `-h` for usage.
 
 ### Using with tiling WMs:
 
-To resolve borders/shadow problem in tiling window managers create/append to 
+To resolve borders/shadow problem in tiling window managers create/append to
 `~/.config/gtk-3.0/gtk.css`:
 
 ```css
@@ -201,10 +187,23 @@ window decoration {
 ```
 
 
+### Flatpak
 
-#### Review articles
+You can build and run the latest application version in any
+distribution with flatpak available with the following commands:
+```bash
+cd ./packaging/flatpak/
+./flatpak-builder-build.sh
+./flatpak-builder-run.sh
+```
 
-To learn more about using the application you can check these articles: 
+WARNING! Flatpak build scripts are not officially supported since it unstable before Flatpak will reach version 1.0. Please use with caution/be prepared for bugs.
+
+
+
+### Review articles
+
+To learn more about using the application you can check these articles:
 
   * https://delightlylinux.wordpress.com/2016/08/22/customize-theme-colors-with-oomox/
   * http://www.webupd8.org/2016/05/easily-create-your-own-numix-based-gtk.html
