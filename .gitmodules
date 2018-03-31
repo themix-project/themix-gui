@@ -1,18 +1,18 @@
 [submodule "gtk-theme"]
 	path = plugins/theme_oomox/gtk-theme
-	url = https://github.com/actionless/oomox-gtk-theme.git
+	url = https://github.com/themix-project/oomox-gtk-theme.git
 [submodule "materia-theme"]
 	path = plugins/theme_materia/materia-theme
 	url = https://github.com/nana-4/materia-theme.git
 [submodule "archdroid-icon-theme"]
 	path = plugins/icons_archdroid/archdroid-icon-theme
-	url = https://github.com/actionless/oomox-archdroid-icon-theme.git
+	url = https://github.com/themix-project/archdroid-icon-theme.git
 [submodule "gnome-colors-icon-theme"]
 	path = plugins/icons_gnomecolors/gnome-colors-icon-theme
-	url = https://github.com/actionless/oomox-gnome-colors-icon-theme.git
+	url = https://github.com/themix-project/gnome-colors-icon-theme.git
 [submodule "oomoxify"]
 	path = plugins/oomoxify
-	url = https://github.com/actionless/oomoxify.git
+	url = https://github.com/themix-project/oomoxify.git
 [submodule "base16-builder"]
 	path = plugins/import_base16/base16-data
 	url = https://github.com/base16-builder/base16-builder
