@@ -43,13 +43,13 @@ rm "${pkgdir}/opt/oomox/po.mk"
 install -Dp -m 755 --target-directory="${pkgdir}/usr/bin/" "${srcdir}/packaging/bin/"*
 
 install -d "${pkgdir}/usr/share/applications/"
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox.desktop" "${pkgdir}/usr/share/applications/"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.desktop" "${pkgdir}/usr/share/applications/"
 
 install -d "${pkgdir}/usr/share/appdata/"
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox.appdata.xml" "${pkgdir}/usr/share/appdata/"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.appdata.xml" "${pkgdir}/usr/share/appdata/"
 
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-64.png"  "${pkgdir}/usr/share/icons/hicolor/64x64/apps/com.github.actionless.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-128.png" "${pkgdir}/usr/share/icons/hicolor/128x128/apps/com.github.actionless.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.actionless.oomox-666.png" "${pkgdir}/usr/share/icons/hicolor/666x666/apps/com.github.actionless.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-64.png"  "${pkgdir}/usr/share/icons/hicolor/64x64/apps/com.github.themix-project.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-128.png" "${pkgdir}/usr/share/icons/hicolor/128x128/apps/com.github.themix-project.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-666.png" "${pkgdir}/usr/share/icons/hicolor/666x666/apps/com.github.themix-project.oomox.png"
 
 exit 0

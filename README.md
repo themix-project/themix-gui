@@ -18,11 +18,11 @@ Other topics:
   * [Demo video](#demo-video "")
 
 
-![Screenshot GUI](https://raw.githubusercontent.com/actionless/oomox/master/screenshot_gui.png "Screenshot GUI")
+![Screenshot GUI](https://raw.githubusercontent.com/themix-project/oomox/master/screenshot_gui.png "Screenshot GUI")
 
-[Big screenshot with number of generated themes 🔗](http://orig15.deviantart.net/e1ee/f/2016/320/1/9/oomox_1_0_rc1_by_actionless-daomhmd.jpg)
+[Big screenshot with number of generated themes 🔗](http://orig15.deviantart.net/e1ee/f/2016/320/1/9/oomox_1_0_rc1_by_themix-project-daomhmd.jpg)
 
-[Latest Oomox GTK theme screenshots 🔗](https://github.com/actionless/oomox-gtk-theme/tree/master/screenshots)
+[Latest Oomox GTK theme screenshots 🔗](https://github.com/themix-project/oomox-gtk-theme/tree/master/screenshots)
 
 
 ### Arch Linux:
@@ -60,7 +60,7 @@ https://slackbuilds.org/repository/14.2/desktop/oomox/
 ### Ubuntu
 
 For Ubuntu 17.04+ you can download `oomox.deb` package here:
-https://github.com/actionless/oomox/releases
+https://github.com/themix-project/oomox/releases
 
 ```sh
 sudo dpkg -i ./oomox.deb
@@ -69,7 +69,7 @@ sudo apt install -f
 
 
 For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
- - [List of dependencies](https://github.com/actionless/oomox/blob/master/packaging/ubuntu/control#L5)
+ - [List of dependencies](https://github.com/themix-project/oomox/blob/master/packaging/ubuntu/control#L5)
  - [How to install `sassc>=3.4`](https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04)
 
 
@@ -135,7 +135,7 @@ Import colors from images:
 #### Installation
 
 ```sh
-git clone https://github.com/actionless/oomox.git --recursive
+git clone https://github.com/themix-project/oomox.git --recursive
 cd oomox
 # if you need to generate French locale:
 make -f po.mk install

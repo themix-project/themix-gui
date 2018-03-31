@@ -1,5 +1,5 @@
 {
-    "app-id": "com.github.actionless.oomox",
+    "app-id": "com.github.themix-project.oomox",
     "runtime": "org.gnome.Sdk",
     "runtime-version": "3.26",
     "sdk": "org.gnome.Sdk",
@@ -81,7 +81,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://github.com/actionless/oomox.git",
+                    "url": "https://github.com/themix-project/oomox.git",
                     "tag": "1.6.1"
                 }
             ]

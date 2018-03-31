@@ -460,7 +460,7 @@ class OomoxGtkApplication(Gtk.Application):
     window = None
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, application_id="com.github.actionless.oomox",
+        super().__init__(*args, application_id="com.github.themix-project.oomox",
                          flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
                          **kwargs)
         # @TODO: use oomox-gui as the only one entrypoint to all cli tools
