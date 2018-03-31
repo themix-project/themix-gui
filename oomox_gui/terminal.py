@@ -361,6 +361,8 @@ def generate_themes_from_oomox(original_colorscheme):
         colorscheme["TERMINAL_ACCENT_COLOR"] = colorscheme["SEL_BG"]
         colorscheme["TERMINAL_BACKGROUND"] = colorscheme["TXT_BG"]
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
+        if colorscheme["THEME_STYLE"] == "materia":
+            colorscheme["TERMINAL_FOREGROUND"] = colorscheme["FG"]
     if colorscheme['TERMINAL_THEME_MODE'] == 'smarty':
         term_colorscheme = generate_theme_from_full_palette(
             template_path=os.path.join(
