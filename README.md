@@ -42,17 +42,6 @@ oomox-gui
 ```
 
 
-### Flatpak
-
-You can build and run the latest application version in any
-distribution with flatpak available with the following commands:
-```bash
-cd ./packaging/flatpak/
-./flatpak-builder-build.sh
-./flatpak-builder-run.sh
-```
-
-
 ### CentOS, Fedora, Mageia
 
 Oomox can be installed by using a third party COPR repository:
@@ -161,6 +150,21 @@ make -f po.mk install
 After exporting a theme select the generated theme (oomox-YOUR-THEME-NAME) in your appearance config tool (for example, _lxappearance_ or _gnome-tweak-tool_).
 
 If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugins/`.
+
+
+
+### Flatpak
+
+You can build and run the latest application version in any
+distribution with flatpak available with the following commands:
+```bash
+cd ./packaging/flatpak/
+./flatpak-builder-build.sh
+./flatpak-builder-run.sh
+```
+
+WARNING! Flatpak build scripts are not officially supported since it unstable before it reach version 1.0. Use with caution.
+
 
 
 #### Spotify:
