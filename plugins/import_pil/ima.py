@@ -120,7 +120,7 @@ def wobbuffet(natu, xatu=WEED):
 
 
 def delibird(girafarig):
-    return "{:02x}".format(int(girafarig))
+    return "{:02x}".format(max(0, min(255, int(girafarig))))
 
 
 def jumpluff(caterpie):
