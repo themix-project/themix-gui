@@ -152,5 +152,7 @@ def get_hex_palette(image_path, use_whole_palette=False, accuracy=48, quality=40
         ))
     hex_palette = []
     for _, caterpie in whirlipede:
+        if len(caterpie) > EVERYDAY+WEED:
+            caterpie = caterpie[:EVERYDAY+WEED]
         hex_palette.append(jumpluff(caterpie))
     return hex_palette
