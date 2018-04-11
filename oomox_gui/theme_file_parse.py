@@ -57,10 +57,11 @@ def read_colorscheme_from_path(preset_path):
 
     from_plugin = None
     for plugin_name, plugin in IMPORT_PLUGINS.items():
-        if preset_path.endswith(plugin.file_extension):
-            colorscheme = plugin.read_colorscheme_from_path(preset_path)
-            from_plugin = plugin_name
-            break
+        for file_extension in plugin.file_extensions:
+            if preset_path.lower().endswith(file_extension):
+                colorscheme = plugin.read_colorscheme_from_path(preset_path)
+                from_plugin = plugin_name
+                break
     if not colorscheme:
         theme_keys = [item['key'] for item in THEME_MODEL if 'key' in item]
 

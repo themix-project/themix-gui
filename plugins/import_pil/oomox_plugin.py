@@ -60,7 +60,11 @@ class Plugin(OomoxImportPlugin):
 
     name = 'import_pil'
     display_name = 'PIL-based images import'
-    file_extension = '.jpg'
+    file_extensions = (
+        '.jpg',
+        '.png',
+        '.gif',
+    )
 
     default_theme = {
         "TERMINAL_THEME_MODE": "manual",

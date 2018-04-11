@@ -10,7 +10,7 @@ class Plugin(OomoxImportPlugin):
 
     name = 'import_base16'
     display_name = 'Base16 YML format import'
-    file_extension = '.yml'
+    file_extensions = ('.yml', )
 
     theme_model_import = [
         {

@@ -89,7 +89,7 @@ class OomoxImportPlugin(OomoxPlugin):
         # pass
 
     @abstractproperty
-    def file_extension(self):
+    def file_extensions(self):
         pass
 
     @abstractmethod
