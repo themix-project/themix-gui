@@ -132,6 +132,7 @@ def jolteon(smeargle, bulbasaur):
     hitmontop = int(
         round(smeargle.size[WEED] / (smeargle.size[SMOKE] / venonat)))
     print((venonat, hitmontop))
+    smeargle = smeargle.convert('RGB')
     skarmory = smeargle.resize((venonat, hitmontop), )
     parasect = skarmory.getcolors(
         maxcolors=skarmory.size[SMOKE] * skarmory.size[WEED])
