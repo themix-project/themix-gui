@@ -32,6 +32,7 @@ class OomoxThemePlugin(OomoxPlugin):
     enabled_keys_gtk = []
     enabled_keys_options = []
     enabled_keys_other = []
+    enabled_keys_extra = []
 
     theme_model_gtk = []
     theme_model_options = []

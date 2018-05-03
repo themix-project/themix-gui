@@ -459,47 +459,10 @@ THEME_MODEL += [
 
 merge_theme_model_with_base(THEME_MODEL, [], 'extra')
 merge_model_with_base(
-    plugins=EXPORT_PLUGINS,
     whole_theme_model=THEME_MODEL,
     plugin_model_name='extra',
+    plugins=EXPORT_PLUGINS,
 )
-
-THEME_MODEL += [
-    {
-        'type': 'separator',
-        'display_name': _('Text input caret'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
-    },
-    {
-        'key': 'CARET1_FG',
-        'type': 'color',
-        'fallback_key': 'TXT_FG',
-        'display_name': _('Primary caret color'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
-    },
-    {
-        'key': 'CARET2_FG',
-        'type': 'color',
-        'fallback_key': 'TXT_FG',
-        'display_name': _('Secondary caret color'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
-    },
-    {
-        'key': 'CARET_SIZE',
-        'type': 'float',
-        'fallback_value': 0.04,  # GTK's default
-        'display_name': _('Caret aspect ratio'),
-        'value_filter': {
-            'THEME_STYLE': 'oomox'
-        },
-    },
-]
 
 BASE_THEME_MODEL_OTHER = [
     {

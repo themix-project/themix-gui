@@ -115,6 +115,28 @@ class Plugin(OomoxThemePlugin):
             'min_value': -20,
             'display_name': _('(GTK3) Focused button outline offset'),
         },
+        # {  @TODO: implement value_filter for separators
+            # 'type': 'separator',
+            # 'display_name': _('Text input caret'),
+        # },
+        {
+            'key': 'CARET1_FG',
+            'type': 'color',
+            'fallback_key': 'TXT_FG',
+            'display_name': _('Primary caret color'),
+        },
+        {
+            'key': 'CARET2_FG',
+            'type': 'color',
+            'fallback_key': 'TXT_FG',
+            'display_name': _('Secondary caret color'),
+        },
+        {
+            'key': 'CARET_SIZE',
+            'type': 'float',
+            'fallback_value': 0.04,  # GTK's default
+            'display_name': _('Caret aspect ratio'),
+        },
     ]
 
     theme_model_other = [
