@@ -116,8 +116,8 @@ class Plugin(OomoxThemePlugin):
             'display_name': _('(GTK3) Focused button outline offset'),
         },
         # {  @TODO: implement value_filter for separators
-            # 'type': 'separator',
-            # 'display_name': _('Text input caret'),
+        #     'type': 'separator',
+        #     'display_name': _('Text input caret'),
         # },
         {
             'key': 'CARET1_FG',
