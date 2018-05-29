@@ -48,7 +48,7 @@ install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.desktop"
 install -d "${pkgdir}/usr/share/appdata/"
 install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.appdata.xml" "${pkgdir}/usr/share/appdata/"
 
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/com.github.themix-project.oomox.svg"
+#install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/com.github.themix-project.oomox.svg"
 install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-symbolic.svg" "${pkgdir}/usr/share/icons/hicolor/symbolic/apps/com.github.themix-project.oomox.svg"
 install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-16.png" "${pkgdir}/usr/share/icons/hicolor/16x16/apps/com.github.themix-project.oomox.png"
 install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-24.png" "${pkgdir}/usr/share/icons/hicolor/24x24/apps/com.github.themix-project.oomox.png"
