@@ -1,5 +1,5 @@
-# French translations for oomox package
-# Traductions françaises du paquet oomox.
+# Dutch translations for oomox package
+# Nederlandse vertaling van oomox.
 # This file is put in the public domain.
 # Colomban Wendling <cwendling@hypra.fr>, 2017.
 #
@@ -464,50 +464,50 @@ msgstr "Ongevoelig item {id}"
 msgid "Preview:"
 msgstr "Voorbeeld:"
 
-#~ msgid "Theme applied successfully"
-#~ msgstr "Thema is toegepast"
+msgid "Theme applied successfully"
+msgstr "Thema is toegepast"
 
-#~ msgid "Spotify options"
-#~ msgstr "Spotify-opties"
+msgid "Spotify options"
+msgstr "Spotify-opties"
 
-#~ msgid "This functionality is still in BETA"
-#~ msgstr "Deze functionaliteit heeft de BÈTA-status"
+msgid "This functionality is still in BETA"
+msgstr "Deze functionaliteit heeft de BÈTA-status"
 
-#~ msgid "_Normalize font weight"
-#~ msgstr "Lettertypestijl _normaliseren"
+msgid "_Normalize font weight"
+msgstr "Lettertypestijl _normaliseren"
 
-#~ msgid "Spotify _path:"
-#~ msgstr "Spotify-_pad:"
+msgid "Spotify _path:"
+msgstr "Spotify-_pad:"
 
-#~ msgid "Apply Spotif_y theme"
-#~ msgstr "Spotif_y-thema toepassen"
+msgid "Apply Spotif_y theme"
+msgstr "Spotif_y-thema toepassen"
 
-#~ msgid "(GTK2) HiDPI"
-#~ msgstr "(GTK2) HiDPI"
+msgid "(GTK2) HiDPI"
+msgstr "(GTK2) HiDPI"
 
-#~ msgid "Text input caret"
-#~ msgstr "Tekstinvoer-toegankelijkheid"
+msgid "Text input caret"
+msgstr "Tekstinvoer-toegankelijkheid"
 
-#~ msgid "Secondary caret color"
-#~ msgstr "Secundaire toegankelijkheidskleur"
+msgid "Secondary caret color"
+msgstr "Secundaire toegankelijkheidskleur"
 
-#~ msgid "Caret aspect ratio"
-#~ msgstr "Beeldverhouding"
+msgid "Caret aspect ratio"
+msgstr "Beeldverhouding"
 
-#~ msgid "Icons color"
-#~ msgstr "Pictogramkleur"
+msgid "Icons color"
+msgstr "Pictogramkleur"
 
-#~ msgid "Light base (folders)"
-#~ msgstr "Lichte basis (mappen)"
+msgid "Light base (folders)"
+msgstr "Lichte basis (mappen)"
 
-#~ msgid "Light base"
-#~ msgstr "Lichte basis"
+msgid "Light base"
+msgstr "Lichte basis"
 
-#~ msgid "Medium base"
-#~ msgstr "Normale basis"
+msgid "Medium base"
+msgstr "Normale basis"
 
-#~ msgid "Dark stroke"
-#~ msgstr "Donkere tint"
+msgid "Dark stroke"
+msgstr "Donkere tint"
 
-#~ msgid "(Unity) Use default launcher style"
-#~ msgstr "(Unity) Standaard starterstijl gebruiken"
+msgid "(Unity) Use default launcher style"
+msgstr "(Unity) Standaard starterstijl gebruiken"
