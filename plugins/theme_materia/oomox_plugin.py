@@ -45,6 +45,9 @@ class Plugin(OomoxThemePlugin):
         'BTN_BG',
         'BTN_FG',
     ]
+    enabled_keys_options = [
+        'ROUNDNESS',
+    ]
 
     theme_model_gtk = []
 
@@ -79,6 +82,5 @@ class Plugin(OomoxThemePlugin):
         colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["BTN_BG"]
         colorscheme["HDR_BTN_FG"] = colorscheme["MENU_FG"]
         colorscheme["HDR_BTN_BG"] = colorscheme["MENU_BG"]
-        colorscheme["ROUNDNESS"] = 0
         colorscheme["GRADIENT"] = 0
         preview_object.WM_BORDER_WIDTH = 0
