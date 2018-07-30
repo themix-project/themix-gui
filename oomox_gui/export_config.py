@@ -4,7 +4,7 @@ import json
 from .config import USER_EXPORT_CONFIG_DIR
 
 
-class ExportConfig(object):
+class ExportConfig():
 
     name = None
     config_path = None

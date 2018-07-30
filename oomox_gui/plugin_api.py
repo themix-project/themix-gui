@@ -4,7 +4,7 @@ from enum import Enum
 from oomox_gui.config import FALLBACK_COLOR
 
 
-class OomoxPlugin(object, metaclass=ABCMeta):
+class OomoxPlugin(metaclass=ABCMeta):
 
     @abstractproperty
     def name(self):

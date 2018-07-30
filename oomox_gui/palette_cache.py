@@ -3,7 +3,7 @@ import json
 from .config import USER_PALETTE_PATH
 
 
-class PaletteCache(object):
+class PaletteCache():
 
     _palette_cache = None
 
@@ -39,7 +39,7 @@ class PaletteCache(object):
     def add_color(cls, gtk_color):
         gtk_color_converted = gtk_color.to_color().to_string()
         palette_cache_list = [
-            string for string in cls.get()
+            string for string in cls.get()  # pylint: disable=not-an-iterable
             if string != ''
         ]
         if gtk_color_converted not in palette_cache_list:

@@ -136,9 +136,9 @@ class PreviewWidgets():
         for icon in theme_plugin.PreviewImageboxesNames:
             template_path = "{}.svg.template".format(icon.value)
             with open(
-                os.path.join(
-                    theme_plugin.gtk_preview_dir, template_path
-                ), "rb"
+                    os.path.join(
+                        theme_plugin.gtk_preview_dir, template_path
+                    ), "rb"
             ) as file_object:
                 self.preview_imageboxes_templates[icon.name] = file_object.read().decode('utf-8')
 
@@ -222,7 +222,7 @@ class ThemePreview(Gtk.Grid):
     def override_widget_color(self, widget, value, color, state=Gtk.StateType.NORMAL):
         if value == self.BG:
             return widget.override_background_color(state, color)
-        elif value == self.FG:
+        if value == self.FG:
             return widget.override_color(state, color)
         raise NotImplementedError()
 

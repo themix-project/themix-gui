@@ -1,6 +1,4 @@
 import os
-import sys
-import importlib
 import gc
 
 from oomox_gui.plugin_api import OomoxImportPlugin
@@ -12,6 +10,7 @@ from oomox_gui.color import (
 from oomox_gui.terminal import (
     import_xcolors,
 )
+from oomox_gui.helpers import get_plugin_module
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -23,18 +22,7 @@ HIGH_QUALITY = 400
 ULTRA_QUALITY = 1000
 
 
-def load_python_module(name, path):
-    if sys.version_info.minor >= 5:
-        spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
-        module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
-        spec.loader.exec_module(module)
-    else:
-        loader = importlib.machinery.SourceFileLoader(name, path)
-        module = loader.load_module()  # pylint: disable=deprecated-method
-    return module
-
-
-image_analyzer = load_python_module('ima', os.path.join(PLUGIN_DIR, 'ima.py'))  # pylint: disable=invalid-name
+image_analyzer = get_plugin_module('ima', os.path.join(PLUGIN_DIR, 'ima.py'))  # pylint: disable=invalid-name
 
 
 def sort_by_saturation(c):

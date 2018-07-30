@@ -35,7 +35,7 @@ def hex_darker(color_text, darken_amount=10):
     ])
 
 
-class ColorDiff(object):
+class ColorDiff():
     r = None  # pylint: disable=invalid-name
     g = None  # pylint: disable=invalid-name
     b = None  # pylint: disable=invalid-name

@@ -1,7 +1,7 @@
 import subprocess
 
 
-class XrdbCache(object):
+class XrdbCache():
 
     _cache = None
 

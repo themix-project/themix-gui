@@ -1,23 +1,11 @@
 import os
-import importlib
-import sys
 
 from .config import PLUGINS_DIR, USER_PLUGINS_DIR
 from .plugin_api import (
     OomoxPlugin,
     OomoxImportPlugin, OomoxThemePlugin, OomoxIconsPlugin, OomoxExportPlugin,
 )
-
-
-def get_plugin_module(name, path):
-    if sys.version_info.minor >= 5:
-        spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
-        module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
-        spec.loader.exec_module(module)
-    else:
-        loader = importlib.machinery.SourceFileLoader(name, path)
-        module = loader.load_module()  # pylint: disable=deprecated-method
-    return module
+from .helpers import get_plugin_module
 
 
 ALL_PLUGINS = {}

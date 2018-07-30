@@ -55,8 +55,8 @@ class IconThemePreview(Gtk.ListBox):
         for icon in IconsNames:
             template_path = "{}.svg.template".format(icon.value)
             with open(
-                os.path.join(
-                    theme_plugin.preview_svg_dir, template_path
-                ), "rb"
+                    os.path.join(
+                        theme_plugin.preview_svg_dir, template_path
+                    ), "rb"
             ) as file_object:
                 self.icons_templates[icon.name] = file_object.read().decode('utf-8')

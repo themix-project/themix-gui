@@ -148,7 +148,7 @@ def get_term_width():
     return shutil.get_terminal_size((80, 80)).columns
 
 
-class ProgressBar(object):
+class ProgressBar():
 
     message = None
     print_ratio = None
