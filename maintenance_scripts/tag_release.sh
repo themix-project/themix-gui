@@ -15,6 +15,6 @@ new_version=$1
 sed -i -e "s/pkgver=.*/pkgver=${new_version}/g" packaging/arch/PKGBUILD
 sed -i -e "s/pkgrel=.*/pkgrel=1/g" packaging/arch/PKGBUILD
 sed -i -e "s/^Version: .*/Version: ${new_version}-1~themixproject~zesty/" packaging/ubuntu/control
-sed -i -e 's/"tag": ".*"/"tag": "'"${new_version}"'"/g' packaging/flatpak/com.github.actionless.oomox.json
+sed -i -e 's/"tag": ".*"/"tag": "'"${new_version}"'"/g' packaging/flatpak/com.github.themix-project.oomox.json
 git commit -am "chore: bump version to ${new_version}"
 git tag -a "${new_version}"
