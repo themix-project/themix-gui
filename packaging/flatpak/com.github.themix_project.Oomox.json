@@ -1,7 +1,7 @@
 {
     "app-id": "com.github.themix_project.Oomox",
     "runtime": "org.gnome.Sdk",
-    "runtime-version": "3.26",
+    "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command": "oomox-gui",
     "finish-args": [
@@ -69,6 +69,30 @@
                     "type": "archive",
                     "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-8.tar.xz",
                     "sha256": "148b9f3f9c8ab98985555aa97f89dfc17bda9a5bc00674d62562057e84e3d03f"
+                }
+            ]
+        },
+        {
+            "name": "python3-pillow",
+            "buildsystem": "simple",
+            "build-options": {
+                "arch": {
+                    "i386": {
+                        "env": {
+                            "MAX_CONCURRENCY": "1"
+                        }
+                    }
+                }
+            },
+            "build-commands": [
+                "install -d ${FLATPAK_DEST}/lib/python3.5/site-packages/",
+                "python3 setup.py install --prefix=${FLATPAK_DEST}"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://files.pythonhosted.org/packages/d3/c4/b45b9c0d549f482dd072055e2d3ced88f3b977f7b87c7a990228b20e7da1/Pillow-5.2.0.tar.gz",
+                    "sha256": "f8b3d413c5a8f84b12cd4c5df1d8e211777c9852c6be3ee9c094b626644d3eab"
                 }
             ]
         },
