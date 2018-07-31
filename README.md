@@ -3,7 +3,7 @@ oomox theme designer
 
 Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
-<a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="48"></a>
+<a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="160"></a>
 
 Installation:
   * [Arch Linux, Manjaro](#arch-linux "")
