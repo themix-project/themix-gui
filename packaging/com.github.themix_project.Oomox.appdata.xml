@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.github.themix-project.oomox</id>
+  <id>com.github.themix_project.Oomox</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Oomox theme designer</name>
@@ -9,7 +9,7 @@
       <p>Graphical application for generating different color variations of Numix and Materia (ex-Flat-Plat) themes (GTK2, GTK3), gnome-colors and ArchDroid icon themes. Have a hack for HiDPI in gtk2.</p>
       <p>WARNING: Materia and Oomoxify plugins are temporary disabled for Flatpak.</p>
   </description>
-  <launchable type="desktop-id">com.github.themix-project.oomox.desktop</launchable>
+  <launchable type="desktop-id">com.github.themix_project.Oomox.desktop</launchable>
   <screenshots>
       <screenshot>
           <image>https://raw.githubusercontent.com/themix-project/oomox/master/screenshot_gui.png</image>

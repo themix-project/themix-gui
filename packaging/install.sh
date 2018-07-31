@@ -43,16 +43,16 @@ rm "${pkgdir}/opt/oomox/po.mk"
 install -Dp -m 755 --target-directory="${pkgdir}/usr/bin/" "${srcdir}/packaging/bin/"*
 
 install -d "${pkgdir}/usr/share/applications/"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.desktop" "${pkgdir}/usr/share/applications/"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox.desktop" "${pkgdir}/usr/share/applications/"
 
 install -d "${pkgdir}/usr/share/appdata/"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox.appdata.xml" "${pkgdir}/usr/share/appdata/"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox.appdata.xml" "${pkgdir}/usr/share/appdata/"
 
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-symbolic.svg" "${pkgdir}/usr/share/icons/hicolor/symbolic/apps/com.github.themix-project.oomox-symbolic.svg"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-16.png" "${pkgdir}/usr/share/icons/hicolor/16x16/apps/com.github.themix-project.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-24.png" "${pkgdir}/usr/share/icons/hicolor/24x24/apps/com.github.themix-project.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-32.png" "${pkgdir}/usr/share/icons/hicolor/32x32/apps/com.github.themix-project.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-48.png"  "${pkgdir}/usr/share/icons/hicolor/48x48/apps/com.github.themix-project.oomox.png"
-install -Dp -m 644 "${srcdir}/packaging/com.github.themix-project.oomox-512.png" "${pkgdir}/usr/share/icons/hicolor/512x512/apps/com.github.themix-project.oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox-symbolic.svg" "${pkgdir}/usr/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox-16.png" "${pkgdir}/usr/share/icons/hicolor/16x16/apps/com.github.themix_project.Oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox-24.png" "${pkgdir}/usr/share/icons/hicolor/24x24/apps/com.github.themix_project.Oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox-32.png" "${pkgdir}/usr/share/icons/hicolor/32x32/apps/com.github.themix_project.Oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox-48.png"  "${pkgdir}/usr/share/icons/hicolor/48x48/apps/com.github.themix_project.Oomox.png"
+install -Dp -m 644 "${srcdir}/packaging/com.github.themix_project.Oomox-512.png" "${pkgdir}/usr/share/icons/hicolor/512x512/apps/com.github.themix_project.Oomox.png"
 
 exit 0

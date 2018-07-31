@@ -6,7 +6,7 @@ case "$1" in
 
   configure)
     if [ -x /usr/bin/desktop-file-install ]; then
-        desktop-file-install /usr/share/applications/com.github.themix-project.oomox.desktop > /dev/null 2>&1
+        desktop-file-install /usr/share/applications/com.github.themix_project.Oomox.desktop > /dev/null 2>&1
     fi
     python3 -O -m compileall /opt/oomox/oomox_gui
   ;;
