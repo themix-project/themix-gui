@@ -14,8 +14,7 @@ Installation:
 Other topics:
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
-  * [Review articles/Usage instructions](#review-articles "")
-  * [Demo video](#demo-video "")
+  * [Review videos/Usage instructions](#review-articles-and-videos "")
 
 
 ![Screenshot GUI](https://raw.githubusercontent.com/themix-project/oomox/master/screenshot_gui.png "Screenshot GUI")
@@ -204,18 +203,12 @@ WARNING! Flatpak build scripts are not officially supported since it unstable be
 
 
 
-### Review articles
+### Review articles and videos
 
-To learn more about using the application you can check these articles:
+To learn more about using the application you can check these sources:
 
+  * 2018, https://www.youtube.com/watch?v=XO9QA1njIOM by AddictiveTips
   * https://delightlylinux.wordpress.com/2016/08/22/customize-theme-colors-with-oomox/
+  * 2016, https://www.youtube.com/watch?v=Dh5TuIYQ6jo by Spatry
   * http://www.webupd8.org/2016/05/easily-create-your-own-numix-based-gtk.html
   * http://www.webupd8.org/2016/06/tool-to-customize-numix-theme-colors.html
-
-
-
-#### Demo video
-
-One of the users, Spatry, made this cool demo video:
-
-https://www.youtube.com/watch?v=Dh5TuIYQ6jo
