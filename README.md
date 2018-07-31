@@ -3,13 +3,14 @@ oomox theme designer
 
 Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
+<a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="48"></a>
+
 Installation:
   * [Arch Linux, Manjaro](#arch-linux "")
   * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
   * [Slackware](#slackware "")
   * [Ubuntu](#ubuntu "")
   * [Other distributions](#other-distributions "")
-  * [Flatpak](#flatpak "")
 
 Other topics:
   * [Using with tiling WMs](#using-with-tiling-wms "")
@@ -187,20 +188,6 @@ window decoration {
     border: 0;
 }
 ```
-
-
-### Flatpak
-
-You can build and run the latest application version in any
-distribution with flatpak available with the following commands:
-```bash
-cd ./packaging/flatpak/
-./flatpak-builder-build.sh
-./flatpak-builder-run.sh
-```
-
-WARNING! Flatpak build scripts are not officially supported since it unstable before Flatpak will reach version 1.0. Please use with caution/be prepared for bugs.
-
 
 
 ### Review articles and videos
