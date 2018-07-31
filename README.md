@@ -20,6 +20,8 @@ Other topics:
 
 ![Screenshot GUI](https://raw.githubusercontent.com/themix-project/oomox/master/screenshot_gui.png "Screenshot GUI")
 
+![Screenshot image import](https://raw.githubusercontent.com/themix-project/oomox/master/screenshot_pil.png "Screenshot image import")
+
 [Big screenshot with number of generated themes 🔗](http://orig15.deviantart.net/e1ee/f/2016/320/1/9/oomox_1_0_rc1_by_actionless-daomhmd.jpg)
 
 [Latest Oomox GTK theme screenshots 🔗](https://github.com/themix-project/oomox-gtk-theme/tree/master/screenshots)
