@@ -4,7 +4,7 @@ oomox theme designer
 Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
 
 <a href="https://aur.archlinux.org/packages/oomox"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_aur.png" width="160"></a>
-<a href="#ubuntu"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_deb.png" width="160"></a>
+<a href="#debian-ubuntu-linux-mint"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_deb.png" width="160"></a>
 <a href="https://copr.fedorainfracloud.org/coprs/tcg/themes/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_copr.png" width="160"></a>
 <a href="https://slackbuilds.org/repository/14.2/desktop/oomox/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_slackware.png" width="160"></a>
 <a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="160"></a>
@@ -13,7 +13,7 @@ Graphical application for generating different color variations of a Numix-based
 Installation:
   * [Arch Linux, Manjaro](#arch-linux "")
   * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
-  * [Ubuntu](#ubuntu "")
+  * [Ubuntu](#debian-ubuntu-linux-mint "")
   * [Other distributions](#other-distributions "")
 
 Other topics:
@@ -58,9 +58,9 @@ sudo dnf install oomox
 
 
 
-### Ubuntu
+### Debian, Ubuntu, Linux Mint
 
-For Ubuntu 17.04+ you can download `oomox.deb` package here:
+For Debian 9+, Ubuntu 17.04+ or Linux Mint 19+ you can download `oomox.deb` package here:
 https://github.com/themix-project/oomox/releases
 
 ```sh
