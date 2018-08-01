@@ -13,7 +13,6 @@ Graphical application for generating different color variations of a Numix-based
 Installation:
   * [Arch Linux, Manjaro](#arch-linux "")
   * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
-  * [Slackware](#slackware "")
   * [Ubuntu](#ubuntu "")
   * [Other distributions](#other-distributions "")
 
