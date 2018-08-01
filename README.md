@@ -12,8 +12,8 @@ Graphical application for generating different color variations of a Numix-based
 
 Installation:
   * [Arch Linux, Manjaro](#arch-linux "")
+  * [Debian, Ubuntu, Linux Mint](#debian-ubuntu-linux-mint "")
   * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
-  * [Ubuntu](#debian-ubuntu-linux-mint "")
   * [Other distributions](#other-distributions "")
 
 Other topics:
@@ -69,7 +69,7 @@ sudo apt install -f
 ```
 
 
-For older Ubuntu releases install the dependencies manually and next follow general installation instructions [below](#installation "").
+For older releases install the dependencies manually and next follow general installation instructions [below](#installation "").
  - [List of dependencies](https://github.com/themix-project/oomox/blob/master/packaging/ubuntu/control#L5)
  - [How to install `sassc>=3.4`](https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04)
 
