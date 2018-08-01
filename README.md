@@ -141,7 +141,7 @@ Import colors from images:
 ```sh
 git clone https://github.com/themix-project/oomox.git --recursive
 cd oomox
-# if you need to generate French locale:
+# if you need to generate locales:
 make -f po.mk install
 ```
 
