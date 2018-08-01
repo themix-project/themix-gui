@@ -82,7 +82,7 @@ sudo ./packaging/ubuntu/docker_ubuntu_package.sh  # sudo is not needed if your u
 ```
 
 
-For older releases install the dependencies manually and next follow general installation instructions [below](#installation "").
+For older releases install the dependencies manually and next follow general installation instructions [below](#installation-1 "").
  - [List of dependencies](https://github.com/themix-project/oomox/blob/master/packaging/ubuntu/control#L5)
  - [How to install `sassc>=3.4`](https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04)
 
