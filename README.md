@@ -11,7 +11,7 @@ Graphical application for generating different color variations of a Numix-based
 
 
 Table of contents:
-  * [Installing with package manager][#installation ""]
+  * [Installing with package manager](#installation "")
   * [Installing manually](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
