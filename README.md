@@ -6,7 +6,9 @@ Graphical application for generating different color variations of a Numix-based
 <a href="https://aur.archlinux.org/packages/oomox"><img src="https://raw.githubusercontent.com/themix-project/oomox/flathub/packaging/download_aur.png" width="160"></a>
 <a href="#ubuntu"><img src="https://raw.githubusercontent.com/themix-project/oomox/flathub/packaging/download_deb.png" width="160"></a>
 <a href="https://copr.fedorainfracloud.org/coprs/tcg/themes/"><img src="https://raw.githubusercontent.com/themix-project/oomox/flathub/packaging/download_copr.png" width="160"></a>
+<a href="https://slackbuilds.org/repository/14.2/desktop/oomox/"><img src="https://raw.githubusercontent.com/themix-project/oomox/flathub/packaging/download_slackware.png" width="160"></a>
 <a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="160"></a>
+
 
 Installation:
   * [Arch Linux, Manjaro](#arch-linux "")
@@ -55,11 +57,6 @@ sudo dnf copr enable tcg/themes
 sudo dnf install oomox
 ```
 
-
-### Slackware
-
-There is a slackbuild:
-https://slackbuilds.org/repository/14.2/desktop/oomox/
 
 
 ### Ubuntu
