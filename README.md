@@ -10,13 +10,9 @@ Graphical application for generating different color variations of a Numix-based
 <a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="160"></a>
 
 
-Installation:
-  * [Arch Linux, Manjaro](#arch-linux "")
-  * [Debian, Ubuntu, Linux Mint](#debian-ubuntu-linux-mint "")
-  * [CentOS, Fedora, Mageia](#centos-fedora-mageia "")
-  * [Other distributions](#other-distributions "")
-
-Other topics:
+Table of contents:
+  * [Installing with package manager][#installation ""]
+  * [Installing manually](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Spotify](#spotify "")
   * [Review videos/Usage instructions](#review-articles-and-videos "")
@@ -31,7 +27,12 @@ Other topics:
 [Latest Oomox GTK theme screenshots 🔗](https://github.com/themix-project/oomox-gtk-theme/tree/master/screenshots)
 
 
-### Arch Linux:
+
+## Installation
+
+
+
+### Arch Linux
 
 #### Install
 
@@ -46,6 +47,7 @@ AUR helpers are [not officialy supported](https://wiki.archlinux.org/index.php/A
 ```
 oomox-gui
 ```
+
 
 
 ### CentOS, Fedora, Mageia
@@ -74,7 +76,8 @@ For older releases install the dependencies manually and next follow general ins
  - [How to install `sassc>=3.4`](https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04)
 
 
-### Other distributions:
+
+### Other distributions
 
 
 #### Prerequisites
