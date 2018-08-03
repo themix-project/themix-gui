@@ -82,6 +82,6 @@ prepare(){
 
 package() {
 	cd "${srcdir}/oomox"
-	./packaging/install.sh ./ "${pkgdir}"
+	make DESTDIR="${pkgdir}" install
 	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui
 }

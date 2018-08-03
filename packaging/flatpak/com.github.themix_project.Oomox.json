@@ -100,7 +100,8 @@
             "name": "oomox",
             "buildsystem": "simple",
             "build-commands": [
-                "./packaging/flatpak/install.sh"
+                "make DESTDIR=/ PREFIX=/app/opt/oomox install",
+                "python3 -O -m compileall /app/opt/oomox/oomox_gui"
             ],
             "sources": [
                 {

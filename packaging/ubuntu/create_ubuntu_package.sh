@@ -12,7 +12,8 @@ pkgdir=$(readlink -e ./ubuntu_package)
 mkdir ${pkgdir}/DEBIAN
 cp ${srcdir}/packaging/ubuntu/{control,postinst} ${pkgdir}/DEBIAN
 
-${srcdir}/packaging/install.sh ${srcdir} ${pkgdir}
+cd ${srcdir}
+make DESTDIR="${pkgdir}" install
 
 cd ${pkgdir}
 dpkg-deb --build . oomox.deb
