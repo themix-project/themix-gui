@@ -2,12 +2,8 @@ DESTDIR = ./distrib
 PREFIX = /opt/oomox
 
 
-.PHONY: clean
-clean:
-	$(RM) -r $(DESTDIR)
-
 .PHONY: install
-install: clean
+install:
 	$(eval APP_DIR := $(DESTDIR)$(PREFIX))
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
