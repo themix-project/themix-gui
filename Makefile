@@ -1,6 +1,9 @@
 DESTDIR = ./distrib
 PREFIX = /opt/oomox
 
+DISABLE_PLUGIN_MATERIA = 0
+DISABLE_PLUGIN_SPOTIFY = 0
+
 
 .PHONY: install
 install:
@@ -29,6 +32,14 @@ install:
 	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"maintenance*
 	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"screenshot*
 	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"test*
+
+ifeq ($(DISABLE_PLUGIN_MATERIA), 1)
+	$(RM) -r $(APP_DIR)/plugins/theme_materia/
+endif
+
+ifeq ($(DISABLE_PLUGIN_SPOTIFY), 1)
+	$(RM) -r $(APP_DIR)/plugins/oomoxify/
+endif
 
 	cp -prf \
 		packaging/ \
