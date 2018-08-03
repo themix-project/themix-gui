@@ -65,7 +65,7 @@ options=(
 
 pkgver() {
 	cd "${srcdir}/oomox"
-	git describe | sed 's/^v//;s/-/+/g'
+	git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare(){
