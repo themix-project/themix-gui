@@ -20,16 +20,19 @@ def parse_theme_color_value(result_value):
     return result_value
 
 
-def parse_theme_value(theme_value, colorscheme):
+def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-branches
     result_value = colorscheme.get(theme_value['key'])
     fallback_key = theme_value.get('fallback_key')
     fallback_value = theme_value.get('fallback_value')
+    fallback_function = theme_value.get('fallback_function')
 
-    if result_value is None and (fallback_key or fallback_value is not None):
+    if result_value is None:
         if fallback_value is not None:
             result_value = fallback_value
-        else:
+        elif fallback_key:
             result_value = colorscheme[fallback_key]
+        elif fallback_function:
+            result_value = fallback_function(colorscheme)
 
     value_type = theme_value['type']
     if value_type == 'color':
