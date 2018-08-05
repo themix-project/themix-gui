@@ -26,7 +26,7 @@ class Plugin(OomoxThemePlugin):
 
     name = 'materia'
     display_name = 'Materia'
-    description = '(GTK+2, GTK+3, Gnome Shell, Metacity, Unity, Xfwm)'
+    description = '(GTK+2, GTK+3, Cinnamon, Gnome Shell, Metacity, Unity, Xfwm)'
     export_dialog = MateriaThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {
