@@ -31,6 +31,7 @@ class TerminalThemePreview(Gtk.Grid):
         self.background = Gtk.Grid(row_spacing=6, column_spacing=6)
         self.background.set_margin_top(WIDGET_SPACING/2)
         self.background.set_margin_bottom(WIDGET_SPACING)
+        self.background.set_margin_right(WIDGET_SPACING)
 
         self.terminal_widgets = {}
         twi = self.terminal_widgets
