@@ -1,7 +1,7 @@
 oomox theme designer
 =====
 
-Graphical application for generating different color variations of a Numix-based and Materia (ex-Flat-Plat) themes (GTK2, GTK3), Gnome-Colors and Archdroid icon themes.
+Graphical application for generating different color variations of Oomox (Numix-based), Materia (ex-Flat-Plat) and Arc themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Gnome-Colors and Archdroid icon themes. Have a hack for HiDPI in gtk2.
 
 <a href="https://aur.archlinux.org/packages/oomox"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_aur.png" width="160"></a>
 <a href="#debian-ubuntu-linux-mint"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_deb.png" width="160"></a>
@@ -112,7 +112,7 @@ Oomox theme:
  - `find`
  - `grep`
 
-Materia theme:
+Materia and Arc themes:
  - `sassc>=3.4`
  - `glib-compile-schemas` from `glib2`
  - `gdk-pixbuf2`
