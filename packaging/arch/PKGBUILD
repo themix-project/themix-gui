@@ -3,7 +3,7 @@
 
 pkgname=oomox-git
 pkgver=1.6.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical application for generating different color variations
 of Numix and Materia (ex-Flat-Plat) themes (GTK2, GTK3),
 gnome-colors and ArchDroid icon themes.
@@ -81,7 +81,10 @@ prepare(){
 }
 
 package() {
+	_oomox_dir=/opt/oomox
+	_oomox_gui_dir=${_oomox_dir}/oomox_gui
+
 	cd "${srcdir}/oomox"
-	make DESTDIR="${pkgdir}" install
-	python -O -m compileall ${pkgdir}/opt/oomox/oomox_gui -d /opt/oomox/oomox_gui
+	make DESTDIR="${pkgdir}" PREFIX="${_oomox_dir}" install
+	python -O -m compileall ${pkgdir}${_oomox_gui_dir} -d ${_oomox_gui_dir}
 }
