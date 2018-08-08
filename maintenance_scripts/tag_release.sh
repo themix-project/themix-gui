@@ -28,7 +28,7 @@ if [[ $(git status --porcelain 2>/dev/null| grep -c "^ [MD]") -gt 0 ]] ; then
 	answer=
 fi
 
-./maintenance_scripts/show_recent_history.sh -c
+./maintenance_scripts/show_recent_history.sh -c || true
 
 
 echo
@@ -50,7 +50,7 @@ echo -n "> "
 read -r answer
 echo
 if [[ "${answer}" = "y" ]] ; then
-	git commit -am "chore: bump version to ${new_version}"
+	git commit -am "chore: bump version to ${new_version}" || true
 	git tag -a "${new_version}"
 	git push origin HEAD
 	git push origin "${new_version}"
@@ -65,7 +65,7 @@ echo "**    Updating AUR dev PKBUILD...    **"
 echo "***************************************"
 echo
 ./maintenance_scripts/changelog.sh > "${aur_dev_repo_dir}"/CHANGELOG
-cp PKGBUILD "${aur_dev_repo_dir}"/PKGBUILD
+cp ./packaging/arch/PKGBUILD "${aur_dev_repo_dir}"/PKGBUILD
 cd "${aur_dev_repo_dir}"
 makepkg --printsrcinfo > .SRCINFO
 
