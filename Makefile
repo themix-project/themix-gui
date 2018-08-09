@@ -1,5 +1,6 @@
 DESTDIR = ./distrib
-PREFIX = /opt/oomox
+PREFIX = /usr
+APPDIR = /opt/oomox
 
 DISABLE_PLUGIN_MATERIA = 0
 DISABLE_PLUGIN_SPOTIFY = 0
@@ -8,10 +9,11 @@ DISABLE_PLUGIN_ARC = 0
 
 .PHONY: install
 install:
-	$(eval APP_DIR := $(DESTDIR)$(PREFIX))
+	$(eval DEST_APPDIR := $(DESTDIR)$(APPDIR))
+	$(eval DEST_PREFIX := $(DESTDIR)$(PREFIX))
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
-	mkdir -p $(APP_DIR)
+	mkdir -p $(DEST_APPDIR)
 	cp -prf \
 		CREDITS \
 		LICENSE \
@@ -23,52 +25,52 @@ install:
 		po \
 		po.mk \
 		terminal_templates \
-			$(APP_DIR)/
+			$(DEST_APPDIR)/
 
-	$(RM) -r "$(APP_DIR)/plugins/oomoxify/".git*
-	$(RM) -r "$(APP_DIR)/plugins"/*/*/.git*
-	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/".editorconfig
-	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/".*.yml
-	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"{D,d}ocker*
-	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"maintenance*
-	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"screenshot*
-	$(RM) -r "$(APP_DIR)/plugins/theme_oomox/gtk-theme/"test*
+	$(RM) -r "$(DEST_APPDIR)/plugins/oomoxify/".git*
+	$(RM) -r "$(DEST_APPDIR)/plugins"/*/*/.git*
+	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/".editorconfig
+	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/".*.yml
+	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"{D,d}ocker*
+	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"maintenance*
+	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"screenshot*
+	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"test*
 
 ifeq ($(DISABLE_PLUGIN_MATERIA), 1)
-	$(RM) -r $(APP_DIR)/plugins/theme_materia/
+	$(RM) -r $(DEST_APPDIR)/plugins/theme_materia/
 endif
 ifeq ($(DISABLE_PLUGIN_SPOTIFY), 1)
-	$(RM) -r $(APP_DIR)/plugins/oomoxify/
+	$(RM) -r $(DEST_APPDIR)/plugins/oomoxify/
 endif
 ifeq ($(DISABLE_PLUGIN_ARC), 1)
-	$(RM) -r $(APP_DIR)/plugins/theme_arc/
+	$(RM) -r $(DEST_APPDIR)/plugins/theme_arc/
 endif
 
 	cp -prf \
 		packaging/ \
 			$(PACKAGING_TMP_DIR)/
-	sed -i -e 's|/opt/oomox/|$(PREFIX)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
 
-	install -Dp -m 755 --target-directory="$(DESTDIR)/usr/bin/" "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+	install -Dp -m 755 --target-directory="$(DEST_PREFIX)/bin/" "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 
-	install -d $(DESTDIR)/usr/share/applications/
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" "$(DESTDIR)/usr/share/applications/"
+	install -d $(DEST_PREFIX)/share/applications/
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" "$(DEST_PREFIX)/share/applications/"
 
-	install -d $(DESTDIR)/usr/share/appdata/
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.appdata.xml" "$(DESTDIR)/usr/share/appdata/"
+	install -d $(DEST_PREFIX)/share/appdata/
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.appdata.xml" "$(DEST_PREFIX)/share/appdata/"
 
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" "$(DESTDIR)/usr/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-16.png" "$(DESTDIR)/usr/share/icons/hicolor/16x16/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-24.png" "$(DESTDIR)/usr/share/icons/hicolor/24x24/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-32.png" "$(DESTDIR)/usr/share/icons/hicolor/32x32/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-48.png"  "$(DESTDIR)/usr/share/icons/hicolor/48x48/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-512.png" "$(DESTDIR)/usr/share/icons/hicolor/512x512/apps/com.github.themix_project.Oomox.png"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" "$(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-16.png" "$(DEST_PREFIX)/share/icons/hicolor/16x16/apps/com.github.themix_project.Oomox.png"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-24.png" "$(DEST_PREFIX)/share/icons/hicolor/24x24/apps/com.github.themix_project.Oomox.png"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-32.png" "$(DEST_PREFIX)/share/icons/hicolor/32x32/apps/com.github.themix_project.Oomox.png"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-48.png"  "$(DEST_PREFIX)/share/icons/hicolor/48x48/apps/com.github.themix_project.Oomox.png"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-512.png" "$(DEST_PREFIX)/share/icons/hicolor/512x512/apps/com.github.themix_project.Oomox.png"
 
 	$(RM) -r $(PACKAGING_TMP_DIR)
 
-	cd $(APP_DIR)
+	cd $(DEST_APPDIR)
 	# will update ./po and produce ./locale dir:
 	make -f po.mk install
-	rm $(APP_DIR)/po.mk
+	rm $(DEST_APPDIR)/po.mk
 
 all: install

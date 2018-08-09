@@ -100,7 +100,7 @@
             "name": "oomox",
             "buildsystem": "simple",
             "build-commands": [
-                "make DESTDIR=/ PREFIX=/app/opt/oomox DISABLE_PLUGIN_MATERIA=1 DISABLE_PLUGIN_SPOTIFY=1 DISABLE_PLUGIN_ARC=1 install",
+                "make DESTDIR=/ PREFIX=/app APPDIR=/app/opt/oomox DISABLE_PLUGIN_MATERIA=1 DISABLE_PLUGIN_SPOTIFY=1 DISABLE_PLUGIN_ARC=1 install",
                 "python3 -O -m compileall /app/opt/oomox/oomox_gui"
             ],
             "sources": [
