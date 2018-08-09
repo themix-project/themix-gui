@@ -128,48 +128,58 @@ class Plugin(OomoxThemePlugin):
     ]
     """
 
-    @staticmethod
-    def _get_update_preview_borders(preview_object):
+    _preview_borders_monkeypatched = False
+
+    def _monkeypatch_update_preview_borders(self, preview_object):
+
+        if self._preview_borders_monkeypatched:
+            return
+
+        old_update_preview_borders = preview_object.update_preview_borders
 
         def _update_preview_borders(colorscheme):
-            for widget_name, widget, border_color in (  # pylint: disable=invalid-name
-                    (
-                        'button',
-                        preview_object.gtk_preview.button,
-                        colorscheme['ARC_WIDGET_BORDER_COLOR'],
-                    ), (
-                        'headerbar_button',
-                        preview_object.gtk_preview.headerbar.button,
-                        colorscheme['ARC_WIDGET_BORDER_COLOR'],
-                    ), (
-                        'entry',
-                        preview_object.gtk_preview.entry,
-                        colorscheme['ARC_WIDGET_BORDER_COLOR'],
-                    ),
-            ):
-                css_provider_border_color = preview_object.css_providers.border.get(widget_name)
-                if not css_provider_border_color:
-                    css_provider_border_color = \
-                        preview_object.css_providers.border[widget_name] = \
-                        Gtk.CssProvider()
-                css_provider_border_color.load_from_data(
-                    """
-                    * {{
-                        border-color: #{border_color};
-                        border-radius: {roundness}px;
-                    }}
-                    """.format(
-                        border_color=border_color,
-                        roundness=colorscheme["ROUNDNESS"],
-                    ).encode('ascii')
-                )
-                Gtk.StyleContext.add_provider(
-                    widget.get_style_context(),
-                    css_provider_border_color,
-                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-                )
+            if colorscheme["THEME_STYLE"] != "arc":
+                old_update_preview_borders(colorscheme)
+            else:
+                for widget_name, widget, border_color in (  # pylint: disable=invalid-name
+                        (
+                            'button',
+                            preview_object.gtk_preview.button,
+                            colorscheme['ARC_WIDGET_BORDER_COLOR'],
+                        ), (
+                            'headerbar_button',
+                            preview_object.gtk_preview.headerbar.button,
+                            colorscheme['ARC_WIDGET_BORDER_COLOR'],
+                        ), (
+                            'entry',
+                            preview_object.gtk_preview.entry,
+                            colorscheme['ARC_WIDGET_BORDER_COLOR'],
+                        ),
+                ):
+                    css_provider_border_color = preview_object.css_providers.border.get(widget_name)
+                    if not css_provider_border_color:
+                        css_provider_border_color = \
+                            preview_object.css_providers.border[widget_name] = \
+                            Gtk.CssProvider()
+                    css_provider_border_color.load_from_data(
+                        """
+                        * {{
+                            border-color: #{border_color};
+                            border-radius: {roundness}px;
+                        }}
+                        """.format(
+                            border_color=border_color,
+                            roundness=colorscheme["ROUNDNESS"],
+                        ).encode('ascii')
+                    )
+                    Gtk.StyleContext.add_provider(
+                        widget.get_style_context(),
+                        css_provider_border_color,
+                        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                    )
 
-        return _update_preview_borders
+        preview_object.update_preview_borders = _update_preview_borders
+        self._preview_borders_monkeypatched = True
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
@@ -180,4 +190,4 @@ class Plugin(OomoxThemePlugin):
         colorscheme["GRADIENT"] = 0
         colorscheme["ROUNDNESS"] = 0
         preview_object.WM_BORDER_WIDTH = 0
-        preview_object.update_preview_borders = self._get_update_preview_borders(preview_object)
+        self._monkeypatch_update_preview_borders(preview_object)
