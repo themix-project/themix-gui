@@ -3,8 +3,9 @@ PREFIX = /usr
 APPDIR = /opt/oomox
 
 DISABLE_PLUGIN_MATERIA = 0
-DISABLE_PLUGIN_SPOTIFY = 0
 DISABLE_PLUGIN_ARC = 0
+DISABLE_PLUGIN_SPOTIFY = 0
+DISABLE_PLUGIN_IMPORT_IMAGE = 0
 
 
 .PHONY: install
@@ -39,11 +40,14 @@ install:
 ifeq ($(DISABLE_PLUGIN_MATERIA), 1)
 	$(RM) -r $(DEST_APPDIR)/plugins/theme_materia/
 endif
+ifeq ($(DISABLE_PLUGIN_ARC), 1)
+	$(RM) -r $(DEST_APPDIR)/plugins/theme_arc/
+endif
 ifeq ($(DISABLE_PLUGIN_SPOTIFY), 1)
 	$(RM) -r $(DEST_APPDIR)/plugins/oomoxify/
 endif
-ifeq ($(DISABLE_PLUGIN_ARC), 1)
-	$(RM) -r $(DEST_APPDIR)/plugins/theme_arc/
+ifeq ($(DISABLE_PLUGIN_IMPORT_IMAGE), 1)
+	$(RM) -r $(DEST_APPDIR)/plugins/import_pil/
 endif
 
 	cp -prf \
