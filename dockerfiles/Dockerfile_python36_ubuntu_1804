@@ -1,0 +1,12 @@
+FROM library/ubuntu:bionic
+WORKDIR /opt/oomox-build/
+
+# App and test (xvfb, pylint) deps
+RUN apt-get update -y && \
+    env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gtk+3.0 python3-gi xvfb python3-pip psmisc
+RUN pip3 install setuptools && \
+    pip3 install pylint
+
+# run test
+COPY . /opt/oomox-build/
+RUN bash ./maintenance_scripts/run_test.sh

@@ -1,9 +1,9 @@
 language: python
 env:
   matrix:
-    #- PYVER=python34_openmandriva
     - PYVER=python34_venv_arch
     - PYVER=python35_ubuntu_1604
+    - PYVER=python36_ubuntu_1804
     - PYVER=current_arch
 services:
   - docker
