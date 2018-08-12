@@ -2,7 +2,8 @@ import os
 
 from gi.repository import Gtk
 
-from oomox_gui.export_common import GtkThemeExportDialog, OPTION_GTK2_HIDPI
+from oomox_gui.export_common import GtkThemeExportDialog
+# from oomox_gui.export_common import OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 from oomox_gui.color import mix_theme_colors
 
@@ -22,7 +23,7 @@ class ArcThemeExportDialog(GtkThemeExportDialog):
         self.command = [
             "bash",
             os.path.join(THEME_DIR, "change_color.sh"),
-            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
+            # "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
             "--output", self.theme_name,
             self.temp_theme_path,
         ]
@@ -44,7 +45,7 @@ class ArcThemeExportDialog(GtkThemeExportDialog):
             transient_for=transient_for,
             colorscheme=colorscheme,
             theme_name=theme_name,
-            add_options={
+            override_options={
                 OPTION_EXPORT_CINNAMON_THEME: {
                     'default': False,
                     'display_name': _("Generate theme for _Cinnamon"),

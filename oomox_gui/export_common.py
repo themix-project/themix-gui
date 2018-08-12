@@ -200,9 +200,9 @@ class GtkThemeExportDialog(FileBasedExportDialog):
             self.export_config[option_id] = widget.get_active()
         return callback
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
             self, transient_for, colorscheme, theme_name,
-            add_options=None,
+            add_options=None, override_options=None,
             **kwargs
     ):
         super().__init__(
@@ -210,7 +210,7 @@ class GtkThemeExportDialog(FileBasedExportDialog):
             **kwargs
         )
 
-        export_options = {
+        export_options = override_options or {
             OPTION_GTK2_HIDPI: {
                 'default': False,
                 'display_name': _("Generate 2x scaled (_HiDPI) assets for GTK+2"),
