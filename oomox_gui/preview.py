@@ -10,6 +10,7 @@ from .gtk_helpers import ScaledImage
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
 from .config import FALLBACK_COLOR
+from .i18n import _
 
 
 WIDGET_SPACING = 10

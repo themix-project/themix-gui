@@ -11,6 +11,7 @@ from oomox_gui.terminal import (
     import_xcolors,
 )
 from oomox_gui.helpers import get_plugin_module
+from oomox_gui.i18n import _
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))

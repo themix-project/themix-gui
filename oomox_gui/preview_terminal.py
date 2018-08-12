@@ -2,6 +2,7 @@ from gi.repository import Gtk
 
 from .terminal import generate_xrdb_theme_from_oomox
 from .color import convert_theme_color_to_gdk
+from .i18n import _
 
 
 WIDGET_SPACING = 10

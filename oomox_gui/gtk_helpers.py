@@ -3,6 +3,8 @@ from enum import Enum
 from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 from gi.types import GObjectMeta
 
+from .i18n import _
+
 
 class ActionsEnum(Enum):
 

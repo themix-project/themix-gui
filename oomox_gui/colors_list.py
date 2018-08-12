@@ -7,6 +7,7 @@ from .color import (
 )
 from .gtk_helpers import GObjectABCMeta, g_abstractproperty, ScaledImage
 from .config import FALLBACK_COLOR
+from .i18n import _
 
 
 def check_value_filter(value_filter_data, colorscheme):

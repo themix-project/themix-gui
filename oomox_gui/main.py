@@ -4,6 +4,7 @@ import signal
 
 from gi.repository import Gtk, Gio
 
+from .i18n import _
 from .config import USER_COLORS_DIR
 from .helpers import mkdir_p
 from .gtk_helpers import (

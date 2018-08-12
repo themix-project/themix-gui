@@ -7,6 +7,7 @@ from oomox_gui.export_common import GtkThemeExportDialog
 # from oomox_gui.export_common import OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 from oomox_gui.color import mix_theme_colors
+from oomox_gui.i18n import _
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))

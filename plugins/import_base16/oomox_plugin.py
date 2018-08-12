@@ -1,6 +1,7 @@
 import os
 
 from oomox_gui.plugin_api import OomoxImportPlugin
+from oomox_gui.i18n import _
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))

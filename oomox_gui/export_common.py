@@ -13,6 +13,7 @@ from .terminal import (
     generate_xresources
 )
 from .gtk_helpers import CenterLabel
+from .i18n import _
 
 
 class ExportDialog(Gtk.Dialog):

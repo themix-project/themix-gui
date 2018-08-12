@@ -4,6 +4,7 @@ from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import (
     THEME_PLUGINS, ICONS_PLUGINS, EXPORT_PLUGINS, IMPORT_PLUGINS,
 )
+from .i18n import _
 
 
 def get_base_keys(base_theme_model):

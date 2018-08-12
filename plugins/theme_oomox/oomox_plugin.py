@@ -4,6 +4,7 @@ from gi.repository import Gtk
 
 from oomox_gui.export_common import OPTION_GTK2_HIDPI, GtkThemeExportDialog
 from oomox_gui.plugin_api import OomoxThemePlugin
+from oomox_gui.i18n import _
 
 
 OPTION_GTK3_CURRENT_VERSION_ONLY = 'OPTION_GTK3_CURRENT_VERSION_ONLY'
