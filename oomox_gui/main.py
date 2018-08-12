@@ -1,5 +1,6 @@
 #!/bin/env python3
 import sys
+import signal
 
 from gi.repository import Gtk, Gio
 
@@ -501,15 +502,26 @@ class OomoxGtkApplication(Gtk.Application):
         self.activate()
         return 0
 
-    def _on_quit(self, _action, _param=None):
+    def quit(self):
         if self.window:
             self.window.close()
         else:
-            self.quit()
+            super().quit()
+
+    def _on_quit(self, _action, _param=None):
+        self.quit()
 
 
 def main():
+
     app = OomoxGtkApplication()
+
+    def handle_sig_int(*_whatever):  # pragma: no cover
+        app.quit()
+        sys.stderr.write("\n\nCanceled by user (SIGINT)\n")
+        sys.exit(125)
+
+    signal.signal(signal.SIGINT, handle_sig_int)
     app.run(sys.argv)
 
 
