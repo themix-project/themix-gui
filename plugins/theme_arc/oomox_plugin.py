@@ -129,11 +129,10 @@ class Plugin(OomoxThemePlugin):
     ]
     """
 
-    _preview_borders_monkeypatched = False
-
     def _monkeypatch_update_preview_borders(self, preview_object):
+        MONKEYPATCH_ID = '_arc_borders_monkeypatched'
 
-        if self._preview_borders_monkeypatched:
+        if getattr(preview_object, MONKEYPATCH_ID, None):
             return
 
         old_update_preview_borders = preview_object.update_preview_borders
@@ -150,7 +149,11 @@ class Plugin(OomoxThemePlugin):
                         ), (
                             'headerbar_button',
                             preview_object.gtk_preview.headerbar.button,
-                            colorscheme['ARC_WIDGET_BORDER_COLOR'],
+                            mix_theme_colors(
+                                colorscheme['HDR_BTN_FG'],
+                                colorscheme['HDR_BTN_BG'],
+                                0.12
+                            ),
                         ), (
                             'entry',
                             preview_object.gtk_preview.entry,
@@ -180,7 +183,7 @@ class Plugin(OomoxThemePlugin):
                     )
 
         preview_object.update_preview_borders = _update_preview_borders
-        self._preview_borders_monkeypatched = True
+        setattr(preview_object, MONKEYPATCH_ID, True)
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
