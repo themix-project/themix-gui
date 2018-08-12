@@ -502,7 +502,7 @@ class OomoxGtkApplication(Gtk.Application):
         self.activate()
         return 0
 
-    def quit(self):
+    def quit(self):  # pylint: disable=arguments-differ
         if self.window:
             self.window.close()
         else:
