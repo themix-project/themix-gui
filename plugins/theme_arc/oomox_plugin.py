@@ -19,6 +19,8 @@ OPTION_EXPORT_XFWM_THEME = 'OPTION_EXPORT_XFWM_THEME'
 
 
 class ArcThemeExportDialog(GtkThemeExportDialog):
+
+    config_name = 'arc_theme'
     timeout = 1000
 
     def do_export(self):
