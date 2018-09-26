@@ -8,8 +8,6 @@
 !*background: #090f18
 ! classic:
 *background: #0f0f0f
-URxvt*background: [95]#0f0f0f
-xterm*background: #0f0f0f
 
 !*foreground:        #bcbcbc
 *foreground:        #d0d2cd
