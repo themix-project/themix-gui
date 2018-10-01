@@ -18,5 +18,5 @@
 	url = https://github.com/base16-builder/base16-builder
 [submodule "arc-theme"]
 	path = plugins/theme_arc/arc-theme
-	url = https://github.com/actionless/arc-theme.git
+	url = https://github.com/NicoHood/arc-theme.git
 	branch = oomox
