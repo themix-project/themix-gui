@@ -41,6 +41,7 @@ depends=(
 	'gdk-pixbuf2'  # oomox, materia, arc
 	'gtk-engine-murrine'  # oomox, materia, arc
 	'gtk-engines'  # oomox, materia, arc
+	'gnome-themes-extra'  # materia
 	'sassc'  # oomox, materia, arc
 	'librsvg'  # oomox, gnome-colors
 	'sed'  # oomox, materia, arc, gnome-colors, archdroid
