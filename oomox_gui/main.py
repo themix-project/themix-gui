@@ -598,6 +598,8 @@ class OomoxGtkApplication(Gtk.Application):
         self.add_action(quit_action)
 
         set_accels_for_action(AppActions.quit, ["<Primary>Q"])
+
+        set_accels_for_action(WindowActions.import_menu, ["<Primary>M"])
         set_accels_for_action(WindowActions.clone, ["<Primary>D"])
         set_accels_for_action(WindowActions.save, ["<Primary>S"])
         set_accels_for_action(WindowActions.rename, ["F2"])
