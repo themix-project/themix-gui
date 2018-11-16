@@ -1,5 +1,8 @@
 import os
 
+from gi.repository import Gtk
+
+from .i18n import _
 from .config import PLUGINS_DIR, USER_PLUGINS_DIR
 from .plugin_api import (
     OomoxPlugin,
@@ -15,6 +18,26 @@ EXPORT_PLUGINS = {}
 IMPORT_PLUGINS = {}
 
 
+def load_plugin(plugin_name, plugin_path):
+    plugin_module = get_plugin_module(
+        plugin_name,
+        os.path.join(plugin_path, "oomox_plugin.py")
+    )
+    plugin_class = plugin_module.Plugin
+    plugin = plugin_class()
+    if not issubclass(plugin_class, OomoxPlugin):
+        return
+    ALL_PLUGINS[plugin_name] = plugin
+    if issubclass(plugin_class, OomoxImportPlugin):
+        IMPORT_PLUGINS[plugin_name] = plugin
+    if issubclass(plugin_class, OomoxThemePlugin):
+        THEME_PLUGINS[plugin_name] = plugin
+    if issubclass(plugin_class, OomoxIconsPlugin):
+        ICONS_PLUGINS[plugin_name] = plugin
+    if issubclass(plugin_class, OomoxExportPlugin):
+        EXPORT_PLUGINS[plugin_name] = plugin
+
+
 def init_plugins():
     all_plugin_paths = {}
     for _plugins_dir in (PLUGINS_DIR, USER_PLUGINS_DIR):
@@ -22,25 +45,19 @@ def init_plugins():
             continue
         for plugin_name in os.listdir(_plugins_dir):
             all_plugin_paths[plugin_name] = os.path.join(_plugins_dir, plugin_name)
-
     for plugin_name, plugin_path in all_plugin_paths.items():
-        plugin_module = get_plugin_module(
-            plugin_name,
-            os.path.join(plugin_path, "oomox_plugin.py")
-        )
-        plugin_class = plugin_module.Plugin
-        plugin = plugin_class()
-        if not issubclass(plugin_class, OomoxPlugin):
-            continue
-        ALL_PLUGINS[plugin_name] = plugin
-        if issubclass(plugin_class, OomoxImportPlugin):
-            IMPORT_PLUGINS[plugin_name] = plugin
-        if issubclass(plugin_class, OomoxThemePlugin):
-            THEME_PLUGINS[plugin_name] = plugin
-        if issubclass(plugin_class, OomoxIconsPlugin):
-            ICONS_PLUGINS[plugin_name] = plugin
-        if issubclass(plugin_class, OomoxExportPlugin):
-            EXPORT_PLUGINS[plugin_name] = plugin
+        try:
+            load_plugin(plugin_name, plugin_path)
+        except Exception as exc:
+            error_dialog = Gtk.MessageDialog(
+                text=_('Error loading plugin "{plugin_name}"').format(
+                    plugin_name=plugin_name
+                ),
+                secondary_text=plugin_path + ":\n" + '\n'.join(exc.args),
+                buttons=Gtk.ButtonsType.CLOSE
+            )
+            error_dialog.run()
+            error_dialog.destroy()
 
 
 init_plugins()
