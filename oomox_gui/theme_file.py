@@ -1,4 +1,5 @@
 import os
+import shutil
 from collections import defaultdict
 from itertools import groupby
 
@@ -54,6 +55,14 @@ def save_colorscheme(preset_name, colorscheme, path=None):
                     key, value
                 ))
     return path
+
+
+def import_colorscheme(preset_name, import_path):
+    new_path = get_user_theme_path(preset_name)
+    if not os.path.exists(new_path):
+        mkdir_p(os.path.dirname(new_path))
+    shutil.copy(import_path, new_path)
+    return new_path
 
 
 def remove_colorscheme(preset_name):

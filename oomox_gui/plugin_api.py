@@ -85,10 +85,13 @@ class OomoxExportPlugin(OomoxPlugin):
 
 class OomoxImportPlugin(OomoxPlugin):
 
-    # @abstractproperty
-    # def import_dialog(self):
-        # pass
+    # Text to display in import menu:
+    import_text = None
 
+    # Function to be called on import
+    import_dialog = None
+
+    # @TODO: remove:
     @abstractproperty
     def file_extensions(self):
         pass

@@ -49,6 +49,7 @@ class Plugin(OomoxImportPlugin):
 
     name = 'import_pil'
     display_name = 'PIL-based images import'
+    import_text = 'Colors from image'
     file_extensions = (
         '.jpg',
         '.png',
