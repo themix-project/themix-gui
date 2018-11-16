@@ -2,6 +2,7 @@
 import os
 import sys
 import signal
+import shutil
 
 from gi.repository import Gtk, Gio
 
@@ -214,8 +215,37 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                     path=import_theme_path,
                     new_name=new_theme_name
                 )
-                self.reload_presets()
                 return
+
+    def import_from_plugin(self, plugin):
+        self.check_unsaved_changes()
+        filechooser_dialog = Gtk.FileChooserDialog(
+            _("Please choose an image file"),
+            self,
+            Gtk.FileChooserAction.OPEN,
+            (
+                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_OPEN, Gtk.ResponseType.OK
+            )
+        )
+        filechooser_response = filechooser_dialog.run()
+        if filechooser_response in (
+                Gtk.ResponseType.CANCEL, Gtk.ResponseType.DELETE_EVENT
+        ):
+            filechooser_dialog.destroy()
+            return
+        import_theme_path = filechooser_dialog.get_filename()
+        filechooser_dialog.destroy()
+        import_theme_name = os.path.basename(import_theme_path)
+
+        new_theme_path = os.path.join(plugin.user_theme_dir, import_theme_name)
+        dest_dir = os.path.dirname(new_theme_path)
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+
+        shutil.copy(import_theme_path, new_theme_path)
+        self.colorscheme_path = new_theme_path
+        self.reload_presets()
 
     def clone_theme(self):
         dialog = NewDialog(transient_for=self)
@@ -332,6 +362,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _on_import_themix_colors(self, _action, _param=None):
         return self.import_themix_colors()
 
+    def _on_import_plugin(self, action, _param=None):
+        plugin = IMPORT_PLUGINS[
+            action.props.name.replace('import_plugin_', '')
+        ]
+        self.import_from_plugin(plugin)
+
     def _on_clone(self, _action, _param=None):
         return self.clone_theme()
 
@@ -397,11 +433,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         ))
 
         for plugin_name, plugin in IMPORT_PLUGINS.items():
-            if plugin.import_dialog:
-                import_menu.append_item(Gio.MenuItem.new(
-                    plugin.import_text or plugin.display_name,
-                    "win.import_plugin_{}".format(plugin_name)
-                ))
+            import_menu.append_item(Gio.MenuItem.new(
+                plugin.import_text or plugin.display_name,
+                "win.import_plugin_{}".format(plugin_name)
+            ))
 
         import_button = Gtk.MenuButton(label=_("Import"))
         import_button.set_use_popover(True)
@@ -493,6 +528,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _init_actions(self):
         self.add_simple_action(WindowActions.import_themix_colors, self._on_import_themix_colors)
+        for plugin_name in IMPORT_PLUGINS:
+            self.add_simple_action_by_name(
+                "import_plugin_{}".format(plugin_name), self._on_import_plugin
+            )
         self.add_simple_action(WindowActions.clone, self._on_clone)
         self.save_action = self.add_simple_action(WindowActions.save, self._on_save)
         self.rename_action = self.add_simple_action(WindowActions.rename, self._on_rename)

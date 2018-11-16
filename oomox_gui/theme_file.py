@@ -8,29 +8,36 @@ from .helpers import ls_r, mkdir_p
 
 
 def get_presets():
-    file_paths = [
-        {
-            "name": "".join(
-                path.startswith(COLORS_DIR) and path.rsplit(COLORS_DIR) or
-                path.rsplit(USER_COLORS_DIR)
-            ),
-            "path": path,
-            "default": is_default,
-        }
-        for paths, is_default in (
-            (ls_r(USER_COLORS_DIR), False),
-            (ls_r(COLORS_DIR), True)
-        )
-        for path in paths
-    ]
-    result = defaultdict(list)
-    for _key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
-        group = sorted(list(group), key=lambda x: x['name'])
-        display_name = group[0]['name']
-        if display_name in result:
-            display_name = display_name + " (default)"
-        result[display_name] = group
-    return dict(result)
+    from .plugin_loader import IMPORT_PLUGINS
+    all_results = {}
+    for colors_dir, is_default in [
+            (COLORS_DIR, True),
+            (USER_COLORS_DIR, False),
+    ] + [
+        (plugin.plugin_theme_dir, True)
+        for plugin in IMPORT_PLUGINS.values()
+        if plugin.plugin_theme_dir
+    ]:
+        result = defaultdict(list)
+        paths = ls_r(colors_dir)
+        file_paths = [
+            {
+                "name": "".join(
+                    path.rsplit(colors_dir)
+                ),
+                "path": os.path.abspath(path),
+                "default": is_default,
+            }
+            for path in paths
+        ]
+        for _key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
+            group = sorted(list(group), key=lambda x: x['name'])
+            display_name = group[0]['name']
+            # if display_name in result:
+                # display_name = display_name + " (default)"
+            result[display_name] = group
+        all_results[colors_dir] = dict(result)
+    return all_results
 
 
 def get_user_theme_path(user_theme_name):

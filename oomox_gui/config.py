@@ -3,7 +3,7 @@ import os
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-OOMOX_ROOT_DIR = os.path.join(SCRIPT_DIR, "../")
+OOMOX_ROOT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "../"))
 
 COLORS_DIR = os.path.join(
     OOMOX_ROOT_DIR, "colors/"
@@ -16,13 +16,13 @@ TERMINAL_TEMPLATE_DIR = os.path.join(
 )
 
 
-USER_CONFIG_DIR = os.path.join(
+USER_CONFIG_DIR = os.path.abspath(os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",
         os.path.join(os.environ.get("HOME"), ".config/")
     ),
     "oomox/"
-)
+))
 USER_COLORS_DIR = os.path.join(
     USER_CONFIG_DIR, "colors/"
 )

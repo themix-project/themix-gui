@@ -1,3 +1,5 @@
+import os
+
 from .theme_model import THEME_MODEL
 from .color import get_random_theme_color
 from .xrdb import XrdbCache
@@ -56,15 +58,20 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
 
 
 def read_colorscheme_from_path(preset_path):
+    preset_path = os.path.abspath(preset_path)
     colorscheme = {}
-
     from_plugin = None
+
     for plugin_name, plugin in IMPORT_PLUGINS.items():
-        for file_extension in plugin.file_extensions:
-            if preset_path.lower().endswith(file_extension):
-                colorscheme = plugin.read_colorscheme_from_path(preset_path)
-                from_plugin = plugin_name
-                break
+        if preset_path.startswith(plugin.user_theme_dir) or (
+                plugin.plugin_theme_dir and (
+                    preset_path.startswith(plugin.plugin_theme_dir)
+                )
+        ):
+            colorscheme = plugin.read_colorscheme_from_path(preset_path)
+            from_plugin = plugin_name
+            break
+
     if not colorscheme:
         theme_keys = [item['key'] for item in THEME_MODEL if 'key' in item]
 

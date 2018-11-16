@@ -1,7 +1,11 @@
+import os
 from abc import ABCMeta, abstractproperty, abstractmethod
 from enum import Enum
 
-from oomox_gui.config import FALLBACK_COLOR
+from oomox_gui.config import FALLBACK_COLOR, USER_COLORS_DIR
+
+
+PLUGIN_PATH_PREFIX = "__plugin__"
 
 
 class OomoxPlugin(metaclass=ABCMeta):
@@ -85,19 +89,22 @@ class OomoxExportPlugin(OomoxPlugin):
 
 class OomoxImportPlugin(OomoxPlugin):
 
-    # Text to display in import menu:
-    import_text = None
+    plugin_theme_dir = None
 
-    # Function to be called on import
-    import_dialog = None
+    @property
+    def user_theme_dir(self):
+        return os.path.abspath(
+            os.path.join(USER_COLORS_DIR, PLUGIN_PATH_PREFIX + self.name)
+        )
 
-    # @TODO: remove:
-    @abstractproperty
-    def file_extensions(self):
-        pass
+    # supported file extensions for filechooser dialog
+    file_extensions = []
 
     @abstractmethod
     def read_colorscheme_from_path(self, preset_path):
         pass
 
     theme_model_import = []
+
+    # Text to display in import menu:
+    import_text = None

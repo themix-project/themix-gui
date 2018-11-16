@@ -1,12 +1,17 @@
+import os
+
 from gi.repository import Gtk
 
+from .i18n import _
 from .color import (
     mix_gdk_colors, convert_gdk_to_theme_color
 )
 from .theme_file import (
     is_user_colorscheme, get_presets
 )
-from .i18n import _
+from .plugin_api import PLUGIN_PATH_PREFIX
+from .plugin_loader import IMPORT_PLUGINS
+from .config import USER_COLORS_DIR, COLORS_DIR
 
 
 class ThemePresetsList(Gtk.Box):
@@ -70,28 +75,74 @@ class ThemePresetsList(Gtk.Box):
                 self.treeview.expand_row(treepath, False)
             self.treeview.set_cursor(treepathcopy)
 
+    def _add_presets(self, preset_dir, preset_list, plugin_name=None):
+
+        def _format(path):
+            template = "{}"
+            if plugin_name:
+                template = "(Plugin) {}: ".format(plugin_name) + template
+            return template.format(path.split(preset_dir)[1].lstrip('/'))
+
+        sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
+        first_preset = sorted_preset_list[0]
+        color = self.treeview_default_fg if first_preset['default'] \
+            else None
+        piter = self.treestore.append(
+            None, (
+                _format(first_preset['path']),
+                first_preset['name'],
+                first_preset['path'],
+                color
+            )
+        )
+        for preset in sorted_preset_list[1:]:
+            self.treestore.append(
+                piter, (
+                    _format(preset['path']),
+                    preset['name'],
+                    preset['path'],
+                    color
+                )
+            )
+
     def load_presets(self):
         if self.update_signal:
             self.treeview.disconnect(self.update_signal)
         self.treestore.clear()
-        for preset_dir, preset_list in get_presets().items():
-            sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
-            first_preset = sorted_preset_list[0]
-            color = self.treeview_default_fg if first_preset['default'] \
-                else None
-            piter = self.treestore.append(
-                None, (
-                    preset_dir,
-                    first_preset['name'],
-                    first_preset['path'],
-                    color
+        all_presets = get_presets()
+
+        for preset_dir, preset_list in sorted(all_presets.get(COLORS_DIR, {}).items()):
+            if preset_dir.startswith(PLUGIN_PATH_PREFIX):
+                continue
+            self._add_presets(COLORS_DIR, preset_list)
+
+        for colors_dir, presets in all_presets.items():
+            for preset_dir, preset_list in sorted(presets.items()):
+
+                plugin_theme_dir = None
+                plugin_display_name = None
+                for plugin in IMPORT_PLUGINS.values():
+                    if plugin.plugin_theme_dir == colors_dir:
+                        plugin_theme_dir = plugin.plugin_theme_dir
+                    elif plugin.user_theme_dir and (
+                            os.path.join(colors_dir, preset_dir).startswith(plugin.user_theme_dir)
+                    ):
+                        plugin_theme_dir = plugin.user_theme_dir
+                    else:
+                        continue
+                    plugin_display_name = plugin.display_name or plugin.name
+                if not plugin_theme_dir:
+                    continue
+
+                self._add_presets(
+                    plugin_theme_dir, preset_list, plugin_name=plugin_display_name
                 )
-            )
-            for preset in sorted_preset_list[1:]:
-                self.treestore.append(
-                    piter,
-                    (preset['name'], preset['name'], preset['path'], color)
-                )
+
+        for preset_dir, preset_list in sorted(all_presets.get(USER_COLORS_DIR, {}).items()):
+            if preset_dir.startswith(PLUGIN_PATH_PREFIX):
+                continue
+            self._add_presets(USER_COLORS_DIR, preset_list)
+
         self.update_signal = self.treeview.connect(
             "cursor_changed", self.on_preset_select
         )
@@ -113,7 +164,6 @@ class ThemePresetsList(Gtk.Box):
         self.preset_select_callback = preset_select_callback
 
         self.treestore = Gtk.TreeStore(str, str, str, str)
-        self.treestore.set_sort_column_id(0, Gtk.SortType.ASCENDING)
         self.treeview = Gtk.TreeView(
             model=self.treestore, headers_visible=False
         )
