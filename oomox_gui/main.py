@@ -273,6 +273,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if self.theme_edited:
             if dialog_is_yes(UnsavedDialog(transient_for=self)):
                 self.save_theme()
+            else:
+                self.theme_edited = False
 
     def check_colorscheme_exists(self, colorscheme_name):
         if not is_colorscheme_exists(get_user_theme_path(colorscheme_name)):
