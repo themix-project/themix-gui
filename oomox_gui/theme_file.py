@@ -18,8 +18,6 @@ def get_presets():
         for plugin in IMPORT_PLUGINS.values()
         if plugin.plugin_theme_dir
     ]:
-        result = defaultdict(list)
-        paths = ls_r(colors_dir)
         file_paths = [
             {
                 "name": "".join(
@@ -28,14 +26,11 @@ def get_presets():
                 "path": os.path.abspath(path),
                 "default": is_default,
             }
-            for path in paths
+            for path in ls_r(colors_dir)
         ]
-        for _key, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
-            group = sorted(list(group), key=lambda x: x['name'])
-            display_name = group[0]['name']
-            # if display_name in result:
-                # display_name = display_name + " (default)"
-            result[display_name] = group
+        result = defaultdict(list)
+        for dir_name, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
+            result[dir_name] = sorted(list(group), key=lambda x: x['name'])
         all_results[colors_dir] = dict(result)
     return all_results
 

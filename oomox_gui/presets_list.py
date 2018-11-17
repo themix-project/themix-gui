@@ -74,30 +74,32 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 self.treeview.expand_row(treepath, False)
             self.treeview.set_cursor(treepathcopy)
 
-    def _add_presets(self, preset_dir, preset_list, plugin_name=None):
-
-        def _format(path):
-            template = "{}"
-            if plugin_name:
-                template = "(Plugin) {}: ".format(plugin_name) + template
-            return template.format(path.split(preset_dir)[1].lstrip('/'))
-
+    def _add_presets(self, colors_dir, preset_dir, preset_list, plugin_name=None):
         sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
+
         first_preset = sorted_preset_list[0]
-        color = self.treeview_default_fg if first_preset['default'] \
-            else None
+        color = self.treeview_default_fg \
+            if first_preset['default'] else None
+        dir_template = "(Plugin) {}: {{}}".format(plugin_name) \
+            if plugin_name else "{}"
+        dir_display_name = dir_template.format(
+            first_preset['path'].split(colors_dir)[1].lstrip('/')
+        )
         piter = self.treestore.append(
             None, (
-                _format(first_preset['path']),
+                dir_display_name,
                 first_preset['name'],
                 first_preset['path'],
                 color
             )
         )
+
         for preset in sorted_preset_list[1:]:
+            display_name = preset['name'].split(preset_dir)[1].lstrip('/') \
+                if preset_dir else preset['name']
             self.treestore.append(
                 piter, (
-                    _format(preset['path']),
+                    display_name,
                     preset['name'],
                     preset['path'],
                     color
@@ -113,7 +115,9 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         for preset_dir, preset_list in sorted(all_presets.get(COLORS_DIR, {}).items()):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
-            self._add_presets(COLORS_DIR, preset_list)
+            self._add_presets(
+                colors_dir=COLORS_DIR, preset_dir=preset_dir, preset_list=preset_list
+            )
 
         for colors_dir, presets in all_presets.items():
             for preset_dir, preset_list in sorted(presets.items()):
@@ -134,13 +138,16 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                     continue
 
                 self._add_presets(
-                    plugin_theme_dir, preset_list, plugin_name=plugin_display_name
+                    colors_dir=plugin_theme_dir, preset_dir=preset_dir, preset_list=preset_list,
+                    plugin_name=plugin_display_name
                 )
 
         for preset_dir, preset_list in sorted(all_presets.get(USER_COLORS_DIR, {}).items()):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
-            self._add_presets(USER_COLORS_DIR, preset_list)
+            self._add_presets(
+                colors_dir=USER_COLORS_DIR, preset_dir=preset_dir, preset_list=preset_list
+            )
 
         self.update_signal = self.treeview.connect(
             "cursor_changed", self.on_preset_select
