@@ -192,10 +192,7 @@ class ThemePreview(Gtk.Grid):
     def init_widgets(self):
         self.gtk_preview = PreviewWidgets()
         self.background = Gtk.Grid(row_spacing=WIDGET_SPACING, column_spacing=6)
-        preview_label = Gtk.Label(label=_("Preview:"))
-        self.attach(preview_label, 1, 1, 3, 1)
-        self.attach_next_to(self.background, preview_label,
-                            Gtk.PositionType.BOTTOM, 1, 1)
+        self.attach(self.background, 1, 1, 3, 1)
 
         self.gtk_preview.background.set_margin_bottom(WIDGET_SPACING)
         self.background.attach(self.gtk_preview.background, 1, 3, 1, 1)

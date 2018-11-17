@@ -408,7 +408,7 @@ class SeparatorListBoxRow(Gtk.ListBoxRow):
         self.add(hbox)
 
 
-class ThemeColorsList(Gtk.Box):
+class ThemeColorsList(Gtk.ScrolledWindow):
 
     color_edited_callback = None
     theme_reload_callback = None
@@ -514,19 +514,12 @@ class ThemeColorsList(Gtk.Box):
 
     def __init__(self, color_edited_callback, theme_reload_callback, transient_for):
         self.transient_for = transient_for
-        super().__init__(orientation=Gtk.Orientation.VERTICAL)
+        super().__init__()
+        self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.color_edited_callback = color_edited_callback
         self.theme_reload_callback = theme_reload_callback
-
-        scrolled = Gtk.ScrolledWindow()
-        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
         self.build_theme_model_rows()
-        scrolled.add(self.listbox)
-
-        theme_edit_label = Gtk.Label()
-        theme_edit_label.set_text(_("Edit:"))
-        self.pack_start(theme_edit_label, False, False, 0)
-        self.pack_start(scrolled, True, True, 0)
+        self.add(self.listbox)

@@ -2,7 +2,6 @@ import os
 
 from gi.repository import Gtk
 
-from .i18n import _
 from .color import (
     mix_gdk_colors, convert_gdk_to_theme_color
 )
@@ -14,7 +13,7 @@ from .plugin_loader import IMPORT_PLUGINS
 from .config import USER_COLORS_DIR, COLORS_DIR
 
 
-class ThemePresetsList(Gtk.Box):
+class ThemePresetsList(Gtk.ScrolledWindow):
 
     treeview_default_fg = None
     update_signal = None
@@ -160,7 +159,9 @@ class ThemePresetsList(Gtk.Box):
         )
 
     def __init__(self, preset_select_callback):
-        super().__init__(orientation=Gtk.Orientation.VERTICAL)
+        super().__init__()
+        self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+
         self.preset_select_callback = preset_select_callback
 
         self.treestore = Gtk.TreeStore(str, str, str, str)
@@ -174,11 +175,4 @@ class ThemePresetsList(Gtk.Box):
         self.treeview.append_column(column)
         self.load_presets()
 
-        scrolled = Gtk.ScrolledWindow()
-        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scrolled.add(self.treeview)
-
-        presets_list_label = Gtk.Label()
-        presets_list_label.set_text(_("Presets:"))
-        self.pack_start(presets_list_label, False, False, 0)
-        self.pack_start(scrolled, True, True, 0)
+        self.add(self.treeview)
