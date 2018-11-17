@@ -95,8 +95,10 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         )
 
         for preset in sorted_preset_list[1:]:
-            display_name = preset['name'][len(preset_dir):].lstrip('/') \
+            display_name = (
+                preset['name'][len(preset_dir):]
                 if preset_dir else preset['name']
+            ).lstrip('/')
             self.treestore.append(
                 piter, (
                     display_name,

@@ -48,7 +48,7 @@ def get_gray_colors(palette):
 class Plugin(OomoxImportPlugin):
 
     name = 'import_pil'
-    display_name = 'PIL-based images import'
+    display_name = 'Import colors from image'
     import_text = 'Colors from image'
     file_extensions = (
         '.jpg',
