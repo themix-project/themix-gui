@@ -83,7 +83,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         dir_template = "(Plugin) {}: {{}}".format(plugin_name) \
             if plugin_name else "{}"
         dir_display_name = dir_template.format(
-            first_preset['path'].split(colors_dir)[1].lstrip('/')
+            first_preset['path'][len(colors_dir):].lstrip('/')
         )
         piter = self.treestore.append(
             None, (
@@ -95,7 +95,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         )
 
         for preset in sorted_preset_list[1:]:
-            display_name = preset['name'].split(preset_dir)[1].lstrip('/') \
+            display_name = preset['name'][len(preset_dir):].lstrip('/') \
                 if preset_dir else preset['name']
             self.treestore.append(
                 piter, (
