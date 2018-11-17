@@ -78,7 +78,8 @@ class PreviewWidgets():
     button = None
 
     def __init__(self):
-        self.background = Gtk.Grid(row_spacing=6, column_spacing=6)
+        self.background = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.grid = Gtk.Grid(row_spacing=6, column_spacing=6)
 
         headerbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
@@ -109,17 +110,20 @@ class PreviewWidgets():
         fake_checkbox.pack_start(self.label, False, False, 0)
         fake_checkbox.set_margin_left(20)
 
-        self.background.attach(headerbox, 1, 1, 5, 2)
-        self.background.attach(fake_checkbox, 3, 3, 1, 1)
-        self.background.attach_next_to(
+        self.grid.set_margin_left(30)
+        self.grid.set_margin_right(30)
+        self.grid.attach(fake_checkbox, 3, 3, 1, 1)
+        self.grid.attach_next_to(
             self.sel_label, fake_checkbox, Gtk.PositionType.BOTTOM, 1, 1
         )
-        self.background.attach_next_to(
+        self.grid.attach_next_to(
             self.entry, self.sel_label, Gtk.PositionType.BOTTOM, 1, 1
         )
-        self.background.attach_next_to(
+        self.grid.attach_next_to(
             self.button, self.entry, Gtk.PositionType.BOTTOM, 1, 1
         )
+        self.background.pack_start(headerbox, True, True, 0)
+        self.background.pack_start(self.grid, True, True, 0)
 
     def create_menu(self, n_items, has_submenus=False):
         menu = Gtk.Menu()
