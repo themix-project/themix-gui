@@ -2,7 +2,7 @@
 
 DOMAIN = oomox
 PODIR = po
-SOURCES = $(wildcard oomox_gui/*.py)
+SOURCES = $(wildcard oomox_gui/*.py) $(wildcard plugins/*/oomox_plugin.py)
 LOCALEDIR = ./locale
 
 XGETTEXT ?= xgettext --package-name=$(DOMAIN) --foreign-user
