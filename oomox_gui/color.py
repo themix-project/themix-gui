@@ -17,11 +17,16 @@ def color_list_from_hex(color_text):
     return [color_text[:2], color_text[2:4], color_text[4:]]
 
 
+def int_list_from_hex(color_text):
+    return [hex_to_int(c) for c in color_list_from_hex(color_text)]
+
+
 def color_hex_from_list(color_list):
     return ''.join([int_to_hex(i) for i in color_list])
 
 
 def is_dark(color_text):
+    # @TODO: use real lightness from HSV or Lab color model
     return sum([
         hex_to_int(channel_text)
         for channel_text in color_list_from_hex(color_text)
@@ -29,6 +34,7 @@ def is_dark(color_text):
 
 
 def hex_darker(color_text, darken_amount=10):
+    # @TODO: use real lightness from HSV or Lab color model?
     return color_hex_from_list([
         max(min(hex_to_int(channel_text) - darken_amount, 255), 0)
         for channel_text in color_list_from_hex(color_text)
@@ -99,14 +105,20 @@ class ColorDiff():
 SMALLEST_DIFF = ColorDiff("000000", "ffffff")
 
 
-def find_closest_color(color_hex, colors_hex):
+def find_closest_color(color_hex, colors_hex, min_lightness=0, max_lightness=255*3):
     smallest_diff = SMALLEST_DIFF
     closest_color = None
+    if not colors_hex:
+        return closest_color
     for preset_color in colors_hex:
         diff = ColorDiff(preset_color, color_hex)
-        if diff.abs < smallest_diff.abs:
+        # @TODO: use real lightness from HSV or Lab color model
+        lightness = (sum(int_list_from_hex(preset_color)))
+        if (diff.abs < smallest_diff.abs) and (max_lightness >= lightness >= min_lightness):
             smallest_diff = diff
             closest_color = preset_color
+    if not closest_color:
+        return find_closest_color(color_hex, colors_hex, min_lightness//2, max_lightness*2)
     return closest_color, smallest_diff
 
 
