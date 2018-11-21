@@ -95,11 +95,13 @@ class Plugin(OomoxImportPlugin):
         "1": {
             "BG": "color7",
             "FG": "color0",
-            "TXT_BG": "foreground",
-            "TXT_FG": "background",
+            # "TXT_BG": "foreground",
+            # "TXT_FG": "background",
+            "TXT_BG": "color15",
+            "TXT_FG": "color0",
             "SEL_BG": "color4",
             "SEL_FG": "color15",
-            "MENU_BG": "background",
+            "MENU_BG": "color0",
             "MENU_FG": "color7",
             "BTN_BG": "color8",
             "BTN_FG": "foreground",
@@ -114,11 +116,11 @@ class Plugin(OomoxImportPlugin):
         "2": {
             "BG": "color7",
             "FG": "color0",
-            "TXT_BG": "foreground",
+            "TXT_BG": "color15",
             "TXT_FG": "color0",
             "SEL_BG": "color1",
             "SEL_FG": "foreground",
-            "MENU_BG": "background",
+            "MENU_BG": "color0",
             "MENU_FG": "color7",
             "BTN_BG": "color12",
             "BTN_FG": "color0",
@@ -131,11 +133,11 @@ class Plugin(OomoxImportPlugin):
         "3": {
             "BG": "color7",
             "FG": "color0",
-            "TXT_BG": "foreground",
+            "TXT_BG": "color15",
             "TXT_FG": "color0",
             "SEL_BG": "color3",
             "SEL_FG": "color0",
-            "MENU_BG": "background",
+            "MENU_BG": "color0",
             "MENU_FG": "color7",
             "BTN_BG": "color12",
             "BTN_FG": "color0",
@@ -212,7 +214,8 @@ class Plugin(OomoxImportPlugin):
                 {'value': template_name}
                 for template_name in sorted(os.listdir(TERMINAL_TEMPLATE_DIR))
             ],
-            'fallback_value': 'monovedek_pale_gray',
+            # 'fallback_value': 'monovedek_pale_gray',
+            'fallback_value': 'basic',
             'display_name': _('Palette style'),
             'reload_theme': True,
         },
@@ -264,10 +267,6 @@ class Plugin(OomoxImportPlugin):
             THEME_MODEL_BY_KEY.get('_PIL_PALETTE_STYLE', {}).get('fallback_value'),
             preset_path
         )
-        inverse_palette = bool(
-            THEME_MODEL_BY_KEY.get('_PIL_PALETTE_INVERSE', {}).get('fallback_value')
-        )
-
         theme_template = THEME_MODEL_BY_KEY.get('_PIL_THEME_TEMPLATE', {}).get('fallback_value')
         oomox_theme = {}
         oomox_theme.update(self.default_theme)
@@ -281,10 +280,6 @@ class Plugin(OomoxImportPlugin):
         for oomox_key, image_palette_key in translation.items():
             if image_palette_key in image_palette:
                 oomox_theme[oomox_key] = image_palette[image_palette_key]
-
-        if inverse_palette:
-            oomox_theme['TERMINAL_FOREGROUND'], oomox_theme['TERMINAL_BACKGROUND'] = \
-                oomox_theme['TERMINAL_BACKGROUND'], oomox_theme['TERMINAL_FOREGROUND']
         return oomox_theme
 
     _palette_cache = {}
@@ -300,17 +295,47 @@ class Plugin(OomoxImportPlugin):
         return cls._palette_cache[_id]
 
     @classmethod
-    def _generate_terminal_palette(cls, template_path, image_path, quality, use_whole_palette):
+    def _generate_terminal_palette(  # pylint: disable=too-many-arguments,too-many-locals
+            cls, template_path, image_path, quality, use_whole_palette, inverse_palette
+    ):
+        from oomox_gui.color import is_dark, int_list_from_hex
+
         hex_palette = cls.get_image_palette(image_path, quality, use_whole_palette)[:]
         gray_colors = get_gray_colors(hex_palette)
+        bright_colors = set(hex_palette)
+        bright_colors.difference_update(gray_colors)
+        bright_colors = list(bright_colors)
         ACCURACY = 40  # pylint: disable=invalid-name
         hex_palette += [hex_darker(c, ACCURACY) for c in gray_colors]
         hex_palette += [hex_darker(c, -ACCURACY) for c in gray_colors]
         reference_palette = import_xcolors(os.path.join(TERMINAL_TEMPLATE_DIR, template_path))
         result_palette = {}
+        if inverse_palette:
+            reference_palette['foreground'], reference_palette['background'] = \
+                reference_palette['background'], reference_palette['foreground']
+        is_dark_bg = is_dark(reference_palette['background'])
+
+        max_possible_lightness = 255 * 3
+        new_bg_color, _diff = find_closest_color(reference_palette['background'], hex_palette)
+        # @TODO: use real lightness from HSV or Lab color model
+        lightness_delta = sum(int_list_from_hex(new_bg_color)) * (1 if is_dark_bg else -1) + \
+            max_possible_lightness // 6
+        min_lightness = max_possible_lightness // 38
+        max_lightness = max_possible_lightness - min_lightness
+        if is_dark_bg:
+            min_lightness = lightness_delta
+        else:
+            max_lightness = max_possible_lightness - lightness_delta
+
         for key, value in reference_palette.items():
-            closest_color, _diff = find_closest_color(value, hex_palette)
+            if key not in ['color0', 'color7', 'color8', 'color15', 'foreground', 'background']:
+                closest_color, _diff = find_closest_color(
+                    value, bright_colors, min_lightness=min_lightness, max_lightness=max_lightness
+                )
+            else:
+                closest_color, _diff = find_closest_color(value, hex_palette)
             result_palette[key] = closest_color
+
         gc.collect()
         return result_palette
 
@@ -323,10 +348,13 @@ class Plugin(OomoxImportPlugin):
         use_whole_palette = bool(
             THEME_MODEL_BY_KEY.get('_PIL_PALETTE_STRICT', {}).get('fallback_value')
         )
-        _id = template_path+image_path+str(quality)+str(use_whole_palette)
+        inverse_palette = bool(
+            THEME_MODEL_BY_KEY.get('_PIL_PALETTE_INVERSE', {}).get('fallback_value')
+        )
+        _id = template_path+image_path+str(quality)+str(use_whole_palette)+str(inverse_palette)
         if not cls._terminal_palette_cache.get(_id):
             cls._terminal_palette_cache[_id] = cls._generate_terminal_palette(
-                template_path, image_path, quality, use_whole_palette
+                template_path, image_path, quality, use_whole_palette, inverse_palette
             )
         palette = {}
         palette.update(cls._terminal_palette_cache[_id])
