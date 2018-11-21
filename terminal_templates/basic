@@ -1,6 +1,7 @@
 ! default st colorscheme
 *background: #000000
-*foreground: #e6e6e6
+!*foreground: #e6e6e6
+*foreground: #ffffff
 !black
 *color0:	#000000
 *color8:	#808080
