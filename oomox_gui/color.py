@@ -170,3 +170,7 @@ def mix_theme_colors(theme_color_1, theme_color_2, ratio):
             return FALLBACK_COLOR
         result += int_to_hex(channel_1 * ratio + channel_2 * (1 - ratio))
     return result
+
+
+def mix_hex_colors(hex_color_1, hex_color_2, ratio):
+    return mix_theme_colors(hex_color_1[1:], hex_color_2[1:], ratio)

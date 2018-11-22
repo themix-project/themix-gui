@@ -5,7 +5,8 @@ import re
 from .config import TERMINAL_TEMPLATE_DIR
 from .color import (
     SMALLEST_DIFF, ColorDiff, is_dark,
-    hex_to_int, color_list_from_hex, color_hex_from_list, hex_darker
+    hex_to_int, color_list_from_hex, color_hex_from_list, hex_darker,
+    int_list_from_hex,
 )
 
 
@@ -188,8 +189,27 @@ class ProgressBar():
 # ######## END
 
 
+def sort_by_saturation(c):
+    # pylint: disable=invalid-name
+    return abs(c[0]-c[1])+abs(c[0]-c[2]) + \
+        abs(c[1]-c[0])+abs(c[1]-c[2]) + \
+        abs(c[2]-c[1])+abs(c[2]-c[0])
+
+
+def get_grayest_colors(palette):
+    list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
+    saturation_list = sorted(
+        list_of_colors,
+        key=sort_by_saturation
+    )
+    gray_colors = saturation_list[:(len(saturation_list)//3)]
+    gray_colors.sort(key=sum)
+    gray_colors = [color_hex_from_list(c) for c in gray_colors]
+    return gray_colors
+
+
 def _generate_theme_from_full_palette(
-        template_path, all_colors, accuracy=None, extend_palette=False
+        template_path, all_colors, theme_bg, accuracy=None, extend_palette=False
 ):  # pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
     # @TODO: refactor it some day :3
 
@@ -198,8 +218,19 @@ def _generate_theme_from_full_palette(
     DIFF_MARGIN = 60
 
     # criterias to recognize bright colors (0 .. 255*3)
-    MIN_LIGHTNESS = 10
-    BRIGHTNESS_MARGIN = 20
+    is_dark_bg = is_dark(theme_bg)
+
+    max_possible_lightness = 255 * 3
+    # @TODO: use real lightness from HSV or Lab color model
+    lightness_delta = sum(int_list_from_hex(theme_bg)) * (1 if is_dark_bg else -1) + \
+        max_possible_lightness // 6
+    min_lightness = max_possible_lightness // 38
+    max_lightness = max_possible_lightness - min_lightness
+    if is_dark_bg:
+        min_lightness = lightness_delta
+    else:
+        max_lightness = max_possible_lightness - lightness_delta
+    # BRIGHTNESS_MARGIN = 20
 
     # 1 means similarity to template the same important as mathing color palette
     # SIMILARITY_IMPORTANCE = 2
@@ -218,7 +249,12 @@ def _generate_theme_from_full_palette(
                 all_colors.append(hex_darker(color, i))
                 all_colors.append(hex_darker(color, -i))
 
-    bright_colors = get_bright_colors(all_colors, brightness_margin=BRIGHTNESS_MARGIN)
+    # bright_colors = get_bright_colors(all_colors, brightness_margin=BRIGHTNESS_MARGIN)
+    grayest_colors = get_grayest_colors(all_colors)
+    bright_colors = set(all_colors)
+    bright_colors.difference_update(grayest_colors)
+    bright_colors = list(bright_colors)
+
     bright_colors_as_color_lists = [
         [
             hex_to_int(s) for s in color_list_from_hex(value)
@@ -264,11 +300,7 @@ def _generate_theme_from_full_palette(
                                     )
                                 )
                             if key not in ['color0', 'color7', 'color8', 'color15']:
-                                if (
-                                        MIN_LIGHTNESS > sum(new_value)
-                                ) or (
-                                    sum(new_value) > (255*3 - MIN_LIGHTNESS)
-                                ):
+                                if not min_lightness <= sum(new_value) <= max_lightness:
                                     raise ContinueNext()
                             modified_colors[key] = new_value
 
@@ -332,22 +364,22 @@ def generate_theme_from_full_palette(
         palette, theme_bg, theme_fg, *args, auto_swap_colors=True, **kwargs
 ):  # pylint: disable=invalid-name
     all_colors = sorted(get_all_colors_from_oomox_colorscheme(palette))
+    if auto_swap_colors:
+        theme_bg, theme_fg = theme_fg, theme_bg
     cache_id = str(
         list(args) + [
             kwargs[name] for name in sorted(kwargs, key=lambda x: x[0])
         ] + all_colors
-    )
+    ) + theme_bg
     if cache_id not in _FULL_PALETTE_CACHE:
         # from time import time
         # before = time()
         _FULL_PALETTE_CACHE[cache_id] = _generate_theme_from_full_palette(
-            *args, all_colors=all_colors, **kwargs
+            *args, all_colors=all_colors, theme_bg=theme_bg, **kwargs
         )
         # print(time() - before)
     modified_colors = {}
     modified_colors.update(_FULL_PALETTE_CACHE[cache_id])
-    if auto_swap_colors:
-        theme_bg, theme_fg = theme_fg, theme_bg
     modified_colors["background"] = theme_bg
     modified_colors["foreground"] = theme_fg
     return modified_colors
@@ -373,7 +405,7 @@ def generate_themes_from_oomox(original_colorscheme):
             theme_fg=colorscheme["TERMINAL_FOREGROUND"],
             auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
             extend_palette=colorscheme["TERMINAL_THEME_EXTEND_PALETTE"],
-            accuracy=colorscheme.get("TERMINAL_THEME_ACCURACY")
+            accuracy=255+8-colorscheme.get("TERMINAL_THEME_ACCURACY")
         )
     elif colorscheme['TERMINAL_THEME_MODE'] in ('basic', 'auto'):
         term_colorscheme = generate_theme_from_hint(
