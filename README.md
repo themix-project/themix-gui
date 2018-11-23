@@ -185,28 +185,6 @@ Also you can normalize font weight with `-w` argument, see `-h` for usage.
 Spotify theme settings are backed up to `~/.config/oomox/spotify_backup`. To undo the changes made by oomoxify, these files can be copied back to their original location `/usr/share/spotify/Apps`. Spotify can also be reinstalled, which will reset these files as well.
 
 
-### Using with tiling WMs:
-
-To resolve borders/shadow problem in tiling window managers create/append to
-`~/.config/gtk-3.0/gtk.css`:
-
-```css
-.window-frame, .window-frame:backdrop {
-    box-shadow: 0 0 0 black;
-    border-style: none;
-    margin: 0;
-    border-radius: 0;
-}
-.titlebar {
-    border-radius: 0;
-}
-window decoration {
-    margin: 0;
-    border: 0;
-}
-```
-
-
 ### Review articles and videos
 
 To learn more about using the application you can check these sources:
