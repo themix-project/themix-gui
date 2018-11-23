@@ -19,6 +19,7 @@ install:
 		CREDITS \
 		LICENSE \
 		README.md \
+		scripted_colors \
 		colors \
 		gui.sh \
 		oomox_gui \
