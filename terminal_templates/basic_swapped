@@ -1,0 +1,29 @@
+! default st colorscheme
+*background: #000000
+*foreground: #e6e6e6
+!black
+*color0:	#202020
+*color8:	#808080
+!red
+*color1:	#ff0000
+*color9:	#cd0000
+!green
+*color2:	#00ff00
+*color10:	#00cd00
+!yellow
+*color3:	#ffff00
+*color11:	#cdcd00
+!blue
+*color4:	#5c5cff
+*color12:	#0000ee
+!purple
+*color5:	#ff00ff
+*color13:	#cd00cd
+!cyan
+*color6:	#00ffff
+*color14:	#00cdcd
+!white
+*color7:	#ffffff
+*color15:	#e6e6e6
+
+! vim:ft=xdefaults:
