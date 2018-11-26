@@ -1,16 +1,20 @@
 import os
 import gc
+from multiprocessing.pool import Pool
+from time import time
 
 from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.config import TERMINAL_TEMPLATE_DIR
 from oomox_gui.color import (
-    hex_to_int, color_list_from_hex, color_hex_from_list,
-    find_closest_color, hex_darker
+    hex_to_int, color_list_from_hex, color_hex_from_list, int_list_from_hex,
+    find_closest_color, hex_darker, is_dark,
 )
 from oomox_gui.terminal import (
     import_xcolors,
 )
-from oomox_gui.helpers import get_plugin_module
+from oomox_gui.helpers import (
+    get_plugin_module, apply_chain, call_method_from_class, delayed_partial,
+)
 from oomox_gui.i18n import _
 
 
@@ -150,16 +154,16 @@ class Plugin(OomoxImportPlugin):
         "4": {
             "BG": "color5",
             "FG": "color0",
-            "MENU_BG": "color4",
-            "MENU_FG": "color1",
+            "MENU_BG": "color1",
+            "MENU_FG": "foreground",
             "SEL_BG": "color4",
-            "SEL_FG": "color0",
+            "SEL_FG": "foreground",
             "TXT_BG": "color6",
             "TXT_FG": "color1",
             "BTN_BG": "color3",
             "BTN_FG": "color0",
             "HDR_BTN_BG": "color5",
-            "HDR_BTN_FG": "color1",
+            "HDR_BTN_FG": "background",
         },
         "lcars": {
             "BG": "background",
@@ -299,6 +303,101 @@ class Plugin(OomoxImportPlugin):
     except:  # noqa pylint: disable=bare-except
         pass
 
+    try:
+        import colorthief  # pylint: disable=import-error
+        import colorz  # pylint: disable=import-error
+        import haishoku  # pylint: disable=import-error
+        # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
+        theme_model_import[1]['options'] += [{
+            'value': 'all_low',
+            'display_name': 'all available: low quality',
+        }, {
+            'value': 'all_medium',
+            'display_name': 'all available: medium quality',
+        }]
+    except:  # noqa pylint: disable=bare-except
+        pass
+
+    _terminal_palette_cache = {}
+    _palette_cache = {}
+
+    @classmethod
+    def get_image_palette(cls, image_path, quality, use_whole_palette):
+        _id = image_path+str(quality)+str(use_whole_palette)
+        if not cls._palette_cache.get(_id):
+            cls._palette_cache[_id] = image_analyzer.get_hex_palette(
+                image_path, quality=quality, use_whole_palette=use_whole_palette
+            )
+        return cls._palette_cache[_id]
+
+    @classmethod
+    def _get_haishoku_palette(cls, image_path):
+        from haishoku.haishoku import Haishoku  # pylint: disable=import-error
+        palette = Haishoku.getPalette(image_path)
+        hex_palette = [color_hex_from_list(color) for percentage, color in palette]
+        return hex_palette
+
+    @classmethod
+    def _get_colorthief_palette(cls, image_path, color_count):
+        from colorthief import ColorThief  # pylint: disable=import-error
+        color_thief = ColorThief(image_path)
+        palette = color_thief.get_palette(color_count=color_count)
+        hex_palette = [color_hex_from_list(color) for color in palette]
+        return hex_palette
+
+    @classmethod
+    def _get_colorz_lib_palette(cls, image_path, color_count):
+        from colorz import colorz  # pylint: disable=import-error
+        palette = colorz(open(image_path, 'rb'), color_count, 50, 200)
+        hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
+        return hex_palette
+
+    @classmethod
+    def _get_all_available_palettes(
+            cls, image_path, use_whole_palette, quality_per_plugin
+    ):  # pylint: disable=too-many-locals
+        hex_palette = []
+        from colorz import colorz  # pylint: disable=import-error
+        from colorthief import ColorThief  # pylint: disable=import-error
+        from haishoku.haishoku import Haishoku  # pylint: disable=import-error
+        with Pool() as pool:
+            oomox_future = pool.apply_async(apply_chain, (
+                get_plugin_module,
+                ('ima', os.path.join(PLUGIN_DIR, 'ima.py'), 'get_hex_palette'),
+                (image_path, use_whole_palette, 48, quality_per_plugin[0])
+            ))
+            from functools import partial
+            _opener = partial(open, image_path, 'rb')
+            colorz_future = pool.apply_async(delayed_partial, (
+                colorz,
+                (
+                    (_opener, ()),
+                ),
+                (quality_per_plugin[1], 50, 200, ),
+            ))
+            colorthief_future = pool.apply_async(call_method_from_class, (
+                ColorThief,
+                (image_path, ),
+                'get_palette',
+                (quality_per_plugin[2], )
+            ))
+            haishoku_future = pool.apply_async(
+                Haishoku.getPalette, (image_path, )
+            )
+            pool.close()
+            hex_palette += oomox_future.get()
+            hex_palette += [
+                color_hex_from_list(color) for pair in colorz_future.get() for color in pair
+            ]
+            hex_palette += [
+                color_hex_from_list(color) for color in colorthief_future.get()
+            ]
+            hex_palette += [
+                color_hex_from_list(color) for percentage, color in haishoku_future.get()
+            ]
+            pool.join()
+        return hex_palette
+
     def read_colorscheme_from_path(self, preset_path):
         from oomox_gui.theme_model import THEME_MODEL_BY_KEY
 
@@ -322,40 +421,34 @@ class Plugin(OomoxImportPlugin):
                 oomox_theme[oomox_key] = image_palette[image_palette_key]
         return oomox_theme
 
-    _palette_cache = {}
-    _terminal_palette_cache = {}
-
     @classmethod
-    def get_image_palette(cls, image_path, quality, use_whole_palette):
-        _id = image_path+str(quality)+str(use_whole_palette)
-        if not cls._palette_cache.get(_id):
-            cls._palette_cache[_id] = image_analyzer.get_hex_palette(
-                image_path, quality=quality, use_whole_palette=use_whole_palette
-            )
-        return cls._palette_cache[_id]
-
-    @classmethod
-    def _generate_terminal_palette(  # pylint: disable=too-many-arguments,too-many-locals
+    def _generate_terminal_palette(  # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
             cls, template_path, image_path, quality, use_whole_palette, inverse_palette
     ):
-        from oomox_gui.color import is_dark, int_list_from_hex
-        from time import time
-
         start_time = time()
 
-        if quality == 'haishoku':
-            from haishoku.haishoku import Haishoku  # pylint: disable=import-error
-            palette = Haishoku.getPalette(image_path)
-            hex_palette = [color_hex_from_list(color) for percentage, color in palette]
+        if str(quality).startswith('colorz'):
+            hex_palette = cls._get_colorz_lib_palette(
+                image_path, color_count=int(quality.split('colorz')[1])
+            )
         elif str(quality).startswith('colorthief'):
-            from colorthief import ColorThief  # pylint: disable=import-error
-            color_thief = ColorThief(image_path)
-            palette = color_thief.get_palette(color_count=int(quality.split('colorthief')[1]) + 1)
-            hex_palette = [color_hex_from_list(color) for color in palette]
-        elif str(quality).startswith('colorz'):
-            from colorz import colorz  # pylint: disable=import-error
-            palette = colorz(open(image_path, 'rb'), int(quality.split('colorz')[1]), 50, 200)
-            hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
+            hex_palette = cls._get_colorthief_palette(
+                image_path, color_count=int(quality.split('colorthief')[1]) + 1
+            )
+        elif quality == 'haishoku':
+            hex_palette = cls._get_haishoku_palette(image_path)
+        elif str(quality).startswith('all_'):
+            _quality = quality.split('_')[1]
+            if _quality == 'low':
+                quality_per_plugin = [100, 16, 16]
+            elif _quality == 'medium':
+                quality_per_plugin = [200, 32, 32]
+            else:
+                raise NotImplementedError()
+            hex_palette = cls._get_all_available_palettes(
+                image_path=image_path, use_whole_palette=use_whole_palette,
+                quality_per_plugin=quality_per_plugin
+            )
         else:
             hex_palette = cls.get_image_palette(image_path, int(quality), use_whole_palette)[:]
 
@@ -381,7 +474,8 @@ class Plugin(OomoxImportPlugin):
         new_bg_color, _diff = find_closest_color(reference_palette['background'], hex_palette)
         # @TODO: use real lightness from HSV or Lab color model
         lightness_delta = sum(int_list_from_hex(new_bg_color)) * (1 if is_dark_bg else -1) + \
-            max_possible_lightness // 6
+            max_possible_lightness // 4
+        # max_possible_lightness // 6
         min_lightness = max_possible_lightness // 38
         max_lightness = max_possible_lightness - min_lightness
         if is_dark_bg:

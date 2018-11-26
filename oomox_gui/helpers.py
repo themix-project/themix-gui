@@ -16,7 +16,7 @@ def ls_r(path):
     ]
 
 
-def get_plugin_module(name, path):
+def get_plugin_module(name, path, submodule=None):
     if sys.version_info.minor >= 5:
         spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
         module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
@@ -24,4 +24,24 @@ def get_plugin_module(name, path):
     else:
         loader = importlib.machinery.SourceFileLoader(name, path)
         module = loader.load_module()  # pylint: disable=deprecated-method,no-value-for-parameter
+    if submodule:
+        return getattr(module, submodule)
     return module
+
+
+def apply_chain(func, *args_args):
+    result = func
+    for args in args_args:
+        result = result(*args)
+    return result
+
+
+def call_method_from_class(klass, klass_args, method_name, method_args):
+    return getattr(klass(*klass_args), method_name)(*method_args)
+
+
+def delayed_partial(func, delayed_args, rest_args):
+    computed_args = []
+    for delayed_func, args in delayed_args:
+        computed_args.append(delayed_func(*args))
+    return func(*computed_args, *rest_args)

@@ -109,7 +109,9 @@ def find_closest_color(color_hex, colors_hex, min_lightness=0, max_lightness=255
     smallest_diff = SMALLEST_DIFF
     closest_color = None
     if not colors_hex:
-        return closest_color
+        return None, None
+    if len(colors_hex) == 1:
+        return colors_hex[0], ColorDiff(colors_hex[0], color_hex)
     for preset_color in colors_hex:
         diff = ColorDiff(preset_color, color_hex)
         # @TODO: use real lightness from HSV or Lab color model
