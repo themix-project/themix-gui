@@ -63,6 +63,9 @@ optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
 	'breeze-icons: more fallback icons'
 	'gksu: for applying Spotify theme from GUI without polkit'
+	'colorz: additional image analyzer for "Import colors from image" plugin'
+	'python-colorthief: additional image analyzer for "Import colors from image" plugin'
+	'python-haishoku: additional image analyzer for "Import colors from image" plugin'
 )
 options=(
 	'!strip'

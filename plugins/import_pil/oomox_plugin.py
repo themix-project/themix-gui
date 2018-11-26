@@ -192,19 +192,19 @@ class Plugin(OomoxImportPlugin):
             'type': 'options',
             'options': [{
                 'value': LOW_QUALITY,
-                'display_name': 'low',
+                'display_name': 'oomox: low quality',
             }, {
                 'value': MEDIUM_QUALITY,
-                'display_name': 'medium',
+                'display_name': 'oomox: medium quality',
             }, {
                 'value': HIGH_QUALITY,
-                'display_name': 'high',
-            }, {
-                'value': ULTRA_QUALITY,
-                'display_name': 'ultra',
+                'display_name': 'oomox: high quality',
             }],
+            # }, {
+            #     'value': ULTRA_QUALITY,
+            #     'display_name': 'ultra',
             'fallback_value': LOW_QUALITY,
-            'display_name': _('Image analysis quality'),
+            'display_name': _('Image analysis'),
             'reload_theme': True,
         },
         {
@@ -225,6 +225,9 @@ class Plugin(OomoxImportPlugin):
             'fallback_value': False,
             'display_name': _('Stronger follow palette template'),
             'reload_theme': True,
+            'value_filter': {
+                '_PIL_PALETTE_QUALITY': [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY]
+            },
         },
         {
             'key': '_PIL_PALETTE_INVERSE',
@@ -258,6 +261,43 @@ class Plugin(OomoxImportPlugin):
             },
         },
     ]
+
+    try:
+        import colorz
+        theme_model_import[1]['options'] += [{
+            'value': 'colorz16',
+            'display_name': 'colorz lib: low quality',
+        }, {
+            'value': 'colorz32',
+            'display_name': 'colorz lib: medium quality',
+        }, {
+            'value': 'colorz64',
+            'display_name': 'colorz lib: high quality',
+        }]
+    except:  # noqa pylint: disable=bare-except
+        pass
+
+    try:
+        import colorthief
+        theme_model_import[1]['options'] += [{
+            'value': 'colorthief16',
+            'display_name': 'colorthief lib',
+        }, {
+            'value': 'colorthief32',
+            'display_name': 'colorthief lib: doublepass',
+        }]
+    except:  # noqa pylint: disable=bare-except
+        pass
+
+    try:
+        import haishoku
+        # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
+        theme_model_import[1]['options'].append({
+            'value': 'haishoku',
+            'display_name': 'haishoku lib',
+        })
+    except:  # noqa pylint: disable=bare-except
+        pass
 
     def read_colorscheme_from_path(self, preset_path):
         from oomox_gui.theme_model import THEME_MODEL_BY_KEY
@@ -299,8 +339,30 @@ class Plugin(OomoxImportPlugin):
             cls, template_path, image_path, quality, use_whole_palette, inverse_palette
     ):
         from oomox_gui.color import is_dark, int_list_from_hex
+        from time import time
 
-        hex_palette = cls.get_image_palette(image_path, quality, use_whole_palette)[:]
+        start_time = time()
+
+        if quality == 'haishoku':
+            from haishoku.haishoku import Haishoku
+            palette = Haishoku.getPalette(image_path)
+            hex_palette = [color_hex_from_list(color) for percentage, color in palette]
+        elif str(quality).startswith('colorthief'):
+            from colorthief import ColorThief
+            color_thief = ColorThief(image_path)
+            palette = color_thief.get_palette(color_count=int(quality.split('colorthief')[1]) + 1)
+            hex_palette = [color_hex_from_list(color) for color in palette]
+        elif str(quality).startswith('colorz'):
+            from colorz import colorz
+            palette = colorz(open(image_path, 'rb'), int(quality.split('colorz')[1]), 50, 200)
+            hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
+        else:
+            hex_palette = cls.get_image_palette(image_path, int(quality), use_whole_palette)[:]
+
+        print("{} quality, {} colors found, took {:.8f}s".format(
+            quality, len(hex_palette), (time() - start_time)
+        ))
+
         gray_colors = get_gray_colors(hex_palette)
         bright_colors = set(hex_palette)
         bright_colors.difference_update(gray_colors)
@@ -342,9 +404,7 @@ class Plugin(OomoxImportPlugin):
     @classmethod
     def generate_terminal_palette(cls, template_path, image_path):
         from oomox_gui.theme_model import THEME_MODEL_BY_KEY
-        quality = int(
-            THEME_MODEL_BY_KEY.get('_PIL_PALETTE_QUALITY', {}).get('fallback_value')
-        )
+        quality = THEME_MODEL_BY_KEY.get('_PIL_PALETTE_QUALITY', {}).get('fallback_value')
         use_whole_palette = bool(
             THEME_MODEL_BY_KEY.get('_PIL_PALETTE_STRICT', {}).get('fallback_value')
         )
