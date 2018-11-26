@@ -263,7 +263,7 @@ class Plugin(OomoxImportPlugin):
     ]
 
     try:
-        import colorz
+        import colorz  # pylint: disable=import-error
         theme_model_import[1]['options'] += [{
             'value': 'colorz16',
             'display_name': 'colorz lib: low quality',
@@ -278,7 +278,7 @@ class Plugin(OomoxImportPlugin):
         pass
 
     try:
-        import colorthief
+        import colorthief  # pylint: disable=import-error
         theme_model_import[1]['options'] += [{
             'value': 'colorthief16',
             'display_name': 'colorthief lib',
@@ -290,7 +290,7 @@ class Plugin(OomoxImportPlugin):
         pass
 
     try:
-        import haishoku
+        import haishoku  # pylint: disable=import-error
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'].append({
             'value': 'haishoku',
@@ -344,16 +344,16 @@ class Plugin(OomoxImportPlugin):
         start_time = time()
 
         if quality == 'haishoku':
-            from haishoku.haishoku import Haishoku
+            from haishoku.haishoku import Haishoku  # pylint: disable=import-error
             palette = Haishoku.getPalette(image_path)
             hex_palette = [color_hex_from_list(color) for percentage, color in palette]
         elif str(quality).startswith('colorthief'):
-            from colorthief import ColorThief
+            from colorthief import ColorThief  # pylint: disable=import-error
             color_thief = ColorThief(image_path)
             palette = color_thief.get_palette(color_count=int(quality.split('colorthief')[1]) + 1)
             hex_palette = [color_hex_from_list(color) for color in palette]
         elif str(quality).startswith('colorz'):
-            from colorz import colorz
+            from colorz import colorz  # pylint: disable=import-error
             palette = colorz(open(image_path, 'rb'), int(quality.split('colorz')[1]), 50, 200)
             hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
         else:
