@@ -149,7 +149,11 @@
             "buildsystem": "simple",
             "build-commands": [
                 "make DESTDIR=/ PREFIX=/app APPDIR=/app/opt/oomox DISABLE_PLUGIN_MATERIA=1 DISABLE_PLUGIN_SPOTIFY=1 DISABLE_PLUGIN_ARC=1 install",
-                "python3 -O -m compileall /app/opt/oomox/oomox_gui"
+                "python3 -O -m compileall /app/opt/oomox/oomox_gui",
+                "mkdir -p /app/usr/share/",
+                "ln -s /app/share/applications /app/usr/share/applications",
+                "ln -s /app/share/appdata /app/usr/share/appdata",
+                "ln -s /app/share/icons /app/usr/share/icons"
             ],
             "sources": [
                 {
