@@ -392,9 +392,12 @@ class Plugin(OomoxImportPlugin):
             hex_palette += [
                 color_hex_from_list(color) for color in colorthief_future.get()
             ]
-            hex_palette += [
-                color_hex_from_list(color) for percentage, color in haishoku_future.get()
-            ]
+            try:
+                hex_palette += [
+                    color_hex_from_list(color) for percentage, color in haishoku_future.get()
+                ]
+            except Exception:  # pylint: disable=broad-except
+                pass
             pool.join()
         return hex_palette
 
