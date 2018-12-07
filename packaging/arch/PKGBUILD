@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/themix-project/oomox
 
 pkgname=oomox-git
-pkgver=1.7.2.1
+pkgver=1.7.2.2
 pkgrel=1
 pkgdesc="Graphical application for generating different color variations
 of Oomox(Numix-based), Materia (ex-Flat-Plat) and Arc themes
