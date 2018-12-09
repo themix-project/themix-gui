@@ -7,6 +7,10 @@ from .plugin_loader import (
 from .i18n import _
 
 
+def sorted_dict(_dict):
+    return dict(sorted(_dict.items(), key=lambda x: x))
+
+
 def get_base_keys(base_theme_model):
     return {
         theme_value['key']: index
@@ -82,7 +86,7 @@ THEME_MODEL = THEME_MODEL + [
                 'display_name': theme_plugin.display_name,
                 'description': theme_plugin.description,
             }
-            for theme_plugin in THEME_PLUGINS.values()
+            for theme_plugin in sorted_dict(THEME_PLUGINS).values()
         ],
         'fallback_value': 'oomox',
         'display_name': _('Theme style'),
@@ -218,7 +222,7 @@ BASE_ICON_THEME_MODEL = [
                 'value': icons_plugin.name,
                 'display_name': icons_plugin.display_name,
             }
-            for icons_plugin in ICONS_PLUGINS.values()
+            for icons_plugin in sorted_dict(ICONS_PLUGINS).values()
         ],
         'fallback_value': 'gnome_colors',
         'display_name': _('Icons style')
