@@ -44,7 +44,7 @@ class Plugin(OomoxIconsPlugin):
                 'value': str(style_id),
                 'display_name': "Style {}".format(style_id),
             } for style_id in range(6)],
-            'display_name': _('Icons style'),
+            'display_name': _('Numix style'),
         },
         # {
         #     'key': 'ICONS_NUMIX_SHAPE',
