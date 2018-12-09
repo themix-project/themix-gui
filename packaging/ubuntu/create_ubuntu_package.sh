@@ -1,21 +1,25 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 
-srcdir="$(readlink -e $(dirname ${0})/../..)"
+control_file="${1}"
 
-if [[ -d ./ubuntu_package ]] ; then
-	rm -r ./ubuntu_package
+srcdir="$(readlink -e "$(dirname "${0}")"/../..)"
+
+_pkgdirname='ubuntu_package'
+if [[ -d ./${_pkgdirname} ]] ; then
+	rm -r ./${_pkgdirname}
 fi
-mkdir ./ubuntu_package
-pkgdir=$(readlink -e ./ubuntu_package)
+mkdir ./${_pkgdirname}
+pkgdir=$(readlink -e ./${_pkgdirname})
 
-mkdir ${pkgdir}/DEBIAN
-cp ${srcdir}/packaging/ubuntu/{control,postinst} ${pkgdir}/DEBIAN
+mkdir "${pkgdir}"/DEBIAN
+cp "${srcdir}"/packaging/ubuntu/postinst "${pkgdir}"/DEBIAN
+cp "${srcdir}"/packaging/ubuntu/"${control_file}" "${pkgdir}"/DEBIAN/control
 
-cd ${srcdir}
+cd "${srcdir}"
 make DESTDIR="${pkgdir}" install
 
-cd ${pkgdir}
+cd "${pkgdir}"
 dpkg-deb --build . oomox.deb
 
 echo DEB PACKAGING DONE

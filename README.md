@@ -80,8 +80,8 @@ sudo systemctl start docker
 sudo ./packaging/ubuntu/docker_ubuntu_package.sh  # sudo is not needed if your user is in docker group
 
 # or directly from ubuntu host if you don't like docker:
-./packaging/ubuntu/create_ubuntu_package.sh
-./packaging/ubuntu/create_ubuntu_package_18.10+.sh
+./packaging/ubuntu/create_ubuntu_package.sh control
+# or ./packaging/ubuntu/create_ubuntu_package.sh control_1810
 ```
 
 
