@@ -1,0 +1,10 @@
+Package: oomox
+Version: 1.7.2.2-1~themixproject~cosmic
+Architecture: all
+Maintainer: Yauheni Kirylau <actionless.loveless@gmail.com>
+Depends: python3-gi, libglib2.0-bin, libgdk-pixbuf2.0-dev, libxml2-utils, x11-xserver-utils, gir1.2-gtk-3.0, gir1.2-glib-2.0, gir1.2-pango-1.0, gir1.2-gdkpixbuf-2.0, gtk2-engines-murrine, gtk2-engines-pixbuf, bash, bc, sed, grep, parallel, sassc (>=3.4), libsass1 (>=3.4), imagemagick, optipng, librsvg2-bin, inkscape, python3-pillow
+Suggests: breeze-icon-theme
+Section: devel
+Priority: optional
+Homepage: https://github.com/themix-project/oomox
+Description: Graphical application for generating different color variations of Oomox (Numix-based), Materia (ex-Flat-Plat) and Arc themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Gnome-Colors and Archdroid icon themes. Have a hack for HiDPI in gtk2.

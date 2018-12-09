@@ -65,9 +65,10 @@ sudo dnf install oomox
 
 For Debian 9+, Ubuntu 17.04+ or Linux Mint 19+ you can download `oomox.deb` package here:
 https://github.com/themix-project/oomox/releases
+Make sure what `universe` repository is enabled.
 
 ```sh
-sudo dpkg -i ./oomox.deb
+sudo dpkg -i ./oomox_VERSION_17.10+.deb  # or ./oomox_VERSION_18.10+.deb for Ubuntu 18.10+
 sudo apt install -f
 ```
 
@@ -80,6 +81,7 @@ sudo ./packaging/ubuntu/docker_ubuntu_package.sh  # sudo is not needed if your u
 
 # or directly from ubuntu host if you don't like docker:
 ./packaging/ubuntu/create_ubuntu_package.sh
+./packaging/ubuntu/create_ubuntu_package_18.10+.sh
 ```
 
 

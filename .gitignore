@@ -1,5 +1,6 @@
 # Ignore Backup Copies from Text Editor
 *~
+*.swp
 
 # Ignore SASS files
 .sass-cache
