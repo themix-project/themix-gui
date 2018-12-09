@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+ <defs>
+  <radialGradient r="24" cy="40.5" cx="24" gradientTransform="matrix(1.6666667,0,0,0.2777777,-8,1030.4456)" gradientUnits="userSpaceOnUse" id="radialGradient3098">
+   <stop style="stop-color:#000;stop-opacity:1"/>
+   <stop offset="1" style="stop-color:#000;stop-opacity:0.196"/>
+  </radialGradient>
+ </defs>
+ <g transform="translate(0,-988.3622)">
+  <path d="m 32 1035.03 c -13.1 0 -24.704 1.044 -32 2.667 l 0 8 c 7.296 1.622 18.898 2.667 32 2.667 13.1 0 24.704 -1.044 32 -2.667 l 0 -8 c -7.296 -1.623 -18.898 -2.667 -32 -2.667 z" style="fill:url(#radialGradient3098);opacity:0.1;fill-opacity:1;stroke:none"/>
+  <rect width="60" height="42" x="2" y="1002.36" rx="6.522" ry="6.562" style="fill:#00ff00;fill-opacity:1;stroke:none"/>
+  <path d="m 8.522 1001.7 c -3.613 0 -6.522 2.973 -6.522 6.667 l 0 2.667 c 0 -3.693 2.909 -6.667 6.522 -6.667 l 46.957 0 c 3.613 0 6.522 2.973 6.522 6.667 l 0 -2.667 c 0 -3.693 -2.909 -6.667 -6.522 -6.667 l -46.957 0 z" style="fill:#fff;opacity:0.2;fill-opacity:1;stroke:none"/>
+  <path d="m 8.522 1012.36 10.435 0 c 14.348 -1.333 11.739 -16 20.87 -16 l 15.652 0 c 3.613 0 6.522 2.973 6.522 6.667 l 0 34.667 c 0 3.693 -2.909 6.667 -6.522 6.667 l -46.957 0 c -3.613 0 -6.522 -2.973 -6.522 -6.667 l 0 -18.667 c 0 -4 2.609 -6.667 6.522 -6.667 z" style="fill:#ff0000;fill-opacity:1;stroke:none"/>
+  <path d="m 2 1035.03 0 2.667 c 0 3.693 2.909 6.667 6.522 6.667 l 46.957 0 c 3.613 0 6.522 -2.973 6.522 -6.667 l 0 -2.667 c 0 3.693 -2.909 7.333 -6.522 7.333 l -46.957 0 c -3.613 0 -6.522 -3.64 -6.522 -7.333 z" style="fill:#000;opacity:0.15;fill-opacity:1;stroke:none"/>
+  <path d="m 10 31 c -1.246 0 -2 0.753 -2 2 l 0 10 c 0 1.246 0.754 2 2 2 l 4 0 l 0 2 l -2 2 l 10 0 l -2 -2 l 0 -2 l 4 0 c 1.247 0 2 -0.754 2 -2 l 0 -10 c 0 -1.247 -0.753 -2 -2 -2 l -14 0 z m 0 2 l 14 0 l 0 10 l -4 0 l -6 0 l -4 0 l 0 -10 z m 2 2 l 0 6 l 4 0 l 0 -4 l -2 -2 l -2 0 z m 1 1 l 1 0 l 1 1 l 0 3 l -2 0 l 0 -4 z" transform="translate(0,988.3622)" style="fill:#000;fill-opacity:0.098"/>
+  <path d="m 12 34 0 6 4 0 0 -4 -2 -2 z m 1 1 1 0 1 1 0 3 -2 0 z" transform="translate(0,988.3622)" style="fill:#0000ff;fill-opacity:1"/>
+  <path d="m 14 1034.36 -2 2 10 0 -2 -2 0 -4 -6 0 z" style="fill:#0000ff;fill-opacity:1;stroke:none"/>
+  <path d="m 10 1018.36 c -1.246 0 -2 0.754 -2 2 l 0 10 c 0 1.246 0.754 2 2 2 l 14 0 c 1.247 0 2 -0.754 2 -2 l 0 -10 c 0 -1.246 -0.753 -2 -2 -2 z m 0 2 14 0 0 10 -14 0 z" style="fill:#0000ff;fill-opacity:1;stroke:none"/>
+ </g>
+</svg>

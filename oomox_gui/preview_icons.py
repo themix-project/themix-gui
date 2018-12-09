@@ -39,6 +39,7 @@ class IconThemePreview(Gtk.ListBox):
         self.show_all()
 
     def update_preview(self, colorscheme, theme_plugin):
+        theme_plugin.preview_before_load_callback(self, colorscheme)
         transform_function = theme_plugin.preview_transform_function
         self.load_icon_templates(theme_plugin)
         for icon in IconsNames:

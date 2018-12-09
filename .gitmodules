@@ -20,3 +20,9 @@
 	path = plugins/theme_arc/arc-theme
 	url = https://github.com/NicoHood/arc-theme.git
 	branch = oomox
+[submodule "numix-icon-theme"]
+	path = plugins/icons_numix/numix-icon-theme
+	url = https://github.com/numixproject/numix-icon-theme.git
+[submodule "numix-folders"]
+	path = plugins/icons_numix/numix-folders
+	url = https://github.com/numixproject/numix-folders.git

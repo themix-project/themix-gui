@@ -77,6 +77,9 @@ class OomoxIconsPlugin(OomoxPlugin):
     def preview_transform_function(self, svg_template, colorscheme):
         pass
 
+    def preview_before_load_callback(self, preview_object, colorscheme):
+        pass
+
 
 class OomoxExportPlugin(OomoxPlugin):
 
