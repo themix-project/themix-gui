@@ -23,7 +23,7 @@ git -C "${srcdir}" clean -f -d -x
 releases=('zesty' 'cosmic')
 for release in "${releases[@]}" ; do
 	if [[ ${release} = 'zesty' ]] ; then
-		release_ver="17.10+"
+		release_ver="17.04+"
 	elif [[ ${release} = 'cosmic' ]] ; then
 		release_ver="18.10+"
 	fi

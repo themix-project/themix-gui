@@ -68,7 +68,7 @@ https://github.com/themix-project/oomox/releases
 Make sure what `universe` repository is enabled.
 
 ```sh
-sudo dpkg -i ./oomox_VERSION_17.10+.deb  # or ./oomox_VERSION_18.10+.deb for Ubuntu 18.10+
+sudo dpkg -i ./oomox_VERSION_17.04+.deb  # or ./oomox_VERSION_18.10+.deb for Ubuntu 18.10+
 sudo apt install -f
 ```
 
