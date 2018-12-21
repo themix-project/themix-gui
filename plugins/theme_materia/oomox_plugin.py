@@ -76,8 +76,8 @@ class Plugin(OomoxThemePlugin):
         'FG',
         'BTN_BG',
         'TXT_BG',
-        'MENU_BG',
-        'MENU_FG',
+        'HDR_BG',
+        'HDR_FG',
         'SEL_BG',
     ]
     enabled_keys_options = [
@@ -114,10 +114,10 @@ class Plugin(OomoxThemePlugin):
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
-        colorscheme["WM_BORDER_FOCUS"] = colorscheme["MENU_BG"]
+        colorscheme["WM_BORDER_FOCUS"] = colorscheme["HDR_BG"]
         colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["BTN_BG"]
-        colorscheme["HDR_BTN_FG"] = colorscheme["MENU_FG"]
-        colorscheme["HDR_BTN_BG"] = colorscheme["MENU_BG"]
+        colorscheme["HDR_BTN_FG"] = colorscheme["HDR_FG"]
+        colorscheme["HDR_BTN_BG"] = colorscheme["HDR_BG"]
         colorscheme["SEL_FG"] = colorscheme["FG"]
         colorscheme["ACCENT_BG"] = colorscheme["SEL_BG"]
         colorscheme["BTN_FG"] = colorscheme["FG"]

@@ -72,8 +72,8 @@ class Plugin(OomoxImportPlugin):
     translation_light = {
         "BG": "base05",
         "FG": "base00",
-        "MENU_BG": "base04",
-        "MENU_FG": "base01",
+        "HDR_BG": "base04",
+        "HDR_FG": "base01",
         "SEL_BG": "base0d",
         "SEL_FG": "base00",
         "TXT_BG": "base06",
@@ -90,8 +90,8 @@ class Plugin(OomoxImportPlugin):
     translation_dark = {
         "BG": "base01",
         "FG": "base06",
-        "MENU_BG": "base00",
-        "MENU_FG": "base05",
+        "HDR_BG": "base00",
+        "HDR_FG": "base05",
         "SEL_BG": "base08",
         "SEL_FG": "base00",
         "TXT_BG": "base02",

@@ -102,17 +102,19 @@ BASE_THEME_MODEL_GTK = [
     {
         'key': 'FG',
         'type': 'color',
-        'display_name': _('Foreground/text')
+        'display_name': _('Text')
     },
     {
-        'key': 'MENU_BG',
+        'key': 'HDR_BG',
+        'fallback_key': 'MENU_BG',
         'type': 'color',
-        'display_name': _('Menu/toolbar background')
+        'display_name': _('Header background')
     },
     {
-        'key': 'MENU_FG',
+        'key': 'HDR_FG',
+        'fallback_key': 'MENU_FG',
         'type': 'color',
-        'display_name': _('Menu/toolbar text'),
+        'display_name': _('Header text'),
     },
     {
         'key': 'SEL_BG',
@@ -170,9 +172,20 @@ BASE_THEME_MODEL_GTK = [
     },
     {
         'key': 'WM_BORDER_UNFOCUS',
-        'fallback_key': 'MENU_BG',
+        'fallback_key': 'HDR_BG',
         'type': 'color',
         'display_name': _('Unfocused window border'),
+    },
+    # migration of old names:
+    {
+        'key': 'MENU_BG',
+        'type': 'color',
+        'filter': lambda v: False
+    },
+    {
+        'key': 'MENU_FG',
+        'type': 'color',
+        'filter': lambda v: False
     },
 ]
 merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_GTK, 'gtk')
@@ -299,7 +312,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_BACKGROUND',
         'type': 'color',
         'fallback_key': 'TXT_BG',
-        # 'fallback_key': 'MENU_BG',
+        # 'fallback_key': 'HDR_BG',
         'display_name': _('Terminal background'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', 'manual'],
@@ -309,7 +322,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_FOREGROUND',
         'type': 'color',
         'fallback_key': 'TXT_FG',
-        # 'fallback_key': 'MENU_FG',
+        # 'fallback_key': 'HDR_FG',
         'display_name': _('Terminal foreground'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', 'manual'],

@@ -74,8 +74,8 @@ class Plugin(OomoxThemePlugin):
     enabled_keys_gtk = [
         'BG',
         'FG',
-        'MENU_BG',
-        'MENU_FG',
+        'HDR_BG',
+        'HDR_FG',
         'SEL_BG',
         'SEL_FG',
         'ACCENT_BG',

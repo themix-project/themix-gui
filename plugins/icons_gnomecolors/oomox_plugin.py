@@ -56,7 +56,7 @@ class Plugin(OomoxIconsPlugin):
         {
             'key': 'ICONS_DARK',
             'type': 'color',
-            'fallback_key': 'MENU_BG',
+            'fallback_key': 'HDR_BG',
             'display_name': _('Dark stroke'),
         },
     ]

@@ -270,7 +270,7 @@ class ThemePreview(Gtk.Grid):
                     "BTN_BG",
                     "HDR_BTN_BG",
                     "TXT_BG",
-                    "MENU_BG"
+                    "HDR_BG"
                 ]
         ):
             color = colorscheme[color_key]
@@ -403,20 +403,20 @@ class ThemePreview(Gtk.Grid):
         self.override_widget_color(self.gtk_preview.button, self.FG, converted["BTN_FG"])
         self.override_widget_color(self.gtk_preview.button, self.BG, converted["BTN_BG"])
         for item in self.gtk_preview.menubar.get_children():
-            self.override_widget_color(item, self.FG, converted["MENU_FG"])
+            self.override_widget_color(item, self.FG, converted["HDR_FG"])
             self.override_widget_color(
-                item, self.BG, mix("MENU_BG", "MENU_FG", 0.21),
+                item, self.BG, mix("HDR_BG", "HDR_FG", 0.21),
                 state=Gtk.StateFlags.PRELIGHT
             )
             for widget in _get_menu_widgets(item.get_submenu()):
                 if isinstance(widget, Gtk.MenuShell):
-                    self.override_widget_color(widget, self.BG, converted["MENU_BG"])
-                    self.override_widget_color(widget, self.FG, converted["MENU_FG"])
+                    self.override_widget_color(widget, self.BG, converted["HDR_BG"])
+                    self.override_widget_color(widget, self.FG, converted["HDR_FG"])
                 else:
                     if not widget.get_sensitive():  # :disabled
-                        color = mix("MENU_FG", "MENU_BG", 0.5)
+                        color = mix("HDR_FG", "HDR_BG", 0.5)
                     else:
-                        color = converted["MENU_FG"]
+                        color = converted["HDR_FG"]
                     self.override_widget_color(widget, self.FG, color)
                 self.override_widget_color(
                     widget, self.BG, converted["SEL_BG"],
@@ -426,9 +426,9 @@ class ThemePreview(Gtk.Grid):
                     widget, self.FG, converted["SEL_FG"],
                     state=Gtk.StateFlags.PRELIGHT
                 )
-        self.override_widget_color(self.gtk_preview.menubar, self.BG, converted["MENU_BG"])
-        self.override_widget_color(self.gtk_preview.headerbar, self.BG, converted["MENU_BG"])
-        self.override_widget_color(self.gtk_preview.headerbar.title, self.FG, converted["MENU_FG"])
+        self.override_widget_color(self.gtk_preview.menubar, self.BG, converted["HDR_BG"])
+        self.override_widget_color(self.gtk_preview.headerbar, self.BG, converted["HDR_BG"])
+        self.override_widget_color(self.gtk_preview.headerbar.title, self.FG, converted["HDR_FG"])
         self.override_widget_color(
             self.gtk_preview.headerbar.button, self.FG,
             converted["HDR_BTN_FG"]

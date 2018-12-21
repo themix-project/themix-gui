@@ -19,8 +19,8 @@ color_fg () {
  TXT_FG=$(color 0)
  SEL_BG=$(color 3)
  SEL_FG=$TXT_FG
-MENU_BG=$(color_bg)
-MENU_FG=$BG
+HDR_BG=$(color_bg)
+HDR_FG=$BG
  BTN_BG=$(color 12)
  BTN_FG=$(color 0)
 WM_BORDER_FOCUS=$(color 3)
