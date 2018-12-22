@@ -56,8 +56,11 @@ depends=(
 	'imagemagick'  # gnome-colors
 	'parallel'  # materia, arc
 	'optipng'  # materia, arc
-	'inkscape'  # materia, arc
 	'python-pillow'  # import_pil
+
+	'resvg-git'  # materia, arc
+	##or
+	#'inkscape'  # materia, arc
 )
 makedepends=(
 	'git'
