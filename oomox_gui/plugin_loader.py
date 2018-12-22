@@ -1,4 +1,5 @@
 import os
+import traceback
 
 from gi.repository import Gtk
 
@@ -53,7 +54,12 @@ def init_plugins():
                 text=_('Error loading plugin "{plugin_name}"').format(
                     plugin_name=plugin_name
                 ),
-                secondary_text=plugin_path + ":\n" + '\n'.join([str(arg) for arg in exc.args]),
+                secondary_text=(
+                    plugin_path +
+                    ":\n" + '\n'.join([str(arg) for arg in exc.args]) +
+                    '\n' * 2 +
+                    traceback.format_exc()
+                ),
                 buttons=Gtk.ButtonsType.CLOSE
             )
             error_dialog.run()
