@@ -36,7 +36,7 @@ def get_presets():
 
 
 def get_user_theme_path(user_theme_name):
-    return os.path.join(USER_COLORS_DIR, user_theme_name)
+    return os.path.join(USER_COLORS_DIR, user_theme_name.lstrip('/'))
 
 
 def save_colorscheme(preset_name, colorscheme, path=None):
