@@ -435,10 +435,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         ))
 
         for plugin_name, plugin in IMPORT_PLUGINS.items():
-            import_menu.append_item(Gio.MenuItem.new(
-                plugin.import_text or plugin.display_name,
-                "win.import_plugin_{}".format(plugin_name)
-            ))
+            if plugin.import_text:
+                import_menu.append_item(Gio.MenuItem.new(
+                    plugin.import_text or plugin.display_name,
+                    "win.import_plugin_{}".format(plugin_name)
+                ))
 
         import_button = Gtk.MenuButton(label=_("Import"))
         import_button.set_use_popover(True)
