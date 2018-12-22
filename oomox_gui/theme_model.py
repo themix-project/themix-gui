@@ -179,11 +179,13 @@ BASE_THEME_MODEL_GTK = [
     # migration of old names:
     {
         'key': 'MENU_BG',
+        'fallback_key': 'BG',
         'type': 'color',
         'filter': lambda v: False
     },
     {
         'key': 'MENU_FG',
+        'fallback_key': 'FG',
         'type': 'color',
         'filter': lambda v: False
     },
