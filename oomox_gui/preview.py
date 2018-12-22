@@ -190,7 +190,7 @@ class ThemePreview(Gtk.Grid):
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
-        self.set_border_width(6)
+        self.set_border_width(10)
         self.css_providers = CssProviders()
         self.init_widgets()
 
