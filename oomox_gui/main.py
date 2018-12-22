@@ -248,7 +248,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.reload_presets()
 
     def clone_theme(self):
-        dialog = NewDialog(transient_for=self)
+        dialog = NewDialog(transient_for=self, entry_text=self.colorscheme_name + '_')
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
