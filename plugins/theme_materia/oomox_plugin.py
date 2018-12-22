@@ -74,8 +74,6 @@ class Plugin(OomoxThemePlugin):
     enabled_keys_gtk = [
         'BG',
         'FG',
-        'BTN_BG',
-        'TXT_BG',
         'HDR_BG',
         'HDR_FG',
         'SEL_BG',
@@ -84,7 +82,20 @@ class Plugin(OomoxThemePlugin):
         'ROUNDNESS',
     ]
 
-    theme_model_gtk = []
+    theme_model_gtk = [
+        {
+            'key': 'MATERIA_VIEW',
+            'type': 'color',
+            'fallback_key': 'TXT_BG',
+            'display_name': _('View'),
+        },
+        {
+            'key': 'MATERIA_SURFACE',
+            'type': 'color',
+            'fallback_key': 'BTN_BG',
+            'display_name': _('Surface (e.g. Button, Menu, Popover)'),
+        },
+    ]
 
     theme_model_options = [
         {
@@ -95,6 +106,13 @@ class Plugin(OomoxThemePlugin):
             'display_name': _('Selection Opacity'),
         },
         {
+            'key': 'MATERIA_PANEL_OPACITY',
+            'type': 'float',
+            'fallback_value': 0.6,
+            'max_value': 1.0,
+            'display_name': _('DE Panel opacity'),
+        },
+        {
             'key': 'MATERIA_STYLE_COMPACT',
             'type': 'bool',
             'fallback_value': True,
@@ -102,25 +120,19 @@ class Plugin(OomoxThemePlugin):
         },
     ]
 
-    theme_model_other = [
-        {
-            'key': 'GNOME_SHELL_PANEL_OPACITY',
-            'type': 'float',
-            'fallback_value': 0.6,
-            'max_value': 1.0,
-            'display_name': _('(Gnome Shell) Panel opacity'),
-        },
-    ]
+    theme_model_other = []
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
         colorscheme["WM_BORDER_FOCUS"] = colorscheme["HDR_BG"]
-        colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["BTN_BG"]
+        colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["MATERIA_SURFACE"]
         colorscheme["HDR_BTN_FG"] = colorscheme["HDR_FG"]
         colorscheme["HDR_BTN_BG"] = colorscheme["HDR_BG"]
         colorscheme["SEL_FG"] = colorscheme["FG"]
         colorscheme["ACCENT_BG"] = colorscheme["SEL_BG"]
         colorscheme["BTN_FG"] = colorscheme["FG"]
+        colorscheme["BTN_BG"] = colorscheme["MATERIA_SURFACE"]
+        colorscheme["TXT_BG"] = colorscheme["MATERIA_VIEW"]
         colorscheme["GRADIENT"] = 0
         preview_object.WM_BORDER_WIDTH = 0
         _monkeypatch_update_preview_colors(preview_object)
