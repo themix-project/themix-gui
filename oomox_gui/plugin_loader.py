@@ -53,7 +53,7 @@ def init_plugins():
                 text=_('Error loading plugin "{plugin_name}"').format(
                     plugin_name=plugin_name
                 ),
-                secondary_text=plugin_path + ":\n" + '\n'.join(exc.args),
+                secondary_text=plugin_path + ":\n" + str(exc.args),
                 buttons=Gtk.ButtonsType.CLOSE
             )
             error_dialog.run()
