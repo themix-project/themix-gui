@@ -521,11 +521,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_wmclass("oomox", "Oomox")
         self.connect("delete-event", self._on_quit)
         self.set_default_size(500, 300)
-        self.set_border_width(6)
 
         self._init_headerbar()
 
-        self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
         self.add(self.box)
 
     def _init_actions(self):
