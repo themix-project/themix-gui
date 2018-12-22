@@ -1,8 +1,4 @@
-import random
-
 from gi.repository import Gdk
-
-from .config import FALLBACK_COLOR
 
 
 def hex_to_int(text):
@@ -137,41 +133,26 @@ def convert_gdk_to_theme_color(gdk_color):
     ])
 
 
-def get_random_gdk_color():
-    return Gdk.RGBA(random.random(), random.random(), random.random(), 1)
-
-
-def get_random_theme_color():
-    return convert_gdk_to_theme_color(get_random_gdk_color())
-
-
 def mix_gdk_colors(gdk_color_1, gdk_color_2, ratio):
     result_gdk_color = Gdk.RGBA()
     for attr in ('red', 'green', 'blue', 'alpha'):
         setattr(
-            result_gdk_color, attr,
-            (getattr(gdk_color_1, attr) * ratio + getattr(gdk_color_2, attr) *
-             (1 - ratio)))
+            result_gdk_color, attr, (
+                getattr(gdk_color_1, attr) * ratio +
+                getattr(gdk_color_2, attr) * (1 - ratio)
+            )
+        )
     return result_gdk_color
 
 
 def mix_theme_colors(theme_color_1, theme_color_2, ratio):
-    color_list_1 = []
-    color_list_2 = []
-    for color_text, color_list in ((theme_color_1, color_list_1),
-                                   (theme_color_2, color_list_2)):
-        color_list.append(color_text[:2])
-        color_list.append(color_text[2:4])
-        color_list.append(color_text[4:])
-    result = ''
-    for channel_index, channel_1_text in enumerate(color_list_1):
-        try:
-            channel_1 = hex_to_int(channel_1_text)
-            channel_2 = hex_to_int(color_list_2[channel_index])
-        except ValueError:
-            return FALLBACK_COLOR
-        result += int_to_hex(channel_1 * ratio + channel_2 * (1 - ratio))
-    return result
+    return convert_gdk_to_theme_color(
+        mix_gdk_colors(
+            convert_theme_color_to_gdk(theme_color_1),
+            convert_theme_color_to_gdk(theme_color_2),
+            ratio=ratio
+        )
+    )
 
 
 def mix_hex_colors(hex_color_1, hex_color_2, ratio):

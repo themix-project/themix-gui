@@ -1,7 +1,6 @@
 import os
 
 from .theme_model import THEME_MODEL
-from .color import get_random_theme_color
 from .xrdb import XrdbCache
 from .plugin_loader import IMPORT_PLUGINS
 
@@ -13,9 +12,7 @@ def str_to_bool(value):
 def parse_theme_color_value(result_value):
     if not result_value:
         return None
-    if result_value == 'random_color':
-        result_value = get_random_theme_color()
-    elif result_value.startswith('xrdb.'):
+    if result_value.startswith('xrdb.'):
         xrdb_color = XrdbCache.get().get(result_value.replace('xrdb.', ''))
         if xrdb_color and xrdb_color.startswith('#'):
             result_value = xrdb_color.replace('#', '')
@@ -79,11 +76,10 @@ def read_colorscheme_from_path(preset_path):
 
         with open(preset_path) as file_object:
             for line in file_object.readlines():
-                parsed_line = line.strip().split('=')
-                key = parsed_line[0]
-                if not key.startswith("#"):
-                    if key in theme_keys and len(parsed_line) > 1:
-                        colorscheme[key] = parsed_line[1]
+                key, _sep, value = line.strip().partition('=')
+                if key.startswith("#") or key not in theme_keys:
+                    continue
+                colorscheme[key] = value
 
     for theme_model_item in THEME_MODEL:
         key = theme_model_item.get('key')

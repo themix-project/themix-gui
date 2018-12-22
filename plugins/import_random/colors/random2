@@ -1,0 +1,51 @@
+   NAME="random theme"
+
+BG=random_color_bg
+FG=random_color_fg
+
+HDR_BG=random_color_mbg
+HDR_FG=random_color_mfg
+
+BTN_BG=random_color
+BTN_FG=random_color_fg
+
+HDR_BTN_BG=random_color
+HDR_BTN_FG=random_color_mfg
+
+SEL_BG=random_color_sel
+SEL_FG=random_color_fg
+
+TXT_BG=random_color
+TXT_FG=random_color
+
+WM_BORDER_FOCUS=random_color_sel
+WM_BORDER_UNFOCUS=random_color_mbg
+
+ICONS_ARCHDROID=random_color
+ICONS_DARK=random_color
+ICONS_LIGHT=random_color
+ICONS_LIGHT_FOLDER=random_color
+ICONS_MEDIUM=random_color
+
+TERMINAL_BASE_TEMPLATE=monovedek
+
+#TERMINAL_BACKGROUND": "base01",
+#TERMINAL_FOREGROUND": "base06",
+#TERMINAL_ACCENT_COLOR": "base0d",
+
+#TERMINAL_COLOR0": "base00",
+#TERMINAL_COLOR1": "base08",
+#TERMINAL_COLOR2": "base0b",
+#TERMINAL_COLOR3": "base09",
+#TERMINAL_COLOR4": "base0d",
+#TERMINAL_COLOR5": "base0e",
+#TERMINAL_COLOR6": "base0c",
+#TERMINAL_COLOR7": "base05",
+#TERMINAL_COLOR8": "base02",
+#TERMINAL_COLOR9": "base08",
+#TERMINAL_COLOR10": "base0b",
+#TERMINAL_COLOR11": "base0a",
+#TERMINAL_COLOR12": "base0d",
+#TERMINAL_COLOR13": "base0e",
+#TERMINAL_COLOR14": "base0c",
+#TERMINAL_COLOR15": "base07",
