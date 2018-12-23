@@ -3,7 +3,6 @@ import random
 
 from gi.repository import Gdk
 
-from oomox_gui.i18n import _
 from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.color import convert_gdk_to_theme_color
 
