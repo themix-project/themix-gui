@@ -56,8 +56,8 @@ endif
 			$(PACKAGING_TMP_DIR)/
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
 
+	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 	install -Dp -m 755 --target-directory="$(DEST_PREFIX)/bin/" "$(PACKAGING_TMP_DIR)/packaging/bin/"*
-	chmod a+x "$(DEST_PREFIX)/bin/"*
 
 	install -d $(DEST_PREFIX)/share/applications/
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" "$(DEST_PREFIX)/share/applications/"
