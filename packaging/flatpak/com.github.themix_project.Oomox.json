@@ -12,6 +12,24 @@
     ],
     "modules": [
         {
+            "name": "resvg",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cd ./deps/resvg ; for dir in capi tools/rendersvg; do ( cd $dir ; cargo build --release --features='qt-backend cairo-backend' ) done",
+                "install -Dm755 ./deps/resvg/target/release/rendersvg /app/bin/rendersvg",
+                "install -Dm755 ./deps/resvg/target/release/libresvg.so /app/lib/libresvg.so",
+                "install -Dm644 ./deps/resvg/capi/include/resvg.h /app/include/resvg.h"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/RazrFalcon/resvg/archive/07b5191683f18be693a08f66334568f098ea5429.tar.gz",
+                    "sha256": "855c40528b897d06ae4d24606c2db3cd09bb38de5b46b28e835f9d4fd4d7ab95",
+                    "dest": "./deps/resvg"
+                }
+            ]
+        },
+        {
             "name": "python3-pillow",
             "buildsystem": "simple",
             "build-options": {
@@ -148,7 +166,7 @@
             "name": "oomox",
             "buildsystem": "simple",
             "build-commands": [
-                "make DESTDIR=/ PREFIX=/app APPDIR=/app/opt/oomox DISABLE_PLUGIN_MATERIA=1 DISABLE_PLUGIN_SPOTIFY=1 DISABLE_PLUGIN_ARC=1 install",
+                "make DESTDIR=/ PREFIX=/app APPDIR=/app/opt/oomox DISABLE_PLUGIN_SPOTIFY=1 install",
                 "python3 -O -m compileall /app/opt/oomox/oomox_gui",
                 "mkdir -p /app/usr/share/",
                 "ln -s /app/share/applications /app/usr/share/applications",
