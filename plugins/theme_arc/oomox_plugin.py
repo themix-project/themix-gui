@@ -132,7 +132,7 @@ class Plugin(OomoxThemePlugin):
     export_dialog = ArcThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {
-        OomoxThemePlugin.PreviewImageboxesNames.CHECKBOX.name: 24,
+        OomoxThemePlugin.PreviewImageboxesNames.CHECKBOX.name: 16,
     }
 
     enabled_keys_gtk = [
