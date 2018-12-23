@@ -1,8 +1,9 @@
 {
     "app-id": "com.github.themix_project.Oomox",
     "runtime": "org.gnome.Sdk",
-    "runtime-version": "3.28",
+    "runtime-version": "3.30",
     "sdk": "org.gnome.Sdk",
+    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "oomox-gui",
     "finish-args": [
         "--share=ipc",
@@ -12,58 +13,28 @@
     ],
     "modules": [
         {
-            "name": "rust",
-            "buildsystem": "simple",
-            "cleanup": [
-                "/share/doc/rust/html"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "only-arches": ["i386"],
-                    "url": "https://static.rust-lang.org/dist/rust-1.31.1-i686-unknown-linux-gnu.tar.gz",
-                    "sha256": "1e77e5e8c745320faad9ce6f319a77b4a2e75d972eb68a195acd081ad910ab6d"
-                },
-                {
-                    "type": "archive",
-                    "only-arches": ["arm"],
-                    "url": "https://static.rust-lang.org/dist/rust-1.31.1-arm-unknown-linux-gnueabihf.tar.gz",
-                    "sha256": "09df9b5fe104df0fa6d115dea366002066654cf06aedcfa9da4869ccba56d575"
-                },
-                {
-                    "type": "archive",
-                    "only-arches": ["aarch64"],
-                    "url": "https://static.rust-lang.org/dist/rust-1.31.1-aarch64-unknown-linux-gnu.tar.gz",
-                    "sha256": "29a7c6eb536fefd0ca459e48dfaea006aa8bff8a87aa82a9b7d483487033632a"
-                },
-                {
-                    "type": "archive",
-                    "only-arches": ["x86_64"],
-                    "url": "https://static.rust-lang.org/dist/rust-1.31.1-x86_64-unknown-linux-gnu.tar.gz",
-                    "sha256": "a64685535d0c457f49a8712a096a5c21564cd66fd2f7da739487f028192ebe3c"
-                }
-            ],
-            "build-commands": [
-                "./install.sh --help",
-                "./install.sh --list-components --verbose",
-                "./install.sh --prefix=/ --disable-ldconfig --verbose"
-            ]
-        },
-        {
             "name": "resvg",
             "buildsystem": "simple",
+            "build-options": {
+                "append-path": "/usr/lib/sdk/rust-stable/bin"
+            },
             "build-commands": [
-                "cd ./deps/resvg ; for dir in capi tools/rendersvg; do ( cd $dir ; cargo build --release --features='qt-backend cairo-backend' ) done",
-                "install -Dm755 ./deps/resvg/target/release/rendersvg /app/bin/rendersvg",
-                "install -Dm755 ./deps/resvg/target/release/libresvg.so /app/lib/libresvg.so",
-                "install -Dm644 ./deps/resvg/capi/include/resvg.h /app/include/resvg.h"
+                "export CARGO_HOME=$(pwd)/cargo_home ; for dir in capi tools/rendersvg; do ( cd $dir ; cargo build --release --features='cairo-backend' ) done",
+                "install -Dm755 target/release/rendersvg /app/bin/rendersvg",
+                "install -Dm755 target/release/libresvg.so /app/lib/libresvg.so",
+                "install -Dm644 capi/include/resvg.h /app/include/resvg.h"
             ],
             "sources": [
                 {
                     "type": "archive",
                     "url": "https://github.com/RazrFalcon/resvg/archive/07b5191683f18be693a08f66334568f098ea5429.tar.gz",
-                    "sha256": "855c40528b897d06ae4d24606c2db3cd09bb38de5b46b28e835f9d4fd4d7ab95",
-                    "dest": "./deps/resvg"
+                    "sha256": "2307c58c10b2adda2b990d2dcf676e2b4958798445dd700dc7225164092a5fc5"
+                },
+                {
+                    "type": "archive",
+                    "url": "https://github.com/actionless/_flatpak_helpers/releases/download/0.01/cargo_home.tar.bz2",
+                    "sha256": "c11bb49ac97c384ce481f71b759a1f1da73879e722fce06fb935213e31b50c2f",
+                    "dest": "./cargo_home/"
                 }
             ]
         },
