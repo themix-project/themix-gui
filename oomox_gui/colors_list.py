@@ -440,7 +440,8 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 callback = _callback
             elif key in [
                     'ICONS_STYLE', 'THEME_STYLE',
-                    'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE'
+                    'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE',
+                    'TERMINAL_THEME_AUTO_BGFG', 'TERMINAL_FG', 'TERMINAL_BG',
             ]:
                 def _callback(key, value):
                     self.color_edited(key, value)

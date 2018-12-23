@@ -346,7 +346,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme.update(generate_terminal_colors_for_oomox(self.colorscheme))
 
     def on_color_edited(self, colorscheme):
-        self.generate_terminal_colors()
         self.load_colorscheme(colorscheme)
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.colorscheme_name

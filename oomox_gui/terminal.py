@@ -169,23 +169,23 @@ class ProgressBar():
             len(self.LEFT_DECORATION) - len(self.RIGHT_DECORATION)
         )
         self.print_ratio = length / width
-        sys.stderr.write(message)
-        sys.stderr.write(self.LEFT_DECORATION + self.EMPTY * width + self.RIGHT_DECORATION)
-        sys.stderr.write('{}[\bb'.format(chr(27)) * (width + len(self.RIGHT_DECORATION)))
-        sys.stderr.flush()
+        # sys.stderr.write(message)
+        # sys.stderr.write(self.LEFT_DECORATION + self.EMPTY * width + self.RIGHT_DECORATION)
+        # sys.stderr.write('{}[\bb'.format(chr(27)) * (width + len(self.RIGHT_DECORATION)))
+        # sys.stderr.flush()
 
     def update(self):
         self.index += 1
         if self.index / self.print_ratio > self.progress:
             self.progress += 1
-            sys.stderr.write(self.FULL)
-            sys.stderr.flush()
+            # sys.stderr.write(self.FULL)
+            # sys.stderr.flush()
 
     def __enter__(self):
         return self.update
 
-    def __exit__(self, *exc_details):
-        sys.stderr.write('\n')
+    # def __exit__(self, *exc_details):
+        # sys.stderr.write('\n')
 # ######## END
 
 
@@ -206,6 +206,10 @@ def get_grayest_colors(palette):
     gray_colors.sort(key=sum)
     gray_colors = [color_hex_from_list(c) for c in gray_colors]
     return gray_colors
+
+
+def get_lightness(theme_color):
+    return sum(int_list_from_hex(theme_color))
 
 
 def _generate_theme_from_full_palette(
@@ -272,8 +276,8 @@ def _generate_theme_from_full_palette(
 
     while accuracy > 0:
         _debug_iteration_counter += 1
-        print()
-        print(('ITERATION', _debug_iteration_counter))
+        # print()
+        # print(('ITERATION', _debug_iteration_counter))
         progress = ProgressBar(
             length=((int(abs(START[0] - END[0])/accuracy) + 2) ** 3)
         )
@@ -337,14 +341,14 @@ def _generate_theme_from_full_palette(
             red += accuracy
 
         if biggest_number_of_similar == prev_biggest_number_of_similar:
-            print('good enough')
+            # print('good enough')
             break
         prev_biggest_number_of_similar = biggest_number_of_similar
         for i in range(3):
             START[i] = max(best_diff_color_values[i] - accuracy, -255)
             END[i] = min(best_diff_color_values[i] + accuracy, 255)
         accuracy = round(accuracy / 2)
-        print(('DEEPER!', accuracy))
+        # print(('DEEPER!', accuracy))
 
     # from fabulous.color import bg256
     # for bright_color in bright_colors:
@@ -361,21 +365,28 @@ _FULL_PALETTE_CACHE = {}
 
 
 def generate_theme_from_full_palette(
-        palette, theme_bg, theme_fg, *args, auto_swap_colors=True, **kwargs
+        palette, theme_bg, theme_fg, template_path, need_light_bg=False, **kwargs
 ):  # pylint: disable=invalid-name
     all_colors = sorted(get_all_colors_from_oomox_colorscheme(palette))
-    if auto_swap_colors:
+
+    if (
+            get_lightness(theme_bg) > get_lightness(theme_fg) and not need_light_bg
+    ) or (
+        get_lightness(theme_bg) < get_lightness(theme_fg) and need_light_bg
+    ):
         theme_bg, theme_fg = theme_fg, theme_bg
+
     cache_id = str(
-        list(args) + [
+        [
             kwargs[name] for name in sorted(kwargs, key=lambda x: x[0])
         ] + all_colors
-    ) + theme_bg
+    ) + template_path + theme_bg
     if cache_id not in _FULL_PALETTE_CACHE:
         # from time import time
         # before = time()
         _FULL_PALETTE_CACHE[cache_id] = _generate_theme_from_full_palette(
-            *args, all_colors=all_colors, theme_bg=theme_bg, **kwargs
+            template_path=template_path,
+            all_colors=all_colors, theme_bg=theme_bg, **kwargs
         )
         # print(time() - before)
     modified_colors = {}
@@ -389,7 +400,7 @@ def generate_themes_from_oomox(original_colorscheme):
     colorscheme = {}
     colorscheme.update(original_colorscheme)
     term_colorscheme = None
-    if colorscheme['TERMINAL_THEME_MODE'] in ('auto', 'smarty'):
+    if colorscheme['TERMINAL_THEME_MODE'] in ('auto', ):
         colorscheme["TERMINAL_ACCENT_COLOR"] = colorscheme["SEL_BG"]
         colorscheme["TERMINAL_BACKGROUND"] = colorscheme["TXT_BG"]
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
@@ -403,7 +414,7 @@ def generate_themes_from_oomox(original_colorscheme):
             palette=colorscheme,
             theme_bg=colorscheme["TERMINAL_BACKGROUND"],
             theme_fg=colorscheme["TERMINAL_FOREGROUND"],
-            auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
+            need_light_bg=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
             extend_palette=colorscheme["TERMINAL_THEME_EXTEND_PALETTE"],
             accuracy=255+8-colorscheme.get("TERMINAL_THEME_ACCURACY")
         )

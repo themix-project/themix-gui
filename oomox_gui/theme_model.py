@@ -282,6 +282,36 @@ THEME_MODEL += [
         },
     },
     {
+        'key': 'TERMINAL_BACKGROUND',
+        'type': 'color',
+        'fallback_key': 'TXT_BG',
+        # 'fallback_key': 'HDR_BG',
+        'display_name': _('Terminal background'),
+        'value_filter': {
+            'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
+        },
+    },
+    {
+        'key': 'TERMINAL_FOREGROUND',
+        'type': 'color',
+        'fallback_key': 'TXT_FG',
+        # 'fallback_key': 'HDR_FG',
+        'display_name': _('Terminal foreground'),
+        'value_filter': {
+            'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
+        },
+    },
+    {
+        'key': 'TERMINAL_ACCENT_COLOR',
+        'type': 'color',
+        'fallback_key': 'SEL_BG',
+        'display_name': _('Terminal accent color'),
+        'value_filter': {
+            'TERMINAL_THEME_MODE': ['basic', ],
+        },
+    },
+
+    {
         'key': 'TERMINAL_THEME_AUTO_BGFG',
         'type': 'bool',
         'fallback_value': True,
@@ -310,35 +340,7 @@ THEME_MODEL += [
         'min_value': 8,
         'max_value': 255,
     },
-    {
-        'key': 'TERMINAL_BACKGROUND',
-        'type': 'color',
-        'fallback_key': 'TXT_BG',
-        # 'fallback_key': 'HDR_BG',
-        'display_name': _('Terminal background'),
-        'value_filter': {
-            'TERMINAL_THEME_MODE': ['basic', 'manual'],
-        },
-    },
-    {
-        'key': 'TERMINAL_FOREGROUND',
-        'type': 'color',
-        'fallback_key': 'TXT_FG',
-        # 'fallback_key': 'HDR_FG',
-        'display_name': _('Terminal foreground'),
-        'value_filter': {
-            'TERMINAL_THEME_MODE': ['basic', 'manual'],
-        },
-    },
-    {
-        'key': 'TERMINAL_ACCENT_COLOR',
-        'type': 'color',
-        'fallback_key': 'SEL_BG',
-        'display_name': _('Terminal accent color'),
-        'value_filter': {
-            'TERMINAL_THEME_MODE': ['basic', ],
-        },
-    },
+
     # Black
     {
         'key': 'TERMINAL_COLOR0',
