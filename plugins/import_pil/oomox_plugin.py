@@ -53,7 +53,7 @@ class Plugin(OomoxImportPlugin):
 
     name = 'import_pil'
     display_name = 'Image colors'
-    import_text = 'Colors from image'
+    import_text = 'Colors from Image'
     file_extensions = (
         '.jpg',
         '.png',
@@ -185,7 +185,7 @@ class Plugin(OomoxImportPlugin):
 
     theme_model_import = [
         {
-            'display_name': _('Import colors from image: '),
+            'display_name': _('Import Colors from Image:'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': ['import_pil']
@@ -208,7 +208,7 @@ class Plugin(OomoxImportPlugin):
             #     'value': ULTRA_QUALITY,
             #     'display_name': 'ultra',
             'fallback_value': LOW_QUALITY,
-            'display_name': _('Image analysis'),
+            'display_name': _('Image Analysis'),
             'reload_theme': True,
         },
         {
@@ -220,14 +220,14 @@ class Plugin(OomoxImportPlugin):
             ],
             # 'fallback_value': 'monovedek_pale_gray',
             'fallback_value': 'basic',
-            'display_name': _('Palette style'),
+            'display_name': _('Palette Style'),
             'reload_theme': True,
         },
         {
             'key': '_PIL_PALETTE_STRICT',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('Stronger follow palette template'),
+            'display_name': _('Stronger Follow Palette Template'),
             'reload_theme': True,
             'value_filter': {
                 '_PIL_PALETTE_QUALITY': [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY]
@@ -237,7 +237,7 @@ class Plugin(OomoxImportPlugin):
             'key': '_PIL_PALETTE_INVERSE',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('Dark/Light colors'),
+            'display_name': _('Dark/Light Colors'),
             'reload_theme': True,
         },
         {
@@ -248,17 +248,17 @@ class Plugin(OomoxImportPlugin):
                 for template_name in sorted(theme_translations.keys())
             ],
             'fallback_value': '1',
-            'display_name': _('GUI theme template'),
+            'display_name': _('GUI Theme Template'),
             'reload_theme': True,
         },
         {
             'key': '_PIL_IMAGE_PREVIEW',
             'type': 'image_path',
             'fallback_value': None,
-            'display_name': _('Image thumbnail'),
+            'display_name': _('Image Thumbnail'),
         },
         {
-            'display_name': _('Theme options: '),
+            'display_name': _('Theme Options:'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': ['import_pil']

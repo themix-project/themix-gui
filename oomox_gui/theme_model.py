@@ -89,7 +89,7 @@ THEME_MODEL = THEME_MODEL + [
             for theme_plugin in sorted_dict(THEME_PLUGINS).values()
         ],
         'fallback_value': 'oomox',
-        'display_name': _('Theme style'),
+        'display_name': _('Theme Style'),
     },
 ]
 
@@ -108,73 +108,73 @@ BASE_THEME_MODEL_GTK = [
         'key': 'HDR_BG',
         'fallback_key': 'MENU_BG',
         'type': 'color',
-        'display_name': _('Header background')
+        'display_name': _('Header Background')
     },
     {
         'key': 'HDR_FG',
         'fallback_key': 'MENU_FG',
         'type': 'color',
-        'display_name': _('Header text'),
+        'display_name': _('Header Text'),
     },
     {
         'key': 'SEL_BG',
         'type': 'color',
-        'display_name': _('Selection highlight')
+        'display_name': _('Selection Highlight')
     },
     {
         'key': 'SEL_FG',
         'type': 'color',
-        'display_name': _('Selection text'),
+        'display_name': _('Selection Text'),
     },
     {
         'key': 'ACCENT_BG',
         'fallback_key': 'SEL_BG',
         'type': 'color',
-        'display_name': _('Accent color (checkboxes, radios)'),
+        'display_name': _('Accent Color (Checkboxes, Radios)'),
     },
     {
         'key': 'TXT_BG',
         'type': 'color',
-        'display_name': _('Textbox background')
+        'display_name': _('Textbox Background')
     },
     {
         'key': 'TXT_FG',
         'type': 'color',
-        'display_name': _('Textbox text'),
+        'display_name': _('Textbox Text'),
     },
     {
         'key': 'BTN_BG',
         'type': 'color',
-        'display_name': _('Button background')
+        'display_name': _('Button Background')
     },
     {
         'key': 'BTN_FG',
         'type': 'color',
-        'display_name': _('Button text'),
+        'display_name': _('Button Text'),
     },
     {
         'key': 'HDR_BTN_BG',
         'fallback_key': 'BTN_BG',
         'type': 'color',
-        'display_name': _('Header button background'),
+        'display_name': _('Header Button Background'),
     },
     {
         'key': 'HDR_BTN_FG',
         'fallback_key': 'BTN_FG',
         'type': 'color',
-        'display_name': _('Header button text'),
+        'display_name': _('Header Button Text'),
     },
     {
         'key': 'WM_BORDER_FOCUS',
         'fallback_key': 'SEL_BG',
         'type': 'color',
-        'display_name': _('Focused window border'),
+        'display_name': _('Focused Window Border'),
     },
     {
         'key': 'WM_BORDER_UNFOCUS',
         'fallback_key': 'HDR_BG',
         'type': 'color',
-        'display_name': _('Unfocused window border'),
+        'display_name': _('Unfocused Window Border'),
     },
     # migration of old names:
     {
@@ -195,7 +195,7 @@ merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_GTK, 'gtk')
 BASE_THEME_MODEL_OPTIONS = [
     {
         'type': 'separator',
-        'display_name': _('Theme options'),
+        'display_name': _('Theme Options'),
     },
     {
         'key': 'ROUNDNESS',
@@ -219,7 +219,7 @@ BASE_THEME_MODEL_OPTIONS = [
         'key': 'GTK3_GENERATE_DARK',
         'type': 'bool',
         'fallback_value': True,
-        'display_name': _('(GTK3) Add dark variant'),
+        'display_name': _('(GTK3) Add Dark Variant'),
     },
 ]
 merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OPTIONS, 'options')
@@ -240,7 +240,7 @@ BASE_ICON_THEME_MODEL = [
             for icons_plugin in sorted_dict(ICONS_PLUGINS).values()
         ],
         'fallback_value': 'gnome_colors',
-        'display_name': _('Icons style')
+        'display_name': _('Icons Style')
     },
 ]
 THEME_MODEL += BASE_ICON_THEME_MODEL
@@ -266,7 +266,7 @@ THEME_MODEL += [
             {'value': 'manual', 'display_name': _('Manual')},
         ],
         'fallback_value': 'auto',
-        'display_name': _('Theme options')
+        'display_name': _('Theme Options')
     },
     {
         'key': 'TERMINAL_BASE_TEMPLATE',
@@ -276,7 +276,7 @@ THEME_MODEL += [
             for template_name in sorted(os.listdir(TERMINAL_TEMPLATE_DIR))
         ],
         'fallback_value': 'monovedek',
-        'display_name': _('Theme style'),
+        'display_name': _('Theme Style'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['auto', 'basic', 'smarty', ],
         },
@@ -286,7 +286,7 @@ THEME_MODEL += [
         'type': 'color',
         'fallback_key': 'TXT_BG',
         # 'fallback_key': 'HDR_BG',
-        'display_name': _('Terminal background'),
+        'display_name': _('Terminal Background'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
         },
@@ -296,7 +296,7 @@ THEME_MODEL += [
         'type': 'color',
         'fallback_key': 'TXT_FG',
         # 'fallback_key': 'HDR_FG',
-        'display_name': _('Terminal foreground'),
+        'display_name': _('Terminal Foreground'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
         },
@@ -305,7 +305,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_ACCENT_COLOR',
         'type': 'color',
         'fallback_key': 'SEL_BG',
-        'display_name': _('Terminal accent color'),
+        'display_name': _('Terminal Accent Color'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', ],
         },
@@ -315,7 +315,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_THEME_AUTO_BGFG',
         'type': 'bool',
         'fallback_value': True,
-        'display_name': _('Auto-swap BG/FG'),
+        'display_name': _('Auto-Swap BG/FG'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['auto', 'basic', 'smarty', ],
         },
@@ -324,7 +324,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_THEME_EXTEND_PALETTE',
         'type': 'bool',
         'fallback_value': False,
-        'display_name': _('Extend palette with more lighter/darker colors'),
+        'display_name': _('Extend Palette with More Lighter/Darker Colors'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['smarty', ],
         },
@@ -333,7 +333,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_THEME_ACCURACY',
         'type': 'int',
         'fallback_value': 128,
-        'display_name': _('Palette generation accuracy'),
+        'display_name': _('Palette Generation Accuracy'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['smarty', ],
         },
@@ -353,7 +353,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR8',
         'type': 'color',
-        'display_name': _('Black highlight'),
+        'display_name': _('Black Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -370,7 +370,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR9',
         'type': 'color',
-        'display_name': _('Red highlight'),
+        'display_name': _('Red Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -387,7 +387,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR10',
         'type': 'color',
-        'display_name': _('Green highlight'),
+        'display_name': _('Green Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -404,7 +404,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR11',
         'type': 'color',
-        'display_name': _('Yellow highlight'),
+        'display_name': _('Yellow Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -421,7 +421,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR12',
         'type': 'color',
-        'display_name': _('Blue highlight'),
+        'display_name': _('Blue Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -438,7 +438,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR13',
         'type': 'color',
-        'display_name': _('Purple highlight'),
+        'display_name': _('Purple Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -455,7 +455,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR14',
         'type': 'color',
-        'display_name': _('Cyan highlight'),
+        'display_name': _('Cyan Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -472,7 +472,7 @@ THEME_MODEL += [
     {
         'key': 'TERMINAL_COLOR15',
         'type': 'color',
-        'display_name': _('White highlight'),
+        'display_name': _('White Highlight'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['manual', ],
         },
@@ -489,7 +489,7 @@ merge_model_with_base(
 BASE_THEME_MODEL_OTHER = [
     {
         'type': 'separator',
-        'display_name': _('Other options'),
+        'display_name': _('Other Options'),
     },
 ]
 merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OTHER, 'other')

@@ -56,7 +56,7 @@ class ArcThemeExportDialog(GtkThemeExportDialog):
                 },
                 OPTION_EXPORT_GNOME_SHELL_THEME: {
                     'default': False,
-                    'display_name': _("Generate theme for Gnome _Shell"),
+                    'display_name': _("Generate theme for GNOME _Shell"),
                 },
                 OPTION_EXPORT_XFWM_THEME: {
                     'default': False,
@@ -128,7 +128,7 @@ class Plugin(OomoxThemePlugin):
 
     name = 'arc'
     display_name = 'Arc'
-    description = '(GTK+2, GTK+3, Cinnamon, Gnome Shell, Metacity, Openbox, Unity, Xfwm)'
+    description = '(GTK+2, GTK+3, Cinnamon, GNOME Shell, Metacity, Openbox, Unity, Xfwm)'
     export_dialog = ArcThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {
@@ -159,7 +159,7 @@ class Plugin(OomoxThemePlugin):
                 0.75
             ),
             'type': 'color',
-            'display_name': _('(GTK3) Widget border color'),
+            'display_name': _('(GTK3) Widget Border Color'),
         },
     ]
 
@@ -168,13 +168,13 @@ class Plugin(OomoxThemePlugin):
             'key': 'ARC_TRANSPARENCY',
             'type': 'bool',
             'fallback_value': True,
-            'display_name': _('(GTK3) Enable theme transparency'),
+            'display_name': _('(GTK3) Enable Theme Transparency'),
         },
         # {
         #     'key': 'GTK3_GENERATE_DARK',
         #     'type': 'bool',
         #     'fallback_value': True,
-        #     'display_name': _('(GTK3) Add dark variant'),
+        #     'display_name': _('(GTK3) Add Dark Variant'),
         # },
     ]
 
@@ -185,7 +185,7 @@ class Plugin(OomoxThemePlugin):
             'type': 'float',
             'fallback_value': 0.6,
             'max_value': 1.0,
-            'display_name': _('(Gnome Shell) Panel opacity'),
+            'display_name': _('(GNOME Shell) Panel Opacity'),
         },
     ]
     """
