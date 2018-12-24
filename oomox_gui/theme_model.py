@@ -486,14 +486,6 @@ merge_model_with_base(
     plugins=EXPORT_PLUGINS,
 )
 
-BASE_THEME_MODEL_OTHER = [
-    {
-        'type': 'separator',
-        'display_name': _('Other Options'),
-    },
-]
-merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OTHER, 'other')
-
 THEME_MODEL_BY_KEY = {
     value['key']: value
     for value in THEME_MODEL

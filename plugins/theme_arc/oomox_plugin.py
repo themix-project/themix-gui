@@ -178,18 +178,6 @@ class Plugin(OomoxThemePlugin):
         # },
     ]
 
-    """
-    theme_model_other = [
-        {
-            'key': 'GNOME_SHELL_PANEL_OPACITY',
-            'type': 'float',
-            'fallback_value': 0.6,
-            'max_value': 1.0,
-            'display_name': _('(GNOME Shell) Panel Opacity'),
-        },
-    ]
-    """
-
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
         colorscheme["BTN_FG"] = colorscheme["FG"]

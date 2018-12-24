@@ -138,9 +138,6 @@ class Plugin(OomoxThemePlugin):
             'fallback_value': 0.04,  # GTK's default
             'display_name': _('Caret Aspect Ratio'),
         },
-    ]
-
-    theme_model_other = [
         {
             'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
             'type': 'bool',
@@ -154,9 +151,6 @@ class Plugin(OomoxThemePlugin):
             'max_value': 1.0,
             'display_name': _('(Cinnamon) Opacity'),
         },
-    ]
-
-    theme_model_extra = [
     ]
 
     def preview_before_load_callback(self, preview_object, colorscheme):

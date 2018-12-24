@@ -35,12 +35,10 @@ class OomoxThemePlugin(OomoxPlugin):
 
     enabled_keys_gtk = []
     enabled_keys_options = []
-    enabled_keys_other = []
     enabled_keys_extra = []
 
     theme_model_gtk = []
     theme_model_options = []
-    theme_model_other = []
     theme_model_extra = []
 
     def preview_before_load_callback(self, preview_object, colorscheme):

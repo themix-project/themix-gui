@@ -120,8 +120,6 @@ class Plugin(OomoxThemePlugin):
         },
     ]
 
-    theme_model_other = []
-
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
         colorscheme["WM_BORDER_FOCUS"] = colorscheme["HDR_BG"]
