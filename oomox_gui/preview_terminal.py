@@ -31,7 +31,7 @@ class TerminalThemePreview(Gtk.Box):
 
         self.background = Gtk.Grid(row_spacing=6, column_spacing=6)
         self.background.set_halign(Gtk.Align.CENTER)
-        self.background.set_margin_top(WIDGET_SPACING / 2)
+        self.background.set_margin_top(WIDGET_SPACING // 2)
         self.background.set_margin_bottom(WIDGET_SPACING)
         self.background.set_margin_right(WIDGET_SPACING * 2)
 

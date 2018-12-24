@@ -80,6 +80,7 @@ class PreviewWidgets():
     def __init__(self):
         self.background = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.grid = Gtk.Grid(row_spacing=6, column_spacing=6)
+        self.grid.set_halign(Gtk.Align.CENTER)
 
         headerbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
@@ -108,10 +109,10 @@ class PreviewWidgets():
         fake_checkbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         fake_checkbox.pack_start(self.preview_imageboxes['CHECKBOX'], False, False, 0)
         fake_checkbox.pack_start(self.label, False, False, 0)
-        fake_checkbox.set_margin_left(20)
+        fake_checkbox.set_margin_left(WIDGET_SPACING // 2)
 
-        self.grid.set_margin_left(30)
-        self.grid.set_margin_right(30)
+        self.grid.set_margin_left(WIDGET_SPACING)
+        self.grid.set_margin_right(WIDGET_SPACING)
         self.grid.attach(fake_checkbox, 3, 3, 1, 1)
         self.grid.attach_next_to(
             self.sel_label, fake_checkbox, Gtk.PositionType.BOTTOM, 1, 1
