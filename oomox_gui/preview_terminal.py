@@ -8,7 +8,7 @@ from .i18n import _
 WIDGET_SPACING = 10
 
 
-class TerminalThemePreview(Gtk.Grid):
+class TerminalThemePreview(Gtk.Box):
 
     LEFT_MARGIN = 18
 
@@ -25,14 +25,15 @@ class TerminalThemePreview(Gtk.Grid):
     terminal_widgets = None
 
     def __init__(self):
-        super().__init__(row_spacing=6, column_spacing=6)
-        self.set_margin_left(WIDGET_SPACING)
+        super().__init__()
         self.set_margin_right(WIDGET_SPACING)
+        self.set_margin_left(WIDGET_SPACING)
 
         self.background = Gtk.Grid(row_spacing=6, column_spacing=6)
-        self.background.set_margin_top(WIDGET_SPACING/2)
+        self.background.set_halign(Gtk.Align.CENTER)
+        self.background.set_margin_top(WIDGET_SPACING / 2)
         self.background.set_margin_bottom(WIDGET_SPACING)
-        self.background.set_margin_right(WIDGET_SPACING)
+        self.background.set_margin_right(WIDGET_SPACING * 2)
 
         self.terminal_widgets = {}
         twi = self.terminal_widgets
@@ -60,7 +61,7 @@ class TerminalThemePreview(Gtk.Grid):
             )
             previous_row = twi[key1]
             previous_row.set_margin_left(self.LEFT_MARGIN)
-        self.attach(self.background, 1, 1, 1, 1)
+        self.set_center_widget(self.background)
 
     def update_preview(self, colorscheme):
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
