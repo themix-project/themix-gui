@@ -101,28 +101,51 @@ class Plugin(OomoxThemePlugin):
 
     theme_model_options = [
         {
+            'type': 'separator',
+            'display_name': _('GTK3 Theme Options'),
+            'value_filter': {
+                'THEME_STYLE': 'oomox',
+            },
+        },
+        {
+            'key': 'SPACING',
+            'type': 'int',
+            'fallback_value': 3,
+            'display_name': _('Spacing'),
+        },
+        {
             'key': 'OUTLINE_WIDTH',
             'type': 'int',
             'fallback_value': 1,
-            'display_name': _('(GTK3) Focused Outline Width'),
+            'display_name': _('Focused Outline Width'),
         },
         {
             'key': 'BTN_OUTLINE_WIDTH',
             'type': 'int',
             'fallback_value': 1,
-            'display_name': _('(GTK3) Focused Button Outline Width'),
+            'display_name': _('Focused Button Outline Width'),
         },
         {
             'key': 'BTN_OUTLINE_OFFSET',
             'type': 'int',
             'fallback_value': -3,
             'min_value': -20,
-            'display_name': _('(GTK3) Focused Button Outline Offset'),
+            'display_name': _('Focused Button Outline Offset'),
         },
-        # {  @TODO: implement value_filter for separators
-        #     'type': 'separator',
-        #     'display_name': _('Text Input Caret'),
-        # },
+        {
+            'key': 'GTK3_GENERATE_DARK',
+            'type': 'bool',
+            'fallback_value': True,
+            'display_name': _('Add Dark Variant'),
+        },
+
+        {
+            'type': 'separator',
+            'display_name': _('Text Input Caret'),
+            'value_filter': {
+                'THEME_STYLE': 'oomox',
+            },
+        },
         {
             'key': 'CARET1_FG',
             'type': 'color',
@@ -141,18 +164,28 @@ class Plugin(OomoxThemePlugin):
             'fallback_value': 0.04,  # GTK's default
             'display_name': _('Caret Aspect Ratio'),
         },
+        # ]
+
+        # theme_model_extra = [
         {
-            'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
-            'type': 'bool',
-            'fallback_value': False,
-            'display_name': _('(Unity) Use Default Launcher Style'),
+            'type': 'separator',
+            'display_name': _('Desktop Environments'),
+            'value_filter': {
+                'THEME_STYLE': 'oomox',
+            },
         },
         {
             'key': 'CINNAMON_OPACITY',
             'type': 'float',
             'fallback_value': 1.0,
             'max_value': 1.0,
-            'display_name': _('(Cinnamon) Opacity'),
+            'display_name': _('Cinnamon: Opacity'),
+        },
+        {
+            'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
+            'type': 'bool',
+            'fallback_value': False,
+            'display_name': _('Unity: Use Default Launcher Style'),
         },
     ]
 

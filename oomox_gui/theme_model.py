@@ -204,22 +204,10 @@ BASE_THEME_MODEL_OPTIONS = [
         'display_name': _('Roundness'),
     },
     {
-        'key': 'SPACING',
-        'type': 'int',
-        'fallback_value': 3,
-        'display_name': _('(GTK3) Spacing'),
-    },
-    {
         'key': 'GRADIENT',
         'type': 'float',
         'fallback_value': 0.0,
-        'display_name': _('(GTK3) Gradient'),
-    },
-    {
-        'key': 'GTK3_GENERATE_DARK',
-        'type': 'bool',
-        'fallback_value': True,
-        'display_name': _('(GTK3) Add Dark Variant'),
+        'display_name': _('Gradient'),
     },
 ]
 merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OPTIONS, 'options')
