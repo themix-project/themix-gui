@@ -64,7 +64,10 @@ class Plugin(OomoxThemePlugin):
 
     name = 'materia'
     display_name = 'Materia'
-    description = '(GTK+2, GTK+3, Cinnamon, GNOME Shell, Metacity, Unity, Xfwm)'
+    description = (
+        'GTK+2, GTK+3\n'
+        'Cinnamon, GNOME Shell, Metacity, Unity, Xfwm'
+    )
     export_dialog = MateriaThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {
@@ -93,7 +96,7 @@ class Plugin(OomoxThemePlugin):
             'key': 'MATERIA_SURFACE',
             'type': 'color',
             'fallback_key': 'BTN_BG',
-            'display_name': _('Surface (e.g. Button, Menu, Popover)'),
+            'display_name': _('Surface (like Button, Menu, Popover)'),
         },
     ]
 

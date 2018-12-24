@@ -286,7 +286,7 @@ THEME_MODEL += [
         'type': 'color',
         'fallback_key': 'TXT_BG',
         # 'fallback_key': 'HDR_BG',
-        'display_name': _('Terminal Background'),
+        'display_name': _('Background'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
         },
@@ -296,7 +296,7 @@ THEME_MODEL += [
         'type': 'color',
         'fallback_key': 'TXT_FG',
         # 'fallback_key': 'HDR_FG',
-        'display_name': _('Terminal Foreground'),
+        'display_name': _('Foreground'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
         },
@@ -305,7 +305,7 @@ THEME_MODEL += [
         'key': 'TERMINAL_ACCENT_COLOR',
         'type': 'color',
         'fallback_key': 'SEL_BG',
-        'display_name': _('Terminal Accent Color'),
+        'display_name': _('Accent Color'),
         'value_filter': {
             'TERMINAL_THEME_MODE': ['basic', ],
         },

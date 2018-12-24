@@ -128,7 +128,10 @@ class Plugin(OomoxThemePlugin):
 
     name = 'arc'
     display_name = 'Arc'
-    description = '(GTK+2, GTK+3, Cinnamon, GNOME Shell, Metacity, Openbox, Unity, Xfwm)'
+    description = (
+        'GTK+2, GTK+3\n'
+        'Cinnamon, GNOME Shell, Metacity, Openbox, Unity, Xfwm'
+    )
     export_dialog = ArcThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {
