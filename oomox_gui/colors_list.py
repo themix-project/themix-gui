@@ -195,9 +195,9 @@ class OptionsListBoxRow(OomoxListBoxRow):
     def set_value(self, value):
         self.disconnect_changed_signal()
         self.value = value
-        for option_id, option in enumerate(self.options):
+        for option_idx, option in enumerate(self.options):
             if value == option['value']:
-                self.value_widget.set_active(option_id)
+                self.value_widget.set_active(option_idx)
                 if 'description' in option:
                     self.show_description_label()
                     self.description_label.set_text(option['description'])
@@ -427,8 +427,10 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self._no_gui_row = SeparatorListBoxRow(_("Can't be edited in GUI"))
         self.listbox.add(self._no_gui_row)
         self._all_rows = {}
-        for theme_value in THEME_MODEL:
-            key = theme_value.get('key') or theme_value['display_name']
+        for option_idx, theme_value in enumerate(THEME_MODEL):
+            key = theme_value.get('key') or (
+                theme_value['display_name'] + str(option_idx)
+            )
             display_name = theme_value.get('display_name', key)
             row = None
 
@@ -493,8 +495,10 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             self._no_gui_row.show()
         else:
             self._no_gui_row.hide()
-        for theme_value in THEME_MODEL:
-            key = theme_value.get('key') or theme_value['display_name']
+        for option_idx, theme_value in enumerate(THEME_MODEL):
+            key = theme_value.get('key') or (
+                theme_value['display_name'] + str(option_idx)
+            )
             row = self._all_rows.get(key)
             if not row:
                 continue
