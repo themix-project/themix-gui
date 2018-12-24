@@ -356,8 +356,9 @@ class ColorListBoxRow(OomoxListBoxRow):
             callback=self.on_color_set
         )
         self.color_entry = Gtk.Entry(
-            text=_('<none>'), width_chars=7, max_length=6
+            text=_('<none>'), width_chars=6, max_length=6
         )
+        self.color_entry.get_style_context().add_class(Gtk.STYLE_CLASS_MONOSPACE)
         # unfortunately linked box is causing weird redraw issues
         # in current GTK version, let's leave it for later
         linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
