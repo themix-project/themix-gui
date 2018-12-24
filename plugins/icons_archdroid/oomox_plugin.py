@@ -39,7 +39,7 @@ class Plugin(OomoxIconsPlugin):
             'key': 'ICONS_ARCHDROID',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Icons color'),
+            'display_name': _('Icons Color'),
         },
     ]
 

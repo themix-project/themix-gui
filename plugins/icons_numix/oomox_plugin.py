@@ -44,7 +44,7 @@ class Plugin(OomoxIconsPlugin):
                 'value': str(style_id),
                 'display_name': "Style {}".format(style_id),
             } for style_id in range(6)],
-            'display_name': _('Numix style'),
+            'display_name': _('Numix Style'),
         },
         # {
         #     'key': 'ICONS_NUMIX_SHAPE',
@@ -59,31 +59,31 @@ class Plugin(OomoxIconsPlugin):
         #         'value': 'square',
         #         'display_name': 'Square',
         #     }],
-        #     'display_name': _('Icons shape'),
+        #     'display_name': _('Icons Shape'),
         # },
         {
             'key': 'ICONS_LIGHT_FOLDER',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Light base (folders)'),
+            'display_name': _('Light Base (Folders)'),
         },
         # {
         #     'key': 'ICONS_LIGHT',
         #     'fallback_key': 'SEL_BG',
         #     'type': 'color',
-        #     'display_name': _('Light base'),
+        #     'display_name': _('Light Base'),
         # },
         {
             'key': 'ICONS_MEDIUM',
             'type': 'color',
             'fallback_key': 'BTN_BG',
-            'display_name': _('Medium base'),
+            'display_name': _('Medium Base'),
         },
         {
             'key': 'ICONS_DARK',
             'type': 'color',
             'fallback_key': 'HDR_BG',
-            'display_name': _('Dark stroke'),
+            'display_name': _('Dark Stroke'),
         },
     ]
 

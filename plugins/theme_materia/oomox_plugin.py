@@ -64,7 +64,7 @@ class Plugin(OomoxThemePlugin):
 
     name = 'materia'
     display_name = 'Materia'
-    description = '(GTK+2, GTK+3, Cinnamon, Gnome Shell, Metacity, Unity, Xfwm)'
+    description = '(GTK+2, GTK+3, Cinnamon, GNOME Shell, Metacity, Unity, Xfwm)'
     export_dialog = MateriaThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {
@@ -110,13 +110,13 @@ class Plugin(OomoxThemePlugin):
             'type': 'float',
             'fallback_value': 0.6,
             'max_value': 1.0,
-            'display_name': _('DE Panel opacity'),
+            'display_name': _('DE Panel Opacity'),
         },
         {
             'key': 'MATERIA_STYLE_COMPACT',
             'type': 'bool',
             'fallback_value': True,
-            'display_name': _('Compact style'),
+            'display_name': _('Compact Style'),
         },
     ]
 

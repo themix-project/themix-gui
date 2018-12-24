@@ -101,42 +101,42 @@ class Plugin(OomoxThemePlugin):
             'key': 'OUTLINE_WIDTH',
             'type': 'int',
             'fallback_value': 1,
-            'display_name': _('(GTK3) Focused outline width'),
+            'display_name': _('(GTK3) Focused Outline Width'),
         },
         {
             'key': 'BTN_OUTLINE_WIDTH',
             'type': 'int',
             'fallback_value': 1,
-            'display_name': _('(GTK3) Focused button outline width'),
+            'display_name': _('(GTK3) Focused Button Outline Width'),
         },
         {
             'key': 'BTN_OUTLINE_OFFSET',
             'type': 'int',
             'fallback_value': -3,
             'min_value': -20,
-            'display_name': _('(GTK3) Focused button outline offset'),
+            'display_name': _('(GTK3) Focused Button Outline Offset'),
         },
         # {  @TODO: implement value_filter for separators
         #     'type': 'separator',
-        #     'display_name': _('Text input caret'),
+        #     'display_name': _('Text Input Caret'),
         # },
         {
             'key': 'CARET1_FG',
             'type': 'color',
             'fallback_key': 'TXT_FG',
-            'display_name': _('Primary caret color'),
+            'display_name': _('Primary Caret Color'),
         },
         {
             'key': 'CARET2_FG',
             'type': 'color',
             'fallback_key': 'TXT_FG',
-            'display_name': _('Secondary caret color'),
+            'display_name': _('Secondary Caret Color'),
         },
         {
             'key': 'CARET_SIZE',
             'type': 'float',
             'fallback_value': 0.04,  # GTK's default
-            'display_name': _('Caret aspect ratio'),
+            'display_name': _('Caret Aspect Ratio'),
         },
     ]
 
@@ -145,7 +145,7 @@ class Plugin(OomoxThemePlugin):
             'key': 'UNITY_DEFAULT_LAUNCHER_STYLE',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('(Unity) Use default launcher style'),
+            'display_name': _('(Unity) Use Default Launcher Style'),
         },
         {
             'key': 'CINNAMON_OPACITY',

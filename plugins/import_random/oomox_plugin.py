@@ -40,7 +40,7 @@ class Plugin(OomoxImportPlugin):
 
     theme_model_import = [
         # {
-        #     'display_name': _('Generate random colortheme:'),
+        #     'display_name': _('Generate Random Colortheme:'),
         #     'type': 'separator',
         #     'value_filter': {
         #         'FROM_PLUGIN': 'import_random',
@@ -50,7 +50,7 @@ class Plugin(OomoxImportPlugin):
         #     'key': 'BASE16_GENERATE_DARK',
         #     'type': 'bool',
         #     'fallback_value': False,
-        #     'display_name': _('Generate dark GUI variant'),
+        #     'display_name': _('Generate Dark GUI Variant'),
         #     'reload_theme': True,
         # },
     ]

@@ -39,25 +39,25 @@ class Plugin(OomoxIconsPlugin):
             'key': 'ICONS_LIGHT_FOLDER',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Light base (folders)'),
+            'display_name': _('Light Base (Folders)'),
         },
         {
             'key': 'ICONS_LIGHT',
             'fallback_key': 'SEL_BG',
             'type': 'color',
-            'display_name': _('Light base'),
+            'display_name': _('Light Base'),
         },
         {
             'key': 'ICONS_MEDIUM',
             'type': 'color',
             'fallback_key': 'BTN_BG',
-            'display_name': _('Medium base'),
+            'display_name': _('Medium Base'),
         },
         {
             'key': 'ICONS_DARK',
             'type': 'color',
             'fallback_key': 'HDR_BG',
-            'display_name': _('Dark stroke'),
+            'display_name': _('Dark Stroke'),
         },
     ]
 
