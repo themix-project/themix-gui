@@ -2,9 +2,6 @@ import os
 
 from gi.repository import Gtk
 
-from .color import (
-    mix_gdk_colors, convert_gdk_to_theme_color
-)
 from .theme_file import (
     is_user_colorscheme, get_presets
 )
@@ -15,7 +12,6 @@ from .config import USER_COLORS_DIR, COLORS_DIR
 
 class ThemePresetsList(Gtk.ScrolledWindow):
 
-    treeview_default_fg = None
     update_signal = None
     treestore = None
     treeview = None
@@ -39,10 +35,8 @@ class ThemePresetsList(Gtk.ScrolledWindow):
     def add_preset(self, preset_name, preset_path, display_name=None):
         if not display_name:
             display_name = preset_name
-        is_default = not is_user_colorscheme(preset_path)
         self.treestore.append(None, (
-            display_name, preset_name, preset_path,
-            self.treeview_default_fg if is_default else None
+            display_name, preset_name, preset_path, is_user_colorscheme(preset_path)
         ))
 
     def _find_treepath_by_filepath(
@@ -78,8 +72,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
 
         first_preset = sorted_preset_list[0]
-        color = self.treeview_default_fg \
-            if first_preset['default'] else None
+        is_user_theme = not first_preset['default']
         dir_template = "(Plugin) {}: {{}}".format(plugin_name) \
             if plugin_name else "{}"
         dir_display_name = dir_template.format(
@@ -90,7 +83,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 dir_display_name,
                 first_preset['name'],
                 first_preset['path'],
-                color
+                is_user_theme
             )
         )
 
@@ -104,7 +97,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                     display_name,
                     preset['name'],
                     preset['path'],
-                    color
+                    is_user_theme
                 )
             )
 
@@ -155,31 +148,18 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             "cursor_changed", self.on_preset_select
         )
 
-    def _get_color_for_default_preset_names(self):
-        treeview_style_context = self.treeview.get_style_context()
-        treeview_fg = treeview_style_context.get_color(
-            Gtk.StateFlags.NORMAL
-        )
-        treeview_bg = treeview_style_context.get_background_color(
-            Gtk.StateFlags.NORMAL
-        )
-        self.treeview_default_fg = '#' + convert_gdk_to_theme_color(
-            mix_gdk_colors(treeview_fg, treeview_bg, 0.5)
-        )
-
     def __init__(self, preset_select_callback):
         super().__init__()
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
         self.preset_select_callback = preset_select_callback
 
-        self.treestore = Gtk.TreeStore(str, str, str, str)
+        self.treestore = Gtk.TreeStore(str, str, str, bool)
         self.treeview = Gtk.TreeView(
             model=self.treestore, headers_visible=False
         )
-        self._get_color_for_default_preset_names()
         column = Gtk.TreeViewColumn(
-            cell_renderer=Gtk.CellRendererText(), text=0, foreground=3
+            cell_renderer=Gtk.CellRendererText(), text=0, sensitive=3
         )
         self.treeview.append_column(column)
         self.load_presets()
