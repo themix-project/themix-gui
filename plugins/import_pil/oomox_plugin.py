@@ -185,7 +185,7 @@ class Plugin(OomoxImportPlugin):
 
     theme_model_import = [
         {
-            'display_name': _('Import Colors from Image:'),
+            'display_name': _('Import Colors from Image'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': ['import_pil']
@@ -258,7 +258,7 @@ class Plugin(OomoxImportPlugin):
             'display_name': _('Image Thumbnail'),
         },
         {
-            'display_name': _('Theme Options:'),
+            'display_name': _('Edit Generated Theme'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': ['import_pil']

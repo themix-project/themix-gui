@@ -19,7 +19,7 @@ class Plugin(OomoxImportPlugin):
 
     theme_model_import = [
         {
-            'display_name': _('Import Base16 Colortheme:'),
+            'display_name': _('Base16 Import Options'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': 'import_base16',
@@ -33,7 +33,7 @@ class Plugin(OomoxImportPlugin):
             'reload_theme': True,
         },
         {
-            'display_name': _('Theme Options:'),
+            'display_name': _('Edit Imported Theme'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': 'import_base16',

@@ -261,7 +261,7 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
         self.gtk_color = gtk_color
 
         super().__init__(
-            title=_("Choose a color..."),
+            title=_("Choose a Color..."),
             transient_for=transient_for,
             flags=0
         )
@@ -424,7 +424,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.color_edited_callback(self.theme)
 
     def build_theme_model_rows(self):
-        self._no_gui_row = SeparatorListBoxRow(_("Can't be edited in GUI"))
+        self._no_gui_row = SeparatorListBoxRow(_("Can't Be Edited in GUI"))
         self.listbox.add(self._no_gui_row)
         self._all_rows = {}
         for option_idx, theme_value in enumerate(THEME_MODEL):
