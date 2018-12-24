@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 from oomox_gui.plugin_api import OomoxImportPlugin

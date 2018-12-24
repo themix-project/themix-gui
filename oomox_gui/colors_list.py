@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from gi.repository import Gtk
 
 from .theme_model import THEME_MODEL, THEME_MODEL_BY_KEY
