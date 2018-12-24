@@ -56,7 +56,7 @@ class ExportDialog(Gtk.Dialog):
 
     def __init__(
             self, transient_for,
-            headline=_("Exporting..."),
+            headline=_("Exporting…"),
             width=150,
             height=80
     ):

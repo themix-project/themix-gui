@@ -261,7 +261,7 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
         self.gtk_color = gtk_color
 
         super().__init__(
-            title=_("Choose a Color..."),
+            title=_("Choose a Color…"),
             transient_for=transient_for,
             flags=0
         )
