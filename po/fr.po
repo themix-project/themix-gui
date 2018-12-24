@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-24 14:36+0100\n"
+"POT-Creation-Date: 2018-12-24 14:56+0100\n"
 "PO-Revision-Date: 2017-03-09 19:15+0100\n"
 "Last-Translator: Colomban Wendling <cwendling@hypra.fr>\n"
 "Language-Team: French\n"
@@ -263,39 +263,39 @@ msgstr ""
 msgid "Headerbar"
 msgstr "Barre d'en-tête"
 
-#: oomox_gui/preview.py:63 oomox_gui/preview.py:103
+#: oomox_gui/preview.py:63 oomox_gui/preview.py:104
 msgid "Button"
 msgstr "Bouton"
 
-#: oomox_gui/preview.py:90
+#: oomox_gui/preview.py:91
 msgid "File"
 msgstr "Fichier"
 
-#: oomox_gui/preview.py:93
+#: oomox_gui/preview.py:94
 msgid "Edit"
 msgstr "Éditer"
 
-#: oomox_gui/preview.py:100
+#: oomox_gui/preview.py:101
 #, fuzzy
 msgid "This is a label"
 msgstr "Ceci est un label."
 
-#: oomox_gui/preview.py:101
+#: oomox_gui/preview.py:102
 #, fuzzy
 msgid "Selected item"
 msgstr "Élément sélectionné"
 
-#: oomox_gui/preview.py:102
+#: oomox_gui/preview.py:103
 #, fuzzy
 msgid "Text entry"
 msgstr "Zone de texte."
 
-#: oomox_gui/preview.py:133
+#: oomox_gui/preview.py:134
 #, python-brace-format
 msgid "Item {id}"
 msgstr "Élément {id}"
 
-#: oomox_gui/preview.py:133
+#: oomox_gui/preview.py:134
 #, python-brace-format
 msgid "Insensitive Item {id}"
 msgstr "Élément insensitif {id}"
@@ -325,8 +325,8 @@ msgstr "Texte des boutons d'en-tête"
 
 #: oomox_gui/theme_model.py:122
 #, fuzzy
-msgid "Selection Highlight"
-msgstr "Surlignage de la sélection"
+msgid "Selection Color"
+msgstr "Couleur des icônes"
 
 #: oomox_gui/theme_model.py:127
 #, fuzzy
@@ -717,6 +717,10 @@ msgstr ""
 #, fuzzy
 msgid "Icons Color"
 msgstr "Couleur des icônes"
+
+#, fuzzy
+#~ msgid "Selection Highlight"
+#~ msgstr "Surlignage de la sélection"
 
 #~ msgid "_Apply"
 #~ msgstr "_Appliquer"

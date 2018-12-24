@@ -119,7 +119,7 @@ BASE_THEME_MODEL_GTK = [
     {
         'key': 'SEL_BG',
         'type': 'color',
-        'display_name': _('Selection Highlight')
+        'display_name': _('Selection Color')
     },
     {
         'key': 'SEL_FG',
