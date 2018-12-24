@@ -97,10 +97,10 @@ class PreviewWidgets():
         headerbox.pack_start(self.headerbar, True, True, 0)
         headerbox.pack_start(self.menubar, True, True, 0)
 
-        self.label = Gtk.Label(label=_("This is a label."))
-        self.sel_label = Gtk.Label(label=_("Selected item."))
-        self.entry = Gtk.Entry(text=_("Text entry."))
-        self.button = Gtk.Button(label=_("Click-click"))
+        self.label = Gtk.Label(label=_("This is a label"))
+        self.sel_label = Gtk.Label(label=_("Selected item"))
+        self.entry = Gtk.Entry(text=_("Text entry"))
+        self.button = Gtk.Button(label=_("Button"))
 
         self.preview_imageboxes = {}
         self.preview_imageboxes_templates = {}
