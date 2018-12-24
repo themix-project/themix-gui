@@ -80,6 +80,7 @@ class PreviewWidgets():
     def __init__(self):
         self.background = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.grid = Gtk.Grid(row_spacing=6, column_spacing=6)
+        self.grid.set_margin_top(WIDGET_SPACING // 2)
         self.grid.set_halign(Gtk.Align.CENTER)
 
         headerbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
