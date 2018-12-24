@@ -19,7 +19,7 @@ from .i18n import _
 class ExportDialog(Gtk.Dialog):
 
     command = None
-    timeout = 120
+    timeout = 300
 
     # widgets:
     box = None
@@ -56,7 +56,7 @@ class ExportDialog(Gtk.Dialog):
 
     def __init__(
             self, transient_for,
-            headline=_("Exporting…"),
+            headline=_("Export Theme"),
             width=150,
             height=80
     ):
@@ -94,7 +94,7 @@ class ExportDialog(Gtk.Dialog):
         )
         self.options_box.set_margin_bottom(10)
 
-        self.apply_button = Gtk.Button(label=_("_Apply"), use_underline=True)
+        self.apply_button = Gtk.Button(label=_("_Apply Options and Export"), use_underline=True)
         self.apply_button.connect("clicked", lambda x: self.do_export())
 
         self.error_box = Gtk.Box(
@@ -119,6 +119,7 @@ class ExportDialog(Gtk.Dialog):
         self.scrolled_window.show_all()
         self.spinner.show()
         self.spinner.start()
+        self.set_title(_("Exporting…"))
 
         def update_ui(text):
             self.set_text(text)
@@ -130,7 +131,8 @@ class ExportDialog(Gtk.Dialog):
             self.show_error()
 
         def do_export():
-            self.label.set_text(_("Please wait while\nnew colorscheme will be created"))
+            self.label.set_text(_("Please wait while\nnew colorscheme will be created."))
+            self.label.show()
             captured_log = ""
             proc = subprocess.Popen(
                 self.command,
@@ -173,12 +175,12 @@ class FileBasedExportDialog(ExportDialog):
 def export_terminal_theme(transient_for, colorscheme):
     dialog = ExportDialog(
         transient_for=transient_for,
-        headline=_("Terminal colorscheme"),
+        headline=_("Terminal Colorscheme"),
         height=440
     )
     dialog.box.add(dialog.scrolled_window)
     dialog.scrolled_window.show_all()
-    dialog.label.set_text(_('Paste this colorscheme to your ~/.Xresources'))
+    dialog.label.set_text(_('Paste this colorscheme to your ~/.Xresources:'))
     try:
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
         xresources_theme = generate_xresources(term_colorscheme)
@@ -210,6 +212,7 @@ class GtkThemeExportDialog(FileBasedExportDialog):
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
             **kwargs
         )
+        self.label.hide()
 
         export_options = override_options or {
             OPTION_GTK2_HIDPI: {
@@ -227,7 +230,11 @@ class GtkThemeExportDialog(FileBasedExportDialog):
             }
         )
 
-        self.label.set_text(_("Please choose theme export options:"))
+        export_options_headline = Gtk.Label()
+        export_options_headline.set_markup('<b>' + _("Theme Export Options") + '</b>')
+        export_options_headline.set_justify(Gtk.Justification.LEFT)
+        export_options_headline.set_alignment(0.0, 0.0)
+        self.options_box.add(export_options_headline)
 
         for option_name, option in export_options.items():
             checkbox = \

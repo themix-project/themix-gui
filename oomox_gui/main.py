@@ -429,7 +429,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         import_menu = Gio.Menu()
         import_menu.append_item(Gio.MenuItem.new(
-            _("Oomox Colors File"),
+            _("Oomox Colors File…"),
             "win.import_themix_colors"
         ))
 
@@ -451,7 +451,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.headerbar.pack_start(import_button)
 
         clone_button = ImageButton(
-            "edit-copy-symbolic", _("Clone Current Theme")
+            "edit-copy-symbolic", _("Clone Current Theme…")
         )
         self.attach_action(clone_button, WindowActions.clone)
         self.headerbar.pack_start(clone_button)
@@ -464,13 +464,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         rename_button = ImageButton(
             # "preferences-desktop-font-symbolic", "Rename theme"
-            "pda-symbolic", _("Rename Theme")
+            "pda-symbolic", _("Rename Theme…")
         )
         self.attach_action(rename_button, WindowActions.rename)
         self.headerbar.pack_start(rename_button)
 
         remove_button = ImageButton(
-            "edit-delete-symbolic", _("Remove Theme")
+            "edit-delete-symbolic", _("Remove Theme…")
         )
         self.attach_action(remove_button, WindowActions.remove)
         self.headerbar.pack_start(remove_button)
@@ -496,7 +496,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.headerbar.pack_end(menu_button)
 
         export_terminal_button = Gtk.Button(
-            label=_("Export _Terminal"),
+            label=_("Export _Terminal…"),
             use_underline=True,
             tooltip_text=_("Export Terminal Theme")
         )
@@ -509,7 +509,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.attach_action(export_icons_button, WindowActions.export_icons)
         self.headerbar.pack_end(export_icons_button)
 
-        export_button = Gtk.Button(label=_("_Export Theme"),
+        export_button = Gtk.Button(label=_("_Export Theme…"),
                                    use_underline=True,
                                    tooltip_text=_("Export GTK Theme"))
         self.attach_action(export_button, WindowActions.export_theme)
