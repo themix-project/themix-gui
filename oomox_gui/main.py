@@ -497,7 +497,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.headerbar.pack_end(menu_button)
 
         export_terminal_button = Gtk.Button(
-            label=_("Export _Terminal…"),
+            label=_("Export _Terminal"),
+            # label=_("Export _Terminal…"),
             use_underline=True,
             tooltip_text=_("Export Terminal Theme")
         )
@@ -510,7 +511,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.attach_action(export_icons_button, WindowActions.export_icons)
         self.headerbar.pack_end(export_icons_button)
 
-        export_button = Gtk.Button(label=_("_Export Theme…"),
+        # export_button = Gtk.Button(label=_("_Export Theme…"),
+        export_button = Gtk.Button(label=_("_Export Theme"),
                                    use_underline=True,
                                    tooltip_text=_("Export GTK Theme"))
         self.attach_action(export_button, WindowActions.export_theme)
