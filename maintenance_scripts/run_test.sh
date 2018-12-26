@@ -15,9 +15,5 @@ python3 --version
 export DISPLAY=:99
 sleep 3
 
-echo -e "\n== Checking main app:"
-pylint oomox_gui
-for plugin in ./plugins/*/oomox_plugin.py ; do
-	echo -e "\n== Checking plugin ${plugin}:"
-	pylint $plugin
-done
+echo -e "\n== Running pylint:"
+pylint oomox_gui ./plugins/*/oomox_plugin.py
