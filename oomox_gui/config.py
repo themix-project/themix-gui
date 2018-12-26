@@ -19,7 +19,10 @@ TERMINAL_TEMPLATE_DIR = os.path.join(
 USER_CONFIG_DIR = os.path.abspath(os.path.join(
     os.environ.get(
         "XDG_CONFIG_HOME",
-        os.path.join(os.environ.get("HOME"), ".config/")
+        os.path.join(
+            os.environ.get("HOME", os.path.expanduser("~")),
+            ".config/"
+        )
     ),
     "oomox/"
 ))
