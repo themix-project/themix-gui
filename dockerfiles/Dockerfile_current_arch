@@ -7,4 +7,4 @@ RUN pacman -Syu --noconfirm && \
 
 # run test
 COPY . /opt/oomox-build/
-RUN bash ./maintenance_scripts/run_test.sh
+RUN bash ./maintenance_scripts/run_ci.sh
