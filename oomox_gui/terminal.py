@@ -213,8 +213,9 @@ def get_lightness(theme_color):
 
 
 def _generate_theme_from_full_palette(
-        template_path, all_colors, theme_bg, accuracy=None, extend_palette=False
+        reference_colors, all_colors, theme_bg, accuracy=None, extend_palette=False
 ):  # pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
+    hex_colors = reference_colors
     # @TODO: refactor it some day :3
 
     # how far should be the colors to be counted as similar (0 .. 255*3)
@@ -241,7 +242,6 @@ def _generate_theme_from_full_palette(
     SIMILARITY_IMPORTANCE = 2.5
 
     accuracy = accuracy or 0x20
-    hex_colors = import_xcolors(template_path)
     hex_colors_as_color_lists = {
         key: [
             hex_to_int(s) for s in color_list_from_hex(value)
@@ -365,17 +365,28 @@ _FULL_PALETTE_CACHE = {}
 
 
 def generate_theme_from_full_palette(
-        palette, theme_bg, theme_fg, template_path, need_light_bg=False, **kwargs
+        palette, theme_bg, theme_fg, template_path, auto_swap_colors=True, **kwargs
 ):  # pylint: disable=invalid-name
+
+    reference_colors = import_xcolors(template_path)
+
+    if auto_swap_colors:
+        need_light_bg = (
+            get_lightness(reference_colors['background']) >
+            get_lightness(reference_colors['foreground'])
+        )
+        have_light_bg = (
+            get_lightness(theme_bg) >
+            get_lightness(theme_fg)
+        )
+        if (
+                have_light_bg and not need_light_bg
+        ) or (
+            not have_light_bg and need_light_bg
+        ):
+            theme_bg, theme_fg = theme_fg, theme_bg
+
     all_colors = sorted(get_all_colors_from_oomox_colorscheme(palette))
-
-    if (
-            get_lightness(theme_bg) > get_lightness(theme_fg) and not need_light_bg
-    ) or (
-        get_lightness(theme_bg) < get_lightness(theme_fg) and need_light_bg
-    ):
-        theme_bg, theme_fg = theme_fg, theme_bg
-
     cache_id = str(
         [
             kwargs[name] for name in sorted(kwargs, key=lambda x: x[0])
@@ -385,7 +396,7 @@ def generate_theme_from_full_palette(
         # from time import time
         # before = time()
         _FULL_PALETTE_CACHE[cache_id] = _generate_theme_from_full_palette(
-            template_path=template_path,
+            reference_colors=reference_colors,
             all_colors=all_colors, theme_bg=theme_bg, **kwargs
         )
         # print(time() - before)
@@ -414,7 +425,7 @@ def generate_themes_from_oomox(original_colorscheme):
             palette=colorscheme,
             theme_bg=colorscheme["TERMINAL_BACKGROUND"],
             theme_fg=colorscheme["TERMINAL_FOREGROUND"],
-            need_light_bg=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
+            auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
             extend_palette=colorscheme["TERMINAL_THEME_EXTEND_PALETTE"],
             accuracy=255+8-colorscheme.get("TERMINAL_THEME_ACCURACY")
         )
