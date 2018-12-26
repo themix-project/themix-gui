@@ -28,15 +28,22 @@ class CenterLabel(Gtk.Label):
         self.set_margin_bottom(6)
 
 
-class ImageContainer(Gtk.Container):
+class ImageContainer(Gtk.Box):
+    box = None
+    label = None
     icon = None
     image = None
 
-    def __init__(self, icon_name, tooltip_text=None):
+    def __init__(self, icon_name, tooltip_text=None, label=None):
         super().__init__()
+        self.box = Gtk.Box()
         self.icon = Gio.ThemedIcon(name=icon_name)
         self.image = Gtk.Image.new_from_gicon(self.icon, Gtk.IconSize.BUTTON)
-        self.add(self.image)
+        if label:
+            self.label = Gtk.Label(label)
+            self.box.pack_start(self.label, True, True, 3)
+        self.box.pack_start(self.image, True, True, 3 if self.label else 0)
+        self.add(self.box)
         if tooltip_text:
             self.set_tooltip_text(tooltip_text)
 
