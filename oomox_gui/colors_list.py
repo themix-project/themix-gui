@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib, Gdk
 
 from .theme_model import THEME_MODEL, THEME_MODEL_BY_KEY
 from .palette_cache import PaletteCache
@@ -434,23 +434,45 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             display_name = theme_value.get('display_name', key)
             row = None
 
-            callback = None
+            callbacks = [self.color_edited, ]
             if theme_value.get('reload_theme'):
                 def _callback(key, value):
                     THEME_MODEL_BY_KEY[key]['fallback_value'] = value
                     self.theme = self.theme_reload_callback()
-                callback = _callback
+                callbacks = [_callback, ]
             elif key in [
                     'ICONS_STYLE', 'THEME_STYLE',
                     'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE',
                     'TERMINAL_THEME_AUTO_BGFG', 'TERMINAL_FG', 'TERMINAL_BG',
             ]:
-                def _callback(key, value):
-                    self.color_edited(key, value)
+                def _callback(key, value):  # pylint:disable=unused-argument
                     self.open_theme(self.theme)
-                callback = _callback
-            else:
-                callback = self.color_edited
+                callbacks += [_callback, ]
+
+            if key in [
+                    'TERMINAL_THEME_MODE', 'TERMINAL_THEME_ACCURACY',
+                    'TERMINAL_THEME_EXTEND_PALETTE', 'TERMINAL_BASE_TEMPLATE',
+                    '_PIL_PALETTE_QUALITY', '_PIL_PALETTE_STYLE',
+            ]:
+                def _wrap_slow_callbacks(slow_callbacks):
+                    def _new_cb(key, value):
+                        GLib.timeout_add(0, self.disable, priority=GLib.PRIORITY_HIGH)
+                        for slow_cb in slow_callbacks:
+                            # GLib.idle_add(slow_cb, key, value, priority=GLib.PRIORITY_LOW)
+                            Gdk.threads_add_idle(GLib.PRIORITY_LOW, slow_cb, key, value, )
+                        GLib.idle_add(self.enable, priority=GLib.PRIORITY_LOW)
+                    return _new_cb
+
+                callbacks = [_wrap_slow_callbacks(callbacks), ]
+
+            def create_callback(_callbacks):
+                def _callback(key, value):
+                    for each in _callbacks:
+                        each(key, value)
+
+                return _callback
+
+            callback = create_callback(callbacks)
 
             if theme_value['type'] == 'color':
                 row = ColorListBoxRow(
@@ -516,6 +538,12 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float', 'image_path']:
                 row.set_value(self.theme[key])
             row.show()
+
+    def disable(self):
+        self.transient_for.disable()
+
+    def enable(self):
+        self.transient_for.enable()
 
     def __init__(self, color_edited_callback, theme_reload_callback, transient_for):
         self.transient_for = transient_for

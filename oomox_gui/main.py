@@ -149,6 +149,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     theme_edit = None
     presets_list = None
     preview = None
+    spinner = None
+
+    _currently_focused_widget = None
 
     def save_theme(self, name=None):
         if not name:
@@ -357,6 +360,19 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.presets_list.load_presets()
         self.presets_list.focus_preset_by_filepath(self.colorscheme_path)
 
+    def disable(self):
+        self._currently_focused_widget = self.get_focus()
+        self.spinner.start()
+        self.presets_list.set_sensitive(False)
+        self.theme_edit.set_sensitive(False)
+        Gtk.main_iteration_do(False)
+
+    def enable(self):
+        self.presets_list.set_sensitive(True)
+        self.theme_edit.set_sensitive(True)
+        self.set_focus(self._currently_focused_widget)
+        self.spinner.stop()
+
     ###########################################################################
     # Signal handlers:
     ###########################################################################
@@ -517,6 +533,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                                    tooltip_text=_("Export GTK Theme"))
         self.attach_action(export_button, WindowActions.export_theme)
         self.headerbar.pack_end(export_button)
+
+        self.spinner = Gtk.Spinner()
+        self.headerbar.pack_end(self.spinner)
 
         self.set_titlebar(self.headerbar)
 
