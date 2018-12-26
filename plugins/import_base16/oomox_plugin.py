@@ -12,7 +12,7 @@ class Plugin(OomoxImportPlugin):
 
     name = 'import_base16'
     display_name = 'Base16'
-    import_text = 'From Base16 YML Format…'
+    import_text = 'From Base16 YML Format'
     file_extensions = ('.yml', )
     plugin_theme_dir = os.path.abspath(
         os.path.join(PLUGIN_DIR, 'base16-data/db/schemes')

@@ -446,7 +446,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         import_menu = Gio.Menu()
         import_menu.append_item(Gio.MenuItem.new(
-            _("Oomox Colors File…"),
+            _("Oomox Colors File"),
             "win.import_themix_colors"
         ))
 
