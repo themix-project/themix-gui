@@ -362,10 +362,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def disable(self):
         self._currently_focused_widget = self.get_focus()
-        self.spinner.start()
         self.presets_list.set_sensitive(False)
         self.theme_edit.set_sensitive(False)
         Gtk.main_iteration_do(False)
+        self.spinner.start()
 
     def enable(self):
         self.presets_list.set_sensitive(True)
