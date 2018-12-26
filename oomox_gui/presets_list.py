@@ -18,8 +18,6 @@ class Keys:
 
 class ThemePresetsList(Gtk.ScrolledWindow):
 
-    colorscheme_path = None
-
     update_signal = None
     treestore = None
     treeview = None
@@ -28,9 +26,27 @@ class ThemePresetsList(Gtk.ScrolledWindow):
     DISPLAY_NAME = 0
     THEME_NAME = 1
     THEME_PATH = 2
+    IS_USER_THEME = 3
+    IS_SAVEABLE = 4
 
-    def on_preset_select(self, widget):
-        treepath = widget.get_cursor()[0]
+    def get_current_treepath(self):
+        return self.treeview.get_cursor()[0]
+
+    def get_selected_value(self, value):
+        treepath = self.get_current_treepath()
+        if not treepath:
+            return None
+        treeiter = self.treestore.get_iter(treepath)
+        return self.treestore.get_value(treeiter, value)
+
+    def get_colorscheme_path(self):
+        return self.get_selected_value(self.THEME_PATH)
+
+    def preset_is_saveable(self):
+        return self.get_selected_value(self.IS_SAVEABLE)
+
+    def on_preset_select(self, _widget):
+        treepath = self.get_current_treepath()
         if not treepath:
             return
         treeiter = self.treestore.get_iter(treepath)
@@ -39,7 +55,6 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         self.preset_select_callback(
             current_theme, current_preset_path
         )
-        self.colorscheme_path = current_preset_path
 
     def add_preset(self, preset_name, preset_path, display_name=None):
         if not display_name:
@@ -82,6 +97,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
 
         first_preset = sorted_preset_list[0]
         is_user_theme = not first_preset['default']
+        is_saveable = first_preset['is_saveable']
         dir_template = "(Plugin) {}: {{}}".format(plugin_name) \
             if plugin_name else "{}"
         dir_display_name = dir_template.format(
@@ -92,7 +108,8 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 dir_display_name,
                 first_preset['name'],
                 first_preset['path'],
-                is_user_theme
+                is_user_theme,
+                is_saveable
             )
         )
 
@@ -106,7 +123,8 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                     display_name,
                     preset['name'],
                     preset['path'],
-                    is_user_theme
+                    not preset['default'],
+                    preset['is_saveable']
                 )
             )
 
@@ -158,13 +176,9 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         )
 
     def reload_presets(self):
+        selected_path = self.get_colorscheme_path()
         self.load_presets()
-        self.focus_preset_by_filepath(self.colorscheme_path)
-
-    def get_current_treepath(self):
-        return self._find_treepath_by_filepath(
-            self.treestore, self.colorscheme_path
-        )
+        self.focus_preset_by_filepath(selected_path)
 
     def _on_keypress(self, _widget, event):
         key = event.keyval
@@ -187,7 +201,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
 
         self.preset_select_callback = preset_select_callback
 
-        self.treestore = Gtk.TreeStore(str, str, str, bool)
+        self.treestore = Gtk.TreeStore(str, str, str, bool, bool)
         self.treeview = Gtk.TreeView(
             model=self.treestore, headers_visible=False
         )

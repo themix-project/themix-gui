@@ -8,6 +8,7 @@ from .helpers import ls_r, mkdir_p
 
 
 def get_presets():
+    from .plugin_api import PLUGIN_PATH_PREFIX
     from .plugin_loader import IMPORT_PLUGINS
     all_results = {}
     for colors_dir, is_default in [
@@ -18,16 +19,17 @@ def get_presets():
         for plugin in IMPORT_PLUGINS.values()
         if plugin.plugin_theme_dir
     ]:
-        file_paths = [
-            {
+        file_paths = []
+        for path in ls_r(colors_dir):
+            preset_name = "".join(path.rsplit(colors_dir))
+            file_paths.append({
                 "name": "".join(
                     path.rsplit(colors_dir)
                 ),
                 "path": os.path.abspath(path),
                 "default": is_default,
-            }
-            for path in ls_r(colors_dir)
-        ]
+                "is_saveable": not is_default and not preset_name.startswith(PLUGIN_PATH_PREFIX),
+            })
         result = defaultdict(list)
         for dir_name, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
             result[dir_name] = sorted(list(group), key=lambda x: x['name'])

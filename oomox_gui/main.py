@@ -28,6 +28,7 @@ from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import (
     THEME_PLUGINS, ICONS_PLUGINS, IMPORT_PLUGINS, EXPORT_PLUGINS,
 )
+from .plugin_api import PLUGIN_PATH_PREFIX
 
 
 class NewDialog(EntryDialog):
@@ -156,7 +157,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def save_theme(self, name=None):
         if not name:
             name = self.colorscheme_name
-        if not is_user_colorscheme(self.colorscheme_path):
+        if not self.presets_list.preset_is_saveable():
             if self.check_colorscheme_exists(name):
                 self.clone_theme()
                 return
@@ -252,13 +253,15 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.reload_presets()
 
     def clone_theme(self):
-        dialog = NewDialog(transient_for=self, entry_text=self.colorscheme_name + '_')
+        new_theme_name = self.colorscheme_name + '_'
+        if new_theme_name.startswith(PLUGIN_PATH_PREFIX):
+            new_theme_name = '/'.join(new_theme_name.split('/')[1:])
+        dialog = NewDialog(transient_for=self, entry_text=new_theme_name)
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
         if not self.check_colorscheme_exists(new_theme_name):
             self.save_theme(new_theme_name)
-            self.reload_presets()
         else:
             self.clone_theme()
 
@@ -357,7 +360,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.theme_edited = True
 
     def reload_presets(self):
-        self.presets_list.reload_presets()
+        self.presets_list.load_presets()
+        self.presets_list.focus_preset_by_filepath(self.colorscheme_path)
 
     def disable(self):
         self._currently_focused_widget = self.get_focus()
