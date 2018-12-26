@@ -458,7 +458,6 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     def _new_cb(key, value):
                         GLib.timeout_add(0, self.disable, priority=GLib.PRIORITY_HIGH)
                         for slow_cb in slow_callbacks:
-                            # GLib.idle_add(slow_cb, key, value, priority=GLib.PRIORITY_LOW)
                             Gdk.threads_add_idle(GLib.PRIORITY_LOW, slow_cb, key, value, )
                         GLib.idle_add(self.enable, priority=GLib.PRIORITY_LOW)
                     return _new_cb
