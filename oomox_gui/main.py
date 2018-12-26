@@ -457,7 +457,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                     "win.import_plugin_{}".format(plugin_name)
                 ))
 
-        import_button = Gtk.MenuButton(label=_("Import"))
+        import_button = ImageMenuButton(
+            label=_("Import"), icon_name="pan-down-symbolic",
+            tooltip_text=_("Import Themes")
+        )
         import_button.set_use_popover(True)
         import_button.set_menu_model(import_menu)
         self.add_action(Gio.PropertyAction(
