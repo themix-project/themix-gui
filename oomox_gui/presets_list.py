@@ -1,6 +1,6 @@
 import os
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from .theme_file import (
     is_user_colorscheme, get_presets
@@ -10,7 +10,15 @@ from .plugin_loader import IMPORT_PLUGINS
 from .config import USER_COLORS_DIR, COLORS_DIR
 
 
+class Keys:
+    RIGHT_ARROW = 65363
+    LEFT_ARROW = 65361
+    KEY_F5 = 65474
+
+
 class ThemePresetsList(Gtk.ScrolledWindow):
+
+    colorscheme_path = None
 
     update_signal = None
     treestore = None
@@ -31,6 +39,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         self.preset_select_callback(
             current_theme, current_preset_path
         )
+        self.colorscheme_path = current_preset_path
 
     def add_preset(self, preset_name, preset_path, display_name=None):
         if not display_name:
@@ -148,6 +157,30 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             "cursor_changed", self.on_preset_select
         )
 
+    def reload_presets(self):
+        self.load_presets()
+        self.focus_preset_by_filepath(self.colorscheme_path)
+
+    def get_current_treepath(self):
+        return self._find_treepath_by_filepath(
+            self.treestore, self.colorscheme_path
+        )
+
+    def _on_keypress(self, _widget, event):
+        key = event.keyval
+        if event.type != Gdk.EventType.KEY_PRESS:
+            return
+        if key == Keys.KEY_F5:
+            self.reload_presets()
+        elif key in (Keys.LEFT_ARROW, Keys.RIGHT_ARROW):
+            treepath = self.get_current_treepath()
+            if not treepath:
+                return
+            if key == Keys.RIGHT_ARROW:
+                self.treeview.expand_row(treepath, False)
+            elif key == Keys.LEFT_ARROW:
+                self.treeview.collapse_row(treepath)
+
     def __init__(self, preset_select_callback):
         super().__init__()
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -157,6 +190,9 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         self.treestore = Gtk.TreeStore(str, str, str, bool)
         self.treeview = Gtk.TreeView(
             model=self.treestore, headers_visible=False
+        )
+        self.treeview.connect(
+            "key-press-event", self._on_keypress
         )
         column = Gtk.TreeViewColumn(
             cell_renderer=Gtk.CellRendererText(), text=0, sensitive=3

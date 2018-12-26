@@ -357,8 +357,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.theme_edited = True
 
     def reload_presets(self):
-        self.presets_list.load_presets()
-        self.presets_list.focus_preset_by_filepath(self.colorscheme_path)
+        self.presets_list.reload_presets()
 
     def disable(self):
         self._currently_focused_widget = self.get_focus()
