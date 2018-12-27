@@ -8,7 +8,7 @@ import shutil
 from gi.repository import Gtk, Gio
 
 from .i18n import _
-from .config import USER_COLORS_DIR
+from .config import USER_COLORS_DIR, SCRIPT_DIR
 from .helpers import mkdir_p
 from .gtk_helpers import (
     ImageButton, ImageMenuButton,
@@ -99,6 +99,7 @@ class WindowActions(ActionsEnum):
     remove = "remove"
     rename = "rename"
     save = "save"
+    show_help = "show_help"
 
 
 class WindowWithActions(Gtk.ApplicationWindow):
@@ -376,6 +377,15 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_focus(self._currently_focused_widget)
         self.spinner.stop()
 
+    def show_help(self):
+        path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
+        obj_id = "shortcuts"
+
+        builder = Gtk.Builder.new_from_file(path)
+        overlay = builder.get_object(obj_id)
+        overlay.set_transient_for(self)
+        overlay.show()
+
     ###########################################################################
     # Signal handlers:
     ###########################################################################
@@ -433,6 +443,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_quit(self, _arg1, _arg2):
         self.check_unsaved_changes()
+
+    def _on_show_help(self, _action, _param=None):
+        self.show_help()
 
     ###########################################################################
     # Init widgets:
@@ -500,23 +513,31 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         #
 
+        menu = Gio.Menu()
         if EXPORT_PLUGINS:
-            menu = Gio.Menu()
             for plugin_name, plugin in EXPORT_PLUGINS.items():
                 menu.append_item(Gio.MenuItem.new(
                     plugin.display_name,
                     "win.export_plugin_{}".format(plugin_name)
                 ))
 
-            menu_button = ImageMenuButton("open-menu-symbolic")
-            menu_button.set_use_popover(True)
-            menu_button.set_menu_model(menu)
-            self.add_action(Gio.PropertyAction(
-                name=WindowActions.get_name(WindowActions.menu),
-                object=menu_button,
-                property_name="active"
-            ))
-            self.headerbar.pack_end(menu_button)
+        menu_button = ImageMenuButton("open-menu-symbolic")
+        menu_button.set_use_popover(True)
+        menu_button.set_menu_model(menu)
+        self.add_action(Gio.PropertyAction(
+            name=WindowActions.get_name(WindowActions.menu),
+            object=menu_button,
+            property_name="active"
+        ))
+        self.headerbar.pack_end(menu_button)
+
+        show_help_menuitem = Gio.MenuItem.new(
+            _("Keyboard Shortcuts"),
+            "win.show_help"
+        )
+        menu.append_item(show_help_menuitem)
+
+        #
 
         export_terminal_button = Gtk.Button(
             label=_("Export _Terminal"),
@@ -568,6 +589,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
+        self.add_simple_action(WindowActions.show_help, self._on_show_help)
         for plugin_name in EXPORT_PLUGINS:
             self.add_simple_action_by_name(
                 "export_plugin_{}".format(plugin_name), self._on_export_plugin
@@ -635,7 +657,9 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.remove, ["<Primary>Delete"])
         set_accels_for_action(WindowActions.export_theme, ["<Primary>E"])
         set_accels_for_action(WindowActions.export_icons, ["<Primary>I"])
+        set_accels_for_action(WindowActions.export_terminal, ["<Primary>T"])
         set_accels_for_action(WindowActions.menu, ["F10"])
+        set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
 
     def do_activate(self):  # pylint: disable=arguments-differ
         if not self.window:
