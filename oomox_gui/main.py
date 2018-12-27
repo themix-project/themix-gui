@@ -385,6 +385,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         builder = Gtk.Builder.new_from_file(path)
         overlay = builder.get_object(obj_id)
         overlay.set_transient_for(self)
+        overlay.set_title("Oomox Keyboard Shortcuts")
+        overlay.set_wmclass("oomox", "Oomox")
+        overlay.set_role("Oomox-Shortcuts")
         overlay.show()
 
     ###########################################################################
@@ -569,8 +572,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _init_window(self):
         self.set_wmclass("oomox", "Oomox")
+        self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
         self.set_default_size(500, 300)
+        self.set_hide_titlebar_when_maximized(False)
 
         self._init_headerbar()
 
@@ -596,9 +601,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 "export_plugin_{}".format(plugin_name), self._on_export_plugin
             )
 
-    def __init__(self, application, title=_("Oo-mox GUI")):
+    def __init__(self, application):
         super().__init__(
-            application=application, title=title
+            application=application,
+            title=_("Oo-mox GUI"),
+            startup_id=application.get_application_id(),
         )
         self.colorscheme = {}
         mkdir_p(USER_COLORS_DIR)
