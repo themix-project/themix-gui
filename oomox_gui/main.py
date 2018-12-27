@@ -378,6 +378,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.spinner.stop()
 
     def show_help(self):
+        # @TODO: refactor to use .set_help_overlay() ?
         path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
         obj_id = "shortcuts"
 
@@ -451,7 +452,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     # Init widgets:
     ###########################################################################
 
-    def _init_headerbar(self):
+    def _init_headerbar(self):  # pylint: disable=too-many-locals
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
         self.headerbar.props.title = _("Oo-mox GUI")
