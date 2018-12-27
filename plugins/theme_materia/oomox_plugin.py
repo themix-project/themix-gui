@@ -11,6 +11,8 @@ THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")
 
 
 class MateriaThemeExportDialog(GtkThemeExportDialog):
+
+    config_name = 'materia_theme'
     timeout = 1000
 
     def do_export(self):
