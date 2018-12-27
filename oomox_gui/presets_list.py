@@ -1,6 +1,6 @@
 import os
 
-from gi.repository import Gtk, Gdk, Pango
+from gi.repository import Gtk, Gdk, Pango, GLib
 
 from .i18n import _
 from .theme_file import get_presets
@@ -62,11 +62,6 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         treeiter = self.treestore.get_iter(treepath)
         current_theme = self.treestore.get_value(treeiter, self.THEME_NAME)
         if current_theme == _SECTION_RESERVED_NAME:
-            if self.treestore.iter_has_child(treeiter):
-                treeiter = self.treestore.iter_children(treeiter)
-            else:
-                treeiter = self.treestore.iter_next(treeiter)
-            self.treeview.set_cursor(self.treestore.get_path(treeiter))
             return
         current_preset_path = self.treestore.get_value(treeiter, self.THEME_PATH)
         self.preset_select_callback(
@@ -230,6 +225,13 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             elif key == Keys.LEFT_ARROW:
                 self.treeview.collapse_row(treepath)
 
+    def focus_first_available(self):
+        init_iter = self.treestore.get_iter_first()
+        while init_iter and not self.treeview.row_expanded(self.treestore.get_path(init_iter)):
+            init_iter = self.treestore.iter_next(init_iter)
+        init_iter = self.treestore.iter_children(init_iter)
+        self.treeview.set_cursor(self.treestore.get_path(init_iter))
+
     def __init__(self, preset_select_callback):
         super().__init__()
         self.set_size_request(width=PRESET_LIST_MIN_SIZE, height=-1)
@@ -250,3 +252,8 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         self.load_presets()
 
         self.add(self.treeview)
+
+        GLib.idle_add(
+            self.focus_first_available,
+            priority=GLib.PRIORITY_HIGH
+        )
