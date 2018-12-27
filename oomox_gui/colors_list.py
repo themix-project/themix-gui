@@ -512,18 +512,19 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def open_theme(self, theme):
         self.theme = theme
-        if "NOGUI" in self.theme:
+        if "NOGUI" in theme:
             self._no_gui_row.show()
         else:
             self._no_gui_row.hide()
         for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get('key') or (
+            key = theme_value.get(
+                'key',
                 theme_value['display_name'] + str(option_idx)
             )
             row = self._all_rows.get(key)
             if not row:
                 continue
-            if "NOGUI" in self.theme:
+            if "NOGUI" in theme:
                 row.hide()
                 continue
             if theme_value.get('filter'):
@@ -535,8 +536,18 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     row.hide()
                     continue
             if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float', 'image_path']:
-                row.set_value(self.theme[key])
+                row.set_value(theme[key])
             row.show()
+
+    def hide_all_rows(self):
+        self._no_gui_row.hide()
+        for option_idx, theme_value in enumerate(THEME_MODEL):
+            key = theme_value.get(
+                'key',
+                theme_value['display_name'] + str(option_idx)
+            )
+            row = self._all_rows.get(key)
+            row.hide()
 
     def disable(self):
         self.transient_for.disable()

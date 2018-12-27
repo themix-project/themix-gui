@@ -633,6 +633,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.box.pack_start(self.preview, expand=False, fill=False, padding=0)
 
         self.show_all()
+        self.theme_edit.hide_all_rows()
+        self.preview.hide()
+
+        # @TODO: read saved position from the config
+        # self.paned_box.set_position(600)
 
 
 class OomoxGtkApplication(Gtk.Application):
