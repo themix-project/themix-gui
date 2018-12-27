@@ -197,7 +197,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
 
     def __init__(self, preset_select_callback):
         super().__init__()
-        self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.set_size_request(width=300, height=-1)
 
         self.preset_select_callback = preset_select_callback
 

@@ -574,13 +574,17 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_wmclass("oomox", "Oomox")
         self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
-        self.set_default_size(500, 300)
+        self.set_default_size(width=800, height=600)
         self.set_hide_titlebar_when_maximized(False)
 
         self._init_headerbar()
 
-        self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+        self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         self.add(self.box)
+
+        self.paned_box = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL)
+        self.paned_box.set_wide_handle(True)
+        self.box.pack_start(self.paned_box, expand=True, fill=True, padding=0)
 
     def _init_actions(self):
         self.add_simple_action(WindowActions.import_themix_colors, self._on_import_themix_colors)
@@ -616,17 +620,17 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.presets_list = ThemePresetsList(
             preset_select_callback=self.on_preset_selected
         )
-        self.box.pack_start(self.presets_list, False, False, 0)
+        self.paned_box.pack1(self.presets_list, resize=False, shrink=False)
 
         self.theme_edit = ThemeColorsList(
             color_edited_callback=self.on_color_edited,
             theme_reload_callback=self.theme_reload,
             transient_for=self
         )
-        self.box.pack_start(self.theme_edit, True, True, 0)
+        self.paned_box.pack2(self.theme_edit, resize=True, shrink=False)
 
         self.preview = ThemePreview()
-        self.box.pack_start(self.preview, False, False, 0)
+        self.box.pack_start(self.preview, expand=False, fill=False, padding=0)
 
         self.show_all()
 
