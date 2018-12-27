@@ -22,7 +22,7 @@ class Settings:
 
 
 SETTINGS = Settings()
-PRESET_LIST_MIN_SIZE = 300
+PRESET_LIST_MIN_SIZE = 250
 
 _SECTION_RESERVED_NAME = '<section>'
 
