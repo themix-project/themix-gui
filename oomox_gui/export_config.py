@@ -4,19 +4,19 @@ import json
 from .config import USER_EXPORT_CONFIG_DIR
 
 
-class ExportConfig():
+class OomoxConfig:
 
     name = None
     config_path = None
     config = None
     default_config = None
 
-    def __init__(self, config_name, default_config=None):
+    def __init__(self, config_dir, config_name, default_config=None):
         self.name = config_name
         self.default_config = default_config
         self.config = self.default_config or {}
         self.config_path = os.path.join(
-            USER_EXPORT_CONFIG_DIR,
+            config_dir,
             "{}.json".format(self.name)
         )
         self.load()
@@ -44,3 +44,16 @@ class ExportConfig():
 
     def __str__(self):
         return str(self.config)
+
+    def __repr__(self):
+        return "Config<{}>".format(str(self))
+
+
+class ExportConfig(OomoxConfig):
+
+    def __init__(self, config_name, default_config=None):
+        super().__init__(
+            config_name=config_name,
+            default_config=default_config,
+            config_dir=USER_EXPORT_CONFIG_DIR,
+        )
