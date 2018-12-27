@@ -574,7 +574,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_wmclass("oomox", "Oomox")
         self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
-        self.set_default_size(width=800, height=600)
+        self.set_default_size(width=600, height=400)
         self.set_hide_titlebar_when_maximized(False)
 
         self._init_headerbar()
