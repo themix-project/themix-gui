@@ -517,8 +517,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         else:
             self._no_gui_row.hide()
         for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get(
-                'key',
+            key = theme_value.get('key') or (
                 theme_value['display_name'] + str(option_idx)
             )
             row = self._all_rows.get(key)
@@ -542,8 +541,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
     def hide_all_rows(self):
         self._no_gui_row.hide()
         for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get(
-                'key',
+            key = theme_value.get('key') or (
                 theme_value['display_name'] + str(option_idx)
             )
             row = self._all_rows.get(key)
