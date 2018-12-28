@@ -13,11 +13,11 @@ from .terminal import (
     generate_xrdb_theme_from_oomox,
     generate_xresources
 )
-from .gtk_helpers import CenterLabel
+from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 from .i18n import _
 
 
-class ExportDialog(Gtk.Dialog):
+class ExportDialog(Gtk.Dialog, metaclass=GObjectABCMeta):
 
     command = None
     timeout = 300
@@ -197,7 +197,9 @@ OPTION_GTK2_HIDPI = 'gtk2_hidpi'
 
 class GtkThemeExportDialog(FileBasedExportDialog):
 
-    config_name = 'gtk_theme'
+    @g_abstractproperty
+    def config_name(self):
+        pass
 
     def _create_option_checkbox_callback(self, option_id):
         def callback(widget):
