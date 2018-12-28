@@ -20,7 +20,7 @@ from .theme_file import (
     save_colorscheme, remove_colorscheme, import_colorscheme,
 )
 from .theme_file_parse import read_colorscheme_from_path
-from .presets_list import ThemePresetsList
+from .preset_list import ThemePresetsList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export_common import export_terminal_theme
@@ -150,7 +150,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     box = None
     headerbar = None
     theme_edit = None
-    presets_list = None
+    preset_list = None
     preview = None
     spinner = None
 
@@ -159,7 +159,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def save_theme(self, name=None):
         if not name:
             name = self.colorscheme_name
-        if not self.presets_list.preset_is_saveable():
+        if not self.preset_list.preset_is_saveable():
             if self.check_colorscheme_exists(name):
                 self.clone_theme()
                 return
@@ -362,18 +362,18 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.theme_edited = True
 
     def reload_presets(self):
-        self.presets_list.load_presets()
-        self.presets_list.focus_preset_by_filepath(self.colorscheme_path)
+        self.preset_list.load_presets()
+        self.preset_list.focus_preset_by_filepath(self.colorscheme_path)
 
     def disable(self):
         self._currently_focused_widget = self.get_focus()
-        self.presets_list.set_sensitive(False)
+        self.preset_list.set_sensitive(False)
         self.theme_edit.set_sensitive(False)
         Gtk.main_iteration_do(False)
         self.spinner.start()
 
     def enable(self):
-        self.presets_list.set_sensitive(True)
+        self.preset_list.set_sensitive(True)
         self.theme_edit.set_sensitive(True)
         self.set_focus(self._currently_focused_widget)
         self.spinner.stop()
@@ -626,10 +626,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self._init_actions()
         self._init_window()
 
-        self.presets_list = ThemePresetsList(
+        self.preset_list = ThemePresetsList(
             preset_select_callback=self.on_preset_selected
         )
-        self.paned_box.pack1(self.presets_list, resize=False, shrink=False)
+        self.paned_box.pack1(self.preset_list, resize=False, shrink=False)
 
         self.theme_edit = ThemeColorsList(
             color_edited_callback=self.on_color_edited,
