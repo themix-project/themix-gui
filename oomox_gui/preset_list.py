@@ -61,7 +61,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             "row-expanded", self._on_row_expanded
         )
         column = Gtk.TreeViewColumn(
-            cell_renderer=Gtk.CellRendererText(), markup=0, sensitive=3
+            cell_renderer=Gtk.CellRendererText(), markup=0
         )
         self.treeview.append_column(column)
         self.load_presets()
