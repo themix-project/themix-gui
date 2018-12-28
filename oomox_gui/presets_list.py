@@ -114,9 +114,10 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         first_preset = sorted_preset_list[0]
         dir_template = "{}: {{}}".format(plugin_name) \
             if plugin_name else "{}"
-        dir_display_name = dir_template.format(
-            first_preset['path'][len(colors_dir):].lstrip('/')
-        )
+        dir_display_name, _slash, child_display_name = first_preset['path'][len(colors_dir):].lstrip('/').partition('/')
+        if child_display_name:
+            dir_display_name = '{}: {}'.format(dir_display_name, child_display_name)
+        dir_display_name = dir_template.format(dir_display_name)
         piter = self._add_preset(
             display_name=dir_display_name,
             name=first_preset['name'],
