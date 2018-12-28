@@ -654,9 +654,15 @@ class OomoxGtkApplication(Gtk.Application):
     window = None
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, application_id="com.github.themix_project.Oomox",
-                         flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
-                         **kwargs)
+        super().__init__(
+            *args,
+            application_id="com.github.themix_project.Oomox",
+            flags=(
+                Gio.ApplicationFlags.HANDLES_COMMAND_LINE |
+                Gio.ApplicationFlags.NON_UNIQUE
+            ),
+            **kwargs
+        )
         # @TODO: use oomox-gui as the only one entrypoint to all cli tools
         # self.add_main_option("test", ord("t"), GLib.OptionFlags.NONE,
         # GLib.OptionArg.NONE, "Command line test", None)
