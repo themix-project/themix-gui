@@ -73,7 +73,7 @@ class OomoxSettings(CommonOomoxConfig):
         )
 
 
-PRESET_LIST_MIN_SIZE = 250
+PRESET_LIST_MIN_SIZE = 200
 UI_SETTINGS = OomoxSettings(
     config_name='ui_config', default_config=dict(
         window_width=600,
