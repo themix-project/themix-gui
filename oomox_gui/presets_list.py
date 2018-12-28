@@ -1,6 +1,6 @@
 import os
 
-from gi.repository import Gtk, Gdk, Pango, GLib
+from gi.repository import Gtk, Gdk, GLib
 
 from .i18n import _
 from .theme_file import get_presets
@@ -97,13 +97,25 @@ class ThemePresetsList(Gtk.ScrolledWindow):
 
     def _add_preset(self, display_name, name, path, saveable, parent=None):  # pylint: disable=too-many-arguments
         return self.treestore.append(
-            parent, (display_name, name, path, saveable, Pango.Weight.NORMAL)
+            parent, (display_name, name, path, saveable)
         )
 
     def _add_section(self, section_id, display_name):
         return self.treestore.append(
-            None, (display_name, _SECTION_RESERVED_NAME, section_id, False, Pango.Weight.BOLD)
+            None, ('<b>{}</b>'.format(display_name), _SECTION_RESERVED_NAME, section_id, False)
         )
+
+    @staticmethod
+    def _format_dirname(preset_relpath, plugin_name):
+        dir_template = '<b>{}</b>: {}'
+        dir_display_name, _slash, child_display_name = preset_relpath.lstrip('/').partition('/')
+        if child_display_name:
+            dir_display_name = dir_template.format(
+                dir_display_name.replace('_', ' '), child_display_name
+            )
+        if plugin_name:
+            dir_display_name = dir_template.format(plugin_name, dir_display_name)
+        return dir_display_name
 
     def _add_presets(  # pylint: disable=too-many-arguments
             self, colors_dir, preset_dir, preset_list,
@@ -112,14 +124,11 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
 
         first_preset = sorted_preset_list[0]
-        dir_template = "{}: {{}}".format(plugin_name) \
-            if plugin_name else "{}"
-        dir_display_name, _slash, child_display_name = first_preset['path'][len(colors_dir):].lstrip('/').partition('/')
-        if child_display_name:
-            dir_display_name = '{}: {}'.format(dir_display_name, child_display_name)
-        dir_display_name = dir_template.format(dir_display_name)
+        first_preset_relpath = first_preset['path'][len(colors_dir):]
         piter = self._add_preset(
-            display_name=dir_display_name,
+            display_name=self._format_dirname(
+                first_preset_relpath, plugin_name
+            ),
             name=first_preset['name'],
             path=first_preset['path'],
             saveable=first_preset['is_saveable'],
@@ -247,7 +256,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
 
         self.preset_select_callback = preset_select_callback
 
-        self.treestore = Gtk.TreeStore(str, str, str, bool, int)
+        self.treestore = Gtk.TreeStore(str, str, str, bool)
         self.treeview = Gtk.TreeView(
             model=self.treestore, headers_visible=False
         )
@@ -261,7 +270,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             "row-expanded", self._on_row_expanded
         )
         column = Gtk.TreeViewColumn(
-            cell_renderer=Gtk.CellRendererText(), text=0, sensitive=3, weight=4
+            cell_renderer=Gtk.CellRendererText(), markup=0, sensitive=3
         )
         self.treeview.append_column(column)
         self.load_presets()
