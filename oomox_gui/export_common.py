@@ -6,7 +6,9 @@ from threading import Thread
 
 from gi.repository import Gtk, GLib, Pango
 
-from .export_config import ExportConfig
+from .i18n import _
+from .config import USER_EXPORT_CONFIG_DIR
+from .settings import CommonOomoxConfig
 from .theme_file import save_colorscheme
 from .terminal import (
     generate_terminal_colors_for_oomox,
@@ -14,7 +16,16 @@ from .terminal import (
     generate_xresources
 )
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
-from .i18n import _
+
+
+class ExportConfig(CommonOomoxConfig):
+
+    def __init__(self, config_name, default_config=None):
+        super().__init__(
+            config_name=config_name,
+            default_config=default_config,
+            config_dir=USER_EXPORT_CONFIG_DIR,
+        )
 
 
 class ExportDialog(Gtk.Dialog):

@@ -1,31 +1,76 @@
+import os
+import json
+
 from .config import USER_CONFIG_DIR
-from .export_config import OomoxConfig
 
 
-class OomoxSettings(OomoxConfig):
+class CommonOomoxConfig:
 
-    config_keys = []
+    name = None
+    config_dir = None
+    config_path = None
+    default_config = None
+    config = None
 
-    def __init__(self, config_name, default_config):
-        self.config_keys = default_config.keys()
-        super().__init__(
-            config_dir=USER_CONFIG_DIR,
-            config_name=config_name,
-            default_config=default_config
+    def __init__(self, config_dir, config_name, default_config=None):
+        self.name = config_name
+        self.config_dir = config_dir
+        self.config_path = os.path.join(
+            self.config_dir,
+            "{}.json".format(self.name)
         )
+        self.default_config = default_config
+        self.config = self.default_config or {}
+        self.load()
+
+    def __str__(self):
+        return str(self.config)
+
+    def __repr__(self):
+        return "Config<{}>".format(str(self))
+
+    def load(self):
+        try:
+            with open(self.config_path, 'r') as file_object:
+                for key, value in json.load(file_object).items():
+                    self.config[key] = value
+        except FileNotFoundError:
+            pass
+        return self.config
+
+    def save(self):
+        if not os.path.exists(self.config_dir):
+            os.makedirs(self.config_dir)
+        with open(self.config_path, 'w') as file_object:
+            return json.dump(self.config, file_object)
+
+    def __getitem__(self, item):
+        return self.config[item]
+
+    def __setitem__(self, item, value):
+        self.config[item] = value
 
     def __getattr__(self, item):
-        if item in self.config_keys:
+        if item in self.default_config.keys():
             return self.config[item]
         return self.__getattribute__(item)
 
     def __setattr__(self, item, value):
-        if item in self.config_keys:
+        if item in self.default_config.keys():
             self.config[item] = value
         elif item not in dir(self):
             raise KeyError(item)
         else:
             super().__setattr__(item, value)
+
+
+class OomoxSettings(CommonOomoxConfig):
+    def __init__(self, config_name, default_config):
+        super().__init__(
+            config_dir=USER_CONFIG_DIR,
+            config_name=config_name,
+            default_config=default_config
+        )
 
 
 PRESET_LIST_MIN_SIZE = 250
