@@ -2,7 +2,7 @@ import os
 
 from gi.repository import Gtk
 
-from oomox_gui.export_common import OPTION_GTK2_HIDPI, GtkThemeExportDialog
+from oomox_gui.export_common import OPTION_GTK2_HIDPI, CommonGtkThemeExportDialog
 from oomox_gui.plugin_api import OomoxThemePlugin
 from oomox_gui.i18n import _
 
@@ -15,7 +15,7 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 GTK_THEME_DIR = os.path.join(PLUGIN_DIR, "gtk-theme/")
 
 
-class OomoxThemeExportDialog(GtkThemeExportDialog):
+class OomoxThemeExportDialog(CommonGtkThemeExportDialog):
     timeout = 100
     config_name = 'gtk_theme_oomox'
 

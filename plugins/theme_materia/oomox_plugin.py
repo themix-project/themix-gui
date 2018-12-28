@@ -2,7 +2,7 @@ import os
 
 from oomox_gui.i18n import _
 from oomox_gui.plugin_api import OomoxThemePlugin
-from oomox_gui.export_common import GtkThemeExportDialog, OPTION_GTK2_HIDPI
+from oomox_gui.export_common import CommonGtkThemeExportDialog, OPTION_GTK2_HIDPI
 from oomox_gui.color import convert_theme_color_to_gdk, mix_theme_colors
 
 
@@ -10,7 +10,7 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")
 
 
-class MateriaThemeExportDialog(GtkThemeExportDialog):
+class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
 
     config_name = 'materia_theme'
     timeout = 1000

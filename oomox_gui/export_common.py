@@ -195,7 +195,7 @@ def export_terminal_theme(transient_for, colorscheme):
 OPTION_GTK2_HIDPI = 'gtk2_hidpi'
 
 
-class GtkThemeExportDialog(FileBasedExportDialog):
+class CommonGtkThemeExportDialog(FileBasedExportDialog):
 
     @g_abstractproperty
     def config_name(self):

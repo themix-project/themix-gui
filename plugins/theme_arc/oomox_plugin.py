@@ -3,7 +3,7 @@ import os
 
 from gi.repository import Gtk
 
-from oomox_gui.export_common import GtkThemeExportDialog
+from oomox_gui.export_common import CommonGtkThemeExportDialog
 # from oomox_gui.export_common import OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 from oomox_gui.color import mix_theme_colors
@@ -18,7 +18,7 @@ OPTION_EXPORT_GNOME_SHELL_THEME = 'OPTION_EXPORT_GNOME_SHELL_THEME'
 OPTION_EXPORT_XFWM_THEME = 'OPTION_EXPORT_XFWM_THEME'
 
 
-class ArcThemeExportDialog(GtkThemeExportDialog):
+class ArcThemeExportDialog(CommonGtkThemeExportDialog):
 
     config_name = 'arc_theme'
     timeout = 1000
