@@ -1,6 +1,5 @@
 from .config import USER_CONFIG_DIR
 from .export_config import OomoxConfig
-from .presets_list import PRESET_LIST_MIN_SIZE
 
 
 class OomoxSettings(OomoxConfig):
@@ -29,11 +28,14 @@ class OomoxSettings(OomoxConfig):
             super().__setattr__(item, value)
 
 
+PRESET_LIST_MIN_SIZE = 250
 UI_SETTINGS = OomoxSettings(
     config_name='ui_config', default_config=dict(
-        preset_list_width=PRESET_LIST_MIN_SIZE
+        preset_list_width=PRESET_LIST_MIN_SIZE,
+        preset_list_sections_expanded={},
     )
 )
+
 SETTINGS = OomoxSettings(
     config_name='app_config', default_config=dict(
     )
