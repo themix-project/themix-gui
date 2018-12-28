@@ -174,30 +174,30 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             self, colors_dir, preset_dir, preset_list,
             plugin_name=None, parent=None
     ):
-        sorted_preset_list = sorted(preset_list, key=lambda x: x['name'])
+        sorted_preset_list = sorted(preset_list, key=lambda x: x.name)
 
         first_preset = sorted_preset_list[0]
-        first_preset_relpath = first_preset['path'][len(colors_dir):]
+        first_preset_relpath = first_preset.path[len(colors_dir):]
         piter = self._add_preset(
             display_name=self._format_dirname(
                 first_preset_relpath, plugin_name
             ),
-            name=first_preset['name'],
-            path=first_preset['path'],
-            saveable=first_preset['is_saveable'],
+            name=first_preset.name,
+            path=first_preset.path,
+            saveable=first_preset.is_saveable,
             parent=parent
         )
 
         for preset in sorted_preset_list[1:]:
             display_name = (
-                preset['name'][len(preset_dir):]
-                if preset_dir else preset['name']
+                preset.name[len(preset_dir):]
+                if preset_dir else preset.name
             ).lstrip('/')
             self._add_preset(
                 display_name=display_name,
-                name=preset['name'],
-                path=preset['path'],
-                saveable=preset['is_saveable'],
+                name=preset.name,
+                path=preset.path,
+                saveable=preset.is_saveable,
                 parent=piter
             )
 

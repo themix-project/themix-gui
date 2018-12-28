@@ -1,10 +1,13 @@
 import os
 import shutil
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from itertools import groupby
 
 from .config import COLORS_DIR, USER_COLORS_DIR
 from .helpers import ls_r, mkdir_p
+
+
+PresetFile = namedtuple('PresetFile', ['name', 'path', 'default', 'is_saveable', ])
 
 
 def get_presets():
@@ -22,17 +25,17 @@ def get_presets():
         file_paths = []
         for path in ls_r(colors_dir):
             preset_name = "".join(path.rsplit(colors_dir))
-            file_paths.append({
-                "name": "".join(
+            file_paths.append(PresetFile(
+                name="".join(
                     path.rsplit(colors_dir)
                 ),
-                "path": os.path.abspath(path),
-                "default": is_default,
-                "is_saveable": not is_default and not preset_name.startswith(PLUGIN_PATH_PREFIX),
-            })
+                path=os.path.abspath(path),
+                default=is_default,
+                is_saveable=not is_default and not preset_name.startswith(PLUGIN_PATH_PREFIX),
+            ))
         result = defaultdict(list)
-        for dir_name, group in groupby(file_paths, lambda x: x['name'].split('/')[0]):
-            result[dir_name] = sorted(list(group), key=lambda x: x['name'])
+        for dir_name, group in groupby(file_paths, lambda x: x.name.split('/')[0]):
+            result[dir_name] = sorted(list(group), key=lambda x: x.name)
         all_results[colors_dir] = dict(result)
     return all_results
 
