@@ -111,7 +111,7 @@ class FloatListBoxRow(NumericListBoxRow):
     def on_value_changed(self, widget):
         raw_value = widget.get_value()
         self.value = int(raw_value*100)/100  # limit float to 2 digits
-        self.callback(self.key, self.value)
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
                  min_value=None, max_value=None):
@@ -135,7 +135,7 @@ class IntListBoxRow(NumericListBoxRow):
 
     def on_value_changed(self, widget):
         self.value = widget.get_value_as_int()
-        self.callback(self.key, self.value)
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
                  min_value=None, max_value=None):
@@ -167,7 +167,7 @@ class BoolListBoxRow(OomoxListBoxRow):
 
     def on_switch_activated(self, switch, _gparam):
         self.value = switch.get_active()
-        self.callback(self.key, self.value)
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(self, display_name, key, callback):
         super().__init__(
@@ -191,7 +191,7 @@ class OptionsListBoxRow(OomoxListBoxRow):
     def on_dropdown_changed(self, combobox):
         value_id = combobox.get_active()
         self.value = self.options[value_id]['value']
-        self.callback(self.key, self.value)
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def set_value(self, value):
         self.disconnect_changed_signal()
@@ -334,7 +334,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             self.value = None
         if self.value:
             self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
-        self.callback(self.key, self.value)
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def on_color_set(self, gtk_value):
         self.value = convert_gdk_to_theme_color(gtk_value)
@@ -454,6 +454,8 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     'TERMINAL_THEME_EXTEND_PALETTE', 'TERMINAL_BASE_TEMPLATE',
                     '_PIL_PALETTE_QUALITY', '_PIL_PALETTE_STYLE',
             ]:
+                # @TODO: instead of wrapping them by key name create a signal
+                # and emit it from each slow plugin
                 def _wrap_slow_callbacks(slow_callbacks):
                     def _new_cb(key, value):
                         GLib.timeout_add(0, self.disable, priority=GLib.PRIORITY_HIGH)
