@@ -4,11 +4,11 @@ from collections import namedtuple
 from gi.repository import Gtk, Gdk, GLib
 
 from .i18n import _
-from .theme_file import get_presets
-from .plugin_api import PLUGIN_PATH_PREFIX
-from .plugin_loader import IMPORT_PLUGINS
 from .config import USER_COLORS_DIR, COLORS_DIR
 from .settings import PRESET_LIST_MIN_SIZE, UI_SETTINGS
+from .plugin_api import PLUGIN_PATH_PREFIX
+from .plugin_loader import IMPORT_PLUGINS
+from .theme_file import get_presets
 
 
 Section = namedtuple('Section', ['id', 'display_name'])
