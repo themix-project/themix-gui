@@ -17,7 +17,7 @@ from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 from .i18n import _
 
 
-class ExportDialog(Gtk.Dialog, metaclass=GObjectABCMeta):
+class ExportDialog(Gtk.Dialog):
 
     command = None
     timeout = 300
@@ -195,7 +195,7 @@ def export_terminal_theme(transient_for, colorscheme):
 OPTION_GTK2_HIDPI = 'gtk2_hidpi'
 
 
-class CommonGtkThemeExportDialog(FileBasedExportDialog):
+class CommonGtkThemeExportDialog(FileBasedExportDialog, metaclass=GObjectABCMeta):
 
     @g_abstractproperty
     def config_name(self):
