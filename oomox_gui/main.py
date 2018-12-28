@@ -19,7 +19,7 @@ from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
     save_colorscheme, remove_colorscheme, import_colorscheme,
 )
-from .theme_file_parse import read_colorscheme_from_path
+from .theme_file_parser import read_colorscheme_from_path
 from .preset_list import ThemePresetList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
