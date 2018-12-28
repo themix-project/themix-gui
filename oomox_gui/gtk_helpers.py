@@ -207,19 +207,20 @@ class GObjectABCMeta(GObjectMeta):
                     getattr(cls, cls.ABS_METHODS, []) + [property_name]
                 )
                 delattr(cls, property_name)
-        if not (getattr(cls, cls.ABS_METHODS) and not any(
+        if not (getattr(cls, cls.ABS_METHODS, None) and not any(
                 cls.ABS_METHODS in B.__dict__ for B in cls.__mro__[1:]
         )):
-            required_methods = getattr(cls, cls.ABS_METHODS)
+            required_methods = getattr(cls, cls.ABS_METHODS, [])
             for method_name in required_methods:
                 if any(method_name in B.__dict__ for B in cls.__mro__):
                     return
-            raise TypeError(
-                "Can't instantiate abstract class {} with abstract methods {}".format(
-                    cls.__name__,
-                    ','.join(required_methods)
+            if required_methods:
+                raise TypeError(
+                    "Can't instantiate abstract class {} without abstract methods {}".format(
+                        cls.__name__,
+                        ','.join(required_methods)
+                    )
                 )
-            )
 
 
 def g_abstractproperty(_function):
