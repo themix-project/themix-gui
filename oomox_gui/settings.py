@@ -9,7 +9,7 @@ class CommonOomoxConfig:
     name = None
     config_dir = None
     config_path = None
-    default_config = None
+    default_config = {}
     config = None
 
     def __init__(self, config_dir, config_name, default_config=None):
@@ -19,7 +19,7 @@ class CommonOomoxConfig:
             self.config_dir,
             "{}.json".format(self.name)
         )
-        self.default_config = default_config
+        self.default_config = default_config or {}
         self.config = self.default_config or {}
         self.load()
 
