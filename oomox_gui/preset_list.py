@@ -1,4 +1,5 @@
 import os
+from collections import namedtuple
 
 from gi.repository import Gtk, Gdk, GLib
 
@@ -10,22 +11,25 @@ from .config import USER_COLORS_DIR, COLORS_DIR
 from .settings import PRESET_LIST_MIN_SIZE, UI_SETTINGS
 
 
+Section = namedtuple('Section', ['id', 'display_name'])
+
+
+class Sections:
+    PRESETS = Section('presets', _("Presets"))
+    PLUGINS = Section('plugins', _("Plugins"))
+    USER = Section('user', _("User Presets"))
+
+
+_SECTION_RESERVED_NAME = '<section>'
+
+
 class Keys:
     RIGHT_ARROW = 65363
     LEFT_ARROW = 65361
     KEY_F5 = 65474
 
 
-class Sections:
-    PRESETS = 'presets'
-    PLUGINS = 'plugins'
-    USER = 'user'
-
-
-_SECTION_RESERVED_NAME = '<section>'
-
-
-class ThemePresetsList(Gtk.ScrolledWindow):
+class ThemePresetList(Gtk.ScrolledWindow):
 
     _update_signal = None
     treestore = None
@@ -153,10 +157,10 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             parent, (display_name, name, path, saveable)
         )
 
-    def _add_section(self, section_id, display_name):
-        return self.treestore.append(
-            None, ('<b>{}</b>'.format(display_name), _SECTION_RESERVED_NAME, section_id, False)
-        )
+    def _add_section(self, section):
+        return self.treestore.append(None, (
+            '<b>{}</b>'.format(section.display_name), _SECTION_RESERVED_NAME, section.id, False
+        ))
 
     @staticmethod
     def _format_dirname(preset_relpath, plugin_name):
@@ -202,7 +206,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
             )
 
     def _load_system_presets(self, all_presets):
-        presets_iter = self._add_section(Sections.PRESETS, _("Presets"))
+        presets_iter = self._add_section(Sections.PRESETS)
         for preset_dir, preset_list in sorted(all_presets.get(COLORS_DIR, {}).items()):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
@@ -210,11 +214,11 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 colors_dir=COLORS_DIR, preset_dir=preset_dir, preset_list=preset_list,
                 parent=presets_iter
             )
-        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PRESETS, True):
+        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
     def _load_plugin_presets(self, all_presets):
-        plugins_iter = self._add_section(Sections.PLUGINS, _("Plugins"))
+        plugins_iter = self._add_section(Sections.PLUGINS)
         for colors_dir, presets in all_presets.items():
             for preset_dir, preset_list in sorted(presets.items()):
 
@@ -237,11 +241,11 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                     colors_dir=plugin_theme_dir, preset_dir=preset_dir, preset_list=preset_list,
                     plugin_name=plugin_display_name, parent=plugins_iter
                 )
-        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PLUGINS, True):
+        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
     def _load_user_presets(self, all_presets):
-        user_presets_iter = self._add_section(Sections.USER, _("User Presets"))
+        user_presets_iter = self._add_section(Sections.USER)
         for preset_dir, preset_list in sorted(all_presets.get(USER_COLORS_DIR, {}).items()):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
@@ -249,7 +253,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 colors_dir=USER_COLORS_DIR, preset_dir=preset_dir, preset_list=preset_list,
                 parent=user_presets_iter
             )
-        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.USER, True):
+        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.USER.id, True):
             self.treeview.expand_row(self.treestore.get_path(user_presets_iter), False)
 
     ###########################################################################

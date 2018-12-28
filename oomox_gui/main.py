@@ -20,7 +20,7 @@ from .theme_file import (
     save_colorscheme, remove_colorscheme, import_colorscheme,
 )
 from .theme_file_parse import read_colorscheme_from_path
-from .preset_list import ThemePresetsList
+from .preset_list import ThemePresetList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .export_common import export_terminal_theme
@@ -626,7 +626,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self._init_actions()
         self._init_window()
 
-        self.preset_list = ThemePresetsList(
+        self.preset_list = ThemePresetList(
             preset_select_callback=self.on_preset_selected
         )
         self.paned_box.pack1(self.preset_list, resize=False, shrink=False)
