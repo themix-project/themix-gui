@@ -27,7 +27,7 @@ _SECTION_RESERVED_NAME = '<section>'
 
 class ThemePresetsList(Gtk.ScrolledWindow):
 
-    update_signal = None
+    _update_signal = None
     treestore = None
     treeview = None
     preset_select_callback = None
@@ -37,34 +37,97 @@ class ThemePresetsList(Gtk.ScrolledWindow):
     THEME_PATH = 2
     IS_SAVEABLE = 3
 
-    def get_current_treepath(self):
+    def __init__(self, preset_select_callback):
+        super().__init__()
+        self.set_size_request(width=PRESET_LIST_MIN_SIZE, height=-1)
+
+        self.preset_select_callback = preset_select_callback
+
+        self.treestore = Gtk.TreeStore(str, str, str, bool)
+        self.treeview = Gtk.TreeView(
+            model=self.treestore, headers_visible=False
+        )
+        self.treeview.connect(
+            "key-press-event", self._on_keypress
+        )
+        self.treeview.connect(
+            "row-collapsed", self._on_row_collapsed
+        )
+        self.treeview.connect(
+            "row-expanded", self._on_row_expanded
+        )
+        column = Gtk.TreeViewColumn(
+            cell_renderer=Gtk.CellRendererText(), markup=0, sensitive=3
+        )
+        self.treeview.append_column(column)
+        self.load_presets()
+
+        self.add(self.treeview)
+
+        GLib.idle_add(
+            self.focus_first_available,
+            priority=GLib.PRIORITY_HIGH
+        )
+
+    ###########################################################################
+    # Public interface:
+    ###########################################################################
+
+    def get_preset_path(self):
+        return self._get_selected_value(self.THEME_PATH)
+
+    def preset_is_saveable(self):
+        return self._get_selected_value(self.IS_SAVEABLE)
+
+    def focus_preset_by_filepath(self, filepath):
+        treepath = self._find_treepath_by_filepath(
+            self.treestore, filepath
+        )
+        if treepath:
+            treepathcopy = treepath.copy()
+            while treepath.up():
+                self.treeview.expand_row(treepath, False)
+            self.treeview.set_cursor(treepathcopy)
+
+    def focus_first_available(self):
+        init_iter = self.treestore.get_iter_first()
+        while init_iter and not self.treeview.row_expanded(self.treestore.get_path(init_iter)):
+            init_iter = self.treestore.iter_next(init_iter)
+        init_iter = self.treestore.iter_children(init_iter)
+        self.treeview.set_cursor(self.treestore.get_path(init_iter))
+
+    def load_presets(self):
+        if self._update_signal:
+            self.treeview.disconnect(self._update_signal)
+
+        self.treestore.clear()
+        all_presets = get_presets()
+        self._load_system_presets(all_presets)
+        self._load_plugin_presets(all_presets)
+        self._load_user_presets(all_presets)
+
+        self._update_signal = self.treeview.connect(
+            "cursor_changed", self._on_preset_select
+        )
+
+    def reload_presets(self):
+        selected_path = self.get_preset_path()
+        self.load_presets()
+        self.focus_preset_by_filepath(selected_path)
+
+    ###########################################################################
+    # Private methods:
+    ###########################################################################
+
+    def _get_current_treepath(self):
         return self.treeview.get_cursor()[0]
 
-    def get_selected_value(self, value):
-        treepath = self.get_current_treepath()
+    def _get_selected_value(self, value):
+        treepath = self._get_current_treepath()
         if not treepath:
             return None
         treeiter = self.treestore.get_iter(treepath)
         return self.treestore.get_value(treeiter, value)
-
-    def get_colorscheme_path(self):
-        return self.get_selected_value(self.THEME_PATH)
-
-    def preset_is_saveable(self):
-        return self.get_selected_value(self.IS_SAVEABLE)
-
-    def on_preset_select(self, _widget):
-        treepath = self.get_current_treepath()
-        if not treepath:
-            return
-        treeiter = self.treestore.get_iter(treepath)
-        current_theme = self.treestore.get_value(treeiter, self.THEME_NAME)
-        if current_theme == _SECTION_RESERVED_NAME:
-            return
-        current_preset_path = self.treestore.get_value(treeiter, self.THEME_PATH)
-        self.preset_select_callback(
-            current_theme, current_preset_path
-        )
 
     def _find_treepath_by_filepath(
             self, store, target_filepath, treeiter=None
@@ -84,16 +147,6 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                     return child_result
             treeiter = store.iter_next(treeiter)
         return None
-
-    def focus_preset_by_filepath(self, filepath):
-        treepath = self._find_treepath_by_filepath(
-            self.treestore, filepath
-        )
-        if treepath:
-            treepathcopy = treepath.copy()
-            while treepath.up():
-                self.treeview.expand_row(treepath, False)
-            self.treeview.set_cursor(treepathcopy)
 
     def _add_preset(self, display_name, name, path, saveable, parent=None):  # pylint: disable=too-many-arguments
         return self.treestore.append(
@@ -199,24 +252,22 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         if UI_SETTINGS.preset_list_sections_expanded.get(Sections.USER, True):
             self.treeview.expand_row(self.treestore.get_path(user_presets_iter), False)
 
-    def load_presets(self):
-        if self.update_signal:
-            self.treeview.disconnect(self.update_signal)
-        self.treestore.clear()
-        all_presets = get_presets()
+    ###########################################################################
+    # Signal handlers:
+    ###########################################################################
 
-        self._load_system_presets(all_presets)
-        self._load_plugin_presets(all_presets)
-        self._load_user_presets(all_presets)
-
-        self.update_signal = self.treeview.connect(
-            "cursor_changed", self.on_preset_select
+    def _on_preset_select(self, _widget):
+        treepath = self._get_current_treepath()
+        if not treepath:
+            return
+        treeiter = self.treestore.get_iter(treepath)
+        current_theme = self.treestore.get_value(treeiter, self.THEME_NAME)
+        if current_theme == _SECTION_RESERVED_NAME:
+            return
+        current_preset_path = self.treestore.get_value(treeiter, self.THEME_PATH)
+        self.preset_select_callback(
+            current_theme, current_preset_path
         )
-
-    def reload_presets(self):
-        selected_path = self.get_colorscheme_path()
-        self.load_presets()
-        self.focus_preset_by_filepath(selected_path)
 
     def _on_keypress(self, _widget, event):
         key = event.keyval
@@ -225,7 +276,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         if key == Keys.KEY_F5:
             self.reload_presets()
         elif key in (Keys.LEFT_ARROW, Keys.RIGHT_ARROW):
-            treepath = self.get_current_treepath()
+            treepath = self._get_current_treepath()
             if not treepath:
                 return
             if key == Keys.RIGHT_ARROW:
@@ -242,42 +293,3 @@ class ThemePresetsList(Gtk.ScrolledWindow):
         if self.treestore.get_value(treeiter, self.THEME_NAME) == _SECTION_RESERVED_NAME:
             section_id = self.treestore.get_value(treeiter, self.THEME_PATH)
             UI_SETTINGS.preset_list_sections_expanded[section_id] = False
-
-    def focus_first_available(self):
-        init_iter = self.treestore.get_iter_first()
-        while init_iter and not self.treeview.row_expanded(self.treestore.get_path(init_iter)):
-            init_iter = self.treestore.iter_next(init_iter)
-        init_iter = self.treestore.iter_children(init_iter)
-        self.treeview.set_cursor(self.treestore.get_path(init_iter))
-
-    def __init__(self, preset_select_callback):
-        super().__init__()
-        self.set_size_request(width=PRESET_LIST_MIN_SIZE, height=-1)
-
-        self.preset_select_callback = preset_select_callback
-
-        self.treestore = Gtk.TreeStore(str, str, str, bool)
-        self.treeview = Gtk.TreeView(
-            model=self.treestore, headers_visible=False
-        )
-        self.treeview.connect(
-            "key-press-event", self._on_keypress
-        )
-        self.treeview.connect(
-            "row-collapsed", self._on_row_collapsed
-        )
-        self.treeview.connect(
-            "row-expanded", self._on_row_expanded
-        )
-        column = Gtk.TreeViewColumn(
-            cell_renderer=Gtk.CellRendererText(), markup=0, sensitive=3
-        )
-        self.treeview.append_column(column)
-        self.load_presets()
-
-        self.add(self.treeview)
-
-        GLib.idle_add(
-            self.focus_first_available,
-            priority=GLib.PRIORITY_HIGH
-        )
