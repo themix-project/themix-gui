@@ -29,7 +29,7 @@ from .plugin_loader import (
     THEME_PLUGINS, ICONS_PLUGINS, IMPORT_PLUGINS, EXPORT_PLUGINS,
 )
 from .plugin_api import PLUGIN_PATH_PREFIX
-from .settings import SETTINGS
+from .settings import UI_SETTINGS
 
 
 class NewDialog(EntryDialog):
@@ -448,14 +448,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_quit(self, _arg1, _arg2):
         self.check_unsaved_changes()
-        SETTINGS.save()
+        UI_SETTINGS.save()
 
     def _on_show_help(self, _action, _param=None):
         self.show_help()
 
     def _on_pane_resize(self, _action, _param=None):
         position = self.paned_box.get_position()
-        SETTINGS.preset_list_width = position
+        UI_SETTINGS.preset_list_width = position
 
     ###########################################################################
     # Init widgets:
@@ -580,7 +580,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_wmclass("oomox", "Oomox")
         self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
-        self.set_default_size(width=600, height=400)
+        self.set_default_size(width=600, height=400)  # @TODO: save in ui-settings
         self.set_hide_titlebar_when_maximized(False)
 
         self._init_headerbar()
@@ -642,7 +642,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.theme_edit.hide_all_rows()
         self.preview.hide()
 
-        self.paned_box.set_position(SETTINGS.preset_list_width)
+        self.paned_box.set_position(UI_SETTINGS.preset_list_width)
         self.paned_box.connect("notify::position", self._on_pane_resize)
 
 

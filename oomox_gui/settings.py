@@ -29,8 +29,12 @@ class OomoxSettings(OomoxConfig):
             super().__setattr__(item, value)
 
 
+UI_SETTINGS = OomoxSettings(
+    config_name='ui_config', default_config=dict(
+        preset_list_width=PRESET_LIST_MIN_SIZE
+    )
+)
 SETTINGS = OomoxSettings(
     config_name='app_config', default_config=dict(
-        preset_list_width=PRESET_LIST_MIN_SIZE
     )
 )

@@ -16,12 +16,13 @@ class Keys:
 
 
 class Settings:
+    # @TODO: move to real settings
     presets_list_system_expanded = True
     presets_list_plugins_expanded = True
     presets_list_user_expanded = True
 
 
-SETTINGS = Settings()
+UI_SETTINGS = Settings()
 PRESET_LIST_MIN_SIZE = 250
 
 _SECTION_RESERVED_NAME = '<section>'
@@ -149,7 +150,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 colors_dir=COLORS_DIR, preset_dir=preset_dir, preset_list=preset_list,
                 parent=presets_iter
             )
-        if SETTINGS.presets_list_system_expanded:
+        if UI_SETTINGS.presets_list_system_expanded:
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
     def _load_plugin_presets(self, all_presets):
@@ -176,7 +177,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                     colors_dir=plugin_theme_dir, preset_dir=preset_dir, preset_list=preset_list,
                     plugin_name=plugin_display_name, parent=plugins_iter
                 )
-        if SETTINGS.presets_list_plugins_expanded:
+        if UI_SETTINGS.presets_list_plugins_expanded:
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
     def _load_user_presets(self, all_presets):
@@ -188,7 +189,7 @@ class ThemePresetsList(Gtk.ScrolledWindow):
                 colors_dir=USER_COLORS_DIR, preset_dir=preset_dir, preset_list=preset_list,
                 parent=user_presets_iter
             )
-        if SETTINGS.presets_list_user_expanded:
+        if UI_SETTINGS.presets_list_user_expanded:
             self.treeview.expand_row(self.treestore.get_path(user_presets_iter), False)
 
     def load_presets(self):
