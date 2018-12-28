@@ -448,6 +448,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_quit(self, _arg1, _arg2):
         self.check_unsaved_changes()
+        UI_SETTINGS.window_width, UI_SETTINGS.window_height = self.get_size()
         UI_SETTINGS.save()
 
     def _on_show_help(self, _action, _param=None):
@@ -580,8 +581,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_wmclass("oomox", "Oomox")
         self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
-        self.set_default_size(width=600, height=400)  # @TODO: save in ui-settings
-        self.set_hide_titlebar_when_maximized(False)
+        self.set_default_size(
+            width=UI_SETTINGS.window_width,
+            height=UI_SETTINGS.window_height
+        )
 
         self._init_headerbar()
 
