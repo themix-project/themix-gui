@@ -9,9 +9,9 @@ usage:
 	$0 [-o OUTPUT_THEME_NAME] [-c COLOR] PRESET_NAME_OR_PATH
 
 examples:
-       $0 -o droid_test_3 -c 5e468c
-       $0 monovedek
-       $0 -o my-theme-name ./colors/lcars"
+	$0 -o droid_test_3 -c 5e468c
+	$0 monovedek
+	$0 -o my-theme-name ./colors/lcars"
 	exit 1
 }
 
@@ -80,6 +80,7 @@ if [[ -z "${THEME:-}" ]] ; then
 		THEME="${OUTPUT_THEME_NAME}"
 	fi
 else
+	# shellcheck disable=SC1090
 	if [[ ${THEME} == */* ]] || [[ ${THEME} == *.* ]] ; then
 		source "$THEME"
 		THEME=$(basename "${THEME}")
@@ -130,14 +131,14 @@ echo ":: Creating symlinks..."
 currentcolour=$(readlink "${tmp_dir}"/Numix/16/places/folder.svg | cut -d '-' -f 1)
 links=$(find -L "${tmp_dir}"/Numix/*/{actions,places} -xtype l)
 for link in $links; do
-    if [[ $link == *folder_color* ]]; then
-        continue
-    fi
-    newlink=$(readlink "${link}");
-    if [[ $newlink == *"$currentcolour"* ]]; then
-        newlink=${newlink/${currentcolour}/custom}
-        ln -sf "${newlink}" "${link}"
-    fi
+	if [[ $link == *folder_color* ]]; then
+		continue
+	fi
+	newlink=$(readlink "${link}");
+	if [[ $newlink == *"$currentcolour"* ]]; then
+		newlink=${newlink/${currentcolour}/custom}
+		ln -sf "${newlink}" "${link}"
+	fi
 done
 
 
