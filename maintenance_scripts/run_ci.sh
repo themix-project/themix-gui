@@ -19,7 +19,7 @@ echo -e "\n== Running pylint:"
 pylint oomox_gui ./plugins/*/oomox_plugin.py --score no &&
 echo ':: pylint passed ::'
 
-if [[ "${NO_SHELLCHECK:-}" = "1" ]] ; then
+if [[ "${SKIP_SHELLCHECK:-}" = "1" ]] ; then
 	echo -e "\n!! WARNING !! skipping shellcheck"
 else
 	echo -e "\n== Running shellcheck:"

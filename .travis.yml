@@ -1,14 +1,14 @@
 language: python
 env:
   matrix:
-    - PYVER=python34_venv_arch NO_SHELLCHECK=1
-    - PYVER=python35_ubuntu_1604 NO_SHELLCHECK=1
-    - PYVER=python36_ubuntu_1804 NO_SHELLCHECK=1
-    - PYVER=current_arch NO_SHELLCHECK=0
+    - PYVER=python34_venv_arch SKIP_SHELLCHECK=1
+    - PYVER=python35_ubuntu_1604 SKIP_SHELLCHECK=1
+    - PYVER=python36_ubuntu_1804 SKIP_SHELLCHECK=1
+    - PYVER=current_arch SKIP_SHELLCHECK=0
 services:
   - docker
 install:
   - mv ./dockerfiles/* ./
   - docker build . -f Dockerfile_$PYVER -t oomox
 script:
-  - docker run --entrypoint ./maintenance_scripts/run_ci.sh oomox:latest --env NO_SHELLCHECK=$NO_SHELLCHECK
+  - docker run --entrypoint ./maintenance_scripts/run_ci.sh oomox:latest --env SKIP_SHELLCHECK=$SKIP_SHELLCHECK
