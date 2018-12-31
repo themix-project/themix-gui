@@ -9,6 +9,6 @@ services:
   - docker
 install:
   - mv ./dockerfiles/* ./
-  - docker build . -f Dockerfile_$PYVER -t oomox
+  - docker build . -f Dockerfile_${PYVER} -t oomox
 script:
-  - docker run --entrypoint ./maintenance_scripts/run_ci.sh oomox:latest --env SKIP_SHELLCHECK=$SKIP_SHELLCHECK
+  - docker run -e SKIP_SHELLCHECK=${SKIP_SHELLCHECK} oomox:latest ./maintenance_scripts/run_ci.sh
