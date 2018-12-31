@@ -528,7 +528,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if EXPORT_PLUGINS:
             for plugin_name, plugin in EXPORT_PLUGINS.items():
                 menu.append_item(Gio.MenuItem.new(
-                    plugin.display_name,
+                    plugin.export_text or plugin.display_name,
                     "win.export_plugin_{}".format(plugin_name)
                 ))
 

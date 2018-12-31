@@ -106,6 +106,9 @@ class OomoxExportPlugin(OomoxPlugin):
     def export_dialog(self) -> 'ExportDialog':
         pass
 
+    # Text to display in export menu:
+    export_text = None  # type: Optional[str]
+
     theme_model_extra = []  # type: List[ThemeModelValue]
 
 
