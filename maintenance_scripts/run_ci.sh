@@ -17,7 +17,7 @@ sleep 3
 
 
 echo -e "\n== Running pylint:"
-pylint oomox_gui ./plugins/*/oomox_plugin.py --score no &&
+pylint oomox_gui ./plugins/*/oomox_plugin.py --score no
 echo ':: pylint passed ::'
 
 
