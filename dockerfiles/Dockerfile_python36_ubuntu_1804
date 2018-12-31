@@ -7,6 +7,4 @@ RUN apt-get update -y && \
 RUN pip3 install setuptools && \
     pip3 install pylint
 
-# run test
 COPY . /opt/oomox-build/
-RUN bash ./maintenance_scripts/run_ci.sh

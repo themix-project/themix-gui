@@ -16,9 +16,9 @@ RUN pacman -Syu --noconfirm && \
         cd /home/user/python34 && \
         makepkg --install --syncdeps --noconfirm"
 
-# run test
 COPY . /opt/oomox-build/
-RUN bash -c "\
+# customize test
+RUN echo "\
     set -ueo pipefail ; \
     Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp & \
     echo '== Started Xvfb' ; \
@@ -38,4 +38,5 @@ RUN bash -c "\
     echo -n plugins/*/oomox_plugin.py | xargs -d ' ' -n 1 pylint ; \
     deactivate ; \
     \
-    killall Xvfb"
+    killall Xvfb \
+" > /opt/oomox-build/maintenance_scripts/run_ci.sh

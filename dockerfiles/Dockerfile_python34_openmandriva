@@ -9,6 +9,4 @@ RUN urpmi.update -a && \
 RUN pip install setuptools && \
     pip install pylint
 
-# run test
 COPY . /opt/oomox-build/
-RUN bash ./maintenance_scripts/run_ci.sh
