@@ -38,22 +38,25 @@ install:
 	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"screenshot*
 	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"test*
 
+	cp -prf \
+		packaging/ \
+			$(PACKAGING_TMP_DIR)/
+
 ifeq ($(DISABLE_PLUGIN_MATERIA), 1)
 	$(RM) -r $(DEST_APPDIR)/plugins/theme_materia/
+	$(RM) $(PACKAGING_TMP_DIR)/packaging/bin/oomox-materia-cli
 endif
 ifeq ($(DISABLE_PLUGIN_ARC), 1)
 	$(RM) -r $(DEST_APPDIR)/plugins/theme_arc/
 endif
 ifeq ($(DISABLE_PLUGIN_SPOTIFY), 1)
 	$(RM) -r $(DEST_APPDIR)/plugins/oomoxify/
+	$(RM) $(PACKAGING_TMP_DIR)/packaging/bin/oomoxify-cli
 endif
 ifeq ($(DISABLE_PLUGIN_IMPORT_IMAGE), 1)
 	$(RM) -r $(DEST_APPDIR)/plugins/import_pil/
 endif
 
-	cp -prf \
-		packaging/ \
-			$(PACKAGING_TMP_DIR)/
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
 
 	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
