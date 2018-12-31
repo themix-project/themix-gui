@@ -536,7 +536,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def hide_all_rows(self):
         self._no_gui_row.hide()
-        for key, theme_value in THEME_MODEL_BY_KEY.items():
+        for key in THEME_MODEL_BY_KEY:
             row = self._all_rows.get(key)
             row.hide()
 
