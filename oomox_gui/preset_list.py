@@ -5,7 +5,7 @@ from gi.repository import Gtk, Gdk, GLib
 
 from .i18n import _
 from .config import USER_COLORS_DIR, COLORS_DIR
-from .settings import PRESET_LIST_MIN_SIZE, UI_SETTINGS
+from .settings import UI_SETTINGS
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import IMPORT_PLUGINS
 from .theme_file import get_presets
@@ -43,7 +43,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
     def __init__(self, preset_select_callback):
         super().__init__()
-        self.set_size_request(width=PRESET_LIST_MIN_SIZE, height=-1)
+        self.set_size_request(width=UI_SETTINGS.preset_list_minimal_width, height=-1)
 
         self.preset_select_callback = preset_select_callback
 

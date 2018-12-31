@@ -83,6 +83,7 @@ UI_SETTINGS = OomoxSettings(
     config_name='ui_config', default_config=dict(
         window_width=600,
         window_height=400,
+        preset_list_minimal_width=PRESET_LIST_MIN_SIZE,
         preset_list_width=PRESET_LIST_MIN_SIZE,
         preset_list_sections_expanded={},
     )
