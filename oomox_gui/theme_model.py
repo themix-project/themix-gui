@@ -18,7 +18,7 @@ def sorted_dict(_dict):
     return dict(sorted(_dict.items(), key=lambda x: x))
 
 
-def get_base_keys(base_theme_model):
+def get_key_indexes(base_theme_model):
     return {
         theme_value['key']: index
         for index, theme_value in enumerate(base_theme_model)
@@ -32,7 +32,7 @@ def merge_model_with_base(
 ):
     if base_theme_model is None:
         base_theme_model = []
-    base_keys = get_base_keys(base_theme_model)
+    base_keys = get_key_indexes(base_theme_model)
 
     if value_filter_key:
         for theme_value in base_theme_model:
@@ -44,7 +44,7 @@ def merge_model_with_base(
         for theme_value in plugin_theme_model:
             if 'key' not in theme_value or theme_value['key'] not in base_keys:
                 base_theme_model.append(theme_value)
-                base_keys = get_base_keys(base_theme_model)
+                base_keys = get_key_indexes(base_theme_model)
         plugin_theme_model_keys = [
             theme_value['key']
             for theme_value in plugin_theme_model
@@ -482,7 +482,8 @@ merge_model_with_base(
 )
 
 THEME_MODEL_BY_KEY = {
-    value['key']: value
-    for value in THEME_MODEL
-    if 'key' in value
+    value.get('key') or (
+        value['display_name'] + str(option_idx)
+    ): value
+    for option_idx, value in enumerate(THEME_MODEL)
 }

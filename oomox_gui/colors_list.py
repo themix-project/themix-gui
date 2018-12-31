@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk, GLib, Gdk
 
-from .theme_model import THEME_MODEL, THEME_MODEL_BY_KEY
+from .theme_model import THEME_MODEL_BY_KEY
 from .palette_cache import PaletteCache
 from .color import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
@@ -427,10 +427,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self._no_gui_row = SeparatorListBoxRow(_("Can't Be Edited in GUI"))
         self.listbox.add(self._no_gui_row)
         self._all_rows = {}
-        for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get('key') or (
-                theme_value['display_name'] + str(option_idx)
-            )
+        for key, theme_value in THEME_MODEL_BY_KEY.items():
             display_name = theme_value.get('display_name', key)
             row = None
 
@@ -518,10 +515,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             self._no_gui_row.show()
         else:
             self._no_gui_row.hide()
-        for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get('key') or (
-                theme_value['display_name'] + str(option_idx)
-            )
+        for key, theme_value in THEME_MODEL_BY_KEY.items():
             row = self._all_rows.get(key)
             if not row:
                 continue
@@ -542,10 +536,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def hide_all_rows(self):
         self._no_gui_row.hide()
-        for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get('key') or (
-                theme_value['display_name'] + str(option_idx)
-            )
+        for key, theme_value in THEME_MODEL_BY_KEY.items():
             row = self._all_rows.get(key)
             row.hide()
 
