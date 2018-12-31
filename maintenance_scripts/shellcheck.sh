@@ -16,6 +16,7 @@ SCRIPT_DIR="$(readlink -e "${TEST_DIR}"/..)"
 		-not -path './plugins/theme_arc/arc-theme/*' \
 		-not -path './plugins/theme_materia/materia-theme/*' \
 		-not -path './plugins/theme_oomox/gtk-theme/*' \
+		-or -path './packaging/bin/*' \
 	)
 )
 
