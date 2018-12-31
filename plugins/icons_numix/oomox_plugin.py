@@ -97,9 +97,9 @@ class Plugin(OomoxIconsPlugin):
         # ).replace(
         #     "00ff00", colorscheme["ICONS_LIGHT"] or FALLBACK_COLOR
         return svg_template.replace(
-            "ff0000", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
+            "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
         ).replace(
-            "00ff00", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
+            "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
         ).replace(
-            "0000ff", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
+            "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
         )
