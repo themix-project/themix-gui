@@ -11,8 +11,8 @@ install:
   - mv ./dockerfiles/* ./
   - docker build . -f Dockerfile_${PYVER} -t oomox
 script:
-  - docker run \
-      -e SKIP_SHELLCHECK=${SKIP_SHELLCHECK} \
-      -e SKIP_MYPY=${SKIP_MYPY} \
-      oomox:latest \
+  - docker run
+      -e SKIP_SHELLCHECK=${SKIP_SHELLCHECK}
+      -e SKIP_MYPY=${SKIP_MYPY}
+      oomox:latest
       ./maintenance_scripts/run_ci.sh
