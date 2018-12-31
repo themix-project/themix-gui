@@ -15,9 +15,20 @@ python3 --version
 export DISPLAY=:99
 sleep 3
 
+
 echo -e "\n== Running pylint:"
 pylint oomox_gui ./plugins/*/oomox_plugin.py --score no &&
 echo ':: pylint passed ::'
+
+
+if [[ "${SKIP_MYPY:-}" = "1" ]] ; then
+	echo -e "\n!! WARNING !! skipping mypy"
+else
+	echo -e "\n== Running mypy:"
+	env MYPYPATH=./maintenance_scripts/mypy_stubs mypy oomox_gui/plugin_api.py
+	echo ':: mypy passed ::'
+fi
+
 
 if [[ "${SKIP_SHELLCHECK:-}" = "1" ]] ; then
 	echo -e "\n!! WARNING !! skipping shellcheck"

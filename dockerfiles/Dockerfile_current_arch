@@ -3,6 +3,6 @@ WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
 RUN pacman -Syu --noconfirm && \
-    pacman -S --needed --noconfirm gtk3 python-gobject python-pylint xorg-server-xvfb shellcheck
+    pacman -S --needed --noconfirm gtk3 python-gobject python-pylint xorg-server-xvfb mypy shellcheck
 
 COPY . /opt/oomox-build/

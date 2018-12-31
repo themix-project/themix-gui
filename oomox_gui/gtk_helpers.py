@@ -194,7 +194,7 @@ class GObjectABCMetaAbstractProperty():
     pass
 
 
-class GObjectABCMeta(GObjectMeta):
+class GObjectABCMeta(GObjectMeta, type):
 
     ABS_METHODS = '__abstract_methods__'
 
@@ -216,7 +216,7 @@ class GObjectABCMeta(GObjectMeta):
                     return
             if required_methods:
                 raise TypeError(
-                    "Can't instantiate abstract class {} without abstract methods {}".format(
+                    "Can't instantiate abstract class {} with abstract methods {}".format(
                         cls.__name__,
                         ','.join(required_methods)
                     )

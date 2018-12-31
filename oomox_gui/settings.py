@@ -3,13 +3,18 @@ import json
 
 from .config import USER_CONFIG_DIR
 
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import Dict  # noqa
+
 
 class CommonOomoxConfig:
 
     name = None
     config_dir = None
     config_path = None
-    default_config = {}
+    default_config = {}  # type: Dict[str,str]
     config = None
 
     def __init__(self, config_dir, config_name, default_config=None):

@@ -6,6 +6,13 @@ from .plugin_loader import (
 )
 from .i18n import _
 
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import List, Dict, Any  # noqa
+
+    ThemeModelValue = Dict[str, Any]
+
 
 def sorted_dict(_dict):
     return dict(sorted(_dict.items(), key=lambda x: x))
@@ -69,7 +76,7 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
     )
 
 
-THEME_MODEL = []
+THEME_MODEL = []  # type: List[ThemeModelValue]
 merge_model_with_base(
     whole_theme_model=THEME_MODEL,
     plugin_model_name='import',
@@ -231,7 +238,7 @@ BASE_ICON_THEME_MODEL = [
         'display_name': _('Icons Style')
     },
 ]
-THEME_MODEL += BASE_ICON_THEME_MODEL
+THEME_MODEL += BASE_ICON_THEME_MODEL  # type: ignore
 merge_model_with_base(
     whole_theme_model=THEME_MODEL,
     plugin_model_name='icons',
