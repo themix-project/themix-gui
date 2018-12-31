@@ -1,7 +1,7 @@
 language: python
 env:
   matrix:
-    - PYVER=python34_venv_arch SKIP_SHELLCHECK=1
+    #- PYVER=python34_venv_arch SKIP_SHELLCHECK=1
     - PYVER=python35_ubuntu_1604 SKIP_SHELLCHECK=1
     - PYVER=python36_ubuntu_1804 SKIP_SHELLCHECK=1
     - PYVER=current_arch SKIP_SHELLCHECK=0
