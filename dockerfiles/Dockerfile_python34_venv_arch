@@ -18,7 +18,7 @@ RUN pacman -Syu --noconfirm && \
 
 COPY . /opt/oomox-build/
 # customize test
-RUN echo "\
+RUN echo -e "#!/usr/bin/env bash\n
     set -ueo pipefail ; \
     Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp & \
     echo '== Started Xvfb' ; \
