@@ -22,7 +22,7 @@ source=(
 	"git+https://github.com/themix-project/archdroid-icon-theme.git#branch=master"
 	"git+https://github.com/themix-project/gnome-colors-icon-theme.git#branch=master"
 	"git+https://github.com/themix-project/oomoxify.git#branch=master"
-	"git+https://github.com/base16-builder/base16-builder#branch=master"
+	"git+https://github.com/themix-project/base16_mirror.git#branch=master"
 	"git+https://github.com/numixproject/numix-icon-theme.git#branch=master"
 	"git+https://github.com/numixproject/numix-folders.git#branch=master"
 )
@@ -58,6 +58,8 @@ depends=(
 	'parallel'  # materia, arc
 	'optipng'  # materia, arc
 	'python-pillow'  # import_pil
+	'python-pystache'  #  base16_format
+	'python-yaml'  #  base16_format
 
 	'resvg-git'  # materia, arc
 	##or
@@ -92,7 +94,7 @@ prepare(){
 	git config submodule.archdroid-icon-theme.url $srcdir/archdroid-icon-theme
 	git config submodule.gnome-colors-icon-theme.url $srcdir/gnome-colors-icon-theme
 	git config submodule.oomoxify.url $srcdir/oomoxify
-	git config submodule.base16-builder.url $srcdir/base16-builder
+	git config submodule.base16_mirror.url $srcdir/base16_mirror
 	git config submodule.numix-folders.url $srcdir/numix-folders
 	git config submodule.numix-icon-theme.url $srcdir/numix-icon-theme
 	git submodule update

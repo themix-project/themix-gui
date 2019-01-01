@@ -153,7 +153,3 @@ def mix_theme_colors(theme_color_1, theme_color_2, ratio):
             ratio=ratio
         )
     )
-
-
-def mix_hex_colors(hex_color_1, hex_color_2, ratio):
-    return mix_theme_colors(hex_color_1[1:], hex_color_2[1:], ratio)

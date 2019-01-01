@@ -150,6 +150,11 @@ Spotify theme:
 Import colors from images:
  - `python3 PIL or Pillow`
 
+Base16 format support:
+ - `python3 pystache`
+ - `python3 yaml`
+
+
 #### Installation
 
 ```sh

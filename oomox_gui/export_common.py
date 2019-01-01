@@ -47,8 +47,9 @@ class ExportDialog(Gtk.Dialog):
         self.destroy()
 
     def show_text(self):
-        self.box.add(self.scrolled_window)
-        self.scrolled_window.show_all()
+        if not self.scrolled_window.get_visible():
+            self.box.add(self.scrolled_window)
+            self.scrolled_window.show_all()
 
     def show_error(self):
         self.box.remove(self.label)

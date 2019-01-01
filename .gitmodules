@@ -13,9 +13,6 @@
 [submodule "oomoxify"]
 	path = plugins/oomoxify
 	url = https://github.com/themix-project/oomoxify.git
-[submodule "base16-builder"]
-	path = plugins/import_base16/base16-data
-	url = https://github.com/base16-builder/base16-builder
 [submodule "arc-theme"]
 	path = plugins/theme_arc/arc-theme
 	url = https://github.com/NicoHood/arc-theme.git
@@ -26,3 +23,6 @@
 [submodule "numix-folders"]
 	path = plugins/icons_numix/numix-folders
 	url = https://github.com/numixproject/numix-folders.git
+[submodule "base16_mirror"]
+	path = plugins/import_base16/base16_mirror
+	url = https://github.com/themix-project/base16_mirror.git
