@@ -175,10 +175,10 @@ class FileBasedExportDialog(ExportDialog):
     def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
         super().__init__(transient_for=transient_for, **kwargs)
         self.theme_name = 'oomox-' + theme_name.split('/')[-1]
-        colorscheme_copy = generate_terminal_colors_for_oomox(colorscheme)
+        self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
         self.temp_theme_path = save_colorscheme(
             preset_name=theme_name,
-            colorscheme=colorscheme_copy,
+            colorscheme=self.colorscheme,
             path=tempfile.mkstemp()[1]
         )
 
