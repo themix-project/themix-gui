@@ -46,6 +46,10 @@ class ExportDialog(Gtk.Dialog):
     def _close_button_callback(self, _widget):
         self.destroy()
 
+    def show_text(self):
+        self.box.add(self.scrolled_window)
+        self.scrolled_window.show_all()
+
     def show_error(self):
         self.box.remove(self.label)
         self.box.remove(self.spinner)
