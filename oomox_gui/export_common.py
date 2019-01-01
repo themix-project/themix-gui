@@ -87,12 +87,10 @@ class ExportDialog(Gtk.Dialog):
         self.log = Gtk.TextView()
         self.log.set_editable(False)
         # self.log.set_cursor_visible(False)
-        if Gtk.get_minor_version() >= 16:
-            self.log.set_monospace(True)
-        else:
-            self.log.override_font(
-                Pango.font_description_from_string("monospace")
-            )
+        self.log.override_font(
+            # @TODO: make log size configurable?
+            Pango.font_description_from_string("monospace 8")
+        )
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
         #
         self.scrolled_window = Gtk.ScrolledWindow(expand=True)
