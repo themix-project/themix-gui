@@ -292,8 +292,8 @@ class ThemePreview(Gtk.Grid):
                 }}
                 """.format(
                     color=color,
-                    amount1=1 - gradient / 2,
-                    amount2=1 + gradient * 2
+                    amount1=1 + gradient / 2,
+                    amount2=1 - gradient / 2,
                 )
             ).encode('ascii'))
             Gtk.StyleContext.add_provider(

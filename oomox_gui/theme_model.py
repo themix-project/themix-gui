@@ -214,6 +214,7 @@ BASE_THEME_MODEL_OPTIONS = [
         'key': 'GRADIENT',
         'type': 'float',
         'fallback_value': 0.0,
+        'max_value': 2.0,
         'display_name': _('Gradient'),
     },
 ]
