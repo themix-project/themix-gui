@@ -352,12 +352,7 @@ class Plugin(PluginBase):
     default_theme = {
         "TERMINAL_THEME_MODE": "manual",
     }
-    translation_common = {
-        "ICONS_LIGHT_FOLDER": "base0C",
-        "ICONS_LIGHT": "base0C",
-        "ICONS_MEDIUM": "base0D",
-        "ICONS_DARK": "base03",
-    }
+    translation_common = {}
     translation_common.update(OOMOX_TO_BASE16_TRANSLATION)
     translation_light = {
         "BG": "base05",
@@ -373,21 +368,31 @@ class Plugin(PluginBase):
         "BTN_FG": "base07",
         "HDR_BTN_BG": "base05",
         "HDR_BTN_FG": "base01",
+
+        "ICONS_LIGHT_FOLDER": "base0C",
+        "ICONS_LIGHT": "base0C",
+        "ICONS_MEDIUM": "base0D",
+        "ICONS_DARK": "base03",
     }
     translation_dark = {
         "BG": "base01",
         "FG": "base06",
         "HDR_BG": "base00",
         "HDR_FG": "base05",
-        "SEL_BG": "base08",
+        "SEL_BG": "base0E",
         "SEL_FG": "base00",
-        "ACCENT_BG": "base08",
+        "ACCENT_BG": "base0E",
         "TXT_BG": "base02",
         "TXT_FG": "base07",
         "BTN_BG": "base00",
         "BTN_FG": "base05",
         "HDR_BTN_BG": "base01",
         "HDR_BTN_FG": "base05",
+
+        "ICONS_LIGHT_FOLDER": "base0D",
+        "ICONS_LIGHT": "base0D",
+        "ICONS_MEDIUM": "base0E",
+        "ICONS_DARK": "base00",
     }
     translation_terminal_inverse = {
         "TERMINAL_BACKGROUND": "base06",
