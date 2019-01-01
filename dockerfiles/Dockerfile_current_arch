@@ -3,6 +3,13 @@ WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
 RUN pacman -Syu --noconfirm && \
-    pacman -S --needed --noconfirm gtk3 python-gobject python-pystache python-yaml python-pylint xorg-server-xvfb mypy shellcheck
+    pacman -S --needed --noconfirm gtk3 python-gobject python-yaml python-pylint xorg-server-xvfb mypy shellcheck && \
+    pacman -S --needed --noconfirm git base-devel && \
+    useradd -m user && \
+    echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    sudo -u user bash -c "\
+        git clone https://aur.archlinux.org/python-pystache /home/user/python-pystache && \
+        cd /home/user/python-pystache && \
+        makepkg --install --syncdeps --noconfirm"
 
 COPY . /opt/oomox-build/
