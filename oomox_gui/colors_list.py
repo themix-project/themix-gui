@@ -541,10 +541,12 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             row.hide()
 
     def disable(self):
-        self.transient_for.disable()
+        # self.transient_for.disable()
+        pass  # @TODO:
 
     def enable(self):
-        self.transient_for.enable()
+        # self.transient_for.enable()
+        pass  # @TODO:
 
     def __init__(self, color_edited_callback, theme_reload_callback, transient_for):
         self.transient_for = transient_for
