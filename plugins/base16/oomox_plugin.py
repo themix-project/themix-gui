@@ -300,7 +300,7 @@ class Base16ExportDialog(FileBasedExportDialog):
 
 class Plugin(PluginBase):
 
-    name = 'import_base16'
+    name = 'base16'
     display_name = 'Base16'
     export_text = 'Base16-Based Templates…'
     import_text = 'From Base16 YML Format'
@@ -344,7 +344,7 @@ class Plugin(PluginBase):
             'display_name': _('Edit Imported Theme'),
             'type': 'separator',
             'value_filter': {
-                'FROM_PLUGIN': 'import_base16',
+                'FROM_PLUGIN': name,
             },
         },
     ]
