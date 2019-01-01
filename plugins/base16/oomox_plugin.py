@@ -307,7 +307,6 @@ class Plugin(PluginBase):
     file_extensions = ('.yml', )
     plugin_theme_dir = os.path.abspath(
         os.path.join(PLUGIN_DIR, 'base16_mirror/schemes')
-        # os.path.join(PLUGIN_DIR, 'base16-data/db/schemes')
     )
 
     export_dialog = Base16ExportDialog

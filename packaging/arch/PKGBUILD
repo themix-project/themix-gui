@@ -2,8 +2,8 @@
 # Upstream URL: https://github.com/themix-project/oomox
 
 pkgname=oomox-git
-pkgver=1.9.0.2
-pkgrel=1
+pkgver=1.9.0.2.r85.g1b8e948c
+pkgrel=2
 pkgdesc="Themix: GUI for generating different color variations
 of Arc, Materia, Oomox themes
 (GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
@@ -87,6 +87,18 @@ pkgver() {
 
 prepare(){
 	cd "${srcdir}/oomox"
+
+	# remove submodule if building package update without flushing the dir:
+	git submodule deinit --all || true
+	git config --get-regexp submodule | cut -d' ' -f1 | xargs -n1 git config --unset || true
+	old_paths=(
+		"$srcdir"/oomox/plugins/import_base16/base16-data
+	)
+	for path in "${old_paths[@]}" ; do
+		rm -fr "${path}"
+	done
+
+	# use already downloaded by makepkg git repos as submodules of the main:
 	git submodule init
 	git config submodule.gtk-theme.url $srcdir/oomox-gtk-theme
 	git config submodule.materia-theme.url $srcdir/materia-theme
