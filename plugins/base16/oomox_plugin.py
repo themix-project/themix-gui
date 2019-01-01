@@ -210,6 +210,9 @@ class Base16ExportDialog(FileBasedExportDialog):
 
         self._variants_dropdown.set_active(self.available_variants.index(self.current_variant))
 
+        url = self.templates_homepages.get(self.current_app)
+        self._homepage_button.set_sensitive(bool(url))
+
     def _init_apps_dropdown(self):
         options_store = Gtk.ListStore(str)
         for app_name in self.available_apps:
