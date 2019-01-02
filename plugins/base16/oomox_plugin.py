@@ -304,7 +304,7 @@ class Plugin(PluginBase):
     display_name = 'Base16'
     export_text = 'Base16-Based Templates…'
     import_text = 'From Base16 YML Format'
-    file_extensions = ('.yml', )
+    file_extensions = ('.yml', '.yaml', )
     plugin_theme_dir = os.path.abspath(
         os.path.join(PLUGIN_DIR, 'base16_mirror/schemes')
     )
