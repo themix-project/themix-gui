@@ -163,7 +163,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         ))
 
     @staticmethod
-    def _format_dirname(preset_relpath, plugin_name):
+    def _format_dirname(preset_relpath, plugin_name=None):
         dir_template = '{}: {}'
         dir_display_name, _slash, child_display_name = preset_relpath.lstrip('/').partition('/')
         if child_display_name:
@@ -193,10 +193,10 @@ class ThemePresetList(Gtk.ScrolledWindow):
         )
 
         for preset in sorted_preset_list[1:]:
-            display_name = (
+            display_name = self._format_dirname((
                 preset.name[len(preset_dir):]
                 if preset_dir else preset.name
-            ).lstrip('/')
+            )).lstrip('/')
             self._add_preset(
                 display_name=display_name,
                 name=preset.name,
