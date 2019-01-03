@@ -425,6 +425,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if not dialog_is_yes(RemoveDialog(transient_for=self)):
             return
         self.remove_theme()
+        self.rename_action.set_enabled(False)
+        self.remove_action.set_enabled(False)
         self.reload_presets()
 
     def _on_save(self, _action, _param=None):
