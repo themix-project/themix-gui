@@ -160,7 +160,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if not name:
             name = self.colorscheme_name
         if not self.preset_list.preset_is_saveable():
-            if self.check_colorscheme_exists(name):
+            if (
+                    name.startswith(PLUGIN_PATH_PREFIX)
+            ) or (
+                self.check_colorscheme_exists(name)
+            ):
                 self.clone_theme()
                 return
         new_path = save_colorscheme(name, self.colorscheme)
@@ -255,7 +259,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.reload_presets()
 
     def clone_theme(self):
-        new_theme_name = self.colorscheme_name + '_'
+        new_theme_name = self.colorscheme_name
+        if is_colorscheme_exists(get_user_theme_path(new_theme_name)):
+            new_theme_name += '_'
         if new_theme_name.startswith(PLUGIN_PATH_PREFIX):
             new_theme_name = '/'.join(new_theme_name.split('/')[1:])
         dialog = NewDialog(transient_for=self, entry_text=new_theme_name)
@@ -267,8 +273,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         else:
             self.clone_theme()
 
-    def rename_theme(self):
-        dialog = RenameDialog(transient_for=self, entry_text=self.colorscheme_name)
+    def rename_theme(self, entry_text=None):
+        dialog = RenameDialog(
+            transient_for=self,
+            entry_text=entry_text or self.colorscheme_name
+        )
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
@@ -277,6 +286,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.save_theme(new_theme_name)
             self.remove_theme(old_theme_name)
             self.reload_presets()
+        else:
+            self.rename_theme(entry_text=new_theme_name)
 
     def check_unsaved_changes(self):
         if self.theme_edited:
@@ -341,7 +352,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.theme_edit.open_theme(self.colorscheme)
         self.theme_edited = False
         self.save_action.set_enabled(False)
-        self.rename_action.set_enabled(self.colorscheme_is_user)
+        self.rename_action.set_enabled(self.preset_list.preset_is_saveable())
         self.remove_action.set_enabled(self.colorscheme_is_user)
         self.headerbar.props.title = selected_preset
 

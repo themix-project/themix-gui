@@ -10,31 +10,54 @@ from .helpers import ls_r, mkdir_p
 PresetFile = namedtuple('PresetFile', ['name', 'path', 'default', 'is_saveable', ])
 
 
-def get_presets():
+def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
     from .plugin_api import PLUGIN_PATH_PREFIX
     from .plugin_loader import IMPORT_PLUGINS
+
+    display_name = "".join(
+        theme_path.rsplit(colors_dir)
+    ).lstrip('/')
+
+    rel_path = "".join(theme_path.rsplit(colors_dir))
+    if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
+        plugin_name = rel_path.split(PLUGIN_PATH_PREFIX)[1].split('/')[0]
+        plugin = IMPORT_PLUGINS.get(plugin_name)
+    if plugin:
+        for ext in plugin.file_extensions:
+            if display_name.endswith(ext):
+                display_name = display_name[:-len(ext)]
+                break
+    return display_name, plugin
+
+
+def get_presets():
+    from .plugin_loader import IMPORT_PLUGINS
+
+    def _get_sorter(colors_dir):
+        return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/')[0]
+
     all_results = {}
-    for colors_dir, is_default in [
-            (COLORS_DIR, True),
-            (USER_COLORS_DIR, False),
+    for colors_dir, is_default, plugin in [
+            (COLORS_DIR, True, None),
+            (USER_COLORS_DIR, False, None),
     ] + [
-        (plugin.plugin_theme_dir, True)
+        (plugin.plugin_theme_dir, True, plugin)
         for plugin in IMPORT_PLUGINS.values()
         if plugin.plugin_theme_dir
     ]:
         file_paths = []
         for path in ls_r(colors_dir):
-            preset_name = "".join(path.rsplit(colors_dir))
+            display_name, plugin = get_theme_name_and_plugin(
+                path, colors_dir, plugin
+            )
             file_paths.append(PresetFile(
-                name="".join(
-                    path.rsplit(colors_dir)
-                ),
+                name=display_name,
                 path=os.path.abspath(path),
-                default=is_default,
-                is_saveable=not is_default and not preset_name.startswith(PLUGIN_PATH_PREFIX),
+                default=is_default or plugin,
+                is_saveable=not is_default and not plugin,
             ))
         result = defaultdict(list)
-        for dir_name, group in groupby(file_paths, lambda x: x.name.split('/')[0]):
+        for dir_name, group in groupby(file_paths, _get_sorter(colors_dir)):
             result[dir_name] = sorted(list(group), key=lambda x: x.name)
         all_results[colors_dir] = dict(result)
     return all_results
