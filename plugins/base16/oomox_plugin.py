@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
 import os
 import subprocess
-from typing import TYPE_CHECKING
 
 from gi.repository import Gtk, GLib
 
@@ -30,8 +30,11 @@ else:
     class PluginBase(OomoxImportPlugin, OomoxExportPlugin):  # pylint: disable=abstract-method
         pass
 
-if TYPE_CHECKING:
-    from typing import List  # noqa
+
+if sys.version_info.minor >= 5:
+    from typing import TYPE_CHECKING
+    if TYPE_CHECKING:
+        from typing import List  # noqa
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))

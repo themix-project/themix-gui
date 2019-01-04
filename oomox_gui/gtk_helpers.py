@@ -1,4 +1,4 @@
-from enum import Enum
+from abc import ABCMeta, abstractproperty
 
 from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 from gi.types import GObjectMeta
@@ -6,13 +6,15 @@ from gi.types import GObjectMeta
 from .i18n import _
 
 
-class ActionsEnum(Enum):
+class ActionsEnum(metaclass=ABCMeta):
 
-    def get_name(self):
-        return self.name
+    @abstractproperty
+    def _target(self) -> str:
+        pass
 
-    def get_id(self):
-        return '.'.join([self._target.value, self.name])
+    @classmethod
+    def get_id(cls, name):
+        return '.'.join([cls._target, name])
 
 
 class CenterLabel(Gtk.Label):

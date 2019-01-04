@@ -44,4 +44,5 @@ def delayed_partial(func, delayed_args, rest_args):
     computed_args = []
     for delayed_func, args in delayed_args:
         computed_args.append(delayed_func(*args))
-    return func(*computed_args, *rest_args)
+    all_args = computed_args + list(rest_args)
+    return func(*all_args)

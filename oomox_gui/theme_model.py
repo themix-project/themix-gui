@@ -1,3 +1,4 @@
+import sys
 import os
 
 from .config import TERMINAL_TEMPLATE_DIR
@@ -6,12 +7,14 @@ from .plugin_loader import (
 )
 from .i18n import _
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    # pylint: disable=ungrouped-imports
-    from typing import List, Dict, Any  # noqa
 
-    ThemeModelValue = Dict[str, Any]
+if sys.version_info.minor >= 5:
+    from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+    if TYPE_CHECKING:
+        # pylint: disable=ungrouped-imports
+        from typing import List, Dict, Any  # noqa
+
+        ThemeModelValue = Dict[str, Any]
 
 
 def sorted_dict(_dict):

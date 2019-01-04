@@ -1,12 +1,15 @@
+import sys
 import os
 import json
 
 from .config import USER_CONFIG_DIR
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    # pylint: disable=ungrouped-imports
-    from typing import Dict  # noqa
+
+if sys.version_info.minor >= 5:
+    from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+    if TYPE_CHECKING:
+        # pylint: disable=ungrouped-imports
+        from typing import Dict  # noqa
 
 
 class CommonOomoxConfig:

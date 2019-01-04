@@ -105,19 +105,19 @@ class WindowActions(ActionsEnum):
 
 class WindowWithActions(Gtk.ApplicationWindow):
 
-    def action_tooltip(self, action_enum, tooltip):
-        action_id = action_enum.get_id()
+    def _action_tooltip(self, action_name, tooltip):
+        action_id = WindowActions.get_id(action_name)
         accels = self.get_application().get_accels_for_action(action_id)
         if accels:
             key, mods = Gtk.accelerator_parse(accels[0])
             tooltip += ' ({})'.format(Gtk.accelerator_get_label(key, mods))
         return tooltip
 
-    def attach_action(self, widget, action_enum, with_tooltip=True):
-        action_id = action_enum.get_id()
+    def attach_window_action(self, widget, action_name, with_tooltip=True):
+        action_id = WindowActions.get_id(action_name)
         widget.set_action_name(action_id)
         if with_tooltip:
-            tooltip = self.action_tooltip(action_enum, widget.get_tooltip_text())
+            tooltip = self._action_tooltip(action_name, widget.get_tooltip_text())
             widget.set_tooltip_text(tooltip)
 
     def add_simple_action_by_name(self, action_name, callback):
@@ -125,9 +125,6 @@ class WindowWithActions(Gtk.ApplicationWindow):
         action.connect("activate", callback)
         self.add_action(action)
         return action
-
-    def add_simple_action(self, action_enum, callback):
-        return self.add_simple_action_by_name(action_enum.name, callback)
 
 
 class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes
@@ -504,7 +501,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         import_button.set_use_popover(True)
         import_button.set_menu_model(import_menu)
         self.add_action(Gio.PropertyAction(
-            name=WindowActions.get_name(WindowActions.import_menu),
+            name=WindowActions.import_menu,
             object=import_button,
             property_name="active"
         ))
@@ -513,26 +510,26 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         clone_button = ImageButton(
             "edit-copy-symbolic", _("Clone Current Theme…")
         )
-        self.attach_action(clone_button, WindowActions.clone)
+        self.attach_window_action(clone_button, WindowActions.clone)
         self.headerbar.pack_start(clone_button)
 
         save_button = ImageButton(
             "document-save-symbolic", _("Save Theme")
         )
-        self.attach_action(save_button, WindowActions.save)
+        self.attach_window_action(save_button, WindowActions.save)
         self.headerbar.pack_start(save_button)
 
         rename_button = ImageButton(
             # "preferences-desktop-font-symbolic", "Rename theme"
             "pda-symbolic", _("Rename Theme…")
         )
-        self.attach_action(rename_button, WindowActions.rename)
+        self.attach_window_action(rename_button, WindowActions.rename)
         self.headerbar.pack_start(rename_button)
 
         remove_button = ImageButton(
             "edit-delete-symbolic", _("Remove Theme…")
         )
-        self.attach_action(remove_button, WindowActions.remove)
+        self.attach_window_action(remove_button, WindowActions.remove)
         self.headerbar.pack_start(remove_button)
 
         #
@@ -549,7 +546,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         menu_button.set_use_popover(True)
         menu_button.set_menu_model(menu)
         self.add_action(Gio.PropertyAction(
-            name=WindowActions.get_name(WindowActions.menu),
+            name=WindowActions.menu,
             object=menu_button,
             property_name="active"
         ))
@@ -569,20 +566,20 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             use_underline=True,
             tooltip_text=_("Export Terminal Theme")
         )
-        self.attach_action(export_terminal_button, WindowActions.export_terminal)
+        self.attach_window_action(export_terminal_button, WindowActions.export_terminal)
         self.headerbar.pack_end(export_terminal_button)
 
         export_icons_button = Gtk.Button(label=_("Export _Icons"),
                                          use_underline=True,
                                          tooltip_text=_("Export Icon Theme"))
-        self.attach_action(export_icons_button, WindowActions.export_icons)
+        self.attach_window_action(export_icons_button, WindowActions.export_icons)
         self.headerbar.pack_end(export_icons_button)
 
         # export_button = Gtk.Button(label=_("_Export Theme…"),
         export_button = Gtk.Button(label=_("_Export Theme"),
                                    use_underline=True,
                                    tooltip_text=_("Export GTK Theme"))
-        self.attach_action(export_button, WindowActions.export_theme)
+        self.attach_window_action(export_button, WindowActions.export_theme)
         self.headerbar.pack_end(export_button)
 
         self.spinner = Gtk.Spinner()
@@ -609,19 +606,21 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.box.pack_start(self.paned_box, expand=True, fill=True, padding=0)
 
     def _init_actions(self):
-        self.add_simple_action(WindowActions.import_themix_colors, self._on_import_themix_colors)
+        self.add_simple_action_by_name(
+            WindowActions.import_themix_colors, self._on_import_themix_colors
+        )
         for plugin_name in IMPORT_PLUGINS:
             self.add_simple_action_by_name(
                 "import_plugin_{}".format(plugin_name), self._on_import_plugin
             )
-        self.add_simple_action(WindowActions.clone, self._on_clone)
-        self.save_action = self.add_simple_action(WindowActions.save, self._on_save)
-        self.rename_action = self.add_simple_action(WindowActions.rename, self._on_rename)
-        self.remove_action = self.add_simple_action(WindowActions.remove, self._on_remove)
-        self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
-        self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
-        self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
-        self.add_simple_action(WindowActions.show_help, self._on_show_help)
+        self.add_simple_action_by_name(WindowActions.clone, self._on_clone)
+        self.save_action = self.add_simple_action_by_name(WindowActions.save, self._on_save)
+        self.rename_action = self.add_simple_action_by_name(WindowActions.rename, self._on_rename)
+        self.remove_action = self.add_simple_action_by_name(WindowActions.remove, self._on_remove)
+        self.add_simple_action_by_name(WindowActions.export_theme, self._on_export_theme)
+        self.add_simple_action_by_name(WindowActions.export_icons, self._on_export_icontheme)
+        self.add_simple_action_by_name(WindowActions.export_terminal, self._on_export_terminal)
+        self.add_simple_action_by_name(WindowActions.show_help, self._on_show_help)
         for plugin_name in EXPORT_PLUGINS:
             self.add_simple_action_by_name(
                 "export_plugin_{}".format(plugin_name), self._on_export_plugin
@@ -682,18 +681,18 @@ class OomoxGtkApplication(Gtk.Application):
 
     def do_startup(self):  # pylint: disable=arguments-differ
 
-        def set_accels_for_action(action, accels):
-            self.set_accels_for_action(action.get_id(), accels)
-
         Gtk.Application.do_startup(self)
 
         quit_action = Gio.SimpleAction.new(
-            AppActions.get_name(AppActions.quit), None
+            AppActions.quit, None
         )
         quit_action.connect("activate", self._on_quit)
         self.add_action(quit_action)
 
-        set_accels_for_action(AppActions.quit, ["<Primary>Q"])
+        self.set_accels_for_action(AppActions.get_id(AppActions.quit), ["<Primary>Q"])
+
+        def set_accels_for_action(action, accels):
+            self.set_accels_for_action(WindowActions.get_id(action), accels)
 
         set_accels_for_action(WindowActions.import_menu, ["<Primary>M"])
         set_accels_for_action(WindowActions.clone, ["<Primary>D"])
