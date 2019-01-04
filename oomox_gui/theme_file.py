@@ -20,6 +20,7 @@ def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
 
     rel_path = "".join(theme_path.rsplit(colors_dir))
     if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
+        display_name = '/'.join(display_name.split('/')[1:])
         plugin_name = rel_path.split(PLUGIN_PATH_PREFIX)[1].split('/')[0]
         plugin = IMPORT_PLUGINS.get(plugin_name)
     if plugin:
@@ -41,20 +42,20 @@ def get_presets():
             (COLORS_DIR, True, None),
             (USER_COLORS_DIR, False, None),
     ] + [
-        (plugin.plugin_theme_dir, True, plugin)
-        for plugin in IMPORT_PLUGINS.values()
-        if plugin.plugin_theme_dir
+        (import_plugin.plugin_theme_dir, True, import_plugin)
+        for import_plugin in IMPORT_PLUGINS.values()
+        if import_plugin.plugin_theme_dir
     ]:
         file_paths = []
         for path in ls_r(colors_dir):
-            display_name, plugin = get_theme_name_and_plugin(
+            display_name, preset_plugin = get_theme_name_and_plugin(
                 path, colors_dir, plugin
             )
             file_paths.append(PresetFile(
                 name=display_name,
                 path=os.path.abspath(path),
-                default=is_default or plugin,
-                is_saveable=not is_default and not plugin,
+                default=is_default or bool(preset_plugin),
+                is_saveable=not is_default and not preset_plugin,
             ))
         result = defaultdict(list)
         for dir_name, group in groupby(file_paths, _get_sorter(colors_dir)):
