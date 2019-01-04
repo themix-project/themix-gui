@@ -6,15 +6,34 @@ from gi.types import GObjectMeta
 from .i18n import _
 
 
-class ActionsEnum(metaclass=ABCMeta):
+class ActionProperty(str):
+
+    target = None
+    name = None
+
+    def __new__(cls, name, target):
+        obj = str.__new__(cls, name)
+        obj.name = name
+        obj.target = target
+        return obj
+
+    def get_id(self):
+        return '.'.join([self.target, self.name])
+
+
+class ActionsABC(ABCMeta):
+
+    def __getattribute__(cls, item):
+        if item.startswith('_'):
+            return ABCMeta.__getattribute__(cls, item)
+        return ActionProperty(name=item, target=cls._target)
+
+
+class ActionsEnum(metaclass=ActionsABC):
 
     @abstractproperty
     def _target(self) -> str:
         pass
-
-    @classmethod
-    def get_id(cls, name):
-        return '.'.join([cls._target, name])
 
 
 class CenterLabel(Gtk.Label):
