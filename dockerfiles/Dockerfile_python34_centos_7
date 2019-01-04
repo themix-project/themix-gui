@@ -3,10 +3,11 @@ WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
 RUN yum-config-manager --enable extras && \
-    yum install -y epel-release
-RUN yum upgrade -y && \
+    yum install -y epel-release && \
+    yum upgrade -y && \
     yum install -y gtk3 xorg-x11-server-Xvfb psmisc gnome-tweak-tool \
-        python34-pip python34-gobject python34-PyYAML
+        python34-pip python34-gobject python34-PyYAML && \
+    dbus-uuidgen --ensure
 RUN pip3 install setuptools && \
     pip3 install pylint
 
