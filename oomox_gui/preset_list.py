@@ -258,7 +258,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 grouped_presets = group_presets_by_dir(
                     preset_list, os.path.join(colors_dir, preset_dir)
                 )
-                if len(grouped_presets) == 1:
+                if len(grouped_presets) == 1 and grouped_presets[0][0] == '':
                     grouped_presets = [
                         (preset.name, [preset, ])
                         for preset in grouped_presets[0][1]
