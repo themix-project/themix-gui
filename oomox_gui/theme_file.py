@@ -31,11 +31,22 @@ def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
     return display_name, plugin
 
 
+def get_preset_groups_sorter(colors_dir):
+    return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/')[0]
+
+
+def group_presets_by_dir(preset_list, preset_dir):
+    return [
+        (dir_name, list(group))
+        for dir_name, group in groupby(
+            preset_list,
+            get_preset_groups_sorter(preset_dir)
+        )
+    ]
+
+
 def get_presets():
     from .plugin_loader import IMPORT_PLUGINS
-
-    def _get_sorter(colors_dir):
-        return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/')[0]
 
     all_results = {}
     for colors_dir, is_default, plugin in [
@@ -58,7 +69,7 @@ def get_presets():
                 is_saveable=not is_default and not preset_plugin,
             ))
         result = defaultdict(list)
-        for dir_name, group in groupby(file_paths, _get_sorter(colors_dir)):
+        for dir_name, group in group_presets_by_dir(file_paths, colors_dir):
             result[dir_name] = sorted(list(group), key=lambda x: x.name)
         all_results[colors_dir] = dict(result)
     return all_results
