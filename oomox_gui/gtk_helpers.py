@@ -24,7 +24,7 @@ class ActionProperty(str):
 class ActionsABC(ABCMeta):
 
     def __getattribute__(cls, item):
-        if item.startswith('_'):
+        if item.startswith('_') or item not in dir(cls):
             return ABCMeta.__getattribute__(cls, item)
         return ActionProperty(name=item, target=cls._target)
 
