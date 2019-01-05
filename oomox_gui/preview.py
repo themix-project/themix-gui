@@ -34,6 +34,7 @@ class CssProviders():
             """
             headerbar {
                 border: none;
+                border-radius: 0;
             }
             """
         ).encode('ascii'))
