@@ -123,6 +123,9 @@ class OomoxImportPlugin(OomoxPlugin):
     # Text to display in import menu:
     import_text = None  # type: Optional[str]
 
+    # Text to name section of user presets imported with the plugin:
+    user_presets_display_name = None  # type: Optional[str]
+
     # supported file extensions for filechooser dialog
     file_extensions = []  # type: Iterable[str]
 

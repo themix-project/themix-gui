@@ -254,6 +254,9 @@ class ThemePresetList(Gtk.ScrolledWindow):
                     preset_plugin = plugin
                 if not plugin_theme_dir:
                     continue
+                plugin_name = preset_plugin.display_name or preset_plugin.name
+                if plugin_theme_dir == preset_plugin.user_theme_dir:
+                    plugin_name = preset_plugin.user_presets_display_name or plugin_name
 
                 grouped_presets = group_presets_by_dir(
                     preset_list, os.path.join(colors_dir, preset_dir)
@@ -265,7 +268,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                     ]
 
                 plugin_presets_iter = self._add_directory(
-                    name=preset_plugin.display_name or preset_plugin.name,
+                    name=plugin_name,
                     parent=plugins_iter
                 )
                 for dir_name, group in grouped_presets:

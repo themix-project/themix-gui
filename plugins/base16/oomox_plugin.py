@@ -304,15 +304,17 @@ class Base16ExportDialog(FileBasedExportDialog):
 class Plugin(PluginBase):
 
     name = 'base16'
-    display_name = 'Base16'
-    export_text = 'Base16-Based Templates…'
-    import_text = 'From Base16 YML Format'
+
+    display_name = _('Base16')
+    user_presets_display_name = _('Base16 User-Imported')
+    export_text = _('Base16-Based Templates…')
+    import_text = _('From Base16 YML Format')
+
+    export_dialog = Base16ExportDialog
     file_extensions = ('.yml', '.yaml', )
     plugin_theme_dir = os.path.abspath(
         os.path.join(PLUGIN_DIR, 'base16_mirror/schemes')
     )
-
-    export_dialog = Base16ExportDialog
 
     theme_model_import = [
         {
