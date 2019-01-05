@@ -277,6 +277,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                         preset_list=group,
                         parent=plugin_presets_iter
                     )
+
         if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
