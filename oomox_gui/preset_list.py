@@ -235,7 +235,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
-    def _load_plugin_presets(self, all_presets):
+    def _load_plugin_presets(self, all_presets):  # pylint: disable=too-many-locals
         plugins_iter = self._add_section(Sections.PLUGINS)
         for colors_dir, presets in all_presets.items():
             for preset_dir, preset_list in sorted(presets.items()):
