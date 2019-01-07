@@ -196,6 +196,7 @@ Spotify theme settings are backed up to `~/.config/oomox/spotify_backup`. To und
 
 To learn more about using the application you can check these sources:
 
+  * 2019, [How to import and export Base16 themes in Themix/Oomox](https://gist.github.com/actionless/f9ad9e5ab9eac414dac8a3392beb3ad5)
   * 2018, https://www.youtube.com/watch?v=XO9QA1njIOM by AddictiveTips
   * https://delightlylinux.wordpress.com/2016/08/22/customize-theme-colors-with-oomox/
   * 2016, https://www.youtube.com/watch?v=Dh5TuIYQ6jo by Spatry
