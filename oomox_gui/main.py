@@ -152,6 +152,20 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     spinner = None
 
     _currently_focused_widget = None
+    _inhibit_id = None
+
+    def unset_save_needed(self):
+        self.save_action.set_enabled(False)
+        if self._inhibit_id:
+            self.application.uninhibit(self._inhibit_id)
+
+    def set_save_needed(self):
+        self.save_action.set_enabled(True)
+        self._inhibit_id = self.application.inhibit(
+            self,
+            Gtk.ApplicationInhibitFlags.LOGOUT | Gtk.ApplicationInhibitFlags.SUSPEND,
+            _("There are unsaved changes.\nSave them?")
+        )
 
     def save_theme(self, name=None):
         if not name:
@@ -171,7 +185,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme_path = new_path
         if old_path != new_path:
             self.reload_presets()
-        self.save_action.set_enabled(False)
+        self.unset_save_needed()
         self.headerbar.props.title = self.colorscheme_name
 
     def remove_theme(self, name=None):
@@ -348,7 +362,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
         self.theme_edited = False
-        self.save_action.set_enabled(False)
+        self.unset_save_needed()
         self.rename_action.set_enabled(self.preset_list.preset_is_saveable())
         self.remove_action.set_enabled(self.colorscheme_is_user)
         self.headerbar.props.title = selected_preset
@@ -366,7 +380,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.load_colorscheme(colorscheme)
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.colorscheme_name
-            self.save_action.set_enabled(True)
+            self.set_save_needed()
         self.theme_edited = True
 
     def reload_presets(self):
@@ -456,10 +470,17 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _on_quit(self, _arg1, _arg2):
+    def before_quit(self):
         self.check_unsaved_changes()
         UI_SETTINGS.window_width, UI_SETTINGS.window_height = self.get_size()
         UI_SETTINGS.save()
+
+    def _on_quit(self, _arg1=None, _arg2=None):
+        self.before_quit()
+
+    def close(self):
+        self.before_quit()
+        super().close()
 
     def _on_show_help(self, _action, _param=None):
         self.show_help()
@@ -632,6 +653,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             title=_("Oo-mox GUI"),
             startup_id=application.get_application_id(),
         )
+        self.application = application
         self.colorscheme = {}
         mkdir_p(USER_COLORS_DIR)
 
@@ -732,11 +754,17 @@ def main():
     app = OomoxGtkApplication()
 
     def handle_sig_int(*_whatever):  # pragma: no cover
-        app.quit()
         sys.stderr.write("\n\nCanceled by user (SIGINT)\n")
-        sys.exit(125)
+        app.quit()
+        sys.exit(128 + signal.SIGINT)
+
+    def handle_sig_term(*_whatever):  # pragma: no cover
+        sys.stderr.write("\n\nTerminated by SIGTERM\n")
+        app.quit()
+        sys.exit(128 + signal.SIGTERM)
 
     signal.signal(signal.SIGINT, handle_sig_int)
+    signal.signal(signal.SIGTERM, handle_sig_term)
     app.run(sys.argv)
 
 
