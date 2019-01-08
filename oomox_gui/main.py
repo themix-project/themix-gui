@@ -154,18 +154,23 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     _currently_focused_widget = None
     _inhibit_id = None
 
-    def unset_save_needed(self):
-        self.save_action.set_enabled(False)
+    def _unset_save_needed(self):
+        self.headerbar.props.title = self.colorscheme_name
         if self._inhibit_id:
             self.application.uninhibit(self._inhibit_id)
+        self.save_action.set_enabled(False)
+        self.theme_edited = False
 
-    def set_save_needed(self):
-        self.save_action.set_enabled(True)
+    def _set_save_needed(self):
+        if not self.theme_edited:
+            self.headerbar.props.title = "*" + self.colorscheme_name
         self._inhibit_id = self.application.inhibit(
             self,
             Gtk.ApplicationInhibitFlags.LOGOUT | Gtk.ApplicationInhibitFlags.SUSPEND,
             _("There are unsaved changes.\nSave them?")
         )
+        self.save_action.set_enabled(True)
+        self.theme_edited = True
 
     def save_theme(self, name=None):
         if not name:
@@ -174,19 +179,17 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             if (
                     name.startswith(PLUGIN_PATH_PREFIX)
             ) or (
-                self.check_colorscheme_exists(name)
+                self.ask_colorscheme_exists(name)
             ):
                 self.clone_theme()
                 return
         new_path = save_colorscheme(name, self.colorscheme)
-        self.theme_edited = False
         old_path = self.colorscheme_path
         self.colorscheme_name = name
         self.colorscheme_path = new_path
         if old_path != new_path:
             self.reload_presets()
-        self.unset_save_needed()
-        self.headerbar.props.title = self.colorscheme_name
+        self._unset_save_needed()
 
     def remove_theme(self, name=None):
         if not name:
@@ -206,7 +209,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.on_preset_selected(new_name, new_path)
 
     def import_themix_colors(self):
-        self.check_unsaved_changes()
+        self.ask_unsaved_changes()
 
         filechooser_dialog = Gtk.FileChooserDialog(
             _("Please choose a file with oomox colors"),
@@ -232,7 +235,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             if not dialog_is_yes(dialog):
                 return
             new_theme_name = dialog.entry_text
-            if not self.check_colorscheme_exists(new_theme_name):
+            if not self.ask_colorscheme_exists(new_theme_name):
                 self.import_theme_from_path(
                     path=import_theme_path,
                     new_name=new_theme_name
@@ -240,7 +243,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 return
 
     def import_from_plugin(self, plugin):
-        self.check_unsaved_changes()
+        self.ask_unsaved_changes()
         filechooser_dialog = Gtk.FileChooserDialog(
             _("Please choose an image file"),
             self,
@@ -279,7 +282,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
-        if not self.check_colorscheme_exists(new_theme_name):
+        if not self.ask_colorscheme_exists(new_theme_name):
             self.save_theme(new_theme_name)
         else:
             self.clone_theme()
@@ -292,7 +295,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if not dialog_is_yes(dialog):
             return
         new_theme_name = dialog.entry_text
-        if not self.check_colorscheme_exists(new_theme_name):
+        if not self.ask_colorscheme_exists(new_theme_name):
             old_theme_name = self.colorscheme_name
             self.save_theme(new_theme_name)
             self.remove_theme(old_theme_name)
@@ -300,14 +303,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         else:
             self.rename_theme(entry_text=new_theme_name)
 
-    def check_unsaved_changes(self):
+    def ask_unsaved_changes(self):
         if self.theme_edited:
             if dialog_is_yes(UnsavedDialog(transient_for=self)):
                 self.save_theme()
-            else:
-                self.theme_edited = False
+            # else:  @TODO: remove this branch?
+                # self.theme_edited = False
 
-    def check_colorscheme_exists(self, colorscheme_name):
+    def ask_colorscheme_exists(self, colorscheme_name):
         if not is_colorscheme_exists(get_user_theme_path(colorscheme_name)):
             return False
         dialog = Gtk.MessageDialog(
@@ -321,14 +324,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         dialog.destroy()
         return True
 
-    def select_theme_plugin(self):
+    def _select_theme_plugin(self):
         theme_plugin_name = self.colorscheme['THEME_STYLE']
         self.plugin_theme = None
         for theme_plugin in THEME_PLUGINS.values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
-    def select_icons_plugin(self):
+    def _select_icons_plugin(self):
         icons_plugin_name = self.colorscheme['ICONS_STYLE']
         self.plugin_icons = None
         for icons_plugin in ICONS_PLUGINS.values():
@@ -337,8 +340,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def load_colorscheme(self, colorscheme):
         self.colorscheme = colorscheme
-        self.select_theme_plugin()
-        self.select_icons_plugin()
+        self._select_theme_plugin()
+        self._select_icons_plugin()
         self.generate_terminal_colors()
         try:
             self.preview.update_preview(
@@ -355,17 +358,15 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             print()
 
     def on_preset_selected(self, selected_preset, selected_preset_path):
-        self.check_unsaved_changes()
+        self.ask_unsaved_changes()
         self.colorscheme_name = selected_preset
         self.colorscheme_path = selected_preset_path
         self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
-        self.theme_edited = False
-        self.unset_save_needed()
+        self._unset_save_needed()
         self.rename_action.set_enabled(self.preset_list.preset_is_saveable())
         self.remove_action.set_enabled(self.colorscheme_is_user)
-        self.headerbar.props.title = selected_preset
 
     def theme_reload(self):
         self.on_preset_selected(
@@ -378,10 +379,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def on_color_edited(self, colorscheme):
         self.load_colorscheme(colorscheme)
-        if not self.theme_edited:
-            self.headerbar.props.title = "*" + self.colorscheme_name
-            self.set_save_needed()
-        self.theme_edited = True
+        self._set_save_needed()
 
     def reload_presets(self):
         self.preset_list.load_presets()
@@ -470,16 +468,16 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def before_quit(self):
-        self.check_unsaved_changes()
+    def _before_quit(self):
+        self.ask_unsaved_changes()
         UI_SETTINGS.window_width, UI_SETTINGS.window_height = self.get_size()
         UI_SETTINGS.save()
 
     def _on_quit(self, _arg1=None, _arg2=None):
-        self.before_quit()
+        self._before_quit()
 
-    def close(self):
-        self.before_quit()
+    def close(self):  # pylint: disable=arguments-differ
+        self._before_quit()
         super().close()
 
     def _on_show_help(self, _action, _param=None):
