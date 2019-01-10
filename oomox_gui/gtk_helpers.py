@@ -49,7 +49,7 @@ class CenterLabel(Gtk.Label):
         self.set_margin_bottom(6)
 
 
-class ImageContainer(Gtk.Box):
+class ImageButtonContainer(Gtk.Box):
     box = None
     label = None
     icon = None
@@ -60,25 +60,27 @@ class ImageContainer(Gtk.Box):
         self.box = Gtk.Box()
         self.icon = Gio.ThemedIcon(name=icon_name)
         self.image = Gtk.Image.new_from_gicon(self.icon, Gtk.IconSize.BUTTON)
+        self.get_style_context().add_class('image-button')
         if label:
             self.label = Gtk.Label(label)
             self.box.pack_start(self.label, True, True, 3)
+            self.get_style_context().add_class('text-button')
         self.box.pack_start(self.image, True, True, 3 if self.label else 0)
         self.add(self.box)
         if tooltip_text:
             self.set_tooltip_text(tooltip_text)
 
 
-class ImageButton(Gtk.Button, ImageContainer):
+class ImageButton(Gtk.Button, ImageButtonContainer):
     def __init__(self, *args, **kwargs):
         Gtk.Button.__init__(self)
-        ImageContainer.__init__(self, *args, **kwargs)
+        ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
-class ImageMenuButton(Gtk.MenuButton, ImageContainer):
+class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):
     def __init__(self, *args, **kwargs):
         Gtk.MenuButton.__init__(self)
-        ImageContainer.__init__(self, *args, **kwargs)
+        ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
 class ScaledImage(Gtk.Image):
