@@ -15,6 +15,9 @@ python3 --version
 export DISPLAY=:99
 sleep 3
 
+echo -e "\n== Running python compile:"
+python3 -O -m compileall ./oomox_gui/ ./plugins/*/oomox_plugin.py | (grep -v -e '^Listing' -e '^Compiling' || true)
+echo ':: python compile passed ::'
 
 echo -e "\n== Running pylint:"
 pylint oomox_gui ./plugins/*/oomox_plugin.py --score no
