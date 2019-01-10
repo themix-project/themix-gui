@@ -123,9 +123,9 @@ Materia and Arc themes:
  - `find`
  - `grep`
  - `optipng`
- - `parallel`
- - `inkscape`
  - `gtk2-engine-murrine`
+ - `resvg` or `inkscape`
+ - `parallel` (Materia only)
 
 Gnome-Colors icons:
  - `bc`

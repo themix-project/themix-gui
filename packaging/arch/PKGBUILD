@@ -55,7 +55,7 @@ depends=(
 	'zip'  # oomoxify
 	'polkit'  # oomoxify
 	'imagemagick'  # gnome-colors
-	'parallel'  # materia, arc
+	'parallel'  # materia
 	'optipng'  # materia, arc
 	'python-pillow'  # import_pil
 	'python-pystache'  #  base16_format
