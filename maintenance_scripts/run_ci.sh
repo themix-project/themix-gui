@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 
-Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp &
+(
+	Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp 2>&1 \
+	| grep -v -e '^>' -e 'xkbcomp'
+) &
 xvfb_pid="$!"
 
 clean_up() {
