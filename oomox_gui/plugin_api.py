@@ -71,7 +71,7 @@ class OomoxThemePlugin(OomoxPlugin):
     def preview_transform_function(self, svg_template: str, colorscheme: 'ColorScheme') -> str:
         # pylint: disable=no-self-use
         for key in (
-                "SEL_BG", "ACCENT_BG", "TXT_BG", "BG", "FG",
+                "SEL_BG", "SEL_FG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):
             svg_template = svg_template.replace(
                 "%{}%".format(key), str(colorscheme.get(key) or FALLBACK_COLOR)
