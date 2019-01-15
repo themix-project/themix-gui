@@ -51,15 +51,15 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
-                <property name="accelerator">&lt;Primary&gt;D</property>
-                <property name="title" translatable="yes">Duplicate theme</property>
+                <property name="accelerator">&lt;Primary&gt;S</property>
+                <property name="title" translatable="yes">Save theme</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
-                <property name="accelerator">&lt;Primary&gt;S</property>
-                <property name="title" translatable="yes">Save theme</property>
+                <property name="accelerator">&lt;Primary&gt;D</property>
+                <property name="title" translatable="yes">Duplicate theme</property>
               </object>
             </child>
             <child>
@@ -95,6 +95,13 @@
                 <property name="visible">1</property>
                 <property name="accelerator">&lt;Primary&gt;I</property>
                 <property name="title" translatable="yes">Export icon theme</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
+                <property name="accelerator">&lt;Primary&gt;O</property>
+                <property name="title" translatable="yes">Export other themes</property>
               </object>
             </child>
             <child>

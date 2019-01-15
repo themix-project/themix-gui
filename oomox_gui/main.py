@@ -96,6 +96,7 @@ class WindowActions(ActionsEnum):
     export_icons = "icons"
     export_theme = "theme"
     export_terminal = "terminal"
+    export_menu = "export_menu"
     menu = "menu"
     remove = "remove"
     rename = "rename"
@@ -491,7 +492,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     # Init widgets:
     ###########################################################################
 
-    def _init_headerbar(self):  # pylint: disable=too-many-locals
+    def _init_headerbar(self):  # pylint: disable=too-many-locals,too-many-statements
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
         self.headerbar.props.title = _("Oo-mox GUI")
@@ -503,7 +504,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         import_menu = Gio.Menu()
         import_menu.append_item(Gio.MenuItem.new(
             _("Oomox Colors File"),
-            "win.import_themix_colors"
+            WindowActions.import_themix_colors
         ))
 
         for plugin_name, plugin in IMPORT_PLUGINS.items():
@@ -526,41 +527,46 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         ))
         self.headerbar.pack_start(import_button)
 
-        clone_button = ImageButton(
-            "edit-copy-symbolic", _("Clone Current Theme…")
-        )
-        self.attach_action(clone_button, WindowActions.clone)
-        self.headerbar.pack_start(clone_button)
+        #
 
         save_button = ImageButton(
             "document-save-symbolic", _("Save Theme")
         )
         self.attach_action(save_button, WindowActions.save)
-        self.headerbar.pack_start(save_button)
+        # self.headerbar.pack_start(save_button)
+
+        clone_button = ImageButton(
+            "document-save-as-symbolic", _("Save as…")
+        )
+        self.attach_action(clone_button, WindowActions.clone)
+        # self.headerbar.pack_start(clone_button)
 
         rename_button = ImageButton(
             # "preferences-desktop-font-symbolic", "Rename theme"
             "pda-symbolic", _("Rename Theme…")
         )
         self.attach_action(rename_button, WindowActions.rename)
-        self.headerbar.pack_start(rename_button)
+        # self.headerbar.pack_start(rename_button)
 
         remove_button = ImageButton(
             "edit-delete-symbolic", _("Remove Theme…")
         )
         self.attach_action(remove_button, WindowActions.remove)
-        self.headerbar.pack_start(remove_button)
+        # self.headerbar.pack_start(remove_button)
+
+        linked_preset_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.StyleContext.add_class(
+            linked_preset_box.get_style_context(), "linked"
+        )
+        linked_preset_box.add(save_button)
+        linked_preset_box.add(clone_button)
+        linked_preset_box.add(rename_button)
+        linked_preset_box.add(remove_button)
+        self.headerbar.pack_start(linked_preset_box)
 
         #
 
         menu = Gio.Menu()
-        if EXPORT_PLUGINS:
-            for plugin_name, plugin in EXPORT_PLUGINS.items():
-                menu.append_item(Gio.MenuItem.new(
-                    plugin.export_text or plugin.display_name,
-                    "win.export_plugin_{}".format(plugin_name)
-                ))
-
         menu_button = ImageMenuButton("open-menu-symbolic")
         menu_button.set_use_popover(True)
         menu_button.set_menu_model(menu)
@@ -579,31 +585,57 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         #
 
-        export_terminal_button = Gtk.Button(
-            label=_("Export _Terminal"),
-            # label=_("Export _Terminal…"),
+        export_theme_button = Gtk.Button(
+            # label=_("_Export Theme"),
+            label=_("_Export Theme…"),
             use_underline=True,
-            tooltip_text=_("Export Terminal Theme")
+            tooltip_text=_("Export GTK Theme")
         )
-        self.attach_action(export_terminal_button, WindowActions.export_terminal)
-        self.headerbar.pack_end(export_terminal_button)
+        self.attach_action(export_theme_button, WindowActions.export_theme)
 
-        export_icons_button = Gtk.Button(label=_("Export _Icons"),
-                                         use_underline=True,
-                                         tooltip_text=_("Export Icon Theme"))
+        export_icons_button = Gtk.Button(
+            label=_("Export _Icons"),
+            use_underline=True,
+            tooltip_text=_("Export Icon Theme")
+        )
         self.attach_action(export_icons_button, WindowActions.export_icons)
-        self.headerbar.pack_end(export_icons_button)
 
-        # export_button = Gtk.Button(label=_("_Export Theme…"),
-        export_button = Gtk.Button(label=_("_Export Theme"),
-                                   use_underline=True,
-                                   tooltip_text=_("Export GTK Theme"))
-        self.attach_action(export_button, WindowActions.export_theme)
-        self.headerbar.pack_end(export_button)
+        export_menu = Gio.Menu()
+        export_menu.append_item(Gio.MenuItem.new(
+            _("Export _Terminal…"),
+            WindowActions.export_terminal.get_id()
+        ))
+        if EXPORT_PLUGINS:
+            for plugin_name, plugin in EXPORT_PLUGINS.items():
+                export_menu.append_item(Gio.MenuItem.new(
+                    plugin.export_text or plugin.display_name,
+                    "win.export_plugin_{}".format(plugin_name)
+                ))
+        export_button = ImageMenuButton(
+            icon_name="pan-down-symbolic",
+            tooltip_text=_("Export Themes")
+        )
+        export_button.set_use_popover(True)
+        export_button.set_menu_model(export_menu)
+        self.add_action(Gio.PropertyAction(
+            name=WindowActions.export_menu,
+            object=export_button,
+            property_name="active"
+        ))
+
+        linked_export_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.StyleContext.add_class(
+            linked_export_box.get_style_context(), "linked"
+        )
+        linked_export_box.add(export_theme_button)
+        linked_export_box.add(export_icons_button)
+        linked_export_box.add(export_button)
+        self.headerbar.pack_end(linked_export_box)
+
+        #
 
         self.spinner = Gtk.Spinner()
         self.headerbar.pack_end(self.spinner)
-
         self.set_titlebar(self.headerbar)
 
     def _init_window(self):
@@ -721,6 +753,7 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.remove, ["<Primary>Delete"])
         set_accels_for_action(WindowActions.export_theme, ["<Primary>E"])
         set_accels_for_action(WindowActions.export_icons, ["<Primary>I"])
+        set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
         set_accels_for_action(WindowActions.export_terminal, ["<Primary>T"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
