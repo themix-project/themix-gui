@@ -192,6 +192,19 @@ Also you can normalize font weight with `-w` argument, see `-h` for usage.
 Spotify theme settings are backed up to `~/.config/oomox/spotify_backup`. To undo the changes made by oomoxify, these files can be copied back to their original location `/usr/share/spotify/Apps`. Spotify can also be reinstalled, which will reset these files as well.
 
 
+### Using with tiling WMs:
+
+Create/append to
+`~/.config/gtk-3.0/gtk.css`:
+
+```css
+// remove window title from Client-Side Decorations
+.solid-csd headerbar .title {
+    font-size: 0;
+}
+```
+
+
 ### Review articles and videos
 
 To learn more about using the application you can check these sources:
