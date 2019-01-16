@@ -8,8 +8,8 @@ from .i18n import _
 
 class ActionProperty(str):
 
-    target: str
-    name: str
+    target = None  # type: str
+    name = None  # type: str
 
     def __new__(cls, name, target):
         obj = str.__new__(cls, name)
