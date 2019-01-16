@@ -8,8 +8,8 @@ from .i18n import _
 
 class ActionProperty(str):
 
-    target = None
-    name = None
+    target: str
+    name: str
 
     def __new__(cls, name, target):
         obj = str.__new__(cls, name)
@@ -17,13 +17,13 @@ class ActionProperty(str):
         obj.target = target
         return obj
 
-    def get_id(self):
+    def get_id(self) -> str:
         return '.'.join([self.target, self.name])
 
 
 class ActionsABC(ABCMeta):
 
-    def __getattribute__(cls, item):
+    def __getattribute__(cls, item) -> ActionProperty:
         if item.startswith('_') or item not in dir(cls):
             return ABCMeta.__getattribute__(cls, item)
         return ActionProperty(name=item, target=cls._target)
