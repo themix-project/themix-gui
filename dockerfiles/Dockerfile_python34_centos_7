@@ -9,7 +9,7 @@ RUN yum-config-manager --enable extras && \
         python34-pip python34-gobject python34-PyYAML && \
     dbus-uuidgen --ensure
 RUN pip3 install setuptools && \
-    pip3 install pylint
+    pip3 install pylint flake8
 
 COPY . /opt/oomox-build/
 

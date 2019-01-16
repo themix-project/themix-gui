@@ -305,9 +305,9 @@ class Plugin(OomoxImportPlugin):
         pass
 
     try:
-        import colorthief  # pylint: disable=import-error
-        import colorz  # pylint: disable=import-error
-        import haishoku  # pylint: disable=import-error
+        import colorthief  # noqa pylint: disable=import-error
+        import colorz  # noqa pylint: disable=import-error
+        import haishoku  # noqa pylint: disable=import-error
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'] += [{
             'value': 'all_low',

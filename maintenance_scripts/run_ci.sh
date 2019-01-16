@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 
-(
-	Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp 2>&1 \
-	| grep -v -e '^>' -e 'xkbcomp'
-) &
+Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp 2>&1  &
 xvfb_pid="$!"
 
 clean_up() {
+	echo -e "\n== Killing Xvfb..."
 	kill ${xvfb_pid}
+	echo "== Done."
 }
 trap clean_up EXIT SIGHUP SIGINT SIGTERM
 
@@ -21,6 +20,10 @@ sleep 3
 echo -e "\n== Running python compile:"
 python3 -O -m compileall ./oomox_gui/ ./plugins/*/oomox_plugin.py | (grep -v -e '^Listing' -e '^Compiling' || true)
 echo ':: python compile passed ::'
+
+echo -e "\n== Running flake8:"
+flake8 oomox_gui/ ./plugins/*/oomox_plugin.py
+echo ':: flake8 passed ::'
 
 echo -e "\n== Running pylint:"
 pylint oomox_gui ./plugins/*/oomox_plugin.py --score no

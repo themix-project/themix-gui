@@ -3,7 +3,7 @@ WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
 RUN pacman -Syu --noconfirm && \
-    pacman -S --needed --noconfirm gtk3 python-gobject python-yaml python-pylint xorg-server-xvfb mypy shellcheck && \
+    pacman -S --needed --noconfirm gtk3 python-gobject python-yaml flake8 python-pylint xorg-server-xvfb mypy shellcheck && \
     pacman -S --needed --noconfirm git base-devel && \
     useradd -m user && \
     echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
