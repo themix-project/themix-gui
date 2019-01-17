@@ -99,6 +99,21 @@ class Plugin(OomoxThemePlugin):
         'GTK3_GENERATE_DARK',
     ]
 
+    theme_model_gtk = [
+        {
+            'key': 'CARET1_FG',
+            'type': 'color',
+            'fallback_key': 'TXT_FG',
+            'display_name': _('Primary Caret'),
+        },
+        {
+            'key': 'CARET2_FG',
+            'type': 'color',
+            'fallback_key': 'TXT_FG',
+            'display_name': _('Secondary Caret'),
+        },
+    ]
+
     theme_model_options = [
         {
             'type': 'separator',
@@ -145,18 +160,6 @@ class Plugin(OomoxThemePlugin):
             'value_filter': {
                 'THEME_STYLE': 'oomox',
             },
-        },
-        {
-            'key': 'CARET1_FG',
-            'type': 'color',
-            'fallback_key': 'TXT_FG',
-            'display_name': _('Primary Caret Color'),
-        },
-        {
-            'key': 'CARET2_FG',
-            'type': 'color',
-            'fallback_key': 'TXT_FG',
-            'display_name': _('Secondary Caret Color'),
         },
         {
             'key': 'CARET_SIZE',
