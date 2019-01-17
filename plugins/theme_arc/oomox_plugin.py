@@ -154,9 +154,7 @@ class Plugin(OomoxThemePlugin):
     #     'ROUNDNESS',
     # ]
 
-    theme_model_gtk = []
-
-    theme_model_options = [
+    theme_model_gtk = [
         {
             'key': 'ARC_WIDGET_BORDER_COLOR',
             'fallback_function': lambda colors: mix_theme_colors(
@@ -164,13 +162,16 @@ class Plugin(OomoxThemePlugin):
                 0.75
             ),
             'type': 'color',
-            'display_name': _('GTK3 Widget Border Color'),
+            'display_name': _('Border'),
         },
+    ]
+
+    theme_model_options = [
         {
             'key': 'ARC_TRANSPARENCY',
             'type': 'bool',
             'fallback_value': True,
-            'display_name': _('Enable GTK3 Theme Transparency'),
+            'display_name': _('Enable Theme Transparency'),
         },
         # {
         #     'key': 'GTK3_GENERATE_DARK',
