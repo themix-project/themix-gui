@@ -129,12 +129,12 @@ BASE_THEME_MODEL_GTK = [
     {
         'key': 'SEL_BG',
         'type': 'color',
-        'display_name': _('Selection Color')
+        'display_name': _('Selected Backround')
     },
     {
         'key': 'SEL_FG',
         'type': 'color',
-        'display_name': _('Selection Text'),
+        'display_name': _('Selected Text'),
     },
     {
         'key': 'ACCENT_BG',
