@@ -26,3 +26,6 @@
 [submodule "base16_mirror"]
 	path = plugins/base16/base16_mirror
 	url = https://github.com/themix-project/base16_mirror.git
+[submodule "plugins/icons_papirus/papirus-icon-theme"]
+	path = plugins/icons_papirus/papirus-icon-theme
+	url = https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git
