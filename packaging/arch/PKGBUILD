@@ -25,8 +25,10 @@ source=(
 	"git+https://github.com/themix-project/base16_mirror.git#branch=master"
 	"git+https://github.com/numixproject/numix-icon-theme.git#branch=master"
 	"git+https://github.com/numixproject/numix-folders.git#branch=master"
+	"git+https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git#branch=master"
 )
 md5sums=(
+	"SKIP"
 	"SKIP"
 	"SKIP"
 	"SKIP"
@@ -109,6 +111,7 @@ prepare(){
 	git config submodule.base16_mirror.url $srcdir/base16_mirror
 	git config submodule.numix-folders.url $srcdir/numix-folders
 	git config submodule.numix-icon-theme.url $srcdir/numix-icon-theme
+	git config submodule.papirus-icon-theme.url $srcdir/papirus-icon-theme
 	git submodule update
 }
 
