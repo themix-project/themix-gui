@@ -97,7 +97,7 @@ trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 
 
 : "${ICONS_COLOR:=$SEL_BG}"
-: "${ICONS_THEME:=Papirus}"  # Papirus | Papirus-Dark | Papirus-Light
+: "${ICONS_PAPIRUS_THEME:=Papirus}"  # Papirus | Papirus-Dark | Papirus-Light
 : "${OUTPUT_THEME_NAME:=oomox-$THEME}"
 
 output_dir="$HOME/.icons/$OUTPUT_THEME_NAME"
@@ -114,10 +114,10 @@ dark_stroke_fallback="$(darker "$ICONS_COLOR" 56)"
 echo ":: Copying theme template..."
 cp -R "$root/papirus-icon-theme/Papirus" "$tmp_dir/"
 
-if [ "$ICONS_THEME" != "Papirus" ]; then
-	find "$root/papirus-icon-theme/$ICONS_THEME" -type f -name '*.svg' \
+if [ "$ICONS_PAPIRUS_THEME" != "Papirus" ]; then
+	find "$root/papirus-icon-theme/$ICONS_PAPIRUS_THEME" -type f -name '*.svg' \
 		-printf '%P\n' | while read -r file_path; do
-		cp -f "$root/papirus-icon-theme/$ICONS_THEME/$file_path" \
+		cp -f "$root/papirus-icon-theme/$ICONS_PAPIRUS_THEME/$file_path" \
 			"$tmp_dir/Papirus/$file_path"
 	done
 fi

@@ -34,7 +34,7 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_THEME',
+            'key': 'ICONS_PAPIRUS_THEME',
             'type': 'options',
             'options': [{
                 'value': 'Papirus',
