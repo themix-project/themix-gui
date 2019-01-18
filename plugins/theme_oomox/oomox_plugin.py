@@ -104,13 +104,13 @@ class Plugin(OomoxThemePlugin):
             'key': 'CARET1_FG',
             'type': 'color',
             'fallback_key': 'TXT_FG',
-            'display_name': _('Primary Caret'),
+            'display_name': _('Textbox Caret'),
         },
         {
             'key': 'CARET2_FG',
             'type': 'color',
             'fallback_key': 'TXT_FG',
-            'display_name': _('Secondary Caret'),
+            'display_name': _('BiDi Textbox Caret'),
         },
     ]
 
@@ -165,7 +165,7 @@ class Plugin(OomoxThemePlugin):
             'key': 'CARET_SIZE',
             'type': 'float',
             'fallback_value': 0.04,  # GTK's default
-            'display_name': _('Caret Aspect Ratio'),
+            'display_name': _('Textbox Caret Aspect Ratio'),
         },
         # ]
 
