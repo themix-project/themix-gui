@@ -29,13 +29,43 @@ def get_key_indexes(base_theme_model):
     }
 
 
+def merge_plugin_model_with_base(
+        theme_model_name, theme_plugin,
+        base_theme_model, value_filter_key=None
+):
+    base_keys = get_key_indexes(base_theme_model)
+    plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name)
+    plugin_theme_model_keys = []
+    for theme_value in plugin_theme_model:
+        if isinstance(theme_value, str):
+            plugin_theme_model_keys.append(theme_value)
+        else:
+            if 'key' in theme_value:
+                plugin_theme_model_keys.append(theme_value['key'])
+            if 'key' not in theme_value or theme_value['key'] not in base_keys:
+                base_theme_model.append(theme_value)
+                base_keys = get_key_indexes(base_theme_model)
+    if not value_filter_key:
+        return
+    plugin_enabled_keys = getattr(
+        theme_plugin, "enabled_keys_"+theme_model_name, []
+    )
+    for key in plugin_theme_model_keys + plugin_enabled_keys:
+        base_theme_value = base_theme_model[base_keys[key]]
+        value_filter = base_theme_value.setdefault('value_filter', {})
+        value_filter_theme_style = value_filter.setdefault(value_filter_key, [])
+        if not isinstance(value_filter_theme_style, list):
+            value_filter_theme_style = [value_filter_theme_style, ]
+        value_filter_theme_style.append(theme_plugin.name)
+        base_theme_value['value_filter'][value_filter_key] = value_filter_theme_style
+
+
 def merge_model_with_base(
-        whole_theme_model, plugin_model_name,
+        whole_theme_model, theme_model_name,
         plugins, base_theme_model=None, value_filter_key=None
 ):
     if base_theme_model is None:
         base_theme_model = []
-    base_keys = get_key_indexes(base_theme_model)
 
     if value_filter_key:
         for theme_value in base_theme_model:
@@ -43,38 +73,19 @@ def merge_model_with_base(
                 theme_value.setdefault('value_filter', {}).setdefault(value_filter_key, [])
 
     for theme_plugin in plugins.values():
-        plugin_theme_model = getattr(theme_plugin, "theme_model_"+plugin_model_name)
-        plugin_theme_model_keys = []
-        for theme_value in plugin_theme_model:
-            if isinstance(theme_value, str):
-                plugin_theme_model_keys.append(theme_value)
-            else:
-                if 'key' in theme_value:
-                    plugin_theme_model_keys.append(theme_value['key'])
-                if 'key' not in theme_value or theme_value['key'] not in base_keys:
-                    base_theme_model.append(theme_value)
-                    base_keys = get_key_indexes(base_theme_model)
-        if not value_filter_key:
-            continue
-        plugin_enabled_keys = getattr(
-            theme_plugin, "enabled_keys_"+plugin_model_name, []
+        merge_plugin_model_with_base(
+            theme_model_name=theme_model_name,
+            theme_plugin=theme_plugin,
+            base_theme_model=base_theme_model, value_filter_key=value_filter_key
         )
-        for key in plugin_theme_model_keys + plugin_enabled_keys:
-            base_theme_value = base_theme_model[base_keys[key]]
-            value_filter = base_theme_value.setdefault('value_filter', {})
-            value_filter_theme_style = value_filter.setdefault(value_filter_key, [])
-            if not isinstance(value_filter_theme_style, list):
-                value_filter_theme_style = [value_filter_theme_style, ]
-            value_filter_theme_style.append(theme_plugin.name)
-            base_theme_value['value_filter'][value_filter_key] = value_filter_theme_style
     whole_theme_model += base_theme_model
 
 
-def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_model_name):
+def merge_theme_model_with_base(whole_theme_model, base_theme_model, theme_model_name):
     return merge_model_with_base(
         whole_theme_model=whole_theme_model,
         base_theme_model=base_theme_model,
-        plugin_model_name=plugin_model_name,
+        theme_model_name=theme_model_name,
         value_filter_key='THEME_STYLE',
         plugins=THEME_PLUGINS,
     )
@@ -83,7 +94,7 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, plugin_mode
 THEME_MODEL = []  # type: List[ThemeModelValue]
 merge_model_with_base(
     whole_theme_model=THEME_MODEL,
-    plugin_model_name='import',
+    theme_model_name='import',
     value_filter_key='FROM_PLUGIN',
     plugins=IMPORT_PLUGINS,
 )
@@ -246,7 +257,7 @@ BASE_ICON_THEME_MODEL = [
 THEME_MODEL += BASE_ICON_THEME_MODEL  # type: ignore
 merge_model_with_base(
     whole_theme_model=THEME_MODEL,
-    plugin_model_name='icons',
+    theme_model_name='icons',
     value_filter_key='ICONS_STYLE',
     plugins=ICONS_PLUGINS,
 )
@@ -482,7 +493,7 @@ THEME_MODEL += [
 merge_theme_model_with_base(THEME_MODEL, [], 'extra')
 merge_model_with_base(
     whole_theme_model=THEME_MODEL,
-    plugin_model_name='extra',
+    theme_model_name='extra',
     plugins=EXPORT_PLUGINS,
 )
 
