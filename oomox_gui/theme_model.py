@@ -191,13 +191,13 @@ BASE_THEME_MODEL_GTK = [
         'key': 'MENU_BG',
         'fallback_key': 'BG',
         'type': 'color',
-        'filter': lambda v: False
+        'filter': lambda _v: False
     },
     {
         'key': 'MENU_FG',
         'fallback_key': 'FG',
         'type': 'color',
-        'filter': lambda v: False
+        'filter': lambda _v: False
     },
 ]
 merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_GTK, 'gtk')

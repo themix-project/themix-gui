@@ -92,7 +92,7 @@ UI_SETTINGS = OomoxSettings(
     )
 )
 
-SETTINGS = OomoxSettings(
-    config_name='app_config', default_config=dict(
-    )
-)
+# SETTINGS = OomoxSettings(
+#     config_name='app_config', default_config=dict(
+#     )
+# )

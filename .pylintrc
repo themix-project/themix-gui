@@ -323,7 +323,7 @@ property-classes=abc.abstractproperty
 variable-name-hint=(([a-z][a-z0-9_]{2,36})|(_[a-z0-9_]*))$
 
 # Regular expression matching correct variable names
-variable-rgx=(([a-z][a-z0-9_]{2,36})|(_[a-z0-9_]*))$
+variable-rgx=(([a-z][a-z0-9_]{2,36})|(_[a-z0-9_]*)|r|g|b)$
 
 
 [CLASSES]

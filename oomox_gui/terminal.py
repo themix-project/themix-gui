@@ -106,27 +106,6 @@ def generate_theme_from_hint(  # pylint: disable=too-many-arguments
     return modified_colors
 
 
-def get_bright_colors(palette, brightness_margin=20):
-    # brightness_margin = 30
-    # brightness_margin = 40
-    list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
-    bright_colors = []
-    for color in list_of_colors:
-        if max(
-                abs(color[RED]-color[GREEN]) > brightness_margin,
-                abs(color[RED]-color[BLUE]) > brightness_margin,
-                abs(color[GREEN]-color[RED]) > brightness_margin,
-                abs(color[GREEN]-color[BLUE]) > brightness_margin,
-                abs(color[BLUE]-color[GREEN]) > brightness_margin,
-                abs(color[BLUE]-color[RED]) > brightness_margin
-        ):
-            bright_colors.append(color)
-
-    bright_colors.sort(key=sum)
-    bright_colors = [color_hex_from_list(c) for c in bright_colors if 565 > sum(c) > 200]
-    return bright_colors
-
-
 def get_all_colors_from_oomox_colorscheme(palette):
     from .theme_model import THEME_MODEL
 
@@ -165,8 +144,8 @@ class ProgressBar():
 
     LEFT_DECORATION = '['
     RIGHT_DECORATION = ']'
-    EMPTY = '-'
-    FULL = '#'
+    # EMPTY = '-'
+    # FULL = '#'
 
     def __init__(self, length, message=None):
         message = message or str(length)
@@ -260,7 +239,6 @@ def _generate_theme_from_full_palette(
                 all_colors.append(hex_darker(color, i))
                 all_colors.append(hex_darker(color, -i))
 
-    # bright_colors = get_bright_colors(all_colors, brightness_margin=BRIGHTNESS_MARGIN)
     grayest_colors = get_grayest_colors(all_colors)
     bright_colors = set(all_colors)
     bright_colors.difference_update(grayest_colors)

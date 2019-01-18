@@ -182,7 +182,6 @@ class ThemePreview(Gtk.Grid):
     WM_BORDER_WIDTH = 2
 
     theme_plugin_name = None
-    widgets = None
     css_providers = None
 
     # widget sections:

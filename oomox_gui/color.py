@@ -51,20 +51,8 @@ class ColorDiff():
         return [abs(c) for c in self.list]
 
     @property
-    def min(self):
-        return min(self.abs_list)
-
-    @property
     def abs(self):
         return sum(self.abs_list)
-
-    @property
-    def minabs(self):
-        return self.min + self.abs
-
-    @property
-    def avg(self):
-        return self.abs / 3
 
     @property
     def sat(self):
