@@ -44,20 +44,21 @@ def merge_model_with_base(
 
     for theme_plugin in plugins.values():
         plugin_theme_model = getattr(theme_plugin, "theme_model_"+plugin_model_name)
+        plugin_theme_model_keys = []
         for theme_value in plugin_theme_model:
-            if 'key' not in theme_value or theme_value['key'] not in base_keys:
-                base_theme_model.append(theme_value)
-                base_keys = get_key_indexes(base_theme_model)
-        plugin_theme_model_keys = [
-            theme_value['key']
-            for theme_value in plugin_theme_model
-            if 'key' in theme_value
-        ]
+            if isinstance(theme_value, str):
+                plugin_theme_model_keys.append(theme_value)
+            else:
+                if 'key' in theme_value:
+                    plugin_theme_model_keys.append(theme_value['key'])
+                if 'key' not in theme_value or theme_value['key'] not in base_keys:
+                    base_theme_model.append(theme_value)
+                    base_keys = get_key_indexes(base_theme_model)
+        if not value_filter_key:
+            continue
         plugin_enabled_keys = getattr(
             theme_plugin, "enabled_keys_"+plugin_model_name, []
         )
-        if not value_filter_key:
-            continue
         for key in plugin_theme_model_keys + plugin_enabled_keys:
             base_theme_value = base_theme_model[base_keys[key]]
             value_filter = base_theme_value.setdefault('value_filter', {})
