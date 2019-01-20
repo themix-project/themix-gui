@@ -34,21 +34,6 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_PAPIRUS_THEME',
-            'type': 'options',
-            'options': [{
-                'value': 'Papirus',
-                'display_name': 'Papirus',
-            }, {
-                'value': 'Papirus-Dark',
-                'display_name': 'Papirus-Dark',
-            }, {
-                'value': 'Papirus-Light',
-                'display_name': 'Papirus-Light',
-            }],
-            'display_name': _('Base Theme'),
-        },
-        {
             'key': 'ICONS_LIGHT_FOLDER',
             'type': 'color',
             'fallback_key': 'SEL_BG',
@@ -66,6 +51,18 @@ class Plugin(OomoxIconsPlugin):
             'fallback_key': 'HDR_BG',
             'display_name': _('Dark Stroke'),
         },
+        {
+            'key': 'ICONS_SYMBOLIC_ACTION',
+            'type': 'color',
+            'fallback_key': 'MENU_FG',
+            'display_name': _('Actions Icons'),
+        },
+        {
+            'key': 'ICONS_SYMBOLIC_PANEL',
+            'type': 'color',
+            'fallback_key': 'HDR_FG',
+            'display_name': _('Panel Icons'),
+        },
     ]
 
     def preview_transform_function(self, svg_template, colorscheme):
@@ -75,4 +72,8 @@ class Plugin(OomoxIconsPlugin):
             "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
         ).replace(
             "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
+        ).replace(
+            "%SYMBOLIC_ACTION%", colorscheme["ICONS_SYMBOLIC_ACTION"] or FALLBACK_COLOR
+        ).replace(
+            "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR
         )

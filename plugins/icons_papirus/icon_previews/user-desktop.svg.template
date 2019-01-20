@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" version="1.1">
- <rect style="opacity:0.2" width="40" height="36" x="4" y="7" rx="2" ry="2"/>
- <path style="fill:#%LIGHT%" d="M 4,9.9 4,40 c 0,1.108 0.892,2 2,2 l 36,0 c 1.108,0 2,-0.892 2,-2 L 44,9.9 Z"/>
- <path style="fill:#%DARK%" d="M 6,6 C 4.892,6 4,6.892 4,8 V 10 H 44 V 8 C 44,6.892 43.108,6 42,6 Z"/>
- <path style="fill:#%DARK%" d="M 16,38 C 14.892,38 14,38.892 14,40 V 42 H 34 V 40 C 34,38.892 33.108,38 32,38 Z"/>
- <path style="opacity:.1;fill:#ffffff" d="m6 6c-1.108 0-2 0.892-2 2v1c0-1.108 0.892-2 2-2h36c1.108 0 2 0.892 2 2v-1c0-1.108-0.892-2-2-2z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" version="1.1">
+ <defs>
+  <style id="current-color-scheme" type="text/css">
+   .ColorScheme-Text { color:#%SYMBOLIC_ACTION%; } .ColorScheme-Highlight { color:#5294e2; }
+  </style>
+ </defs>
+ <g transform="matrix(1,0,0,1,4,4)">
+  <path class="ColorScheme-Text" d="M 6.5 1 A 5.5 5.5 0 0 0 1 6.5 A 5.5 5.5 0 0 0 6.5 12 A 5.5 5.5 0 0 0 9.6172 11.031 L 13.279 14.693 A 1 1 0 0 0 14 15 A 1 1 0 0 0 15 14 A 1 1 0 0 0 14.697 13.283 L 11.027 9.6133 A 5.5 5.5 0 0 0 12 6.5 A 5.5 5.5 0 0 0 6.5 1 z M 6.5 3 A 3.5 3.5 0 0 1 10 6.5 A 3.5 3.5 0 0 1 6.5 10 A 3.5 3.5 0 0 1 3 6.5 A 3.5 3.5 0 0 1 6.5 3 z" style="fill:currentColor"/>
+ </g>
 </svg>
