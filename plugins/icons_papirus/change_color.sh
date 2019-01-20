@@ -97,7 +97,6 @@ trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 
 
 : "${ICONS_COLOR:=$SEL_BG}"
-: "${ICONS_PAPIRUS_THEME:=Papirus}"  # Papirus | Papirus-Dark | Papirus-Light
 : "${OUTPUT_THEME_NAME:=oomox-$THEME}"
 
 output_dir="$HOME/.icons/$OUTPUT_THEME_NAME"
@@ -109,22 +108,16 @@ dark_stroke_fallback="$(darker "$ICONS_COLOR" 56)"
 : "${ICONS_LIGHT_FOLDER:=$light_folder_fallback}"
 : "${ICONS_MEDIUM:=$medium_base_fallback}"
 : "${ICONS_DARK:=$dark_stroke_fallback}"
+: "${ICONS_SYMBOLIC_ACTION:=${MENU_FG:-}}"
+: "${ICONS_SYMBOLIC_PANEL:=${HDR_FG:-}}"
 
 
 echo ":: Copying theme template..."
 cp -R "$root/papirus-icon-theme/Papirus" "$tmp_dir/"
-
-if [ "$ICONS_PAPIRUS_THEME" != "Papirus" ]; then
-	find "$root/papirus-icon-theme/$ICONS_PAPIRUS_THEME" -type f -name '*.svg' \
-		-printf '%P\n' | while read -r file_path; do
-		cp -f "$root/papirus-icon-theme/$ICONS_PAPIRUS_THEME/$file_path" \
-			"$tmp_dir/Papirus/$file_path"
-	done
-fi
 echo "== Template was copied to $tmp_dir"
 
 
-echo ":: Replacing colors..."
+echo ":: Replacing accent colors..."
 for size in 22x22 24x24 32x32 48x48 64x64; do
 	for icon_path in \
 		"$tmp_dir/Papirus/$size/places/folder-custom"{-*,}.svg \
@@ -144,6 +137,23 @@ for size in 22x22 24x24 32x32 48x48 64x64; do
 		ln -sf "$icon_name" "$symlink_path"
 	done
 done
+
+if [ -n "${ICONS_SYMBOLIC_ACTION:-}" ]; then
+	echo ":: Replacing symbolic actions colors..."
+	find "$tmp_dir"/Papirus/{16x16,22x22,24x24}/actions \
+		"$tmp_dir"/Papirus/16x16/{devices,places} \
+		"$tmp_dir"/Papirus/symbolic \
+		-type f -name '*.svg' \
+		-exec sed -i'' -e "s/444444/$ICONS_SYMBOLIC_ACTION/g" '{}' \;
+fi
+
+if [ -n "${ICONS_SYMBOLIC_PANEL:-}" ]; then
+	echo ":: Replacing symbolic panel colors..."
+	find "$tmp_dir"/Papirus/{16x16,22x22,24x24}/panel \
+		"$tmp_dir"/Papirus/{22x22,24x24}/animations \
+		-type f -name '*.svg' \
+		-exec sed -i'' -e "s/dfdfdf/$ICONS_SYMBOLIC_PANEL/g" '{}' \;
+fi
 
 
 echo ":: Exporting theme..."
