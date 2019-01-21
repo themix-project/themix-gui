@@ -4,6 +4,7 @@ from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export_common import FileBasedExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
 from oomox_gui.i18n import _
+from oomox_gui.color import mix_theme_colors
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -54,13 +55,16 @@ class Plugin(OomoxIconsPlugin):
         {
             'key': 'ICONS_SYMBOLIC_ACTION',
             'type': 'color',
-            'fallback_key': 'MENU_FG',
+            'fallback_function': lambda colors: mix_theme_colors(
+                colors['MENU_FG'], colors['BTN_FG'],
+                0.66
+            ),
             'display_name': _('Actions Icons'),
         },
         {
             'key': 'ICONS_SYMBOLIC_PANEL',
             'type': 'color',
-            'fallback_key': 'HDR_FG',
+            'fallback_key': 'FG',
             'display_name': _('Panel Icons'),
         },
     ]
