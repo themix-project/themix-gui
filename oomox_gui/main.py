@@ -184,12 +184,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 self.clone_theme()
                 return
         new_path = save_colorscheme(name, self.colorscheme)
+        self._unset_save_needed()
+
         old_path = self.colorscheme_path
         self.colorscheme_name = name
         self.colorscheme_path = new_path
         if old_path != new_path:
             self.reload_presets()
-        self._unset_save_needed()
 
     def remove_theme(self, name=None):
         if not name:
