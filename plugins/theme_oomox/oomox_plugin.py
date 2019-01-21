@@ -116,6 +116,12 @@ class Plugin(OomoxThemePlugin):
 
     theme_model_options = [
         {
+            'key': 'CARET_SIZE',
+            'type': 'float',
+            'fallback_value': 0.04,  # GTK's default
+            'display_name': _('Textbox Caret Aspect Ratio'),
+        },
+        {
             'type': 'separator',
             'display_name': _('GTK3 Theme Options'),
             'value_filter': {
@@ -154,22 +160,6 @@ class Plugin(OomoxThemePlugin):
             'display_name': _('Add Dark Variant'),
         },
 
-        {
-            'type': 'separator',
-            'display_name': _('Text Input Caret'),
-            'value_filter': {
-                'THEME_STYLE': 'oomox',
-            },
-        },
-        {
-            'key': 'CARET_SIZE',
-            'type': 'float',
-            'fallback_value': 0.04,  # GTK's default
-            'display_name': _('Textbox Caret Aspect Ratio'),
-        },
-        # ]
-
-        # theme_model_extra = [
         {
             'type': 'separator',
             'display_name': _('Desktop Environments'),
