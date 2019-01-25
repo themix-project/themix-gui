@@ -8,8 +8,11 @@ RUN pacman -Syu --noconfirm && \
     useradd -m user && \
     echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     sudo -u user bash -c "\
-        git clone https://aur.archlinux.org/python-pystache /home/user/python-pystache && \
-        cd /home/user/python-pystache && \
-        makepkg --install --syncdeps --noconfirm"
+        git clone https://aur.archlinux.org/pikaur /home/user/pikaur && \
+        cd /home/user/pikaur && \
+        makepkg --install --syncdeps --noconfirm" && \
+    pikaur -S python-pystache python-vulture
 
 COPY . /opt/oomox-build/
+
+# vim: set ft=dockerfile :

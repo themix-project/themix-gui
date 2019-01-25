@@ -25,7 +25,7 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 LOW_QUALITY = 100
 MEDIUM_QUALITY = 200
 HIGH_QUALITY = 400
-ULTRA_QUALITY = 1000
+# ULTRA_QUALITY = 1000
 
 
 image_analyzer = get_plugin_module('ima', os.path.join(PLUGIN_DIR, 'ima.py'))  # pylint: disable=invalid-name
@@ -335,7 +335,7 @@ class Plugin(OomoxImportPlugin):
     def _get_haishoku_palette(cls, image_path):
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error
         palette = Haishoku.getPalette(image_path)
-        hex_palette = [color_hex_from_list(color) for percentage, color in palette]
+        hex_palette = [color_hex_from_list(color) for _percentage, color in palette]
         return hex_palette
 
     @classmethod
@@ -395,7 +395,7 @@ class Plugin(OomoxImportPlugin):
             ]
             try:
                 hex_palette += [
-                    color_hex_from_list(color) for percentage, color in haishoku_future.get()
+                    color_hex_from_list(color) for _percentage, color in haishoku_future.get()
                 ]
             except Exception:  # pylint: disable=broad-except
                 pass

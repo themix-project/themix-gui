@@ -39,6 +39,18 @@ else
 fi
 
 
+if [[ "${SKIP_VULTURE:-}" = "1" ]] ; then
+	echo -e "\n!! WARNING !! skipping vulture"
+else
+	echo -e "\n== Running vulture:"
+	vulture oomox_gui/ ./plugins/*/oomox_plugin.py \
+		./maintenance_scripts/vulture_whitelist.py \
+		--min-confidence=1 \
+		--sort-by-size
+	echo ':: vulture passed ::'
+fi
+
+
 if [[ "${SKIP_SHELLCHECK:-}" = "1" ]] ; then
 	echo -e "\n!! WARNING !! skipping shellcheck"
 else
