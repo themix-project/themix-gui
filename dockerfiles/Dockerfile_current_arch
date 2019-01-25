@@ -11,7 +11,7 @@ RUN pacman -Syu --noconfirm && \
         git clone https://aur.archlinux.org/pikaur /home/user/pikaur && \
         cd /home/user/pikaur && \
         makepkg --install --syncdeps --noconfirm" && \
-    pikaur -S python-pystache python-vulture
+    sudo -u user pikaur -S python-pystache python-vulture
 
 COPY . /opt/oomox-build/
 
