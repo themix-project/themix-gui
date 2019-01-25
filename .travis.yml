@@ -14,5 +14,6 @@ script:
   - docker run
       -e SKIP_SHELLCHECK=${SKIP_SHELLCHECK}
       -e SKIP_MYPY=${SKIP_MYPY}
+      -e SKIP_VULTURE=${SKIP_VULTURE}
       oomox:latest
       ./maintenance_scripts/run_ci.sh
