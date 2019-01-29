@@ -13,12 +13,11 @@ Have a hack for HiDPI in GTK2."
 arch=('x86_64' 'i686')
 url="https://github.com/themix-project/oomox"
 license=('GPL3')
-	#"git+https://github.com/NicoHood/arc-theme.git#branch=master"
 source=(
 	"git+https://github.com/themix-project/oomox.git#branch=master"
 	"git+https://github.com/themix-project/oomox-gtk-theme.git#branch=master"
 	"git+https://github.com/nana-4/materia-theme.git#branch=master"
-	"git+https://github.com/actionless/arc-theme.git#branch=resvg"
+	"git+https://github.com/NicoHood/arc-theme.git#branch=master"
 	"git+https://github.com/themix-project/archdroid-icon-theme.git#branch=master"
 	"git+https://github.com/themix-project/gnome-colors-icon-theme.git#branch=master"
 	"git+https://github.com/themix-project/oomoxify.git#branch=master"
