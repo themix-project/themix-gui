@@ -29,3 +29,6 @@
 [submodule "papirus-icon-theme"]
 	path = plugins/icons_papirus/papirus-icon-theme
 	url = https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git
+[submodule "suru-plus"]
+	path = plugins/icons_suruplus/suru-plus
+	url = https://github.com/gusbemacbe/suru-plus.git
