@@ -29,7 +29,7 @@ class NumixIconsExportDialog(FileBasedExportDialog):
 class Plugin(OomoxIconsPlugin):
 
     # if not os.path.exists('/usr/share/icons/Numix/'):
-        # raise Exception('Numix icon theme need to be installed first')
+    #     raise Exception('Numix icon theme need to be installed first')
 
     name = 'numix_icons'
     display_name = 'Numix'

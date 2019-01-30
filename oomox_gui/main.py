@@ -734,7 +734,7 @@ class OomoxGtkApplication(Gtk.Application):
     def do_command_line(self, _command_line):  # pylint: disable=arguments-differ
         # options = command_line.get_options_dict()
         # if options.contains("test"):
-            # print("Test argument recieved")
+        #     print("Test argument recieved")
         self.activate()
         return 0
 
