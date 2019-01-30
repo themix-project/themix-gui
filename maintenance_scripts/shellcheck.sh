@@ -13,6 +13,7 @@ SCRIPT_DIR="$(readlink -e "${TEST_DIR}"/..)"
 		-not -path './plugins/icons_archdroid/archdroid-icon-theme/*' \
 		-not -path './plugins/icons_gnomecolors/gnome-colors-icon-theme/*' \
 		-not -path './plugins/icons_papirus/papirus-icon-theme/*' \
+		-not -path './plugins/icons_suruplus/suru-plus/*' \
 		-not -path './plugins/base16/base16_mirror/*.tmp/*' \
 		-not -path './plugins/oomoxify/*' \
 		-not -path './plugins/theme_arc/arc-theme/*' \

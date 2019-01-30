@@ -6,7 +6,7 @@
   <name>Oomox theme designer</name>
   <summary>customize icons, xrdb and GTK themes</summary>
   <description>
-      <p>Graphical application for generating different color variations of Oomox (Numix-based), Materia (ex-Flat-Plat) and Arc themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Archdroid, Gnome-Colors, Numix, Papirus icon themes. Have a hack for HiDPI in gtk2.</p>
+      <p>Graphical application for generating different color variations of Oomox (Numix-based), Materia (ex-Flat-Plat) and Arc themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Archdroid, Gnome-Colors, Numix, Papirus, Suru++ icon themes. Have a hack for HiDPI in gtk2.</p>
       <p>WARNING: Oomox-spotify plugin is disabled for Flatpak because of isolation.</p>
   </description>
   <launchable type="desktop-id">com.github.themix_project.Oomox.desktop</launchable>

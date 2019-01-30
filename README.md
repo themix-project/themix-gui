@@ -1,7 +1,7 @@
 oomox theme designer
 =====
 
-Graphical application for generating different color variations of Oomox (Numix-based), Materia (ex-Flat-Plat) and Arc themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Archdroid, Gnome-Color, Numix and Papirus icon themes. Have a hack for HiDPI in gtk2.
+Graphical application for generating different color variations of Oomox (Numix-based), Materia (ex-Flat-Plat) and Arc themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Archdroid, Gnome-Color, Numix, Papirus and Suru++ icon themes. Have a hack for HiDPI in gtk2.
 
 <a href="https://aur.archlinux.org/packages/oomox"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_aur.png" width="160"></a>
 <a href="#debian-ubuntu-linux-mint"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_deb.png" width="160"></a>
@@ -136,10 +136,10 @@ Gnome-Colors icons:
  - `imagemagick`
  - `breeze-icons` - optional, to provide more fallbacks
 
-Archdroid and Papirus icons:
+Archdroid, Papirus and Suru++ icons:
  - `sed`
  - `find`
- - `breeze-icons` - optional, to provide more fallbacks
+ - `breeze-icons` - optional for Archdroid, to provide more fallbacks
 
 Spotify theme:
  - `polkit` or `gksu`
