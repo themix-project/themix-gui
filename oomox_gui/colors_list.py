@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk, GLib, Gdk
 
-from .theme_model import THEME_MODEL_BY_KEY
+from .theme_model import THEME_MODEL, get_theme_options_by_key
 from .palette_cache import PaletteCache
 from .color import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
@@ -427,14 +427,16 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self._no_gui_row = SeparatorListBoxRow(_("Can't Be Edited in GUI"))
         self.listbox.add(self._no_gui_row)
         self._all_rows = {}
-        for key, theme_value in THEME_MODEL_BY_KEY.items():
+        for option_idx, theme_value in enumerate(THEME_MODEL):
+            key = theme_value.get('key')
             display_name = theme_value.get('display_name', key)
             row = None
 
             callbacks = [self.color_edited, ]
             if theme_value.get('reload_theme'):
                 def _callback(key, value):
-                    THEME_MODEL_BY_KEY[key]['fallback_value'] = value
+                    for theme_option in get_theme_options_by_key(key):
+                        theme_option['fallback_value'] = value
                     self.theme = self.theme_reload_callback()
                 callbacks = [_callback, ]
             elif key in [
@@ -506,7 +508,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     callback=callback
                 )
             if row:
-                self._all_rows[key] = row
+                self._all_rows[option_idx] = row
                 self.listbox.add(row)
 
     def open_theme(self, theme):
@@ -515,8 +517,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             self._no_gui_row.show()
         else:
             self._no_gui_row.hide()
-        for key, theme_value in THEME_MODEL_BY_KEY.items():
-            row = self._all_rows.get(key)
+        for option_idx, theme_value in enumerate(THEME_MODEL):
+            key = theme_value.get('key')
+            row = self._all_rows.get(option_idx)
             if not row:
                 continue
             if "NOGUI" in theme:
@@ -536,8 +539,10 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def hide_all_rows(self):
         self._no_gui_row.hide()
-        for key in THEME_MODEL_BY_KEY:
-            row = self._all_rows.get(key)
+        for option_idx, _theme_value in enumerate(THEME_MODEL):
+            row = self._all_rows.get(option_idx)
+            if not row:
+                continue
             row.hide()
 
     def disable(self):

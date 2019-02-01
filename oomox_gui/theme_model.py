@@ -31,33 +31,40 @@ def get_key_indexes(base_theme_model):
 
 def merge_plugin_model_with_base(
         theme_model_name, theme_plugin,
-        base_theme_model, value_filter_key=None
+        base_theme_model,
+        value_filter_key=None
 ):
-    base_keys = get_key_indexes(base_theme_model)
+    result = []
     plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name)
     plugin_theme_model_keys = []
     for theme_value in plugin_theme_model:
         if isinstance(theme_value, str):
             plugin_theme_model_keys.append(theme_value)
         else:
-            if 'key' in theme_value:
-                plugin_theme_model_keys.append(theme_value['key'])
-            if 'key' not in theme_value or theme_value['key'] not in base_keys:
-                base_theme_model.append(theme_value)
-                base_keys = get_key_indexes(base_theme_model)
+            result.append(theme_value)
     if not value_filter_key:
-        return
+        return result
     plugin_enabled_keys = getattr(
         theme_plugin, "enabled_keys_"+theme_model_name, []
     )
-    for key in plugin_theme_model_keys + plugin_enabled_keys:
-        base_theme_value = base_theme_model[base_keys[key]]
+    key_indexes = get_key_indexes(base_theme_model)
+    for base_theme_value in [
+            theme_option for theme_option in plugin_theme_model
+            if not isinstance(theme_option, str)
+    ] + [
+        base_theme_model[key_indexes[key]]
+        for key in plugin_theme_model_keys + plugin_enabled_keys
+        if key in key_indexes
+    ]:
         value_filter = base_theme_value.setdefault('value_filter', {})
         value_filter_theme_style = value_filter.setdefault(value_filter_key, [])
         if not isinstance(value_filter_theme_style, list):
             value_filter_theme_style = [value_filter_theme_style, ]
+        if theme_plugin.name in value_filter_theme_style:
+            continue
         value_filter_theme_style.append(theme_plugin.name)
         base_theme_value['value_filter'][value_filter_key] = value_filter_theme_style
+    return result
 
 
 def merge_model_with_base(
@@ -72,13 +79,15 @@ def merge_model_with_base(
             if 'key' in theme_value:
                 theme_value.setdefault('value_filter', {}).setdefault(value_filter_key, [])
 
+    whole_theme_model += base_theme_model
     for theme_plugin in plugins.values():
-        merge_plugin_model_with_base(
+        plugin_theme_model = merge_plugin_model_with_base(
             theme_model_name=theme_model_name,
             theme_plugin=theme_plugin,
-            base_theme_model=base_theme_model, value_filter_key=value_filter_key
+            base_theme_model=base_theme_model,
+            value_filter_key=value_filter_key
         )
-    whole_theme_model += base_theme_model
+        whole_theme_model += plugin_theme_model
 
 
 def merge_theme_model_with_base(whole_theme_model, base_theme_model, theme_model_name):
@@ -140,11 +149,13 @@ BASE_THEME_MODEL_GTK = [
     },
     {
         'key': 'SEL_BG',
+        'fallback_key': 'FG',
         'type': 'color',
         'display_name': _('Selected Backround')
     },
     {
         'key': 'SEL_FG',
+        'fallback_key': 'BG',
         'type': 'color',
         'display_name': _('Selected Text'),
     },
@@ -156,21 +167,25 @@ BASE_THEME_MODEL_GTK = [
     },
     {
         'key': 'TXT_BG',
+        'fallback_key': 'BG',
         'type': 'color',
         'display_name': _('Textbox Background')
     },
     {
         'key': 'TXT_FG',
+        'fallback_key': 'FG',
         'type': 'color',
         'display_name': _('Textbox Text'),
     },
     {
         'key': 'BTN_BG',
+        'fallback_key': 'BG',
         'type': 'color',
         'display_name': _('Button Background')
     },
     {
         'key': 'BTN_FG',
+        'fallback_key': 'FG',
         'type': 'color',
         'display_name': _('Button Text'),
     },
@@ -497,9 +512,19 @@ merge_model_with_base(
     plugins=EXPORT_PLUGINS,
 )
 
-THEME_MODEL_BY_KEY = {
-    value.get('key') or (
-        value['display_name'] + str(option_idx)
-    ): value
-    for option_idx, value in enumerate(THEME_MODEL)
-}
+
+def get_theme_options_by_key(key, fallback=None):
+    result = []
+    for theme_option in THEME_MODEL:
+        if key == theme_option.get('key'):
+            result.append(theme_option)
+    if not result and fallback:
+        return [fallback]
+    return result
+
+
+def get_first_theme_option(key, fallback=None):
+    result = get_theme_options_by_key(key, fallback=fallback)
+    if result:
+        return result[0]
+    return {}

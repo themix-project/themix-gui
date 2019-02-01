@@ -417,7 +417,7 @@ class Plugin(PluginBase):
     }
 
     def read_colorscheme_from_path(self, preset_path):
-        from oomox_gui.theme_model import THEME_MODEL_BY_KEY
+        from oomox_gui.theme_model import get_first_theme_option
 
         base16_theme = {}
         with open(preset_path) as preset_file:
@@ -435,16 +435,16 @@ class Plugin(PluginBase):
         translation = {}
         translation.update(self.translation_common)
 
-        if THEME_MODEL_BY_KEY.get('BASE16_GENERATE_DARK', {}).get('fallback_value'):
+        if get_first_theme_option('BASE16_GENERATE_DARK', {}).get('fallback_value'):
             translation.update(self.translation_dark)
         else:
             translation.update(self.translation_light)
 
-        if THEME_MODEL_BY_KEY.get('BASE16_INVERT_TERMINAL', {}).get('fallback_value'):
+        if get_first_theme_option('BASE16_INVERT_TERMINAL', {}).get('fallback_value'):
             translation.update(self.translation_terminal_inverse)
 
-        if THEME_MODEL_BY_KEY.get('BASE16_MILD_TERMINAL', {}).get('fallback_value'):
-            if THEME_MODEL_BY_KEY.get('BASE16_INVERT_TERMINAL', {}).get('fallback_value'):
+        if get_first_theme_option('BASE16_MILD_TERMINAL', {}).get('fallback_value'):
+            if get_first_theme_option('BASE16_INVERT_TERMINAL', {}).get('fallback_value'):
                 translation.update(self.translation_terminal_mild)
             else:
                 translation.update(self.translation_terminal_mild_inverse)

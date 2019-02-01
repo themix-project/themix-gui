@@ -83,21 +83,22 @@ class Plugin(OomoxThemePlugin):
         'HDR_FG',
         'SEL_BG',
     ]
+
     enabled_keys_options = [
         'ROUNDNESS',
     ]
 
     theme_model_gtk = [
         {
-            'key': 'MATERIA_VIEW',
+            'key': 'TXT_BG',
             'type': 'color',
-            'fallback_key': 'TXT_BG',
+            'fallback_key': 'BG',
             'display_name': _('View'),
         },
         {
-            'key': 'MATERIA_SURFACE',
+            'key': 'BTN_BG',
             'type': 'color',
-            'fallback_key': 'BTN_BG',
+            'fallback_key': 'BG',
             'display_name': _('Surface (like Button, Menu, Popover)'),
         },
     ]
@@ -128,14 +129,12 @@ class Plugin(OomoxThemePlugin):
     def preview_before_load_callback(self, preview_object, colorscheme):
         colorscheme["TXT_FG"] = colorscheme["FG"]
         colorscheme["WM_BORDER_FOCUS"] = colorscheme["HDR_BG"]
-        colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["MATERIA_SURFACE"]
+        colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["BTN_BG"]
         colorscheme["HDR_BTN_FG"] = colorscheme["HDR_FG"]
         colorscheme["HDR_BTN_BG"] = colorscheme["HDR_BG"]
         colorscheme["SEL_FG"] = colorscheme["FG"]
         colorscheme["ACCENT_BG"] = colorscheme["SEL_BG"]
         colorscheme["BTN_FG"] = colorscheme["FG"]
-        colorscheme["BTN_BG"] = colorscheme["MATERIA_SURFACE"]
-        colorscheme["TXT_BG"] = colorscheme["MATERIA_VIEW"]
         colorscheme["GRADIENT"] = 0
         preview_object.WM_BORDER_WIDTH = 0
         _monkeypatch_update_preview_colors(preview_object)

@@ -403,14 +403,16 @@ class Plugin(OomoxImportPlugin):
         return hex_palette
 
     def read_colorscheme_from_path(self, preset_path):
-        from oomox_gui.theme_model import THEME_MODEL_BY_KEY
+        from oomox_gui.theme_model import get_first_theme_option
 
-        THEME_MODEL_BY_KEY['_PIL_IMAGE_PREVIEW']['fallback_value'] = preset_path
+        get_first_theme_option('_PIL_IMAGE_PREVIEW')['fallback_value'] = preset_path
         image_palette = self.generate_terminal_palette(
-            THEME_MODEL_BY_KEY.get('_PIL_PALETTE_STYLE', {}).get('fallback_value'),
+            get_first_theme_option('_PIL_PALETTE_STYLE').get('fallback_value'),
             preset_path
         )
-        theme_template = THEME_MODEL_BY_KEY.get('_PIL_THEME_TEMPLATE', {}).get('fallback_value')
+        theme_template = get_first_theme_option(
+            '_PIL_THEME_TEMPLATE', {}
+        ).get('fallback_value')
         oomox_theme = {}
         oomox_theme.update(self.default_theme)
         if theme_template in self.default_themes:
@@ -501,13 +503,13 @@ class Plugin(OomoxImportPlugin):
 
     @classmethod
     def generate_terminal_palette(cls, template_path, image_path):
-        from oomox_gui.theme_model import THEME_MODEL_BY_KEY
-        quality = THEME_MODEL_BY_KEY.get('_PIL_PALETTE_QUALITY', {}).get('fallback_value')
+        from oomox_gui.theme_model import get_first_theme_option
+        quality = get_first_theme_option('_PIL_PALETTE_QUALITY', {}).get('fallback_value')
         use_whole_palette = bool(
-            THEME_MODEL_BY_KEY.get('_PIL_PALETTE_STRICT', {}).get('fallback_value')
+            get_first_theme_option('_PIL_PALETTE_STRICT', {}).get('fallback_value')
         )
         inverse_palette = bool(
-            THEME_MODEL_BY_KEY.get('_PIL_PALETTE_INVERSE', {}).get('fallback_value')
+            get_first_theme_option('_PIL_PALETTE_INVERSE', {}).get('fallback_value')
         )
         _id = template_path+image_path+str(quality)+str(use_whole_palette)+str(inverse_palette)
         if not cls._terminal_palette_cache.get(_id):
