@@ -223,25 +223,36 @@ class GObjectABCMeta(GObjectMeta, type):
 
     def __init__(cls, name, transient_fors, data):
         super().__init__(name, transient_fors, data)
+        this_required_methods = []
         for property_name in dir(cls):
             if getattr(cls, property_name) is GObjectABCMetaAbstractProperty:
-                setattr(
-                    cls, cls.ABS_METHODS,
-                    getattr(cls, cls.ABS_METHODS, []) + [property_name]
-                )
+                this_required_methods.append(property_name)
                 delattr(cls, property_name)
-        if not (getattr(cls, cls.ABS_METHODS, None) and not any(
-                cls.ABS_METHODS in B.__dict__ for B in cls.__mro__[1:]
-        )):
+        if this_required_methods:
+            setattr(
+                cls, cls.ABS_METHODS,
+                getattr(cls, cls.ABS_METHODS, []) + this_required_methods
+            )
+
+        if not (
+                getattr(cls, cls.ABS_METHODS, None) and not any(
+                    cls.ABS_METHODS in B.__dict__ for B in cls.__mro__[1:]
+                )
+        ):
             required_methods = getattr(cls, cls.ABS_METHODS, [])
+            missing_methods = []
             for method_name in required_methods:
-                if any(method_name in B.__dict__ for B in cls.__mro__):
-                    return
-            if required_methods:
+                if (
+                        not any(method_name in B.__dict__ for B in cls.__mro__)
+                ) and (
+                    method_name not in this_required_methods
+                ):
+                    missing_methods.append(method_name)
+            if missing_methods:
                 raise TypeError(
                     "Can't instantiate abstract class {} with abstract methods {}".format(
                         cls.__name__,
-                        ','.join(required_methods)
+                        ','.join(missing_methods)
                     )
                 )
 
