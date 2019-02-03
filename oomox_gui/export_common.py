@@ -228,6 +228,11 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             self.export_config[option_id] = widget.get_active()
         return callback
 
+    def _create_option_entry_callback(self, option_id):
+        def callback(widget):
+            self.export_config[option_id] = widget.get_text()
+        return callback
+
     def __init__(  # pylint: disable=too-many-arguments
             self, transient_for, colorscheme, theme_name,
             export_options=None, headline=None,
@@ -269,6 +274,9 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
                     use_underline=True
                 )
                 entry = Gtk.Entry(text=value)
+                entry.connect(
+                    "changed", self._create_option_entry_callback(option_name)
+                )
                 entry.set_width_chars(min(len(value) + 15, 60))
                 label.set_mnemonic_widget(entry)
                 value_widget.add(label)
