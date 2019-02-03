@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import subprocess
 import os
+import sys
 import tempfile
 from threading import Thread
 
@@ -16,6 +17,13 @@ from .terminal import (
     generate_xresources
 )
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
+
+
+if sys.version_info.minor >= 5:
+    from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+    if TYPE_CHECKING:
+        # pylint: disable=ungrouped-imports
+        from typing import Dict  # noqa
 
 
 class ExportConfig(CommonOomoxConfig):
@@ -107,7 +115,8 @@ class ExportDialog(Gtk.Dialog):
         self.options_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5
         )
-        self.options_box.set_margin_bottom(10)
+        self.options_box.set_margin_top(5)
+        self.options_box.set_margin_bottom(15)
 
         self.apply_button = Gtk.Button(label=_("_Apply Options and Export"), use_underline=True)
         self.apply_button.connect("clicked", lambda x: self.do_export())
@@ -206,10 +215,9 @@ def export_terminal_theme(transient_for, colorscheme):
         dialog.set_text(xresources_theme)
 
 
-OPTION_GTK2_HIDPI = 'gtk2_hidpi'
+class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
 
-
-class CommonGtkThemeExportDialog(FileBasedExportDialog, metaclass=GObjectABCMeta):
+    option_widgets = {}  # type: Dict[str, Gtk.Widget]
 
     @g_abstractproperty
     def config_name(self):
@@ -222,23 +230,17 @@ class CommonGtkThemeExportDialog(FileBasedExportDialog, metaclass=GObjectABCMeta
 
     def __init__(  # pylint: disable=too-many-arguments
             self, transient_for, colorscheme, theme_name,
-            add_options=None, override_options=None,
+            export_options=None, headline=None,
             **kwargs
     ):
+        export_options = export_options or {}
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
+            headline=headline or _("Theme Export Options"),
             **kwargs
         )
         self.label.hide()
 
-        export_options = override_options or {
-            OPTION_GTK2_HIDPI: {
-                'default': False,
-                'display_name': _("Generate 2x scaled (_HiDPI) assets for GTK+2"),
-            },
-        }
-        if add_options:
-            export_options.update(add_options)
         self.export_config = ExportConfig(
             config_name=self.config_name,
             default_config={
@@ -247,24 +249,34 @@ class CommonGtkThemeExportDialog(FileBasedExportDialog, metaclass=GObjectABCMeta
             }
         )
 
-        export_options_headline = Gtk.Label()
-        export_options_headline.set_markup('<b>' + _("Theme Export Options") + '</b>')
-        export_options_headline.set_justify(Gtk.Justification.LEFT)
-        export_options_headline.set_alignment(0.0, 0.0)
-        self.options_box.add(export_options_headline)
-
         for option_name, option in export_options.items():
-            checkbox = \
-                Gtk.CheckButton.new_with_mnemonic(
-                    option['display_name']
+            value = self.export_config[option_name]
+            value_widget = None
+            if isinstance(value, bool):
+                value_widget = \
+                    Gtk.CheckButton.new_with_mnemonic(
+                        option['display_name']
+                    )
+                value_widget.connect(
+                    "toggled", self._create_option_checkbox_callback(option_name)
                 )
-            checkbox.connect(
-                "toggled", self._create_option_checkbox_callback(option_name)
-            )
-            checkbox.set_active(
-                self.export_config[option_name]
-            )
-            self.options_box.add(checkbox)
+                value_widget.set_active(value)
+                self.option_widgets[option_name] = value_widget
+            elif isinstance(value, str):
+                value_widget = Gtk.HBox()
+                label = Gtk.Label(
+                    label=option.get('display_name', option_name),
+                    use_underline=True
+                )
+                entry = Gtk.Entry(text=value)
+                entry.set_width_chars(min(len(value) + 15, 60))
+                label.set_mnemonic_widget(entry)
+                value_widget.add(label)
+                value_widget.add(entry)
+                self.option_widgets[option_name] = entry
+            else:
+                raise NotImplementedError()
+            self.options_box.add(value_widget)
 
         self.box.add(self.options_box)
         self.options_box.show_all()
@@ -274,3 +286,32 @@ class CommonGtkThemeExportDialog(FileBasedExportDialog, metaclass=GObjectABCMeta
     def do_export(self):
         self.export_config.save()
         super().do_export()
+
+
+OPTION_GTK2_HIDPI = 'gtk2_hidpi'
+
+
+class CommonGtkThemeExportDialog(ExportDialogWithOptions):
+
+    @g_abstractproperty
+    def config_name(self):
+        pass
+
+    def __init__(  # pylint: disable=too-many-arguments
+            self, transient_for, colorscheme, theme_name,
+            add_options=None, override_options=None,
+            **kwargs
+    ):
+        export_options = override_options or {
+            OPTION_GTK2_HIDPI: {
+                'default': False,
+                'display_name': _("Generate 2x scaled (_HiDPI) assets for GTK+2"),
+            },
+        }
+        if add_options:
+            export_options.update(add_options)
+        super().__init__(
+            transient_for=transient_for, colorscheme=colorscheme,
+            theme_name=theme_name, export_options=export_options,
+            **kwargs
+        )
