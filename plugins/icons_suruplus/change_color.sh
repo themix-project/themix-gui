@@ -55,6 +55,10 @@ do
 			OUTPUT_THEME_NAME="$2"
 			shift
 			;;
+		-d|--destdir)
+			output_dir="$2"
+			shift
+			;;
 		-c|--color)
 			ICONS_COLOR="${2#\#}"  # remove leading hash symbol
 			shift
@@ -99,7 +103,7 @@ trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 : "${ICONS_COLOR:=$SEL_BG}"
 : "${OUTPUT_THEME_NAME:=oomox-$THEME}"
 
-output_dir="$HOME/.icons/$OUTPUT_THEME_NAME"
+output_dir="${output_dir:-$HOME/.icons/$OUTPUT_THEME_NAME}"
 
 light_folder_fallback="$ICONS_COLOR"
 medium_base_fallback="$(darker "$ICONS_COLOR" 20)"
