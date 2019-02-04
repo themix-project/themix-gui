@@ -93,7 +93,10 @@ prepare(){
 
 	# remove submodule if building package update without flushing the dir:
 	git submodule deinit --all || true
-	git config --get-regexp submodule | cut -d' ' -f1 | xargs -n1 git config --unset || true
+	git config --get-regexp submodule \
+		| cut -d' ' -f1 \
+		| xargs --no-run-if-empty -n1 git config --unset \
+		|| true
 	old_paths=(
 		"$srcdir"/oomox/plugins/import_base16/base16-data
 	)
