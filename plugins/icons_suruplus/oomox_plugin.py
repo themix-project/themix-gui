@@ -42,7 +42,7 @@ class SuruPlusIconsExportDialog(ExportDialogWithOptions):
 
     def __init__(self, *args, **kwargs):
         default_icons_path = os.path.join(os.environ['HOME'], '.icons')
-        if os.environ.get('XDG_CURRENT_DESKTOP') in ('kde', 'lxqt', ):
+        if os.environ.get('XDG_CURRENT_DESKTOP', '').lower() in ('kde', 'lxqt', ):
             default_icons_path = os.path.join(
                 os.environ.get(
                     'XDG_DATA_HOME',
