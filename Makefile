@@ -69,11 +69,7 @@ endif
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.appdata.xml" "$(DEST_PREFIX)/share/appdata/"
 
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" "$(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-16.png" "$(DEST_PREFIX)/share/icons/hicolor/16x16/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-24.png" "$(DEST_PREFIX)/share/icons/hicolor/24x24/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-32.png" "$(DEST_PREFIX)/share/icons/hicolor/32x32/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-48.png"  "$(DEST_PREFIX)/share/icons/hicolor/48x48/apps/com.github.themix_project.Oomox.png"
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-512.png" "$(DEST_PREFIX)/share/icons/hicolor/512x512/apps/com.github.themix_project.Oomox.png"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.svg" "$(DEST_PREFIX)/share/icons/hicolor/scalable/apps/com.github.themix_project.Oomox.svg"
 
 	$(RM) -r $(PACKAGING_TMP_DIR)
 

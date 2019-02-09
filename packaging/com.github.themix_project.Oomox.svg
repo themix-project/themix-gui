@@ -1,107 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="560">
-  <defs>
-    <filter id="tint" color-interpolation-filters="sRGB">
-      <feFlood flood-color="#FFF" flood-opacity=".2" result="flood"/>
-      <feComposite in="flood" in2="SourceGraphic" operator="out" result="composite1"/>
-      <feGaussianBlur in="composite1" result="blur"/>
-      <feOffset dy="1" result="offset"/>
-      <feComposite in="offset" in2="SourceGraphic" operator="atop" result="composite2"/>
-    </filter>
-    <filter id="tint-and-shade" color-interpolation-filters="sRGB">
-      <feFlood flood-color="#FFF" flood-opacity=".2" result="flood"/>
-      <feComposite in="flood" in2="SourceGraphic" operator="out" result="composite1"/>
-      <feGaussianBlur in="composite1" result="blur"/>
-      <feOffset dy="1" result="offset"/>
-      <feComposite in="offset" in2="SourceGraphic" operator="atop" result="fbSourceGraphic"/>
-      <feColorMatrix in="fbSourceGraphic" result="fbSourceGraphicAlpha" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
-      <feFlood flood-color="#000" flood-opacity=".2" result="flood"/>
-      <feComposite in="flood" in2="fbSourceGraphic" operator="in" result="composite1"/>
-      <feGaussianBlur in="composite1" result="blur"/>
-      <feOffset dy="1" result="offset"/>
-      <feComposite in="fbSourceGraphic" in2="offset" result="composite2"/>
-    </filter>
-    <filter id="tint-and-shadow" color-interpolation-filters="sRGB">
-      <feFlood flood-color="#FFF" flood-opacity=".2" result="flood"/>
-      <feComposite in="flood" in2="SourceGraphic" operator="out" result="composite1"/>
-      <feGaussianBlur in="composite1" result="blur"/>
-      <feOffset dy="4" result="offset"/>
-      <feComposite in="offset" in2="SourceGraphic" operator="atop" result="fbSourceGraphic"/>
-      <feColorMatrix in="fbSourceGraphic" result="fbSourceGraphicAlpha" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
-      <feFlood flood-color="#000" flood-opacity=".2" result="flood"/>
-      <feComposite in="flood" in2="fbSourceGraphic" operator="in" result="composite1"/>
-      <feGaussianBlur in="composite1" result="blur" stdDeviation="8"/>
-      <feOffset dy="8" result="offset"/>
-      <feComposite in="fbSourceGraphic" in2="offset" result="composite2"/>
-    </filter>
-    <clipPath id="512x512">
-      <rect width="512" height="512"/>
-    </clipPath>
-    <clipPath id="48x48">
-      <rect width="48" height="48"/>
-    </clipPath>
-    <clipPath id="32x32">
-      <rect width="32" height="32"/>
-    </clipPath>
-    <clipPath id="24x24">
-      <rect width="24" height="24"/>
-    </clipPath>
-    <clipPath id="16x16">
-      <rect width="16" height="16"/>
-    </clipPath>
-  </defs>
-  <g id="512" clip-path="url(#512x512)" transform="translate(24 24)">
-    <g filter="url(#tint-and-shadow)">
-      <path fill="#1E88E5" d="M256 256l216.37-57.975a224 224 0 0 0-158.46-158.12z"/>
-      <path fill="#43A047" d="M256 256l158.39 158.39a224 224 0 0 0 57.706-216.3z"/>
-      <path fill="#FBC02D" d="M256 256l-57.976 216.37a224 224 0 0 0 216.17-58.173z"/>
-      <path fill="#F57C00" d="M256 256L39.63 313.975a224 224 0 0 0 158.46 158.12z"/>
-      <path fill="#E53935" d="M256 256L97.61 97.61a224 224 0 0 0-57.706 216.3z"/>
-      <path fill="#8E24AA" d="M256 256l57.976-216.37a224 224 0 0 0-216.17 58.173z"/>
-    </g>
-    <path fill="#FAFAFA" d="M256 112c-79.529 0-144 64.471-144 144s64.471 144 144 144 144-64.471 144-144V144c0-17.728-14.272-32-32-32zm104 24a16 16 0 0 1 16 16 16 16 0 0 1-16 16 16 16 0 0 1-16-16 16 16 0 0 1 16-16z" filter="url(#tint-and-shadow)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128">
+  <g>
+    <path d="M64 4a60 60 0 0 1 51.962 30L64 64z" fill="#3584e4"/>
+    <path d="M115.962 34a60 60 0 0 1 0 60L64 64z" fill="#a347ba"/>
+    <path d="M115.962 94A60 60 0 0 1 64 124V64z" fill="#ed333b"/>
+    <path d="M64 124a60 60 0 0 1-51.962-30L64 64z" fill="#ff7800"/>
+    <path d="M12.038 94a60 60 0 0 1 0-60L64 64z" fill="#f6d32d"/>
+    <path d="M12.038 34A60 60 0 0 1 64 4v60z" fill="#33d17a"/>
+    <path d="M123.959 62.83A60 60 0 0 1 64 122 60 60 0 0 1 4.041 63.17 60 60 0 0 0 4 64a60 60 0 0 0 60 60 60 60 0 0 0 60-60 60 60 0 0 0-.041-1.17z" opacity=".2"/>
   </g>
-  <g id="48" clip-path="url(#48x48)" transform="translate(560 24)">
-    <g filter="url(#tint-and-shade)">
-      <path fill="#1E88E5" d="M24 24l19.318-5.176A20 20 0 0 0 29.17 4.704z"/>
-      <path fill="#43A047" d="M24 24l14.142 14.142a20 20 0 0 0 5.154-19.312z"/>
-      <path fill="#FBC02D" d="M24 24l-5.176 19.318a20 20 0 0 0 19.302-5.193z"/>
-      <path fill="#F57C00" d="M24 24L4.682 29.176a20 20 0 0 0 14.148 14.12z"/>
-      <path fill="#E53935" d="M24 24L9.858 9.858A20 20 0 0 0 4.704 29.17z"/>
-      <path fill="#8E24AA" d="M24 24l5.176-19.318A20 20 0 0 0 9.874 9.875z"/>
-    </g>
-    <path fill="#FAFAFA" d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12v-9c0-1.662-1.338-3-3-3zm8 2a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2z" filter="url(#tint-and-shade)"/>
-  </g>
-  <g id="32" clip-path="url(#32x32)" transform="translate(560 96)">
-    <g filter="url(#tint-and-shade)">
-      <path fill="#1E88E5" d="M16 16l13.524-3.623a14 14 0 0 0-9.905-9.883z"/>
-      <path fill="#43A047" d="M16 16l9.9 9.9a14 14 0 0 0 3.606-13.519z"/>
-      <path fill="#FBC02D" d="M16 16l-3.624 13.523a14 14 0 0 0 13.511-3.636z"/>
-      <path fill="#F57C00" d="M16 16L2.476 19.623a14 14 0 0 0 9.905 9.883z"/>
-      <path fill="#E53935" d="M16 16L6.1 6.1a14 14 0 0 0-3.606 13.519z"/>
-      <path fill="#8E24AA" d="M16 16l3.624-13.523A14 14 0 0 0 6.113 6.113z"/>
-    </g>
-    <path fill="#FAFAFA" d="M16 8a8 8 0 1 0 8 8v-6c0-1.108-.892-2-2-2zm4.5 2a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5 1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5z" filter="url(#tint-and-shade)"/>
-  </g>
-  <g id="24" clip-path="url(#24x24)" transform="translate(560 152)">
-    <g filter="url(#tint-and-shade)">
-      <path fill="#1E88E5" d="M12 12l9.66-2.588a10 10 0 0 0-7.075-7.06z"/>
-      <path fill="#43A047" d="M12 12l7.071 7.071a10 10 0 0 0 2.577-9.656z"/>
-      <path fill="#FBC02D" d="M12 12l-2.588 9.66a10 10 0 0 0 9.65-2.597z"/>
-      <path fill="#F57C00" d="M12 12l-9.66 2.588a10 10 0 0 0 7.075 7.06z"/>
-      <path fill="#E53935" d="M12 12L4.929 4.929a10 10 0 0 0-2.577 9.656z"/>
-      <path fill="#8E24AA" d="M12 12l2.588-9.66a10 10 0 0 0-9.65 2.597z"/>
-    </g>
-    <path fill="#FAFAFA" d="M12 6a6 6 0 1 0 6 6V7.5c0-.831-.669-1.5-1.5-1.5zm4 1a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1z" filter="url(#tint-and-shade)"/>
-  </g>
-  <g id="16" clip-path="url(#16x16)" transform="translate(560 200)">
-    <g filter="url(#tint)">
-      <path fill="#1E88E5" d="M8 8l7.727-2.07A8 8 0 0 0 10.068.281z"/>
-      <path fill="#43A047" d="M8 8l5.657 5.656a8 8 0 0 0 2.06-7.724z"/>
-      <path fill="#FBC02D" d="M8 8l-2.07 7.727a8 8 0 0 0 7.72-2.077z"/>
-      <path fill="#F57C00" d="M8 8L.273 10.07a8 8 0 0 0 5.659 5.648z"/>
-      <path fill="#E53935" d="M8 8L2.343 2.344a8 8 0 0 0-2.06 7.724z"/>
-      <path fill="#8E24AA" d="M8 8L10.07.273A8 8 0 0 0 2.35 2.35z"/>
-    </g>
-    <path fill="#FAFAFA" d="M8 3a5 5 0 1 0 5 5V4.5c0-.831-.669-1.5-1.5-1.5zm3 1a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1z" filter="url(#tint-and-shade)"/>
+  <g>
+    <path d="M92 32a4 4 0 0 0-4 4 4 4 0 0 0 .13 1.002A4 4 0 0 1 92 34a4 4 0 0 1 3.87 2.998A4 4 0 0 0 96 36a4 4 0 0 0-4-4z" opacity=".2"/>
+    <path d="M64 24c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40V32c0-4.432-3.568-8-8-8H64zm28 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" fill="#f6f5f4"/>
+    <path d="M103.959 62.828A40 40 0 0 1 64 102a40 40 0 0 1-39.959-38.828A40 40 0 0 0 24 64a40 40 0 0 0 40 40 40 40 0 0 0 40-40 40 40 0 0 0-.041-1.172z" opacity=".2"/>
   </g>
 </svg>
