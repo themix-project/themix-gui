@@ -64,7 +64,7 @@ depends=(
 	'python-pystache'  #  base16_format
 	'python-yaml'  #  base16_format
 
-	'resvg-git'  # materia, arc
+	'resvg'  # materia, arc
 	##or
 	#'inkscape'  # materia, arc
 )
