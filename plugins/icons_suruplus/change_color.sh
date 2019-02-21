@@ -170,9 +170,9 @@ if [ "$SURUPLUS_GRADIENT_ENABLED" = "true" ] && [ -n "${SURUPLUS_GRADIENT1:-}" ]
 		"$tmp_dir"/Suru++/places/16 \
 		-type f -name '*.svg' \
 		-exec sed -i'' \
-			-e 's/currentColor/url(#arrongin)/g' \
-			-e "s/dd9b44/$SURUPLUS_GRADIENT1/g" \
-			-e "s/ad6c16/$SURUPLUS_GRADIENT2/g" '{}' \;
+			-e 's/currentColor/url(#oomox)/g' \
+			-e "s/efefe7/$SURUPLUS_GRADIENT1/g" \
+			-e "s/8f8f8b/$SURUPLUS_GRADIENT2/g" '{}' \;
 fi
 
 echo ":: Exporting theme..."
