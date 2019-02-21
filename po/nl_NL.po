@@ -671,19 +671,19 @@ msgstr "Donkere variant toevoegen"
 
 #: plugins/theme_oomox/oomox_plugin.py:144
 msgid "Text Input Caret"
-msgstr "Tekstinvoer-toegankelijkheid"
+msgstr "Cursor"
 
 #: plugins/theme_oomox/oomox_plugin.py:153
 msgid "Primary Caret Color"
-msgstr "Primaire toegankelijkheidskleur"
+msgstr "Primaire cursorkleur"
 
 #: plugins/theme_oomox/oomox_plugin.py:159
 msgid "Secondary Caret Color"
-msgstr "Secundaire toegankelijkheidskleur"
+msgstr "Secundaire cursorkleur"
 
 #: plugins/theme_oomox/oomox_plugin.py:165
 msgid "Caret Aspect Ratio"
-msgstr "Beeldverhouding"
+msgstr "Beeldverhouding van cursor"
 
 #: plugins/theme_oomox/oomox_plugin.py:172
 msgid "Desktop Environments"
