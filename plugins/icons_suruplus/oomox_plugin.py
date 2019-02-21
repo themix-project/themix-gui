@@ -112,6 +112,7 @@ class Plugin(OomoxIconsPlugin):
             'key': 'SURUPLUS_GRADIENT_ENABLED',
             'type': 'bool',
             'fallback_value': False,
+            'reload_options': True,
             'display_name': _('Enable Gradients'),
         },
         {

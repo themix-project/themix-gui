@@ -439,7 +439,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         theme_option['fallback_value'] = value
                     self.theme = self.theme_reload_callback()
                 callbacks = [_callback, ]
-            elif key in [
+            elif theme_value.get('reload_options') or key in [
                     'ICONS_STYLE', 'THEME_STYLE',
                     'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE',
                     'TERMINAL_THEME_AUTO_BGFG', 'TERMINAL_FG', 'TERMINAL_BG',
