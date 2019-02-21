@@ -150,7 +150,7 @@ class Plugin(OomoxIconsPlugin):
             icon_preview = icon_preview.replace(
                 "currentColor", "url(#arrongin)"
             ).replace(
-                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR
+                "%GRADIENT1%", colorscheme["SURUPLUS_GRADIENT1"] or FALLBACK_COLOR
             ).replace(
                 "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR
             )
