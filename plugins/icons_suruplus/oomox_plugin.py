@@ -108,10 +108,34 @@ class Plugin(OomoxIconsPlugin):
             'fallback_key': 'FG',
             'display_name': _('Panel Icons'),
         },
+        {
+            'key': 'SURUPLUS_GRADIENT_ENABLED',
+            'type': 'bool',
+            'fallback_value': False,
+            'display_name': _('Enable Gradients'),
+        },
+        {
+            'key': 'SURUPLUS_GRADIENT1',
+            'type': 'color',
+            'fallback_key': 'ICONS_SYMBOLIC_ACTION',
+            'display_name': _('Gradient Start Color'),
+            'value_filter': {
+                'SURUPLUS_GRADIENT_ENABLED': True,
+            },
+        },
+        {
+            'key': 'SURUPLUS_GRADIENT2',
+            'type': 'color',
+            'fallback_key': 'SEL_BG',
+            'display_name': _('Gradient End Color'),
+            'value_filter': {
+                'SURUPLUS_GRADIENT_ENABLED': True,
+            },
+        },
     ]
 
     def preview_transform_function(self, svg_template, colorscheme):
-        return svg_template.replace(
+        icon_preview = svg_template.replace(
             "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
         ).replace(
             "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
@@ -122,3 +146,12 @@ class Plugin(OomoxIconsPlugin):
         ).replace(
             "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR
         )
+        if colorscheme['SURUPLUS_GRADIENT_ENABLED'] and 'arrongin' in svg_template:
+            icon_preview = icon_preview.replace(
+                "currentColor", "url(#arrongin)"
+            ).replace(
+                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR
+            ).replace(
+                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR
+            )
+        return icon_preview

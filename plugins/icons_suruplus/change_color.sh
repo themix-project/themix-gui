@@ -109,6 +109,8 @@ light_folder_fallback="$ICONS_COLOR"
 medium_base_fallback="$(darker "$ICONS_COLOR" 20)"
 dark_stroke_fallback="$(darker "$ICONS_COLOR" 56)"
 
+SURUPLUS_GRADIENT_ENABLED=$(echo "${SURUPLUS_GRADIENT_ENABLED-False}" | tr '[:upper:]' '[:lower:]')
+
 : "${ICONS_LIGHT_FOLDER:=$light_folder_fallback}"
 : "${ICONS_MEDIUM:=$medium_base_fallback}"
 : "${ICONS_DARK:=$dark_stroke_fallback}"
@@ -160,6 +162,17 @@ if [ -n "${ICONS_SYMBOLIC_PANEL:-}" ]; then
 		-exec sed -i'' -e "s/d3dae3/$ICONS_SYMBOLIC_PANEL/g" '{}' \;
 fi
 
+if [ "$SURUPLUS_GRADIENT_ENABLED" = "true" ] && [ -n "${SURUPLUS_GRADIENT1:-}" ] && [ -n "${SURUPLUS_GRADIENT2:-}" ]; then
+	echo ":: Replacing gradient colors..."
+	find "$tmp_dir"/Suru++/apps/16 \
+		"$tmp_dir"/Suru++/devices/16 \
+		"$tmp_dir"/Suru++/places/16 \
+		-type f -name '*.svg' \
+		-exec sed -i'' \
+			-e 's/currentColor/url(#arrongin)/g' \
+			-e "s/dd9b44/$SURUPLUS_GRADIENT1/g" \
+			-e "s/ad6c16/$SURUPLUS_GRADIENT2/g" '{}' \;
+fi
 
 echo ":: Exporting theme..."
 sed -i \
