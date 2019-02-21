@@ -166,6 +166,7 @@ if [ "$SURUPLUS_GRADIENT_ENABLED" = "true" ] && [ -n "${SURUPLUS_GRADIENT1:-}" ]
 	echo ":: Replacing gradient colors..."
 	find "$tmp_dir"/Suru++/apps/16 \
 		"$tmp_dir"/Suru++/devices/16 \
+		"$tmp_dir"/Suru++/mimetypes/16 \
 		"$tmp_dir"/Suru++/places/16 \
 		-type f -name '*.svg' \
 		-exec sed -i'' \
