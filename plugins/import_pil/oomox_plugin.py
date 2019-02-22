@@ -53,8 +53,8 @@ def get_gray_colors(palette):
 class Plugin(OomoxImportPlugin):
 
     name = 'import_pil'
-    display_name = 'Image colors'
-    import_text = 'Colors from Image'
+    display_name = _('Image colors')
+    import_text = _('Colors from Image')
     file_extensions = (
         '.jpg',
         '.png',
@@ -197,13 +197,13 @@ class Plugin(OomoxImportPlugin):
             'type': 'options',
             'options': [{
                 'value': LOW_QUALITY,
-                'display_name': 'oomox: low quality',
+                'display_name': _('oomox: low quality'),
             }, {
                 'value': MEDIUM_QUALITY,
-                'display_name': 'oomox: medium quality',
+                'display_name': _('oomox: medium quality'),
             }, {
                 'value': HIGH_QUALITY,
-                'display_name': 'oomox: high quality',
+                'display_name': _('oomox: high quality'),
             }],
             # }, {
             #     'value': ULTRA_QUALITY,
@@ -271,13 +271,13 @@ class Plugin(OomoxImportPlugin):
         import colorz  # pylint: disable=import-error
         theme_model_import[1]['options'] += [{
             'value': 'colorz16',
-            'display_name': 'colorz lib: low quality',
+            'display_name': _('colorz lib: low quality'),
         }, {
             'value': 'colorz32',
-            'display_name': 'colorz lib: medium quality',
+            'display_name': _('colorz lib: medium quality'),
         }, {
             'value': 'colorz64',
-            'display_name': 'colorz lib: high quality',
+            'display_name': _('colorz lib: high quality'),
         }]
     except:  # noqa pylint: disable=bare-except
         pass
@@ -286,10 +286,10 @@ class Plugin(OomoxImportPlugin):
         import colorthief  # pylint: disable=import-error
         theme_model_import[1]['options'] += [{
             'value': 'colorthief16',
-            'display_name': 'colorthief lib',
+            'display_name': _('colorthief lib'),
         }, {
             'value': 'colorthief32',
-            'display_name': 'colorthief lib: doublepass',
+            'display_name': _('colorthief lib: doublepass'),
         }]
     except:  # noqa pylint: disable=bare-except
         pass
@@ -299,7 +299,7 @@ class Plugin(OomoxImportPlugin):
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'].append({
             'value': 'haishoku',
-            'display_name': 'haishoku lib',
+            'display_name': _('haishoku lib'),
         })
     except:  # noqa pylint: disable=bare-except
         pass
@@ -311,10 +311,10 @@ class Plugin(OomoxImportPlugin):
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'] += [{
             'value': 'all_low',
-            'display_name': 'all available: low quality',
+            'display_name': _('all available: low quality'),
         }, {
             'value': 'all_medium',
-            'display_name': 'all available: medium quality',
+            'display_name': _('all available: medium quality'),
         }]
     except:  # noqa pylint: disable=bare-except
         pass
