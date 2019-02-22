@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-21 20:24-0300\n"
+"PO-Revision-Date: 2019-02-21 11:50-0300\n"
 "Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
 "Language-Team: Italian <gusbemacbe@gmail.com>\n"
 "Language: it \n"
@@ -72,7 +72,7 @@ msgstr "Opzioni dell'esportazione del tema"
 
 #: oomox_gui/export_common.py:316
 msgid "Generate 2x scaled (_HiDPI) assets for GTK+2"
-msgstr "Generare le immagini (_HiDPI) 2x ridimensionate per GTK+2"
+msgstr "Generare le immagini di (_HiDPI) 2x ridimensionate per GTK+2"
 
 #: oomox_gui/colors_list.py:265
 msgid "Choose a Color…"
@@ -147,7 +147,7 @@ msgid ""
 "There are unsaved changes.\n"
 "Save them?"
 msgstr ""
-"Ci sono odifiche non salvate.\n"
+"Ci sono modifiche non salvate.\n"
 "Vuoi salvarle?"
 
 #: oomox_gui/main.py:76
@@ -319,14 +319,12 @@ msgid "Header Text"
 msgstr "Testo dell'intestazione"
 
 #: oomox_gui/theme_model.py:154
-#, fuzzy
 msgid "Selected Background"
-msgstr "Sfondo da barra di intestazione"
+msgstr "Sfondo selezionato"
 
 #: oomox_gui/theme_model.py:160
-#, fuzzy
 msgid "Selected Text"
-msgstr "Testo di selezione"
+msgstr "Testo selezionato"
 
 #: oomox_gui/theme_model.py:166
 msgid "Accent Color (Checkboxes, Radios)"
@@ -358,11 +356,11 @@ msgstr "Testo do pulsante dell'intestazione"
 
 #: oomox_gui/theme_model.py:208
 msgid "Focused Window Border"
-msgstr "bordo della finestra focalizzata"
+msgstr "Bordo della finestra focalizzata"
 
 #: oomox_gui/theme_model.py:214
 msgid "Unfocused Window Border"
-msgstr "bordo della finestra non focalizzata"
+msgstr "Bordo della finestra non focalizzata"
 
 #: oomox_gui/theme_model.py:235 oomox_gui/theme_model.py:295
 msgid "Theme Options"
@@ -418,7 +416,7 @@ msgstr "Scambio automatico di sfondo e primo piano"
 
 #: oomox_gui/theme_model.py:353
 msgid "Extend Palette with More Lighter/Darker Colors"
-msgstr "Estendere a tavolozza con colori più chiari/scuri"
+msgstr "Estendere la tavolozza con colori più chiari/scuri"
 
 #: oomox_gui/theme_model.py:362
 msgid "Palette Generation Accuracy"
@@ -519,8 +517,7 @@ msgstr "Opzioni dell'esportazione del Base16…"
 
 #: plugins/base16/oomox_plugin.py:258
 msgid "Choose export options below and copy-paste the result."
-msgstr ""
-"Scegli le opzioni dell'esportazione sotto e copia-incolla il risultato."
+msgstr "Scegli le opzioni dell'esportazione sotto e copia-incolla il risultato."
 
 #: plugins/base16/oomox_plugin.py:281
 msgid "_Application:"
@@ -597,9 +594,8 @@ msgid "Border"
 msgstr "Bordo"
 
 #: plugins/theme_arc/oomox_plugin.py:174
-#, fuzzy
 msgid "Enable Theme Transparency"
-msgstr "Abilitare la transparenza del tema del GTK3"
+msgstr "Abilitare la transparenza del tema"
 
 #: plugins/theme_materia/oomox_plugin.py:96
 msgid "View"
@@ -627,7 +623,7 @@ msgstr "Base chiara"
 
 #: plugins/oomoxify/oomox_plugin.py:60
 msgid "Don't change _default font"
-msgstr "Non cambiare il font standard"
+msgstr "Non cambiare il font _standard"
 
 #: plugins/oomoxify/oomox_plugin.py:70
 msgid "_Normalize font weight"
@@ -658,22 +654,18 @@ msgid "Spotify"
 msgstr "Spotify"
 
 #: plugins/icons_suruplus/oomox_plugin.py:58
-#, fuzzy
 msgid "Export _path: "
-msgstr "_Camino del Spotify:"
+msgstr "ESportare il _camino:"
 
 #: plugins/icons_suruplus/oomox_plugin.py:116
-#, fuzzy
 msgid "Enable Gradients"
 msgstr "Abilitare i gradienti"
 
 #: plugins/icons_suruplus/oomox_plugin.py:122
-#, fuzzy
 msgid "Gradient Start Color"
 msgstr "Colore del gradiente primario"
 
 #: plugins/icons_suruplus/oomox_plugin.py:131
-#, fuzzy
 msgid "Gradient End Color"
 msgstr "Colore del gradiente secundario"
 
@@ -686,19 +678,16 @@ msgstr ""
 "invece delle 3.18 e 3.20+"
 
 #: plugins/theme_oomox/oomox_plugin.py:107
-#, fuzzy
 msgid "Textbox Caret"
-msgstr "Testo della casella di testo"
+msgstr "Cursore della casella di testo"
 
 #: plugins/theme_oomox/oomox_plugin.py:113
-#, fuzzy
 msgid "BiDi Textbox Caret"
-msgstr "Testo della casella di testo"
+msgstr "Cursore della casella di testo BiDi"
 
 #: plugins/theme_oomox/oomox_plugin.py:122
-#, fuzzy
 msgid "Textbox Caret Aspect Ratio"
-msgstr "Pulsante de opzioni del cursore"
+msgstr "Pulsante d'opzioni del cursore della casella di testo"
 
 #: plugins/theme_oomox/oomox_plugin.py:126
 msgid "GTK3 Theme Options"
@@ -714,7 +703,7 @@ msgstr "Larghezza del contorno focalizzato"
 
 #: plugins/theme_oomox/oomox_plugin.py:147
 msgid "Focused Button Outline Width"
-msgstr "Larghezza del contorno focalizzato del pulsante"
+msgstr "Larghezza del contorno del pulsante focalizzato"
 
 #: plugins/theme_oomox/oomox_plugin.py:154
 msgid "Focused Button Outline Offset"
@@ -722,7 +711,7 @@ msgstr "Distanza del contorno del pulsante focalizzato"
 
 #: plugins/theme_oomox/oomox_plugin.py:160
 msgid "Add Dark Variant"
-msgstr "Aggiungere variante scura"
+msgstr "Aggiungere una variante scura"
 
 #: plugins/theme_oomox/oomox_plugin.py:165
 msgid "Desktop Environments"
@@ -737,18 +726,16 @@ msgid "Unity: Use Default Launcher Style"
 msgstr "Unity: Utilizzare lo stile del lanciatore standard"
 
 #: plugins/import_pil/oomox_plugin.py:56
-#, fuzzy
 msgid "Image colors"
-msgstr "colori del terminal:"
+msgstr "colori dell'immagine"
 
 #: plugins/import_pil/oomox_plugin.py:57
-#, fuzzy
 msgid "Colors from Image"
-msgstr "Importare i colori dell'immagine"
+msgstr "Colori dall'immagine"
 
 #: plugins/import_pil/oomox_plugin.py:189
 msgid "Import Colors from Image"
-msgstr "Importare i colori dell'immagine"
+msgstr "Importare i colori dall'immagine"
 
 #: plugins/import_pil/oomox_plugin.py:200
 msgid "oomox: low quality"
@@ -784,7 +771,7 @@ msgstr "Template del tema del GUI"
 
 #: plugins/import_pil/oomox_plugin.py:259
 msgid "Image Thumbnail"
-msgstr "Miniatura dell'immagine"
+msgstr "Miniatura d'immagine"
 
 #: plugins/import_pil/oomox_plugin.py:262
 msgid "Edit Generated Theme"
@@ -833,16 +820,14 @@ msgstr "Colore di icone"
 #~ msgstr "Colore del borde dei widget del GTK3"
 
 #~ msgid "Text Input Caret"
-#~ msgstr "Cursore"
+#~ msgstr "Cursore dell'immissione di testo"
 
 #~ msgid "Secondary Caret Color"
 #~ msgstr "Colore del cursore secondario"
 
-#, fuzzy
 #~ msgid "_Export Theme…"
 #~ msgstr "_Esportare il tema..."
 
-#, fuzzy
 #~ msgid "Selection Highlight"
 #~ msgstr "Evidenziatore di selezione"
 
@@ -873,25 +858,17 @@ msgstr "Colore di icone"
 #~ msgid "Other options"
 #~ msgstr "Altre opzioni"
 
-#, fuzzy
 #~ msgid "Please choose the font options:"
 #~ msgstr "Per favore scegli le opzioni del font:"
 
-#, fuzzy
 #~ msgid "Spotify background"
 #~ msgstr "Sfondo del Spotify"
 
-#, fuzzy
 #~ msgid "Spotify foreground"
 #~ msgstr "Primo piano del Spotify"
 
-#, fuzzy
 #~ msgid "Theme options:"
-#~ msgstr "Opzioni del tena:"
-
-#, fuzzy
-#~ msgid "Theme options: "
-#~ msgstr "Opzioni del tena:"
+#~ msgstr "Opzioni del tema:"
 
 #~ msgid "Edit:"
 #~ msgstr "Modificare:"
