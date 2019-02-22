@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-22 04:17-0300\n"
-"Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
+"PO-Revision-Date: 2019-02-22 14:00+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -319,14 +319,12 @@ msgid "Header Text"
 msgstr "Koptekst"
 
 #: oomox_gui/theme_model.py:154
-#, fuzzy
 msgid "Selected Backround"
-msgstr "Kopachtergrond"
+msgstr "Selectie-achtergrond"
 
 #: oomox_gui/theme_model.py:160
-#, fuzzy
 msgid "Selected Text"
-msgstr "Selectietekst"
+msgstr "Geselecteerde tekst"
 
 #: oomox_gui/theme_model.py:166
 msgid "Accent Color (Checkboxes, Radios)"
@@ -572,12 +570,12 @@ msgstr "Geïmporteerd thema bewerken"
 #: plugins/icons_papirus/oomox_plugin.py:62
 #: plugins/icons_suruplus/oomox_plugin.py:103
 msgid "Actions Icons"
-msgstr "Pictogramen van actions"
+msgstr "Actiepictogrammen"
 
 #: plugins/icons_papirus/oomox_plugin.py:68
 #: plugins/icons_suruplus/oomox_plugin.py:109
 msgid "Panel Icons"
-msgstr "Pictogramen van panel"
+msgstr "Paneelpictogrammen"
 
 #: plugins/theme_arc/oomox_plugin.py:55 plugins/theme_oomox/oomox_plugin.py:59
 msgid "Generate theme for _Cinnamon"
@@ -596,9 +594,8 @@ msgid "Border"
 msgstr "Rand"
 
 #: plugins/theme_arc/oomox_plugin.py:174
-#, fuzzy
 msgid "Enable Theme Transparency"
-msgstr "Doorzichtigheid inschakelen voor GTK3-thema's"
+msgstr "Doorzichtigheid inschakelen"
 
 #: plugins/theme_materia/oomox_plugin.py:96
 msgid "View"
@@ -657,24 +654,20 @@ msgid "Spotify"
 msgstr "Spotify"
 
 #: plugins/icons_suruplus/oomox_plugin.py:58
-#, fuzzy
 msgid "Export _path: "
-msgstr "Spotify-_pad:"
+msgstr "Export_pad: "
 
 #: plugins/icons_suruplus/oomox_plugin.py:116
-#, fuzzy
 msgid "Enable Gradients"
-msgstr "Kleurverloop"
+msgstr "Kleurverlopen inschakelen"
 
 #: plugins/icons_suruplus/oomox_plugin.py:122
-#, fuzzy
 msgid "Gradient Start Color"
-msgstr "Primaire cursorkleur"
+msgstr "Startkleur van kleurverloop"
 
 #: plugins/icons_suruplus/oomox_plugin.py:131
-#, fuzzy
 msgid "Gradient End Color"
-msgstr "Kleurverloop"
+msgstr "Eindkleur van kleurverloop"
 
 #: plugins/theme_oomox/oomox_plugin.py:54
 msgid ""
@@ -685,17 +678,14 @@ msgstr ""
 "i.p.v. zowel 3.18 en 3.20+"
 
 #: plugins/theme_oomox/oomox_plugin.py:107
-#, fuzzy
 msgid "Textbox Caret"
-msgstr "Tekstvaktekst"
+msgstr "Cursor"
 
 #: plugins/theme_oomox/oomox_plugin.py:113
-#, fuzzy
 msgid "BiDi Textbox Caret"
-msgstr "Tekstvaktekst"
+msgstr "Cursor vlnr"
 
 #: plugins/theme_oomox/oomox_plugin.py:122
-#, fuzzy
 msgid "Textbox Caret Aspect Ratio"
 msgstr "Beeldverhouding van cursor"
 
@@ -736,14 +726,12 @@ msgid "Unity: Use Default Launcher Style"
 msgstr "Unity: standaard starterstijl gebruiken"
 
 #: plugins/import_pil/oomox_plugin.py:56
-#, fuzzy
 msgid "Image colors"
-msgstr "terminalkleuren:"
+msgstr "Afbeeldingskleuren"
 
 #: plugins/import_pil/oomox_plugin.py:57
-#, fuzzy
 msgid "Colors from Image"
-msgstr "Kleuren importeren uit afbeelding"
+msgstr "Kleuren uit afbeelding"
 
 #: plugins/import_pil/oomox_plugin.py:189
 msgid "Import Colors from Image"
@@ -755,7 +743,7 @@ msgstr "oomox: lage kwaliteit"
 
 #: plugins/import_pil/oomox_plugin.py:203
 msgid "oomox: medium quality"
-msgstr "oomox: gemiddelde kwaliteit"
+msgstr "oomox: normale kwaliteit"
 
 #: plugins/import_pil/oomox_plugin.py:206
 msgid "oomox: high quality"
@@ -795,7 +783,7 @@ msgstr "colorz lib: lage kwaliteit"
 
 #: plugins/import_pil/oomox_plugin.py:277
 msgid "colorz lib: medium quality"
-msgstr "colorz lib: gemiddelde kwaliteit"
+msgstr "colorz lib: normale kwalitit"
 
 #: plugins/import_pil/oomox_plugin.py:280
 msgid "colorz lib: high quality"
@@ -815,11 +803,11 @@ msgstr "haishoku lib"
 
 #: plugins/import_pil/oomox_plugin.py:314
 msgid "all available: low quality"
-msgstr "alles beschikbaar: lage kwaliteit"
+msgstr "alle beschikbare: lage kwaliteit"
 
 #: plugins/import_pil/oomox_plugin.py:317
 msgid "all available: medium quality"
-msgstr "alles beschikbaar: gemiddelde kwaliteit"
+msgstr "alle beschikbare: normale kwaliteit"
 
 #: plugins/icons_archdroid/oomox_plugin.py:42
 msgid "Icons Color"
