@@ -151,7 +151,7 @@ BASE_THEME_MODEL_GTK = [
         'key': 'SEL_BG',
         'fallback_key': 'FG',
         'type': 'color',
-        'display_name': _('Selected Backround')
+        'display_name': _('Selected Background')
     },
     {
         'key': 'SEL_FG',
