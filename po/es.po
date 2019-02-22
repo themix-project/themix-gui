@@ -1,265 +1,242 @@
-# French translations for oomox package
-# Traductions françaises du paquet oomox.
+# Spanish translations for oomox package
+# Traducciones espaõlas para Oomox.
 # This file is put in the public domain.
-# Colomban Wendling <cwendling@hypra.fr>, 2017.
+# Heimen Stoffels <vistausss@outlook.com>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-05 23:02+0100\n"
-"PO-Revision-Date: 2017-03-09 19:15+0100\n"
-"Last-Translator: Colomban Wendling <cwendling@hypra.fr>\n"
-"Language-Team: French\n"
-"Language: fr\n"
+"POT-Creation-Date: 2019-02-21 20:24-0300\n"
+"PO-Revision-Date: 2019-02-21 20:24-0300\n"
+"Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
+"Language-Team: Spanish <gusbemacbe@gmail.com>\n"
+"Language: es \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: oomox_gui/preset_list.py:18
-#, fuzzy
 msgid "Presets"
-msgstr "Préréglages :"
+msgstr "Preajustes"
 
 #: oomox_gui/preset_list.py:19
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #: oomox_gui/preset_list.py:20
-#, fuzzy
 msgid "User Presets"
-msgstr "Préréglages :"
+msgstr "Preajustes del usuario"
 
 #: oomox_gui/export_common.py:59
 msgid "Something went wrong :("
-msgstr "Quelque chose s'est mal passé :("
+msgstr "Algo salió mal :("
 
 #: oomox_gui/export_common.py:63
 msgid "_Dismiss"
-msgstr "_Fermer"
+msgstr "_Cancelar"
 
 #: oomox_gui/export_common.py:76
-#, fuzzy
 msgid "Export Theme"
-msgstr "_Exporter le thème"
+msgstr "Exportar el tema"
 
 #: oomox_gui/export_common.py:112
 msgid "_Apply Options and Export"
-msgstr "Appliquer options et exporter"
+msgstr "_Aplicar y exportar ajustes"
 
 #: oomox_gui/export_common.py:137
-#, fuzzy
 msgid "Exporting…"
-msgstr "Exportation…"
+msgstr "Exportando..."
 
 #: oomox_gui/export_common.py:149
-#, fuzzy
 msgid ""
 "Please wait while\n"
 "new colorscheme will be created."
 msgstr ""
-"Veuillez patienter pendant que\n"
-"le nouveau thème de couleur est créé"
+"Por favor espera mientras\n"
+"se creará el nuevo esquema de color…"
 
 #: oomox_gui/export_common.py:193
-#, fuzzy
 msgid "Terminal Colorscheme"
-msgstr "Couleur primaire"
+msgstr "Esquema de color del terminal"
 
 #: oomox_gui/export_common.py:198
 msgid "Paste this colorscheme to your ~/.Xresources:"
-msgstr "Collez cette couleur primaire pour votre ~/.Xresources :"
+msgstr "Copia este equema de color para tu ~/.Xresources:"
 
 #: oomox_gui/export_common.py:237
 msgid "Generate 2x scaled (_HiDPI) assets for GTK+2"
-msgstr "Générer recours de (_HiDPI) 2 fois dimensionnés pour le GTK2+2"
+msgstr "Genera imágenes (_HiDPI) 2x escaladas para GTK+2"
 
 #: oomox_gui/export_common.py:251
-#, fuzzy
 msgid "Theme Export Options"
-msgstr "Options du thème"
+msgstr "Ajustes de la exportación del tema"
 
 #: oomox_gui/colors_list.py:265
-#, fuzzy
 msgid "Choose a Color…"
-msgstr "Sélectionner une couleur…"
+msgstr "Escoge un color…"
 
 #: oomox_gui/colors_list.py:350
 msgid "<N/A>"
-msgstr "<N/A>"
+msgstr "<N/B>"
 
 #: oomox_gui/colors_list.py:360
 msgid "<none>"
-msgstr "<aucun>"
+msgstr "<nada>"
 
 #: oomox_gui/colors_list.py:427
-#, fuzzy
 msgid "Can't Be Edited in GUI"
-msgstr "Ne peut pas être édité dans l'interface"
+msgstr "No puede ser modificado en el GUI"
 
 #: oomox_gui/preview_terminal.py:16
 msgid "black"
-msgstr "noir"
+msgstr "negro"
 
 #: oomox_gui/preview_terminal.py:17
 msgid "red"
-msgstr "rouge"
+msgstr "rojo"
 
 #: oomox_gui/preview_terminal.py:18
 msgid "green"
-msgstr "vert"
+msgstr "verde"
 
 #: oomox_gui/preview_terminal.py:19
 msgid "yellow"
-msgstr "jaune"
+msgstr "amarillo"
 
 #: oomox_gui/preview_terminal.py:20
 msgid "blue"
-msgstr "bleu"
+msgstr "azul"
 
 #: oomox_gui/preview_terminal.py:21
 msgid "purple"
-msgstr "pourpre"
+msgstr "púrpura"
 
 #: oomox_gui/preview_terminal.py:22
 msgid "cyan"
-msgstr "cyan"
+msgstr "cian"
 
 #: oomox_gui/preview_terminal.py:23
 msgid "white"
-msgstr "blanc"
+msgstr "blanco"
 
 #: oomox_gui/preview_terminal.py:42
 msgid "terminal colors:"
-msgstr "Couleurs du terminal :"
+msgstr "colores del terminal:"
 
 #: oomox_gui/main.py:39
-#, fuzzy
 msgid "New Theme"
-msgstr "Nouveau thème"
+msgstr "Nuevo tema"
 
 #: oomox_gui/main.py:40
 msgid "Please input new theme name:"
-msgstr "Veuillez entrer le nom du nouveau thème :"
+msgstr "Por favor introduce el nuevo nombre del tema:"
 
 #: oomox_gui/main.py:56
-#, fuzzy
 msgid "Rename Theme"
-msgstr "Renommer le thème"
+msgstr "Cambiar nombre de tema"
 
 #: oomox_gui/main.py:66
-#, fuzzy
 msgid "Unsaved Changes"
-msgstr "Changements non enregistrés"
+msgstr "Cambios no guardados"
 
 #: oomox_gui/main.py:67
 msgid ""
 "There are unsaved changes.\n"
 "Save them?"
 msgstr ""
-"Il y a des changements non enregistrés.\n"
-"Faut-il les sauvegarder?"
+"Hay cambios no guardados.\n"
+"¿Quieres guardarlos?"
 
 #: oomox_gui/main.py:76
-#, fuzzy
 msgid "Remove Theme"
-msgstr "Supprimer le thème"
+msgstr "Eliminar el tema"
 
 #: oomox_gui/main.py:77
 msgid ""
 "Are you sure you want to delete the colorscheme?\n"
 "This can not be undone."
 msgstr ""
-"Êtes-vous sûr de vouloir supprimer le thème de couleurs ?\n"
-"Cela ne peut pas être annulé."
+"¿Estás seguro de que quieres eliminar el esquema de color?\n"
+"Eso no puede ser deshecho."
 
 #: oomox_gui/main.py:198
 msgid "Please choose a file with oomox colors"
-msgstr "Veuillez choisir un fichier avec des couleurs de l'Oomox"
+msgstr "Por favor escoge un archivo con colores del Oomox"
 
 #: oomox_gui/main.py:231
 msgid "Please choose an image file"
-msgstr "Veuillez choisir une image"
+msgstr "Por favor escoge un archivo de imagen"
 
 #: oomox_gui/main.py:304
 msgid "Colorscheme with such name already exists"
-msgstr "Un thème de couleurs de ce nom existe déjà"
+msgstr "El esquema de color con este nombre ya existe."
 
 #: oomox_gui/main.py:478 oomox_gui/main.py:632
 msgid "Oo-mox GUI"
-msgstr "Interface Oo-mox"
+msgstr "GUI del Oo-mox"
 
 #: oomox_gui/main.py:486
 msgid "Oomox Colors File"
-msgstr "Fichier de couleurs de l'Oomox"
+msgstr "Archivo de colores del Oomox"
 
 #: oomox_gui/main.py:498
 msgid "Import"
-msgstr "Importer"
+msgstr "Importar"
 
 #: oomox_gui/main.py:499
-#, fuzzy
 msgid "Import Themes"
-msgstr "_Exporter le thème"
+msgstr "Importar temas"
 
 #: oomox_gui/main.py:511
-#, fuzzy
 msgid "Clone Current Theme…"
-msgstr "Cloner le thème courant"
+msgstr "Clonar el tema actual"
 
 #: oomox_gui/main.py:517
-#, fuzzy
 msgid "Save Theme"
-msgstr "Enregistrer le thème"
+msgstr "Guardar el tema"
 
 #: oomox_gui/main.py:524
-#, fuzzy
 msgid "Rename Theme…"
-msgstr "Renommer le thème"
+msgstr "Cambiar el tema…"
 
 #: oomox_gui/main.py:530
-#, fuzzy
 msgid "Remove Theme…"
-msgstr "Supprimer le thème"
+msgstr "Eliminar el tema…"
 
 #: oomox_gui/main.py:556
 msgid "Keyboard Shortcuts"
-msgstr "Raccourcis clavier"
+msgstr "Atajos de teclado"
 
 #: oomox_gui/main.py:564
-#, fuzzy
 msgid "Export _Terminal"
-msgstr "Exporter les _icônes"
+msgstr "Exportar _terminal"
 
 #: oomox_gui/main.py:567
-#, fuzzy
 msgid "Export Terminal Theme"
-msgstr "Exporter le thème d'icônes"
+msgstr "Exportar el tema del terminal"
 
 #: oomox_gui/main.py:572
-#, fuzzy
 msgid "Export _Icons"
-msgstr "Exporter les _icônes"
+msgstr "Exportar _iconos"
 
 #: oomox_gui/main.py:574
-#, fuzzy
 msgid "Export Icon Theme"
-msgstr "Exporter le thème d'icônes"
+msgstr "Exportar el tema de iconos"
 
 #: oomox_gui/main.py:579
-#, fuzzy
 msgid "_Export Theme"
-msgstr "_Exporter le thème"
+msgstr "_Exportar el tema"
 
 #: oomox_gui/main.py:581
-#, fuzzy
 msgid "Export GTK Theme"
-msgstr "Exporter le thème GTK"
+msgstr "Exportar el tema del GTK"
 
 #: oomox_gui/gtk_helpers.py:178
 msgid "_Cancel"
-msgstr "_Annuler"
+msgstr "_Cancelar"
 
 #: oomox_gui/gtk_helpers.py:179
 msgid "_OK"
@@ -267,161 +244,143 @@ msgstr "_OK"
 
 #: oomox_gui/gtk_helpers.py:193
 msgid "Are you sure?"
-msgstr "Êtes-vous sûr ?"
+msgstr "¿Estás seguro?"
 
 #: oomox_gui/gtk_helpers.py:206
 msgid "_No"
-msgstr "_Non"
+msgstr "_No"
 
 #: oomox_gui/gtk_helpers.py:207
 msgid "_Yes"
-msgstr "_Oui"
+msgstr "_Sí"
 
 #: oomox_gui/plugin_loader.py:54
 #, python-brace-format
 msgid "Error loading plugin \"{plugin_name}\""
-msgstr "Erreur de chargement du plugin \"{plugin_name}\""
+msgstr "Error al cargar el plugin\"{plugin_name}\""
 
 #: oomox_gui/preview.py:62
 msgid "Headerbar"
-msgstr "Barre d'en-tête"
+msgstr "Barra de encabezado"
 
 #: oomox_gui/preview.py:64 oomox_gui/preview.py:105
 msgid "Button"
-msgstr "Bouton"
+msgstr "Botón"
 
 #: oomox_gui/preview.py:92
 msgid "File"
-msgstr "Fichier"
+msgstr "Archivo"
 
 #: oomox_gui/preview.py:95
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Editar"
 
 #: oomox_gui/preview.py:102
-#, fuzzy
 msgid "This is a label"
-msgstr "Ceci est un label."
+msgstr "Esto es una etiqueta"
 
 #: oomox_gui/preview.py:103
-#, fuzzy
 msgid "Selected item"
-msgstr "Élément sélectionné"
+msgstr "Item seleccionado"
 
 #: oomox_gui/preview.py:104
-#, fuzzy
 msgid "Text entry"
-msgstr "Zone de texte."
+msgstr "Entrada de texto"
 
 #: oomox_gui/preview.py:135
 #, python-brace-format
 msgid "Item {id}"
-msgstr "Élément {id}"
+msgstr "Item {id}"
 
 #: oomox_gui/preview.py:135
 #, python-brace-format
 msgid "Insensitive Item {id}"
-msgstr "Élément insensitif {id}"
+msgstr "Item insensible {id}"
 
 #: oomox_gui/theme_model.py:102 oomox_gui/theme_model.py:278
 msgid "Theme Style"
-msgstr "Style du thème"
+msgstr "Estilo del tema"
 
 #: oomox_gui/theme_model.py:110 oomox_gui/theme_model.py:288
 #: plugins/oomoxify/oomox_plugin.py:153
 msgid "Background"
-msgstr "Arrière-plan"
+msgstr "Fondo"
 
 #: oomox_gui/theme_model.py:115
 msgid "Text"
-msgstr "Texte"
+msgstr "Texto"
 
 #: oomox_gui/theme_model.py:121
-#, fuzzy
 msgid "Header Background"
-msgstr "Arrière-plan bouton d'en-tête"
+msgstr "Fondo de la barra de encabezado"
 
 #: oomox_gui/theme_model.py:127
-#, fuzzy
 msgid "Header Text"
-msgstr "Texte des boutons d'en-tête"
+msgstr "Texto de encabezado"
 
 #: oomox_gui/theme_model.py:132
-#, fuzzy
 msgid "Selection Color"
-msgstr "Couleur des icônes"
+msgstr "Color de selección"
 
 #: oomox_gui/theme_model.py:137
-#, fuzzy
 msgid "Selection Text"
-msgstr "Texte de la sélection"
+msgstr "Texto de la selección"
 
 #: oomox_gui/theme_model.py:143
 msgid "Accent Color (Checkboxes, Radios)"
-msgstr "Couleur primaire (cases à cocher, cases d'option)"
+msgstr "Color de acento (casillas de verificación, botones de radio)"
 
 #: oomox_gui/theme_model.py:148
-#, fuzzy
 msgid "Textbox Background"
-msgstr "Arrière-plan zone de texte"
+msgstr "Fondo del cuadro del texto"
 
 #: oomox_gui/theme_model.py:153
-#, fuzzy
 msgid "Textbox Text"
-msgstr "Zone de texte"
+msgstr "Texto del cuadro del texto"
 
 #: oomox_gui/theme_model.py:158
-#, fuzzy
 msgid "Button Background"
-msgstr "Arrière-plan bouton"
+msgstr "Fondo del botón"
 
 #: oomox_gui/theme_model.py:163
-#, fuzzy
 msgid "Button Text"
-msgstr "Texte des boutons"
+msgstr "Texto del botón"
 
 #: oomox_gui/theme_model.py:169
-#, fuzzy
 msgid "Header Button Background"
-msgstr "Arrière-plan bouton d'en-tête"
+msgstr "Fondo del botón del encabezado"
 
 #: oomox_gui/theme_model.py:175
-#, fuzzy
 msgid "Header Button Text"
-msgstr "Texte des boutons d'en-tête"
+msgstr "Texto del botón del encabezado"
 
 #: oomox_gui/theme_model.py:181
-#, fuzzy
 msgid "Focused Window Border"
-msgstr "Bordure de fenêtre focusée"
+msgstr "Borde de ventana enfocada"
 
 #: oomox_gui/theme_model.py:187
-#, fuzzy
 msgid "Unfocused Window Border"
-msgstr "Bordure de fenêtre non focusée"
+msgstr "Borde de ventana no-enfocada"
 
 #: oomox_gui/theme_model.py:208 oomox_gui/theme_model.py:268
-#, fuzzy
 msgid "Theme Options"
-msgstr "Options du thème"
+msgstr "Ajustes del tema"
 
 #: oomox_gui/theme_model.py:214
 msgid "Roundness"
-msgstr "Arrondi"
+msgstr "Redondez"
 
 #: oomox_gui/theme_model.py:221
-#, fuzzy
 msgid "Gradient"
-msgstr "(GTK3) Dégradé"
+msgstr "Gradiente"
 
 #: oomox_gui/theme_model.py:229
 msgid "Iconset"
-msgstr "Thème d'icônes"
+msgstr "Tema de iconos"
 
 #: oomox_gui/theme_model.py:242
-#, fuzzy
 msgid "Icons Style"
-msgstr "Style des icônes"
+msgstr "Estilo de iconos"
 
 #: oomox_gui/theme_model.py:256
 msgid "Terminal"
@@ -429,156 +388,142 @@ msgstr "Terminal"
 
 #: oomox_gui/theme_model.py:262
 msgid "Auto"
-msgstr "Automatique"
+msgstr "Automático"
 
 #: oomox_gui/theme_model.py:263
 msgid "Basic"
-msgstr "Standard"
+msgstr "Estándar"
 
 #: oomox_gui/theme_model.py:264
 msgid "Experimental"
-msgstr "Expérimentale"
+msgstr "Experimental"
 
 #: oomox_gui/theme_model.py:265
 msgid "Manual"
-msgstr "Manuel"
+msgstr "Manual"
 
 #: oomox_gui/theme_model.py:298 plugins/oomoxify/oomox_plugin.py:159
-#, fuzzy
 msgid "Foreground"
-msgstr "Avant-plan/texte"
+msgstr "Primer plano"
 
 #: oomox_gui/theme_model.py:307 plugins/oomoxify/oomox_plugin.py:165
-#, fuzzy
 msgid "Accent Color"
-msgstr "Couleur primaire"
+msgstr "Color de acento"
 
 #: oomox_gui/theme_model.py:317
 msgid "Auto-Swap BG/FG"
-msgstr "Échange automatique d'arrière-plan avant-plan"
+msgstr "Cambio automático de fondo y primer plano"
 
 #: oomox_gui/theme_model.py:326
 msgid "Extend Palette with More Lighter/Darker Colors"
-msgstr "Étendre la palette avec des couleurs plus claires/foncées"
+msgstr "Extender la paleta con colores más claros/oscuros"
 
 #: oomox_gui/theme_model.py:335
 msgid "Palette Generation Accuracy"
-msgstr "Précision de la génération de palette"
+msgstr "Precisión de la generación de la paleta"
 
 #: oomox_gui/theme_model.py:347
 msgid "Black"
-msgstr "Noir"
+msgstr "Negro"
 
 #: oomox_gui/theme_model.py:355
-#, fuzzy
 msgid "Black Highlight"
-msgstr "Surlignage de la sélection"
+msgstr "Realce negro"
 
 #: oomox_gui/theme_model.py:364
 msgid "Red"
-msgstr "Surlignage rouge"
+msgstr "Rojo"
 
 #: oomox_gui/theme_model.py:372
-#, fuzzy
 msgid "Red Highlight"
-msgstr "Surlignage rouge"
+msgstr "Realce rojo"
 
 #: oomox_gui/theme_model.py:381
 msgid "Green"
-msgstr "Vert"
+msgstr "Verde"
 
 #: oomox_gui/theme_model.py:389
-#, fuzzy
 msgid "Green Highlight"
-msgstr "Surlignage verte"
+msgstr "Realce verde"
 
 #: oomox_gui/theme_model.py:398
 msgid "Yellow"
-msgstr "Jaune"
+msgstr "Amarillo"
 
 #: oomox_gui/theme_model.py:406
-#, fuzzy
 msgid "Yellow Highlight"
-msgstr "Surlignage jaune"
+msgstr "Realce amarillo"
 
 #: oomox_gui/theme_model.py:415
 msgid "Blue"
-msgstr "Bleu"
+msgstr "Azul"
 
 #: oomox_gui/theme_model.py:423
-#, fuzzy
 msgid "Blue Highlight"
-msgstr "Surlignage bleu"
+msgstr "Realce azul"
 
 #: oomox_gui/theme_model.py:432
 msgid "Purple"
-msgstr "Pourpre"
+msgstr "Púrpura"
 
 #: oomox_gui/theme_model.py:440
-#, fuzzy
 msgid "Purple Highlight"
-msgstr "Surlignage pourpre"
+msgstr "Realce púrpura"
 
 #: oomox_gui/theme_model.py:449
 msgid "Cyan"
-msgstr "Cyab"
+msgstr "Cian"
 
 #: oomox_gui/theme_model.py:457
-#, fuzzy
 msgid "Cyan Highlight"
-msgstr "Surlignage cyan"
+msgstr "Realce cian"
 
 #: oomox_gui/theme_model.py:466
 msgid "White"
-msgstr "Blanc"
+msgstr "Blanco"
 
 #: oomox_gui/theme_model.py:474
-#, fuzzy
 msgid "White Highlight"
-msgstr "Surlignage blanche"
+msgstr "Realce blanco"
 
 #: plugins/icons_numix/oomox_plugin.py:47
 msgid "Numix Style"
-msgstr "Style du Numix"
+msgstr "Estilo del Numix"
 
 #: plugins/icons_numix/oomox_plugin.py:68
 #: plugins/icons_gnomecolors/oomox_plugin.py:42
-#, fuzzy
 msgid "Light Base (Folders)"
-msgstr "Base claire (dossiers)"
+msgstr "Base clara (carpetas)"
 
 #: plugins/icons_numix/oomox_plugin.py:80
 #: plugins/icons_gnomecolors/oomox_plugin.py:54
-#, fuzzy
 msgid "Medium Base"
-msgstr "Base moyenne"
+msgstr "Base mediana"
 
 #: plugins/icons_numix/oomox_plugin.py:86
 #: plugins/icons_gnomecolors/oomox_plugin.py:60
-#, fuzzy
 msgid "Dark Stroke"
-msgstr "Trait sombre"
+msgstr "Trazo oscuro"
 
 #: plugins/base16/oomox_plugin.py:255
-#, fuzzy
 msgid "Base16 Export Options…"
-msgstr "Options du thème..."
+msgstr "Ajustes de la exportación del Base16…"
 
 #: plugins/base16/oomox_plugin.py:258
 msgid "Choose export options below and copy-paste the result."
-msgstr "Veuillez exporter des options en bas et copiez-collez le résultat"
+msgstr "Escoge los ajustes del exportación abajo y copia-pegar el resultado."
 
 #: plugins/base16/oomox_plugin.py:281
 msgid "_Application:"
-msgstr "_Application :"
+msgstr "_Applicación:"
 
 #: plugins/base16/oomox_plugin.py:288
 msgid "_Variant:"
-msgstr "_Variante :"
+msgstr "_Variante:"
 
 #: plugins/base16/oomox_plugin.py:295
 msgid "Open _Homepage"
-msgstr "Ouvrez le _page d'accueil"
+msgstr "Abre el _sitio"
 
 #: plugins/base16/oomox_plugin.py:308
 msgid "Base16"
@@ -586,280 +531,274 @@ msgstr "Base16"
 
 #: plugins/base16/oomox_plugin.py:309
 msgid "Base16 User-Imported"
-msgstr "Base16 importé par l'utilisateur"
+msgstr "Base16 importado por el usuario"
 
 #: plugins/base16/oomox_plugin.py:310
 msgid "Base16-Based Templates…"
-msgstr "Modèles basés sur Base16..."
+msgstr "Templates basados en el Base16"
 
 #: plugins/base16/oomox_plugin.py:311
 msgid "From Base16 YML Format"
-msgstr "Du format de YML du Base16"
+msgstr "Del formato del YML del Base16"
 
 #: plugins/base16/oomox_plugin.py:321
 msgid "Base16 Import Options"
-msgstr "Option d'imporation du Base16"
+msgstr "Ajustes de la importación del Base16"
 
 #: plugins/base16/oomox_plugin.py:331
 msgid "Inverse GUI Variant"
-msgstr "Inverser la variante du GUI"
+msgstr "Invertir la variante del GUI"
 
 #: plugins/base16/oomox_plugin.py:338
-#, fuzzy
 msgid "Inverse Terminal Colors"
-msgstr "Inverser les couleurs du terminal"
+msgstr "Invertir los colores del terminal"
 
 #: plugins/base16/oomox_plugin.py:345
-#, fuzzy
 msgid "Mild Terminal Colors"
-msgstr "Couleur primaire légère"
+msgstr "Colores leves del terminal"
 
 #: plugins/base16/oomox_plugin.py:349
-#, fuzzy
 msgid "Edit Imported Theme"
-msgstr "Modifier le thème importé"
+msgstr "Modificar el tema importado"
 
 #: plugins/theme_arc/oomox_plugin.py:55 plugins/theme_oomox/oomox_plugin.py:59
 msgid "Generate theme for _Cinnamon"
-msgstr "Générer du thème pour _Cinnamon"
+msgstr "Generar el tema para _Cinnamon"
 
 #: plugins/theme_arc/oomox_plugin.py:59
 msgid "Generate theme for GNOME _Shell"
-msgstr "Générer du thème pour GNOME _Shell"
+msgstr "Generar el tema para GNOME _Shell"
 
 #: plugins/theme_arc/oomox_plugin.py:63
 msgid "Generate theme for _Xfwm"
-msgstr "Générer du thème pour _Xfwm"
+msgstr "Generar el tema para _Xfwm"
 
 #: plugins/theme_arc/oomox_plugin.py:167
 msgid "GTK3 Widget Border Color"
-msgstr "Couleur de la bordure du widget GTK3"
+msgstr "Color del borde de los widgets del GTK3"
 
 #: plugins/theme_arc/oomox_plugin.py:173
 msgid "Enable GTK3 Theme Transparency"
-msgstr "Habilitier la transparence du thème GTK3"
+msgstr "Habilitar la transparencia del tema del GTK3"
 
 #: plugins/theme_materia/oomox_plugin.py:95
 msgid "View"
-msgstr "Regarder"
+msgstr "Ver"
 
 #: plugins/theme_materia/oomox_plugin.py:101
 msgid "Surface (like Button, Menu, Popover)"
-msgstr "Surface (comme boutons et menus)"
+msgstr "Superficie (como botones y menús)"
 
 #: plugins/theme_materia/oomox_plugin.py:111
-#, fuzzy
 msgid "Selection Opacity"
-msgstr "Opacité de sélection"
+msgstr "Opacidad de selección"
 
 #: plugins/theme_materia/oomox_plugin.py:118
 msgid "DE Panel Opacity"
-msgstr "Opacité du panel"
+msgstr "Opacidad del panel"
 
 #: plugins/theme_materia/oomox_plugin.py:124
 msgid "Compact Style"
-msgstr "Style compact"
+msgstr "Estilo compacto"
 
 #: plugins/icons_gnomecolors/oomox_plugin.py:48
-#, fuzzy
 msgid "Light Base"
-msgstr "Base claire"
+msgstr "Base clara"
 
 #: plugins/oomoxify/oomox_plugin.py:60
 msgid "Don't change _default font"
-msgstr "Ne changez la police _standard"
+msgstr "No cambies la fuente padrão"
 
 #: plugins/oomoxify/oomox_plugin.py:70
 msgid "_Normalize font weight"
-msgstr "_Normaliser la graisse des polices"
+msgstr "_Normalizar el peso de la fuente"
 
 #: plugins/oomoxify/oomox_plugin.py:79
 msgid "Use custom _font:"
-msgstr "Utiliser la personnalisation de la police"
+msgstr "Utilizar la personalización de la _fuente"
 
 #: plugins/oomoxify/oomox_plugin.py:100
-#, fuzzy
 msgid "Spotify Options"
-msgstr "Options de Spotify"
+msgstr "Ajustes del Spotify"
 
 #: plugins/oomoxify/oomox_plugin.py:115
-#, fuzzy
 msgid "Font Options"
-msgstr "Options de Spotify"
+msgstr "Ajustes de la fuente"
 
 #: plugins/oomoxify/oomox_plugin.py:123
 msgid "Spotify _path:"
-msgstr "_Chemin de Spotify :"
+msgstr "_Camino del Spotify:"
 
 #: plugins/oomoxify/oomox_plugin.py:141
-#, fuzzy
 msgid "Apply Spotif_y Theme…"
-msgstr "Appliquer le thème Spotif_y"
+msgstr "Aplicar el tema del Spotif_y…"
 
 #: plugins/oomoxify/oomox_plugin.py:147
-#, fuzzy
 msgid "Spotify"
-msgstr "_Chemin de Spotify :"
+msgstr "Spotify"
 
 #: plugins/theme_oomox/oomox_plugin.py:54
 msgid ""
 "Generate theme only for the current _GTK+3 version\n"
 "instead of both 3.18 and 3.20+"
-msgstr "Générer du thème seulement pour la version actuelle du _GTK+3\n"
-"au lieu de 3.18 et 3,20+"
+msgstr ""
+"Genera el tema sólo para la versión actual del _GTK+3\n"
+"en lugar de ambas 3.18 y 3.20+"
 
 #: plugins/theme_oomox/oomox_plugin.py:105
-#, fuzzy
 msgid "GTK3 Theme Options"
-msgstr "Options du thème"
+msgstr "Ajustes del tema del GTK3"
 
 #: plugins/theme_oomox/oomox_plugin.py:114
-#, fuzzy
 msgid "Spacing"
-msgstr "(GTK3) Espacement"
+msgstr "Espaciamiento"
 
 #: plugins/theme_oomox/oomox_plugin.py:120
 msgid "Focused Outline Width"
-msgstr "Largeur du contour focusé"
+msgstr "Anchura de contorno enfocado"
 
 #: plugins/theme_oomox/oomox_plugin.py:126
 msgid "Focused Button Outline Width"
-msgstr "Largeur du contour du bouton focusé"
+msgstr "Anchura de contorno enfocado del botón"
 
 #: plugins/theme_oomox/oomox_plugin.py:133
 msgid "Focused Button Outline Offset"
-msgstr "Offset du contour du bouton focusé"
+msgstr "Distancia del contorno del botón enfocado"
 
 #: plugins/theme_oomox/oomox_plugin.py:139
-#, fuzzy
 msgid "Add Dark Variant"
-msgstr "(GTK3) Ajouter une variante sombre"
+msgstr "Aãdir variante oscura"
 
 #: plugins/theme_oomox/oomox_plugin.py:144
-#, fuzzy
 msgid "Text Input Caret"
-msgstr "Point d'insertion"
+msgstr "Cursor"
 
 #: plugins/theme_oomox/oomox_plugin.py:153
-#, fuzzy
 msgid "Primary Caret Color"
-msgstr "Couleur secondaire"
+msgstr "Color del cursor primario"
 
 #: plugins/theme_oomox/oomox_plugin.py:159
-#, fuzzy
 msgid "Secondary Caret Color"
-msgstr "Couleur secondaire"
+msgstr "Color del cursor secundario"
 
 #: plugins/theme_oomox/oomox_plugin.py:165
-#, fuzzy
 msgid "Caret Aspect Ratio"
-msgstr "Rapport d'aspect"
+msgstr "Botón de radio del cursor"
 
 #: plugins/theme_oomox/oomox_plugin.py:172
 msgid "Desktop Environments"
-msgstr "Environnements de bureau"
+msgstr "Entornos de escritorio"
 
 #: plugins/theme_oomox/oomox_plugin.py:182
-#, fuzzy
 msgid "Cinnamon: Opacity"
-msgstr "Texte de la sélection"
+msgstr "Cinnamon: Opacidad"
 
 #: plugins/theme_oomox/oomox_plugin.py:188
-#, fuzzy
 msgid "Unity: Use Default Launcher Style"
-msgstr "(Unity) Utiliser le style de lanceur par défaut"
+msgstr "Unity: Utilizar el estilo de lanzacohetes estándar"
 
 #: plugins/import_pil/oomox_plugin.py:189
 msgid "Import Colors from Image"
-msgstr "Importer des couleurs de l'image"
+msgstr "Importar los colores de la imagem"
 
 #: plugins/import_pil/oomox_plugin.py:212
 msgid "Image Analysis"
-msgstr "Analyse d'image"
+msgstr "Análisis de imagen"
 
 #: plugins/import_pil/oomox_plugin.py:224
 msgid "Palette Style"
-msgstr "Style de la palette"
+msgstr "Estilo de la paleta"
 
 #: plugins/import_pil/oomox_plugin.py:231
 msgid "Stronger Follow Palette Template"
-msgstr "Continuer à suivre le modèle de la plaette"
+msgstr "Continuar sosteniendo el template de la paleta"
 
 #: plugins/import_pil/oomox_plugin.py:241
 msgid "Dark/Light Colors"
-msgstr "Couleurs claires/foncées"
+msgstr "Colores claros/oscuras"
 
 #: plugins/import_pil/oomox_plugin.py:252
 msgid "GUI Theme Template"
-msgstr "Modèle du thème du GUI"
+msgstr "Template del tema del GUI"
 
 #: plugins/import_pil/oomox_plugin.py:259
 msgid "Image Thumbnail"
-msgstr "Miniature d'image"
+msgstr "Miniatura de la imagen"
 
 #: plugins/import_pil/oomox_plugin.py:262
 msgid "Edit Generated Theme"
-msgstr "Modifier le thème généré"
+msgstr "Modificar el tema generado"
 
 #: plugins/icons_archdroid/oomox_plugin.py:42
-#, fuzzy
 msgid "Icons Color"
-msgstr "Couleur des icônes"
+msgstr "Color de iconos"
 
 #, fuzzy
 #~ msgid "_Export Theme…"
-#~ msgstr "_Exporter le thème"
+#~ msgstr "_Exportar el tema"
 
 #, fuzzy
 #~ msgid "Selection Highlight"
-#~ msgstr "Surlignage de la sélection"
+#~ msgstr "Realce de selección"
 
 #~ msgid "_Apply"
-#~ msgstr "_Appliquer"
+#~ msgstr "_Aplicar"
+
+#~ msgid "Please choose theme export options:"
+#~ msgstr "Por favor escoge los ajustes de la exportación del tema:"
 
 #~ msgid "Click-click"
-#~ msgstr "Click-click"
+#~ msgstr "Clic-clic"
 
 #~ msgid "Menu/toolbar background"
-#~ msgstr "Arrière-plan menu/barre d'outils"
+#~ msgstr "Fondo de menú/barra de herramientas"
 
 #~ msgid "Menu/toolbar text"
-#~ msgstr "Texte menu/barre d'outils"
+#~ msgstr "Texto de menú/barra de herramientas"
 
-#, fuzzy
 #~ msgid "Terminal background"
-#~ msgstr "Arrière-plan zone de texte"
+#~ msgstr "Fondo del terminal"
+
+#~ msgid "Terminal foreground"
+#~ msgstr "Primer plano del terminal"
+
+#~ msgid "Terminal accent color"
+#~ msgstr "Color de acento del terminal"
 
 #~ msgid "Other options"
-#~ msgstr "Autres options"
+#~ msgstr "Otros ajustes"
+
+#, fuzzy
+#~ msgid "Please choose the font options:"
+#~ msgstr "Por favor escoge los ajustes de la fuente:"
 
 #, fuzzy
 #~ msgid "Spotify background"
-#~ msgstr "Arrière-plan bouton"
+#~ msgstr "Fondo del Spotify"
 
 #, fuzzy
 #~ msgid "Spotify foreground"
-#~ msgstr "Options de Spotify"
+#~ msgstr "Primer plano del Spotify"
 
 #, fuzzy
 #~ msgid "Theme options:"
-#~ msgstr "Options du thème"
+#~ msgstr "Ajustes del tena:"
 
 #, fuzzy
 #~ msgid "Theme options: "
-#~ msgstr "Options du thème"
-
-#~ msgid "Theme applied successfully"
-#~ msgstr "Thème appliqué avec succès"
-
-#~ msgid "This functionality is still in BETA"
-#~ msgstr "Cette fonctionnalité est encore EXPÉRIMENTALE"
+#~ msgstr "Ajustes del tena:"
 
 #~ msgid "Edit:"
-#~ msgstr "Éditer :"
-
-#~ msgid "(GTK2) HiDPI"
-#~ msgstr "(GTK2) HiDPI"
+#~ msgstr "Modificar:"
 
 #~ msgid "Preview:"
-#~ msgstr "Aperçu :"
+#~ msgstr "Previsión:"
+
+#~ msgid "Theme applied successfully"
+#~ msgstr "Tema aplicado con succeso"
+
+#~ msgid "This functionality is still in BETA"
+#~ msgstr "Esta funcionalidad aún está en estado BETA"
+
+#~ msgid "(GTK2) HiDPI"
+#~ msgstr "HiDPI del (GTK2)"
