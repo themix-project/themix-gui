@@ -664,17 +664,17 @@ msgstr "_Camino del Spotify:"
 #: plugins/icons_suruplus/oomox_plugin.py:116
 #, fuzzy
 msgid "Enable Gradients"
-msgstr "Gradiente"
+msgstr "Habilitar los gradientes"
 
 #: plugins/icons_suruplus/oomox_plugin.py:122
 #, fuzzy
 msgid "Gradient Start Color"
-msgstr "Color del cursor primario"
+msgstr "Color del gradiente primario"
 
 #: plugins/icons_suruplus/oomox_plugin.py:131
 #, fuzzy
 msgid "Gradient End Color"
-msgstr "Gradiente"
+msgstr "Color del gradiente secundario"
 
 #: plugins/theme_oomox/oomox_plugin.py:54
 msgid ""
