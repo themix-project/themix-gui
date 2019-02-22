@@ -11,7 +11,7 @@ git:
   submodules: false
 install:
   - mv ./dockerfiles/* ./
-  - docker build . -f Dockerfile_${PYVER} -t oomox
+  - travis_retry docker build . -f Dockerfile_${PYVER} -t oomox
 script:
   - docker run
       -e SKIP_SHELLCHECK=${SKIP_SHELLCHECK}
