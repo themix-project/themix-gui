@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-21 20:24-0300\n"
+"PO-Revision-Date: 2019-02-22 04:05-0300\n"
 "Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
 "Language-Team: European Portuguese <gusbemacbe@gmail.com>\n"
 "Language: pt_PT \n"
@@ -572,12 +572,12 @@ msgstr "Modificar o tema importado"
 #: plugins/icons_papirus/oomox_plugin.py:62
 #: plugins/icons_suruplus/oomox_plugin.py:103
 msgid "Actions Icons"
-msgstr ""
+msgstr "_Ícones de actions"
 
 #: plugins/icons_papirus/oomox_plugin.py:68
 #: plugins/icons_suruplus/oomox_plugin.py:109
 msgid "Panel Icons"
-msgstr ""
+msgstr "_Ícones de panel"
 
 #: plugins/theme_arc/oomox_plugin.py:55 plugins/theme_oomox/oomox_plugin.py:59
 msgid "Generate theme for _Cinnamon"
@@ -593,7 +593,7 @@ msgstr "Gerar o tema para _Xfwm"
 
 #: plugins/theme_arc/oomox_plugin.py:165
 msgid "Border"
-msgstr ""
+msgstr "Borda"
 
 #: plugins/theme_arc/oomox_plugin.py:174
 #, fuzzy
@@ -751,15 +751,15 @@ msgstr "Importar as cores da imagem"
 
 #: plugins/import_pil/oomox_plugin.py:200
 msgid "oomox: low quality"
-msgstr ""
+msgstr "oomox: baixa qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:203
 msgid "oomox: medium quality"
-msgstr ""
+msgstr "oomox: média qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:206
 msgid "oomox: high quality"
-msgstr ""
+msgstr "oomox: alta qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:212
 msgid "Image Analysis"
@@ -791,35 +791,35 @@ msgstr "Modificar o tema gerado"
 
 #: plugins/import_pil/oomox_plugin.py:274
 msgid "colorz lib: low quality"
-msgstr ""
+msgstr "colorz lib: baixa qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:277
 msgid "colorz lib: medium quality"
-msgstr ""
+msgstr "colorz lib: média qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:280
 msgid "colorz lib: high quality"
-msgstr ""
+msgstr "colorz lib: alta qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:289
 msgid "colorthief lib"
-msgstr ""
+msgstr "colorthief lib"
 
 #: plugins/import_pil/oomox_plugin.py:292
 msgid "colorthief lib: doublepass"
-msgstr ""
+msgstr "colorthief lib: passagem dupla"
 
 #: plugins/import_pil/oomox_plugin.py:302
 msgid "haishoku lib"
-msgstr ""
+msgstr "haishoku lib"
 
 #: plugins/import_pil/oomox_plugin.py:314
 msgid "all available: low quality"
-msgstr ""
+msgstr "tudo disponsível: baixa qualidade"
 
 #: plugins/import_pil/oomox_plugin.py:317
 msgid "all available: medium quality"
-msgstr ""
+msgstr "tudo disponsível: média qualidade"
 
 #: plugins/icons_archdroid/oomox_plugin.py:42
 msgid "Icons Color"
