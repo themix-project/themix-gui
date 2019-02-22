@@ -192,11 +192,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if old_path != new_path:
             self.reload_presets()
 
-    def remove_theme(self, name=None):
-        if not name:
-            name = self.colorscheme_name
+    def remove_theme(self, path=None):
+        if not path:
+            path = self.colorscheme_path
         try:
-            remove_colorscheme(name)
+            remove_colorscheme(path)
         except FileNotFoundError:
             pass
 
@@ -297,9 +297,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             return
         new_theme_name = dialog.entry_text
         if not self.ask_colorscheme_exists(new_theme_name):
-            old_theme_name = self.colorscheme_name
+            old_theme_path = self.colorscheme_path
             self.save_theme(new_theme_name)
-            self.remove_theme(old_theme_name)
+            self.remove_theme(old_theme_path)
             self.reload_presets()
         else:
             self.rename_theme(entry_text=new_theme_name)
