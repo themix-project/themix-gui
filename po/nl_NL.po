@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-22 14:00+0100\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"PO-Revision-Date: 2019-02-21 11:50-0300\n"
+"Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -825,11 +825,9 @@ msgstr "Pictogramkleur"
 #~ msgid "Secondary Caret Color"
 #~ msgstr "Secundaire cursorkleur"
 
-#, fuzzy
 #~ msgid "_Export Theme…"
 #~ msgstr "Thema _exporteren"
 
-#, fuzzy
 #~ msgid "Selection Highlight"
 #~ msgstr "Selectiemarkering"
 
@@ -860,25 +858,17 @@ msgstr "Pictogramkleur"
 #~ msgid "Other options"
 #~ msgstr "Overige opties"
 
-#, fuzzy
 #~ msgid "Please choose the font options:"
 #~ msgstr "Kies thema-exporteringsopties:"
 
-#, fuzzy
 #~ msgid "Spotify background"
 #~ msgstr "Knopachtergrond"
 
-#, fuzzy
 #~ msgid "Spotify foreground"
 #~ msgstr "Spotify-opties"
 
-#, fuzzy
 #~ msgid "Theme options:"
-#~ msgstr "Thema-opties"
-
-#, fuzzy
-#~ msgid "Theme options: "
-#~ msgstr "Thema-opties"
+#~ msgstr "Thema-opties:"
 
 #~ msgid "Edit:"
 #~ msgstr "Bewerken:"

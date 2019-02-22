@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-22 03:56-0300\n"
+"PO-Revision-Date: 2019-02-21 11:50-0300\n"
 "Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gusbemacbe@gmail.com>\n"
 "Language: pt_BR \n"
@@ -48,7 +48,7 @@ msgstr "_Aplicar e exportar opções"
 
 #: oomox_gui/export_common.py:146
 msgid "Exporting…"
-msgstr "Exportando..."
+msgstr "Exportando…"
 
 #: oomox_gui/export_common.py:158
 msgid ""
@@ -64,7 +64,7 @@ msgstr "Esquema de cores do terminal"
 
 #: oomox_gui/export_common.py:207
 msgid "Paste this colorscheme to your ~/.Xresources:"
-msgstr "Copie esse equema de cores para seu ~/.Xresources:"
+msgstr "Cole esse esquema de cores para seu ~/.Xresources:"
 
 #: oomox_gui/export_common.py:244
 msgid "Theme Export Options"
@@ -257,7 +257,7 @@ msgstr "_Sim"
 #: oomox_gui/plugin_loader.py:54
 #, python-brace-format
 msgid "Error loading plugin \"{plugin_name}\""
-msgstr "Erro carregando \"{plugin_name}\""
+msgstr "Erro de carregar o plugin \"{plugin_name}\""
 
 #: oomox_gui/preview.py:62
 msgid "Headerbar"
@@ -281,7 +281,7 @@ msgstr "Isso é uma etiqueta"
 
 #: oomox_gui/preview.py:103
 msgid "Selected item"
-msgstr "Itens selecionados"
+msgstr "Item selecionado"
 
 #: oomox_gui/preview.py:104
 msgid "Text entry"
@@ -319,18 +319,16 @@ msgid "Header Text"
 msgstr "Texto do cabeçalho"
 
 #: oomox_gui/theme_model.py:154
-#, fuzzy
 msgid "Selected Background"
-msgstr "Fundo da barra de cabeçalho"
+msgstr "Fundo selecionado"
 
 #: oomox_gui/theme_model.py:160
-#, fuzzy
 msgid "Selected Text"
-msgstr "Texto da seleção"
+msgstr "Texto selecionado"
 
 #: oomox_gui/theme_model.py:166
 msgid "Accent Color (Checkboxes, Radios)"
-msgstr "Cor de destaque (caixas de seleção, botões de rádio)"
+msgstr "Cor de destaque (caixas de seleção, botões de opções)"
 
 #: oomox_gui/theme_model.py:172
 msgid "Textbox Background"
@@ -572,12 +570,12 @@ msgstr "Modificar o tema importado"
 #: plugins/icons_papirus/oomox_plugin.py:62
 #: plugins/icons_suruplus/oomox_plugin.py:103
 msgid "Actions Icons"
-msgstr "_Ícones de actions"
+msgstr "Ícones de actions"
 
 #: plugins/icons_papirus/oomox_plugin.py:68
 #: plugins/icons_suruplus/oomox_plugin.py:109
 msgid "Panel Icons"
-msgstr "_Ícones de panel"
+msgstr "Ícones de panel"
 
 #: plugins/theme_arc/oomox_plugin.py:55 plugins/theme_oomox/oomox_plugin.py:59
 msgid "Generate theme for _Cinnamon"
@@ -596,9 +594,8 @@ msgid "Border"
 msgstr "Borda"
 
 #: plugins/theme_arc/oomox_plugin.py:174
-#, fuzzy
 msgid "Enable Theme Transparency"
-msgstr "Ativar a transparência do tema do GTK3"
+msgstr "Ativar a transparência do tema"
 
 #: plugins/theme_materia/oomox_plugin.py:96
 msgid "View"
@@ -626,7 +623,7 @@ msgstr "Base clara"
 
 #: plugins/oomoxify/oomox_plugin.py:60
 msgid "Don't change _default font"
-msgstr "Não mude a fonte padrão"
+msgstr "Não mude a fonte _padrão"
 
 #: plugins/oomoxify/oomox_plugin.py:70
 msgid "_Normalize font weight"
@@ -657,22 +654,18 @@ msgid "Spotify"
 msgstr "Spotify"
 
 #: plugins/icons_suruplus/oomox_plugin.py:58
-#, fuzzy
 msgid "Export _path: "
-msgstr "_Caminho do Spotify:"
+msgstr "Exportar o _caminho:"
 
 #: plugins/icons_suruplus/oomox_plugin.py:116
-#, fuzzy
 msgid "Enable Gradients"
 msgstr "Habilitar os gradientes"
 
 #: plugins/icons_suruplus/oomox_plugin.py:122
-#, fuzzy
 msgid "Gradient Start Color"
 msgstr "Cor do gradiente primário"
 
 #: plugins/icons_suruplus/oomox_plugin.py:131
-#, fuzzy
 msgid "Gradient End Color"
 msgstr "Cor do gradiente secundário"
 
@@ -685,19 +678,16 @@ msgstr ""
 "ao invés de ambas as 3.18 e 3.20+"
 
 #: plugins/theme_oomox/oomox_plugin.py:107
-#, fuzzy
 msgid "Textbox Caret"
-msgstr "Texto da caixa do texto"
+msgstr "Indicador da caixa do texto"
 
 #: plugins/theme_oomox/oomox_plugin.py:113
-#, fuzzy
 msgid "BiDi Textbox Caret"
-msgstr "Texto da caixa do texto"
+msgstr "Indicador da caixa do texto BiDi"
 
 #: plugins/theme_oomox/oomox_plugin.py:122
-#, fuzzy
 msgid "Textbox Caret Aspect Ratio"
-msgstr "Botão de rádio do aspecto do indicador"
+msgstr "Botão de opções do indicador"
 
 #: plugins/theme_oomox/oomox_plugin.py:126
 msgid "GTK3 Theme Options"
@@ -736,14 +726,12 @@ msgid "Unity: Use Default Launcher Style"
 msgstr "Unity: Usar o estilo do lançador padrão"
 
 #: plugins/import_pil/oomox_plugin.py:56
-#, fuzzy
 msgid "Image colors"
-msgstr "cores do terminal:"
+msgstr "Cores do terminal"
 
 #: plugins/import_pil/oomox_plugin.py:57
-#, fuzzy
 msgid "Colors from Image"
-msgstr "Importar as cores da imagem"
+msgstr "Cores a partir da imagem"
 
 #: plugins/import_pil/oomox_plugin.py:189
 msgid "Import Colors from Image"
@@ -832,16 +820,14 @@ msgstr "Cor de ícones"
 #~ msgstr "Cor da borda dos widgets do GTK3"
 
 #~ msgid "Text Input Caret"
-#~ msgstr "Indicador"
+#~ msgstr "Indicador da entrada de texto"
 
 #~ msgid "Secondary Caret Color"
 #~ msgstr "Cor do indicador secundário"
 
-#, fuzzy
 #~ msgid "_Export Theme…"
 #~ msgstr "_Exportar o tema"
 
-#, fuzzy
 #~ msgid "Selection Highlight"
 #~ msgstr "Marcador de seleção"
 
@@ -872,24 +858,16 @@ msgstr "Cor de ícones"
 #~ msgid "Other options"
 #~ msgstr "Outras opções"
 
-#, fuzzy
 #~ msgid "Please choose the font options:"
 #~ msgstr "Por favor escolha as opções da fonte:"
 
-#, fuzzy
 #~ msgid "Spotify background"
 #~ msgstr "Fundo do Spotify"
 
-#, fuzzy
 #~ msgid "Spotify foreground"
 #~ msgstr "Primeiro plano do Spotify"
 
-#, fuzzy
 #~ msgid "Theme options:"
-#~ msgstr "Opções do tena:"
-
-#, fuzzy
-#~ msgid "Theme options: "
 #~ msgstr "Opções do tena:"
 
 #~ msgid "Edit:"

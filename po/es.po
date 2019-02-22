@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-21 20:24-0300\n"
+"PO-Revision-Date: 2019-02-21 11:50-0300\n"
 "Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
 "Language-Team: Spanish <gusbemacbe@gmail.com>\n"
 "Language: es \n"
@@ -319,12 +319,10 @@ msgid "Header Text"
 msgstr "Texto de encabezado"
 
 #: oomox_gui/theme_model.py:154
-#, fuzzy
 msgid "Selected Background"
 msgstr "Fondo de la barra de encabezado"
 
 #: oomox_gui/theme_model.py:160
-#, fuzzy
 msgid "Selected Text"
 msgstr "Texto de la selección"
 
@@ -596,9 +594,8 @@ msgid "Border"
 msgstr "Borde"
 
 #: plugins/theme_arc/oomox_plugin.py:174
-#, fuzzy
 msgid "Enable Theme Transparency"
-msgstr "Habilitar la transparencia del tema del GTK3"
+msgstr "Habilitar la transparencia del tema"
 
 #: plugins/theme_materia/oomox_plugin.py:96
 msgid "View"
@@ -657,22 +654,18 @@ msgid "Spotify"
 msgstr "Spotify"
 
 #: plugins/icons_suruplus/oomox_plugin.py:58
-#, fuzzy
 msgid "Export _path: "
-msgstr "_Camino del Spotify:"
+msgstr "Exportar el _camino: "
 
 #: plugins/icons_suruplus/oomox_plugin.py:116
-#, fuzzy
 msgid "Enable Gradients"
 msgstr "Habilitar los gradientes"
 
 #: plugins/icons_suruplus/oomox_plugin.py:122
-#, fuzzy
 msgid "Gradient Start Color"
 msgstr "Color del gradiente primario"
 
 #: plugins/icons_suruplus/oomox_plugin.py:131
-#, fuzzy
 msgid "Gradient End Color"
 msgstr "Color del gradiente secundario"
 
@@ -685,19 +678,16 @@ msgstr ""
 "en lugar de ambas 3.18 y 3.20+"
 
 #: plugins/theme_oomox/oomox_plugin.py:107
-#, fuzzy
 msgid "Textbox Caret"
-msgstr "Texto del cuadro del texto"
+msgstr "Cursor del cuadro del texto"
 
 #: plugins/theme_oomox/oomox_plugin.py:113
-#, fuzzy
 msgid "BiDi Textbox Caret"
-msgstr "Texto del cuadro del texto"
+msgstr "Cursor del cuadro del texto BiDi"
 
 #: plugins/theme_oomox/oomox_plugin.py:122
-#, fuzzy
 msgid "Textbox Caret Aspect Ratio"
-msgstr "Botón de radio del cursor"
+msgstr "Botón de radio del cursor del cuardo del texto"
 
 #: plugins/theme_oomox/oomox_plugin.py:126
 msgid "GTK3 Theme Options"
@@ -736,14 +726,12 @@ msgid "Unity: Use Default Launcher Style"
 msgstr "Unity: Utilizar el estilo de lanzacohetes estándar"
 
 #: plugins/import_pil/oomox_plugin.py:56
-#, fuzzy
 msgid "Image colors"
-msgstr "colores del terminal:"
+msgstr "colores de la imagen"
 
 #: plugins/import_pil/oomox_plugin.py:57
-#, fuzzy
 msgid "Colors from Image"
-msgstr "Importar los colores de la imagem"
+msgstr "Colores a partir de la imagen"
 
 #: plugins/import_pil/oomox_plugin.py:189
 msgid "Import Colors from Image"
@@ -837,11 +825,9 @@ msgstr "Color de iconos"
 #~ msgid "Secondary Caret Color"
 #~ msgstr "Color del cursor secundario"
 
-#, fuzzy
 #~ msgid "_Export Theme…"
-#~ msgstr "_Exportar el tema"
+#~ msgstr "_Exportar el tema…"
 
-#, fuzzy
 #~ msgid "Selection Highlight"
 #~ msgstr "Realce de selección"
 
@@ -872,23 +858,18 @@ msgstr "Color de iconos"
 #~ msgid "Other options"
 #~ msgstr "Otros ajustes"
 
-#, fuzzy
 #~ msgid "Please choose the font options:"
 #~ msgstr "Por favor escoge los ajustes de la fuente:"
 
-#, fuzzy
 #~ msgid "Spotify background"
 #~ msgstr "Fondo del Spotify"
 
-#, fuzzy
 #~ msgid "Spotify foreground"
 #~ msgstr "Primer plano del Spotify"
 
-#, fuzzy
 #~ msgid "Theme options:"
 #~ msgstr "Ajustes del tena:"
 
-#, fuzzy
 #~ msgid "Theme options: "
 #~ msgstr "Ajustes del tena:"
 
