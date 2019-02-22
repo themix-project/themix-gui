@@ -73,9 +73,8 @@ endif
 
 	$(RM) -r $(PACKAGING_TMP_DIR)
 
-	cd $(DEST_APPDIR)
 	# will update ./po and produce ./locale dir:
-	make -f po.mk install
+	make -C $(DEST_APPDIR) -f po.mk install
 	rm $(DEST_APPDIR)/po.mk
 
 all: install
