@@ -486,6 +486,10 @@ msgstr "Branco"
 msgid "White Highlight"
 msgstr "Marcador branco"
 
+#: plugins/icons_numix/oomox_plugin.py:45
+msgid "Style {number}"
+msgstr "Estilo {number}"
+
 #: plugins/icons_numix/oomox_plugin.py:47
 msgid "Numix Style"
 msgstr "Estilo do Numix"
@@ -570,12 +574,12 @@ msgstr "Modificar o tema importado"
 #: plugins/icons_papirus/oomox_plugin.py:62
 #: plugins/icons_suruplus/oomox_plugin.py:103
 msgid "Actions Icons"
-msgstr "_Ícones de actions"
+msgstr "Ícones de actions"
 
 #: plugins/icons_papirus/oomox_plugin.py:68
 #: plugins/icons_suruplus/oomox_plugin.py:109
 msgid "Panel Icons"
-msgstr "_Ícones de panel"
+msgstr "Ícones de panel"
 
 #: plugins/theme_arc/oomox_plugin.py:55 plugins/theme_oomox/oomox_plugin.py:59
 msgid "Generate theme for _Cinnamon"

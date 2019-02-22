@@ -220,7 +220,7 @@ msgstr "Exportar o tema do terminal"
 
 #: oomox_gui/main.py:592
 msgid "Export _Icons"
-msgstr "Exportar _Ícones"
+msgstr "Exportar _ícones"
 
 #: oomox_gui/main.py:594
 msgid "Export Icon Theme"
@@ -485,6 +485,10 @@ msgstr "Branco"
 #: oomox_gui/theme_model.py:501
 msgid "White Highlight"
 msgstr "Marcador branco"
+
+#: plugins/icons_numix/oomox_plugin.py:45
+msgid "Style {number}"
+msgstr "Estilo {number}"
 
 #: plugins/icons_numix/oomox_plugin.py:47
 msgid "Numix Style"

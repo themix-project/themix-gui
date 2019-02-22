@@ -486,6 +486,10 @@ msgstr "Blanc"
 msgid "White Highlight"
 msgstr "Surlignage blanche"
 
+#: plugins/icons_numix/oomox_plugin.py:45
+msgid "Style {number}"
+msgstr "Style {number}"
+
 #: plugins/icons_numix/oomox_plugin.py:47
 msgid "Numix Style"
 msgstr "Style du Numix"

@@ -28,7 +28,7 @@ msgstr "Plug-ins"
 
 #: oomox_gui/preset_list.py:20
 msgid "User Presets"
-msgstr "Voorinstellingen"
+msgstr "Gebruikersvoorinstellingen"
 
 #: oomox_gui/export_common.py:67
 msgid "Something went wrong :("
@@ -485,6 +485,10 @@ msgstr "Wit"
 #: oomox_gui/theme_model.py:501
 msgid "White Highlight"
 msgstr "Witte markering"
+
+#: plugins/icons_numix/oomox_plugin.py:45
+msgid "Style {number}"
+msgstr "Stijl {number}"
 
 #: plugins/icons_numix/oomox_plugin.py:47
 msgid "Numix Style"
