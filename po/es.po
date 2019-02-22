@@ -595,7 +595,7 @@ msgstr "Borde"
 
 #: plugins/theme_arc/oomox_plugin.py:174
 msgid "Enable Theme Transparency"
-msgstr "Habilitar la transparencia del tema del GTK3"
+msgstr "Habilitar la transparencia del tema"
 
 #: plugins/theme_materia/oomox_plugin.py:96
 msgid "View"
@@ -655,7 +655,7 @@ msgstr "Spotify"
 
 #: plugins/icons_suruplus/oomox_plugin.py:58
 msgid "Export _path: "
-msgstr "_Camino del Spotify:"
+msgstr "Exportar el _camino: "
 
 #: plugins/icons_suruplus/oomox_plugin.py:116
 msgid "Enable Gradients"
