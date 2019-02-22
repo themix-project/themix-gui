@@ -573,12 +573,12 @@ msgstr "Modificare il tema importato"
 #: plugins/icons_papirus/oomox_plugin.py:62
 #: plugins/icons_suruplus/oomox_plugin.py:103
 msgid "Actions Icons"
-msgstr ""
+msgstr "Icone di actions"
 
 #: plugins/icons_papirus/oomox_plugin.py:68
 #: plugins/icons_suruplus/oomox_plugin.py:109
 msgid "Panel Icons"
-msgstr ""
+msgstr "Icone di panel"
 
 #: plugins/theme_arc/oomox_plugin.py:55 plugins/theme_oomox/oomox_plugin.py:59
 msgid "Generate theme for _Cinnamon"
@@ -594,7 +594,7 @@ msgstr "Generare il tema per _Xfwm"
 
 #: plugins/theme_arc/oomox_plugin.py:165
 msgid "Border"
-msgstr ""
+msgstr "Bordo"
 
 #: plugins/theme_arc/oomox_plugin.py:174
 #, fuzzy
@@ -752,15 +752,15 @@ msgstr "Importare i colori dell'immagine"
 
 #: plugins/import_pil/oomox_plugin.py:200
 msgid "oomox: low quality"
-msgstr ""
+msgstr "oomox: bassa qualità"
 
 #: plugins/import_pil/oomox_plugin.py:203
 msgid "oomox: medium quality"
-msgstr ""
+msgstr "oomox: media qualità"
 
 #: plugins/import_pil/oomox_plugin.py:206
 msgid "oomox: high quality"
-msgstr ""
+msgstr "oomox: alta qualità"
 
 #: plugins/import_pil/oomox_plugin.py:212
 msgid "Image Analysis"
@@ -792,35 +792,35 @@ msgstr "Modificare il tema generated"
 
 #: plugins/import_pil/oomox_plugin.py:274
 msgid "colorz lib: low quality"
-msgstr ""
+msgstr "colorz lib: bassa qualità"
 
 #: plugins/import_pil/oomox_plugin.py:277
 msgid "colorz lib: medium quality"
-msgstr ""
+msgstr "colorz lib: media qualità"
 
 #: plugins/import_pil/oomox_plugin.py:280
 msgid "colorz lib: high quality"
-msgstr ""
+msgstr "colorz lib: alta qualità"
 
 #: plugins/import_pil/oomox_plugin.py:289
 msgid "colorthief lib"
-msgstr ""
+msgstr "colorthief lib"
 
 #: plugins/import_pil/oomox_plugin.py:292
 msgid "colorthief lib: doublepass"
-msgstr ""
+msgstr "colorthief lib: doppio passaggio"
 
 #: plugins/import_pil/oomox_plugin.py:302
 msgid "haishoku lib"
-msgstr ""
+msgstr "haishoku lib"
 
 #: plugins/import_pil/oomox_plugin.py:314
 msgid "all available: low quality"
-msgstr ""
+msgstr "tutti disponibili: bassa qualità"
 
 #: plugins/import_pil/oomox_plugin.py:317
 msgid "all available: medium quality"
-msgstr ""
+msgstr "tutti disponibili: media qualità"
 
 #: plugins/icons_archdroid/oomox_plugin.py:42
 msgid "Icons Color"
