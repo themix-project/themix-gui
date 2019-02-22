@@ -7,6 +7,8 @@ env:
     - PYVER=current_arch SKIP_SHELLCHECK=0 SKIP_MYPY=0 SKIP_VULTURE=0
 services:
   - docker
+git:
+  submodules: false
 install:
   - mv ./dockerfiles/* ./
   - docker build . -f Dockerfile_${PYVER} -t oomox
