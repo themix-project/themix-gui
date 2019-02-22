@@ -42,7 +42,7 @@ class Plugin(OomoxIconsPlugin):
             'type': 'options',
             'options': [{
                 'value': str(style_id),
-                'display_name': "Style {}".format(style_id),
+                'display_name': _("Style {number}").format(number=style_id),
             } for style_id in range(6)],
             'display_name': _('Numix Style'),
         },
