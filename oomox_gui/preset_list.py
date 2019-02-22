@@ -224,8 +224,13 @@ class ThemePresetList(Gtk.ScrolledWindow):
             )
 
     def _load_system_presets(self, all_presets):
+        featured_dirs = ('Featured', )
         presets_iter = self._add_section(Sections.PRESETS)
-        for preset_dir, preset_list in sorted(all_presets.get(COLORS_DIR, {}).items()):
+        sorted_system_presets = sorted(
+            all_presets.get(COLORS_DIR, {}).items(),
+            key=lambda x: ('000' if x[0] in featured_dirs else '') + x[0]
+        )
+        for preset_dir, preset_list in sorted_system_presets:
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
             self._add_presets(
