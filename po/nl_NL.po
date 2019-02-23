@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: oomox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-22 07:27+0100\n"
-"PO-Revision-Date: 2019-02-21 11:50-0300\n"
-"Last-Translator: Gustavo Costa <gusbemacbe@gmail.com>\n"
+"PO-Revision-Date: 2019-02-23 13:43+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Plug-ins"
 
 #: oomox_gui/preset_list.py:20
 msgid "User Presets"
-msgstr "Gebruikersvoorinstellingen"
+msgstr "Persoonlijke voorinstellingen"
 
 #: oomox_gui/export_common.py:67
 msgid "Something went wrong :("
@@ -72,7 +72,7 @@ msgstr "Exporteeropties voor thema"
 
 #: oomox_gui/export_common.py:316
 msgid "Generate 2x scaled (_HiDPI) assets for GTK+2"
-msgstr "Dubbel geschaalde (_HiDPI)-objecten genereren voor GTK+2"
+msgstr "Dubbelgeschaalde (_HiDPI) objecten genereren voor GTK+2"
 
 #: oomox_gui/colors_list.py:265
 msgid "Choose a Color…"
@@ -261,7 +261,7 @@ msgstr "Kan de plug-in \"{plugin_name}\" niet laden"
 
 #: oomox_gui/preview.py:62
 msgid "Headerbar"
-msgstr "Headerbar"
+msgstr "Kop"
 
 #: oomox_gui/preview.py:64 oomox_gui/preview.py:105
 msgid "Button"
@@ -521,11 +521,11 @@ msgstr "Base16-exporteeropties…"
 
 #: plugins/base16/oomox_plugin.py:258
 msgid "Choose export options below and copy-paste the result."
-msgstr "Kies hieronder de exporteeropties en kopieer-en-plak het resultaat."
+msgstr "Kies hieronder exporteeropties en kopieer-en-plak het resultaat."
 
 #: plugins/base16/oomox_plugin.py:281
 msgid "_Application:"
-msgstr "_Applicatie:"
+msgstr "Toep_assing:"
 
 #: plugins/base16/oomox_plugin.py:288
 msgid "_Variant:"
@@ -603,7 +603,7 @@ msgstr "Doorzichtigheid inschakelen"
 
 #: plugins/theme_materia/oomox_plugin.py:96
 msgid "View"
-msgstr "Beeld"
+msgstr "Weergave"
 
 #: plugins/theme_materia/oomox_plugin.py:102
 msgid "Surface (like Button, Menu, Popover)"
@@ -763,7 +763,7 @@ msgstr "Paletstijl"
 
 #: plugins/import_pil/oomox_plugin.py:231
 msgid "Stronger Follow Palette Template"
-msgstr "Paletsjabloon meer aanhouden"
+msgstr "Meer uitgaan van paletsjabloon"
 
 #: plugins/import_pil/oomox_plugin.py:241
 msgid "Dark/Light Colors"
@@ -799,7 +799,7 @@ msgstr "colorthief lib"
 
 #: plugins/import_pil/oomox_plugin.py:292
 msgid "colorthief lib: doublepass"
-msgstr "colorthief lib: dubbele pas"
+msgstr "colorthief lib: tweemaal doorvoeren"
 
 #: plugins/import_pil/oomox_plugin.py:302
 msgid "haishoku lib"
