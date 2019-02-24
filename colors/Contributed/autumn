@@ -1,4 +1,9 @@
-ACCENT_BG=b3d28d
+# Autumn
+# Colours scheme inspired by 90s Summer and 90s Technotronic
+# Author: Gustavo Costa <gusbemacbe@gmail.com>
+# Date: 23-02-2019
+
+ACCENT_BG=54811e
 ARC_TRANSPARENCY=True
 ARC_WIDGET_BORDER_COLOR=d3cacb
 BASE16_GENERATE_DARK=False
