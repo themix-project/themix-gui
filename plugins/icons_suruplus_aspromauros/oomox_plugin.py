@@ -77,24 +77,6 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_LIGHT_FOLDER',
-            'type': 'color',
-            'fallback_key': 'SEL_BG',
-            'display_name': _('Light Base (Folders)'),
-        },
-        {
-            'key': 'ICONS_MEDIUM',
-            'type': 'color',
-            'fallback_key': 'BTN_BG',
-            'display_name': _('Medium Base'),
-        },
-        {
-            'key': 'ICONS_DARK',
-            'type': 'color',
-            'fallback_key': 'HDR_BG',
-            'display_name': _('Dark Stroke'),
-        },
-        {
             'key': 'ICONS_SYMBOLIC_ACTION',
             'type': 'color',
             'fallback_function': lambda colors: mix_theme_colors(
@@ -138,12 +120,6 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         icon_preview = svg_template.replace(
-            "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
-        ).replace(
-            "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
-        ).replace(
-            "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
-        ).replace(
             "%SYMBOLIC_ACTION%", colorscheme["ICONS_SYMBOLIC_ACTION"] or FALLBACK_COLOR
         ).replace(
             "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR
