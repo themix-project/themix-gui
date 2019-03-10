@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+  <defs>
+   <style id="current-color-scheme" type="text/css">
+   .ColorScheme-Text { color:#%SYMBOLIC_PANEL%; } .ColorScheme-Highlight { color:#5294e2; }
+  </style>
+  <linearGradient id="arrongin" x1="0%" x2="0%" y1="0%" y2="100%">
+   <stop offset="0%" style="stop-color:#%GRADIENT1%; stop-opacity:1"/>
+   <stop offset="100%" style="stop-color:#%GRADIENT2%; stop-opacity:1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-512 -32)">
+  <path fill="currentColor" class="ColorScheme-Text" d="M526 37v-2h-2.002z" overflow="visible"/>
+  <path fill="currentColor" class="ColorScheme-Text" d="M514 39v8h9v-1h-8v-7.667zm11.002-1L525 47h1v-8z"/>
+  <path fill="currentColor" class="ColorScheme-Text" d="M520 40.986a8.47 8.47 0 0 1 .607-.122c.253-.043.543-.064.872-.064.295 0 .54.043.735.129.195.08.35.197.465.35.119.147.202.326.25.535.047.21.071.44.071.693V46.2h-3z"/>
+  <path fill="currentColor" class="ColorScheme-Text" fill-rule="evenodd" d="M520 32.293l-7.854 7.853.708.708L520 33.707l7.146 7.147.708-.708z" overflow="visible"/>
+ </g>
+</svg>
