@@ -32,5 +32,8 @@
 [submodule "suru-plus"]
 	path = plugins/icons_suruplus/suru-plus
 	url = https://github.com/gusbemacbe/suru-plus.git
+[submodule "suru-plus-aspromauros"]
+	path = plugins/icons_suruplus_aspromauros/suru-plus-aspromauros
+	url = https://github.com/gusbemacbe/suru-plus-aspromauros.git
 
 
