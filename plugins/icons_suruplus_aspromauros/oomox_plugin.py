@@ -84,6 +84,9 @@ class Plugin(OomoxIconsPlugin):
                 0.66
             ),
             'display_name': _('Actions Icons'),
+            'value_filter': {
+                'SURUPLUS_GRADIENT_ENABLED': False,
+            },
         },
         {
             'key': 'ICONS_SYMBOLIC_PANEL',
