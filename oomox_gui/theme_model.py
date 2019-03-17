@@ -288,7 +288,7 @@ THEME_MODEL += [
         'options': [
             {'value': 'auto', 'display_name': _('Auto')},
             {'value': 'basic', 'display_name': _('Basic')},
-            {'value': 'smarty', 'display_name': _('Experimental')},
+            {'value': 'smarty', 'display_name': _('Advanced')},
             {'value': 'manual', 'display_name': _('Manual')},
         ],
         'fallback_value': 'auto',
