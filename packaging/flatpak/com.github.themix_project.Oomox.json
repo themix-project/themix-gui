@@ -35,7 +35,7 @@
                 "append-path": "/usr/lib/sdk/rust-stable/bin"
             },
             "build-commands": [
-                "export CARGO_HOME=$(pwd)/cargo_home ; for dir in capi tools/rendersvg; do ( cd $dir ; cargo build --release --features='cairo-backend' ) done",
+                "export CARGO_HOME=$(pwd)/cargo_home ; for dir in capi tools/{render,u}svg; do ( cd $dir ; if grep -q cairo-backend Cargo.toml; then cargo build --release --features='cairo-backend' ; else cargo build --release ; fi ) done",
                 "install -Dm755 target/release/rendersvg /app/bin/rendersvg",
                 "install -Dm755 target/release/libresvg.so /app/lib/libresvg.so",
                 "install -Dm644 capi/include/resvg.h /app/include/resvg.h"
@@ -43,13 +43,13 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/RazrFalcon/resvg/archive/07b5191683f18be693a08f66334568f098ea5429.tar.gz",
-                    "sha256": "2307c58c10b2adda2b990d2dcf676e2b4958798445dd700dc7225164092a5fc5"
+                    "url": "https://github.com/RazrFalcon/resvg/archive/v0.5.0.tar.gz",
+                    "sha256": "f9d0dc31de9b6f516c0c5350f22142ab8af6a2d957a729494bb403cff32ba611"
                 },
                 {
                     "type": "archive",
-                    "url": "https://github.com/actionless/_flatpak_helpers/releases/download/0.01/cargo_home.tar.bz2",
-                    "sha256": "c11bb49ac97c384ce481f71b759a1f1da73879e722fce06fb935213e31b50c2f",
+                    "url": "https://github.com/actionless/_flatpak_helpers/releases/download/0.5.0/cargo_home.tar.bz2",
+                    "sha256": "0548150c212dc65ba9f88b8071192cf2e113bfd2ea807e8ac482effcdc8072ce",
                     "dest": "./cargo_home/"
                 }
             ]
@@ -182,8 +182,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-8.tar.xz",
-                    "sha256": "148b9f3f9c8ab98985555aa97f89dfc17bda9a5bc00674d62562057e84e3d03f"
+                    "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-32.tar.xz",
+                    "sha256": "6e2c80749a71750e8baf29ddc14b938e8f6f3c7f6922f3e9993084962cda15b1"
                 }
             ]
         },
@@ -202,7 +202,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/themix-project/oomox.git",
-                    "tag": "1.12"
+                    "tag": "1.12.1"
                 }
             ]
         }

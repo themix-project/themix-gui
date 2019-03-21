@@ -23,5 +23,6 @@ po/oomox.pot
 po/*.mo
 
 # temporary/dev files
+dumpster/
 colors/randomized/
 colors/test/
