@@ -9,7 +9,7 @@ RUN yum-config-manager --enable extras && \
         python34-pip python34-gobject python34-PyYAML && \
     dbus-uuidgen --ensure
 RUN ln -s /usr/bin/python3.4 /usr/bin/python3
-RUN python3 -m pip install -U setuptools && \
+RUN python3 -m pip install -U setuptools pip && \
     python3 -m pip install -U pylint flake8 gobject-introspection
 
 COPY . /opt/oomox-build/
