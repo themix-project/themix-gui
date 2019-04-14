@@ -8,7 +8,7 @@ RUN yum-config-manager --enable extras && \
     yum install -y gtk3 xorg-x11-server-Xvfb psmisc gnome-tweak-tool \
         python34-pip python34-gobject python34-PyYAML && \
     dbus-uuidgen --ensure
-#RUN ln -s /usr/bin/python3.4 /usr/bin/python3
+RUN ln -s /usr/bin/python3.4 /usr/bin/python3
 RUN python3 -m pip install -U setuptools && \
     python3 -m pip install -U pylint flake8
 
