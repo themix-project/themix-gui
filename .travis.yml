@@ -1,4 +1,4 @@
-language: python
+language: minimal
 env:
   matrix:
     - PYVER=python34_centos_7 SKIP_SHELLCHECK=1 SKIP_MYPY=1 SKIP_VULTURE=1
