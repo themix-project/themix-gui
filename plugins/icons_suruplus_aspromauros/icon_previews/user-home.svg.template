@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-  <defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" version="1.1">
+ <defs>
    <style id="current-color-scheme" type="text/css">
-   .ColorScheme-Text { color:#%SYMBOLIC_PANEL%; } .ColorScheme-Highlight { color:#5294e2; }
+   .ColorScheme-Text { color: #%SYMBOLIC_PANEL%; } .ColorScheme-Highlight { color: #1AD6AB; }
   </style>
   <linearGradient id="arrongin" x1="0%" x2="0%" y1="0%" y2="100%">
-   <stop offset="0%" style="stop-color:#%GRADIENT1%; stop-opacity:1"/>
-   <stop offset="100%" style="stop-color:#%GRADIENT2%; stop-opacity:1"/>
+   <stop offset="0%" stop-color="#%GRADIENT1%" stop-opacity="1"/>
+   <stop offset="100%" stop-color="#%GRADIENT2%" stop-opacity="1"/>
   </linearGradient>
  </defs>
  <g transform="translate(-512 -32)">
