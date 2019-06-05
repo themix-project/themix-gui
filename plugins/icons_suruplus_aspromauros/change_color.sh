@@ -127,7 +127,10 @@ if [ -n "${ICONS_SYMBOLIC_ACTION:-}" ]; then
 	find "$tmp_dir"/Suru++-Asprómauros/actions/{16,22,24,symbolic} \
 		"$tmp_dir"/Suru++-Asprómauros/apps/{16,symbolic} \
 		"$tmp_dir"/Suru++-Asprómauros/devices/{16,symbolic} \
+		"$tmp_dir"/Suru++-Asprómauros/emblems/symbolic \
+		"$tmp_dir"/Suru++-Asprómauros/emotes/symbolic \
 		"$tmp_dir"/Suru++-Asprómauros/mimetypes/16 \
+		"$tmp_dir"/Suru++-Asprómauros/panel/{16,22,24} \
 		"$tmp_dir"/Suru++-Asprómauros/places/{16,symbolic} \
 		"$tmp_dir"/Suru++-Asprómauros/status/symbolic \
 		-type f -name '*.svg' \
@@ -136,21 +139,26 @@ fi
 
 if [ -n "${ICONS_SYMBOLIC_PANEL:-}" ]; then
 	echo ":: Replacing symbolic panel colors..."
-	find "$tmp_dir"/Suru++-Asprómauros/panel/{16,22,24} \
-		"$tmp_dir"/Suru++-Asprómauros/animations/{22,24} \
+	find "$tmp_dir"/Suru++-Asprómauros/animations/{22,24} \
 		-type f -name '*.svg' \
 		-exec sed -i'' -e "s/d3dae3/$ICONS_SYMBOLIC_PANEL/g" '{}' \;
 fi
 
 if [ "$SURUPLUS_GRADIENT_ENABLED" = "true" ] && [ -n "${SURUPLUS_GRADIENT1:-}" ] && [ -n "${SURUPLUS_GRADIENT2:-}" ]; then
 	echo ":: Replacing gradient colors..."
-	find "$tmp_dir"/Suru++-Asprómauros/apps/16 \
-		"$tmp_dir"/Suru++-Asprómauros/devices/16 \
+	find "$tmp_dir"/Suru++-Asprómauros/actions/{16,22,24,symbolic} \
+		"$tmp_dir"/Suru++-Asprómauros/apps/{16,symbolic} \
+		"$tmp_dir"/Suru++-Asprómauros/devices/{16,symbolic} \
+		"$tmp_dir"/Suru++-Asprómauros/emblems/symbolic \
+		"$tmp_dir"/Suru++-Asprómauros/emotes/symbolic \
 		"$tmp_dir"/Suru++-Asprómauros/mimetypes/16 \
-		"$tmp_dir"/Suru++-Asprómauros/places/16 \
+		"$tmp_dir"/Suru++-Asprómauros/panel/{16,22,24} \
+		"$tmp_dir"/Suru++-Asprómauros/places/{16,symbolic} \
+		"$tmp_dir"/Suru++-Asprómauros/status/symbolic \
 		-type f -name '*.svg' \
 		-exec sed -i'' \
-			-e 's/currentColor/url(#oomox)/g' \
+			-e 's/fill="currentColor" class="ColorScheme-Text"/fill="url(#oomox)" class="ColorScheme-Text"/g' \
+			-e 's/stroke="currentColor" class="ColorScheme-Text"/stroke="url(#oomox)" class="ColorScheme-Text"/g' \
 			-e "s/efefe7/$SURUPLUS_GRADIENT1/g" \
 			-e "s/8f8f8b/$SURUPLUS_GRADIENT2/g" '{}' \;
 fi
