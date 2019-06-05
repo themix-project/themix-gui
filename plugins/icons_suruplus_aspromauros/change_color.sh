@@ -157,7 +157,6 @@ if [ "$SURUPLUS_GRADIENT_ENABLED" = "true" ] && [ -n "${SURUPLUS_GRADIENT1:-}" ]
 		"$tmp_dir"/Suru++-Asprómauros/status/symbolic \
 		-type f -name '*.svg' \
 		-exec sed -i'' \
-		# For avoiding to overwrite `fill|stroke="currentColor" class="ColorScheme-Highlight"`
 			-e 's/fill="currentColor" class="ColorScheme-Text"/fill="url(#oomox)" class="ColorScheme-Text"/g' \
 			-e 's/stroke="currentColor" class="ColorScheme-Text"/stroke="url(#oomox)" class="ColorScheme-Text"/g' \
 			-e "s/efefe7/$SURUPLUS_GRADIENT1/g" \
