@@ -1,0 +1,30 @@
+get_color () {
+	xrdb -query | grep "$1:" | cut -f2 | sed -r 's/#//' | head -n 1
+}
+color () {
+	get_color color$1
+}
+color_bg () {
+	get_color "*background"
+}
+color_fg () {
+	get_color "*foreground"
+}
+
+   NAME="follow xresources theme"
+  NOGUI=True
+     BG=$(color 0)
+     FG=$(color 7)
+ TXT_BG=$(color_bg)
+ TXT_FG=$(color 7)
+ SEL_BG=$(color 6)
+ SEL_FG=$TXT_FG
+HDR_BG=$(color_bg)
+HDR_FG=$FG
+ BTN_BG=$(color 12)
+ BTN_FG=$(color 0)
+WM_BORDER_FOCUS=$(color 3)
+ICONS_LIGHT_FOLDER=$(color 13)
+ICONS_LIGHT=$(color 9)
+ICONS_MEDIUM=$(color 1)
+ICONS_DARK=$(color 5)
