@@ -210,7 +210,9 @@ Create/append to
 
 To learn more about using the application you can check these sources:
 
-  * 2019, [How to import and export Base16 themes in Themix/Oomox](https://gist.github.com/actionless/f9ad9e5ab9eac414dac8a3392beb3ad5)
+  * 2019, [Customizing icon themes animated tutorial](https://github.com/themix-project/oomox/wiki/Customizing-icon-themes)
+  * 2019, [How to contribute your theme from Github website](https://github.com/themix-project/oomox/wiki/How-to-contribute-your-theme-from-Github-website)
+  * 2019, [How to import and export Base16 themes in Themix/Oomox](https://github.com/themix-project/oomox/wiki/How-to-import-and-export-Base16-themes-in-Themix-Oomox)
   * 2018, https://www.youtube.com/watch?v=XO9QA1njIOM by AddictiveTips
   * https://delightlylinux.wordpress.com/2016/08/22/customize-theme-colors-with-oomox/
   * 2016, https://www.youtube.com/watch?v=Dh5TuIYQ6jo by Spatry
