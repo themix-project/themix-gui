@@ -2,6 +2,7 @@ import sys
 import os
 import json
 
+from .i18n import _
 from .config import USER_CONFIG_DIR
 
 
@@ -42,8 +43,9 @@ class CommonOomoxConfig:
             with open(self.config_path, 'r') as file_object:
                 for key, value in json.load(file_object).items():
                     self.config[key] = value
-        except (FileNotFoundError, json.decoder.JSONDecodeError):
-            pass
+        except Exception as exc:
+            print(_("Can't read config file"))
+            print(exc)
         return self.config
 
     def save(self):
