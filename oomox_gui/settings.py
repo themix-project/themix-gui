@@ -40,8 +40,7 @@ class CommonOomoxConfig:
     def load(self):
         try:
             with open(self.config_path, 'r') as file_object:
-                parsed_config = json.load(file_object)
-                for key, value in parsed_config.items():
+                for key, value in json.load(file_object).items():
                     self.config[key] = value
         except (FileNotFoundError, json.decoder.JSONDecodeError):
             pass
