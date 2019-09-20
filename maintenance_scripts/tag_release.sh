@@ -42,7 +42,7 @@ sed -i -e "s/pkgrel=.*/pkgrel=1/g" packaging/arch/PKGBUILD
 sed -i -e "s/^Version: .*/Version: ${new_version}-1~themixproject~zesty/" packaging/ubuntu/control
 sed -i -e "s/^Version: .*/Version: ${new_version}-1~themixproject~cosmic/" packaging/ubuntu/control_1810
 sed -i -e 's/"tag": ".*"/"tag": "'"${new_version}"'"/g' packaging/flatpak/com.github.themix_project.Oomox.json
-sed -i -e 's/<release .*\/>/<release date="'"$(date +"%Y-%m-%d")"'" version="'"$new_version"'"\/>/g' packaging/flatpak/com.github.themix_project.Oomox.json
+sed -i -e 's/<release .*\/>/<release date="'"$(date +"%Y-%m-%d")"'" version="'"$new_version"'"\/>/g' packaging/com.github.themix_project.Oomox.appdata.xml
 
 echo
 echo "??????????????????????????????????????????????????????????????????????"
