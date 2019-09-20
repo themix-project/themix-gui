@@ -182,8 +182,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-32.tar.xz",
-                    "sha256": "6e2c80749a71750e8baf29ddc14b938e8f6f3c7f6922f3e9993084962cda15b1"
+                    "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-65.tar.xz",
+                    "sha256": "022e14ecb9c457026f3caae5ee11cdb247ccec84539cf053863787e7128b71ba"
                 }
             ]
         },
