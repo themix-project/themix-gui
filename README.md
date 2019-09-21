@@ -7,7 +7,6 @@ Graphical application for generating different color variations of Oomox (Numix-
 <a href="#debian-ubuntu-linux-mint"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_deb.png" width="160"></a>
 <a href="https://copr.fedorainfracloud.org/coprs/tcg/themes/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_copr.png" width="160"></a>
 <a href="https://slackbuilds.org/repository/14.2/desktop/oomox/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_slackware.png" width="54"></a>
-<a href="https://github.com/void-linux/void-packages/tree/master/srcpkgs/oomox"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_void.png" width="54"></a>
 <a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="160"></a>
 
 
