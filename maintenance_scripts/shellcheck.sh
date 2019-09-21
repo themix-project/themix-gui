@@ -24,5 +24,5 @@ SCRIPT_DIR="$(readlink -e "${TEST_DIR}"/..)"
 	)
 )
 
-echo '$$ shellcheck passed $$'
+echo ':: shellcheck passed ::'
 exit 0

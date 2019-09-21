@@ -62,4 +62,4 @@ else
 fi
 
 
-echo '$$ All checks have been passed successfully $$'
+echo -e "\n"'$$ All checks have been passed successfully $$'
