@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint:disable=import-outside-toplevel
 import os
 import gc
 from multiprocessing.pool import Pool

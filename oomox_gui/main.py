@@ -4,6 +4,7 @@ import os
 import sys
 import signal
 import shutil
+import traceback
 
 from gi.repository import Gtk, Gio
 
@@ -351,7 +352,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 icons_plugin=self.plugin_icons,
             )
         except Exception as exc:
-            import traceback
             print()
             print("ERROR: Can't show theme preview:")
             print(exc)

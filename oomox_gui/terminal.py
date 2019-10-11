@@ -131,7 +131,7 @@ class ContinueNext(Exception):
 # @TODO:
 # These two functions are temporary until progressbar API won't be implemented in UI
 def get_term_width():
-    import shutil
+    import shutil  # pylint:disable=import-outside-toplevel
     return shutil.get_terminal_size((80, 80)).columns
 
 
