@@ -18,7 +18,7 @@ color_fg () {
  TXT_BG=$(color_bg)
  TXT_FG=$(color 7)
  SEL_BG=$(color 6)
- SEL_FG=$TXT_FG
+ SEL_FG=$TXT_BG
 HDR_BG=$(color_bg)
 HDR_FG=$FG
  BTN_BG=$(color 12)
