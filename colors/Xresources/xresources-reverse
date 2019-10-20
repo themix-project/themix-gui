@@ -5,7 +5,7 @@
              TXT_BG=xrdb.background
              TXT_FG=xrdb.color7
              SEL_BG=xrdb.color3
-             SEL_FG=xrdb.color0
+             SEL_FG=xrdb.background
             MENU_BG=xrdb.color0
             MENU_FG=xrdb.color7
              BTN_BG=xrdb.color12
