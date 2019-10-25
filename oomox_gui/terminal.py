@@ -108,6 +108,7 @@ def generate_theme_from_hint(  # pylint: disable=too-many-arguments
 
 
 def get_all_colors_from_oomox_colorscheme(palette):
+    # pylint:disable=bad-option-value,import-outside-toplevel
     from .theme_model import THEME_MODEL
 
     all_colors = []

@@ -417,6 +417,7 @@ class Plugin(PluginBase):
     }
 
     def read_colorscheme_from_path(self, preset_path):
+        # pylint:disable=bad-option-value,import-outside-toplevel
         from oomox_gui.theme_model import get_first_theme_option
 
         base16_theme = {}

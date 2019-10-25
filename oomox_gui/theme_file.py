@@ -11,6 +11,7 @@ PresetFile = namedtuple('PresetFile', ['name', 'path', 'default', 'is_saveable',
 
 
 def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
+    # pylint:disable=bad-option-value,import-outside-toplevel
     from .plugin_api import PLUGIN_PATH_PREFIX
     from .plugin_loader import IMPORT_PLUGINS
 
@@ -46,6 +47,7 @@ def group_presets_by_dir(preset_list, preset_dir):
 
 
 def get_presets():
+    # pylint:disable=bad-option-value,import-outside-toplevel
     from .plugin_loader import IMPORT_PLUGINS
 
     all_results = {}
