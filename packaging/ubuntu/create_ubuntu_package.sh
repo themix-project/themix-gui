@@ -21,6 +21,7 @@ make DESTDIR="${pkgdir}" install
 
 cd "${pkgdir}"
 dpkg-deb --build . oomox.deb
+apt install -y --no-install-recommends ./oomox.deb
 
 echo DEB PACKAGING DONE
 exit 0
