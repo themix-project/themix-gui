@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# pylint:disable=import-outside-toplevel
+# pylint:disable=bad-option-value,import-outside-toplevel
 import os
 import gc
 from multiprocessing.pool import Pool
