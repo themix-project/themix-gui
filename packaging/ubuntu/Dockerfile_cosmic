@@ -1,5 +1,5 @@
 FROM ubuntu:cosmic
 WORKDIR /opt/oomox
-CMD ["/bin/bash", "./packaging/ubuntu/create_ubuntu_package.sh", "control_1810"]
+CMD ["/bin/bash", "./packaging/ubuntu/create_ubuntu_package.sh", "control_1810", "--install"]
 RUN apt update --allow-unauthenticated && apt install -y make gettext
 COPY . /opt/oomox/
