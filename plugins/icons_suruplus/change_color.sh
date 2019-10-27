@@ -177,7 +177,8 @@ fi
 
 echo ":: Exporting theme..."
 sed -i \
-	-e "s/Name=Suru++/Name=$OUTPUT_THEME_NAME/g" \
+	-e "s/^Name=.*/Name=$OUTPUT_THEME_NAME/g" \
+	-e '/^Name\[.*$/d' \
 	"$tmp_dir/Suru++/index.theme"
 
 if [ -d "$output_dir" ] ; then
