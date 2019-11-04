@@ -199,7 +199,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             self, preset_dir, preset_list,
             plugin_name=None, parent=None
     ):
-        sorted_preset_list = sorted(preset_list, key=lambda x: x.name)
+        sorted_preset_list = sorted(preset_list, key=lambda x: x.name.lower())
 
         first_preset = sorted_preset_list[0]
         piter = self._add_preset(
@@ -228,7 +228,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         presets_iter = self._add_section(Sections.PRESETS)
         sorted_system_presets = sorted(
             all_presets.get(COLORS_DIR, {}).items(),
-            key=lambda x: ('000' if x[0] in featured_dirs else '') + x[0]
+            key=lambda x: (x[0] not in featured_dirs, x[0].lower())
         )
         for preset_dir, preset_list in sorted_system_presets:
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
