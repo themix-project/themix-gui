@@ -16,7 +16,7 @@ Table of contents:
   * [Installing with package manager](#installation "")
   * [Installing manually](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
-  * [Extra GTK3 CSS hacks] (#extra-gtk3-css-hacks "")
+  * [Extra GTK3 CSS hacks](#extra-gtk3-css-hacks "")
   * [Spotify](#spotify "")
   * [Review videos/Usage instructions](#review-articles-and-videos "")
 
