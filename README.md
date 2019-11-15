@@ -16,6 +16,7 @@ Table of contents:
   * [Installing with package manager](#installation "")
   * [Installing manually](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
+  * [Extra GTK3 CSS hacks] (#extra-gtk3-css-hacks "")
   * [Spotify](#spotify "")
   * [Review videos/Usage instructions](#review-articles-and-videos "")
 
@@ -193,15 +194,32 @@ Spotify theme settings are backed up to `~/.config/oomox/spotify_backup`. To und
 Users running Spotify under Flatpak should set their "Spotify path" in oomox to `/var/lib/flatpak/app/com.spotify.Client/current/active/files/extra/share/spotify/Apps` in order to apply the theme.
 
 
-### Using with tiling WMs:
+### Using with tiling WMs
 
-Create/append to
-`~/.config/gtk-3.0/gtk.css`:
+Create/append to `~/.config/gtk-3.0/gtk.css`:
 
 ```css
-// remove window title from Client-Side Decorations
+/* remove window title from Client-Side Decorations */
 .solid-csd headerbar .title {
     font-size: 0;
+}
+
+/* hide extra window decorations/double border */
+window decoration {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+```
+
+
+### Extra GTK3 CSS hacks
+
+Create/append to `~/.config/gtk-3.0/gtk.css`:
+
+```css
+* {
+  text-shadow: none;
 }
 ```
 
