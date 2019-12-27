@@ -21,12 +21,16 @@ def color_hex_from_list(color_list):
     return ''.join([int_to_hex(i) for i in color_list])
 
 
-def is_dark(color_text):
+def hex_lightness(color_text):
     # @TODO: use real lightness from HSV or Lab color model
     return sum([
         hex_to_int(channel_text)
         for channel_text in color_list_from_hex(color_text)
-    ]) < 384
+    ]) / 765
+
+
+def is_dark(color_text):
+    return hex_lightness(color_text) < 0.5
 
 
 def hex_darker(color_text, darken_amount=10):

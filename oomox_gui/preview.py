@@ -4,7 +4,7 @@ from gi.repository import Gtk, GLib
 
 from .theme_model import THEME_MODEL
 from .color import (
-    convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors,
+    convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors, hex_lightness,
 )
 from .gtk_helpers import ScaledImage
 from .preview_terminal import TerminalThemePreview
@@ -344,11 +344,13 @@ class ThemePreview(Gtk.Grid):
                 ), (
                     'entry',
                     self.gtk_preview.entry,
-                    mix_theme_colors(
-                        colorscheme['TXT_FG'], colorscheme['TXT_BG'], 0.20
-                    ),
-                    colorscheme['BG'],
-                    0.69
+                    colorscheme['TXT_BG'],
+                    colorscheme['TXT_FG'],
+                    0.8 * (0.7 + (
+                        0 if hex_lightness(colorscheme['TXT_BG']) > 0.66 else (
+                            0.1 if hex_lightness(colorscheme['TXT_BG']) > 0.33 else 0.3
+                        )
+                    ))
                 ),
         ):
             border_color = mix_theme_colors(fg, bg, ratio)
