@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+# Shamelessly modified from dh_python3:
+if which py3clean >/dev/null 2>&1; then
+	py3clean /opt/oomox/oomox_gui
+else
+	rm -rf /opt/oomox/oomox_gui/__pycache__
+fi
+
+
