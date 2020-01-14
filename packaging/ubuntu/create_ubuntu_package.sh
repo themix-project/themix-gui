@@ -14,13 +14,14 @@ pkgdir=$(readlink -e ./${_pkgdirname})
 
 mkdir "${pkgdir}"/DEBIAN
 cp "${srcdir}"/packaging/ubuntu/postinst "${pkgdir}"/DEBIAN
+cp "${srcdir}"/packaging/ubuntu/prerm    "${pkgdir}"/DEBIAN
 cp "${srcdir}"/packaging/ubuntu/"${control_file}" "${pkgdir}"/DEBIAN/control
 
 cd "${srcdir}"
 make DESTDIR="${pkgdir}" install
 
 cd "${pkgdir}"
-dpkg-deb --build . oomox.deb
+fakeroot dpkg-deb --build . oomox.deb
 if [[ "${2:-}" = "--install" ]] ; then
 	apt install -y --no-install-recommends ./oomox.deb
 fi
