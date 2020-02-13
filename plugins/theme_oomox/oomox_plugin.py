@@ -9,7 +9,7 @@ from oomox_gui.i18n import _
 
 OPTION_GTK3_CURRENT_VERSION_ONLY = 'OPTION_GTK3_CURRENT_VERSION_ONLY'
 OPTION_EXPORT_CINNAMON_THEME = 'OPTION_EXPORT_CINNAMON_THEME'
-
+OPTION_DEFAULT_PATH = 'default_path'
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 GTK_THEME_DIR = os.path.join(PLUGIN_DIR, "gtk-theme/")
@@ -20,11 +20,15 @@ class OomoxThemeExportDialog(CommonGtkThemeExportDialog):
     config_name = 'gtk_theme_oomox'
 
     def do_export(self):
+        export_path = self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+        new_destination_dir, theme_name = export_path.rsplit('/', 1)
+
         self.command = [
             "bash",
             os.path.join(GTK_THEME_DIR, "change_color.sh"),
             "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
-            "--output", self.theme_name,
+            "--target-dir", new_destination_dir,
+            "--output", theme_name,
             self.temp_theme_path,
         ]
         make_opts = []
@@ -43,7 +47,11 @@ class OomoxThemeExportDialog(CommonGtkThemeExportDialog):
             ]
         super().do_export()
 
+        self.export_config[OPTION_DEFAULT_PATH] = new_destination_dir
+        self.export_config.save()
+
     def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+        default_themes_path = os.path.join(os.environ['HOME'], '.themes')
         super().__init__(
             transient_for=transient_for,
             colorscheme=colorscheme,
@@ -58,8 +66,18 @@ class OomoxThemeExportDialog(CommonGtkThemeExportDialog):
                     'default': False,
                     'display_name': _("Generate theme for _Cinnamon"),
                 },
+                OPTION_DEFAULT_PATH: {
+                    'default': default_themes_path,
+                    'display_name': _("Export _path: "),
+                },
             },
             **kwargs
+        )
+        self.option_widgets[OPTION_DEFAULT_PATH].set_text(
+            os.path.join(
+                self.export_config[OPTION_DEFAULT_PATH],
+                self.theme_name,
+            )
         )
 
 
