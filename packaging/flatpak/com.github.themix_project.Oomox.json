@@ -191,7 +191,7 @@
             "name": "oomox",
             "buildsystem": "simple",
             "build-commands": [
-                "make DESTDIR=/ PREFIX=/app APPDIR=/app/opt/oomox DISABLE_PLUGIN_SPOTIFY=1 install",
+                "make DESTDIR=/ PREFIX=/app APPDIR=/app/opt/oomox install_gui install_theme_arc install_theme_oomox install_theme_materia install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros",
                 "python3 -O -m compileall /app/opt/oomox/oomox_gui",
                 "mkdir -p /app/usr/share/",
                 "ln -s /app/share/applications /app/usr/share/applications",

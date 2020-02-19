@@ -2,16 +2,14 @@ DESTDIR = ./distrib
 PREFIX = /usr
 APPDIR = /opt/oomox
 
-DISABLE_PLUGIN_MATERIA = 0
-DISABLE_PLUGIN_ARC = 0
-DISABLE_PLUGIN_SPOTIFY = 0
-DISABLE_PLUGIN_IMPORT_IMAGE = 0
+DEST_APPDIR = $(DESTDIR)$(APPDIR)
+DEST_PLUGIN_DIR = $(DESTDIR)$(APPDIR)/plugins
+DEST_PREFIX = $(DESTDIR)$(PREFIX)
 
 
-.PHONY: install
-install:
-	$(eval DEST_APPDIR := $(DESTDIR)$(APPDIR))
-	$(eval DEST_PREFIX := $(DESTDIR)$(PREFIX))
+.PHONY: install_gui install_import_random install_theme_arc install_theme_oomox install_theme_materia install_export_spotify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
+
+install_gui: install_import_random
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
 	mkdir -p $(DEST_APPDIR)
@@ -23,44 +21,19 @@ install:
 		colors \
 		gui.sh \
 		oomox_gui \
-		plugins \
 		po \
 		po.mk \
 		terminal_templates \
 			$(DEST_APPDIR)/
 
-	$(RM) -r "$(DEST_APPDIR)/plugins/oomoxify/".git*
-	$(RM) -r "$(DEST_APPDIR)/plugins"/*/*/.git*
-	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/".editorconfig
-	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/".*.yml
-	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"{D,d}ocker*
-	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"maintenance*
-	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"screenshot*
-	$(RM) -r "$(DEST_APPDIR)/plugins/theme_oomox/gtk-theme/"test*
-
 	cp -prf \
 		packaging/ \
 			$(PACKAGING_TMP_DIR)/
-
-ifeq ($(DISABLE_PLUGIN_MATERIA), 1)
-	$(RM) -r $(DEST_APPDIR)/plugins/theme_materia/
-	$(RM) $(PACKAGING_TMP_DIR)/packaging/bin/oomox-materia-cli
-endif
-ifeq ($(DISABLE_PLUGIN_ARC), 1)
-	$(RM) -r $(DEST_APPDIR)/plugins/theme_arc/
-endif
-ifeq ($(DISABLE_PLUGIN_SPOTIFY), 1)
-	$(RM) -r $(DEST_APPDIR)/plugins/oomoxify/
-	$(RM) $(PACKAGING_TMP_DIR)/packaging/bin/oomoxify-cli
-endif
-ifeq ($(DISABLE_PLUGIN_IMPORT_IMAGE), 1)
-	$(RM) -r $(DEST_APPDIR)/plugins/import_pil/
-endif
-
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-
 	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
-	install -Dp -m 755 --target-directory="$(DEST_PREFIX)/bin/" "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+
+	install -d $(DEST_PREFIX)/bin/
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/oomox-gui" "$(DEST_PREFIX)/bin/"
 
 	install -d $(DEST_PREFIX)/share/applications/
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" "$(DEST_PREFIX)/share/applications/"
@@ -68,7 +41,10 @@ endif
 	install -d $(DEST_PREFIX)/share/appdata/
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.appdata.xml" "$(DEST_PREFIX)/share/appdata/"
 
+	install -d $(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" "$(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
+
+	install -d $(DEST_PREFIX)/share/icons/hicolor/scalable/apps/
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.svg" "$(DEST_PREFIX)/share/icons/hicolor/scalable/apps/com.github.themix_project.Oomox.svg"
 
 	$(RM) -r $(PACKAGING_TMP_DIR)
@@ -77,4 +53,193 @@ endif
 	make -C $(DEST_APPDIR) -f po.mk install
 	rm $(DEST_APPDIR)/po.mk
 
+
+install_theme_arc:
+	$(eval PLUGIN_NAME := "theme_arc")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_theme_oomox:
+	$(eval PLUGIN_NAME := "theme_oomox")
+	$(eval CLI_NAME := "oomox-cli")
+	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
+
+	cp -prf \
+		packaging/ \
+			$(PACKAGING_TMP_DIR)/
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
+	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+	install -d $(DEST_PREFIX)/bin/
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/".editorconfig
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/".*.yml
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"{D,d}ocker*
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"maintenance*
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"screenshot*
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"test*
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_theme_materia:
+	$(eval PLUGIN_NAME := "theme_materia")
+	$(eval CLI_NAME := "oomox-materia-cli")
+	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
+
+	cp -prf \
+		packaging/ \
+			$(PACKAGING_TMP_DIR)/
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
+	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+	install -d $(DEST_PREFIX)/bin/
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_export_spotify:
+	$(eval PLUGIN_NAME := "oomoxify")
+	$(eval CLI_NAME := "oomoxify-cli")
+	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
+
+	cp -prf \
+		packaging/ \
+			$(PACKAGING_TMP_DIR)/
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
+	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+	install -d $(DEST_PREFIX)/bin/
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/.git*
+
+
+install_import_random:
+	$(eval PLUGIN_NAME := "import_random")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+
+
+install_import_images:
+	$(eval PLUGIN_NAME := "import_pil")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+
+
+install_plugin_base16:
+	$(eval PLUGIN_NAME := "base16")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_icons_archdroid:
+	$(eval PLUGIN_NAME := "icons_archdroid")
+	$(eval CLI_NAME := "oomox-archdroid-icons-cli")
+	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
+
+	cp -prf \
+		packaging/ \
+			$(PACKAGING_TMP_DIR)/
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
+	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+	install -d $(DEST_PREFIX)/bin/
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_icons_gnomecolors:
+	$(eval PLUGIN_NAME := "icons_gnomecolors")
+	$(eval CLI_NAME := "oomox-gnome-colors-icons-cli")
+	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
+
+	cp -prf \
+		packaging/ \
+			$(PACKAGING_TMP_DIR)/
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
+	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+	install -d $(DEST_PREFIX)/bin/
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_icons_numix:
+	$(eval PLUGIN_NAME := "icons_numix")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_icons_papirus:
+	$(eval PLUGIN_NAME := "icons_papirus")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_icons_suruplus:
+	$(eval PLUGIN_NAME := "icons_suruplus")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+install_icons_suruplus_aspromauros:
+	$(eval PLUGIN_NAME := "icons_suruplus_aspromauros")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+
+
+.PHONY: install
+install: install_gui install_theme_arc install_theme_oomox install_theme_materia install_export_spotify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
+
+.PHONY: all
 all: install
