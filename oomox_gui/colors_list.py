@@ -357,7 +357,7 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.value = convert_gdk_to_theme_color(gtk_value)
         self.color_entry.set_text(self.value)
 
-    def set_value(self, value, connected=False): # pylint: disable=arguments-differ
+    def set_value(self, value, connected=False):  # pylint: disable=arguments-differ
         if connected is False:
             self.disconnect_changed_signal()
         self.value = value
