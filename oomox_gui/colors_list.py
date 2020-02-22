@@ -307,7 +307,7 @@ class OomoxColorButton(Gtk.Button):
             elif _event.button == 3:
                 for lbr in self.get_listbox_parent().get_children():
                     if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
-                        if convert_gdk_to_theme_color(lbr.color_button.gtk_color)==old_color:
+                        if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color:
                             lbr.set_value(new_color.string, connected=True)
 
     def set_value(self, value):
