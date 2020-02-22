@@ -318,7 +318,6 @@ class OomoxColorButton(Gtk.Button):
         while not isinstance(pot_parent, Gtk.ListBox):
             pot_parent = pot_parent.get_parent()
             if isinstance(pot_parent, Gtk.Application):
-                print("Looked for ListBox parent of {}, and ended up running into the Application parent (i.e., didn't find a ListBox parent).".format(str(self)))
                 break
         else:
             return pot_parent
