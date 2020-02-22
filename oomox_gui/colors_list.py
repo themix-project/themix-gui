@@ -292,18 +292,36 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color = gtk_color
         self.gtk_color_button.set_rgba(gtk_color)
 
-    def on_click(self, _widget):
+    def on_click(self, _widget, _event):
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.gtk_color
         )
         color_selection_dialog.run()
         new_color = color_selection_dialog.gtk_color
+        new_color.string = convert_gdk_to_theme_color(new_color)
+        old_color = convert_gdk_to_theme_color(self.gtk_color)
         if new_color:
-            self.set_rgba(new_color)
-            self.callback(new_color)
+            if _event.button == 1:
+                self.set_rgba(new_color)
+                self.callback(new_color)
+            elif _event.button == 3:
+                for lbr in self.get_listbox_parent().get_children():
+                    if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
+                        if convert_gdk_to_theme_color(lbr.color_button.gtk_color)==old_color:
+                            lbr.set_value(new_color.string, connected=True)
 
     def set_value(self, value):
         self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
+
+    def get_listbox_parent(self):
+        pot_parent = self.get_parent()
+        while not isinstance(pot_parent, Gtk.ListBox):
+            pot_parent = pot_parent.get_parent()
+            if isinstance(pot_parent, Gtk.Application):
+                print("Looked for ListBox parent of {}, and ended up running into the Application parent (i.e., didn't find a ListBox parent).".format(str(self)))
+                break
+        else:
+            return pot_parent
 
     def __init__(self, transient_for, callback):
         self.transient_for = transient_for
@@ -313,7 +331,7 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color_button = Gtk.ColorButton.new()
         self.color_image = self.gtk_color_button.get_child()
         self.set_image(self.color_image)
-        self.connect("clicked", self.on_click)
+        self.connect("button_press_event", self.on_click)
 
 
 class ColorListBoxRow(OomoxListBoxRow):
@@ -340,8 +358,9 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.value = convert_gdk_to_theme_color(gtk_value)
         self.color_entry.set_text(self.value)
 
-    def set_value(self, value):
-        self.disconnect_changed_signal()
+    def set_value(self, value, connected=False):
+        if connected is False:
+            self.disconnect_changed_signal()
         self.value = value
         if value:
             self.color_entry.set_text(self.value)
@@ -349,7 +368,8 @@ class ColorListBoxRow(OomoxListBoxRow):
         else:
             self.color_entry.set_text(_('<N/A>'))
             self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
-        self.connect_changed_signal()
+        if connected is False:
+            self.connect_changed_signal()
 
     def __init__(self, display_name, key, callback, transient_for):
         self.color_button = OomoxColorButton(
