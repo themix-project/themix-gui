@@ -326,12 +326,13 @@ class OomoxColorButton(Gtk.Button):
         )
         color_selection_dialog.run()
         new_color = color_selection_dialog.gtk_color
-        new_color.string = convert_gdk_to_theme_color(new_color)
-        old_color = convert_gdk_to_theme_color(self.gtk_color)
-        for lbr in self.get_listbox_parent().get_children():
-            if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
-                if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color:
-                    lbr.set_value(new_color.string, connected=True)
+        if new_color:
+            new_color.string = convert_gdk_to_theme_color(new_color)
+            old_color = convert_gdk_to_theme_color(self.gtk_color)
+            for lbr in self.get_listbox_parent().get_children():
+                if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
+                    if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color:
+                        lbr.set_value(new_color.string, connected=True)
 
     def get_listbox_parent(self):
         pot_parent = self.get_parent()
