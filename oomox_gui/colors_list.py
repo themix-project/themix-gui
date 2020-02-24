@@ -320,7 +320,7 @@ class OomoxColorButton(Gtk.Button):
     def set_value(self, value):
         self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
 
-    def replace_all_instances(self, menu_item):
+    def replace_all_instances(self, menu_item):  # pylint:disable=unused-argument
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.gtk_color
         )
