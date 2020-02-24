@@ -293,6 +293,34 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color_button.set_rgba(gtk_color)
 
     def on_click(self, _widget, _event):
+        if _event.button == 1:
+            color_selection_dialog = OomoxColorSelectionDialog(
+                self.transient_for, self.gtk_color
+            )
+            color_selection_dialog.run()
+            new_color = color_selection_dialog.gtk_color
+            if new_color:
+                self.set_rgba(new_color)
+                self.callback(new_color)
+        elif _event.button == 3:
+            self.show_context_menu(_event.button, _event.time)
+
+    def show_context_menu(self, mouse_button, clicked_time):
+        context_menu = Gtk.Menu()
+        menu_items = []
+        menu_items.append([Gtk.MenuItem(label="Replace all instances"), self.replace_all_instances])
+
+        for item in menu_items:
+            context_menu.append(item[0])
+            item[0].connect("activate", item[1])
+
+        context_menu.show_all()
+        context_menu.popup(None, None, None, None, mouse_button, clicked_time)
+
+    def set_value(self, value):
+        self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
+
+    def replace_all_instances(self, menu_item):
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.gtk_color
         )
@@ -300,18 +328,10 @@ class OomoxColorButton(Gtk.Button):
         new_color = color_selection_dialog.gtk_color
         new_color.string = convert_gdk_to_theme_color(new_color)
         old_color = convert_gdk_to_theme_color(self.gtk_color)
-        if new_color:
-            if _event.button == 1:
-                self.set_rgba(new_color)
-                self.callback(new_color)
-            elif _event.button == 3:
-                for lbr in self.get_listbox_parent().get_children():
-                    if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
-                        if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color:
-                            lbr.set_value(new_color.string, connected=True)
-
-    def set_value(self, value):
-        self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
+        for lbr in self.get_listbox_parent().get_children():
+            if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
+                if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color:
+                    lbr.set_value(new_color.string, connected=True)
 
     def get_listbox_parent(self):
         pot_parent = self.get_parent()
