@@ -363,6 +363,7 @@ class OomoxLinkedDropdown(Gtk.MenuButton):
         for potential_sibling in potential_siblings:
             if isinstance(potential_sibling, desired_class):
                 return potential_sibling
+        return None
 
     def __init__(self, transient_for):
         super().__init__()
