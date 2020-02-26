@@ -332,7 +332,7 @@ class OomoxLinkedDropdown(Gtk.MenuButton):
         self.drop_down.show_all()
         return self.drop_down
 
-    def replace_all_instances(self, menu_item):  # pylint:disable=unused-argument
+    def replace_all_instances(self, _menu_item):  # pylint:disable=unused-argument
         menu_item = self.menu_item
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.get_fuzzy_sibling(OomoxColorButton).gtk_color
