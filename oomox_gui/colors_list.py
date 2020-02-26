@@ -292,56 +292,18 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color = gtk_color
         self.gtk_color_button.set_rgba(gtk_color)
 
-    def on_click(self, _widget, _event):
-        if _event.button == 1:
-            color_selection_dialog = OomoxColorSelectionDialog(
-                self.transient_for, self.gtk_color
-            )
-            color_selection_dialog.run()
-            new_color = color_selection_dialog.gtk_color
-            if new_color:
-                self.set_rgba(new_color)
-                self.callback(new_color)
-        elif _event.button == 3:
-            self.show_context_menu(_event.button, _event.time)
-
-    def show_context_menu(self, mouse_button, clicked_time):
-        context_menu = Gtk.Menu()
-        menu_items = []
-        menu_items.append([Gtk.MenuItem(label="Replace all instances"), self.replace_all_instances])
-
-        for item in menu_items:
-            context_menu.append(item[0])
-            item[0].connect("activate", item[1])
-
-        context_menu.show_all()
-        context_menu.popup(None, None, None, None, mouse_button, clicked_time)
-
-    def set_value(self, value):
-        self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
-
-    def replace_all_instances(self, menu_item):  # pylint:disable=unused-argument
+    def on_click(self, _widget):
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.gtk_color
         )
         color_selection_dialog.run()
         new_color = color_selection_dialog.gtk_color
         if new_color:
-            new_color.string = convert_gdk_to_theme_color(new_color)
-            old_color = convert_gdk_to_theme_color(self.gtk_color)
-            for lbr in self.get_listbox_parent().get_children():
-                if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
-                    if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color:
-                        lbr.set_value(new_color.string, connected=True)
+            self.set_rgba(new_color)
+            self.callback(new_color)
 
-    def get_listbox_parent(self):
-        pot_parent = self.get_parent()
-        while not isinstance(pot_parent, Gtk.ListBox):
-            pot_parent = pot_parent.get_parent()
-            if isinstance(pot_parent, Gtk.Application):
-                break
-        else:
-            return pot_parent
+    def set_value(self, value):
+        self.set_rgba(convert_theme_color_to_gdk(value or FALLBACK_COLOR))
 
     def __init__(self, transient_for, callback):
         self.transient_for = transient_for
@@ -351,13 +313,65 @@ class OomoxColorButton(Gtk.Button):
         self.gtk_color_button = Gtk.ColorButton.new()
         self.color_image = self.gtk_color_button.get_child()
         self.set_image(self.color_image)
-        self.connect("button_press_event", self.on_click)
+        self.connect("clicked", self.on_click)
+
+
+class OomoxLinkedDropdown(Gtk.MenuButton):
+
+    drop_down = None
+
+    def build_dropdown_menu(self):
+        self.drop_down = Gtk.Menu()
+        menu_items = []
+        menu_items.append([Gtk.MenuItem(label="Replace all instances"), self.replace_all_instances])
+
+        for item in menu_items:
+            self.drop_down.append(item[0])
+            item[0].connect("activate", item[1])
+
+        self.drop_down.show_all()
+        return self.drop_down
+
+    def replace_all_instances(self, menu_item):  # pylint:disable=unused-argument
+        color_selection_dialog = OomoxColorSelectionDialog(
+            self.transient_for, self.get_fuzzy_sibling(OomoxColorButton).gtk_color
+        )
+        color_selection_dialog.run()
+        new_color = color_selection_dialog.gtk_color
+        if new_color:
+            new_color.string = convert_gdk_to_theme_color(new_color)
+            old_color = convert_gdk_to_theme_color(self.get_fuzzy_sibling(OomoxColorButton).gtk_color)
+            for listboxrow in self.get_fuzzy_ancestor(Gtk.ListBox).get_children():
+                if isinstance(listboxrow, ColorListBoxRow) and listboxrow.color_button.gtk_color is not None:
+                    if convert_gdk_to_theme_color(listboxrow.color_button.gtk_color) == old_color:
+                        listboxrow.set_value(new_color.string, connected=True)
+
+    def get_fuzzy_ancestor(self, desired_class):
+        potential_ancestor = self.get_parent()
+        while not isinstance(potential_ancestor, desired_class):
+            potential_ancestor = potential_ancestor.get_parent()
+            if isinstance(potential_ancestor, Gtk.Window):
+                break
+        else:
+            return potential_ancestor
+
+    def get_fuzzy_sibling(self, desired_class):
+        potential_siblings = self.get_parent().get_children()
+        for potential_sibling in potential_siblings:
+            if isinstance(potential_sibling, desired_class):
+                return potential_sibling
+
+    def __init__(self, transient_for):
+        super().__init__()
+        self.transient_for = transient_for
+        self.set_popup(self.build_dropdown_menu())
 
 
 class ColorListBoxRow(OomoxListBoxRow):
 
     color_button = None
     color_entry = None
+    menu_button = None
 
     def connect_changed_signal(self):
         self.changed_signal = self.color_entry.connect("changed", self.on_color_input)
@@ -399,12 +413,14 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.color_entry = Gtk.Entry(
             text=_('<none>'), width_chars=6, max_length=6
         )
+        self.menu_button = OomoxLinkedDropdown(transient_for)
         self.color_entry.get_style_context().add_class(Gtk.STYLE_CLASS_MONOSPACE)
         linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         Gtk.StyleContext.add_class(
             linked_box.get_style_context(), "linked"
         )
         linked_box.add(self.color_entry)
+        linked_box.add(self.menu_button)
         linked_box.add(self.color_button)
         super().__init__(
             display_name=display_name,
