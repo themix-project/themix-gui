@@ -340,17 +340,20 @@ class OomoxLinkedDropdown(Gtk.MenuButton):
         new_color = color_selection_dialog.gtk_color
         if new_color:
             new_color.string = convert_gdk_to_theme_color(new_color)
-            old_color = convert_gdk_to_theme_color(self.get_fuzzy_sibling(OomoxColorButton).gtk_color)
-            for listboxrow in self.get_fuzzy_ancestor(Gtk.ListBox).get_children():
-                if isinstance(listboxrow, ColorListBoxRow) and listboxrow.color_button.gtk_color is not None:
-                    if convert_gdk_to_theme_color(listboxrow.color_button.gtk_color) == old_color:
-                        listboxrow.set_value(new_color.string, connected=True)
+            old_color = self.get_fuzzy_sibling(OomoxColorButton).gtk_color
+            old_color.string = convert_gdk_to_theme_color(old_color)
+
+            cousins = self.get_fuzzy_ancestor(Gtk.ListBox).get_children()
+            for lbr in cousins:
+                if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
+                    if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color.string:
+                        lbr.set_value(new_color.string, connected=True)
 
     def get_fuzzy_ancestor(self, desired_class):
         potential_ancestor = self.get_parent()
         while not isinstance(potential_ancestor, desired_class):
             potential_ancestor = potential_ancestor.get_parent()
-            if isinstance(potential_ancestor, Gtk.Window):
+            if isinstance(potential_ancestor, Gtk.Application):
                 break
         else:
             return potential_ancestor
