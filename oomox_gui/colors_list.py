@@ -316,10 +316,67 @@ class OomoxColorButton(Gtk.Button):
         self.connect("clicked", self.on_click)
 
 
+class OomoxLinkedDropdown(Gtk.MenuButton):
+
+    drop_down = None
+
+    def build_dropdown_menu(self):
+        self.drop_down = Gtk.Menu()
+        menu_items = []
+        menu_items.append([Gtk.MenuItem(label=_("Replace all instances")), self.replace_all_instances])
+
+        for item in menu_items:
+            self.drop_down.append(item[0])
+            item[0].connect("activate", item[1])
+
+        self.drop_down.show_all()
+        return self.drop_down
+
+    def replace_all_instances(self, _menu_item):  # pylint:disable=unused-argument
+
+        color_selection_dialog = OomoxColorSelectionDialog(
+            self.transient_for, self.get_fuzzy_sibling(OomoxColorButton).gtk_color
+        )
+        color_selection_dialog.run()
+        new_color = color_selection_dialog.gtk_color
+        if new_color:
+            new_color.string = convert_gdk_to_theme_color(new_color)
+            old_color = self.get_fuzzy_sibling(OomoxColorButton).gtk_color
+            old_color.string = convert_gdk_to_theme_color(old_color)
+
+            cousins = self.get_fuzzy_ancestor(Gtk.ListBox).get_children()
+            for lbr in cousins:
+                if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
+                    if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color.string:
+                        lbr.set_value(new_color.string, connected=True)
+
+    def get_fuzzy_ancestor(self, desired_class):
+        potential_ancestor = self.get_parent()
+        while not isinstance(potential_ancestor, desired_class):
+            potential_ancestor = potential_ancestor.get_parent()
+            if isinstance(potential_ancestor, Gtk.Application):
+                break
+        else:
+            return potential_ancestor
+
+    def get_fuzzy_sibling(self, desired_class):
+        potential_siblings = self.get_parent().get_children()
+        for potential_sibling in potential_siblings:
+            if isinstance(potential_sibling, desired_class):
+                return potential_sibling
+        return None
+
+    def __init__(self, transient_for):
+        super().__init__()
+        self.transient_for = transient_for
+        self.set_popup(self.build_dropdown_menu())
+
+
 class ColorListBoxRow(OomoxListBoxRow):
 
     color_button = None
     color_entry = None
+    menu_button = None
 
     def connect_changed_signal(self):
         self.changed_signal = self.color_entry.connect("changed", self.on_color_input)
@@ -340,8 +397,9 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.value = convert_gdk_to_theme_color(gtk_value)
         self.color_entry.set_text(self.value)
 
-    def set_value(self, value):
-        self.disconnect_changed_signal()
+    def set_value(self, value, connected=False):  # pylint: disable=arguments-differ
+        if connected is False:
+            self.disconnect_changed_signal()
         self.value = value
         if value:
             self.color_entry.set_text(self.value)
@@ -349,7 +407,8 @@ class ColorListBoxRow(OomoxListBoxRow):
         else:
             self.color_entry.set_text(_('<N/A>'))
             self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
-        self.connect_changed_signal()
+        if connected is False:
+            self.connect_changed_signal()
 
     def __init__(self, display_name, key, callback, transient_for):
         self.color_button = OomoxColorButton(
@@ -359,6 +418,7 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.color_entry = Gtk.Entry(
             text=_('<none>'), width_chars=6, max_length=6
         )
+        self.menu_button = OomoxLinkedDropdown(transient_for)
         self.color_entry.get_style_context().add_class(Gtk.STYLE_CLASS_MONOSPACE)
         linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         Gtk.StyleContext.add_class(
@@ -366,6 +426,7 @@ class ColorListBoxRow(OomoxListBoxRow):
         )
         linked_box.add(self.color_entry)
         linked_box.add(self.color_button)
+        linked_box.add(self.menu_button)
         super().__init__(
             display_name=display_name,
             key=key,
