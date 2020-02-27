@@ -334,8 +334,6 @@ class OomoxLinkedDropdown(Gtk.MenuButton):
 
     def replace_all_instances(self, _menu_item):  # pylint:disable=unused-argument
 
-        _menu_item = self._menu_item  # noqa: F841
-
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.get_fuzzy_sibling(OomoxColorButton).gtk_color
         )
@@ -427,8 +425,8 @@ class ColorListBoxRow(OomoxListBoxRow):
             linked_box.get_style_context(), "linked"
         )
         linked_box.add(self.color_entry)
-        linked_box.add(self.menu_button)
         linked_box.add(self.color_button)
+        linked_box.add(self.menu_button)
         super().__init__(
             display_name=display_name,
             key=key,
