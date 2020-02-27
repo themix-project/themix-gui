@@ -323,7 +323,7 @@ class OomoxLinkedDropdown(Gtk.MenuButton):
     def build_dropdown_menu(self):
         self.drop_down = Gtk.Menu()
         menu_items = []
-        menu_items.append([Gtk.MenuItem(label="Replace all instances"), self.replace_all_instances])
+        menu_items.append([Gtk.MenuItem(label=_("Replace all instances")), self.replace_all_instances])
 
         for item in menu_items:
             self.drop_down.append(item[0])
