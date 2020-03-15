@@ -52,7 +52,8 @@ echo -n "> "
 read -r answer
 echo
 if [[ "${answer}" = "y" ]] ; then
-	git commit -am "chore: bump version to ${new_version}" || true
+	git add packaging/arch/PKGBUILD packaging/ubuntu/control packaging/ubuntu/control_1810 packaging/flatpak/com.github.themix_project.Oomox.json packaging/com.github.themix_project.Oomox.appdata.xml
+	git commit -m "chore: bump version to ${new_version}" || true
 	git tag -a "${new_version}"
 	git push origin HEAD
 	git push origin "${new_version}"
