@@ -82,7 +82,7 @@ def get_user_theme_path(user_theme_name):
 
 
 def save_colorscheme(preset_name, colorscheme, path=None):
-    colorscheme["NAME"] = preset_name
+    colorscheme["NAME"] = '"{}"'.format(preset_name)
     path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
