@@ -24,8 +24,9 @@ makedepends=(
 	'git'
 )
 optdepends=(
-	'xorg-xrdb: for the `xresources` theme'
+	'themix-icons-gnome-colors: Icons Style plugin'
 	'themix-theme-oomox: Theme Style plugin'
+	'xorg-xrdb: for the `xresources` theme'
 )
 provides=('themix-gui')
 conflicts=('themix-gui')
