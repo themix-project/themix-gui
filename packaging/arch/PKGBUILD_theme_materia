@@ -16,10 +16,8 @@ source=(
        "git+https://github.com/themix-project/oomox.git#branch=master"
        "${_reponame}::git+https://github.com/nana-4/materia-theme.git#branch=master"
 )
-md5sums=(
-       "SKIP"
-       "SKIP"
-)
+md5sums=('SKIP'
+         'SKIP')
 depends=(
 	'gtk3'
 	'glib2'

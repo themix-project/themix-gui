@@ -2,8 +2,8 @@
 # Upstream URL: https://github.com/themix-project/oomox
 
 pkgname=themix-gui-git
-pkgver=1.12.6.r7.g7bd6e2fd
-pkgrel=2
+pkgver=1.12.6.r11.gf461833e
+pkgrel=1
 pkgdesc="Plugin-based theme designer GUI for
  environments (like GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
  icons and terminal palettes."
@@ -13,9 +13,7 @@ license=('GPL3')
 source=(
 	"git+https://github.com/themix-project/oomox.git#branch=master"
 )
-md5sums=(
-	"SKIP"
-)
+md5sums=('SKIP')
 depends=(
 	'gtk3'
 	'python-gobject'
