@@ -99,7 +99,10 @@ def read_colorscheme_from_path(preset_path):
         key = theme_model_item.get('key')
         if not key:
             continue
-        colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
+        try:
+            colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
+        except NoPluginsInstalled as exc:
+            colorscheme[key] = exc
     if from_plugin:
         colorscheme['FROM_PLUGIN'] = from_plugin
 

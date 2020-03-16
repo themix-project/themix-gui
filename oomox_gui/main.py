@@ -357,21 +357,24 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             print(exc)
             traceback.print_exc()
             print()
-
-    def on_preset_selected(self, selected_preset, selected_preset_path):
-        self.ask_unsaved_changes()
-        self.colorscheme_name = selected_preset
-        self.colorscheme_path = selected_preset_path
-        try:
-            self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
-        except NoPluginsInstalled as exc:
+        else:
+            self.preview.show()
+        for theme_value in self.colorscheme.values():
+            if not isinstance(theme_value, Exception):
+                continue
             error_dialog = Gtk.MessageDialog(
-                text=exc,
+                text=theme_value,
                 # secondary_text='',
                 buttons=Gtk.ButtonsType.CLOSE
             )
             error_dialog.run()
             error_dialog.destroy()
+
+    def on_preset_selected(self, selected_preset, selected_preset_path):
+        self.ask_unsaved_changes()
+        self.colorscheme_name = selected_preset
+        self.colorscheme_path = selected_preset_path
+        self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
 
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)

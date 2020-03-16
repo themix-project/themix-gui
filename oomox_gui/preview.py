@@ -65,10 +65,9 @@ class PreviewHeaderbar(Gtk.HeaderBar):
         self.pack_end(self.button)
 
 
-class PreviewWidgets():
+class PreviewWidgets(Gtk.Box):
 
     # gtk preview widgets:
-    background = None
     headerbar = None
     menubar = None
     label = None
@@ -79,7 +78,8 @@ class PreviewWidgets():
     button = None
 
     def __init__(self):
-        self.background = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
+
         self.grid = Gtk.Grid(row_spacing=6, column_spacing=6)
         self.grid.set_margin_top(WIDGET_SPACING // 2)
         self.grid.set_halign(Gtk.Align.CENTER)
@@ -125,8 +125,8 @@ class PreviewWidgets():
         self.grid.attach_next_to(
             self.button, self.entry, Gtk.PositionType.BOTTOM, 1, 1
         )
-        self.background.pack_start(headerbox, True, True, 0)
-        self.background.pack_start(self.grid, True, True, 0)
+        self.pack_start(headerbox, True, True, 0)
+        self.pack_start(self.grid, True, True, 0)
 
     def create_menu(self, n_items, has_submenus=False):
         menu = Gtk.Menu()
@@ -201,14 +201,14 @@ class ThemePreview(Gtk.Grid):
         self.background = Gtk.Grid(row_spacing=WIDGET_SPACING, column_spacing=6)
         self.attach(self.background, 1, 1, 3, 1)
 
-        self.gtk_preview.background.set_margin_bottom(WIDGET_SPACING)
-        self.background.attach(self.gtk_preview.background, 1, 3, 1, 1)
+        self.gtk_preview.set_margin_bottom(WIDGET_SPACING)
+        self.background.attach(self.gtk_preview, 1, 3, 1, 1)
 
         if self.icons_preview:
             self.icons_preview.destroy()
         self.icons_preview = IconThemePreview()
         self.background.attach_next_to(
-            self.icons_preview, self.gtk_preview.background,
+            self.icons_preview, self.gtk_preview,
             Gtk.PositionType.BOTTOM, 1, 1
         )
 
@@ -467,12 +467,9 @@ class ThemePreview(Gtk.Grid):
         )
 
     def update_preview(self, colorscheme, theme_plugin, icons_plugin):
-        if not theme_plugin:
-            return
         _colorscheme = colorscheme
         colorscheme = {}
         colorscheme.update(_colorscheme)
-        theme_plugin.preview_before_load_callback(self, colorscheme)
 
         colorscheme_with_fallbacks = {}
         for theme_value in THEME_MODEL:
@@ -483,14 +480,25 @@ class ThemePreview(Gtk.Grid):
                 result = FALLBACK_COLOR
             colorscheme_with_fallbacks[theme_value['key']] = result
 
-        self.override_css_style(colorscheme_with_fallbacks, theme_plugin)
-        self.update_preview_colors(colorscheme_with_fallbacks)
-        self.update_preview_borders(colorscheme_with_fallbacks)
-        self.update_preview_carets(colorscheme_with_fallbacks)
-        self.update_preview_gradients(colorscheme_with_fallbacks)
-        self.gtk_preview.update_preview_imageboxes(colorscheme_with_fallbacks, theme_plugin)
+        if not theme_plugin:
+            self.gtk_preview.hide()
+        else:
+            theme_plugin.preview_before_load_callback(self, colorscheme)
 
-        self.icons_preview.update_preview(colorscheme, icons_plugin)
+            self.override_css_style(colorscheme_with_fallbacks, theme_plugin)
+            self.update_preview_colors(colorscheme_with_fallbacks)
+            self.update_preview_borders(colorscheme_with_fallbacks)
+            self.update_preview_carets(colorscheme_with_fallbacks)
+            self.update_preview_gradients(colorscheme_with_fallbacks)
+            self.gtk_preview.update_preview_imageboxes(colorscheme_with_fallbacks, theme_plugin)
+            self.gtk_preview.show()
+
+        if not icons_plugin:
+            self.icons_preview.hide()
+        else:
+            self.icons_preview.update_preview(colorscheme, icons_plugin)
+            self.icons_preview.show()
+
         self.terminal_preview.update_preview(colorscheme)
 
     def get_theme_css_provider(self, theme_plugin):

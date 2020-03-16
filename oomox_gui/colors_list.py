@@ -578,14 +578,18 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 self._all_rows[option_idx] = row
                 self.listbox.add(row)
 
-    def open_theme(self, theme):
+    def open_theme(self, theme):  # pylint: disable=too-many-branches
         self.theme = theme
         error_messages = []
         if "NOGUI" in theme:
             error_messages.append(_("Can't Be Edited in GUI"))
         for option_idx, theme_value in enumerate(THEME_MODEL):
             key = theme_value.get('key')
+            if isinstance(theme.get(key), Exception):
+                error_messages.append(str(theme[key]))
+                continue
             row = self._all_rows.get(option_idx)
+
             if not row:
                 continue
             if "NOGUI" in theme:
@@ -600,14 +604,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     row.hide()
                     continue
             if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float', 'image_path']:
-                if key in theme:
-                    row.set_value(theme[key])
-                else:
-                    error_messages.append(
-                        _("No plugins installed for {plugin_type}").format(
-                            plugin_type=theme_value['display_name']
-                        )
-                    )
+                row.set_value(theme[key])
             row.show()
         if error_messages:
             self._error_messages_row.set_markup('\n'.join(error_messages))
