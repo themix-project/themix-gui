@@ -1,5 +1,5 @@
 # Maintainer: Yauhen Kirylau <actionless DOT loveless PLUS aur AT gmail MF com>
-# Upstream URL: https://github.com/themix-project/oomox-gtk-theme
+# Upstream URL: https://github.com/themix-project/gnome-colors-icon-theme
 
 _pkgname=themix-icons-gnome-colors
 _reponame=gnome-colors-icon-theme
