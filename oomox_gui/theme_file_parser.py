@@ -12,7 +12,7 @@ class NoPluginsInstalled(Exception):
         self.theme_value = theme_value
         super().__init__(
             _("No plugins installed for {plugin_type}").format(
-                plugin_type=theme_value['display_name']
+                plugin_type=self.theme_value['display_name']
             )
         )
 
