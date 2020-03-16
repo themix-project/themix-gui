@@ -94,6 +94,8 @@ def save_colorscheme(preset_name, colorscheme, path=None):
                 not key.startswith('_')
             ) and (
                 value is not None
+            ) and (
+                not isinstance(value, Exception)
             ):
                 file_object.write("{}={}\n".format(
                     key, value
