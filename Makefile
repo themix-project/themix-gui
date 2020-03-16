@@ -67,28 +67,7 @@ install_theme_arc:
 
 install_theme_oomox:
 	$(eval PLUGIN_NAME := "theme_oomox")
-	$(eval CLI_NAME := "oomox-cli")
-	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
-
-	cp -prf \
-		packaging/ \
-			$(PACKAGING_TMP_DIR)/
-	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
-	install -d $(DEST_PREFIX)/bin/
-	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
-
-	mkdir -p $(DEST_PLUGIN_DIR)
-	cp -prf \
-		plugins/$(PLUGIN_NAME) \
-			$(DEST_PLUGIN_DIR)/
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/".editorconfig
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/".*.yml
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"{D,d}ocker*
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"maintenance*
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"screenshot*
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)/gtk-theme/"test*
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
 install_theme_materia:

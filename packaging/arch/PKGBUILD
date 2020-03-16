@@ -108,7 +108,7 @@ prepare(){
 
 	# use already downloaded by makepkg git repos as submodules of the main:
 	git submodule init
-	git config submodule.gtk-theme.url $srcdir/oomox-gtk-theme
+	git config submodule.theme_oomox.url $srcdir/oomox-gtk-theme
 	git config submodule.materia-theme.url $srcdir/materia-theme
 	git config submodule.arc-theme.url $srcdir/arc-theme
 	git config submodule.archdroid-icon-theme.url $srcdir/archdroid-icon-theme
