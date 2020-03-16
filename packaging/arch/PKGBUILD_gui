@@ -2,11 +2,11 @@
 # Upstream URL: https://github.com/themix-project/oomox
 
 pkgname=themix-gui-git
-pkgver=1.12.6
-pkgrel=1
+pkgver=1.12.6.r7.g7bd6e2fd
+pkgrel=2
 pkgdesc="Plugin-based theme designer GUI for
  environments (like GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
- icons, and terminal palettes."
+ icons and terminal palettes."
 arch=('x86_64' 'i686')
 url="https://github.com/themix-project/oomox"
 license=('GPL3')
@@ -25,6 +25,7 @@ makedepends=(
 )
 optdepends=(
 	'themix-icons-gnome-colors: Icons Style plugin'
+	'themix-theme-materia: Theme Style plugin'
 	'themix-theme-oomox: Theme Style plugin'
 	'xorg-xrdb: for the `xresources` theme'
 )
