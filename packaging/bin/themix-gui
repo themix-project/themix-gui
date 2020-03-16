@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /opt/oomox/ &&
+exec python3 -m oomox_gui "$@"
