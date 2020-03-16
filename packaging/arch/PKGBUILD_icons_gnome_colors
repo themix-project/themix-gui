@@ -14,10 +14,8 @@ source=(
 	"git+https://github.com/themix-project/oomox.git#branch=master"
 	"${_reponame}::git+https://github.com/themix-project/gnome-colors-icon-theme.git#branch=master"
 )
-md5sums=(
-	"SKIP"
-	"SKIP"
-)
+md5sums=('SKIP'
+         'SKIP')
 depends=(
 	'librsvg'
 	'sed'
