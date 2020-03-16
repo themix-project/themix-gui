@@ -1,8 +1,20 @@
 import os
 
+from .i18n import _
 from .theme_model import THEME_MODEL
 from .xrdb import XrdbCache
 from .plugin_loader import IMPORT_PLUGINS
+
+
+class NoPluginsInstalled(Exception):
+
+    def __init__(self, theme_value):
+        self.theme_value = theme_value
+        super().__init__(
+            _("No plugins installed for {plugin_type}").format(
+                plugin_type=theme_value['display_name']
+            )
+        )
 
 
 def str_to_bool(value):
@@ -49,6 +61,8 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
             if fallback_value in available_options:
                 result_value = fallback_value
             else:
+                if not available_options:
+                    raise NoPluginsInstalled(theme_value)
                 result_value = available_options[0]
 
     return result_value

@@ -458,15 +458,19 @@ class ImagePathListBoxRow(OomoxListBoxRow):
 
 class SeparatorListBoxRow(Gtk.ListBoxRow):
 
-    def __init__(self, display_name):
+    def set_markup(self, markup):
+        self.label.set_markup("<b>{}</b>".format(markup))
+
+    def __init__(self, display_name=None):
         super().__init__(activatable=False, selectable=False)
 
-        label = Gtk.Label(xalign=0)
-        label.set_markup("<b>{}</b>".format(display_name))
+        self.label = Gtk.Label(xalign=0)
+        if display_name:
+            self.set_markup(display_name)
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         hbox.pack_start(Gtk.Label(), True, True, 2)
-        hbox.pack_start(label, True, True, 4)
+        hbox.pack_start(self.label, True, True, 4)
 
         self.add(hbox)
 
@@ -480,15 +484,15 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     listbox = None
     _all_rows = None
-    _no_gui_row = None
+    _error_messages_row = None
 
     def color_edited(self, key, value):
         self.theme[key] = value
         self.color_edited_callback(self.theme)
 
     def build_theme_model_rows(self):
-        self._no_gui_row = SeparatorListBoxRow(_("Can't Be Edited in GUI"))
-        self.listbox.add(self._no_gui_row)
+        self._error_messages_row = SeparatorListBoxRow()
+        self.listbox.add(self._error_messages_row)
         self._all_rows = {}
         for option_idx, theme_value in enumerate(THEME_MODEL):
             key = theme_value.get('key')
@@ -576,10 +580,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def open_theme(self, theme):
         self.theme = theme
+        error_messages = []
         if "NOGUI" in theme:
-            self._no_gui_row.show()
-        else:
-            self._no_gui_row.hide()
+            error_messages.append(_("Can't Be Edited in GUI"))
         for option_idx, theme_value in enumerate(THEME_MODEL):
             key = theme_value.get('key')
             row = self._all_rows.get(option_idx)
@@ -597,11 +600,23 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     row.hide()
                     continue
             if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float', 'image_path']:
-                row.set_value(theme[key])
+                if key in theme:
+                    row.set_value(theme[key])
+                else:
+                    error_messages.append(
+                        _("No plugins installed for {plugin_type}").format(
+                            plugin_type=theme_value['display_name']
+                        )
+                    )
             row.show()
+        if error_messages:
+            self._error_messages_row.set_markup('\n'.join(error_messages))
+            self._error_messages_row.show()
+        else:
+            self._error_messages_row.hide()
 
     def hide_all_rows(self):
-        self._no_gui_row.hide()
+        self._error_messages_row.hide()
         for option_idx, _theme_value in enumerate(THEME_MODEL):
             row = self._all_rows.get(option_idx)
             if not row:

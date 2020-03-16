@@ -20,7 +20,7 @@ from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
     save_colorscheme, remove_colorscheme, import_colorscheme,
 )
-from .theme_file_parser import read_colorscheme_from_path
+from .theme_file_parser import read_colorscheme_from_path, NoPluginsInstalled
 from .preset_list import ThemePresetList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
@@ -362,7 +362,17 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.ask_unsaved_changes()
         self.colorscheme_name = selected_preset
         self.colorscheme_path = selected_preset_path
-        self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
+        try:
+            self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
+        except NoPluginsInstalled as exc:
+            error_dialog = Gtk.MessageDialog(
+                text=exc,
+                # secondary_text='',
+                buttons=Gtk.ButtonsType.CLOSE
+            )
+            error_dialog.run()
+            error_dialog.destroy()
+
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
         self._unset_save_needed()
