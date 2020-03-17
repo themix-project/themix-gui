@@ -42,7 +42,11 @@ optdepends=(
 	'xorg-xrdb: for the `xresources` theme'
 )
 provides=('themix-gui')
-conflicts=('themix-gui')
+conflicts=(
+    'themix-gui'
+    'oomox'
+    'oomox-git'
+)
 
 pkgver() {
 	cd "${srcdir}/oomox"

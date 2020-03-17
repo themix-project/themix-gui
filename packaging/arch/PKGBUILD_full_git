@@ -46,6 +46,8 @@ provides=(
 )
 conflicts=(
     'themix-full'
+    'oomox-git'
+    'oomox'
 )
 replaces=(
     'oomox-git'

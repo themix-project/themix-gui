@@ -35,7 +35,11 @@ options=(
 	'!strip'
 )
 provides=($_pkgname)
-conflicts=($_pkgname)
+conflicts=(
+    $_pkgname
+    'oomox'
+    'oomox-git'
+)
 
 pkgver() {
 	cd "${srcdir}/${_reponame}"

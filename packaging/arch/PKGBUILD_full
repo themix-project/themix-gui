@@ -1,7 +1,7 @@
 # Maintainer: Yauhen Kirylau <actionless DOT loveless PLUS aur AT gmail MF com>
 # Upstream URL: https://github.com/themix-project/oomox
 
-pkgname=themix-full-git
+pkgname=themix-full
 pkgver=1.13
 pkgrel=1
 pkgdesc="Themix: GUI for generating different color variations
@@ -40,6 +40,16 @@ depends=(
 makedepends=(
 )
 optdepends=(
+)
+provides=(
+)
+conflicts=(
+    'themix-full-git'
+    'oomox-git'
+    'oomox'
+)
+replaces=(
+    'oomox'
 )
 
 # vim: ft=PKGBUILD

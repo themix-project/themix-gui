@@ -26,7 +26,11 @@ optdepends=(
 	'python-haishoku: additional image analyzer'
 )
 provides=($_pkgname)
-conflicts=($_pkgname)
+conflicts=(
+    $_pkgname
+    'oomox'
+    'oomox-git'
+)
 
 pkgver() {
 	cd "${srcdir}/oomox"
