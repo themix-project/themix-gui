@@ -41,5 +41,14 @@ makedepends=(
 )
 optdepends=(
 )
+provides=(
+    'themix-full'
+)
+conflicts=(
+    'themix-full'
+)
+replaces=(
+    'oomox-git'
+)
 
 # vim: ft=PKGBUILD
