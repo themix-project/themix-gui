@@ -4,7 +4,7 @@
 _pkgname=themix-icons-suru-plus
 _reponame=suru-plus
 pkgname="${_pkgname}-git"
-pkgver=v30.0.r2.g9bd895f32
+pkgver=30.0.r2.g9bd895f32
 pkgrel=1
 pkgdesc="Suru++ icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
@@ -38,7 +38,7 @@ conflicts=($_pkgname)
 
 pkgver() {
 	cd "${srcdir}/${_reponame}"
-	git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//'
 }
 
 package() {
