@@ -107,6 +107,7 @@ update_aur_pkg(){
 	fi
 	answer=
 
+	cd -
 }
 
 update_aur_pkg oomox-git PKGBUILD_migration
