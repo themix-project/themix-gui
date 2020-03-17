@@ -23,6 +23,7 @@ makedepends=(
 )
 optdepends=(
 	'themix-export-spotify: Apply theme to Spotify'
+	'themix-icons-archdroid: Icons Style plugin'
 	'themix-icons-gnome-colors: Icons Style plugin'
 	'themix-import-images: Import palettes from images'
 	'themix-plugin-base16: Import and export from Base16 project format'

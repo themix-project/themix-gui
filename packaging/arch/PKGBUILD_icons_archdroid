@@ -1,28 +1,23 @@
 # Maintainer: Yauhen Kirylau <actionless DOT loveless PLUS aur AT gmail MF com>
-# Upstream URL: https://github.com/themix-project/gnome-colors-icon-theme
+# Upstream URL: https://github.com/themix-project/archdroid-icon-theme
 
-_pkgname=themix-icons-gnome-colors
-_reponame=gnome-colors-icon-theme
+_pkgname=themix-icons-archdroid
+_reponame=archdroid-icon-theme
 pkgname="${_pkgname}-git"
-pkgver=5.5.5.r0.gcd8b05a
-pkgrel=2
-pkgdesc="Gnome-Colors icons plugin for Themix GUI designer"
+pkgver=1.0.2.r1.g775b8c2c0
+pkgrel=1
+pkgdesc="Archdroid icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
-url="https://github.com/themix-project/gnome-colors-icon-theme"
+url="https://github.com/themix-project/${_reponame}"
 license=('GPL3')
 source=(
 	"git+https://github.com/themix-project/oomox.git#branch=master"
-	"${_reponame}::git+https://github.com/themix-project/gnome-colors-icon-theme.git#branch=master"
+	"${_reponame}::git+https://github.com/themix-project/${_reponame}.git#branch=master"
 )
 md5sums=('SKIP'
          'SKIP')
 depends=(
-	'librsvg'
 	'sed'
-	'findutils'
-	'grep'
-	'bc'
-	'imagemagick'
 )
 makedepends=(
 	'git'
@@ -30,10 +25,9 @@ makedepends=(
 )
 optdepends=(
 	'themix-gui: GUI'
-	'gnome-icon-theme: fallback icons'
-	'gnome-icon-theme-symbolic: fallback icons'
-	'adwaita-icon-theme: fallback icons'
 	'breeze-icons: fallback icons'
+    'gnome-icon-theme: fallback icons'
+    'gnome-icon-theme-symbolic: fallback icons'
 	'oxygen-icons: fallback icons'
 )
 options=(
@@ -51,7 +45,7 @@ package() {
 	_oomox_dir=/opt/oomox
 
 	_oomox_dir=/opt/oomox
-	_plugin_name=icons_gnomecolors
+	_plugin_name=icons_archdroid
 	_plugin_subpath="/${_reponame}"
 
 	pkg_tmp_dir="${pkgdir}/_tmp"
