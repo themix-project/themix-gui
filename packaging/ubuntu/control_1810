@@ -1,5 +1,5 @@
 Package: oomox
-Version: 1.12.6-1~themixproject~cosmic
+Version: 1.13-1~themixproject~cosmic
 Architecture: all
 Maintainer: Yauheni Kirylau <actionless.loveless@gmail.com>
 Depends: python3-gi, libglib2.0-bin, libgdk-pixbuf2.0-dev, libxml2-utils, x11-xserver-utils, gir1.2-gtk-3.0, gir1.2-glib-2.0, gir1.2-pango-1.0, gir1.2-gdkpixbuf-2.0, gtk2-engines-murrine, gtk2-engines-pixbuf, bash, bc, sed, grep, parallel, sassc (>=3.4), libsass1 (>=3.4), imagemagick, optipng, librsvg2-bin, inkscape, python3-pillow, python3-pystache, python3-yaml, make, automake, libgtk-3-dev
