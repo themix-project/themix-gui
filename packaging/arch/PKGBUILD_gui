@@ -35,6 +35,7 @@ optdepends=(
 	'themix-icons-archdroid: Icons Style plugin'
 	'themix-icons-gnome-colors: Icons Style plugin'
 	'themix-icons-papirus: Icons Style plugin'
+	'themix-icons-suru-plus: Icons Style plugin'
 
 	'xorg-xrdb: for the `xresources` theme'
 )
