@@ -34,3 +34,6 @@
 [submodule "theme_oomox"]
 	path = plugins/theme_oomox
 	url = https://github.com/themix-project/oomox-gtk-theme.git
+[submodule "plugin_base16"]
+	path = plugins/base16
+	url = https://github.com/themix-project/themix-plugin-base16.git

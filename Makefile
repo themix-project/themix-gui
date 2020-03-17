@@ -130,12 +130,7 @@ install_import_images:
 
 install_plugin_base16:
 	$(eval PLUGIN_NAME := "base16")
-
-	mkdir -p $(DEST_PLUGIN_DIR)
-	cp -prf \
-		plugins/$(PLUGIN_NAME) \
-			$(DEST_PLUGIN_DIR)/
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
+	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
 install_icons_archdroid:
