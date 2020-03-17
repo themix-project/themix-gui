@@ -49,8 +49,6 @@ pkgver() {
 
 package() {
 	_oomox_dir=/opt/oomox
-
-	_oomox_dir=/opt/oomox
 	_plugin_name=icons_gnomecolors
 	_plugin_subpath="/${_reponame}"
 
