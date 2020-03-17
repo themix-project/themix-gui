@@ -33,6 +33,7 @@ whitelist.OomoxPlugin.theme_model_gtk
 whitelist.OomoxPlugin.theme_model_options
 whitelist.OomoxPlugin.theme_model_icons
 whitelist.OomoxPlugin.theme_model_extra
+whitelist.ExportDialog.show_text
 
 
 # to fix ?
