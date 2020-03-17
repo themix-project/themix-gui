@@ -7,8 +7,6 @@ DEST_PLUGIN_DIR = $(DESTDIR)$(APPDIR)/plugins
 DEST_PREFIX = $(DESTDIR)$(PREFIX)
 
 
-.PHONY: install_gui install_import_random install_theme_arc install_theme_oomox install_theme_materia install_export_spotify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
-
 install_gui: install_import_random
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
@@ -90,24 +88,9 @@ install_theme_materia:
 	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/*/.git*
 
 
-install_export_spotify:
+install_export_oomoxify:
 	$(eval PLUGIN_NAME := "oomoxify")
-	$(eval CLI_NAME := "oomoxify-cli")
-	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
-
-	cp -prf \
-		packaging/ \
-			$(PACKAGING_TMP_DIR)/
-	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
-	install -d $(DEST_PREFIX)/bin/
-	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
-
-	mkdir -p $(DEST_PLUGIN_DIR)
-	cp -prf \
-		plugins/$(PLUGIN_NAME) \
-			$(DEST_PLUGIN_DIR)/
-	$(RM) -r "$(DEST_PLUGIN_DIR)/$(PLUGIN_NAME)"/.git*
+	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
 install_import_random:
@@ -214,7 +197,8 @@ install_icons_suruplus_aspromauros:
 
 
 .PHONY: install
-install: install_gui install_theme_arc install_theme_oomox install_theme_materia install_export_spotify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
+.PHONY: install_gui install_import_random install_theme_arc install_theme_oomox install_theme_materia install_export_oomoxify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
+install: install_gui install_theme_arc install_theme_oomox install_theme_materia install_export_oomoxify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
 
 .PHONY: all
 all: install
