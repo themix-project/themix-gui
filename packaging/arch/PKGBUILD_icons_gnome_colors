@@ -30,6 +30,7 @@ makedepends=(
 )
 optdepends=(
 	'themix-gui: GUI'
+	'breeze-icons: more fallback icons'
 )
 options=(
 	'!strip'

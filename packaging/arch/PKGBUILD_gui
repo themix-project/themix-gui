@@ -23,6 +23,7 @@ makedepends=(
 )
 optdepends=(
 	'themix-icons-gnome-colors: Icons Style plugin'
+	'themix-import-images: Import palettes from images'
 	'themix-theme-materia: Theme Style plugin'
 	'themix-theme-oomox: Theme Style plugin'
 	'xorg-xrdb: for the `xresources` theme'
@@ -40,7 +41,7 @@ package() {
 	_oomox_gui_dir=${_oomox_dir}/oomox_gui
 
 	cd "${srcdir}/oomox"
-	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install_gui
+	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install_gui install_import_random
 	python -O -m compileall ${pkgdir}${_oomox_gui_dir} -d ${_oomox_gui_dir}
 }
 
