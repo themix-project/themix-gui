@@ -26,6 +26,7 @@ optdepends=(
 	'themix-icons-gnome-colors: Icons Style plugin'
 	'themix-import-images: Import palettes from images'
 	'themix-plugin-base16: Import and export from Base16 project format'
+	'themix-theme-arc: Theme Style plugin'
 	'themix-theme-materia: Theme Style plugin'
 	'themix-theme-oomox: Theme Style plugin'
 	'xorg-xrdb: for the `xresources` theme'
