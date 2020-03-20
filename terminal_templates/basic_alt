@@ -1,0 +1,29 @@
+*background: #000000
+
+*foreground:        #ffffff
+!black
+*color0:	#000000
+*color8:	#808080
+!red
+*color1:	#ff0000
+*color9:	#ff3030
+!green
+*color2:	#00ff00
+*color10:	#30ff30
+!yellow
+*color3:	#ffff00
+*color11:	#ffff30
+!blue
+*color4:	#0000ff
+*color12:	#3030ff
+!purple
+*color5:	#ff00ff
+*color13:	#ff30ff
+!cyan
+*color6:	#00ffff
+*color14:	#30ffff
+!white
+*color7:	#e6e6e6
+*color15:	#ffffff
+
+! vim:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
