@@ -518,7 +518,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         import_menu = Gio.Menu()
         import_menu.append_item(Gio.MenuItem.new(
             _("Oomox Colors File"),
-            WindowActions.import_themix_colors
+            WindowActions.import_themix_colors.get_id()
         ))
 
         for plugin_name, plugin in IMPORT_PLUGINS.items():
@@ -566,7 +566,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             "edit-delete-symbolic", _("Remove Theme…")
         )
         self.attach_action(remove_button, WindowActions.remove)
-        # self.headerbar.pack_start(remove_button)
 
         linked_preset_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         Gtk.StyleContext.add_class(
@@ -575,8 +574,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         linked_preset_box.add(save_button)
         linked_preset_box.add(clone_button)
         linked_preset_box.add(rename_button)
-        linked_preset_box.add(remove_button)
+        # linked_preset_box.add(remove_button)
         self.headerbar.pack_start(linked_preset_box)
+        self.headerbar.pack_start(remove_button)
 
         #
 
@@ -593,14 +593,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         show_help_menuitem = Gio.MenuItem.new(
             _("Keyboard Shortcuts"),
-            "win.show_help"
+            WindowActions.show_help.get_id()
         )
         menu.append_item(show_help_menuitem)
 
         #
 
         export_theme_button = Gtk.Button(
-            # label=_("_Export Theme"),
             label=_("_Export Theme…"),
             use_underline=True,
             tooltip_text=_("Export GTK Theme")
@@ -608,7 +607,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.attach_action(export_theme_button, WindowActions.export_theme)
 
         export_icons_button = Gtk.Button(
-            label=_("Export _Icons"),
+            label=_("Export _Icons…"),
             use_underline=True,
             tooltip_text=_("Export Icon Theme")
         )
