@@ -1,4 +1,4 @@
-oomox theme designer
+Themix GUI theme designer
 =====
 
 [![Build Status](https://travis-ci.com/themix-project/oomox.svg?branch=master)](https://travis-ci.org/themix-project/oomox)
