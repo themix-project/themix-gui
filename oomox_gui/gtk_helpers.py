@@ -11,8 +11,8 @@ class ActionProperty(str):
     target = None  # type: str
     name = None  # type: str
 
-    def __new__(cls, name, target):
-        obj = str.__new__(cls, name)
+    def __new__(cls, name: str, target: str) -> 'ActionProperty':
+        obj = str.__new__(cls, name)  # type: ignore
         obj.name = name
         obj.target = target
         return obj
@@ -23,7 +23,7 @@ class ActionProperty(str):
 
 class ActionsABC(ABCMeta):
 
-    def __getattribute__(cls, item) -> ActionProperty:
+    def __getattribute__(cls, item: str) -> ActionProperty:
         if item.startswith('_') or item not in dir(cls):
             return ABCMeta.__getattribute__(cls, item)
         return ActionProperty(name=item, target=cls._target)

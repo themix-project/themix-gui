@@ -518,7 +518,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         import_menu = Gio.Menu()
         import_menu.append_item(Gio.MenuItem.new(
             _("Oomox Colors File"),
-            WindowActions.import_themix_colors.get_id()
+            WindowActions.import_themix_colors.get_id()  # pylint:disable=no-member
         ))
 
         for plugin_name, plugin in IMPORT_PLUGINS.items():
@@ -593,7 +593,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         show_help_menuitem = Gio.MenuItem.new(
             _("Keyboard Shortcuts"),
-            WindowActions.show_help.get_id()
+            WindowActions.show_help.get_id()  # pylint:disable=no-member
         )
         menu.append_item(show_help_menuitem)
 
@@ -616,7 +616,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         export_menu = Gio.Menu()
         export_menu.append_item(Gio.MenuItem.new(
             _("Export _Xresources theme…"),
-            WindowActions.export_terminal.get_id()
+            WindowActions.export_terminal.get_id()  # pylint:disable=no-member
         ))
         if EXPORT_PLUGINS:
             for plugin_name, plugin in EXPORT_PLUGINS.items():
