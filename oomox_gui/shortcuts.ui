@@ -58,8 +58,8 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
-                <property name="accelerator">&lt;Primary&gt;D</property>
-                <property name="title" translatable="yes">Duplicate theme</property>
+                <property name="accelerator">&lt;Shift&gt;&lt;Primary&gt;S</property>
+                <property name="title" translatable="yes">Save theme as...</property>
               </object>
             </child>
             <child>

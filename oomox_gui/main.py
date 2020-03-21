@@ -760,7 +760,7 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(AppActions.quit, ["<Primary>Q"])
 
         set_accels_for_action(WindowActions.import_menu, ["<Primary>M"])
-        set_accels_for_action(WindowActions.clone, ["<Primary>D"])
+        set_accels_for_action(WindowActions.clone, ["<Shift><Primary>S"])
         set_accels_for_action(WindowActions.save, ["<Primary>S"])
         set_accels_for_action(WindowActions.rename, ["F2"])
         set_accels_for_action(WindowActions.remove, ["<Primary>Delete"])
