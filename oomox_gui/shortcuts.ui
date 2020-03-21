@@ -107,8 +107,8 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
-                <property name="accelerator">&lt;Primary&gt;T</property>
-                <property name="title" translatable="yes">Export terminal theme</property>
+                <property name="accelerator">&lt;Primary&gt;X</property>
+                <property name="title" translatable="yes">Export Xresources theme</property>
               </object>
             </child>
           </object>

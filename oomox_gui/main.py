@@ -615,7 +615,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         export_menu = Gio.Menu()
         export_menu.append_item(Gio.MenuItem.new(
-            _("Export _Terminal…"),
+            _("Export _Xresources theme…"),
             WindowActions.export_terminal.get_id()
         ))
         if EXPORT_PLUGINS:
@@ -767,7 +767,7 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_theme, ["<Primary>E"])
         set_accels_for_action(WindowActions.export_icons, ["<Primary>I"])
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
-        set_accels_for_action(WindowActions.export_terminal, ["<Primary>T"])
+        set_accels_for_action(WindowActions.export_terminal, ["<Primary>X"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
 
