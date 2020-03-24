@@ -29,7 +29,7 @@ flake8 oomox_gui/ ./plugins/*/oomox_plugin.py
 echo ':: flake8 passed ::'
 
 echo -e "\n== Running pylint:"
-pylint oomox_gui ./plugins/*/oomox_plugin.py --score no
+pylint --jobs="$(nproc)" oomox_gui ./plugins/*/oomox_plugin.py --score no
 echo ':: pylint passed ::'
 
 
