@@ -2,6 +2,7 @@
 set -ueo pipefail
 
 if [[ -z "${DISPLAY:-}" ]] ; then
+	# we need it as we're a GTK app:
 	Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp 2>&1  &
 	xvfb_pid="$!"
 

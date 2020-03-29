@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=Themix/Oomox: customize icons and GTK themes
+Name=Themix/Oomox theme designer
 GenericName=Themix
-Comment=Graphical application for generating different color variations of Numix and Materia GTK themes, gnome-colors and ArchDroid icon themes
+Comment=GUI for generating different color variations of Arc, Materia, Oomox themes (GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm), ArchDroid, Gnome-Colors, Numix, Papirus, Suru++ icons, and terminal palettes. Have a hack for HiDPI in GTK2.
 Exec=oomox-gui
 Terminal=false
 Type=Application
