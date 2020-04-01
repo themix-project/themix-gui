@@ -4,7 +4,7 @@
 _pkgname=themix-theme-materia
 _reponame=materia-theme
 pkgname="${_pkgname}-git"
-pkgver=20200320.r0.g01916998
+pkgver=20200320.r36.gec7ec240
 pkgrel=1
 pkgdesc="Materia theme plugin
  (GTK2, GTK3, Cinnamon, GNOME, Metacity, Unity, Xfwm) for Themix GUI designer.
