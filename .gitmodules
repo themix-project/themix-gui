@@ -19,9 +19,6 @@
 [submodule "numix-folders"]
 	path = plugins/icons_numix/numix-folders
 	url = https://github.com/numixproject/numix-folders.git
-[submodule "base16_mirror"]
-	path = plugins/base16/base16_mirror
-	url = https://github.com/themix-project/base16_mirror.git
 [submodule "papirus-icon-theme"]
 	path = plugins/icons_papirus/papirus-icon-theme
 	url = https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git
