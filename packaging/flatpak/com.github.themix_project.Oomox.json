@@ -1,7 +1,7 @@
 {
     "app-id": "com.github.themix_project.Oomox",
     "runtime": "org.gnome.Sdk",
-    "runtime-version": "3.32",
+    "runtime-version": "3.34",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "oomox-gui",
@@ -182,8 +182,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-65.tar.xz",
-                    "sha256": "022e14ecb9c457026f3caae5ee11cdb247ccec84539cf053863787e7128b71ba"
+                    "url": "https://www.imagemagick.org/download/releases/ImageMagick-7.0.8-68.tar.xz",
+                    "sha256": "3639baa6ceb5db38b1b48a4b917f90fe007ca7edca1f7894d5555a0bc746305a"
                 }
             ]
         },
