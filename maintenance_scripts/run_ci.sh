@@ -18,6 +18,8 @@ if [[ -z "${DISPLAY:-}" ]] ; then
 	sleep 3
 fi
 
+export PYTHONWARNINGS='default,error:::oomox_gui[.*],error:::plugins[.*]'
+
 echo '== Running on system python'
 python3 --version
 
