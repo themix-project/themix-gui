@@ -82,12 +82,14 @@ def get_user_theme_path(user_theme_name):
 
 
 def save_colorscheme(preset_name, colorscheme, path=None):
-    colorscheme["NAME"] = '"{}"'.format(preset_name)
+    colorscheme_to_write = {}
+    colorscheme_to_write.update(colorscheme)
+    colorscheme_to_write["NAME"] = '"{}"'.format(preset_name)
     path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
     with open(path, 'w') as file_object:
-        for key, value in sorted(colorscheme.items()):
+        for key, value in sorted(colorscheme_to_write.items()):
             if (
                     key not in ('NOGUI', )
             ) and (
