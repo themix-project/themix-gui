@@ -43,6 +43,7 @@ class ExportDialog(Gtk.Dialog):
 
     # widgets:
     box = None
+    top_area = None
     label = None
     spinner = None
     options_box = None
@@ -56,7 +57,6 @@ class ExportDialog(Gtk.Dialog):
 
     def show_text(self):
         if not self.scrolled_window.get_visible():
-            self.box.add(self.scrolled_window)
             self.scrolled_window.show_all()
 
     def show_error(self):
@@ -130,15 +130,17 @@ class ExportDialog(Gtk.Dialog):
         self.box.set_margin_left(5)
         self.box.set_margin_right(5)
         self.box.set_spacing(5)
-        self.box.add(self.label)
+        self.top_area = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.box.add(self.top_area)
+        self.top_area.add(self.label)
 
         self.show_all()
+        self.box.add(self.spinner)
+        self.box.add(self.scrolled_window)
 
     def do_export(self):
         self.box.remove(self.options_box)
         self.box.remove(self.apply_button)
-        self.box.add(self.spinner)
-        self.box.add(self.scrolled_window)
         self.scrolled_window.set_size_request(-1, 200)
         self.scrolled_window.show_all()
         self.spinner.show()
