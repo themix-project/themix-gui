@@ -502,11 +502,15 @@ class ThemePreview(Gtk.Grid):
         self.terminal_preview.update_preview(colorscheme)
 
     def get_theme_css_provider(self, theme_plugin):
+        css_dir = theme_plugin.gtk_preview_dir
+
         css_name = "theme{}.css".format(
             '20' if Gtk.get_minor_version() >= 20 else ''
         )
-        css_dir = theme_plugin.gtk_preview_dir
         css_path = os.path.join(css_dir, css_name)
+        if not os.path.exists(css_path):
+            css_path = os.path.join(css_dir, "theme.css")
+
         css_provider = self.css_providers.theme.get(css_path)
         if css_provider:
             return css_provider
