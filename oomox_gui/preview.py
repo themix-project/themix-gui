@@ -467,10 +467,6 @@ class ThemePreview(Gtk.Grid):
         )
 
     def update_preview(self, colorscheme, theme_plugin, icons_plugin):
-        _colorscheme = colorscheme
-        colorscheme = {}
-        colorscheme.update(_colorscheme)
-
         colorscheme_with_fallbacks = {}
         for theme_value in THEME_MODEL:
             if 'key' not in theme_value:
@@ -483,7 +479,7 @@ class ThemePreview(Gtk.Grid):
         if not theme_plugin:
             self.gtk_preview.hide()
         else:
-            theme_plugin.preview_before_load_callback(self, colorscheme)
+            theme_plugin.preview_before_load_callback(self, colorscheme_with_fallbacks)
 
             self.override_css_style(colorscheme_with_fallbacks, theme_plugin)
             self.update_preview_colors(colorscheme_with_fallbacks)
@@ -496,10 +492,10 @@ class ThemePreview(Gtk.Grid):
         if not icons_plugin:
             self.icons_preview.hide()
         else:
-            self.icons_preview.update_preview(colorscheme, icons_plugin)
+            self.icons_preview.update_preview(colorscheme_with_fallbacks, icons_plugin)
             self.icons_preview.show()
 
-        self.terminal_preview.update_preview(colorscheme)
+        self.terminal_preview.update_preview(colorscheme_with_fallbacks)
 
     def get_theme_css_provider(self, theme_plugin):
         css_dir = theme_plugin.gtk_preview_dir
