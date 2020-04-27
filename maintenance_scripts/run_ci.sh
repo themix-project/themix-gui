@@ -32,7 +32,9 @@ flake8 oomox_gui/ ./plugins/*/oomox_plugin.py
 echo ':: flake8 passed ::'
 
 echo -e "\n== Running pylint:"
-pylint --jobs="$(nproc)" oomox_gui ./plugins/*/oomox_plugin.py --score no
+#pylint --jobs="$(nproc)" oomox_gui ./plugins/*/oomox_plugin.py --score no
+# @TODO: --jobs is broken at the moment: https://github.com/PyCQA/pylint/issues/374
+pylint oomox_gui ./plugins/*/oomox_plugin.py --score no
 echo ':: pylint passed ::'
 
 
