@@ -40,7 +40,7 @@ if [[ "${SKIP_MYPY:-}" = "1" ]] ; then
 	echo -e "\n!! WARNING !! skipping mypy"
 else
 	echo -e "\n== Running mypy:"
-	env MYPYPATH=./maintenance_scripts/mypy_stubs python -m mypy oomox_gui/plugin_api.py
+	env MYPYPATH=./maintenance_scripts/mypy_stubs python -m mypy --warn-unused-ignores oomox_gui/plugin_api.py
 	echo ':: mypy passed ::'
 fi
 
