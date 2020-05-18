@@ -15,8 +15,12 @@
           <image>https://raw.githubusercontent.com/themix-project/oomox/master/screenshots/pokedex_dawn.png</image>
       </screenshot>
   </screenshots>
-  <release date="2020-04-02" version="1.13.2.1"/>
+  <releases>
+    <release date="2020-04-02" version="1.13.2.1"/>
+  </releases>
   <url type="homepage">https://github.com/themix-project/oomox</url>
+  <url type="bugtracker">https://github.com/themix-project/oomox/issues</url>
+  <url type="donation">https://www.paypal.me/actionless</url>
   <content_rating type="oars-1.0">
     <content_attribute id="violence-cartoon">none</content_attribute>
     <content_attribute id="violence-fantasy">none</content_attribute>
