@@ -2,7 +2,6 @@ import os
 import subprocess
 
 from oomox_gui.plugin_api import OomoxImportPlugin
-from oomox_gui.color import convert_gdk_to_theme_color
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
