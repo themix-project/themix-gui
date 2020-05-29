@@ -102,6 +102,15 @@ install_import_random:
 			$(DEST_PLUGIN_DIR)/
 
 
+install_import_xresources:
+	$(eval PLUGIN_NAME := "import_xresources")
+
+	mkdir -p $(DEST_PLUGIN_DIR)
+	cp -prf \
+		plugins/$(PLUGIN_NAME) \
+			$(DEST_PLUGIN_DIR)/
+
+
 install_import_images:
 	$(eval PLUGIN_NAME := "import_pil")
 
@@ -197,8 +206,8 @@ install_icons_suruplus_aspromauros:
 
 
 .PHONY: install
-.PHONY: install_gui install_import_random install_theme_arc install_theme_oomox install_theme_materia install_export_oomoxify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
-install: install_gui install_theme_arc install_theme_oomox install_theme_materia install_export_oomoxify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros
+.PHONY: install_gui install_import_random install_theme_arc install_theme_oomox install_theme_materia install_export_oomoxify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros install_import_xresources
+install: install_gui install_theme_arc install_theme_oomox install_theme_materia install_export_oomoxify install_import_images install_plugin_base16 install_icons_archdroid install_icons_gnomecolors install_icons_numix install_icons_papirus install_icons_suruplus install_icons_suruplus_aspromauros install_import_xresources
 
 .PHONY: all
 all: install

@@ -2,7 +2,6 @@ import os
 
 from .i18n import _
 from .theme_model import THEME_MODEL
-from .xrdb import XrdbCache
 from .plugin_loader import IMPORT_PLUGINS
 
 
@@ -21,16 +20,6 @@ def str_to_bool(value):
     return value.lower() == 'true'
 
 
-def parse_theme_color_value(result_value):
-    if not result_value:
-        return None
-    if result_value.startswith('xrdb.'):
-        xrdb_color = XrdbCache.get().get(result_value.replace('xrdb.', ''))
-        if xrdb_color and xrdb_color.startswith('#'):
-            result_value = xrdb_color.replace('#', '')
-    return result_value
-
-
 def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-branches
     result_value = colorscheme.get(theme_value['key'])
     fallback_key = theme_value.get('fallback_key')
@@ -46,8 +35,6 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
             result_value = fallback_function(colorscheme)
 
     value_type = theme_value['type']
-    if value_type == 'color':
-        result_value = parse_theme_color_value(result_value)
     if value_type == 'bool':
         if isinstance(result_value, str):
             result_value = str_to_bool(result_value)
@@ -106,5 +93,4 @@ def read_colorscheme_from_path(preset_path):
     if from_plugin:
         colorscheme['FROM_PLUGIN'] = from_plugin
 
-    XrdbCache.clear()
     return colorscheme

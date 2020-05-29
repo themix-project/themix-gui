@@ -26,7 +26,7 @@ depends=(
 
 	'themix-plugin-base16-git'
 
-	'themix-theme-arc-git'
+	#'themix-theme-arc-git'
 	'themix-theme-materia-git'
 	'themix-theme-oomox-git'
 

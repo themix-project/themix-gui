@@ -100,7 +100,6 @@ For GUI app itself:
  - `python3-gobject`
  - `gtk3>=3.18`
  - `gdk-pixbuf2`
- - `xorg-xrdb` - optional, for xresources themes
 
 ##### For plugins:
 
@@ -153,6 +152,9 @@ Import colors from images:
 Base16 format support:
  - `python3 pystache`
  - `python3 yaml`
+
+Xresources import:
+ - `xorg-xrdb` - optional, for xresources themes
 
 
 #### Installation

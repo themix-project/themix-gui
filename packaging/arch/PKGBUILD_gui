@@ -28,7 +28,7 @@ optdepends=(
 
 	'themix-plugin-base16: Import and export from Base16 project format'
 
-	'themix-theme-arc: Theme Style plugin'
+	#'themix-theme-arc: Theme Style plugin'
 	'themix-theme-materia: Theme Style plugin'
 	'themix-theme-oomox: Theme Style plugin'
 
@@ -58,7 +58,7 @@ package() {
 	_oomox_gui_dir=${_oomox_dir}/oomox_gui
 
 	cd "${srcdir}/oomox"
-	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install_gui
+	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install_gui install_import_xresources
 	python -O -m compileall ${pkgdir}${_oomox_gui_dir} -d ${_oomox_gui_dir}
 }
 
