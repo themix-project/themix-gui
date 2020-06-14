@@ -60,7 +60,7 @@ package() {
 	rm -rf "${pkg_tmp_dir}/plugins/${_plugin_name}${_plugin_subpath1}"
 	cp -r "${srcdir}/${_reponame1}" "${pkg_tmp_dir}/plugins/${_plugin_name}${_plugin_subpath1}"
 	rm -rf "${pkg_tmp_dir}/plugins/${_plugin_name}${_plugin_subpath2}"
-	cp -r "${srcdir}/${_reponame1}" "${pkg_tmp_dir}/plugins/${_plugin_name}${_plugin_subpath2}"
+	cp -r "${srcdir}/${_reponame2}" "${pkg_tmp_dir}/plugins/${_plugin_name}${_plugin_subpath2}"
 
 	cd "$pkg_tmp_dir"
 	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" "install_${_plugin_name}"
