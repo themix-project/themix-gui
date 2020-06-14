@@ -5,7 +5,7 @@ _pkgname=themix-icons-numix
 _reponame1=numix-icon-theme
 _reponame2=numix-folders
 pkgname="${_pkgname}-git"
-pkgver=19.09.20.r1.g6276c6896
+pkgver=20.06.07.r0.g65287ff64
 pkgrel=1
 pkgdesc="Numix icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
@@ -22,6 +22,7 @@ md5sums=('SKIP'
 depends=(
 	'sed'
     'findutils'
+    'bc'
 )
 makedepends=(
 	'git'
