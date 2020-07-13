@@ -13,8 +13,6 @@ RUN pacman -Syu --noconfirm && \
         makepkg --install --syncdeps --noconfirm" && \
     sudo -u user pikaur -S --noconfirm python-pystache python-vulture
 
-RUN pacman -S --noconfirm --needed python-pip && pip install -U mypy typing_extensions # @TODO: mypy broken in arch workaround
-
 COPY . /opt/oomox-build/
 
 # vim: set ft=dockerfile :
