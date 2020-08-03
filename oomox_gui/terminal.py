@@ -109,20 +109,22 @@ def generate_theme_from_hint(  # pylint: disable=too-many-arguments
 
 def get_all_colors_from_oomox_colorscheme(palette):
     # pylint:disable=bad-option-value,import-outside-toplevel
-    from .theme_model import THEME_MODEL
+    from .theme_model import THEME_MODEL_NEW
 
     all_colors = []
-    for theme_model_item in THEME_MODEL:
-        if theme_model_item.get('type') != 'color':
+    for section_name, section in THEME_MODEL_NEW.items():
+        if section_name == 'terminal':
             continue
-        color_name = theme_model_item.get('key')
-        # if not color_name or color_name.startswith('TERMINAL') or color_name.startswith('ICON'):
-        if not color_name or color_name.startswith('TERMINAL'):
-            continue
-        color_value = palette.get(theme_model_item['key'])
-        if not color_value or color_value in all_colors:
-            continue
-        all_colors.append(color_value)
+        for theme_model_item in section:
+            if theme_model_item.get('type') != 'color':
+                continue
+            color_name = theme_model_item.get('key')
+            if not color_name:
+                continue
+            color_value = palette.get(theme_model_item['key'])
+            if not color_value or color_value in all_colors:
+                continue
+            all_colors.append(color_value)
     return all_colors
 
 

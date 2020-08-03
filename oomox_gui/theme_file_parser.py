@@ -71,7 +71,12 @@ def read_colorscheme_from_path(preset_path):
             break
 
     if not colorscheme:
-        theme_keys = [item['key'] for item in THEME_MODEL if 'key' in item]
+        theme_keys = [
+            item['key']
+            for section in THEME_MODEL.values()
+            for item in section
+            if 'key' in item
+        ]
 
         theme_keys.append('NOGUI')
 
@@ -82,14 +87,15 @@ def read_colorscheme_from_path(preset_path):
                     continue
                 colorscheme[key] = value
 
-    for theme_model_item in THEME_MODEL:
-        key = theme_model_item.get('key')
-        if not key:
-            continue
-        try:
-            colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
-        except NoPluginsInstalled as exc:
-            colorscheme[key] = exc
+    for section in THEME_MODEL.values():  # @TODO: store theme in memory also in two levels?
+        for theme_model_item in section:
+            key = theme_model_item.get('key')
+            if not key:
+                continue
+            try:
+                colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
+            except NoPluginsInstalled as exc:
+                colorscheme[key] = exc
     if from_plugin:
         colorscheme['FROM_PLUGIN'] = from_plugin
 

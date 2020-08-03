@@ -100,14 +100,20 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, theme_model
     )
 
 
-THEME_MODEL = []  # type: List[ThemeModelValue]
+THEME_MODEL_OLD = []  # type: List[ThemeModelValue]
+
+THEME_MODEL = {
+}  # type: Dict[str, List[ThemeModelValue]]
+
 merge_model_with_base(
-    whole_theme_model=THEME_MODEL,
+    whole_theme_model=THEME_MODEL_OLD,
     theme_model_name='import',
     value_filter_key='FROM_PLUGIN',
     plugins=IMPORT_PLUGINS,
 )
-THEME_MODEL = THEME_MODEL + [
+THEME_MODEL['import'] = THEME_MODEL_OLD[::]
+
+THEME_MODEL_OLD = THEME_MODEL_OLD + [
     {
         'key': 'THEME_STYLE',
         'type': 'options',
@@ -124,7 +130,7 @@ THEME_MODEL = THEME_MODEL + [
     },
 ]
 
-BASE_THEME_MODEL_GTK = [
+BASE_THEME_MODEL_OLD_GTK = [
     {
         'key': 'BG',
         'type': 'color',
@@ -227,9 +233,10 @@ BASE_THEME_MODEL_GTK = [
         'filter': lambda _v: False
     },
 ]
-merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_GTK, 'gtk')
+merge_theme_model_with_base(THEME_MODEL_OLD, BASE_THEME_MODEL_OLD_GTK, 'gtk')
+THEME_MODEL['base'] = THEME_MODEL_OLD[len(THEME_MODEL['import'])::]
 
-BASE_THEME_MODEL_OPTIONS = [
+BASE_THEME_MODEL_OLD_OPTIONS = [
     {
         'type': 'separator',
         'display_name': _('Theme Options'),
@@ -248,9 +255,15 @@ BASE_THEME_MODEL_OPTIONS = [
         'display_name': _('Gradient'),
     },
 ]
-merge_theme_model_with_base(THEME_MODEL, BASE_THEME_MODEL_OPTIONS, 'options')
+merge_theme_model_with_base(THEME_MODEL_OLD, BASE_THEME_MODEL_OLD_OPTIONS, 'options')
+THEME_MODEL['theme_options'] = THEME_MODEL_OLD[
+    (
+        len(THEME_MODEL['import']) +
+        len(THEME_MODEL['base'])
+    )::
+]
 
-BASE_ICON_THEME_MODEL = [
+BASE_ICON_THEME_MODEL_OLD = [
     {
         'type': 'separator',
         'display_name': _('Iconset')
@@ -269,15 +282,22 @@ BASE_ICON_THEME_MODEL = [
         'display_name': _('Icons Style')
     },
 ]
-THEME_MODEL += BASE_ICON_THEME_MODEL  # type: ignore
+THEME_MODEL_OLD += BASE_ICON_THEME_MODEL_OLD  # type: ignore
 merge_model_with_base(
-    whole_theme_model=THEME_MODEL,
+    whole_theme_model=THEME_MODEL_OLD,
     theme_model_name='icons',
     value_filter_key='ICONS_STYLE',
     plugins=ICONS_PLUGINS,
 )
+THEME_MODEL['icons'] = THEME_MODEL_OLD[
+    (
+        len(THEME_MODEL['import']) +
+        len(THEME_MODEL['base']) +
+        len(THEME_MODEL['theme_options'])
+    )::
+]
 
-THEME_MODEL += [
+THEME_MODEL_OLD += [
     {
         'type': 'separator',
         'display_name': _('Terminal')
@@ -504,18 +524,35 @@ THEME_MODEL += [
         },
     },
 ]
+THEME_MODEL['terminal'] = THEME_MODEL_OLD[
+    (
+        len(THEME_MODEL['import']) +
+        len(THEME_MODEL['base']) +
+        len(THEME_MODEL['theme_options']) +
+        len(THEME_MODEL['icons'])
+    )::
+]
 
-merge_theme_model_with_base(THEME_MODEL, [], 'extra')
+merge_theme_model_with_base(THEME_MODEL_OLD, [], 'extra')
 merge_model_with_base(
-    whole_theme_model=THEME_MODEL,
+    whole_theme_model=THEME_MODEL_OLD,
     theme_model_name='extra',
     plugins=EXPORT_PLUGINS,
 )
+THEME_MODEL['export'] = THEME_MODEL_OLD[
+    (
+        len(THEME_MODEL['import']) +
+        len(THEME_MODEL['base']) +
+        len(THEME_MODEL['theme_options']) +
+        len(THEME_MODEL['icons']) +
+        len(THEME_MODEL['terminal'])
+    )::
+]
 
 
 def get_theme_options_by_key(key, fallback=None):
     result = []
-    for theme_option in THEME_MODEL:
+    for theme_option in THEME_MODEL_OLD:
         if key == theme_option.get('key'):
             result.append(theme_option)
     if not result and fallback:
@@ -528,3 +565,10 @@ def get_first_theme_option(key, fallback=None):
     if result:
         return result[0]
     return {}
+
+
+THEME_MODEL_NEW = THEME_MODEL
+from pprint import pprint  # noqa  # pylint:disable=all
+pprint(THEME_MODEL_NEW)
+print(len(THEME_MODEL))
+print(sum([len(section) for section in THEME_MODEL_NEW.values()]))

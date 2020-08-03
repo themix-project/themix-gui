@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk, GLib, Gdk
 
-from .theme_model import THEME_MODEL, get_theme_options_by_key
+from .theme_model import THEME_MODEL_NEW, get_theme_options_by_key
 from .palette_cache import PaletteCache
 from .color import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
@@ -9,6 +9,10 @@ from .color import (
 from .gtk_helpers import GObjectABCMeta, g_abstractproperty, ScaledImage
 from .config import FALLBACK_COLOR
 from .i18n import _
+
+
+SECTION_MARGIN = 20
+LIST_ITEM_MARGIN = 10
 
 
 def check_value_filter(value_filter_data, colorscheme):
@@ -45,7 +49,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
         self.callback = callback
         self.key = key
 
-        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50)
+        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50, margin=LIST_ITEM_MARGIN)
         self.add(self.hbox)
         label = Gtk.Label(label=display_name, xalign=0)
         self.hbox.pack_start(label, True, True, 0)
@@ -456,23 +460,56 @@ class ImagePathListBoxRow(OomoxListBoxRow):
         )
 
 
-class SeparatorListBoxRow(Gtk.ListBoxRow):
+# class SeparatorListBoxRow(Gtk.ListBoxRow):
+class SeparatorListBoxRow(Gtk.Box):
 
     def set_markup(self, markup):
         self.label.set_markup("<b>{}</b>".format(markup))
 
     def __init__(self, display_name=None):
-        super().__init__(activatable=False, selectable=False)
+        # super().__init__(activatable=False, selectable=False)
+        super().__init__()
 
         self.label = Gtk.Label(xalign=0)
         if display_name:
             self.set_markup(display_name)
 
-        hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        hbox.pack_start(Gtk.Label(), True, True, 2)
-        hbox.pack_start(self.label, True, True, 4)
+        # hbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        # hbox.pack_start(Gtk.Label(), True, True, 2)
+        # hbox.pack_start(self.label, True, True, 4)
 
-        self.add(hbox)
+        # self.add(hbox)
+
+        self.add(self.label)
+
+
+class SectionListBox(Gtk.Box):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            orientation=Gtk.Orientation.VERTICAL,
+            margin=SECTION_MARGIN,
+            **kwargs
+        )
+        # self.set_margin_bottom(SECTION_MARGIN//2)
+        self.set_margin_top(SECTION_MARGIN//2)
+        self.listbox = Gtk.ListBox()
+        self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        # self.titlebox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.titlebox = Gtk.Stack()
+        self.titlebox.set_margin_bottom(LIST_ITEM_MARGIN)
+        super().add(self.titlebox)
+        # super().add(self.listbox)
+        frame = Gtk.Frame()
+        frame.add(self.listbox)
+        super().add(frame)
+
+    def add(self, *args, **kwargs):
+        self.listbox.add(*args, **kwargs)
+
+    def add_title(self, *args, **kwargs):
+        self.titlebox.add(*args, **kwargs)
 
 
 class ThemeColorsList(Gtk.ScrolledWindow):
@@ -490,135 +527,147 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.theme[key] = value
         self.color_edited_callback(self.theme)
 
-    def build_theme_model_rows(self):
+    def build_theme_model_rows(self):  # pylint: disable=too-many-branches
         self._error_messages_row = SeparatorListBoxRow()
-        self.listbox.add(self._error_messages_row)
+        self.mainbox.add(self._error_messages_row)
         self._all_rows = {}
-        for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get('key')
-            display_name = theme_value.get('display_name', key)
-            row = None
+        for section_id, section in THEME_MODEL_NEW.items():
+            section_box = SectionListBox()
+            for option_idx, theme_value in enumerate(section):
+                key = theme_value.get('key')
+                display_name = theme_value.get('display_name', key)
+                row = None
 
-            callbacks = [self.color_edited, ]
-            if theme_value.get('reload_theme'):
-                def _callback(key, value):
-                    for theme_option in get_theme_options_by_key(key):
-                        theme_option['fallback_value'] = value
-                    self.theme = self.theme_reload_callback()
-                callbacks = [_callback, ]
-            elif theme_value.get('reload_options') or key in [
-                    'ICONS_STYLE', 'THEME_STYLE',
-                    'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE',
-                    'TERMINAL_THEME_AUTO_BGFG', 'TERMINAL_FG', 'TERMINAL_BG',
-            ]:
-                def _callback(key, value):  # pylint:disable=unused-argument
-                    self.open_theme(self.theme)
-                callbacks += [_callback, ]
+                callbacks = [self.color_edited, ]
+                if theme_value.get('reload_theme'):
+                    def _callback(key, value):
+                        for theme_option in get_theme_options_by_key(key):
+                            theme_option['fallback_value'] = value
+                        self.theme = self.theme_reload_callback()
+                    callbacks = [_callback, ]
+                elif theme_value.get('reload_options') or key in [
+                        'ICONS_STYLE', 'THEME_STYLE',
+                        'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE',
+                        'TERMINAL_THEME_AUTO_BGFG', 'TERMINAL_FG', 'TERMINAL_BG',
+                ]:
+                    def _callback(key, value):  # pylint:disable=unused-argument
+                        self.open_theme(self.theme)
+                    callbacks += [_callback, ]
 
-            if key in [
-                    'TERMINAL_THEME_MODE', 'TERMINAL_THEME_ACCURACY',
-                    'TERMINAL_THEME_EXTEND_PALETTE', 'TERMINAL_BASE_TEMPLATE',
-                    '_PIL_PALETTE_QUALITY', '_PIL_PALETTE_STYLE',
-            ]:
-                # @TODO: instead of wrapping them by key name create a signal
-                # and emit it from each slow plugin
-                def _wrap_slow_callbacks(slow_callbacks):
-                    def _new_cb(key, value):
-                        GLib.timeout_add(0, self.disable, priority=GLib.PRIORITY_HIGH)
-                        for slow_cb in slow_callbacks:
-                            Gdk.threads_add_idle(GLib.PRIORITY_LOW, slow_cb, key, value, )
-                        GLib.idle_add(self.enable, priority=GLib.PRIORITY_LOW)
-                    return _new_cb
+                if key in [
+                        'TERMINAL_THEME_MODE', 'TERMINAL_THEME_ACCURACY',
+                        'TERMINAL_THEME_EXTEND_PALETTE', 'TERMINAL_BASE_TEMPLATE',
+                        '_PIL_PALETTE_QUALITY', '_PIL_PALETTE_STYLE',
+                ]:
+                    # @TODO: instead of wrapping them by key name create a signal
+                    # and emit it from each slow plugin
+                    def _wrap_slow_callbacks(slow_callbacks):
+                        def _new_cb(key, value):
+                            GLib.timeout_add(0, self.disable, priority=GLib.PRIORITY_HIGH)
+                            for slow_cb in slow_callbacks:
+                                Gdk.threads_add_idle(GLib.PRIORITY_LOW, slow_cb, key, value, )
+                            GLib.idle_add(self.enable, priority=GLib.PRIORITY_LOW)
+                        return _new_cb
 
-                callbacks = [_wrap_slow_callbacks(callbacks), ]
+                    callbacks = [_wrap_slow_callbacks(callbacks), ]
 
-            def create_callback(_callbacks):
-                def _callback(key, value):
-                    for each in _callbacks:
-                        each(key, value)
+                def create_callback(_callbacks):
+                    def _callback(key, value):
+                        for each in _callbacks:
+                            each(key, value)
 
-                return _callback
+                    return _callback
 
-            callback = create_callback(callbacks)
+                callback = create_callback(callbacks)
 
-            if theme_value['type'] == 'color':
-                row = ColorListBoxRow(
-                    display_name, key,
-                    callback=callback,
-                    transient_for=self.transient_for
-                )
-            elif theme_value['type'] == 'bool':
-                row = BoolListBoxRow(
-                    display_name, key, callback=callback
-                )
-            elif theme_value['type'] == 'int':
-                row = IntListBoxRow(
-                    display_name, key, callback=callback,
-                    min_value=theme_value.get('min_value'),
-                    max_value=theme_value.get('max_value')
-                )
-            elif theme_value['type'] == 'float':
-                row = FloatListBoxRow(
-                    display_name, key, callback=callback,
-                    min_value=theme_value.get('min_value'),
-                    max_value=theme_value.get('max_value')
-                )
-            elif theme_value['type'] == 'separator':
-                row = SeparatorListBoxRow(display_name)
-            elif theme_value['type'] == 'image_path':
-                row = ImagePathListBoxRow(display_name, key, callback)
-            elif theme_value['type'] == 'options':
-                row = OptionsListBoxRow(
-                    key=key,
-                    display_name=display_name,
-                    options=theme_value['options'],
-                    callback=callback
-                )
-            if row:
-                self._all_rows[option_idx] = row
-                self.listbox.add(row)
+                if theme_value['type'] == 'color':
+                    row = ColorListBoxRow(
+                        display_name, key,
+                        callback=callback,
+                        transient_for=self.transient_for
+                    )
+                elif theme_value['type'] == 'bool':
+                    row = BoolListBoxRow(
+                        display_name, key, callback=callback
+                    )
+                elif theme_value['type'] == 'int':
+                    row = IntListBoxRow(
+                        display_name, key, callback=callback,
+                        min_value=theme_value.get('min_value'),
+                        max_value=theme_value.get('max_value')
+                    )
+                elif theme_value['type'] == 'float':
+                    row = FloatListBoxRow(
+                        display_name, key, callback=callback,
+                        min_value=theme_value.get('min_value'),
+                        max_value=theme_value.get('max_value')
+                    )
+                elif theme_value['type'] == 'separator':
+                    row = SeparatorListBoxRow(display_name)
+                elif theme_value['type'] == 'image_path':
+                    row = ImagePathListBoxRow(display_name, key, callback)
+                elif theme_value['type'] == 'options':
+                    row = OptionsListBoxRow(
+                        key=key,
+                        display_name=display_name,
+                        options=theme_value['options'],
+                        callback=callback
+                    )
+                if row:
+                    self._all_rows.setdefault(section_id, {})[option_idx] = row
+                    if theme_value['type'] in ('separator', ):
+                        section_box.add_title(row)
+                    else:
+                        section_box.add(row)
+
+            self.mainbox.add(section_box)
 
     def open_theme(self, theme):  # pylint: disable=too-many-branches
         self.theme = theme
         error_messages = []
         if "NOGUI" in theme:
             error_messages.append(_("Can't Be Edited in GUI"))
-        for option_idx, theme_value in enumerate(THEME_MODEL):
-            key = theme_value.get('key')
-            if isinstance(theme.get(key), Exception):
-                error_messages.append(str(theme[key]))
-                continue
-            row = self._all_rows.get(option_idx)
 
-            if not row:
-                continue
-            if "NOGUI" in theme:
-                row.hide()
-                continue
-            if theme_value.get('filter'):
-                if not theme_value['filter'](theme):
+        for section_id, section in THEME_MODEL_NEW.items():
+            for option_idx, theme_value in enumerate(section):
+                key = theme_value.get('key')
+                if isinstance(theme.get(key), Exception):
+                    error_messages.append(str(theme[key]))
+                    continue
+                row = self._all_rows.get(section_id, {}).get(option_idx)
+
+                if not row:
+                    continue
+                if "NOGUI" in theme:
                     row.hide()
                     continue
-            if theme_value.get('value_filter'):
-                if not check_value_filter(theme_value['value_filter'], theme):
-                    row.hide()
-                    continue
-            if theme_value['type'] in ['color', 'options', 'bool', 'int', 'float', 'image_path']:
-                row.set_value(theme[key])
-            row.show()
-        if error_messages:
-            self._error_messages_row.set_markup('\n'.join(error_messages))
-            self._error_messages_row.show()
-        else:
-            self._error_messages_row.hide()
+                if theme_value.get('filter'):
+                    if not theme_value['filter'](theme):
+                        row.hide()
+                        continue
+                if theme_value.get('value_filter'):
+                    if not check_value_filter(theme_value['value_filter'], theme):
+                        row.hide()
+                        continue
+                if theme_value['type'] in [
+                        'color', 'options', 'bool', 'int', 'float', 'image_path'
+                ]:
+                    row.set_value(theme[key])
+                row.show()
+            if error_messages:
+                self._error_messages_row.set_markup('\n'.join(error_messages))
+                self._error_messages_row.show()
+            else:
+                self._error_messages_row.hide()
 
     def hide_all_rows(self):
         self._error_messages_row.hide()
-        for option_idx, _theme_value in enumerate(THEME_MODEL):
-            row = self._all_rows.get(option_idx)
-            if not row:
-                continue
-            row.hide()
+        for section_id, section in THEME_MODEL_NEW.items():
+            for option_idx in range(len(section)):
+                row = self._all_rows.get(section_id, {}).get(option_idx)
+                if not row:
+                    continue
+                row.hide()
 
     def disable(self):
         # self.transient_for.disable()
@@ -635,7 +684,6 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.color_edited_callback = color_edited_callback
         self.theme_reload_callback = theme_reload_callback
 
-        self.listbox = Gtk.ListBox()
-        self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.build_theme_model_rows()
-        self.add(self.listbox)
+        self.add(self.mainbox)

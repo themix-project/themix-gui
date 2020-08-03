@@ -57,7 +57,12 @@ class Plugin(OomoxImportPlugin):
         # pylint:disable=bad-option-value,import-outside-toplevel
         from oomox_gui.theme_model import THEME_MODEL
 
-        theme_keys = [item['key'] for item in THEME_MODEL if 'key' in item]
+        theme_keys = [
+            item['key']
+            for section in THEME_MODEL.values()
+            for item in section
+            if 'key' in item
+        ]
 
         colorscheme = {}
 
