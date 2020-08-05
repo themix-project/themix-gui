@@ -29,7 +29,7 @@ def get_key_indexes(base_theme_model):
     }
 
 
-def merge_plugin_model_with_base(
+def merge_model_with_plugin(
         theme_model_name, theme_plugin,
         base_theme_model,
         value_filter_key=None
@@ -67,21 +67,21 @@ def merge_plugin_model_with_base(
     return result
 
 
-def merge_model_with_base(
-        whole_theme_model, theme_model_name,
-        plugins, base_theme_model=None, value_filter_key=None
+def merge_model_with_plugins(
+        theme_model_name, plugins,
+        base_theme_model=None, value_filter_key=None
 ):
     if base_theme_model is None:
         base_theme_model = []
+    whole_theme_model = base_theme_model[::]
 
     if value_filter_key:
         for theme_value in base_theme_model:
             if 'key' in theme_value:
                 theme_value.setdefault('value_filter', {}).setdefault(value_filter_key, [])
 
-    whole_theme_model += base_theme_model
     for theme_plugin in plugins.values():
-        plugin_theme_model = merge_plugin_model_with_base(
+        plugin_theme_model = merge_model_with_plugin(
             theme_model_name=theme_model_name,
             theme_plugin=theme_plugin,
             base_theme_model=base_theme_model,
@@ -91,22 +91,20 @@ def merge_model_with_base(
     return whole_theme_model
 
 
-def merge_theme_model_with_base(whole_theme_model, base_theme_model, theme_model_name):
-    return merge_model_with_base(
-        whole_theme_model=whole_theme_model,
-        base_theme_model=base_theme_model,
+def merge_theme_model_with_plugins(theme_model_name, base_theme_model=None):
+    return merge_model_with_plugins(
         theme_model_name=theme_model_name,
+        base_theme_model=base_theme_model,
         value_filter_key='THEME_STYLE',
         plugins=THEME_PLUGINS,
     )
 
 
-
 THEME_MODEL = {
 }  # type: Dict[str, List[ThemeModelValue]]
 
-THEME_MODEL['import'] = merge_model_with_base(
-    whole_theme_model=[],
+
+THEME_MODEL['import'] = merge_model_with_plugins(
     theme_model_name='import',
     value_filter_key='FROM_PLUGIN',
     plugins=IMPORT_PLUGINS,
@@ -230,7 +228,7 @@ BASE_THEME_MODEL_GTK = [
         'filter': lambda _v: False
     },
 ]
-THEME_MODEL['base'] = merge_theme_model_with_base([], BASE_THEME_MODEL_GTK, 'gtk')
+THEME_MODEL['base'] = merge_theme_model_with_plugins('gtk', BASE_THEME_MODEL_GTK)
 
 
 BASE_THEME_MODEL_OPTIONS = [
@@ -252,9 +250,7 @@ BASE_THEME_MODEL_OPTIONS = [
         'display_name': _('Gradient'),
     },
 ]
-THEME_MODEL['theme_options'] = merge_theme_model_with_base(
-    [], BASE_THEME_MODEL_OPTIONS, 'options'
-)
+THEME_MODEL['theme_options'] = merge_theme_model_with_plugins('options', BASE_THEME_MODEL_OPTIONS)
 
 BASE_ICON_THEME_MODEL = [
     {
@@ -275,8 +271,8 @@ BASE_ICON_THEME_MODEL = [
         'display_name': _('Icons Style')
     },
 ]
-THEME_MODEL['icons'] = merge_model_with_base(
-    whole_theme_model=BASE_ICON_THEME_MODEL,
+THEME_MODEL['icons'] = merge_model_with_plugins(
+    base_theme_model=BASE_ICON_THEME_MODEL,
     theme_model_name='icons',
     value_filter_key='ICONS_STYLE',
     plugins=ICONS_PLUGINS,
@@ -511,9 +507,9 @@ THEME_MODEL['terminal'] = [
     },
 ]
 
-EXTRA_THEME_MODEL = merge_theme_model_with_base([], [], 'extra')
-THEME_MODEL['export'] = merge_model_with_base(
-    whole_theme_model=EXTRA_THEME_MODEL,
+_theme_export_plugins = merge_theme_model_with_plugins('extra')
+THEME_MODEL['export'] = merge_model_with_plugins(
+    base_theme_model=_theme_export_plugins,
     theme_model_name='extra',
     plugins=EXPORT_PLUGINS,
 )
