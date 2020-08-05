@@ -259,12 +259,11 @@ class Plugin(OomoxImportPlugin):
             'fallback_value': None,
             'display_name': _('Image Thumbnail'),
         },
+    ]
+    theme_model_gtk = [
         {
             'display_name': _('Edit Generated Theme'),
             'type': 'separator',
-            'value_filter': {
-                'FROM_PLUGIN': ['import_pil']
-            },
         },
     ]
 

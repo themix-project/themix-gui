@@ -35,7 +35,9 @@ def merge_model_with_plugin(
         value_filter_key=None
 ):
     result = []
-    plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name)
+    plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name, None)
+    if not plugin_theme_model:
+        return result
     plugin_theme_model_keys = []
     for theme_value in plugin_theme_model:
         if isinstance(theme_value, str):
@@ -75,11 +77,6 @@ def merge_model_with_plugins(
         base_theme_model = []
     whole_theme_model = base_theme_model[::]
 
-    if value_filter_key:
-        for theme_value in base_theme_model:
-            if 'key' in theme_value:
-                theme_value.setdefault('value_filter', {}).setdefault(value_filter_key, [])
-
     for theme_plugin in plugins.values():
         plugin_theme_model = merge_model_with_plugin(
             theme_model_name=theme_model_name,
@@ -88,6 +85,7 @@ def merge_model_with_plugins(
             value_filter_key=value_filter_key
         )
         whole_theme_model += plugin_theme_model
+
     return whole_theme_model
 
 
@@ -228,7 +226,12 @@ BASE_THEME_MODEL_GTK = [
         'filter': lambda _v: False
     },
 ]
-THEME_MODEL['base'] = merge_theme_model_with_plugins('gtk', BASE_THEME_MODEL_GTK)
+THEME_MODEL['base'] = merge_model_with_plugins(
+    theme_model_name='gtk',
+    base_theme_model=merge_theme_model_with_plugins('gtk', BASE_THEME_MODEL_GTK),
+    value_filter_key='FROM_PLUGIN',
+    plugins=IMPORT_PLUGINS,
+)
 
 
 BASE_THEME_MODEL_OPTIONS = [
