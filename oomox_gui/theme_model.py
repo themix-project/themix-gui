@@ -552,9 +552,10 @@ THEME_MODEL['export'] = THEME_MODEL_OLD[
 
 def get_theme_options_by_key(key, fallback=None):
     result = []
-    for theme_option in THEME_MODEL_OLD:
-        if key == theme_option.get('key'):
-            result.append(theme_option)
+    for _section_id, section in THEME_MODEL.items():
+        for theme_option in section:
+            if key == theme_option.get('key'):
+                result.append(theme_option)
     if not result and fallback:
         return [fallback]
     return result
