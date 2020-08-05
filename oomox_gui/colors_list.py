@@ -531,8 +531,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self._error_messages_row = SeparatorListBoxRow()
         self.mainbox.add(self._error_messages_row)
         self._all_rows = {}
+        self._all_section_boxes = {}
         for section_id, section in THEME_MODEL_NEW.items():
-            section_box = SectionListBox()
+            self._all_section_boxes[section_id] = section_box = SectionListBox()
             for option_idx, theme_value in enumerate(section):
                 key = theme_value.get('key')
                 display_name = theme_value.get('display_name', key)
@@ -629,6 +630,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
             error_messages.append(_("Can't Be Edited in GUI"))
 
         for section_id, section in THEME_MODEL_NEW.items():
+            rows_displayed_in_section = 0
             for option_idx, theme_value in enumerate(section):
                 key = theme_value.get('key')
                 if isinstance(theme.get(key), Exception):
@@ -654,11 +656,18 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 ]:
                     row.set_value(theme[key])
                 row.show()
-            if error_messages:
-                self._error_messages_row.set_markup('\n'.join(error_messages))
-                self._error_messages_row.show()
+                rows_displayed_in_section += 1
+
+            section_box = self._all_section_boxes[section_id]
+            if rows_displayed_in_section == 0:
+                section_box.hide()
             else:
-                self._error_messages_row.hide()
+                section_box.show()
+        if error_messages:
+            self._error_messages_row.set_markup('\n'.join(error_messages))
+            self._error_messages_row.show()
+        else:
+            self._error_messages_row.hide()
 
     def hide_all_rows(self):
         self._error_messages_row.hide()
