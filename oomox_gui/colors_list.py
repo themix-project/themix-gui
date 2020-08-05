@@ -49,7 +49,9 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
         self.callback = callback
         self.key = key
 
-        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=50, margin=LIST_ITEM_MARGIN)
+        self.hbox = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL, spacing=50, margin=LIST_ITEM_MARGIN
+        )
         self.add(self.hbox)
         label = Gtk.Label(label=display_name, xalign=0)
         self.hbox.pack_start(label, True, True, 0)
