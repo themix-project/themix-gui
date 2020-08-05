@@ -565,10 +565,3 @@ def get_first_theme_option(key, fallback=None):
     if result:
         return result[0]
     return {}
-
-
-THEME_MODEL_NEW = THEME_MODEL
-from pprint import pprint  # noqa  # pylint:disable=all
-pprint(THEME_MODEL_NEW)
-print(len(THEME_MODEL))
-print(sum([len(section) for section in THEME_MODEL_NEW.values()]))

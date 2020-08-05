@@ -109,10 +109,10 @@ def generate_theme_from_hint(  # pylint: disable=too-many-arguments
 
 def get_all_colors_from_oomox_colorscheme(palette):
     # pylint:disable=bad-option-value,import-outside-toplevel
-    from .theme_model import THEME_MODEL_NEW
+    from .theme_model import THEME_MODEL
 
     all_colors = []
-    for section_name, section in THEME_MODEL_NEW.items():
+    for section_name, section in THEME_MODEL.items():
         if section_name == 'terminal':
             continue
         for theme_model_item in section:

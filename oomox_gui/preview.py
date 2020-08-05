@@ -2,7 +2,7 @@ import os
 
 from gi.repository import Gtk, GLib
 
-from .theme_model import THEME_MODEL_NEW
+from .theme_model import THEME_MODEL
 from .color import (
     convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors, hex_lightness,
 )
@@ -382,7 +382,7 @@ class ThemePreview(Gtk.Grid):
             theme_value['key']: convert_theme_color_to_gdk(
                 colorscheme[theme_value['key']]
             )
-            for section in THEME_MODEL_NEW.values()
+            for section in THEME_MODEL.values()
             for theme_value in section if (
                 theme_value['type'] == 'color' and
                 not theme_value['key'].startswith('TERMINAL_')
@@ -469,7 +469,7 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview(self, colorscheme, theme_plugin, icons_plugin):
         colorscheme_with_fallbacks = {}
-        for section in THEME_MODEL_NEW.values():
+        for section in THEME_MODEL.values():
             for theme_value in section:
                 if 'key' not in theme_value:
                     continue
