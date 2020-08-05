@@ -88,6 +88,7 @@ def merge_model_with_base(
             value_filter_key=value_filter_key
         )
         whole_theme_model += plugin_theme_model
+    return whole_theme_model
 
 
 def merge_theme_model_with_base(whole_theme_model, base_theme_model, theme_model_name):
@@ -100,20 +101,19 @@ def merge_theme_model_with_base(whole_theme_model, base_theme_model, theme_model
     )
 
 
-THEME_MODEL_OLD = []  # type: List[ThemeModelValue]
 
 THEME_MODEL = {
 }  # type: Dict[str, List[ThemeModelValue]]
 
-merge_model_with_base(
-    whole_theme_model=THEME_MODEL_OLD,
+THEME_MODEL['import'] = merge_model_with_base(
+    whole_theme_model=[],
     theme_model_name='import',
     value_filter_key='FROM_PLUGIN',
     plugins=IMPORT_PLUGINS,
 )
-THEME_MODEL['import'] = THEME_MODEL_OLD[::]
 
-THEME_MODEL_OLD = THEME_MODEL_OLD + [
+
+BASE_THEME_MODEL_GTK = [
     {
         'key': 'THEME_STYLE',
         'type': 'options',
@@ -128,9 +128,6 @@ THEME_MODEL_OLD = THEME_MODEL_OLD + [
         'fallback_value': 'oomox',
         'display_name': _('Theme Style'),
     },
-]
-
-BASE_THEME_MODEL_OLD_GTK = [
     {
         'key': 'BG',
         'type': 'color',
@@ -233,10 +230,10 @@ BASE_THEME_MODEL_OLD_GTK = [
         'filter': lambda _v: False
     },
 ]
-merge_theme_model_with_base(THEME_MODEL_OLD, BASE_THEME_MODEL_OLD_GTK, 'gtk')
-THEME_MODEL['base'] = THEME_MODEL_OLD[len(THEME_MODEL['import'])::]
+THEME_MODEL['base'] = merge_theme_model_with_base([], BASE_THEME_MODEL_GTK, 'gtk')
 
-BASE_THEME_MODEL_OLD_OPTIONS = [
+
+BASE_THEME_MODEL_OPTIONS = [
     {
         'type': 'separator',
         'display_name': _('Theme Options'),
@@ -255,15 +252,11 @@ BASE_THEME_MODEL_OLD_OPTIONS = [
         'display_name': _('Gradient'),
     },
 ]
-merge_theme_model_with_base(THEME_MODEL_OLD, BASE_THEME_MODEL_OLD_OPTIONS, 'options')
-THEME_MODEL['theme_options'] = THEME_MODEL_OLD[
-    (
-        len(THEME_MODEL['import']) +
-        len(THEME_MODEL['base'])
-    )::
-]
+THEME_MODEL['theme_options'] = merge_theme_model_with_base(
+    [], BASE_THEME_MODEL_OPTIONS, 'options'
+)
 
-BASE_ICON_THEME_MODEL_OLD = [
+BASE_ICON_THEME_MODEL = [
     {
         'type': 'separator',
         'display_name': _('Iconset')
@@ -282,22 +275,15 @@ BASE_ICON_THEME_MODEL_OLD = [
         'display_name': _('Icons Style')
     },
 ]
-THEME_MODEL_OLD += BASE_ICON_THEME_MODEL_OLD  # type: ignore
-merge_model_with_base(
-    whole_theme_model=THEME_MODEL_OLD,
+THEME_MODEL['icons'] = merge_model_with_base(
+    whole_theme_model=BASE_ICON_THEME_MODEL,
     theme_model_name='icons',
     value_filter_key='ICONS_STYLE',
     plugins=ICONS_PLUGINS,
 )
-THEME_MODEL['icons'] = THEME_MODEL_OLD[
-    (
-        len(THEME_MODEL['import']) +
-        len(THEME_MODEL['base']) +
-        len(THEME_MODEL['theme_options'])
-    )::
-]
 
-THEME_MODEL_OLD += [
+
+THEME_MODEL['terminal'] = [
     {
         'type': 'separator',
         'display_name': _('Terminal')
@@ -524,30 +510,13 @@ THEME_MODEL_OLD += [
         },
     },
 ]
-THEME_MODEL['terminal'] = THEME_MODEL_OLD[
-    (
-        len(THEME_MODEL['import']) +
-        len(THEME_MODEL['base']) +
-        len(THEME_MODEL['theme_options']) +
-        len(THEME_MODEL['icons'])
-    )::
-]
 
-merge_theme_model_with_base(THEME_MODEL_OLD, [], 'extra')
-merge_model_with_base(
-    whole_theme_model=THEME_MODEL_OLD,
+EXTRA_THEME_MODEL = merge_theme_model_with_base([], [], 'extra')
+THEME_MODEL['export'] = merge_model_with_base(
+    whole_theme_model=EXTRA_THEME_MODEL,
     theme_model_name='extra',
     plugins=EXPORT_PLUGINS,
 )
-THEME_MODEL['export'] = THEME_MODEL_OLD[
-    (
-        len(THEME_MODEL['import']) +
-        len(THEME_MODEL['base']) +
-        len(THEME_MODEL['theme_options']) +
-        len(THEME_MODEL['icons']) +
-        len(THEME_MODEL['terminal'])
-    )::
-]
 
 
 def get_theme_options_by_key(key, fallback=None):
