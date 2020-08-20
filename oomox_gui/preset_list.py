@@ -170,12 +170,15 @@ class ThemePresetList(Gtk.ScrolledWindow):
         )
 
     @staticmethod
-    def _format_dirname(preset, preset_dir, plugin_name=None):
+    def _format_dirname(preset, dirname, plugin_name=None, parent_dir=None):
         dir_template = '{}: {}'
-        preset_relpath = (
-            preset.name[len(preset_dir):]
-            if plugin_name else preset.name
-        )
+        if parent_dir:
+            preset_relpath = preset.path[len('/'.join(parent_dir.split('/')[:-1])):]
+        else:
+            preset_relpath = (
+                preset.name[len(dirname):]
+                if plugin_name else preset.name
+            )
         dir_display_name, _slash, item_display_name = preset_relpath.lstrip('/').partition('/')
         if item_display_name:
             dir_display_name = dir_template.format(
@@ -196,32 +199,60 @@ class ThemePresetList(Gtk.ScrolledWindow):
         return dir_display_name
 
     def _add_presets(  # pylint: disable=too-many-arguments
-            self, preset_dir, preset_list,
-            plugin_name=None, parent=None
+            self, dirname, preset_list,
+            plugin_name=None, parent=None, subdir_path=None
     ):
         sorted_preset_list = sorted(preset_list, key=lambda x: x.name.lower())
 
         first_preset = sorted_preset_list[0]
         piter = self._add_preset(
-            display_name=self._format_dirname(first_preset, preset_dir, plugin_name),
+            display_name=self._format_dirname(
+                first_preset, dirname,
+                plugin_name=plugin_name,
+                parent_dir=subdir_path,
+            ),
             name=first_preset.name,
             path=first_preset.path,
             saveable=first_preset.is_saveable,
             parent=parent
         )
 
+        last_subdir = None
+        last_subdir_iter = None
         for preset in sorted_preset_list[1:]:
-            display_name = self._format_childname((
-                preset.name[len(preset_dir):]
-                if preset_dir else preset.name
-            ))
-            self._add_preset(
-                display_name=display_name,
-                name=preset.name,
-                path=preset.path,
-                saveable=preset.is_saveable,
-                parent=piter
-            )
+            if len(preset.name.split('/')) > 2:
+                preset_subdir = os.path.dirname(preset.path)
+                if preset_subdir != last_subdir:
+                    last_subdir = preset_subdir
+                    last_subdir_iter = self._add_preset(
+                        display_name=self._format_dirname(
+                            preset, dirname,
+                            plugin_name=plugin_name,
+                            parent_dir=last_subdir,
+                        ),
+                        name=preset.name,
+                        path=preset.path,
+                        saveable=preset.is_saveable,
+                        parent=piter
+                    )
+                else:
+                    self._add_presets(
+                        dirname=dirname, preset_list=[preset],
+                        parent=last_subdir_iter,
+                        subdir_path=last_subdir
+                    )
+            else:
+                display_name = self._format_childname((
+                    preset.name[len(dirname):]
+                    if dirname else preset.name
+                ))
+                self._add_preset(
+                    display_name=display_name,
+                    name=preset.name,
+                    path=preset.path,
+                    saveable=preset.is_saveable,
+                    parent=piter
+                )
 
     def _load_system_presets(self, all_presets):
         featured_dirs = ('Featured', )
@@ -234,7 +265,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
             self._add_presets(
-                preset_dir=preset_dir, preset_list=preset_list,
+                dirname=preset_dir, preset_list=preset_list,
                 parent=presets_iter
             )
         if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
@@ -278,7 +309,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 )
                 for dir_name, group in grouped_presets:
                     self._add_presets(
-                        preset_dir=dir_name,
+                        dirname=dir_name,
                         preset_list=group,
                         parent=plugin_presets_iter
                     )
@@ -292,7 +323,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
                 continue
             self._add_presets(
-                preset_dir=preset_dir, preset_list=preset_list,
+                dirname=preset_dir, preset_list=preset_list,
                 parent=user_presets_iter
             )
         if UI_SETTINGS.preset_list_sections_expanded.get(Sections.USER.id, True):
