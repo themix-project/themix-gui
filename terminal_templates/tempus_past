@@ -1,22 +1,23 @@
-! Theme: Tempus Past
+! Colour scheme: Tempus Past
 ! Description: Light theme inspired by old vaporwave concept art (WCAG AA compliant)
 ! Author: Protesilaos Stavrou (https://protesilaos.com)
-*background: #dadce8
-*foreground: #63606b
-*cursorColor: #63606b
-*color0: #63606b
-*color1: #c01c10
-*color2: #2a7000
-*color3: #825a0a
-*color4: #025ccd
-*color5: #a43878
-*color6: #49628d
-*color7: #e0dcd6
+*background: #f3f2f4
+*foreground: #53545b
+*cursorColor: #53545b
+*cursorColor2: #f3f2f4
+*color0: #53545b
+*color1: #c00c50
+*color2: #0a7040
+*color3: #a6403a
+*color4: #1763aa
+*color5: #b02874
+*color6: #096a83
+*color7: #ece6de
 *color8: #80565d
-*color9: #b43036
-*color10: #007214
-*color11: #91520a
-*color12: #5046eb
-*color13: #ba166b
-*color14: #076c76
-*color15: #dadce8
+*color9: #bd3636
+*color10: #407343
+*color11: #9d524a
+*color12: #5a5ebb
+*color13: #b225ab
+*color14: #07737a
+*color15: #f3f2f4

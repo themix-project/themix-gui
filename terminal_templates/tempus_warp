@@ -1,22 +1,23 @@
-! Theme: Tempus Warp
+! Colour scheme: Tempus Warp
 ! Description: Dark theme with a vibrant palette (WCAG AA compliant)
 ! Author: Protesilaos Stavrou (https://protesilaos.com)
-*background: #141a19
-*foreground: #928f90
-*cursorColor: #928f90
-*color0: #141a19
-*color1: #ff1414
-*color2: #009600
-*color3: #928100
-*color4: #4f76ff
-*color5: #dd38bc
-*color6: #358aaa
-*color7: #927b80
-*color8: #201428
-*color9: #ff5500
-*color10: #3aa43a
-*color11: #b38a00
-*color12: #8082ff
-*color13: #d159fd
-*color14: #1da190
-*color15: #928f90
+*background: #001514
+*foreground: #a29fa0
+*cursorColor: #a29fa0
+*cursorColor2: #001514
+*color0: #001514
+*color1: #fa3333
+*color2: #139913
+*color3: #9e8100
+*color4: #557feb
+*color5: #d54cbf
+*color6: #009580
+*color7: #928080
+*color8: #241828
+*color9: #F0681A
+*color10: #3aa73a
+*color11: #ba8a00
+*color12: #8887f0
+*color13: #d85cf2
+*color14: #1da1af
+*color15: #a29fa0
