@@ -3,7 +3,7 @@ import sys
 from abc import ABCMeta, abstractproperty, abstractmethod
 from enum import Enum
 
-from oomox_gui.config import FALLBACK_COLOR, USER_COLORS_DIR
+from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 
 if sys.version_info.minor >= 5:
@@ -12,11 +12,11 @@ if sys.version_info.minor >= 5:
         # pylint: disable=ungrouped-imports
         from typing import List, Dict, Any, Iterable, Optional, Union  # noqa
 
-        from oomox_gui.export_common import ExportDialog  # noqa
-        from oomox_gui.preview import ThemePreview  # noqa
-        from oomox_gui.preview_icons import IconThemePreview  # noqa
+        from .export_common import ExportDialog  # noqa
+        from .preview import ThemePreview  # noqa
+        from .preview_icons import IconThemePreview  # noqa
 
-        from oomox_gui.theme_model import ThemeModelValue  # noqa
+        from .theme_model import ThemeModelValue  # noqa
         ColorScheme = Dict[str, Union[str, bool, int, float]]
 
 
