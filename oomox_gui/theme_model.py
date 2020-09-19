@@ -109,7 +109,11 @@ THEME_MODEL['import'] = merge_model_with_plugins(
 )
 
 
-BASE_THEME_MODEL_GTK = [
+BASE_THEME_MODEL = [
+    {
+        'type': 'separator',
+        'display_name': _('Theme Style'),
+    },
     {
         'key': 'THEME_STYLE',
         'type': 'options',
@@ -122,7 +126,14 @@ BASE_THEME_MODEL_GTK = [
             for theme_plugin in sorted_dict(THEME_PLUGINS).values()
         ],
         'fallback_value': 'oomox',
-        'display_name': _('Theme Style'),
+        'display_name': _('Style for UI elements'),
+    },
+]
+THEME_MODEL['base'] = BASE_THEME_MODEL
+BASE_THEME_MODEL_GTK = [
+    {
+        'type': 'separator',
+        'display_name': _('Theme Colors'),
     },
     {
         'key': 'BG',
@@ -226,7 +237,7 @@ BASE_THEME_MODEL_GTK = [
         'filter': lambda _v: False
     },
 ]
-THEME_MODEL['base'] = merge_model_with_plugins(
+THEME_MODEL['colors'] = merge_model_with_plugins(
     theme_model_name='gtk',
     base_theme_model=merge_theme_model_with_plugins('gtk', BASE_THEME_MODEL_GTK),
     value_filter_key='FROM_PLUGIN',
