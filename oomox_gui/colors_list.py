@@ -44,7 +44,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
         pass
 
     def __init__(self, display_name, key, callback, value_widget):
-        super().__init__()
+        super().__init__(activatable=False)
 
         self.callback = callback
         self.key = key
