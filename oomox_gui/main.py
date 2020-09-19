@@ -715,6 +715,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
         self.paned_box.pack2(self.theme_edit, resize=True, shrink=False)
 
+        self.box.pack_start(Gtk.Separator(), expand=False, fill=False, padding=0)
         self.preview = ThemePreview()
         self.box.pack_start(self.preview, expand=False, fill=False, padding=0)
 
