@@ -109,7 +109,7 @@ THEME_MODEL['import'] = merge_model_with_plugins(
 )
 
 
-BASE_THEME_MODEL = [
+THEME_MODEL['base'] = [
     {
         'type': 'separator',
         'display_name': _('Theme Style'),
@@ -129,7 +129,7 @@ BASE_THEME_MODEL = [
         'display_name': _('Style for UI elements'),
     },
 ]
-THEME_MODEL['base'] = BASE_THEME_MODEL
+
 BASE_THEME_MODEL_GTK = [
     {
         'type': 'separator',
