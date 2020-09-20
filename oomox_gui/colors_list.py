@@ -498,6 +498,13 @@ class SectionListBox(Gtk.Box):
         self.set_margin_top(SECTION_MARGIN//2)
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+
+        def update_listbox_header(row, before):
+            if before and not row.get_header():
+                row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+
+        self.listbox.set_header_func(update_listbox_header)
+
         # self.titlebox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.titlebox = Gtk.Stack()
         self.titlebox.set_margin_bottom(LIST_ITEM_MARGIN)
