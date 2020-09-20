@@ -38,6 +38,10 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
     callback = None
     value_widget = None
     hbox = None
+    vbox = None
+
+    description_label = None
+    _description_label_added = False
 
     @g_abstractproperty
     def set_value(self, value):
@@ -52,16 +56,35 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
         self.hbox = Gtk.Box(
             orientation=Gtk.Orientation.HORIZONTAL, spacing=50, margin=LIST_ITEM_MARGIN
         )
-        self.add(self.hbox)
         label = Gtk.Label(label=display_name, xalign=0)
         self.hbox.pack_start(label, True, True, 0)
 
         self.value_widget = value_widget
         self.hbox.pack_start(self.value_widget, False, True, 0)
 
+        self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(self.vbox)
+        self.vbox.add(self.hbox)
+
     def disconnect_changed_signal(self):
         if self.changed_signal:
             self.value_widget.disconnect(self.changed_signal)
+
+    def set_description(self, description_text=None):
+        if description_text:
+            if not self._description_label_added:
+                self.description_label = Gtk.Label(xalign=1)
+                self.description_label.set_margin_top(3)
+                self.description_label.set_margin_bottom(7)
+                self.description_label.set_state_flags(Gtk.StateFlags.INSENSITIVE, False)
+                self.vbox.add(self.description_label)
+                self.description_label.show()
+                self._description_label_added = True
+            self.description_label.set_text(description_text)
+        else:
+            if self._description_label_added:
+                self.vbox.remove(self.description_label)
+                self._description_label_added = False
 
 
 class NumericListBoxRow(OomoxListBoxRow):
@@ -187,9 +210,6 @@ class BoolListBoxRow(OomoxListBoxRow):
 class OptionsListBoxRow(OomoxListBoxRow):
 
     options = None
-    vbox = None
-    description_label = None
-    _description_label_added = False
 
     def connect_changed_signal(self):
         self.changed_signal = self.value_widget.connect("changed", self.on_dropdown_changed)
@@ -206,16 +226,9 @@ class OptionsListBoxRow(OomoxListBoxRow):
             if value == option['value']:
                 self.value_widget.set_active(option_idx)
                 if 'description' in option:
-                    self.show_description_label()
-                    self.description_label.set_text(option['description'])
+                    self.set_description(option['description'])
                 break
         self.connect_changed_signal()
-
-    def show_description_label(self):
-        if not self._description_label_added:
-            self.vbox.add(self.description_label)
-            self.description_label.show()
-            self._description_label_added = True
 
     def __init__(self, display_name, key, options, callback):
         self.options = options
@@ -233,16 +246,6 @@ class OptionsListBoxRow(OomoxListBoxRow):
             callback=callback,
             value_widget=dropdown
         )
-
-        self.remove(self.hbox)
-        self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.add(self.vbox)
-        self.vbox.add(self.hbox)
-
-        self.description_label = Gtk.Label(xalign=1)
-        self.description_label.set_margin_top(3)
-        self.description_label.set_margin_bottom(7)
-        self.description_label.set_state_flags(Gtk.StateFlags.INSENSITIVE, False)
 
 
 class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
@@ -628,6 +631,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     if theme_value['type'] in ('separator', ):
                         section_box.add_title(row)
                     else:
+                        row.set_description(theme_value.get('description'))
                         section_box.add(row)
 
             self.mainbox.add(section_box)
@@ -660,9 +664,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     if not check_value_filter(theme_value['value_filter'], theme):
                         row.hide()
                         continue
-                if theme_value['type'] in [
-                        'color', 'options', 'bool', 'int', 'float', 'image_path'
-                ]:
+                if theme_value['type'] in (
+                        'color', 'options', 'bool', 'int', 'float', 'image_path',
+                ):
                     row.set_value(theme[key])
                 row.show()
                 rows_displayed_in_section += 1

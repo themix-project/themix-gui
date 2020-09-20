@@ -163,6 +163,7 @@ class Plugin(OomoxThemePlugin):
             ),
             'type': 'color',
             'display_name': _('Border'),
+            'description': _('not supported by GTK+2 theme'),
         },
     ]
 
@@ -172,6 +173,7 @@ class Plugin(OomoxThemePlugin):
             'type': 'bool',
             'fallback_value': True,
             'display_name': _('Enable Theme Transparency'),
+            'description': _('not supported by GTK+2 theme'),
         },
         # {
         #     'key': 'GTK3_GENERATE_DARK',
