@@ -6,7 +6,7 @@ import signal
 import shutil
 import traceback
 
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk, Gio, GLib, Gdk
 
 from .i18n import _
 from .config import USER_COLORS_DIR, SCRIPT_DIR
@@ -129,7 +129,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         return action
 
 
-class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes
+class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods
 
     colorscheme_name = None
     colorscheme_path = None
@@ -152,6 +152,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     preset_list = None
     preview = None
     spinner = None
+    spinner_message = None
+    spinner_revealer = None
 
     _currently_focused_widget = None
     _inhibit_id = None
@@ -345,7 +347,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme = colorscheme
         self._select_theme_plugin()
         self._select_icons_plugin()
-        self.generate_terminal_colors()
+        self.generate_terminal_colors(callback=self._load_colorscheme_callback)
+
+    def _load_colorscheme_callback(self):
         try:
             self.preview.update_preview(
                 colorscheme=self.colorscheme,
@@ -371,12 +375,18 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             error_dialog.run()
             error_dialog.destroy()
 
+    @staticmethod
+    def schedule_task(task, *args):
+        Gdk.threads_add_idle(GLib.PRIORITY_LOW, task, *args)
+
     def on_preset_selected(self, selected_preset, selected_preset_path):
         self.ask_unsaved_changes()
         self.colorscheme_name = selected_preset
         self.colorscheme_path = selected_preset_path
-        self.load_colorscheme(read_colorscheme_from_path(selected_preset_path))
+        read_colorscheme_from_path(selected_preset_path, callback=self._on_preset_selected_callback)
 
+    def _on_preset_selected_callback(self, colorscheme):
+        self.load_colorscheme(colorscheme)
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
         self._unset_save_needed()
@@ -389,8 +399,15 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
         return self.colorscheme
 
-    def generate_terminal_colors(self):
-        self.colorscheme.update(generate_terminal_colors_for_oomox(self.colorscheme))
+    def generate_terminal_colors(self, callback):
+        def _generate_terminal_colors(colors):
+            self.colorscheme.update(colors)
+            callback()
+
+        generate_terminal_colors_for_oomox(
+            self.colorscheme,
+            app=self, result_callback=_generate_terminal_colors,
+        )
 
     def on_color_edited(self, colorscheme):
         self.load_colorscheme(colorscheme)
@@ -400,18 +417,27 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.preset_list.load_presets()
         self.preset_list.focus_preset_by_filepath(self.colorscheme_path)
 
-    def disable(self):
-        self._currently_focused_widget = self.get_focus()
-        self.preset_list.set_sensitive(False)
-        self.theme_edit.set_sensitive(False)
-        Gtk.main_iteration_do(False)
-        self.spinner.start()
+    def disable(self, message=''):
+        def disable_ui_callback():
+            self._currently_focused_widget = self.get_focus()
+            self.spinner_revealer.set_reveal_child(True)
+            self.preset_list.set_sensitive(False)
+            self.theme_edit.set_sensitive(False)
+            Gtk.main_iteration_do(False)
+            self.spinner_message.set_text(message)
+            self.spinner.start()
+
+        GLib.timeout_add(0, disable_ui_callback, priority=GLib.PRIORITY_HIGH)
 
     def enable(self):
-        self.preset_list.set_sensitive(True)
-        self.theme_edit.set_sensitive(True)
-        self.set_focus(self._currently_focused_widget)
-        self.spinner.stop()
+        def enable_ui_callback():
+            self.spinner_revealer.set_reveal_child(False)
+            self.preset_list.set_sensitive(True)
+            self.theme_edit.set_sensitive(True)
+            self.set_focus(self._currently_focused_widget)
+            self.spinner.stop()
+
+        GLib.idle_add(enable_ui_callback, priority=GLib.PRIORITY_LOW)
 
     def show_help(self):
         # @TODO: refactor to use .set_help_overlay() ?
@@ -647,9 +673,22 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         #
 
-        self.spinner = Gtk.Spinner()
-        self.headerbar.pack_end(self.spinner)
         self.set_titlebar(self.headerbar)
+
+    def _init_status_spinner(self):
+        self.spinner = Gtk.Spinner()
+        self.spinner_message = Gtk.Label()
+        revealer_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        revealer_box.add(self.spinner)
+        revealer_box.add(self.spinner_message)
+        revealer_frame = Gtk.Frame()
+        revealer_frame.get_style_context().add_class('app-notification')
+        revealer_frame.add(revealer_box)
+        self.spinner_revealer = Gtk.Revealer()
+        self.spinner_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
+        self.spinner_revealer.set_halign(Gtk.Align.CENTER)
+        self.spinner_revealer.set_valign(Gtk.Align.START)
+        self.spinner_revealer.add(revealer_frame)
 
     def _init_window(self):
         self.set_wmclass("oomox", "Oomox")
@@ -661,9 +700,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
 
         self._init_headerbar()
+        self._init_status_spinner()
 
         self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        self.add(self.box)
+        overlay = Gtk.Overlay()
+        overlay.add(self.box)
+        overlay.add_overlay(self.spinner_revealer)
+        self.add(overlay)
+        # self.add(self.box)
 
         self.paned_box = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL)
         self.paned_box.set_wide_handle(True)
@@ -690,6 +734,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 "export_plugin_{}".format(plugin_name), self._on_export_plugin
             )
 
+    def _init_plugins(self):
+        for plugin in IMPORT_PLUGINS.values():
+            plugin.set_app(self)
+
     def __init__(self, application):
         super().__init__(
             application=application,
@@ -702,6 +750,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         self._init_actions()
         self._init_window()
+        self._init_plugins()
 
         self.preset_list = ThemePresetList(
             preset_select_callback=self.on_preset_selected

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from gi.repository import Gtk, GLib, Gdk
+from gi.repository import Gtk, GLib
 
 from .theme_model import THEME_MODEL, get_theme_options_by_key
 from .palette_cache import PaletteCache
@@ -567,23 +567,6 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         self.open_theme(self.theme)
                     callbacks += [_callback, ]
 
-                if key in [
-                        'TERMINAL_THEME_MODE', 'TERMINAL_THEME_ACCURACY',
-                        'TERMINAL_THEME_EXTEND_PALETTE', 'TERMINAL_BASE_TEMPLATE',
-                        '_PIL_PALETTE_QUALITY', '_PIL_PALETTE_STYLE',
-                ]:
-                    # @TODO: instead of wrapping them by key name create a signal
-                    # and emit it from each slow plugin
-                    def _wrap_slow_callbacks(slow_callbacks):
-                        def _new_cb(key, value):
-                            GLib.timeout_add(0, self.disable, priority=GLib.PRIORITY_HIGH)
-                            for slow_cb in slow_callbacks:
-                                Gdk.threads_add_idle(GLib.PRIORITY_LOW, slow_cb, key, value, )
-                            GLib.idle_add(self.enable, priority=GLib.PRIORITY_LOW)
-                        return _new_cb
-
-                    callbacks = [_wrap_slow_callbacks(callbacks), ]
-
                 def create_callback(_callbacks):
                     def _callback(key, value):
                         for each in _callbacks:
@@ -686,14 +669,6 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self._error_messages_row.hide()
         for section_id in THEME_MODEL:
             self._all_section_boxes[section_id].hide()
-
-    def disable(self):
-        # self.transient_for.disable()
-        pass  # @TODO:
-
-    def enable(self):
-        # self.transient_for.enable()
-        pass  # @TODO:
 
     def __init__(self, color_edited_callback, theme_reload_callback, transient_for):
         self.transient_for = transient_for

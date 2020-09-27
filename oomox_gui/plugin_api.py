@@ -10,7 +10,7 @@ if sys.version_info.minor >= 5:
     from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
     if TYPE_CHECKING:
         # pylint: disable=ungrouped-imports
-        from typing import List, Dict, Any, Iterable, Optional, Union  # noqa
+        from typing import List, Dict, Any, Iterable, Optional, Union, Callable  # noqa
 
         from .export_common import ExportDialog  # noqa
         from .preview import ThemePreview  # noqa
@@ -116,6 +116,8 @@ class OomoxExportPlugin(OomoxPlugin):
 
 class OomoxImportPlugin(OomoxPlugin):
 
+    is_async = False
+
     @abstractmethod
     def read_colorscheme_from_path(self, preset_path: str) -> 'ColorScheme':
         pass
@@ -138,3 +140,26 @@ class OomoxImportPlugin(OomoxPlugin):
         return os.path.abspath(
             os.path.join(USER_COLORS_DIR, PLUGIN_PATH_PREFIX + self.name)
         )
+
+    # ############ @TODO: figure that out: ?
+
+    _app = None
+
+    @classmethod
+    def set_app(cls, app):
+        cls._app = app
+
+    @classmethod
+    def get_app(cls):
+        return cls._app
+
+
+class OomoxImportPluginAsync(OomoxImportPlugin):
+
+    is_async = True
+
+    @abstractmethod
+    def read_colorscheme_from_path(  # type: ignore[override] #  pylint: disable=arguments-differ
+            self, preset_path: str, callback: 'Callable[[ColorScheme,], None]'
+    ) -> None:
+        pass

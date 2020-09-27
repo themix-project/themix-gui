@@ -12,7 +12,6 @@ from .config import USER_EXPORT_CONFIG_DIR
 from .settings import CommonOomoxConfig
 from .theme_file import save_colorscheme
 from .terminal import (
-    generate_terminal_colors_for_oomox,
     generate_xrdb_theme_from_oomox,
     generate_xresources
 )
@@ -187,7 +186,12 @@ class FileBasedExportDialog(ExportDialog):
     def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
         super().__init__(transient_for=transient_for, **kwargs)
         self.theme_name = 'oomox-' + theme_name.split('/')[-1]
-        self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
+
+        # @TODO: make sure it doesn't break things:
+        self.colorscheme = colorscheme
+        # from .terminal import generate_terminal_colors_for_oomox
+        # self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
+
         self.temp_theme_path = save_colorscheme(
             preset_name=theme_name,
             colorscheme=self.colorscheme,

@@ -5,7 +5,7 @@ import gc
 from multiprocessing.pool import Pool
 from time import time
 
-from oomox_gui.plugin_api import OomoxImportPlugin
+from oomox_gui.plugin_api import OomoxImportPluginAsync
 from oomox_gui.config import TERMINAL_TEMPLATE_DIR
 from oomox_gui.color import (
     hex_to_int, color_list_from_hex, color_hex_from_list, int_list_from_hex,
@@ -51,7 +51,7 @@ def get_gray_colors(palette):
     return gray_colors
 
 
-class Plugin(OomoxImportPlugin):
+class Plugin(OomoxImportPluginAsync):
 
     name = 'import_pil'
     display_name = _('Image colors')
@@ -323,15 +323,6 @@ class Plugin(OomoxImportPlugin):
     _palette_cache = {}
 
     @classmethod
-    def get_image_palette(cls, image_path, quality, use_whole_palette):
-        _id = image_path+str(quality)+str(use_whole_palette)
-        if not cls._palette_cache.get(_id):
-            cls._palette_cache[_id] = image_analyzer.get_hex_palette(
-                image_path, quality=quality, use_whole_palette=use_whole_palette
-            )
-        return cls._palette_cache[_id]
-
-    @classmethod
     def _get_haishoku_palette(cls, image_path):
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error
         palette = Haishoku.getPalette(image_path)
@@ -402,14 +393,22 @@ class Plugin(OomoxImportPlugin):
             pool.join()
         return hex_palette
 
-    def read_colorscheme_from_path(self, preset_path):
+    def read_colorscheme_from_path(self, preset_path, callback):
         from oomox_gui.theme_model import get_first_theme_option
 
         get_first_theme_option('_PIL_IMAGE_PREVIEW')['fallback_value'] = preset_path
-        image_palette = self.generate_terminal_palette(
+
+        def _callback(image_palette):
+            self.read_colorscheme_from_path_callback(image_palette, callback)
+
+        self.generate_terminal_palette(
             get_first_theme_option('_PIL_PALETTE_STYLE').get('fallback_value'),
-            preset_path
+            preset_path,
+            result_callback=_callback,
         )
+
+    def read_colorscheme_from_path_callback(self, image_palette, callback):
+        from oomox_gui.theme_model import get_first_theme_option
         theme_template = get_first_theme_option(
             '_PIL_THEME_TEMPLATE', {}
         ).get('fallback_value')
@@ -425,14 +424,39 @@ class Plugin(OomoxImportPlugin):
         for oomox_key, image_palette_key in translation.items():
             if image_palette_key in image_palette:
                 oomox_theme[oomox_key] = image_palette[image_palette_key]
-        return oomox_theme
+        callback(oomox_theme)
+
+    @staticmethod
+    def _generate_palette_id(image_path, quality, use_whole_palette):
+        return image_path+str(quality)+str(use_whole_palette)
 
     @classmethod
-    def _generate_terminal_palette(  # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
-            cls, template_path, image_path, quality, use_whole_palette, inverse_palette
+    def _generate_terminal_palette(  # noqa  pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
+            cls, template_path, image_path, quality, use_whole_palette, inverse_palette,
+            result_callback,
     ):
         start_time = time()
+        _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
+        hex_palette = cls._palette_cache.get(_id)
+        if hex_palette:
+            cls._generate_terminal_palette_callback(
+                hex_palette, template_path, inverse_palette, result_callback
+            )
+        else:
+            _app = cls.get_app()
+            _app.disable(_('Extracting palette from image…'))
+            _app.schedule_task(
+                cls._generate_terminal_palette_task,
+                template_path, image_path, quality, use_whole_palette, inverse_palette,
+                start_time, result_callback,
+            )
+            _app.enable()
 
+    @classmethod
+    def _generate_terminal_palette_task(  # noqa  pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
+            cls, template_path, image_path, quality, use_whole_palette, inverse_palette,
+            start_time, result_callback,
+    ):
         if str(quality).startswith('colorz'):
             hex_palette = cls._get_colorz_lib_palette(
                 image_path, color_count=int(quality.split('colorz')[1])
@@ -456,12 +480,23 @@ class Plugin(OomoxImportPlugin):
                 quality_per_plugin=quality_per_plugin
             )
         else:
-            hex_palette = cls.get_image_palette(image_path, int(quality), use_whole_palette)[:]
-
+            hex_palette = image_analyzer.get_hex_palette(
+                image_path, quality=quality, use_whole_palette=use_whole_palette
+            )[:]
         print("{} quality, {} colors found, took {:.8f}s".format(
             quality, len(hex_palette), (time() - start_time)
         ))
+        _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
+        cls._palette_cache[_id] = hex_palette
+        cls._generate_terminal_palette_callback(
+            hex_palette, template_path, inverse_palette, result_callback
+        )
 
+    @classmethod
+    def _generate_terminal_palette_callback(  # noqa  pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
+            cls, hex_palette, template_path, inverse_palette,
+            result_callback,
+    ):
         gray_colors = get_gray_colors(hex_palette)
         bright_colors = set(hex_palette)
         bright_colors.difference_update(gray_colors)
@@ -499,10 +534,13 @@ class Plugin(OomoxImportPlugin):
             result_palette[key] = closest_color
 
         gc.collect()
-        return result_palette
+        result_callback(result_palette)
 
     @classmethod
-    def generate_terminal_palette(cls, template_path, image_path):
+    def generate_terminal_palette(  # pylint: disable=too-many-arguments
+            cls, template_path, image_path,
+            result_callback,
+    ):
         from oomox_gui.theme_model import get_first_theme_option
         quality = get_first_theme_option('_PIL_PALETTE_QUALITY', {}).get('fallback_value')
         use_whole_palette = bool(
@@ -512,10 +550,21 @@ class Plugin(OomoxImportPlugin):
             get_first_theme_option('_PIL_PALETTE_INVERSE', {}).get('fallback_value')
         )
         _id = template_path+image_path+str(quality)+str(use_whole_palette)+str(inverse_palette)
+
+        def _result_callback(generated_palette):
+            cls._terminal_palette_cache[_id] = generated_palette
+            palette = {}
+            palette.update(cls._terminal_palette_cache[_id])
+            result_callback(palette)
+
         if not cls._terminal_palette_cache.get(_id):
-            cls._terminal_palette_cache[_id] = cls._generate_terminal_palette(
-                template_path, image_path, quality, use_whole_palette, inverse_palette
+            _app = cls.get_app()
+            _app.disable(_('Generating terminal palette…'))
+            _app.schedule_task(
+                cls._generate_terminal_palette,
+                template_path, image_path, quality, use_whole_palette, inverse_palette,
+                _result_callback
             )
-        palette = {}
-        palette.update(cls._terminal_palette_cache[_id])
-        return palette
+            _app.enable()
+        else:
+            _result_callback(cls._terminal_palette_cache[_id])

@@ -55,21 +55,7 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
     return result_value
 
 
-def read_colorscheme_from_path(preset_path):
-    preset_path = os.path.abspath(preset_path)
-    colorscheme = {}
-    from_plugin = None
-
-    for plugin_name, plugin in IMPORT_PLUGINS.items():
-        if preset_path.startswith(plugin.user_theme_dir) or (
-                plugin.plugin_theme_dir and (
-                    preset_path.startswith(plugin.plugin_theme_dir)
-                )
-        ):
-            colorscheme = plugin.read_colorscheme_from_path(preset_path)
-            from_plugin = plugin_name
-            break
-
+def _set_fallback_values(preset_path, colorscheme, from_plugin):
     if not colorscheme:
         theme_keys = [
             item['key']
@@ -99,4 +85,27 @@ def read_colorscheme_from_path(preset_path):
     if from_plugin:
         colorscheme['FROM_PLUGIN'] = from_plugin
 
-    return colorscheme
+
+def read_colorscheme_from_path(preset_path, callback=None):
+    preset_path = os.path.abspath(preset_path)
+    colorscheme = {}
+    from_plugin = None
+
+    for plugin_name, plugin in IMPORT_PLUGINS.items():
+        if preset_path.startswith(plugin.user_theme_dir) or (
+                plugin.plugin_theme_dir and (
+                    preset_path.startswith(plugin.plugin_theme_dir)
+                )
+        ):
+            from_plugin = plugin_name
+            if plugin.is_async:
+                def actual_callback(_colorscheme):
+                    _set_fallback_values(preset_path, _colorscheme, from_plugin)
+                    callback(_colorscheme)
+                plugin.read_colorscheme_from_path(preset_path, callback=actual_callback)
+                return
+            colorscheme = plugin.read_colorscheme_from_path(preset_path)
+            break
+
+    _set_fallback_values(preset_path, colorscheme, from_plugin)
+    callback(colorscheme)
