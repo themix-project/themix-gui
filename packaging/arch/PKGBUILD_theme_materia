@@ -33,9 +33,9 @@ depends=(
 	'parallel'
 	'optipng'
 
-	'resvg'
+	'inkscape'
 	## or
-	#'inkscape'
+	#'resvg'
 )
 makedepends=(
        'git'
