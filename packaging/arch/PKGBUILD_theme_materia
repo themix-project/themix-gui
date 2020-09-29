@@ -29,7 +29,6 @@ depends=(
 	'sed'
 	'findutils'
 	'grep'
-	'bc'
 	'parallel'
 	'optipng'
 
