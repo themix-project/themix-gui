@@ -47,10 +47,11 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
     def set_value(self, value):
         pass
 
-    def __init__(self, display_name, key, callback, value_widget):
+    def __init__(self, display_name, key, callback, value_widget, colors_list):
         super().__init__(activatable=False)
 
         self.callback = callback
+        self.colors_list = colors_list
         self.key = key
 
         self.hbox = Gtk.Box(
@@ -106,11 +107,12 @@ class NumericListBoxRow(OomoxListBoxRow):
             self,
             display_name, key,
             callback,
+            colors_list,
             init_value,
             min_value, max_value,
             step_increment,
             page_increment,
-            page_size
+            page_size,
     ):
 
         adjustment = Gtk.Adjustment(
@@ -131,7 +133,8 @@ class NumericListBoxRow(OomoxListBoxRow):
             display_name=display_name,
             key=key,
             callback=callback,
-            value_widget=spinbutton
+            value_widget=spinbutton,
+            colors_list=colors_list
         )
 
 
@@ -142,14 +145,17 @@ class FloatListBoxRow(NumericListBoxRow):
         self.value = int(raw_value*100)/100  # limit float to 2 digits
         GLib.idle_add(self.callback, self.key, self.value)
 
-    def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
-                 min_value=None, max_value=None):
+    def __init__(
+            self, display_name, key, callback, colors_list,
+            min_value=None, max_value=None
+    ):
         min_value = min_value or 0.0
         max_value = max_value or 10.0
         super().__init__(
             display_name=display_name,
             key=key,
             callback=callback,
+            colors_list=colors_list,
             init_value=0.0,
             min_value=min_value,
             max_value=max_value,
@@ -166,14 +172,17 @@ class IntListBoxRow(NumericListBoxRow):
         self.value = widget.get_value_as_int()
         GLib.idle_add(self.callback, self.key, self.value)
 
-    def __init__(self, display_name, key, callback,  # pylint: disable=too-many-arguments
-                 min_value=None, max_value=None):
+    def __init__(
+            self, display_name, key, callback, colors_list,
+            min_value=None, max_value=None
+    ):
         min_value = min_value or 0
         max_value = max_value or 20
         super().__init__(
             display_name=display_name,
             key=key,
             callback=callback,
+            colors_list=colors_list,
             init_value=0,
             min_value=min_value,
             max_value=max_value,
@@ -198,12 +207,13 @@ class BoolListBoxRow(OomoxListBoxRow):
         self.value = switch.get_active()
         GLib.idle_add(self.callback, self.key, self.value)
 
-    def __init__(self, display_name, key, callback):
+    def __init__(self, display_name, key, callback, colors_list):
         super().__init__(
             display_name=display_name,
             key=key,
             callback=callback,
-            value_widget=Gtk.Switch()
+            colors_list=colors_list,
+            value_widget=Gtk.Switch(),
         )
 
 
@@ -230,7 +240,7 @@ class OptionsListBoxRow(OomoxListBoxRow):
                 break
         self.connect_changed_signal()
 
-    def __init__(self, display_name, key, options, callback):
+    def __init__(self, display_name, key, options, callback, colors_list):
         self.options = options
         options_store = Gtk.ListStore(str)
         for option in self.options:
@@ -244,6 +254,7 @@ class OptionsListBoxRow(OomoxListBoxRow):
             display_name=display_name,
             key=key,
             callback=callback,
+            colors_list=colors_list,
             value_widget=dropdown
         )
 
@@ -325,7 +336,7 @@ class OomoxColorButton(Gtk.Button):
         self.connect("clicked", self.on_click)
 
 
-class OomoxLinkedDropdown(Gtk.MenuButton):
+class ColorDropdown(Gtk.MenuButton):
 
     drop_down = None
 
@@ -346,40 +357,20 @@ class OomoxLinkedDropdown(Gtk.MenuButton):
     def replace_all_instances(self, _menu_item):  # pylint:disable=unused-argument
 
         color_selection_dialog = OomoxColorSelectionDialog(
-            self.transient_for, self.get_fuzzy_sibling(OomoxColorButton).gtk_color
+            self.transient_for, self.colorbox.color_button.gtk_color
         )
         color_selection_dialog.run()
         new_color = color_selection_dialog.gtk_color
         if new_color:
-            new_color.string = convert_gdk_to_theme_color(new_color)
-            old_color = self.get_fuzzy_sibling(OomoxColorButton).gtk_color
-            old_color.string = convert_gdk_to_theme_color(old_color)
+            new_color_string = convert_gdk_to_theme_color(new_color)
+            old_color = self.colorbox.color_button.gtk_color
+            old_color_string = convert_gdk_to_theme_color(old_color)
+            self.colorbox.colors_list.replace_all(old_color_string, new_color_string)
 
-            cousins = self.get_fuzzy_ancestor(Gtk.ListBox).get_children()
-            for lbr in cousins:
-                if isinstance(lbr, ColorListBoxRow) and lbr.color_button.gtk_color is not None:
-                    if convert_gdk_to_theme_color(lbr.color_button.gtk_color) == old_color.string:
-                        lbr.set_value(new_color.string, connected=True)
-
-    def get_fuzzy_ancestor(self, desired_class):
-        potential_ancestor = self.get_parent()
-        while not isinstance(potential_ancestor, desired_class):
-            potential_ancestor = potential_ancestor.get_parent()
-            if isinstance(potential_ancestor, Gtk.Application):
-                break
-        else:
-            return potential_ancestor
-
-    def get_fuzzy_sibling(self, desired_class):
-        potential_siblings = self.get_parent().get_children()
-        for potential_sibling in potential_siblings:
-            if isinstance(potential_sibling, desired_class):
-                return potential_sibling
-        return None
-
-    def __init__(self, transient_for):
+    def __init__(self, transient_for, colorbox):
         super().__init__()
         self.transient_for = transient_for
+        self.colorbox = colorbox
         self.set_popup(self.build_dropdown_menu())
 
 
@@ -408,9 +399,8 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.value = convert_gdk_to_theme_color(gtk_value)
         self.color_entry.set_text(self.value)
 
-    def set_value(self, value, connected=False):  # pylint: disable=arguments-differ
-        if connected is False:
-            self.disconnect_changed_signal()
+    def set_value(self, value):
+        self.disconnect_changed_signal()
         self.value = value
         if value:
             self.color_entry.set_text(self.value)
@@ -418,10 +408,9 @@ class ColorListBoxRow(OomoxListBoxRow):
         else:
             self.color_entry.set_text(_('<N/A>'))
             self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
-        if connected is False:
-            self.connect_changed_signal()
+        self.connect_changed_signal()
 
-    def __init__(self, display_name, key, callback, transient_for):
+    def __init__(self, display_name, key, callback, transient_for, colors_list):
         self.color_button = OomoxColorButton(
             transient_for=transient_for,
             callback=self.on_color_set
@@ -429,7 +418,7 @@ class ColorListBoxRow(OomoxListBoxRow):
         self.color_entry = Gtk.Entry(
             text=_('<none>'), width_chars=6, max_length=6
         )
-        self.menu_button = OomoxLinkedDropdown(transient_for)
+        self.menu_button = ColorDropdown(transient_for, self)
         self.color_entry.get_style_context().add_class(Gtk.STYLE_CLASS_MONOSPACE)
         linked_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         Gtk.StyleContext.add_class(
@@ -442,6 +431,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             display_name=display_name,
             key=key,
             callback=callback,
+            colors_list=colors_list,
             value_widget=linked_box
         )
 
@@ -453,7 +443,7 @@ class ImagePathListBoxRow(OomoxListBoxRow):
             img_bytes = image_file.read()
             self.value_widget.set_from_bytes(img_bytes)
 
-    def __init__(self, display_name, key, callback):
+    def __init__(self, display_name, key, callback, colors_list):
 
         image = ScaledImage(width=120)
 
@@ -461,12 +451,12 @@ class ImagePathListBoxRow(OomoxListBoxRow):
             display_name=display_name,
             key=key,
             callback=callback,
+            colors_list=colors_list,
             value_widget=image
         )
 
 
-# class SeparatorListBoxRow(Gtk.ListBoxRow):
-class SeparatorListBoxRow(Gtk.Box):
+class SectionHeader(Gtk.Box):
 
     def set_markup(self, markup):
         self.label.set_markup("<b>{}</b>".format(markup))
@@ -540,7 +530,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.color_edited_callback(self.theme)
 
     def build_theme_model_rows(self):  # pylint: disable=too-many-branches
-        self._error_messages_row = SeparatorListBoxRow()
+        self._error_messages_row = SectionHeader()
         self.mainbox.add(self._error_messages_row)
         self._all_rows = {}
         self._all_section_boxes = {}
@@ -575,39 +565,46 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     return _callback
 
                 callback = create_callback(callbacks)
+                standard_kwargs = dict(colors_list=self, callback=callback)
 
                 if theme_value['type'] == 'color':
                     row = ColorListBoxRow(
                         display_name, key,
-                        callback=callback,
-                        transient_for=self.transient_for
+                        transient_for=self.transient_for,
+                        **standard_kwargs
                     )
                 elif theme_value['type'] == 'bool':
                     row = BoolListBoxRow(
-                        display_name, key, callback=callback
+                        display_name, key,
+                        **standard_kwargs
                     )
                 elif theme_value['type'] == 'int':
                     row = IntListBoxRow(
-                        display_name, key, callback=callback,
+                        display_name, key,
                         min_value=theme_value.get('min_value'),
-                        max_value=theme_value.get('max_value')
+                        max_value=theme_value.get('max_value'),
+                        **standard_kwargs
                     )
                 elif theme_value['type'] == 'float':
                     row = FloatListBoxRow(
-                        display_name, key, callback=callback,
+                        display_name, key,
                         min_value=theme_value.get('min_value'),
-                        max_value=theme_value.get('max_value')
+                        max_value=theme_value.get('max_value'),
+                        **standard_kwargs
                     )
                 elif theme_value['type'] == 'separator':
-                    row = SeparatorListBoxRow(display_name)
+                    row = SectionHeader(display_name)
                 elif theme_value['type'] == 'image_path':
-                    row = ImagePathListBoxRow(display_name, key, callback)
+                    row = ImagePathListBoxRow(
+                        display_name, key,
+                        **standard_kwargs
+                    )
                 elif theme_value['type'] == 'options':
                     row = OptionsListBoxRow(
                         key=key,
                         display_name=display_name,
                         options=theme_value['options'],
-                        callback=callback
+                        **standard_kwargs
                     )
                 if row:
                     self._all_rows.setdefault(section_id, {})[option_idx] = row
@@ -669,6 +666,16 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self._error_messages_row.hide()
         for section_id in THEME_MODEL:
             self._all_section_boxes[section_id].hide()
+
+    def replace_all(self, old_value, new_value):
+        for section_rows in self._all_rows.values():
+            for row in section_rows.values():
+                if (
+                        isinstance(row, OomoxListBoxRow) and
+                        row.value == old_value
+                ):
+                    row.set_value(new_value)
+                    row.callback(row.key, row.value)
 
     def __init__(self, color_edited_callback, theme_reload_callback, transient_for):
         self.transient_for = transient_for
