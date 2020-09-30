@@ -216,14 +216,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def import_themix_colors(self):
         self.ask_unsaved_changes()
 
-        filechooser_dialog = Gtk.FileChooserDialog(
+        filechooser_dialog = Gtk.FileChooserNative.new(
             _("Please choose a file with oomox colors"),
             self,
-            Gtk.FileChooserAction.OPEN,
-            (
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN, Gtk.ResponseType.OK
-            )
+            Gtk.FileChooserAction.OPEN
         )
         filechooser_response = filechooser_dialog.run()
         if filechooser_response in (
@@ -249,14 +245,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def import_from_plugin(self, plugin):
         self.ask_unsaved_changes()
-        filechooser_dialog = Gtk.FileChooserDialog(
+        filechooser_dialog = Gtk.FileChooserNative.new(
             _("Please choose an image file"),
             self,
-            Gtk.FileChooserAction.OPEN,
-            (
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OPEN, Gtk.ResponseType.OK
-            )
+            Gtk.FileChooserAction.OPEN
         )
         filechooser_response = filechooser_dialog.run()
         if filechooser_response in (
