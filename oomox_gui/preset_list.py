@@ -88,10 +88,10 @@ class ThemePresetList(Gtk.ScrolledWindow):
             self.treestore, filepath
         )
         if treepath:
-            treepathcopy = treepath.copy()
-            while treepath.up():
-                self.treeview.expand_row(treepath, False)
-            self.treeview.set_cursor(treepathcopy)
+            self.treeview.expand_to_path(treepath)
+            self.treeview.set_cursor(treepath)
+            return True
+        return False
 
     def focus_first_available(self):
         init_iter = self.treestore.get_iter_first()
