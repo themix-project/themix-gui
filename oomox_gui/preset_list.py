@@ -88,8 +88,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             self.treestore, filepath
         )
         if treepath:
-            self.treeview.expand_to_path(treepath)
-            self.treeview.set_cursor(treepath)
+            self._focus_preset_by_treepath(treepath)
             return True
         return False
 
@@ -114,14 +113,27 @@ class ThemePresetList(Gtk.ScrolledWindow):
             "cursor_changed", self._on_preset_select
         )
 
-    def reload_presets(self):
-        selected_path = self.get_preset_path()
+    def reload_presets(self, focus_on_theme=None):
+        old_treepath = self._get_current_treepath()
+        focus_on_theme = focus_on_theme or self.get_preset_path()
         self.load_presets()
-        self.focus_preset_by_filepath(selected_path)
+        if not self.focus_preset_by_filepath(focus_on_theme):
+            self._focus_preset_by_treepath(old_treepath)
 
     ###########################################################################
     # Private methods:
     ###########################################################################
+
+    def _focus_preset_by_treepath(self, treepath):
+        path_found = False
+        while not path_found:
+            try:
+                self.treestore.get_iter(treepath)
+                path_found = True
+            except ValueError:
+                treepath.prev()
+        self.treeview.expand_to_path(treepath)
+        self.treeview.set_cursor(treepath)
 
     def _get_current_treepath(self):
         return self.treeview.get_cursor()[0]

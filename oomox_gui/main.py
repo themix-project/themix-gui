@@ -406,8 +406,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self._set_save_needed()
 
     def reload_presets(self):
-        self.preset_list.load_presets()
-        self.preset_list.focus_preset_by_filepath(self.colorscheme_path)
+        self.preset_list.reload_presets(self.colorscheme_path)
 
     def disable(self, message=''):
         def disable_ui_callback():
