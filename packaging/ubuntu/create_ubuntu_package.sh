@@ -18,7 +18,7 @@ cp "${srcdir}"/packaging/ubuntu/prerm    "${pkgdir}"/DEBIAN
 cp "${srcdir}"/packaging/ubuntu/"${control_file}" "${pkgdir}"/DEBIAN/control
 
 cd "${srcdir}"
-make DESTDIR="${pkgdir}" install
+make DESTDIR="${pkgdir}" install install_theme_arc
 
 cd "${pkgdir}"
 fakeroot dpkg-deb --build . oomox.deb

@@ -128,7 +128,7 @@ package() {
 	_oomox_gui_dir=${_oomox_dir}/oomox_gui
 
 	cd "${srcdir}/oomox"
-	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install
+	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install install_theme_arc
 	python -O -m compileall ${pkgdir}${_oomox_gui_dir} -d ${_oomox_gui_dir}
 }
 
