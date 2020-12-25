@@ -4,7 +4,7 @@
 _pkgname=themix-icons-papirus
 _reponame=papirus-icon-theme
 pkgname="${_pkgname}-git"
-pkgver=20200301.r25.g28c50b9640
+pkgver=20201201.r114.g9d01df775c
 pkgrel=1
 pkgdesc="Papirus icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
