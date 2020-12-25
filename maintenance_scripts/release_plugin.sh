@@ -59,7 +59,7 @@ if [[ "${answer}" = "y" ]] ; then
 		git add "$pkgbuild_path"
 	fi
 	git add "$plugin_dir_path"
-	git commit -m "chore(plugins: ${plugin_name}): update submodule (${release_msg})"
+	git commit -m "chore(plugins: ${plugin_name}; packaging: arch): update submodule (${release_msg})"
 	git push origin HEAD
 fi
 
