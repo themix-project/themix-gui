@@ -17,6 +17,7 @@ md5sums=('SKIP')
 depends=(
 	'gtk3'
 	'python-gobject'
+	'python-cairo'
 )
 makedepends=(
 	'git'
