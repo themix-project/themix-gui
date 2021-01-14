@@ -46,6 +46,7 @@ md5sums=(
 depends=(
 	'gtk3'
 	'python-gobject'
+	'python-cairo'
 	'glib2'  # oomox, materia, arc
 	'gdk-pixbuf2'  # oomox, materia, arc
 	'gtk-engine-murrine'  # oomox, materia, arc
