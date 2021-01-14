@@ -1,7 +1,7 @@
 {
     "app-id": "com.github.themix_project.Oomox",
     "runtime": "org.gnome.Sdk",
-    "runtime-version": "3.36",
+    "runtime-version": "3.38",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "oomox-gui",
