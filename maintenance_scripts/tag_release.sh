@@ -10,7 +10,7 @@ aur_dev_repo_root=~/build/
 if [[ $(git status --porcelain 2>/dev/null| grep -c "^ [MD]") -gt 0 ]] ; then
 	echo
 	echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	echo "!!    You have uncommited changes:    !!"
+	echo "!!    You have uncommitted changes:    !!"
 	echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 	echo
 	git status
