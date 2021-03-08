@@ -7,7 +7,6 @@ Graphical application for generating different color variations of Oomox (Numix-
 
 <a href="https://aur.archlinux.org/packages/themix-full-git"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_aur.png" height="54"></a>
 <a href="#debian-ubuntu-linux-mint"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_deb.png" height="54"></a>
-<a href="https://copr.fedorainfracloud.org/coprs/tcg/themes/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_copr.png" height="54"></a>
 <a href="https://slackbuilds.org/repository/14.2/desktop/oomox/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_slackware.png" height="54"></a>
 <a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" height="54"></a>
 
@@ -48,16 +47,6 @@ AUR helpers are [not officially supported](https://wiki.archlinux.org/index.php/
 
 ```
 oomox-gui
-```
-
-
-
-### CentOS, Fedora, Mageia
-
-Oomox can be installed by using a third party COPR repository:
-```bash
-sudo dnf copr enable tcg/themes
-sudo dnf install oomox
 ```
 
 
