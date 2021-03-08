@@ -1,4 +1,5 @@
-language: minimal
+dist: bionic
+sudo: required
 env:
   matrix:
     - PYVER=python36_ubuntu_1804 SKIP_SHELLCHECK=1 SKIP_MYPY=1 SKIP_VULTURE=1
