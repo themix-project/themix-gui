@@ -12,7 +12,7 @@ class ActionProperty(str):
     name = None  # type: str
 
     def __new__(cls, name: str, target: str) -> 'ActionProperty':
-        obj = str.__new__(cls, name)  # type: ignore
+        obj = str.__new__(cls, name)
         obj.name = name
         obj.target = target
         return obj
