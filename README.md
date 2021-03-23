@@ -113,6 +113,7 @@ Materia theme:
  - `gtk2-engine-murrine`
  - `resvg` or `inkscape`
  - `parallel`
+ - `meson`
 
 Gnome-Colors icons:
  - `bc`

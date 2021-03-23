@@ -62,6 +62,7 @@ depends=(
 	'polkit'  # oomoxify
 	'imagemagick'  # gnome-colors
 	'parallel'  # materia
+	'meson'  # materia
 	'optipng'  # materia, arc
 	'python-pillow'  # import_pil
 	'python-pystache'  #  base16_format

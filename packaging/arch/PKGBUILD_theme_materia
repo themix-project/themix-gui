@@ -30,6 +30,7 @@ depends=(
 	'findutils'
 	'grep'
 	'parallel'
+	'meson'
 	'optipng'
 
 	'inkscape'
