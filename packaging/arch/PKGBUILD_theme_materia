@@ -4,10 +4,10 @@
 _pkgname=themix-theme-materia
 _reponame=materia-theme
 pkgname="${_pkgname}-git"
-pkgver=20210322.r3.g62b22653
+pkgver=20210322.r6.g822e77e6
 pkgrel=1
 pkgdesc="Materia theme plugin
- (GTK2, GTK3, Cinnamon, GNOME, Metacity, Unity, Xfwm) for Themix GUI designer.
+ (GTK2, GTK3, GTK4, Cinnamon, GNOME, Metacity, Unity, Xfwm) for Themix GUI designer.
  Have a hack for HiDPI in GTK2."
 arch=('x86_64' 'i686')
 url="https://github.com/nana-4/materia-theme"
