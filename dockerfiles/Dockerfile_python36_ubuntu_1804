@@ -8,3 +8,5 @@ RUN pip3 install setuptools && \
     pip3 install pylint flake8
 
 COPY . /opt/oomox-build/
+
+# vim: set ft=dockerfile:
