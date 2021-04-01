@@ -1,7 +1,7 @@
 Themix GUI theme designer
 =====
 
-[![Build Status](https://travis-ci.com/themix-project/oomox.svg?branch=master)](https://travis-ci.org/themix-project/oomox)
+[![Code Style](https://github.com/themix-project/oomox/actions/workflows/ci.yml/badge.svg)](https://github.com/themix-project/oomox/actions/workflows/ci.yml)
 
 Graphical application for generating different color variations of Oomox (Numix-based) and Materia (ex-Flat-Plat) themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Archdroid, Gnome-Color, Numix, Papirus and Suru++ icon themes. Have a hack for HiDPI in gtk2.
 
