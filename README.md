@@ -1,4 +1,4 @@
-Themix GUI theme designer
+Themix GUI designer
 =====
 
 [![Code Style](https://github.com/themix-project/oomox/actions/workflows/ci.yml/badge.svg)](https://github.com/themix-project/oomox/actions/workflows/ci.yml)
