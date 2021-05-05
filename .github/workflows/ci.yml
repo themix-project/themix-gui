@@ -41,7 +41,7 @@ jobs:
       run: mv ./dockerfiles/* ./
 
     - name: switch base docker image
-      run: sed -i -e 's|FROM archlinux/base|FROM actionless/pikaur|' Dockerfile_${PYVER}
+      run: sed -i -e 's|FROM archlinux:base-devel|FROM actionless/pikaur|' Dockerfile_${PYVER}
 
     - name: build docker image
       run: docker build . -f Dockerfile_${PYVER} -t oomox

@@ -1,4 +1,4 @@
-FROM archlinux/base
+FROM archlinux:base-devel
 WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
