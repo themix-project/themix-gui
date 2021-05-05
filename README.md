@@ -88,8 +88,9 @@ For older releases install the dependencies manually and next follow general ins
 #### Prerequisites
 
 For GUI app itself:
- - `python3-gobject`
+ - `python3>=3.6`
  - `gtk3>=3.18`
+ - `python3-gobject`
  - `gdk-pixbuf2`
 
 ##### For plugins:
