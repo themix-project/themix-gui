@@ -58,6 +58,7 @@ package() {
 
 	cd "$pkg_tmp_dir"
 	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" "install_${_plugin_name}"
+  cd "$pkgdir"
 	rm -fr "$pkg_tmp_dir"
 
 	python -O -m compileall "${pkgdir}${_oomox_dir}/plugins/${_plugin_name}" -d "${_oomox_dir}/plugins/${_plugin_name}"
