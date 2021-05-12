@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 filter="cat"
 if [[ "${1:-}" = '-c' ]] ; then
