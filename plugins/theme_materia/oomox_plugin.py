@@ -17,7 +17,9 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
     timeout = 1000
 
     def do_export(self):
-        export_path = self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+        export_path = os.path.expanduser(
+            self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+        )
         new_destination_dir, theme_name = export_path.rsplit('/', 1)
         self.command = [
             "bash",

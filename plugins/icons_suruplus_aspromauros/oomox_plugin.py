@@ -20,7 +20,9 @@ class SuruPlusIconsExportDialog(ExportDialogWithOptions):
     config_name = 'icons_suruplus_aspromauros'
 
     def do_export(self):
-        export_path = self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+        export_path = os.path.expanduser(
+            self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+        )
 
         self.command = [
             "bash",
