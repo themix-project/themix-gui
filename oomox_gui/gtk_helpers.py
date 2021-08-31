@@ -1,4 +1,4 @@
-from abc import ABCMeta, abstractproperty
+from abc import ABCMeta, abstractmethod
 
 from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 from gi.types import GObjectMeta
@@ -31,7 +31,8 @@ class ActionsABC(ABCMeta):
 
 class ActionsEnum(metaclass=ActionsABC):
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def _target(self) -> str:
         pass
 

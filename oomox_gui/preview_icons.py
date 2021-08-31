@@ -4,6 +4,7 @@ from enum import Enum
 from gi.repository import Gtk
 
 from .gtk_helpers import ScaledImage
+from .config import DEFAULT_ENCODING
 
 
 class IconsNames(Enum):
@@ -60,4 +61,4 @@ class IconThemePreview(Gtk.ListBox):
                         theme_plugin.preview_svg_dir, template_path
                     ), "rb"
             ) as file_object:
-                self.icons_templates[icon.name] = file_object.read().decode('utf-8')
+                self.icons_templates[icon.name] = file_object.read().decode(DEFAULT_ENCODING)

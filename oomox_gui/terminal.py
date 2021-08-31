@@ -5,7 +5,7 @@ import re
 import shutil
 
 from .i18n import _
-from .config import TERMINAL_TEMPLATE_DIR
+from .config import TERMINAL_TEMPLATE_DIR, DEFAULT_ENCODING
 from .color import (
     SMALLEST_DIFF, ColorDiff, is_dark,
     hex_to_int, color_list_from_hex, color_hex_from_list, hex_darker,
@@ -55,7 +55,7 @@ VALID_COLOR_CHARS = [
 
 def import_xcolors(path):
     hex_colors = {}
-    with open(os.path.expanduser(path)) as file_object:
+    with open(os.path.expanduser(path), encoding=DEFAULT_ENCODING) as file_object:
         for line in file_object.read().split('\n'):
             if line.strip().startswith('!'):
                 continue

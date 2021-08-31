@@ -1,6 +1,6 @@
 import os
 import sys
-from abc import ABCMeta, abstractproperty, abstractmethod
+from abc import ABCMeta, abstractmethod
 from enum import Enum
 
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
@@ -25,26 +25,31 @@ PLUGIN_PATH_PREFIX = "__plugin__"
 
 class OomoxPlugin(metaclass=ABCMeta):
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def name(self) -> str:
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def display_name(self) -> str:
         pass
 
 
 class OomoxThemePlugin(OomoxPlugin):
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def description(self) -> str:
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def gtk_preview_dir(self) -> str:
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def export_dialog(self) -> 'ExportDialog':
         pass
 
@@ -84,11 +89,13 @@ class OomoxIconsPlugin(OomoxPlugin):
     enabled_keys_icons = []  # type: List[str]
     theme_model_icons = []  # type: List[ThemeModelValue]
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def preview_svg_dir(self) -> str:
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def export_dialog(self) -> 'ExportDialog':
         pass
 
@@ -104,7 +111,8 @@ class OomoxIconsPlugin(OomoxPlugin):
 
 class OomoxExportPlugin(OomoxPlugin):
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def export_dialog(self) -> 'ExportDialog':
         pass
 

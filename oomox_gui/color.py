@@ -82,10 +82,8 @@ class ColorDiff():
         for channel_index, channel_text in enumerate(color_list):
             channel = hex_to_int(channel_text)
             int_result = channel - getattr(self, self.channels[channel_index])
-            if int_result < 0:
-                int_result = 0
-            if int_result > 255:
-                int_result = 255
+            int_result = max(int_result, 0)
+            int_result = min(int_result, 255)
             result += int_to_hex(int_result)
         return result
 

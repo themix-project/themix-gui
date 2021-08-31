@@ -340,7 +340,8 @@ class Plugin(OomoxImportPluginAsync):
     @classmethod
     def _get_colorz_lib_palette(cls, image_path, color_count):
         from colorz import colorz  # pylint: disable=import-error
-        palette = colorz(open(image_path, 'rb'), color_count, 50, 200)
+        with open(image_path, 'rb') as fobj:
+            palette = colorz(fobj, color_count, 50, 200)
         hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
         return hex_palette
 

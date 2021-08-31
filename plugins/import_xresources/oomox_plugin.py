@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from oomox_gui.plugin_api import OomoxImportPlugin
+from oomox_gui.config import DEFAULT_ENCODING
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -20,21 +21,21 @@ class XrdbCache():
         command = ['xrdb', '-query']
 
         result = {}
-        proc = subprocess.Popen(
+        with subprocess.Popen(
             command,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT
-        )
-        for line in iter(proc.stdout.readline, b''):
-            line = line.decode("utf-8")
-            key, value, *_rest = line.split(':')
-            key = key.lstrip('*').lstrip('.')
-            value = value.strip()
-            result[key] = value
-        proc.communicate(timeout=timeout)
-        if proc.returncode == 0:
-            cls._cache = result
-            return result
+        ) as proc:
+            for line in iter(proc.stdout.readline, b''):
+                line = line.decode(DEFAULT_ENCODING)
+                key, value, *_rest = line.split(':')
+                key = key.lstrip('*').lstrip('.')
+                value = value.strip()
+                result[key] = value
+            proc.communicate(timeout=timeout)
+            if proc.returncode == 0:
+                cls._cache = result
+                return result
         print('xrdb not found')
         return None
 
@@ -66,7 +67,7 @@ class Plugin(OomoxImportPlugin):
 
         colorscheme = {}
 
-        with open(preset_path) as file_object:
+        with open(preset_path, encoding=DEFAULT_ENCODING) as file_object:
             for line in file_object.readlines():
                 key, _sep, value = line.strip().partition('=')
                 if key.startswith("#") or key not in theme_keys:

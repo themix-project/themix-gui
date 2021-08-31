@@ -3,7 +3,7 @@ import os
 import json
 
 from .i18n import _
-from .config import USER_CONFIG_DIR
+from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 
 
 if sys.version_info.minor >= 5:
@@ -40,7 +40,7 @@ class CommonOomoxConfig:
 
     def load(self):
         try:
-            with open(self.config_path, 'r') as file_object:
+            with open(self.config_path, 'r', encoding=DEFAULT_ENCODING) as file_object:
                 for key, value in json.load(file_object).items():
                     self.config[key] = value
         except Exception as exc:
@@ -51,7 +51,7 @@ class CommonOomoxConfig:
     def save(self):
         if not os.path.exists(self.config_dir):
             os.makedirs(self.config_dir)
-        with open(self.config_path, 'w') as file_object:
+        with open(self.config_path, 'w', encoding=DEFAULT_ENCODING) as file_object:
             return json.dump(self.config, file_object)
 
     def __getitem__(self, item):

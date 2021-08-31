@@ -1,6 +1,6 @@
 import json
 
-from .config import USER_PALETTE_PATH
+from .config import USER_PALETTE_PATH, DEFAULT_ENCODING
 
 
 class PaletteCache():
@@ -10,14 +10,14 @@ class PaletteCache():
     @staticmethod
     def load():
         try:
-            with open(USER_PALETTE_PATH, 'r') as file_object:
+            with open(USER_PALETTE_PATH, 'r', encoding=DEFAULT_ENCODING) as file_object:
                 return json.load(file_object)
         except FileNotFoundError:
             return []
 
     @staticmethod
     def save(palette_cache_list):
-        with open(USER_PALETTE_PATH, 'w') as file_object:
+        with open(USER_PALETTE_PATH, 'w', encoding=DEFAULT_ENCODING) as file_object:
             return json.dump(palette_cache_list, file_object)
 
     @classmethod

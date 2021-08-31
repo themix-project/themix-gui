@@ -3,7 +3,7 @@ import shutil
 from collections import defaultdict, namedtuple
 from itertools import groupby
 
-from .config import COLORS_DIR, USER_COLORS_DIR
+from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
 from .helpers import ls_r, mkdir_p
 
 
@@ -22,7 +22,7 @@ def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
     rel_path = "".join(theme_path.rsplit(colors_dir))
     if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
         display_name = '/'.join(display_name.split('/')[1:])
-        plugin_name = rel_path.split(PLUGIN_PATH_PREFIX)[1].split('/')[0]
+        plugin_name = rel_path.split(PLUGIN_PATH_PREFIX, maxsplit=2)[1].split('/', maxsplit=1)[0]
         plugin = IMPORT_PLUGINS.get(plugin_name)
     if plugin:
         for ext in plugin.file_extensions:
@@ -33,7 +33,7 @@ def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
 
 
 def get_preset_groups_sorter(colors_dir):
-    return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/')[0]
+    return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/', maxsplit=1)[0]
 
 
 def group_presets_by_dir(preset_list, preset_dir):
@@ -88,7 +88,7 @@ def save_colorscheme(preset_name, colorscheme, path=None):
     path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
-    with open(path, 'w') as file_object:
+    with open(path, 'w', encoding=DEFAULT_ENCODING) as file_object:
         for key, value in sorted(colorscheme_to_write.items()):
             if (
                     key not in ('NOGUI', )

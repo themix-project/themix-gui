@@ -8,7 +8,7 @@ from threading import Thread
 from gi.repository import Gtk, GLib, Pango
 
 from .i18n import _
-from .config import USER_EXPORT_CONFIG_DIR
+from .config import USER_EXPORT_CONFIG_DIR, DEFAULT_ENCODING
 from .settings import CommonOomoxConfig
 from .theme_file import save_colorscheme
 from .terminal import (
@@ -159,19 +159,19 @@ class ExportDialog(Gtk.Dialog):
             self.label.set_text(_("Please wait while\nnew colorscheme will be created."))
             self.label.show()
             captured_log = ""
-            proc = subprocess.Popen(
+            with subprocess.Popen(
                 self.command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT
-            )
-            for line in iter(proc.stdout.readline, b''):
-                captured_log += line.decode("utf-8")
-                GLib.idle_add(update_ui, captured_log)
-            proc.communicate(timeout=self.timeout)
-            if proc.returncode == 0:
-                GLib.idle_add(ui_done)
-            else:
-                GLib.idle_add(ui_error)
+            ) as proc:
+                for line in iter(proc.stdout.readline, b''):
+                    captured_log += line.decode(DEFAULT_ENCODING)
+                    GLib.idle_add(update_ui, captured_log)
+                proc.communicate(timeout=self.timeout)
+                if proc.returncode == 0:
+                    GLib.idle_add(ui_done)
+                else:
+                    GLib.idle_add(ui_error)
 
         thread = Thread(target=do_export)
         thread.daemon = True

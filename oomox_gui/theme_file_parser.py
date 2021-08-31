@@ -3,6 +3,7 @@ import os
 from .i18n import _
 from .theme_model import THEME_MODEL
 from .plugin_loader import IMPORT_PLUGINS
+from .config import DEFAULT_ENCODING
 
 
 class NoPluginsInstalled(Exception):
@@ -66,7 +67,7 @@ def _set_fallback_values(preset_path, colorscheme, from_plugin):
 
         theme_keys.append('NOGUI')
 
-        with open(preset_path) as file_object:
+        with open(preset_path, encoding=DEFAULT_ENCODING) as file_object:
             for line in file_object.readlines():
                 key, _sep, value = line.strip().partition('=')
                 if key.startswith("#") or key not in theme_keys:

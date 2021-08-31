@@ -9,7 +9,7 @@ from .color import (
 from .gtk_helpers import ScaledImage
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
-from .config import FALLBACK_COLOR
+from .config import FALLBACK_COLOR, DEFAULT_ENCODING
 from .i18n import _
 
 
@@ -148,7 +148,8 @@ class PreviewWidgets(Gtk.Box):
                         theme_plugin.gtk_preview_dir, template_path
                     ), "rb"
             ) as file_object:
-                self.preview_imageboxes_templates[icon.name] = file_object.read().decode('utf-8')
+                self.preview_imageboxes_templates[icon.name] = \
+                        file_object.read().decode(DEFAULT_ENCODING)
 
     def update_preview_imageboxes(self, colorscheme, theme_plugin):
         transform_function = theme_plugin.preview_transform_function

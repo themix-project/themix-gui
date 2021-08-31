@@ -5,6 +5,7 @@ from gi.repository import Gdk
 
 from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.color import convert_gdk_to_theme_color
+from oomox_gui.config import DEFAULT_ENCODING
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -70,7 +71,7 @@ class Plugin(OomoxImportPlugin):
 
         randomizator = ColorRandomizator()
 
-        with open(preset_path) as file_object:
+        with open(preset_path, encoding=DEFAULT_ENCODING) as file_object:
             for line in file_object.readlines():
                 key, _sep, value = line.strip().partition('=')
                 if key.startswith("#") or key not in theme_keys:
