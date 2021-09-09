@@ -344,6 +344,15 @@ THEME_MODEL['terminal'] = [
         },
     },
     {
+        'key': 'TERMINAL_CURSOR',
+        'type': 'color',
+        'fallback_key': 'TERMINAL_FOREGROUND',
+        'display_name': _('Cursor'),
+        'value_filter': {
+            'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
+        },
+    },
+    {
         'key': 'TERMINAL_ACCENT_COLOR',
         'type': 'color',
         'fallback_key': 'SEL_BG',

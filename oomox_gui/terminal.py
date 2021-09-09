@@ -493,6 +493,7 @@ def convert_oomox_theme_to_xrdb(colorscheme):
                     colorscheme[theme_key]
     term_colorscheme['background'] = colorscheme['TERMINAL_BACKGROUND']
     term_colorscheme['foreground'] = colorscheme['TERMINAL_FOREGROUND']
+    term_colorscheme['cursorColor'] = colorscheme['TERMINAL_CURSOR']
     return term_colorscheme
 
 
