@@ -37,6 +37,8 @@ class ExportConfig(CommonOomoxConfig):
 
 class ExportDialog(Gtk.Dialog):
 
+    colorscheme = None
+    theme_name = None
     command = None
     timeout = 300
 
@@ -80,15 +82,22 @@ class ExportDialog(Gtk.Dialog):
 
     def __init__(
             self, transient_for,
+            colorscheme,
+            theme_name,
             headline=_("Export Theme"),
             width=150,
-            height=80
+            height=80,
     ):
+        self.theme_name = 'oomox-' + theme_name.split('/')[-1]
+
+        # @TODO: make sure it doesn't break things:
+        self.colorscheme = colorscheme
+        # from .terminal import generate_terminal_colors_for_oomox
+        # self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
+
         Gtk.Dialog.__init__(self, headline, transient_for, 0)
         self.set_default_size(width, height)
-
         self.label = CenterLabel()
-
         self.spinner = Gtk.Spinner()
 
         # Scrollable log window:
@@ -180,20 +189,13 @@ class ExportDialog(Gtk.Dialog):
 
 class FileBasedExportDialog(ExportDialog):
 
-    theme_name = None
     temp_theme_path = None
 
-    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+    def __init__(self, transient_for, **kwargs):
         super().__init__(transient_for=transient_for, **kwargs)
-        self.theme_name = 'oomox-' + theme_name.split('/')[-1]
-
-        # @TODO: make sure it doesn't break things:
-        self.colorscheme = colorscheme
-        # from .terminal import generate_terminal_colors_for_oomox
-        # self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
 
         self.temp_theme_path = save_colorscheme(
-            preset_name=theme_name,
+            preset_name=self.theme_name,
             colorscheme=self.colorscheme,
             path=tempfile.mkstemp()[1]
         )
