@@ -24,7 +24,6 @@ from .theme_file_parser import read_colorscheme_from_path
 from .preset_list import ThemePresetList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
-from .export_common import export_terminal_theme
 from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import (
     THEME_PLUGINS, ICONS_PLUGINS, IMPORT_PLUGINS, EXPORT_PLUGINS,
@@ -96,7 +95,6 @@ class WindowActions(ActionsEnum):
     clone = "clone"
     export_icons = "icons"
     export_theme = "theme"
-    export_terminal = "terminal"
     export_menu = "export_menu"
     menu = "menu"
     remove = "remove"
@@ -487,9 +485,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _on_export_terminal(self, _action, _param=None):
-        export_terminal_theme(transient_for=self, colorscheme=self.colorscheme)
-
     def _on_export_plugin(self, action, _param=None):
         plugin = EXPORT_PLUGINS[
             action.props.name.replace('export_plugin_', '')
@@ -631,10 +626,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.attach_action(export_icons_button, WindowActions.export_icons)
 
         export_menu = Gio.Menu()
-        export_menu.append_item(Gio.MenuItem.new(
-            _("Export _Xresources theme…"),
-            WindowActions.export_terminal.get_id()  # pylint:disable=no-member
-        ))
         if EXPORT_PLUGINS:
             for plugin_name, plugin in EXPORT_PLUGINS.items():
                 export_menu.append_item(Gio.MenuItem.new(
@@ -718,7 +709,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.remove_action = self.add_simple_action(WindowActions.remove, self._on_remove)
         self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
-        self.add_simple_action(WindowActions.export_terminal, self._on_export_terminal)
         self.add_simple_action(WindowActions.show_help, self._on_show_help)
         for plugin_name in EXPORT_PLUGINS:
             self.add_simple_action(
@@ -809,7 +799,6 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_theme, ["<Primary>E"])
         set_accels_for_action(WindowActions.export_icons, ["<Primary>I"])
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
-        set_accels_for_action(WindowActions.export_terminal, ["<Primary>X"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
         for plugin_list, plugin_action_template in (

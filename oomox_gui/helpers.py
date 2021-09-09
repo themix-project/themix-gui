@@ -1,6 +1,7 @@
-import os
-import sys
 import importlib
+import os
+import re
+import sys
 
 
 def mkdir_p(path):
@@ -46,3 +47,13 @@ def delayed_partial(func, delayed_args, rest_args):
         computed_args.append(delayed_func(*args))
     all_args = computed_args + list(rest_args)
     return func(*all_args)
+
+
+def natural_sort(list_to_sort):
+    def convert(text):
+        return int(text) if text.isdigit() else text.lower()
+
+    def alphanum_key(key):
+        return [convert(c) for c in re.split('([0-9]+)', key)]
+
+    return sorted(list_to_sort, key=alphanum_key)

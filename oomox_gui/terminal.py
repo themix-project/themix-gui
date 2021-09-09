@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
-import re
 import shutil
+import sys
 
 from .i18n import _
 from .config import TERMINAL_TEMPLATE_DIR, DEFAULT_ENCODING
@@ -511,36 +510,6 @@ def generate_terminal_colors_for_oomox(
     )
 
 
-def natural_sort(list_to_sort):
-    def convert(text):
-        return int(text) if text.isdigit() else text.lower()
-
-    def alphanum_key(key):
-        return [convert(c) for c in re.split('([0-9]+)', key)]
-
-    return sorted(list_to_sort, key=alphanum_key)
-
-
-def generate_xresources(colorscheme):
-    color_keys = colorscheme.keys()
-    color_regex = re.compile('color[0-9]')
-    return '\n'.join([
-        "*{key}:  #{value}".format(
-            key=key, value=colorscheme[key]
-        )
-        for key in (
-            sorted([
-                key for key in color_keys
-                if not color_regex.match(key)
-            ]) +
-            natural_sort([
-                key for key in color_keys
-                if color_regex.match(key)
-            ])
-        )
-    ])
-
-
 def cli():
     args = sys.argv
     if len(args) < 5:
@@ -567,7 +536,7 @@ def cli():
         theme_hint=theme_hint,
         auto_swap_colors=auto_swap_colors,
     )
-    print(generate_xresources(term_colorscheme))
+    print(term_colorscheme)
 
 
 if __name__ == '__main__':
