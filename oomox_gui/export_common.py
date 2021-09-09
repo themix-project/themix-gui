@@ -205,10 +205,13 @@ class FileBasedExportDialog(ExportDialog):
 
 
 def export_terminal_theme(transient_for, colorscheme):
+    print(colorscheme)
     dialog = ExportDialog(
         transient_for=transient_for,
         headline=_("Terminal Colorscheme"),
-        height=440
+        height=440,
+        colorscheme=colorscheme,
+        theme_name='xresources'
     )
     dialog.box.add(dialog.scrolled_window)
     dialog.scrolled_window.show_all()
