@@ -101,6 +101,7 @@ class WindowActions(ActionsEnum):
     rename = "rename"
     save = "save"
     show_help = "show_help"
+    show_about = "show_about"
 
 
 class WindowWithActions(Gtk.ApplicationWindow):
@@ -428,19 +429,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         GLib.idle_add(enable_ui_callback, priority=GLib.PRIORITY_LOW)
 
-    def show_help(self):
-        # @TODO: refactor to use .set_help_overlay() ?
-        path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
-        obj_id = "shortcuts"
-
-        builder = Gtk.Builder.new_from_file(path)
-        overlay = builder.get_object(obj_id)
-        overlay.set_transient_for(self)
-        overlay.set_title("Oomox Keyboard Shortcuts")
-        overlay.set_wmclass("oomox", "Oomox")
-        overlay.set_role("Oomox-Shortcuts")
-        overlay.show()
-
     ###########################################################################
     # Signal handlers:
     ###########################################################################
@@ -508,7 +496,30 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         super().close()
 
     def _on_show_help(self, _action, _param=None):
-        self.show_help()
+        # @TODO: refactor to use .set_help_overlay() ?
+        path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
+        obj_id = "shortcuts"
+
+        builder = Gtk.Builder.new_from_file(path)
+        overlay = builder.get_object(obj_id)
+        overlay.set_transient_for(self)
+        overlay.set_title("Oomox Keyboard Shortcuts")
+        overlay.set_wmclass("oomox", "Oomox")
+        overlay.set_role("Oomox-Shortcuts")
+        overlay.show()
+
+    def _on_show_about(self, _action, _param=None):
+        # @TODO: refactor to use .set_help_overlay() ?
+        path = os.path.join(SCRIPT_DIR, 'about.ui')
+        obj_id = "about"
+
+        builder = Gtk.Builder.new_from_file(path)
+        overlay = builder.get_object(obj_id)
+        overlay.set_transient_for(self)
+        overlay.set_title("About Themix GUI / Oomox")
+        overlay.set_wmclass("oomox", "Oomox")
+        overlay.set_role("Oomox-About")
+        overlay.show()
 
     def _on_pane_resize(self, _action, _param=None):
         position = self.paned_box.get_position()
@@ -603,11 +614,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         ))
         self.headerbar.pack_end(menu_button)
 
-        show_help_menuitem = Gio.MenuItem.new(
+        menu.append_item(Gio.MenuItem.new(
             _("Keyboard Shortcuts"),
             WindowActions.show_help.get_id()  # pylint:disable=no-member
-        )
-        menu.append_item(show_help_menuitem)
+        ))
+        menu.append_item(Gio.MenuItem.new(
+            _("About"),
+            WindowActions.show_about.get_id()  # pylint:disable=no-member
+        ))
 
         #
 
@@ -710,6 +724,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.show_help, self._on_show_help)
+        self.add_simple_action(WindowActions.show_about, self._on_show_about)
         for plugin_name in EXPORT_PLUGINS:
             self.add_simple_action(
                 "export_plugin_{}".format(plugin_name), self._on_export_plugin
