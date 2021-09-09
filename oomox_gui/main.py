@@ -811,6 +811,12 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_terminal, ["<Primary>X"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
+        for plugin_name, plugin in IMPORT_PLUGINS.items():
+            if plugin.shortcut:
+                set_accels_for_action("import_plugin_{}".format(plugin_name), [plugin.shortcut])
+        for plugin_name, plugin in EXPORT_PLUGINS.items():
+            if plugin.shortcut:
+                set_accels_for_action("export_plugin_{}".format(plugin_name), [plugin.shortcut])
 
     def do_activate(self):  # pylint: disable=arguments-differ
         if not self.window:

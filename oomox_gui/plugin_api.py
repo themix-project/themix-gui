@@ -121,6 +121,8 @@ class OomoxExportPlugin(OomoxPlugin):
 
     theme_model_extra = []  # type: List[ThemeModelValue]
 
+    shortcut = None  # type: Optional[str]
+
 
 class OomoxImportPlugin(OomoxPlugin):
 
@@ -148,6 +150,8 @@ class OomoxImportPlugin(OomoxPlugin):
         return os.path.abspath(
             os.path.join(USER_COLORS_DIR, PLUGIN_PATH_PREFIX + self.name)
         )
+
+    shortcut = None  # type: Optional[str]
 
     # ############ @TODO: figure that out: ?
 
