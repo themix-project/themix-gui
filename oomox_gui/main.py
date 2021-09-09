@@ -795,8 +795,9 @@ class OomoxGtkApplication(Gtk.Application):
         quit_action.connect("activate", self._on_quit)
         self.add_action(quit_action)
 
-        def set_accels_for_action(action, accels):
-            self.set_accels_for_action(action.get_id(), accels)
+        def set_accels_for_action(action, accels, action_id=None):
+            action_id = action_id or action.get_id()
+            self.set_accels_for_action(action_id, accels)
 
         set_accels_for_action(AppActions.quit, ["<Primary>Q"])
 
@@ -811,12 +812,18 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_terminal, ["<Primary>X"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
-        for plugin_name, plugin in IMPORT_PLUGINS.items():
-            if plugin.shortcut:
-                set_accels_for_action("import_plugin_{}".format(plugin_name), [plugin.shortcut])
-        for plugin_name, plugin in EXPORT_PLUGINS.items():
-            if plugin.shortcut:
-                set_accels_for_action("export_plugin_{}".format(plugin_name), [plugin.shortcut])
+        for plugin_list, plugin_action_template in (
+            (IMPORT_PLUGINS, "import_plugin_{}"),
+            (EXPORT_PLUGINS, "export_plugin_{}"),
+        ):
+            for plugin_name, plugin in plugin_list.items():
+                if plugin.shortcut:
+                    action_name = plugin_action_template.format(plugin_name)
+                    set_accels_for_action(
+                        action_name,
+                        [plugin.shortcut],
+                        "win.{}".format(action_name)
+                    )
 
     def do_activate(self):  # pylint: disable=arguments-differ
         if not self.window:
