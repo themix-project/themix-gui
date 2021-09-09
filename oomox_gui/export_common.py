@@ -11,10 +11,6 @@ from .i18n import _
 from .config import USER_EXPORT_CONFIG_DIR, DEFAULT_ENCODING
 from .settings import CommonOomoxConfig
 from .theme_file import save_colorscheme
-from .terminal import (
-    generate_xrdb_theme_from_oomox,
-    generate_xresources
-)
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 
 
@@ -202,28 +198,6 @@ class FileBasedExportDialog(ExportDialog):
 
     def __del__(self):
         os.remove(self.temp_theme_path)
-
-
-def export_terminal_theme(transient_for, colorscheme):
-    print(colorscheme)
-    dialog = ExportDialog(
-        transient_for=transient_for,
-        headline=_("Terminal Colorscheme"),
-        height=440,
-        colorscheme=colorscheme,
-        theme_name='xresources'
-    )
-    dialog.box.add(dialog.scrolled_window)
-    dialog.scrolled_window.show_all()
-    dialog.label.set_text(_('Paste this colorscheme to your ~/.Xresources:'))
-    try:
-        term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
-        xresources_theme = generate_xresources(term_colorscheme)
-    except Exception as exc:
-        dialog.set_text(exc)
-        dialog.show_error()
-    else:
-        dialog.set_text(xresources_theme)
 
 
 class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
