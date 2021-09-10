@@ -50,10 +50,8 @@ class XresourcesExportDialog(ExportDialog):
 
 
 class Plugin(OomoxExportPlugin):
-
     name = 'xresources'
-
     display_name = _('Xresources')
-    shortcut = "<Primary>X"
     export_text = _("Export _Xresources theme…")
+    shortcut = "<Primary>X"
     export_dialog = XresourcesExportDialog

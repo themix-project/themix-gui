@@ -75,6 +75,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
         if description_text:
             if not self._description_label_added:
                 self.description_label = Gtk.Label(xalign=1)
+                self.description_label.set_line_wrap(True)
                 self.description_label.set_margin_top(3)
                 self.description_label.set_margin_bottom(7)
                 self.description_label.set_state_flags(Gtk.StateFlags.INSENSITIVE, False)
