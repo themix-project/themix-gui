@@ -29,6 +29,7 @@ whitelist.OomoxPlugin.enabled_keys_gtk
 whitelist.OomoxPlugin.enabled_keys_options
 whitelist.OomoxPlugin.enabled_keys_icons
 whitelist.OomoxPlugin.enabled_keys_extra
+whitelist.OomoxPlugin.about_text
 whitelist.OomoxPlugin.theme_model_gtk
 whitelist.OomoxPlugin.theme_model_options
 whitelist.OomoxPlugin.theme_model_icons

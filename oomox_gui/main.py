@@ -30,6 +30,7 @@ from .plugin_loader import (
 )
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .settings import UI_SETTINGS
+from .about import show_about
 
 
 class NewDialog(EntryDialog):
@@ -509,17 +510,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         overlay.show()
 
     def _on_show_about(self, _action, _param=None):
-        # @TODO: refactor to use .set_help_overlay() ?
-        path = os.path.join(SCRIPT_DIR, 'about.ui')
-        obj_id = "about"
-
-        builder = Gtk.Builder.new_from_file(path)
-        overlay = builder.get_object(obj_id)
-        overlay.set_transient_for(self)
-        overlay.set_title("About Themix GUI / Oomox")
-        overlay.set_wmclass("oomox", "Oomox")
-        overlay.set_role("Oomox-About")
-        overlay.show()
+        show_about(self)
 
     def _on_pane_resize(self, _action, _param=None):
         position = self.paned_box.get_position()
