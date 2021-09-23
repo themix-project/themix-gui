@@ -358,7 +358,7 @@ THEME_MODEL['terminal'] = [
         'fallback_key': 'SEL_BG',
         'display_name': _('Accent Color'),
         'value_filter': {
-            'TERMINAL_THEME_MODE': ['basic', ],
+            'TERMINAL_THEME_MODE': ['basic', 'manual', ],
         },
     },
 
