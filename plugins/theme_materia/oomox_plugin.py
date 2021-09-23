@@ -96,7 +96,7 @@ class Plugin(OomoxThemePlugin):
     name = 'materia'
     display_name = 'Materia'
     description = (
-        'GTK+2, GTK+3\n'
+        'GTK+2, GTK+, , Qt5ct, Qt6ct\n'
         'Cinnamon, GNOME Shell, Metacity, Unity, Xfwm'
     )
     export_dialog = MateriaThemeExportDialog
@@ -111,6 +111,9 @@ class Plugin(OomoxThemePlugin):
         'HDR_BG',
         'HDR_FG',
         'SEL_BG',
+        'SEL_FG',
+        'TXT_BG',
+        'TXT_FG',
     ]
 
     enabled_keys_options = [
