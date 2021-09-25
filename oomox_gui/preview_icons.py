@@ -55,7 +55,7 @@ class IconThemePreview(Gtk.ListBox):
             return
         self.icons_plugin_name = theme_plugin.name
         for icon in IconsNames:
-            template_path = "{}.svg.template".format(icon.value)
+            template_path = f"{icon.value}.svg.template"
             with open(
                     os.path.join(
                         theme_plugin.preview_svg_dir, template_path

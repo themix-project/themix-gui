@@ -460,7 +460,7 @@ class ImagePathListBoxRow(OomoxListBoxRow):
 class SectionHeader(Gtk.Box):
 
     def set_markup(self, markup):
-        self.label.set_markup("<b>{}</b>".format(markup))
+        self.label.set_markup(f"<b>{markup}</b>")
 
     def __init__(self, display_name=None):
         # super().__init__(activatable=False, selectable=False)

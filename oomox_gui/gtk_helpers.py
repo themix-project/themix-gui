@@ -251,10 +251,8 @@ class GObjectABCMeta(GObjectMeta, type):
                     missing_methods.append(method_name)
             if missing_methods:
                 raise TypeError(
-                    "Can't instantiate abstract class {} with abstract methods {}".format(
-                        cls.__name__,
-                        ','.join(missing_methods)
-                    )
+                    f"Can't instantiate abstract class {cls.__name__}"
+                    f" with abstract methods {','.join(missing_methods)}"
                 )
 
 

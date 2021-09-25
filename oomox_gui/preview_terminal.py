@@ -39,18 +39,18 @@ class TerminalThemePreview(Gtk.Box):
         twi = self.terminal_widgets
 
         twi["normal"] = Gtk.Label()
-        twi["normal"].set_markup("<tt>{}</tt>".format(_("terminal colors:")))
+        twi["normal"].set_markup(f"<tt>{_('terminal colors:')}</tt>")
         self.background.attach(twi["normal"], 1, 1, 2, 1)
         previous_row = twi["normal"]
         previous_row.set_margin_left(self.LEFT_MARGIN)
         for color_row in self.COLOR_ROWS:
             color_name, normal_id, highlight_id = color_row
-            key1 = "color{}".format(normal_id)
-            key2 = "color{}".format(highlight_id)
+            key1 = f"color{normal_id}"
+            key2 = f"color{highlight_id}"
             twi[key1] = Gtk.Label()
             twi[key2] = Gtk.Label()
-            twi[key1].set_markup("<tt>{}</tt>".format(color_name))
-            twi[key2].set_markup("<tt>{}</tt>".format(color_name))
+            twi[key1].set_markup(f"<tt>{color_name}</tt>")
+            twi[key2].set_markup(f"<tt>{color_name}</tt>")
             self.background.attach_next_to(
                 twi[key1], previous_row,
                 Gtk.PositionType.BOTTOM, 1, 1
@@ -76,8 +76,8 @@ class TerminalThemePreview(Gtk.Box):
         self.override_background_color(Gtk.StateType.NORMAL, term_bg)
         for color_row in self.COLOR_ROWS:
             _color_name, normal_id, highlight_id = color_row
-            key1 = "color{}".format(normal_id)
-            key2 = "color{}".format(highlight_id)
+            key1 = f"color{normal_id}"
+            key2 = f"color{highlight_id}"
             self.terminal_widgets[key1].override_color(
                 Gtk.StateType.NORMAL, converted[key1]
             )

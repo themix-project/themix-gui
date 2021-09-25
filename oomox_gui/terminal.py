@@ -27,7 +27,7 @@ BLUE = 2
 def find_closest_color_key(color_hex, colors_hex, highlight=True):
     smallest_diff = SMALLEST_DIFF
     smallest_key = None
-    highlight_keys = ["color{}".format(i) for i in range(8, 15 + 1)]
+    highlight_keys = [f"color{i}" for i in range(8, 15 + 1)]
     for preset_key, preset_color in colors_hex.items():
         if (
                 highlight
@@ -473,9 +473,7 @@ def _generate_themes_from_oomox_callback(
         colorscheme, term_colorscheme, result_callback,
 ):
     for i in range(16):
-        theme_key = "TERMINAL_COLOR{}".format(i)
-        term_key = "color{}".format(i)
-        colorscheme[theme_key] = term_colorscheme[term_key]
+        colorscheme[f"TERMINAL_COLOR{i}"] = term_colorscheme[f"color{i}"]
     if colorscheme['TERMINAL_THEME_MODE'] != 'manual':
         colorscheme['TERMINAL_BACKGROUND'] = term_colorscheme['background']
         colorscheme['TERMINAL_FOREGROUND'] = term_colorscheme['foreground']
@@ -485,11 +483,10 @@ def _generate_themes_from_oomox_callback(
 def convert_oomox_theme_to_xrdb(colorscheme):
     term_colorscheme = {}
     for i in range(16):
-        theme_key = "TERMINAL_COLOR{}".format(i)
-        term_key = "color{}".format(i)
+        theme_key = f"TERMINAL_COLOR{i}"
+        term_key = f"color{i}"
         if colorscheme.get(theme_key):
-            term_colorscheme[term_key] = \
-                    colorscheme[theme_key]
+            term_colorscheme[term_key] = colorscheme[theme_key]
     term_colorscheme['background'] = colorscheme['TERMINAL_BACKGROUND']
     term_colorscheme['foreground'] = colorscheme['TERMINAL_FOREGROUND']
     term_colorscheme['cursorColor'] = colorscheme['TERMINAL_CURSOR']
@@ -514,11 +511,9 @@ def cli():
     args = sys.argv
     if len(args) < 5:
         print(
-            "Usage: {} "
+            f"Usage: {sys.argv[0]} "
             "TEMPLATE_PATH ACCENT_COLOR BG FG "
-            "[ACCENT_KEY_NAME] [AUTO_DETECT_FG_BG=YES]".format(
-                sys.argv[0]
-            )
+            "[ACCENT_KEY_NAME] [AUTO_DETECT_FG_BG=YES]"
         )
         sys.exit(1)
     template_path = args[1]

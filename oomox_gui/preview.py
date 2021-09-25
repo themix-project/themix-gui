@@ -61,7 +61,7 @@ class PreviewHeaderbar(Gtk.HeaderBar):
         self.set_show_close_button(False)
         self.title = Gtk.Label(label=_("Headerbar"))
         self.props.custom_title = self.title
-        self.button = Gtk.Button(label="   %s   " % _("Button"))
+        self.button = Gtk.Button(label=f'   {_("Button")}   ')
         self.pack_end(self.button)
 
 
@@ -142,7 +142,7 @@ class PreviewWidgets(Gtk.Box):
 
     def load_imageboxes_templates(self, theme_plugin):
         for icon in theme_plugin.PreviewImageboxesNames:
-            template_path = "{}.svg.template".format(icon.value)
+            template_path = f"{icon.value}.svg.template"
             with open(
                     os.path.join(
                         theme_plugin.gtk_preview_dir, template_path
@@ -361,15 +361,12 @@ class ThemePreview(Gtk.Grid):
                     self.css_providers.border[widget_name] = \
                     Gtk.CssProvider()
             css_provider_border_color.load_from_data(
-                """
+                f"""
                 * {{
                     border-color: #{border_color};
-                    border-radius: {roundness}px;
+                    border-radius: {colorscheme["ROUNDNESS"]}px;
                 }}
-                """.format(
-                    border_color=border_color,
-                    roundness=colorscheme["ROUNDNESS"],
-                ).encode('ascii')
+                """.encode('ascii')
             )
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
@@ -450,18 +447,16 @@ class ThemePreview(Gtk.Grid):
             converted["TXT_BG"]
         )
 
-        self.css_providers.wm_border.load_from_data("""
-            * {{
-                border-color: #{border_color};
-                /*border-radius: {roundness}px;*/
-                border-width: {wm_border_width}px;
-                border-style: solid;
-            }}
-        """.format(
-            border_color=colorscheme['WM_BORDER_FOCUS'],
-            roundness=colorscheme['ROUNDNESS'],
-            wm_border_width=self.WM_BORDER_WIDTH
-        ).encode('ascii'))
+        self.css_providers.wm_border.load_from_data(
+            f"""
+                * {{
+                    border-color: #{colorscheme['WM_BORDER_FOCUS']};
+                    /*border-radius: {colorscheme['ROUNDNESS']}px;*/
+                    border-width: {self.WM_BORDER_WIDTH}px;
+                    border-style: solid;
+                }}
+            """.encode('ascii')
+        )
         Gtk.StyleContext.add_provider(
             self.background.get_style_context(),
             self.css_providers.wm_border,
@@ -503,9 +498,8 @@ class ThemePreview(Gtk.Grid):
     def get_theme_css_provider(self, theme_plugin):
         css_dir = theme_plugin.gtk_preview_dir
 
-        css_name = "theme{}.css".format(
-            '20' if Gtk.get_minor_version() >= 20 else ''
-        )
+        _css_postfix = '20' if Gtk.get_minor_version() >= 20 else ''
+        css_name = f"theme{_css_postfix}.css"
         css_path = os.path.join(css_dir, css_name)
         if not os.path.exists(css_path):
             css_path = os.path.join(css_dir, "theme.css")
