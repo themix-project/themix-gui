@@ -791,8 +791,14 @@ class OomoxGtkApplication(Gtk.Application):
         quit_action.connect("activate", self._on_quit)
         self.add_action(quit_action)
 
+        _shortcuts = {}
+
         def set_accels_for_action(action, accels, action_id=None):
             action_id = action_id or action.get_id()
+            for accel in accels:
+                if accel in _shortcuts:
+                    raise Exception(f'Shortcut "{accel}" is already set.')
+                _shortcuts[accel] = action_id
             self.set_accels_for_action(action_id, accels)
 
         set_accels_for_action(AppActions.quit, ["<Primary>Q"])
@@ -807,18 +813,42 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
+        _plugin_shortcuts = {}
         for plugin_list, plugin_action_template in (
             (IMPORT_PLUGINS, "import_plugin_{}"),
             (EXPORT_PLUGINS, "export_plugin_{}"),
         ):
             for plugin_name, plugin in plugin_list.items():
-                if plugin.shortcut:
-                    action_name = plugin_action_template.format(plugin_name)
-                    set_accels_for_action(
-                        action_name,
-                        [plugin.shortcut],
-                        "win.{}".format(action_name)
+                if not plugin.shortcut:
+                    continue
+                if plugin.shortcut in _shortcuts:
+                    _is_plugin_shortcut = plugin.shortcut in _plugin_shortcuts
+                    error_dialog = Gtk.MessageDialog(
+                        text=_('Error while loading plugin "{plugin_name}"').format(
+                            plugin_name=plugin_name
+                        ),
+                        secondary_text='\n'.join((
+                            _('Shortcut "{shortcut}" already assigned to {action_type} "{name}".').format(
+                                shortcut=plugin.shortcut,
+                                action_type=_('plugin') if _is_plugin_shortcut else _('action'),
+                                name=_plugin_shortcuts[plugin.shortcut] if _is_plugin_shortcut else _shortcuts[plugin.shortcut]
+                            ),
+                            _('Shortcut will be disabled for "{plugin_name}" plugin.').format(
+                                plugin_name=plugin_name
+                            )
+                        )),
+                        buttons=Gtk.ButtonsType.CLOSE
                     )
+                    error_dialog.run()
+                    error_dialog.destroy()
+                    continue
+                action_name = plugin_action_template.format(plugin_name)
+                set_accels_for_action(
+                    action_name,
+                    [plugin.shortcut],
+                    f"win.{action_name}"
+                )
+                _plugin_shortcuts[plugin.shortcut] = plugin_name
 
     def do_activate(self):  # pylint: disable=arguments-differ
         if not self.window:
