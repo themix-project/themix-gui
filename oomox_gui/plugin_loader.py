@@ -87,7 +87,7 @@ def _print_debug_plugins():
     print()
     for plugin_name, plugin in ALL_PLUGINS.items():
         print(
-            "{}: {}".format(plugin_name, plugin.display_name)
+            f"{plugin_name}: {plugin.display_name}"
         )
 
 

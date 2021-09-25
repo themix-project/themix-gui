@@ -104,15 +104,12 @@ def _monkeypatch_update_preview_borders(preview_object):
                         preview_object.css_providers.border[widget_name] = \
                         Gtk.CssProvider()
                 css_provider_border_color.load_from_data(
-                    """
+                    f"""
                     * {{
                         border-color: #{border_color};
-                        border-radius: {roundness}px;
+                        border-radius: {colorscheme["ROUNDNESS"]}px;
                     }}
-                    """.format(
-                        border_color=border_color,
-                        roundness=colorscheme["ROUNDNESS"],
-                    ).encode('ascii')
+                    """.encode('ascii')
                 )
                 Gtk.StyleContext.add_provider(
                     widget.get_style_context(),

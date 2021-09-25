@@ -18,7 +18,7 @@ class PluginInfo(Gtk.ListBoxRow):
         self.add(self.box)
 
         plugin_name = Gtk.Label()
-        plugin_name.set_markup("<b>{}</b>".format(plugin.display_name or plugin.name))
+        plugin_name.set_markup(f"<b>{plugin.display_name or plugin.name}</b>")
         plugin_name.set_halign(Gtk.Align.START)
         self.box.add(plugin_name)
 

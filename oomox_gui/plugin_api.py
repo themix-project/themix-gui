@@ -84,7 +84,7 @@ class OomoxThemePlugin(OomoxPlugin):
                 "SEL_BG", "SEL_FG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):
             svg_template = svg_template.replace(
-                "%{}%".format(key), str(colorscheme.get(key) or FALLBACK_COLOR)
+                f"%{key}%", str(colorscheme.get(key) or FALLBACK_COLOR)
             )
         return svg_template
 

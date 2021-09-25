@@ -2,11 +2,11 @@ from gi.repository import Gdk
 
 
 def hex_to_int(text):
-    return int("0x{}".format(text), 0)
+    return int(f"0x{text}", 0)
 
 
 def int_to_hex(myint):
-    return "{0:02x}".format(int(myint))
+    return f"{int(myint):02x}"
 
 
 def color_list_from_hex(color_text):

@@ -26,7 +26,7 @@ class CommonOomoxConfig:
         self.config_dir = config_dir
         self.config_path = os.path.join(
             self.config_dir,
-            "{}.json".format(self.name)
+            f"{self.name}.json"
         )
         self.default_config = default_config or {}
         self.config = self.default_config or {}
@@ -36,7 +36,7 @@ class CommonOomoxConfig:
         return str(self.config)
 
     def __repr__(self):
-        return "Config<{}>".format(str(self))
+        return f"Config<{str(self)}>"
 
     def load(self):
         try:

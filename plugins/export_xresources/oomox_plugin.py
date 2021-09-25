@@ -12,9 +12,7 @@ def generate_xresources(terminal_colorscheme):
     color_keys = terminal_colorscheme.keys()
     color_regex = re.compile('color[0-9]')
     return '\n'.join([
-        "*{key}:  #{value}".format(
-            key=key, value=terminal_colorscheme[key]
-        )
+        f"*{key}:  #{terminal_colorscheme[key]}"
         for key in (
             sorted([
                 key for key in color_keys

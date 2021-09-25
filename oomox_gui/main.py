@@ -112,7 +112,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         accels = self.get_application().get_accels_for_action(action_id)
         if accels:
             key, mods = Gtk.accelerator_parse(accels[0])
-            tooltip += ' ({})'.format(Gtk.accelerator_get_label(key, mods))
+            tooltip += f' ({Gtk.accelerator_get_label(key, mods)})'
         return tooltip
 
     def attach_action(self, widget, action, with_tooltip=True):
@@ -539,7 +539,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             if plugin.import_text:
                 import_menu.append_item(Gio.MenuItem.new(
                     plugin.import_text or plugin.display_name,
-                    "win.import_plugin_{}".format(plugin_name)
+                    f"win.import_plugin_{plugin_name}"
                 ))
 
         import_button = ImageMenuButton(
@@ -635,7 +635,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             for plugin_name, plugin in EXPORT_PLUGINS.items():
                 export_menu.append_item(Gio.MenuItem.new(
                     plugin.export_text or plugin.display_name,
-                    "win.export_plugin_{}".format(plugin_name)
+                    f"win.export_plugin_{plugin_name}"
                 ))
         export_button = ImageMenuButton(
             icon_name="pan-down-symbolic",
@@ -706,7 +706,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
         for plugin_name in IMPORT_PLUGINS:
             self.add_simple_action(
-                "import_plugin_{}".format(plugin_name), self._on_import_plugin
+                f"import_plugin_{plugin_name}", self._on_import_plugin
             )
         self.add_simple_action(WindowActions.clone, self._on_clone)
         self.save_action = self.add_simple_action(WindowActions.save, self._on_save)
@@ -718,7 +718,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.show_about, self._on_show_about)
         for plugin_name in EXPORT_PLUGINS:
             self.add_simple_action(
-                "export_plugin_{}".format(plugin_name), self._on_export_plugin
+                f"export_plugin_{plugin_name}", self._on_export_plugin
             )
 
     def _init_plugins(self):
@@ -828,10 +828,14 @@ class OomoxGtkApplication(Gtk.Application):
                             plugin_name=plugin_name
                         ),
                         secondary_text='\n'.join((
-                            _('Shortcut "{shortcut}" already assigned to {action_type} "{name}".').format(
+                            _('Shortcut "{shortcut}" already assigned to {action_type} "{name}".').format(  # noqa  # pylint: disable=line-too-long
                                 shortcut=plugin.shortcut,
                                 action_type=_('plugin') if _is_plugin_shortcut else _('action'),
-                                name=_plugin_shortcuts[plugin.shortcut] if _is_plugin_shortcut else _shortcuts[plugin.shortcut]
+                                name=(
+                                    _plugin_shortcuts[plugin.shortcut]
+                                    if _is_plugin_shortcut
+                                    else _shortcuts[plugin.shortcut]
+                                )
                             ),
                             _('Shortcut will be disabled for "{plugin_name}" plugin.').format(
                                 plugin_name=plugin_name

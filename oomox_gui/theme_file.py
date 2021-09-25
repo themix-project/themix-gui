@@ -84,7 +84,7 @@ def get_user_theme_path(user_theme_name):
 def save_colorscheme(preset_name, colorscheme, path=None):
     colorscheme_to_write = {}
     colorscheme_to_write.update(colorscheme)
-    colorscheme_to_write["NAME"] = '"{}"'.format(preset_name)
+    colorscheme_to_write["NAME"] = f'"{preset_name}"'
     path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
@@ -99,9 +99,7 @@ def save_colorscheme(preset_name, colorscheme, path=None):
             ) and (
                 not isinstance(value, Exception)
             ):
-                file_object.write("{}={}\n".format(
-                    key, value
-                ))
+                file_object.write(f"{key}={value}\n")
     return path
 
 
