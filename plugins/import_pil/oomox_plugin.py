@@ -484,7 +484,7 @@ class Plugin(OomoxImportPluginAsync):
             hex_palette = image_analyzer.get_hex_palette(
                 image_path, quality=quality, use_whole_palette=use_whole_palette
             )[:]
-        print(f"{quality=}, {len(hex_palette)} colors found, took {time() - start_time:.8f}s")
+        print(f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s")
         _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
         cls._palette_cache[_id] = hex_palette
         cls._generate_terminal_palette_callback(
