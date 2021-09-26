@@ -1,4 +1,3 @@
-import sys
 import os
 import json
 
@@ -6,11 +5,10 @@ from .i18n import _
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 
 
-if sys.version_info.minor >= 5:
-    from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-    if TYPE_CHECKING:
-        # pylint: disable=ungrouped-imports
-        from typing import Dict  # noqa
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import Dict  # noqa
 
 
 class CommonOomoxConfig:
