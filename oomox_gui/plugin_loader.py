@@ -30,32 +30,27 @@ class PluginLoader:
     _init_done = False
 
     @classmethod
-    @property
-    def ALL_PLUGINS(cls):
+    def get_all_plugins(cls):
         cls.init_plugins()
         return cls._ALL_PLUGINS
 
     @classmethod
-    @property
-    def THEME_PLUGINS(cls):
+    def get_theme_plugins(cls):
         cls.init_plugins()
         return cls._THEME_PLUGINS
 
     @classmethod
-    @property
-    def ICONS_PLUGINS(cls):
+    def get_icons_plugins(cls):
         cls.init_plugins()
         return cls._ICONS_PLUGINS
 
     @classmethod
-    @property
-    def EXPORT_PLUGINS(cls):
+    def get_export_plugins(cls):
         cls.init_plugins()
         return cls._EXPORT_PLUGINS
 
     @classmethod
-    @property
-    def IMPORT_PLUGINS(cls):
+    def get_import_plugins(cls):
         cls.init_plugins()
         return cls._IMPORT_PLUGINS
 
@@ -115,18 +110,18 @@ def _print_debug_plugins():
     print("MAIN:")
     print()
     print("import plugins:")
-    print(plugin_loader.IMPORT_PLUGINS)
+    print(plugin_loader.get_import_plugins())
     print("theme plugins:")
-    print(plugin_loader.THEME_PLUGINS)
+    print(plugin_loader.get_theme_plugins())
     print("icons plugins:")
-    print(plugin_loader.ICONS_PLUGINS)
+    print(plugin_loader.get_icons_plugins())
     print("export plugins:")
-    print(plugin_loader.EXPORT_PLUGINS)
+    print(plugin_loader.get_export_plugins())
     print()
     print("all plugins:")
-    print(plugin_loader.ALL_PLUGINS)
+    print(plugin_loader.get_all_plugins())
     print()
-    for plugin_name, plugin in plugin_loader.ALL_PLUGINS.items():
+    for plugin_name, plugin in plugin_loader.get_all_plugins().items():
         print(
             f"{plugin_name}: {plugin.display_name}"
         )

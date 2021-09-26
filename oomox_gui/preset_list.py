@@ -290,7 +290,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
                 preset_plugin = None
                 plugin_theme_dir = None
-                for plugin in PluginLoader.IMPORT_PLUGINS.values():
+                for plugin in PluginLoader.get_import_plugins().values():
                     if plugin.plugin_theme_dir == colors_dir:
                         plugin_theme_dir = plugin.plugin_theme_dir
                     elif plugin.user_theme_dir and (

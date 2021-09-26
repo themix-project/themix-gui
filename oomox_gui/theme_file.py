@@ -20,7 +20,7 @@ def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
     if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
         display_name = '/'.join(display_name.split('/')[1:])
         plugin_name = rel_path.split(PLUGIN_PATH_PREFIX, maxsplit=2)[1].split('/', maxsplit=1)[0]
-        plugin = PluginLoader.IMPORT_PLUGINS.get(plugin_name)
+        plugin = PluginLoader.get_import_plugins().get(plugin_name)
     if plugin:
         for ext in plugin.file_extensions:
             if display_name.endswith(ext):
@@ -50,7 +50,7 @@ def get_presets():
             (USER_COLORS_DIR, False, None),
     ] + [
         (import_plugin.plugin_theme_dir, True, import_plugin)
-        for import_plugin in PluginLoader.IMPORT_PLUGINS.values()
+        for import_plugin in PluginLoader.get_import_plugins().values()
         if import_plugin.plugin_theme_dir
     ]:
         file_paths = []

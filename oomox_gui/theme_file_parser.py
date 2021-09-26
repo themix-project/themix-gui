@@ -92,7 +92,7 @@ def read_colorscheme_from_path(preset_path, callback=None):
     colorscheme = {}
     from_plugin = None
 
-    for plugin_name, plugin in PluginLoader.IMPORT_PLUGINS.items():
+    for plugin_name, plugin in PluginLoader.get_import_plugins().items():
         if preset_path.startswith(plugin.user_theme_dir) or (
                 plugin.plugin_theme_dir and (
                     preset_path.startswith(plugin.plugin_theme_dir)
