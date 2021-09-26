@@ -14,7 +14,7 @@ from .helpers import mkdir_p
 from .gtk_helpers import (
     ImageButton, ImageMenuButton,
     EntryDialog, YesNoDialog,
-    ActionsEnum,
+    ActionsEnum, warn_once,
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
@@ -25,12 +25,16 @@ from .preset_list import ThemePresetList
 from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .terminal import generate_terminal_colors_for_oomox
-from .plugin_loader import (
-    THEME_PLUGINS, ICONS_PLUGINS, IMPORT_PLUGINS, EXPORT_PLUGINS,
-)
+from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .settings import UI_SETTINGS
 from .about import show_about
+
+
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import Optional  # noqa
 
 
 class NewDialog(EntryDialog):
@@ -324,14 +328,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _select_theme_plugin(self):
         theme_plugin_name = self.colorscheme['THEME_STYLE']
         self.plugin_theme = None
-        for theme_plugin in THEME_PLUGINS.values():
+        for theme_plugin in PluginLoader.THEME_PLUGINS.values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
     def _select_icons_plugin(self):
         icons_plugin_name = self.colorscheme['ICONS_STYLE']
         self.plugin_icons = None
-        for icons_plugin in ICONS_PLUGINS.values():
+        for icons_plugin in PluginLoader.ICONS_PLUGINS.values():
             if icons_plugin.name == icons_plugin_name:
                 self.plugin_icons = icons_plugin
 
@@ -359,13 +363,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         for theme_value in self.colorscheme.values():
             if not isinstance(theme_value, Exception):
                 continue
-            error_dialog = Gtk.MessageDialog(
+            warn_once(
                 text=theme_value,
-                # secondary_text='',
                 buttons=Gtk.ButtonsType.CLOSE
             )
-            error_dialog.run()
-            error_dialog.destroy()
 
     @staticmethod
     def schedule_task(task, *args):
@@ -438,7 +439,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         return self.import_themix_colors()
 
     def _on_import_plugin(self, action, _param=None):
-        plugin = IMPORT_PLUGINS[
+        plugin = PluginLoader.IMPORT_PLUGINS[  # pylint: disable=unsubscriptable-object
             action.props.name.replace('import_plugin_', '')
         ]
         self.import_from_plugin(plugin)
@@ -475,7 +476,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
 
     def _on_export_plugin(self, action, _param=None):
-        plugin = EXPORT_PLUGINS[
+        plugin = PluginLoader.EXPORT_PLUGINS[  # pylint: disable=unsubscriptable-object
             action.props.name.replace('export_plugin_', '')
         ]
         plugin.export_dialog(
@@ -535,7 +536,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             WindowActions.import_themix_colors.get_id()  # pylint:disable=no-member
         ))
 
-        for plugin_name, plugin in IMPORT_PLUGINS.items():
+        for plugin_name, plugin in PluginLoader.IMPORT_PLUGINS.items():
             if plugin.import_text:
                 import_menu.append_item(Gio.MenuItem.new(
                     plugin.import_text or plugin.display_name,
@@ -631,8 +632,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.attach_action(export_icons_button, WindowActions.export_icons)
 
         export_menu = Gio.Menu()
-        if EXPORT_PLUGINS:
-            for plugin_name, plugin in EXPORT_PLUGINS.items():
+        if PluginLoader.EXPORT_PLUGINS:  # pylint: disable=using-constant-test
+            for plugin_name, plugin in PluginLoader.EXPORT_PLUGINS.items():
                 export_menu.append_item(Gio.MenuItem.new(
                     plugin.export_text or plugin.display_name,
                     f"win.export_plugin_{plugin_name}"
@@ -704,7 +705,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(
             WindowActions.import_themix_colors, self._on_import_themix_colors
         )
-        for plugin_name in IMPORT_PLUGINS:
+        for plugin_name in PluginLoader.IMPORT_PLUGINS:  # pylint: disable=not-an-iterable
             self.add_simple_action(
                 f"import_plugin_{plugin_name}", self._on_import_plugin
             )
@@ -716,14 +717,27 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.show_help, self._on_show_help)
         self.add_simple_action(WindowActions.show_about, self._on_show_about)
-        for plugin_name in EXPORT_PLUGINS:
+        for plugin_name in PluginLoader.EXPORT_PLUGINS:  # pylint: disable=not-an-iterable
             self.add_simple_action(
                 f"export_plugin_{plugin_name}", self._on_export_plugin
             )
 
     def _init_plugins(self):
-        for plugin in IMPORT_PLUGINS.values():
-            plugin.set_app(self)
+        pass
+
+    _window_instance: 'Optional[OomoxApplicationWindow]' = None
+
+    @classmethod
+    def set_instance(cls, window_instance):
+        if cls._window_instance:
+            raise RuntimeError('App window already set')
+        cls._window_instance = window_instance
+
+    @classmethod
+    def get_instance(cls):
+        if not cls._window_instance:
+            raise RuntimeError('App window not yet set')
+        return cls._window_instance
 
     def __init__(self, application):
         super().__init__(
@@ -732,6 +746,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             startup_id=application.get_application_id(),
         )
         self.application = application
+        self.set_instance(self)
         self.colorscheme = {}
         mkdir_p(USER_COLORS_DIR)
 
@@ -815,8 +830,8 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
         _plugin_shortcuts = {}
         for plugin_list, plugin_action_template in (
-            (IMPORT_PLUGINS, "import_plugin_{}"),
-            (EXPORT_PLUGINS, "export_plugin_{}"),
+            (PluginLoader.IMPORT_PLUGINS, "import_plugin_{}"),
+            (PluginLoader.EXPORT_PLUGINS, "export_plugin_{}"),
         ):
             for plugin_name, plugin in plugin_list.items():
                 if not plugin.shortcut:

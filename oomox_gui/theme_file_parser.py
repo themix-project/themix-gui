@@ -1,8 +1,8 @@
 import os
 
 from .i18n import _
-from .theme_model import THEME_MODEL
-from .plugin_loader import IMPORT_PLUGINS
+from .theme_model import get_theme_model
+from .plugin_loader import PluginLoader
 from .config import DEFAULT_ENCODING
 
 
@@ -60,7 +60,7 @@ def _set_fallback_values(preset_path, colorscheme, from_plugin):
     if not colorscheme:
         theme_keys = [
             item['key']
-            for section in THEME_MODEL.values()
+            for section in get_theme_model().values()
             for item in section
             if 'key' in item
         ]
@@ -74,7 +74,7 @@ def _set_fallback_values(preset_path, colorscheme, from_plugin):
                     continue
                 colorscheme[key] = value
 
-    for section in THEME_MODEL.values():  # @TODO: store theme in memory also in two levels?
+    for section in get_theme_model().values():  # @TODO: store theme in memory also in two levels?
         for theme_model_item in section:
             key = theme_model_item.get('key')
             if not key:
@@ -92,7 +92,7 @@ def read_colorscheme_from_path(preset_path, callback=None):
     colorscheme = {}
     from_plugin = None
 
-    for plugin_name, plugin in IMPORT_PLUGINS.items():
+    for plugin_name, plugin in PluginLoader.IMPORT_PLUGINS.items():
         if preset_path.startswith(plugin.user_theme_dir) or (
                 plugin.plugin_theme_dir and (
                     preset_path.startswith(plugin.plugin_theme_dir)

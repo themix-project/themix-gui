@@ -156,18 +156,6 @@ class OomoxImportPlugin(OomoxPlugin):
 
     shortcut = None  # type: Optional[str]
 
-    # ############ @TODO: figure that out: ?
-
-    _app = None
-
-    @classmethod
-    def set_app(cls, app):
-        cls._app = app
-
-    @classmethod
-    def get_app(cls):
-        return cls._app
-
 
 class OomoxImportPluginAsync(OomoxImportPlugin):
 

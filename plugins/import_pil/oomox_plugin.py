@@ -18,6 +18,8 @@ from oomox_gui.helpers import (
     get_plugin_module, apply_chain, call_method_from_class, delayed_partial,
 )
 from oomox_gui.i18n import _
+from oomox_gui.main import OomoxApplicationWindow
+from oomox_gui.theme_model import get_first_theme_option
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -395,7 +397,6 @@ class Plugin(OomoxImportPluginAsync):
         return hex_palette
 
     def read_colorscheme_from_path(self, preset_path, callback):
-        from oomox_gui.theme_model import get_first_theme_option
 
         get_first_theme_option('_PIL_IMAGE_PREVIEW')['fallback_value'] = preset_path
 
@@ -409,7 +410,6 @@ class Plugin(OomoxImportPluginAsync):
         )
 
     def read_colorscheme_from_path_callback(self, image_palette, callback):
-        from oomox_gui.theme_model import get_first_theme_option
         theme_template = get_first_theme_option(
             '_PIL_THEME_TEMPLATE', {}
         ).get('fallback_value')
@@ -444,7 +444,7 @@ class Plugin(OomoxImportPluginAsync):
                 hex_palette, template_path, inverse_palette, result_callback
             )
         else:
-            _app = cls.get_app()
+            _app = OomoxApplicationWindow.get_instance()
             _app.disable(_('Extracting palette from image…'))
             _app.schedule_task(
                 cls._generate_terminal_palette_task,
@@ -540,7 +540,6 @@ class Plugin(OomoxImportPluginAsync):
             cls, template_path, image_path,
             result_callback,
     ):
-        from oomox_gui.theme_model import get_first_theme_option
         quality = get_first_theme_option('_PIL_PALETTE_QUALITY', {}).get('fallback_value')
         use_whole_palette = bool(
             get_first_theme_option('_PIL_PALETTE_STRICT', {}).get('fallback_value')
@@ -557,7 +556,7 @@ class Plugin(OomoxImportPluginAsync):
             result_callback(palette)
 
         if not cls._terminal_palette_cache.get(_id):
-            _app = cls.get_app()
+            _app = OomoxApplicationWindow.get_instance()
             _app.disable(_('Generating terminal palette…'))
             _app.schedule_task(
                 cls._generate_terminal_palette,

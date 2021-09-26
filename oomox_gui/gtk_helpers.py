@@ -6,6 +6,12 @@ from gi.types import GObjectMeta
 from .i18n import _
 
 
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import List  # noqa
+
+
 class ActionProperty(str):
 
     target = None  # type: str
@@ -258,3 +264,36 @@ class GObjectABCMeta(GObjectMeta, type):
 
 def g_abstractproperty(_function):
     return GObjectABCMetaAbstractProperty
+
+
+class _WarnOnceDialog(Gtk.MessageDialog):
+
+    _already_shown = []  # type: List[str]
+
+    @staticmethod
+    def _marshal(text, secondary_text, buttons):
+        return f"{text},{secondary_text},{buttons}"
+
+    @classmethod
+    def add_shown(cls, text, secondary_text, buttons):
+        cls._already_shown.append(cls._marshal(text, secondary_text, buttons))
+
+    @classmethod
+    def was_shown(cls, text, secondary_text, buttons):
+        return cls._marshal(text, secondary_text, buttons) in cls._already_shown
+
+    def __init__(self, text, secondary_text, buttons):
+        super().__init__(
+            text=text,
+            secondary_text=secondary_text,
+            buttons=buttons
+        )
+
+
+def warn_once(text, secondary_text='', buttons=Gtk.ButtonsType.CLOSE):
+    dialog = _WarnOnceDialog(text, secondary_text, buttons)
+    if dialog.was_shown(text, secondary_text, buttons):
+        return
+    dialog.run()
+    dialog.add_shown(text, secondary_text, buttons)
+    dialog.destroy()
