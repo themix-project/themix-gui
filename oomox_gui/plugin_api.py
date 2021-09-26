@@ -1,25 +1,23 @@
 import os
-import sys
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 
-if sys.version_info.minor >= 5:
-    from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-    if TYPE_CHECKING:
-        # pylint: disable=ungrouped-imports
-        from typing import List, Dict, Any, Iterable, Optional, Union, Callable  # noqa
-        from mypy_extensions import TypedDict  # noqa  # pylint: disable=import-error
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import List, Dict, Any, Iterable, Optional, Union, Callable  # noqa
+    from mypy_extensions import TypedDict  # noqa  # pylint: disable=import-error
 
-        from .export_common import ExportDialog  # noqa
-        from .preview import ThemePreview  # noqa
-        from .preview_icons import IconThemePreview  # noqa
+    from .export_common import ExportDialog  # noqa
+    from .preview import ThemePreview  # noqa
+    from .preview_icons import IconThemePreview  # noqa
 
-        from .theme_model import ThemeModelValue  # noqa
-        ColorScheme = Dict[str, Union[str, bool, int, float]]
-        AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
+    from .theme_model import ThemeModelValue  # noqa
+    ColorScheme = Dict[str, Union[str, bool, int, float]]
+    AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
 
 
 PLUGIN_PATH_PREFIX = "__plugin__"

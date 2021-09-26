@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import subprocess
 import os
-import sys
 import tempfile
 from threading import Thread
 
@@ -14,11 +13,10 @@ from .theme_file import save_colorscheme
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 
 
-if sys.version_info.minor >= 5:
-    from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-    if TYPE_CHECKING:
-        # pylint: disable=ungrouped-imports
-        from typing import Dict  # noqa
+from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
+if TYPE_CHECKING:
+    # pylint: disable=ungrouped-imports
+    from typing import Dict  # noqa
 
 
 class ExportConfig(CommonOomoxConfig):

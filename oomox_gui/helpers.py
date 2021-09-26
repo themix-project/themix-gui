@@ -18,13 +18,11 @@ def ls_r(path):
 
 
 def get_plugin_module(name, path, submodule=None):
-    if sys.version_info.minor >= 5:
-        spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
-        module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
-        spec.loader.exec_module(module)
-    else:
-        loader = importlib.machinery.SourceFileLoader(name, path)
-        module = loader.load_module()  # pylint: disable=deprecated-method,no-value-for-parameter
+    if sys.version_info.minor < 5:
+        raise RuntimeError('Python 3.5+ is required')
+    spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
+    module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
+    spec.loader.exec_module(module)
     if submodule:
         return getattr(module, submodule)
     return module
