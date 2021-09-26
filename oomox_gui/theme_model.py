@@ -9,16 +9,37 @@ from .plugin_loader import PluginLoader
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
     # pylint: disable=ungrouped-imports
-    from typing import List, Dict, Any  # noqa
+    from typing import List, Dict, Any, Optional, Callable  # noqa
+    from typing_extensions import TypedDict  # noqa
 
-    ThemeModelValue = Dict[str, Any]
+    from .plugin_api import OomoxPlugin, OomoxThemePlugin  # noqa
+
+    Option = TypedDict('Option', {
+        'value': str,
+        'display_name': Optional[str],
+        'description': Optional[str],
+    }, total=False)
+    ThemeModelValue = TypedDict('ThemeModelValue', {
+        "key": str,
+        "type": str,
+        "fallback_key": Optional[str],
+        "fallback_value": Optional[Any],
+        "display_name": Optional[str],
+        "min_value": Optional[Any],
+        "max_value": Optional[Any],
+        "options": Optional[List[Option]],
+        "value_filter": Optional[Dict[str, List[Any]]],
+        "filter": Optional[Callable[[Dict[str, Any]], bool]],
+    }, total=False)
+    ThemeModelSection = List[ThemeModelValue]
+    ThemeModel = Dict[str, ThemeModelSection]
 
 
-def sorted_dict(_dict):
+def sorted_dict(_dict: 'Dict') -> 'Dict':
     return dict(sorted(_dict.items(), key=lambda x: x))
 
 
-def get_key_indexes(base_theme_model):
+def get_key_indexes(base_theme_model: 'List[ThemeModelValue]') -> 'Dict[str, int]':
     return {
         theme_value['key']: index
         for index, theme_value in enumerate(base_theme_model)
@@ -27,11 +48,12 @@ def get_key_indexes(base_theme_model):
 
 
 def merge_model_with_plugin(
-        theme_model_name, theme_plugin,
-        base_theme_model,
-        value_filter_key=None
-):
-    result = []
+        theme_model_name: str,
+        theme_plugin: 'OomoxPlugin',
+        base_theme_model: 'List[ThemeModelValue]',
+        value_filter_key: 'Optional[str]' = None
+) -> 'ThemeModelSection':
+    result: 'ThemeModelSection' = []
     plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name, None)
     if not plugin_theme_model:
         return result
@@ -67,9 +89,11 @@ def merge_model_with_plugin(
 
 
 def merge_model_with_plugins(
-        theme_model_name, plugins,
-        base_theme_model=None, value_filter_key=None
-):
+        theme_model_name: str,
+        plugins: 'Dict[str, OomoxPlugin]',
+        base_theme_model: 'Optional[ThemeModelSection]' = None,
+        value_filter_key: 'Optional[str]' = None
+) -> 'ThemeModelSection':
     if base_theme_model is None:
         base_theme_model = []
     whole_theme_model = base_theme_model[::]
@@ -86,10 +110,13 @@ def merge_model_with_plugins(
     return whole_theme_model
 
 
-def get_theme_model_uncached():
+def get_theme_model_uncached() -> 'ThemeModel':
     #  @TODO: refactor theme_model loader into class
 
-    def merge_theme_model_with_plugins(theme_model_name, base_theme_model=None):
+    def merge_theme_model_with_plugins(
+            theme_model_name: str,
+            base_theme_model: 'Optional[ThemeModelSection]' = None
+    ) -> 'ThemeModelSection':
         return merge_model_with_plugins(
             theme_model_name=theme_model_name,
             base_theme_model=base_theme_model,
@@ -97,8 +124,7 @@ def get_theme_model_uncached():
             plugins=PluginLoader.get_theme_plugins(),
         )
 
-    THEME_MODEL = {
-    }  # type: Dict[str, List[ThemeModelValue]]
+    THEME_MODEL: 'ThemeModel' = {}
 
     THEME_MODEL['import'] = merge_model_with_plugins(
         theme_model_name='import',
@@ -127,7 +153,7 @@ def get_theme_model_uncached():
         },
     ]
 
-    BASE_THEME_MODEL_GTK = [
+    BASE_THEME_MODEL_GTK: 'ThemeModelSection' = [
         {
             'type': 'separator',
             'display_name': _('Theme Colors'),
@@ -241,7 +267,7 @@ def get_theme_model_uncached():
         plugins=PluginLoader.get_import_plugins(),
     )
 
-    BASE_THEME_MODEL_OPTIONS = [
+    BASE_THEME_MODEL_OPTIONS: 'ThemeModelSection' = [
         {
             'type': 'separator',
             'display_name': _('Theme Options'),
@@ -262,7 +288,7 @@ def get_theme_model_uncached():
     ]
     THEME_MODEL['theme_options'] = merge_theme_model_with_plugins('options', BASE_THEME_MODEL_OPTIONS)
 
-    BASE_ICON_THEME_MODEL = [
+    BASE_ICON_THEME_MODEL: 'ThemeModelSection' = [
         {
             'type': 'separator',
             'display_name': _('Iconset')
@@ -540,17 +566,17 @@ class CachedThemeModel:
     _theme_model = None
 
     @classmethod
-    def get(cls):
+    def get(cls) -> 'ThemeModel':
         if not cls._theme_model:
             cls._theme_model = get_theme_model_uncached()
         return cls._theme_model
 
 
-def get_theme_model() -> 'Dict[str, List[ThemeModelValue]]':
+def get_theme_model() -> 'ThemeModel':
     return CachedThemeModel.get()
 
 
-def get_theme_options_by_key(key, fallback=None):
+def get_theme_options_by_key(key, fallback: 'Optional[ThemeModelValue]' = None) -> 'List[ThemeModelValue]':
     result = []
     for _section_id, section in get_theme_model().items():
         for theme_option in section:
@@ -561,7 +587,7 @@ def get_theme_options_by_key(key, fallback=None):
     return result
 
 
-def get_first_theme_option(key, fallback=None):
+def get_first_theme_option(key, fallback: 'Optional[ThemeModelValue]' = None) -> 'ThemeModelValue':
     result = get_theme_options_by_key(key, fallback=fallback)
     if result:
         return result[0]
