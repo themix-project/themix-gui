@@ -88,16 +88,13 @@ def merge_model_with_plugins(
 
 def get_theme_model_uncached():
     #  @TODO: refactor theme_model loader into class
-    _PL = PluginLoader
-    THEME_PLUGINS, ICONS_PLUGINS, EXPORT_PLUGINS, IMPORT_PLUGINS = \
-        _PL.THEME_PLUGINS, _PL.ICONS_PLUGINS, _PL.EXPORT_PLUGINS, _PL.IMPORT_PLUGINS
 
     def merge_theme_model_with_plugins(theme_model_name, base_theme_model=None):
         return merge_model_with_plugins(
             theme_model_name=theme_model_name,
             base_theme_model=base_theme_model,
             value_filter_key='THEME_STYLE',
-            plugins=THEME_PLUGINS,
+            plugins=PluginLoader.get_theme_plugins(),
         )
 
     THEME_MODEL = {
@@ -106,7 +103,7 @@ def get_theme_model_uncached():
     THEME_MODEL['import'] = merge_model_with_plugins(
         theme_model_name='import',
         value_filter_key='FROM_PLUGIN',
-        plugins=IMPORT_PLUGINS,
+        plugins=PluginLoader.get_import_plugins(),
     )
 
     THEME_MODEL['base'] = [
@@ -123,7 +120,7 @@ def get_theme_model_uncached():
                     'display_name': theme_plugin.display_name,
                     'description': theme_plugin.description,
                 }
-                for theme_plugin in sorted_dict(THEME_PLUGINS).values()
+                for theme_plugin in sorted_dict(PluginLoader.get_theme_plugins()).values()
             ],
             'fallback_value': 'oomox',
             'display_name': _('Style for UI elements'),
@@ -241,7 +238,7 @@ def get_theme_model_uncached():
         theme_model_name='gtk',
         base_theme_model=merge_theme_model_with_plugins('gtk', BASE_THEME_MODEL_GTK),
         value_filter_key='FROM_PLUGIN',
-        plugins=IMPORT_PLUGINS,
+        plugins=PluginLoader.get_import_plugins(),
     )
 
     BASE_THEME_MODEL_OPTIONS = [
@@ -278,7 +275,7 @@ def get_theme_model_uncached():
                     'value': icons_plugin.name,
                     'display_name': icons_plugin.display_name,
                 }
-                for icons_plugin in sorted_dict(ICONS_PLUGINS).values()
+                for icons_plugin in sorted_dict(PluginLoader.get_icons_plugins()).values()
             ],
             'fallback_value': 'gnome_colors',
             'display_name': _('Icons Style')
@@ -288,7 +285,7 @@ def get_theme_model_uncached():
         base_theme_model=BASE_ICON_THEME_MODEL,
         theme_model_name='icons',
         value_filter_key='ICONS_STYLE',
-        plugins=ICONS_PLUGINS,
+        plugins=PluginLoader.get_icons_plugins(),
     )
 
     THEME_MODEL['terminal'] = [
@@ -532,7 +529,7 @@ def get_theme_model_uncached():
     THEME_MODEL['export'] = merge_model_with_plugins(
         base_theme_model=_theme_export_plugins,
         theme_model_name='extra',
-        plugins=EXPORT_PLUGINS,
+        plugins=PluginLoader.get_export_plugins(),
     )
 
     return THEME_MODEL

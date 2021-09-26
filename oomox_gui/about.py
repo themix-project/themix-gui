@@ -58,10 +58,10 @@ def show_about(parent_window):
             row.set_header(separator)
 
     for title, plugin_list in (
-            (_('Theme Plugins'), PluginLoader.THEME_PLUGINS, ),
-            (_('Icon Plugins'), PluginLoader.ICONS_PLUGINS, ),
-            (_('Import Plugins'), PluginLoader.IMPORT_PLUGINS, ),
-            (_('Export Plugins'), PluginLoader.EXPORT_PLUGINS, ),
+            (_('Theme Plugins'), PluginLoader.get_theme_plugins(), ),
+            (_('Icon Plugins'), PluginLoader.get_icons_plugins(), ),
+            (_('Import Plugins'), PluginLoader.get_import_plugins(), ),
+            (_('Export Plugins'), PluginLoader.get_export_plugins(), ),
     ):
         section_label = Gtk.Label(title)
         section_label.set_margin_top(8)

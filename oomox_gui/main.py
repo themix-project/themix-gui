@@ -328,14 +328,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _select_theme_plugin(self):
         theme_plugin_name = self.colorscheme['THEME_STYLE']
         self.plugin_theme = None
-        for theme_plugin in PluginLoader.THEME_PLUGINS.values():
+        for theme_plugin in PluginLoader.get_theme_plugins().values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
     def _select_icons_plugin(self):
         icons_plugin_name = self.colorscheme['ICONS_STYLE']
         self.plugin_icons = None
-        for icons_plugin in PluginLoader.ICONS_PLUGINS.values():
+        for icons_plugin in PluginLoader.get_icons_plugins().values():
             if icons_plugin.name == icons_plugin_name:
                 self.plugin_icons = icons_plugin
 
@@ -439,7 +439,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         return self.import_themix_colors()
 
     def _on_import_plugin(self, action, _param=None):
-        plugin = PluginLoader.IMPORT_PLUGINS[  # pylint: disable=unsubscriptable-object
+        plugin = PluginLoader.get_import_plugins()[
             action.props.name.replace('import_plugin_', '')
         ]
         self.import_from_plugin(plugin)
@@ -476,7 +476,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
 
     def _on_export_plugin(self, action, _param=None):
-        plugin = PluginLoader.EXPORT_PLUGINS[  # pylint: disable=unsubscriptable-object
+        plugin = PluginLoader.get_export_plugins()[
             action.props.name.replace('export_plugin_', '')
         ]
         plugin.export_dialog(
@@ -536,7 +536,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             WindowActions.import_themix_colors.get_id()  # pylint:disable=no-member
         ))
 
-        for plugin_name, plugin in PluginLoader.IMPORT_PLUGINS.items():
+        for plugin_name, plugin in PluginLoader.get_import_plugins().items():
             if plugin.import_text:
                 import_menu.append_item(Gio.MenuItem.new(
                     plugin.import_text or plugin.display_name,
@@ -632,8 +632,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.attach_action(export_icons_button, WindowActions.export_icons)
 
         export_menu = Gio.Menu()
-        if PluginLoader.EXPORT_PLUGINS:  # pylint: disable=using-constant-test
-            for plugin_name, plugin in PluginLoader.EXPORT_PLUGINS.items():
+        if PluginLoader.get_export_plugins():
+            for plugin_name, plugin in PluginLoader.get_export_plugins().items():
                 export_menu.append_item(Gio.MenuItem.new(
                     plugin.export_text or plugin.display_name,
                     f"win.export_plugin_{plugin_name}"
@@ -705,7 +705,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(
             WindowActions.import_themix_colors, self._on_import_themix_colors
         )
-        for plugin_name in PluginLoader.IMPORT_PLUGINS:  # pylint: disable=not-an-iterable
+        for plugin_name in PluginLoader.get_import_plugins():
             self.add_simple_action(
                 f"import_plugin_{plugin_name}", self._on_import_plugin
             )
@@ -717,7 +717,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.show_help, self._on_show_help)
         self.add_simple_action(WindowActions.show_about, self._on_show_about)
-        for plugin_name in PluginLoader.EXPORT_PLUGINS:  # pylint: disable=not-an-iterable
+        for plugin_name in PluginLoader.get_export_plugins():
             self.add_simple_action(
                 f"export_plugin_{plugin_name}", self._on_export_plugin
             )
@@ -830,8 +830,8 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
         _plugin_shortcuts = {}
         for plugin_list, plugin_action_template in (
-            (PluginLoader.IMPORT_PLUGINS, "import_plugin_{}"),
-            (PluginLoader.EXPORT_PLUGINS, "export_plugin_{}"),
+            (PluginLoader.get_import_plugins(), "import_plugin_{}"),
+            (PluginLoader.get_export_plugins(), "export_plugin_{}"),
         ):
             for plugin_name, plugin in plugin_list.items():
                 if not plugin.shortcut:
