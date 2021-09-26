@@ -11,7 +11,7 @@ whitelist = Whitelist()
 whitelist.typing.List
 whitelist.typing.Iterable
 whitelist.typing.Optional
-whitelist.theme_model.ThemeModelValue
+whitelist.theme_model.ThemeModel
 whitelist.plugin_api.ColorScheme
 
 # stdlib
