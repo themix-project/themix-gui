@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk, GLib
 
-from .theme_model import THEME_MODEL, get_theme_options_by_key
+from .theme_model import get_theme_model, get_theme_options_by_key
 from .palette_cache import PaletteCache
 from .color import (
     convert_theme_color_to_gdk, convert_gdk_to_theme_color,
@@ -535,7 +535,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.mainbox.add(self._error_messages_row)
         self._all_rows = {}
         self._all_section_boxes = {}
-        for section_id, section in THEME_MODEL.items():
+        for section_id, section in get_theme_model().items():
             self._all_section_boxes[section_id] = section_box = SectionListBox()
             for option_idx, theme_value in enumerate(section):
                 key = theme_value.get('key')
@@ -623,7 +623,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         if "NOGUI" in theme:
             error_messages.append(_("Can't Be Edited in GUI"))
 
-        for section_id, section in THEME_MODEL.items():
+        for section_id, section in get_theme_model().items():
             rows_displayed_in_section = 0
             for option_idx, theme_value in enumerate(section):
                 key = theme_value.get('key')
@@ -665,7 +665,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def hide_all_rows(self):
         self._error_messages_row.hide()
-        for section_id in THEME_MODEL:
+        for section_id in get_theme_model().keys():
             self._all_section_boxes[section_id].hide()
 
     def replace_all(self, old_value, new_value):

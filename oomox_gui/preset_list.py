@@ -7,7 +7,7 @@ from .i18n import _
 from .config import USER_COLORS_DIR, COLORS_DIR
 from .settings import UI_SETTINGS
 from .plugin_api import PLUGIN_PATH_PREFIX
-from .plugin_loader import IMPORT_PLUGINS
+from .plugin_loader import PluginLoader
 from .theme_file import get_presets, group_presets_by_dir
 
 
@@ -290,7 +290,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
                 preset_plugin = None
                 plugin_theme_dir = None
-                for plugin in IMPORT_PLUGINS.values():
+                for plugin in PluginLoader.IMPORT_PLUGINS.values():
                     if plugin.plugin_theme_dir == colors_dir:
                         plugin_theme_dir = plugin.plugin_theme_dir
                     elif plugin.user_theme_dir and (

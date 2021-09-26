@@ -5,25 +5,22 @@ from itertools import groupby
 
 from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
 from .helpers import ls_r, mkdir_p
+from .plugin_loader import PluginLoader
+from .plugin_api import PLUGIN_PATH_PREFIX
 
 
 PresetFile = namedtuple('PresetFile', ['name', 'path', 'default', 'is_saveable', ])
 
 
 def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
-    # pylint:disable=bad-option-value,import-outside-toplevel
-    from .plugin_api import PLUGIN_PATH_PREFIX
-    from .plugin_loader import IMPORT_PLUGINS
-
     display_name = "".join(
         theme_path.rsplit(colors_dir)
     ).lstrip('/')
-
     rel_path = "".join(theme_path.rsplit(colors_dir))
     if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
         display_name = '/'.join(display_name.split('/')[1:])
         plugin_name = rel_path.split(PLUGIN_PATH_PREFIX, maxsplit=2)[1].split('/', maxsplit=1)[0]
-        plugin = IMPORT_PLUGINS.get(plugin_name)
+        plugin = PluginLoader.IMPORT_PLUGINS.get(plugin_name)
     if plugin:
         for ext in plugin.file_extensions:
             if display_name.endswith(ext):
@@ -47,16 +44,13 @@ def group_presets_by_dir(preset_list, preset_dir):
 
 
 def get_presets():
-    # pylint:disable=bad-option-value,import-outside-toplevel
-    from .plugin_loader import IMPORT_PLUGINS
-
     all_results = {}
     for colors_dir, is_default, plugin in [
             (COLORS_DIR, True, None),
             (USER_COLORS_DIR, False, None),
     ] + [
         (import_plugin.plugin_theme_dir, True, import_plugin)
-        for import_plugin in IMPORT_PLUGINS.values()
+        for import_plugin in PluginLoader.IMPORT_PLUGINS.values()
         if import_plugin.plugin_theme_dir
     ]:
         file_paths = []

@@ -4,10 +4,7 @@ from gi.repository import Gtk
 
 from .i18n import _
 from .config import SCRIPT_DIR
-# from .plugin_loader import ALL_PLUGINS
-from .plugin_loader import (
-    THEME_PLUGINS, ICONS_PLUGINS, IMPORT_PLUGINS, EXPORT_PLUGINS,
-)
+from .plugin_loader import PluginLoader
 
 
 class PluginInfo(Gtk.ListBoxRow):
@@ -61,10 +58,10 @@ def show_about(parent_window):
             row.set_header(separator)
 
     for title, plugin_list in (
-            (_('Theme Plugins'), THEME_PLUGINS, ),
-            (_('Icon Plugins'), ICONS_PLUGINS, ),
-            (_('Import Plugins'), IMPORT_PLUGINS, ),
-            (_('Export Plugins'), EXPORT_PLUGINS, ),
+            (_('Theme Plugins'), PluginLoader.THEME_PLUGINS, ),
+            (_('Icon Plugins'), PluginLoader.ICONS_PLUGINS, ),
+            (_('Import Plugins'), PluginLoader.IMPORT_PLUGINS, ),
+            (_('Export Plugins'), PluginLoader.EXPORT_PLUGINS, ),
     ):
         section_label = Gtk.Label(title)
         section_label.set_margin_top(8)

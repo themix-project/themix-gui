@@ -10,6 +10,7 @@ from .color import (
     hex_to_int, color_list_from_hex, color_hex_from_list, hex_darker,
     int_list_from_hex,
 )
+from .theme_model import get_theme_model
 
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
@@ -108,11 +109,8 @@ def generate_theme_from_hint(  # pylint: disable=too-many-arguments
 
 
 def get_all_colors_from_oomox_colorscheme(palette):
-    # pylint:disable=bad-option-value,import-outside-toplevel
-    from .theme_model import THEME_MODEL
-
     all_colors = []
-    for section_name, section in THEME_MODEL.items():
+    for section_name, section in get_theme_model().items():
         if section_name == 'terminal':
             continue
         for theme_model_item in section:
