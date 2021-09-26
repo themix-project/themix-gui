@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from typing import List, Dict, Any, Optional, Callable  # noqa
     from typing_extensions import TypedDict  # noqa
 
-    from .plugin_api import OomoxPlugin, OomoxThemePlugin  # noqa
+    from .plugin_api import OomoxPlugin  # noqa
 
     Option = TypedDict('Option', {
         'value': str,
