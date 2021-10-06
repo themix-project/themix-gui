@@ -3,7 +3,7 @@
 
 _pkgname=themix-import-images
 pkgname="${_pkgname}-git"
-pkgver=1.13.3
+pkgver=1.14
 pkgrel=1
 pkgdesc="Import plugin for Themix GUI designer to get color palettes from the images"
 arch=('x86_64' 'i686')
