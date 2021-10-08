@@ -29,6 +29,7 @@ from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .settings import UI_SETTINGS
 from .about import show_about
+from .shortcuts import show_shortcuts
 
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
@@ -499,16 +500,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_show_help(self, _action, _param=None):
         # @TODO: refactor to use .set_help_overlay() ?
-        path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
-        obj_id = "shortcuts"
-
-        builder = Gtk.Builder.new_from_file(path)
-        overlay = builder.get_object(obj_id)
-        overlay.set_transient_for(self)
-        overlay.set_title("Oomox Keyboard Shortcuts")
-        overlay.set_wmclass("oomox", "Oomox")
-        overlay.set_role("Oomox-Shortcuts")
-        overlay.show()
+        show_shortcuts(self)
 
     def _on_show_about(self, _action, _param=None):
         show_about(self)

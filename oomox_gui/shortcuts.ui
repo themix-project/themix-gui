@@ -44,13 +44,6 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
-                <property name="accelerator">&lt;Primary&gt;M</property>
-                <property name="title" translatable="yes">Import Theme menu</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
                 <property name="accelerator">&lt;Primary&gt;S</property>
                 <property name="title" translatable="yes">Save theme</property>
               </object>
@@ -80,7 +73,21 @@
         </child>
 
         <child>
-          <object class="GtkShortcutsGroup">
+          <object class="GtkShortcutsGroup" id="import_section">
+            <property name="visible">1</property>
+            <property name="title" translatable="yes">Import</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
+                <property name="accelerator">&lt;Primary&gt;M</property>
+                <property name="title" translatable="yes">Import Theme menu</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup" id="export_section">
             <property name="visible">1</property>
             <property name="title" translatable="yes">Export</property>
             <child>
@@ -102,13 +109,6 @@
                 <property name="visible">1</property>
                 <property name="accelerator">&lt;Primary&gt;O</property>
                 <property name="title" translatable="yes">Export other themes</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="visible">1</property>
-                <property name="accelerator">&lt;Primary&gt;X</property>
-                <property name="title" translatable="yes">Export Xresources theme</property>
               </object>
             </child>
           </object>
