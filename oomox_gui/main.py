@@ -9,7 +9,7 @@ import traceback
 from gi.repository import Gtk, Gio, GLib, Gdk
 
 from .i18n import _
-from .config import USER_COLORS_DIR, SCRIPT_DIR
+from .config import USER_COLORS_DIR
 from .helpers import mkdir_p
 from .gtk_helpers import (
     ImageButton, ImageMenuButton,

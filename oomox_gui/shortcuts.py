@@ -42,7 +42,7 @@ def show_shortcuts(parent_window):
                 continue
             shortcut = Gtk.ShortcutsShortcut(
                 title=get_text(plugin),
-                accelerator = plugin.shortcut
+                accelerator=plugin.shortcut
             )
             section.add(shortcut)
 
