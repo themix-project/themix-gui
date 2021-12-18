@@ -2,7 +2,7 @@ import os
 
 from gi.repository import Gtk
 
-from .i18n import _
+from .i18n import translate
 from .config import SCRIPT_DIR
 from .plugin_loader import PluginLoader
 
@@ -13,7 +13,7 @@ def show_shortcuts(parent_window):
     builder = Gtk.Builder.new_from_file(path)
     shortcuts_window = builder.get_object(obj_id)
     shortcuts_window.set_transient_for(parent_window)
-    shortcuts_window.set_title(_("Themix-GUI Keyboard Shortcuts"))
+    shortcuts_window.set_title(translate("Themix-GUI Keyboard Shortcuts"))
     shortcuts_window.set_wmclass("oomox", "Oomox")
     shortcuts_window.set_role("Oomox-Shortcuts")
 
@@ -24,7 +24,7 @@ def show_shortcuts(parent_window):
                     lambda plugin: (
                         plugin.import_text and
                         plugin.import_text.replace('_', '').replace('…', '') or
-                        _("Import {plugin_name}").format(plugin_name=plugin.display_name)
+                        translate("Import {plugin_name}").format(plugin_name=plugin.display_name)
                     ),
             ),
             (
@@ -33,7 +33,7 @@ def show_shortcuts(parent_window):
                     lambda plugin: (
                         plugin.export_text and
                         plugin.export_text.replace('_', '').replace('…', '') or
-                        _("Export {plugin_name}").format(plugin_name=plugin.display_name)
+                        translate("Export {plugin_name}").format(plugin_name=plugin.display_name)
                     ),
             ),
     ):

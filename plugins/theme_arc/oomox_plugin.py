@@ -7,7 +7,7 @@ from oomox_gui.export_common import CommonGtkThemeExportDialog
 # from oomox_gui.export_common import OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 from oomox_gui.color import mix_theme_colors
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -52,15 +52,15 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
             override_options={
                 OPTION_EXPORT_CINNAMON_THEME: {
                     'default': False,
-                    'display_name': _("Generate theme for _Cinnamon"),
+                    'display_name': translate("Generate theme for _Cinnamon"),
                 },
                 OPTION_EXPORT_GNOME_SHELL_THEME: {
                     'default': False,
-                    'display_name': _("Generate theme for GNOME _Shell"),
+                    'display_name': translate("Generate theme for GNOME _Shell"),
                 },
                 OPTION_EXPORT_XFWM_THEME: {
                     'default': False,
-                    'display_name': _("Generate theme for _Xfwm"),
+                    'display_name': translate("Generate theme for _Xfwm"),
                 },
             },
             **kwargs
@@ -159,8 +159,8 @@ class Plugin(OomoxThemePlugin):
                 0.75
             ),
             'type': 'color',
-            'display_name': _('Border'),
-            'description': _('not supported by GTK+2 theme'),
+            'display_name': translate('Border'),
+            'description': translate('not supported by GTK+2 theme'),
         },
     ]
 
@@ -169,14 +169,14 @@ class Plugin(OomoxThemePlugin):
             'key': 'ARC_TRANSPARENCY',
             'type': 'bool',
             'fallback_value': True,
-            'display_name': _('Enable Theme Transparency'),
-            'description': _('not supported by GTK+2 theme'),
+            'display_name': translate('Enable Theme Transparency'),
+            'description': translate('not supported by GTK+2 theme'),
         },
         # {
         #     'key': 'GTK3_GENERATE_DARK',
         #     'type': 'bool',
         #     'fallback_value': True,
-        #     'display_name': _('(GTK3) Add Dark Variant'),
+        #     'display_name': translate('(GTK3) Add Dark Variant'),
         # },
     ]
 

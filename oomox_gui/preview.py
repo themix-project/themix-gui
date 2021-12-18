@@ -10,7 +10,7 @@ from .gtk_helpers import ScaledImage
 from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
 from .config import FALLBACK_COLOR, DEFAULT_ENCODING
-from .i18n import _
+from .i18n import translate
 
 
 WIDGET_SPACING = 10
@@ -59,9 +59,9 @@ class PreviewHeaderbar(Gtk.HeaderBar):
     def __init__(self):
         super().__init__()
         self.set_show_close_button(False)
-        self.title = Gtk.Label(label=_("Headerbar"))
+        self.title = Gtk.Label(label=translate("Headerbar"))
         self.props.custom_title = self.title
-        self.button = Gtk.Button(label=f'   {_("Button")}   ')
+        self.button = Gtk.Button(label=f'   {translate("Button")}   ')
         self.pack_end(self.button)
 
 
@@ -89,20 +89,20 @@ class PreviewWidgets(Gtk.Box):
         self.headerbar = PreviewHeaderbar()
 
         self.menubar = Gtk.MenuBar()
-        menuitem1 = Gtk.MenuItem(label=_('File'))
+        menuitem1 = Gtk.MenuItem(label=translate('File'))
         menuitem1.set_submenu(self.create_menu(3, True))
         self.menubar.append(menuitem1)
-        menuitem2 = Gtk.MenuItem(label=_('Edit'))
+        menuitem2 = Gtk.MenuItem(label=translate('Edit'))
         menuitem2.set_submenu(self.create_menu(6, True))
         self.menubar.append(menuitem2)
 
         headerbox.pack_start(self.headerbar, True, True, 0)
         headerbox.pack_start(self.menubar, True, True, 0)
 
-        self.label = Gtk.Label(label=_("This is a label"))
-        self.sel_label = Gtk.Label(label=_("Selected item"))
-        self.entry = Gtk.Entry(text=_("Text entry"))
-        self.button = Gtk.Button(label=_("Button"))
+        self.label = Gtk.Label(label=translate("This is a label"))
+        self.sel_label = Gtk.Label(label=translate("Selected item"))
+        self.entry = Gtk.Entry(text=translate("Text entry"))
+        self.button = Gtk.Button(label=translate("Button"))
 
         self.preview_imageboxes = {}
         self.preview_imageboxes_templates = {}
@@ -132,7 +132,7 @@ class PreviewWidgets(Gtk.Box):
         menu = Gtk.Menu()
         for i in range(0, n_items):
             sensitive = (i + 1) % 3 != 0
-            label = _('Item {id}') if sensitive else _('Insensitive Item {id}')
+            label = translate('Item {id}') if sensitive else translate('Insensitive Item {id}')
             item = Gtk.MenuItem(label=label.format(id=i + 1),
                                 sensitive=sensitive)
             menu.append(item)

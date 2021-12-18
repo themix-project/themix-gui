@@ -1,7 +1,7 @@
 import os
 import json
 
-from .i18n import _
+from .i18n import translate
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 
 
@@ -42,7 +42,7 @@ class CommonOomoxConfig:
                 for key, value in json.load(file_object).items():
                     self.config[key] = value
         except Exception as exc:
-            print(_("Can't read config file"))
+            print(translate("Can't read config file"))
             print(exc)
         return self.config
 

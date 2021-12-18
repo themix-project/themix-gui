@@ -28,13 +28,26 @@ python3 -O -m compileall ./oomox_gui/ ./plugins/*/oomox_plugin.py | (grep -v -e 
 echo ':: python compile passed ::'
 
 echo -e "\n== Running flake8:"
-flake8 oomox_gui/ ./plugins/*/oomox_plugin.py
+flake8 oomox_gui/ ./plugins/*/oomox_plugin.py 2>&1 \
+| (
+	grep -v \
+		-e "^  warnings.warn($" \
+		-e "^/usr/lib/python3.10/site-packages/" \
+	|| true \
+)
+
 echo ':: flake8 passed ::'
 
 echo -e "\n== Running pylint:"
 #pylint --jobs="$(nproc)" oomox_gui ./plugins/*/oomox_plugin.py --score no
 # @TODO: --jobs is broken at the moment: https://github.com/PyCQA/pylint/issues/374
-pylint oomox_gui ./plugins/*/oomox_plugin.py --score no
+pylint oomox_gui ./plugins/*/oomox_plugin.py --score no 2>&1 \
+| (
+	grep -v \
+		-e "^  warnings.warn($" \
+		-e "^/usr/lib/python3.10/site-packages/" \
+	|| true \
+)
 echo ':: pylint passed ::'
 
 

@@ -6,7 +6,7 @@ from threading import Thread
 
 from gi.repository import Gtk, GLib, Pango
 
-from .i18n import _
+from .i18n import translate
 from .config import USER_EXPORT_CONFIG_DIR, DEFAULT_ENCODING
 from .settings import CommonOomoxConfig
 from .theme_file import save_colorscheme
@@ -59,11 +59,11 @@ class ExportDialog(Gtk.Dialog):
         self.box.remove(self.spinner)
 
         error_label = CenterLabel(
-            label=_("Something went wrong :(")
+            label=translate("Something went wrong :(")
         )
         error_label.set_alignment(0.5, 0.5)
 
-        error_dismiss_button = Gtk.Button(label=_("_Dismiss"), use_underline=True)
+        error_dismiss_button = Gtk.Button(label=translate("_Dismiss"), use_underline=True)
         error_dismiss_button.connect("clicked", self._close_button_callback)
 
         self.error_box.add(error_label)
@@ -78,7 +78,7 @@ class ExportDialog(Gtk.Dialog):
             self, transient_for,
             colorscheme,
             theme_name,
-            headline=_("Export Theme"),
+            headline=translate("Export Theme"),
             width=150,
             height=80,
     ):
@@ -120,7 +120,7 @@ class ExportDialog(Gtk.Dialog):
         self.options_box.set_margin_top(5)
         self.options_box.set_margin_bottom(15)
 
-        self.apply_button = Gtk.Button(label=_("_Apply Options and Export"), use_underline=True)
+        self.apply_button = Gtk.Button(label=translate("_Apply Options and Export"), use_underline=True)
         self.apply_button.connect("clicked", lambda x: self.do_export())
 
         self.error_box = Gtk.Box(
@@ -147,7 +147,7 @@ class ExportDialog(Gtk.Dialog):
         self.scrolled_window.show_all()
         self.spinner.show()
         self.spinner.start()
-        self.set_title(_("Exporting…"))
+        self.set_title(translate("Exporting…"))
 
         def update_ui(text):
             self.set_text(text)
@@ -159,7 +159,7 @@ class ExportDialog(Gtk.Dialog):
             self.show_error()
 
         def do_export():
-            self.label.set_text(_("Please wait while\nnew colorscheme will be created."))
+            self.label.set_text(translate("Please wait while\nnew colorscheme will be created."))
             self.label.show()
             captured_log = ""
             with subprocess.Popen(
@@ -224,7 +224,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         export_options = export_options or {}
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
-            headline=headline or _("Theme Export Options"),
+            headline=headline or translate("Theme Export Options"),
             **kwargs
         )
         self.label.hide()
@@ -296,7 +296,7 @@ class CommonGtkThemeExportDialog(ExportDialogWithOptions):
         export_options = override_options or {
             OPTION_GTK2_HIDPI: {
                 'default': False,
-                'display_name': _("Generate 2x scaled (_HiDPI) assets for GTK+2"),
+                'display_name': translate("Generate 2x scaled (_HiDPI) assets for GTK+2"),
             },
         }
         if add_options:

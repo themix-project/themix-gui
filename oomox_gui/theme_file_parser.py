@@ -1,6 +1,6 @@
 import os
 
-from .i18n import _
+from .i18n import translate
 from .theme_model import get_theme_model
 from .plugin_loader import PluginLoader
 from .config import DEFAULT_ENCODING
@@ -11,7 +11,7 @@ class NoPluginsInstalled(Exception):
     def __init__(self, theme_value):
         self.theme_value = theme_value
         super().__init__(
-            _("No plugins installed for {plugin_type}").format(
+            translate("No plugins installed for {plugin_type}").format(
                 plugin_type=self.theme_value['display_name']
             )
         )

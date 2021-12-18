@@ -2,7 +2,7 @@ import os
 
 from gi.repository import Gtk
 
-from .i18n import _
+from .i18n import translate
 from .config import SCRIPT_DIR
 from .plugin_loader import PluginLoader
 
@@ -58,10 +58,10 @@ def show_about(parent_window):
             row.set_header(separator)
 
     for title, plugin_list in (
-            (_('Theme Plugins'), PluginLoader.get_theme_plugins(), ),
-            (_('Icon Plugins'), PluginLoader.get_icons_plugins(), ),
-            (_('Import Plugins'), PluginLoader.get_import_plugins(), ),
-            (_('Export Plugins'), PluginLoader.get_export_plugins(), ),
+            (translate('Theme Plugins'), PluginLoader.get_theme_plugins(), ),
+            (translate('Icon Plugins'), PluginLoader.get_icons_plugins(), ),
+            (translate('Import Plugins'), PluginLoader.get_import_plugins(), ),
+            (translate('Export Plugins'), PluginLoader.get_export_plugins(), ),
     ):
         section_label = Gtk.Label(title)
         section_label.set_margin_top(8)

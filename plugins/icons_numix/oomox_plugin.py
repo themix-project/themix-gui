@@ -3,7 +3,7 @@ import os
 from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export_common import FileBasedExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -42,9 +42,9 @@ class Plugin(OomoxIconsPlugin):
             'type': 'options',
             'options': [{
                 'value': str(style_id),
-                'display_name': _("Style {number}").format(number=style_id),
+                'display_name': translate("Style {number}").format(number=style_id),
             } for style_id in range(6)],
-            'display_name': _('Numix Style'),
+            'display_name': translate('Numix Style'),
         },
         # {
         #     'key': 'ICONS_NUMIX_SHAPE',
@@ -59,31 +59,31 @@ class Plugin(OomoxIconsPlugin):
         #         'value': 'square',
         #         'display_name': 'Square',
         #     }],
-        #     'display_name': _('Icons Shape'),
+        #     'display_name': translate('Icons Shape'),
         # },
         {
             'key': 'ICONS_LIGHT_FOLDER',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Light Base (Folders)'),
+            'display_name': translate('Light Base (Folders)'),
         },
         # {
         #     'key': 'ICONS_LIGHT',
         #     'fallback_key': 'SEL_BG',
         #     'type': 'color',
-        #     'display_name': _('Light Base'),
+        #     'display_name': translate('Light Base'),
         # },
         {
             'key': 'ICONS_MEDIUM',
             'type': 'color',
             'fallback_key': 'BTN_BG',
-            'display_name': _('Medium Base'),
+            'display_name': translate('Medium Base'),
         },
         {
             'key': 'ICONS_DARK',
             'type': 'color',
             'fallback_key': 'HDR_BG',
-            'display_name': _('Dark Stroke'),
+            'display_name': translate('Dark Stroke'),
         },
     ]
 

@@ -17,7 +17,7 @@ from oomox_gui.terminal import (
 from oomox_gui.helpers import (
     get_plugin_module, apply_chain, call_method_from_class, delayed_partial,
 )
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 from oomox_gui.main import OomoxApplicationWindow
 from oomox_gui.theme_model import get_first_theme_option
 
@@ -56,8 +56,8 @@ def get_gray_colors(palette):
 class Plugin(OomoxImportPluginAsync):
 
     name = 'import_pil'
-    display_name = _('Image colors')
-    import_text = _('Colors from Image')
+    display_name = translate('Image colors')
+    import_text = translate('Colors from Image')
     file_extensions = (
         '.jpg',
         '.png',
@@ -189,7 +189,7 @@ class Plugin(OomoxImportPluginAsync):
 
     theme_model_import = [
         {
-            'display_name': _('Import Colors from Image'),
+            'display_name': translate('Import Colors from Image'),
             'type': 'separator',
             'value_filter': {
                 'FROM_PLUGIN': ['import_pil']
@@ -200,19 +200,19 @@ class Plugin(OomoxImportPluginAsync):
             'type': 'options',
             'options': [{
                 'value': LOW_QUALITY,
-                'display_name': _('oomox: low quality'),
+                'display_name': translate('oomox: low quality'),
             }, {
                 'value': MEDIUM_QUALITY,
-                'display_name': _('oomox: medium quality'),
+                'display_name': translate('oomox: medium quality'),
             }, {
                 'value': HIGH_QUALITY,
-                'display_name': _('oomox: high quality'),
+                'display_name': translate('oomox: high quality'),
             }],
             # }, {
             #     'value': ULTRA_QUALITY,
             #     'display_name': 'ultra',
             'fallback_value': LOW_QUALITY,
-            'display_name': _('Image Analysis'),
+            'display_name': translate('Image Analysis'),
             'reload_theme': True,
         },
         {
@@ -224,14 +224,14 @@ class Plugin(OomoxImportPluginAsync):
             ],
             # 'fallback_value': 'monovedek_pale_gray',
             'fallback_value': 'basic',
-            'display_name': _('Palette Style'),
+            'display_name': translate('Palette Style'),
             'reload_theme': True,
         },
         {
             'key': '_PIL_PALETTE_STRICT',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('Stronger Follow Palette Template'),
+            'display_name': translate('Stronger Follow Palette Template'),
             'reload_theme': True,
             'value_filter': {
                 '_PIL_PALETTE_QUALITY': [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY]
@@ -241,7 +241,7 @@ class Plugin(OomoxImportPluginAsync):
             'key': '_PIL_PALETTE_INVERSE',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('Dark/Light Colors'),
+            'display_name': translate('Dark/Light Colors'),
             'reload_theme': True,
         },
         {
@@ -252,19 +252,19 @@ class Plugin(OomoxImportPluginAsync):
                 for template_name in sorted(theme_translations.keys())
             ],
             'fallback_value': '1',
-            'display_name': _('GUI Theme Template'),
+            'display_name': translate('GUI Theme Template'),
             'reload_theme': True,
         },
         {
             'key': '_PIL_IMAGE_PREVIEW',
             'type': 'image_path',
             'fallback_value': None,
-            'display_name': _('Image Thumbnail'),
+            'display_name': translate('Image Thumbnail'),
         },
     ]
     theme_model_gtk = [
         {
-            'display_name': _('Edit Generated Theme'),
+            'display_name': translate('Edit Generated Theme'),
             'type': 'separator',
         },
     ]
@@ -273,13 +273,13 @@ class Plugin(OomoxImportPluginAsync):
         import colorz  # pylint: disable=import-error
         theme_model_import[1]['options'] += [{
             'value': 'colorz16',
-            'display_name': _('colorz lib: low quality'),
+            'display_name': translate('colorz lib: low quality'),
         }, {
             'value': 'colorz32',
-            'display_name': _('colorz lib: medium quality'),
+            'display_name': translate('colorz lib: medium quality'),
         }, {
             'value': 'colorz64',
-            'display_name': _('colorz lib: high quality'),
+            'display_name': translate('colorz lib: high quality'),
         }]
     except:  # noqa pylint: disable=bare-except
         pass
@@ -288,10 +288,10 @@ class Plugin(OomoxImportPluginAsync):
         import colorthief  # pylint: disable=import-error
         theme_model_import[1]['options'] += [{
             'value': 'colorthief16',
-            'display_name': _('colorthief lib'),
+            'display_name': translate('colorthief lib'),
         }, {
             'value': 'colorthief32',
-            'display_name': _('colorthief lib: doublepass'),
+            'display_name': translate('colorthief lib: doublepass'),
         }]
     except:  # noqa pylint: disable=bare-except
         pass
@@ -301,7 +301,7 @@ class Plugin(OomoxImportPluginAsync):
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'].append({
             'value': 'haishoku',
-            'display_name': _('haishoku lib'),
+            'display_name': translate('haishoku lib'),
         })
     except:  # noqa pylint: disable=bare-except
         pass
@@ -313,10 +313,10 @@ class Plugin(OomoxImportPluginAsync):
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'] += [{
             'value': 'all_low',
-            'display_name': _('all available: low quality'),
+            'display_name': translate('all available: low quality'),
         }, {
             'value': 'all_medium',
-            'display_name': _('all available: medium quality'),
+            'display_name': translate('all available: medium quality'),
         }]
     except:  # noqa pylint: disable=bare-except
         pass
@@ -445,7 +445,7 @@ class Plugin(OomoxImportPluginAsync):
             )
         else:
             _app = OomoxApplicationWindow.get_instance()
-            _app.disable(_('Extracting palette from image…'))
+            _app.disable(translate('Extracting palette from image…'))
             _app.schedule_task(
                 cls._generate_terminal_palette_task,
                 template_path, image_path, quality, use_whole_palette, inverse_palette,
@@ -557,7 +557,7 @@ class Plugin(OomoxImportPluginAsync):
 
         if not cls._terminal_palette_cache.get(_id):
             _app = OomoxApplicationWindow.get_instance()
-            _app.disable(_('Generating terminal palette…'))
+            _app.disable(translate('Generating terminal palette…'))
             _app.schedule_task(
                 cls._generate_terminal_palette,
                 template_path, image_path, quality, use_whole_palette, inverse_palette,

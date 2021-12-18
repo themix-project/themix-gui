@@ -3,7 +3,7 @@ import os
 from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export_common import FileBasedExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -39,7 +39,7 @@ class Plugin(OomoxIconsPlugin):
             'key': 'ICONS_ARCHDROID',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Icons Color'),
+            'display_name': translate('Icons Color'),
         },
     ]
 

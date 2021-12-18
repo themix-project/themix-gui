@@ -3,7 +3,7 @@ import os
 import shutil
 import sys
 
-from .i18n import _
+from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR, DEFAULT_ENCODING
 from .color import (
     SMALLEST_DIFF, ColorDiff, is_dark,
@@ -397,7 +397,7 @@ def generate_theme_from_full_palette(
             )
         # from time import time
         # before = time()
-        app.disable(_("Generating terminal palette…"))
+        app.disable(translate("Generating terminal palette…"))
         app.schedule_task(
             _generate_theme_from_full_palette,
             _callback,

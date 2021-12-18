@@ -8,7 +8,7 @@ from .color import (
 )
 from .gtk_helpers import GObjectABCMeta, g_abstractproperty, ScaledImage
 from .config import FALLBACK_COLOR
-from .i18n import _
+from .i18n import translate
 
 
 SECTION_MARGIN = 20
@@ -283,7 +283,7 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
         self.gtk_color = gtk_color
 
         super().__init__(
-            title=_("Choose a Color…"),
+            title=translate("Choose a Color…"),
             transient_for=transient_for,
             flags=0
         )
@@ -345,7 +345,7 @@ class ColorDropdown(Gtk.MenuButton):
         self.drop_down = Gtk.Menu()
         menu_items = []
         menu_items.append([
-            Gtk.MenuItem(label=_("Replace all instances")), self.replace_all_instances
+            Gtk.MenuItem(label=translate("Replace all instances")), self.replace_all_instances
         ])
 
         for item in menu_items:
@@ -407,7 +407,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             self.color_entry.set_text(self.value)
             self.color_button.set_rgba(convert_theme_color_to_gdk(value))
         else:
-            self.color_entry.set_text(_('<N/A>'))
+            self.color_entry.set_text(translate('<N/A>'))
             self.color_button.set_rgba(convert_theme_color_to_gdk(FALLBACK_COLOR))
         self.connect_changed_signal()
 
@@ -417,7 +417,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             callback=self.on_color_set
         )
         self.color_entry = Gtk.Entry(
-            text=_('<none>'), width_chars=6, max_length=6
+            text=translate('<none>'), width_chars=6, max_length=6
         )
         self.menu_button = ColorDropdown(transient_for, self)
         self.color_entry.get_style_context().add_class(Gtk.STYLE_CLASS_MONOSPACE)
@@ -621,7 +621,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.theme = theme
         error_messages = []
         if "NOGUI" in theme:
-            error_messages.append(_("Can't Be Edited in GUI"))
+            error_messages.append(translate("Can't Be Edited in GUI"))
 
         for section_id, section in get_theme_model().items():
             rows_displayed_in_section = 0

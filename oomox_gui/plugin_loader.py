@@ -3,7 +3,7 @@ import traceback
 
 from gi.repository import Gtk
 
-from .i18n import _
+from .i18n import translate
 from .config import PLUGINS_DIR, USER_PLUGINS_DIR
 from .plugin_api import (
     OomoxPlugin,
@@ -89,7 +89,7 @@ class PluginLoader:
                 cls.load_plugin(plugin_name, plugin_path)
             except Exception as exc:
                 error_dialog = Gtk.MessageDialog()
-                error_dialog.text = _('Error loading plugin "{plugin_name}"').format(
+                error_dialog.text = translate('Error loading plugin "{plugin_name}"').format(
                     plugin_name=plugin_name
                 )
                 error_dialog.secondary_text = (

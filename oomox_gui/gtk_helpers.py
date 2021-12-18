@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 from gi.repository import Gtk, Gio, GLib, GdkPixbuf
 from gi.types import GObjectMeta
 
-from .i18n import _
+from .i18n import translate
 
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
@@ -184,8 +184,8 @@ class EntryDialog(Gtk.Dialog):
         box.add(label)
         box.add(self.entry)
 
-        self.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
-        self.add_button(_("_OK"), Gtk.ResponseType.OK)
+        self.add_button(translate("_Cancel"), Gtk.ResponseType.CANCEL)
+        self.add_button(translate("_OK"), Gtk.ResponseType.OK)
 
         self.set_default_response(Gtk.ResponseType.OK)
 
@@ -199,7 +199,7 @@ class YesNoDialog(Gtk.Dialog):
 
     def __init__(self, transient_for,
                  title="",
-                 text=_("Are you sure?"),
+                 text=translate("Are you sure?"),
                  default_response=Gtk.ResponseType.NO):
         super().__init__(
             title=title,
@@ -212,8 +212,8 @@ class YesNoDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(label)
 
-        self.add_button(_("_No"), Gtk.ResponseType.NO)
-        self.add_button(_("_Yes"), Gtk.ResponseType.YES)
+        self.add_button(translate("_No"), Gtk.ResponseType.NO)
+        self.add_button(translate("_Yes"), Gtk.ResponseType.YES)
 
         self.set_default_response(default_response)
 

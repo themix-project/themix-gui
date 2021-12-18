@@ -5,7 +5,7 @@ import os
 from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export_common import ExportDialogWithOptions
 from oomox_gui.plugin_api import OomoxIconsPlugin
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 from oomox_gui.color import mix_theme_colors
 
 
@@ -58,7 +58,7 @@ class SuruPlusIconsExportDialog(ExportDialogWithOptions):
             export_options={
                 OPTION_DEFAULT_PATH: {
                     'default': default_icons_path,
-                    'display_name': _("Export _path: "),
+                    'display_name': translate("Export _path: "),
                 },
             },
             **kwargs
@@ -85,7 +85,7 @@ class Plugin(OomoxIconsPlugin):
                 colors['MENU_FG'], colors['BTN_FG'],
                 0.66
             ),
-            'display_name': _('Actions Icons'),
+            'display_name': translate('Actions Icons'),
             'value_filter': {
                 'SURUPLUS_GRADIENT_ENABLED': False,
             },
@@ -94,20 +94,20 @@ class Plugin(OomoxIconsPlugin):
             'key': 'ICONS_SYMBOLIC_PANEL',
             'type': 'color',
             'fallback_key': 'FG',
-            'display_name': _('Panel Icons'),
+            'display_name': translate('Panel Icons'),
         },
         {
             'key': 'SURUPLUS_GRADIENT_ENABLED',
             'type': 'bool',
             'fallback_value': False,
             'reload_options': True,
-            'display_name': _('Enable Gradients'),
+            'display_name': translate('Enable Gradients'),
         },
         {
             'key': 'SURUPLUS_GRADIENT1',
             'type': 'color',
             'fallback_key': 'ICONS_SYMBOLIC_ACTION',
-            'display_name': _('Gradient Start Color'),
+            'display_name': translate('Gradient Start Color'),
             'value_filter': {
                 'SURUPLUS_GRADIENT_ENABLED': True,
             },
@@ -116,7 +116,7 @@ class Plugin(OomoxIconsPlugin):
             'key': 'SURUPLUS_GRADIENT2',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Gradient End Color'),
+            'display_name': translate('Gradient End Color'),
             'value_filter': {
                 'SURUPLUS_GRADIENT_ENABLED': True,
             },

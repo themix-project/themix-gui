@@ -2,7 +2,7 @@ from gi.repository import Gtk
 
 from .terminal import generate_xrdb_theme_from_oomox
 from .color import convert_theme_color_to_gdk
-from .i18n import _
+from .i18n import translate
 
 
 WIDGET_SPACING = 10
@@ -13,14 +13,14 @@ class TerminalThemePreview(Gtk.Box):
     LEFT_MARGIN = 18
 
     COLOR_ROWS = (
-        (_("black"), 0, 8),
-        (_("red"), 1, 9),
-        (_("green"), 2, 10),
-        (_("yellow"), 3, 11),
-        (_("blue"), 4, 12),
-        (_("purple"), 5, 13),
-        (_("cyan"), 6, 14),
-        (_("white"), 7, 15),
+        (translate("black"), 0, 8),
+        (translate("red"), 1, 9),
+        (translate("green"), 2, 10),
+        (translate("yellow"), 3, 11),
+        (translate("blue"), 4, 12),
+        (translate("purple"), 5, 13),
+        (translate("cyan"), 6, 14),
+        (translate("white"), 7, 15),
     )
     terminal_widgets = None
 
@@ -39,7 +39,7 @@ class TerminalThemePreview(Gtk.Box):
         twi = self.terminal_widgets
 
         twi["normal"] = Gtk.Label()
-        twi["normal"].set_markup(f"<tt>{_('terminal colors:')}</tt>")
+        twi["normal"].set_markup(f"<tt>{translate('terminal colors:')}</tt>")
         self.background.attach(twi["normal"], 1, 1, 2, 1)
         previous_row = twi["normal"]
         previous_row.set_margin_left(self.LEFT_MARGIN)

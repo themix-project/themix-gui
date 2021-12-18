@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 from oomox_gui.export_common import ExportDialog
 from oomox_gui.helpers import natural_sort
 from oomox_gui.plugin_api import OomoxExportPlugin
@@ -31,11 +31,11 @@ class XresourcesExportDialog(ExportDialog):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            headline=_("Terminal Colorscheme"),
+            headline=translate("Terminal Colorscheme"),
             height=440,
             **kwargs
         )
-        self.label.set_text(_('Paste this colorscheme to your ~/.Xresources:'))
+        self.label.set_text(translate('Paste this colorscheme to your ~/.Xresources:'))
         self.scrolled_window.show_all()
         try:
             term_colorscheme = generate_xrdb_theme_from_oomox(self.colorscheme)
@@ -49,7 +49,7 @@ class XresourcesExportDialog(ExportDialog):
 
 class Plugin(OomoxExportPlugin):
     name = 'xresources'
-    display_name = _('Xresources')
-    export_text = _("Export _Xresources theme…")
+    display_name = translate('Xresources')
+    export_text = translate("Export _Xresources theme…")
     shortcut = "<Primary>X"
     export_dialog = XresourcesExportDialog

@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name
 import os
 
-from .i18n import _
+from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import PluginLoader
 
@@ -135,7 +135,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
     THEME_MODEL['base'] = [
         {
             'type': 'separator',
-            'display_name': _('Theme Style'),
+            'display_name': translate('Theme Style'),
         },
         {
             'key': 'THEME_STYLE',
@@ -149,102 +149,102 @@ def get_theme_model_uncached() -> 'ThemeModel':
                 for theme_plugin in sorted_dict(PluginLoader.get_theme_plugins()).values()
             ],
             'fallback_value': 'oomox',
-            'display_name': _('Style for UI elements'),
+            'display_name': translate('Style for UI elements'),
         },
     ]
 
     BASE_THEME_MODEL_GTK: 'ThemeModelSection' = [
         {
             'type': 'separator',
-            'display_name': _('Theme Colors'),
+            'display_name': translate('Theme Colors'),
         },
         {
             'key': 'BG',
             'type': 'color',
-            'display_name': _('Background')
+            'display_name': translate('Background')
         },
         {
             'key': 'FG',
             'type': 'color',
-            'display_name': _('Text')
+            'display_name': translate('Text')
         },
         {
             'key': 'HDR_BG',
             'fallback_key': 'MENU_BG',
             'type': 'color',
-            'display_name': _('Header Background')
+            'display_name': translate('Header Background')
         },
         {
             'key': 'HDR_FG',
             'fallback_key': 'MENU_FG',
             'type': 'color',
-            'display_name': _('Header Text'),
+            'display_name': translate('Header Text'),
         },
         {
             'key': 'SEL_BG',
             'fallback_key': 'FG',
             'type': 'color',
-            'display_name': _('Selected Background')
+            'display_name': translate('Selected Background')
         },
         {
             'key': 'SEL_FG',
             'fallback_key': 'BG',
             'type': 'color',
-            'display_name': _('Selected Text'),
+            'display_name': translate('Selected Text'),
         },
         {
             'key': 'ACCENT_BG',
             'fallback_key': 'SEL_BG',
             'type': 'color',
-            'display_name': _('Accent Color (Checkboxes, Radios)'),
+            'display_name': translate('Accent Color (Checkboxes, Radios)'),
         },
         {
             'key': 'TXT_BG',
             'fallback_key': 'BG',
             'type': 'color',
-            'display_name': _('Textbox Background')
+            'display_name': translate('Textbox Background')
         },
         {
             'key': 'TXT_FG',
             'fallback_key': 'FG',
             'type': 'color',
-            'display_name': _('Textbox Text'),
+            'display_name': translate('Textbox Text'),
         },
         {
             'key': 'BTN_BG',
             'fallback_key': 'BG',
             'type': 'color',
-            'display_name': _('Button Background')
+            'display_name': translate('Button Background')
         },
         {
             'key': 'BTN_FG',
             'fallback_key': 'FG',
             'type': 'color',
-            'display_name': _('Button Text'),
+            'display_name': translate('Button Text'),
         },
         {
             'key': 'HDR_BTN_BG',
             'fallback_key': 'BTN_BG',
             'type': 'color',
-            'display_name': _('Header Button Background'),
+            'display_name': translate('Header Button Background'),
         },
         {
             'key': 'HDR_BTN_FG',
             'fallback_key': 'BTN_FG',
             'type': 'color',
-            'display_name': _('Header Button Text'),
+            'display_name': translate('Header Button Text'),
         },
         {
             'key': 'WM_BORDER_FOCUS',
             'fallback_key': 'SEL_BG',
             'type': 'color',
-            'display_name': _('Focused Window Border'),
+            'display_name': translate('Focused Window Border'),
         },
         {
             'key': 'WM_BORDER_UNFOCUS',
             'fallback_key': 'HDR_BG',
             'type': 'color',
-            'display_name': _('Unfocused Window Border'),
+            'display_name': translate('Unfocused Window Border'),
         },
         # migration of old names:
         {
@@ -270,20 +270,20 @@ def get_theme_model_uncached() -> 'ThemeModel':
     BASE_THEME_MODEL_OPTIONS: 'ThemeModelSection' = [
         {
             'type': 'separator',
-            'display_name': _('Theme Options'),
+            'display_name': translate('Theme Options'),
         },
         {
             'key': 'ROUNDNESS',
             'type': 'int',
             'fallback_value': 2,
-            'display_name': _('Roundness'),
+            'display_name': translate('Roundness'),
         },
         {
             'key': 'GRADIENT',
             'type': 'float',
             'fallback_value': 0.0,
             'max_value': 2.0,
-            'display_name': _('Gradient'),
+            'display_name': translate('Gradient'),
         },
     ]
     THEME_MODEL['theme_options'] = merge_theme_model_with_plugins('options', BASE_THEME_MODEL_OPTIONS)
@@ -291,7 +291,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
     BASE_ICON_THEME_MODEL: 'ThemeModelSection' = [
         {
             'type': 'separator',
-            'display_name': _('Iconset')
+            'display_name': translate('Iconset')
         },
         {
             'key': 'ICONS_STYLE',
@@ -304,7 +304,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
                 for icons_plugin in sorted_dict(PluginLoader.get_icons_plugins()).values()
             ],
             'fallback_value': 'gnome_colors',
-            'display_name': _('Icons Style')
+            'display_name': translate('Icons Style')
         },
     ]
     THEME_MODEL['icons'] = merge_model_with_plugins(
@@ -317,19 +317,19 @@ def get_theme_model_uncached() -> 'ThemeModel':
     THEME_MODEL['terminal'] = [
         {
             'type': 'separator',
-            'display_name': _('Terminal')
+            'display_name': translate('Terminal')
         },
         {
             'key': 'TERMINAL_THEME_MODE',
             'type': 'options',
             'options': [
-                {'value': 'auto', 'display_name': _('Auto')},
-                {'value': 'basic', 'display_name': _('Basic')},
-                {'value': 'smarty', 'display_name': _('Advanced')},
-                {'value': 'manual', 'display_name': _('Manual')},
+                {'value': 'auto', 'display_name': translate('Auto')},
+                {'value': 'basic', 'display_name': translate('Basic')},
+                {'value': 'smarty', 'display_name': translate('Advanced')},
+                {'value': 'manual', 'display_name': translate('Manual')},
             ],
             'fallback_value': 'auto',
-            'display_name': _('Theme Options')
+            'display_name': translate('Theme Options')
         },
         {
             'key': 'TERMINAL_BASE_TEMPLATE',
@@ -339,7 +339,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
                 for template_name in sorted(os.listdir(TERMINAL_TEMPLATE_DIR))
             ],
             'fallback_value': 'monovedek',
-            'display_name': _('Theme Style'),
+            'display_name': translate('Theme Style'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['auto', 'basic', 'smarty', ],
             },
@@ -349,7 +349,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'type': 'color',
             'fallback_key': 'TXT_BG',
             # 'fallback_key': 'HDR_BG',
-            'display_name': _('Background'),
+            'display_name': translate('Background'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
             },
@@ -359,7 +359,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'type': 'color',
             'fallback_key': 'TXT_FG',
             # 'fallback_key': 'HDR_FG',
-            'display_name': _('Foreground'),
+            'display_name': translate('Foreground'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
             },
@@ -368,7 +368,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'key': 'TERMINAL_CURSOR',
             'type': 'color',
             'fallback_key': 'TERMINAL_FOREGROUND',
-            'display_name': _('Cursor'),
+            'display_name': translate('Cursor'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['basic', 'manual', 'smarty', ],
             },
@@ -377,7 +377,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'key': 'TERMINAL_ACCENT_COLOR',
             'type': 'color',
             'fallback_key': 'SEL_BG',
-            'display_name': _('Accent Color'),
+            'display_name': translate('Accent Color'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['basic', ],
             },
@@ -387,7 +387,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'key': 'TERMINAL_THEME_AUTO_BGFG',
             'type': 'bool',
             'fallback_value': True,
-            'display_name': _('Auto-Swap BG/FG'),
+            'display_name': translate('Auto-Swap BG/FG'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['auto', 'basic', 'smarty', ],
             },
@@ -396,7 +396,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'key': 'TERMINAL_THEME_EXTEND_PALETTE',
             'type': 'bool',
             'fallback_value': False,
-            'display_name': _('Extend Palette with More Lighter/Darker Colors'),
+            'display_name': translate('Extend Palette with More Lighter/Darker Colors'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['smarty', ],
             },
@@ -405,7 +405,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'key': 'TERMINAL_THEME_ACCURACY',
             'type': 'int',
             'fallback_value': 128,
-            'display_name': _('Palette Generation Accuracy'),
+            'display_name': translate('Palette Generation Accuracy'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['smarty', ],
             },
@@ -417,7 +417,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR0',
             'type': 'color',
-            'display_name': _('Black'),
+            'display_name': translate('Black'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -425,7 +425,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR8',
             'type': 'color',
-            'display_name': _('Black Highlight'),
+            'display_name': translate('Black Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -434,7 +434,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR1',
             'type': 'color',
-            'display_name': _('Red'),
+            'display_name': translate('Red'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -442,7 +442,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR9',
             'type': 'color',
-            'display_name': _('Red Highlight'),
+            'display_name': translate('Red Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -451,7 +451,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR2',
             'type': 'color',
-            'display_name': _('Green'),
+            'display_name': translate('Green'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -459,7 +459,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR10',
             'type': 'color',
-            'display_name': _('Green Highlight'),
+            'display_name': translate('Green Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -468,7 +468,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR3',
             'type': 'color',
-            'display_name': _('Yellow'),
+            'display_name': translate('Yellow'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -476,7 +476,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR11',
             'type': 'color',
-            'display_name': _('Yellow Highlight'),
+            'display_name': translate('Yellow Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -485,7 +485,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR4',
             'type': 'color',
-            'display_name': _('Blue'),
+            'display_name': translate('Blue'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -493,7 +493,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR12',
             'type': 'color',
-            'display_name': _('Blue Highlight'),
+            'display_name': translate('Blue Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -502,7 +502,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR5',
             'type': 'color',
-            'display_name': _('Purple'),
+            'display_name': translate('Purple'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -510,7 +510,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR13',
             'type': 'color',
-            'display_name': _('Purple Highlight'),
+            'display_name': translate('Purple Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -519,7 +519,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR6',
             'type': 'color',
-            'display_name': _('Cyan'),
+            'display_name': translate('Cyan'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -527,7 +527,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR14',
             'type': 'color',
-            'display_name': _('Cyan Highlight'),
+            'display_name': translate('Cyan Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -536,7 +536,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR7',
             'type': 'color',
-            'display_name': _('White'),
+            'display_name': translate('White'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },
@@ -544,7 +544,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
         {
             'key': 'TERMINAL_COLOR15',
             'type': 'color',
-            'display_name': _('White Highlight'),
+            'display_name': translate('White Highlight'),
             'value_filter': {
                 'TERMINAL_THEME_MODE': ['manual', ],
             },

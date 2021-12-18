@@ -46,7 +46,7 @@ whitelist.OomoxPlugin.haishoku
 whitelist.OomoxPlugin.colorthief
 
 # to be used later
-whitelist.i18n._n
+whitelist.i18n.translate_many
 
 # to be used later ??
 whitelist.ColorDiff.sat

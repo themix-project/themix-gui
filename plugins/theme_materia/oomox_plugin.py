@@ -1,6 +1,6 @@
 import os
 
-from oomox_gui.i18n import _
+from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxThemePlugin
 from oomox_gui.export_common import CommonGtkThemeExportDialog, OPTION_GTK2_HIDPI
 from oomox_gui.color import convert_theme_color_to_gdk, mix_theme_colors
@@ -42,7 +42,7 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
             add_options={
                 OPTION_DEFAULT_PATH: {
                     'default': default_themes_path,
-                    'display_name': _("Export _path: "),
+                    'display_name': translate("Export _path: "),
                 },
             },
             **kwargs
@@ -122,13 +122,13 @@ class Plugin(OomoxThemePlugin):
             'key': 'TXT_BG',
             'type': 'color',
             'fallback_key': 'BG',
-            'display_name': _('View'),
+            'display_name': translate('View'),
         },
         {
             'key': 'BTN_BG',
             'type': 'color',
             'fallback_key': 'BG',
-            'display_name': _('Surface (like Button, Menu, Popover)'),
+            'display_name': translate('Surface (like Button, Menu, Popover)'),
         },
     ]
 
@@ -138,20 +138,20 @@ class Plugin(OomoxThemePlugin):
             'type': 'float',
             'fallback_value': 0.32,
             'max_value': 1.0,
-            'display_name': _('Selection Opacity'),
+            'display_name': translate('Selection Opacity'),
         },
         {
             'key': 'MATERIA_PANEL_OPACITY',
             'type': 'float',
             'fallback_value': 0.6,
             'max_value': 1.0,
-            'display_name': _('DE Panel Opacity'),
+            'display_name': translate('DE Panel Opacity'),
         },
         {
             'key': 'MATERIA_STYLE_COMPACT',
             'type': 'bool',
             'fallback_value': True,
-            'display_name': _('Compact Style'),
+            'display_name': translate('Compact Style'),
         },
     ]
 

@@ -3,7 +3,7 @@ from collections import namedtuple
 
 from gi.repository import Gtk, Gdk, GLib
 
-from .i18n import _
+from .i18n import translate
 from .config import USER_COLORS_DIR, COLORS_DIR
 from .settings import UI_SETTINGS
 from .plugin_api import PLUGIN_PATH_PREFIX
@@ -15,9 +15,9 @@ Section = namedtuple('Section', ['id', 'display_name'])
 
 
 class Sections:
-    PRESETS = Section('presets', _("Presets"))
-    PLUGINS = Section('plugins', _("Plugins"))
-    USER = Section('user', _("User Presets"))
+    PRESETS = Section('presets', translate("Presets"))
+    PLUGINS = Section('plugins', translate("Plugins"))
+    USER = Section('user', translate("User Presets"))
 
 
 _SECTION_RESERVED_NAME = '<section>'
