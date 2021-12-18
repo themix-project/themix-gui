@@ -24,7 +24,7 @@ update-po: $(ALL_PO)
 
 $(POTFILE): $(SOURCES)
 	test -d $(PODIR) || $(MKDIR_P) $(PODIR)
-	$(XGETTEXT) -o $@ $^
+	$(XGETTEXT) --keyword=translate --keyword=translate_many -o $@ $^
 
 $(PODIR)/%.po: $(POTFILE)
 	if test -f $@; then \
