@@ -5,7 +5,9 @@ PODIR = po
 SOURCES = $(wildcard oomox_gui/*.py) $(wildcard plugins/*/oomox_plugin.py)
 LOCALEDIR = ./locale
 
-XGETTEXT ?= xgettext --package-name=$(DOMAIN) --foreign-user
+XGETTEXT ?= xgettext --package-name=$(DOMAIN) \
+            --foreign-user --keyword=translate --keyword='translate_many:1,2' \
+            --language=python --add-comments --sort-output --from-code=UTF-8
 MSGINIT ?= msginit
 MSGMERGE ?= msgmerge
 MSGFMT ?= msgfmt
@@ -24,7 +26,7 @@ update-po: $(ALL_PO)
 
 $(POTFILE): $(SOURCES)
 	test -d $(PODIR) || $(MKDIR_P) $(PODIR)
-	$(XGETTEXT) --keyword=translate --keyword='translate_many:1,2' -o $@ $^
+	$(XGETTEXT) -o $@ $^
 
 $(PODIR)/%.po: $(POTFILE)
 	if test -f $@; then \
