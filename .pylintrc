@@ -58,7 +58,7 @@ disable=too-few-public-methods,missing-docstring,cyclic-import,similarities
 # either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once). See also the "--disable" option for examples.
-enable=
+enable=useless-suppression
 
 
 [REPORTS]

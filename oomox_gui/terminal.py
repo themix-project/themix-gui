@@ -15,7 +15,6 @@ from .theme_model import get_theme_model
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    # pylint: disable=ungrouped-imports
     from typing import Dict  # noqa
 
 
@@ -72,7 +71,7 @@ def import_xcolors(path):
     return hex_colors
 
 
-def generate_theme_from_hint(  # pylint: disable=too-many-arguments
+def generate_theme_from_hint(
         template_path, theme_color, theme_bg, theme_fg,
         theme_hint=None, auto_swap_colors=True
 ):
@@ -203,7 +202,7 @@ def _generate_theme_from_full_palette(
         result_callback,
         reference_colors, all_colors, theme_bg,
         accuracy=None, extend_palette=False,
-):  # noqa  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches,too-many-arguments
+):  # noqa  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
     hex_colors = reference_colors
     # @TODO: refactor it some day :3
 
@@ -358,7 +357,7 @@ def generate_theme_from_full_palette(
         app, result_callback,
         auto_swap_colors=True, accuracy=None, extend_palette=None,
         **kwargs
-):  # pylint: disable=invalid-name,too-many-arguments,too-many-locals
+):  # pylint: disable=too-many-arguments,too-many-locals
 
     reference_colors = import_xcolors(template_path)
 

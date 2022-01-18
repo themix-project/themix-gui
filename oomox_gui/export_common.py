@@ -15,7 +15,6 @@ from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    # pylint: disable=ungrouped-imports
     from typing import Dict  # noqa
 
 
@@ -216,7 +215,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             self.export_config[option_id] = widget.get_text()
         return callback
 
-    def __init__(  # pylint: disable=too-many-arguments
+    def __init__(
             self, transient_for, colorscheme, theme_name,
             export_options=None, headline=None,
             **kwargs
@@ -288,7 +287,7 @@ class CommonGtkThemeExportDialog(ExportDialogWithOptions):
     def config_name(self):
         pass
 
-    def __init__(  # pylint: disable=too-many-arguments
+    def __init__(
             self, transient_for, colorscheme, theme_name,
             add_options=None, override_options=None,
             **kwargs

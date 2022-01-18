@@ -34,7 +34,6 @@ from .shortcuts import show_shortcuts
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    # pylint: disable=ungrouped-imports
     from typing import Optional  # noqa
 
 

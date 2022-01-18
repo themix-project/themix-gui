@@ -8,14 +8,13 @@ from .plugin_loader import PluginLoader
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    # pylint: disable=ungrouped-imports
-    from typing import List, Dict, Any, Optional, Callable  # noqa
+    from typing import List, Dict, Any, Optional, Callable, Union  # noqa
     from typing_extensions import TypedDict  # noqa
 
     from .plugin_api import OomoxPlugin  # noqa
 
     Option = TypedDict('Option', {
-        'value': str,
+        'value': Union[str, int],
         'display_name': Optional[str],
         'description': Optional[str],
     }, total=False)
@@ -30,6 +29,7 @@ if TYPE_CHECKING:
         "options": Optional[List[Option]],
         "value_filter": Optional[Dict[str, List[Any]]],
         "filter": Optional[Callable[[Dict[str, Any]], bool]],
+        "reload_theme": Optional[bool],
     }, total=False)
     ThemeModelSection = List[ThemeModelValue]
     ThemeModel = Dict[str, ThemeModelSection]

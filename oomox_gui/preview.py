@@ -510,7 +510,7 @@ class ThemePreview(Gtk.Grid):
         css_provider = Gtk.CssProvider()
         try:
             css_provider.load_from_path(css_path)
-        except GLib.Error as exc:  # pylint: disable=catching-non-exception
+        except GLib.Error as exc:
             print(exc)
         self.css_providers.theme[css_path] = css_provider
         return css_provider

@@ -20,8 +20,8 @@ def ls_r(path):
 def get_plugin_module(name, path, submodule=None):
     if sys.version_info.minor < 5:
         raise RuntimeError('Python 3.5+ is required')
-    spec = importlib.util.spec_from_file_location(name, path)  # pylint: disable=no-member
-    module = importlib.util.module_from_spec(spec)  # pylint: disable=no-member
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     if submodule:
         return getattr(module, submodule)

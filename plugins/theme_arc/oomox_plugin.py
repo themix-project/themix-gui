@@ -1,4 +1,3 @@
-# pylint: disable=too-few-public-methods
 import os
 
 from gi.repository import Gtk
@@ -79,7 +78,7 @@ def _monkeypatch_update_preview_borders(preview_object):
         if colorscheme["THEME_STYLE"] != "arc":
             old_update_preview_borders(colorscheme)
         else:
-            for widget_name, widget, border_color in (  # pylint: disable=invalid-name
+            for widget_name, widget, border_color in (
                     (
                         'button',
                         preview_object.gtk_preview.button,

@@ -355,7 +355,7 @@ class ColorDropdown(Gtk.MenuButton):
         self.drop_down.show_all()
         return self.drop_down
 
-    def replace_all_instances(self, _menu_item):  # pylint:disable=unused-argument
+    def replace_all_instances(self, _menu_item):
 
         color_selection_dialog = OomoxColorSelectionDialog(
             self.transient_for, self.colorbox.color_button.gtk_color
