@@ -1,10 +1,14 @@
-from typing import Sequence, Annotated, Tuple, Union
+import sys
+from typing import Sequence, Tuple, Union
 
 from gi.repository import Gdk
 
-
-HexColor = Annotated[str, 6]
-IntColor = Annotated[Sequence[int], 3]
+HexColor = str
+IntColor = Sequence[int]
+if sys.version_info.minor >= 9:
+    from typing import Annotated
+    HexColor = Annotated[str, 6]  # type: ignore[misc, assignment]
+    IntColor = Annotated[Sequence[int], 3]  # type: ignore[misc, assignment]
 
 
 def hex_to_int(text: HexColor) -> int:

@@ -836,7 +836,9 @@ class OomoxGtkApplication(Gtk.Application):
                             plugin_name=plugin_name
                         ),
                         secondary_text='\n'.join((
-                            translate('Shortcut "{shortcut}" already assigned to {action_type} "{name}".').format(  # noqa  # pylint: disable=line-too-long
+                            translate(
+                                'Shortcut "{shortcut}" already assigned to {action_type} "{name}".'
+                            ).format(
                                 shortcut=plugin.shortcut,
                                 action_type=translate('plugin') if _is_plugin_shortcut else translate('action'),
                                 name=(
