@@ -1,38 +1,37 @@
 # pylint: disable=invalid-name
 import os
+from typing import TYPE_CHECKING
+from typing import List, Dict, Any, Optional, Callable, Union
+from typing_extensions import TypedDict
 
 from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import PluginLoader
 
-
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    from typing import List, Dict, Any, Optional, Callable, Union  # noqa
-    from typing_extensions import TypedDict  # noqa
-
     from .plugin_api import OomoxPlugin  # noqa
 
-    Option = TypedDict('Option', {
-        'value': Union[str, int],
-        'display_name': Optional[str],
-        'description': Optional[str],
-    }, total=False)
-    ThemeModelValue = TypedDict('ThemeModelValue', {
-        "key": str,
-        "type": str,
-        "fallback_key": Optional[str],
-        "fallback_value": Optional[Any],
-        "display_name": Optional[str],
-        "min_value": Optional[Any],
-        "max_value": Optional[Any],
-        "options": Optional[List[Option]],
-        "value_filter": Optional[Dict[str, List[Any]]],
-        "filter": Optional[Callable[[Dict[str, Any]], bool]],
-        "reload_theme": Optional[bool],
-    }, total=False)
-    ThemeModelSection = List[ThemeModelValue]
-    ThemeModel = Dict[str, ThemeModelSection]
+
+Option = TypedDict('Option', {
+    'value': Union[str, int],
+    'display_name': Optional[str],
+    'description': Optional[str],
+}, total=False)
+ThemeModelValue = TypedDict('ThemeModelValue', {
+    "key": str,
+    "type": str,
+    "fallback_key": Optional[str],
+    "fallback_value": Optional[Any],
+    "display_name": Optional[str],
+    "min_value": Optional[Any],
+    "max_value": Optional[Any],
+    "options": Optional[List[Option]],
+    "value_filter": Optional[Dict[str, Any]],
+    "filter": Optional[Callable[[Dict[str, Any]], bool]],
+    "reload_theme": Optional[bool],
+}, total=False)
+ThemeModelSection = List[ThemeModelValue]
+ThemeModel = Dict[str, ThemeModelSection]
 
 
 def sorted_dict(_dict: 'Dict') -> 'Dict':

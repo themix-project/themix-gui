@@ -1,9 +1,13 @@
 import os
+from typing import Dict, Union, Callable
 
 from .i18n import translate
 from .theme_model import get_theme_model
 from .plugin_loader import PluginLoader
 from .config import DEFAULT_ENCODING
+
+
+ColorScheme = Dict[str, Union[str, bool, int, float]]
 
 
 class NoPluginsInstalled(Exception):
@@ -87,7 +91,10 @@ def _set_fallback_values(preset_path, colorscheme, from_plugin):
         colorscheme['FROM_PLUGIN'] = from_plugin
 
 
-def read_colorscheme_from_path(preset_path, callback=None):
+def read_colorscheme_from_path(
+        preset_path: str,
+        callback: Callable[[ColorScheme, ], None]
+) -> None:
     preset_path = os.path.abspath(preset_path)
     colorscheme = {}
     from_plugin = None
@@ -110,3 +117,4 @@ def read_colorscheme_from_path(preset_path, callback=None):
 
     _set_fallback_values(preset_path, colorscheme, from_plugin)
     callback(colorscheme)
+    return  # <-- this is quite stupid from pylint's side to ask for this

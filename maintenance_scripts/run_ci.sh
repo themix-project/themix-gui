@@ -55,7 +55,7 @@ if [[ "${SKIP_MYPY:-}" = "1" ]] ; then
 	echo -e "\n!! WARNING !! skipping mypy"
 else
 	echo -e "\n== Running mypy:"
-	python -m mypy oomox_gui/plugin_api.py
+	python -m mypy oomox_gui
 	echo ':: mypy passed ::'
 fi
 

@@ -7,7 +7,7 @@ from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    from typing import List, Dict, Any, Iterable, Optional, Union, Callable  # noqa
+    from typing import List, Iterable, Optional, Callable  # noqa
     from typing_extensions import TypedDict  # noqa
 
     from .export_common import ExportDialog  # noqa
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from .preview_icons import IconThemePreview  # noqa
 
     from .theme_model import ThemeModelValue  # noqa
-    ColorScheme = Dict[str, Union[str, bool, int, float]]
+    from .theme_file_parser import ColorScheme  # noqa
     AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
 
 
