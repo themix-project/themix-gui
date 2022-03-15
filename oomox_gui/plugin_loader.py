@@ -87,6 +87,9 @@ class PluginLoader:
             try:
                 cls.load_plugin(plugin_name, plugin_path)
             except Exception as exc:
+                # @TODO: have no clue why gtk dialogs stopped working here,
+                # but guess that's just gtk traditions to break things once in a while
+                print(f"error loading {plugin_name}:")
                 error_dialog = Gtk.MessageDialog()
                 error_dialog.text = translate('Error loading plugin "{plugin_name}"').format(
                     plugin_name=plugin_name
