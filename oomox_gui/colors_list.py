@@ -508,8 +508,8 @@ class SectionListBox(Gtk.Box):
         frame.add(self.listbox)
         super().add(frame)
 
-    def add(self, *args, **kwargs):
-        self.listbox.add(*args, **kwargs)
+    def add(self, widget):  # pylint: disable=arguments-differ
+        self.listbox.add(widget)
 
     def add_title(self, *args, **kwargs):
         self.titlebox.add(*args, **kwargs)
