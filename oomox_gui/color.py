@@ -36,10 +36,10 @@ def color_hex_from_list(color_list: IntColor) -> HexColor:
 
 def hex_lightness(color_text: HexColor) -> float:
     # @TODO: use real lightness from HSV or Lab color model
-    return sum([
+    return sum(
         hex_to_int(channel_text)
         for channel_text in color_list_from_hex(color_text)
-    ]) / 765
+    ) / 765
 
 
 def is_dark(color_text: HexColor) -> bool:

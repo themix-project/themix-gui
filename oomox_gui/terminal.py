@@ -305,7 +305,7 @@ def _generate_theme_from_full_palette(
                                     num_of_similar += 1
 
                         similarity_to_reference = (
-                            255*3 - sum([abs(c) for c in color_list]) * SIMILARITY_IMPORTANCE
+                            255*3 - sum(abs(c) for c in color_list) * SIMILARITY_IMPORTANCE
                         ) / (255*3)
                         num_of_similar *= similarity_to_reference
 
