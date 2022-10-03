@@ -10,6 +10,9 @@
 [submodule "oomoxify"]
 	path = plugins/oomoxify
 	url = https://github.com/themix-project/oomoxify.git
+[submodule "arc-theme"]
+	path = plugins/theme_arc/arc-theme
+	url = https://github.com/NicoHood/arc-theme.git
 [submodule "numix-icon-theme"]
 	path = plugins/icons_numix/numix-icon-theme
 	url = https://github.com/numixproject/numix-icon-theme.git
