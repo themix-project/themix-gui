@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
@@ -31,6 +32,18 @@ class Plugin(OomoxIconsPlugin):
 
     name = 'gnome_colors'
     display_name = 'Gnome-Colors'
+    about_text = translate(
+        'GNOME-Colors is mostly inspired/based on '
+        'Tango, GNOME, Elementary, Tango-Generator '
+        'and many other open-source projects.'
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/themix-project/gnome-colors-icon-theme',
+        },
+    ]
+
     export_dialog = GnomeColorsIconsExportDialog
     preview_svg_dir = os.path.join(PLUGIN_DIR, "icon_previews/")
 

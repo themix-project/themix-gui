@@ -60,6 +60,18 @@ class Plugin(OomoxImportPluginAsync):
     name = 'import_pil'
     display_name = translate('Image colors')
     import_text = translate('Colors from Image')
+    about_text = translate(
+        'Generate a theme based on any image '
+        'using different algorithms for determining the main colors.'
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/themix-project/oomox/',
+        },
+    ]
+
+
     file_extensions = (
         '.jpg',
         '.png',

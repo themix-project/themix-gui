@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
@@ -72,6 +73,17 @@ class SuruPlusIconsExportDialog(ExportDialogWithOptions):
 class Plugin(OomoxIconsPlugin):
     name = 'suruplus_icons'
     display_name = 'Suru++'
+    about_text = translate(
+        'A cyberpunkish, elegant, futuristic, macOS-like, Papirus-like '
+        'and modern Suru icons based on Suru iconset.'
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/gusbemacbe/suru-plus',
+        },
+    ]
+
     export_dialog = SuruPlusIconsExportDialog
     preview_svg_dir = os.path.join(PLUGIN_DIR, "icon_previews/")
 

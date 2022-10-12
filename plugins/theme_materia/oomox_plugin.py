@@ -99,6 +99,13 @@ class Plugin(OomoxThemePlugin):
         'GTK+2, GTK+3\n'
         'Cinnamon, GNOME Shell, Metacity, Unity, Xfwm'
     )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/nana-4/materia-theme/',
+        },
+    ]
+
     export_dialog = MateriaThemeExportDialog
     gtk_preview_dir = os.path.join(PLUGIN_DIR, "gtk_preview_css/")
     preview_sizes = {

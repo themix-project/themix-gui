@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=too-few-public-methods
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
@@ -73,6 +74,18 @@ class SuruPlusIconsExportDialog(ExportDialogWithOptions):
 class Plugin(OomoxIconsPlugin):
     name = 'suruplus_aspromauros_icons'
     display_name = 'Suru++ Asprómauros'
+    about_text = translate(
+        'These aspromautic or monochromatic icons are based on '
+        'Suru++ 30 Dark icons. It is flat, minimalist and designed '
+        'for full dark environments.'
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/gusbemacbe/suru-plus-aspromauros',
+        },
+    ]
+
     export_dialog = SuruPlusIconsExportDialog
     preview_svg_dir = os.path.join(PLUGIN_DIR, "icon_previews/")
 

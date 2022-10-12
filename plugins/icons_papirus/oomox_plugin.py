@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
@@ -30,6 +31,19 @@ class PapirusIconsExportDialog(FileBasedExportDialog):
 class Plugin(OomoxIconsPlugin):
     name = 'papirus_icons'
     display_name = 'Papirus'
+    about_text = translate(
+        'Papirus is a free and open source SVG icon theme for Linux, '
+        'based on Paper Icon Set with a lot of new icons and a few extras, '
+        'like Hardcode-Tray support, KDE colorscheme support, '
+        'Folder Color support, and others.'
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme',
+        },
+    ]
+
     export_dialog = PapirusIconsExportDialog
     preview_svg_dir = os.path.join(PLUGIN_DIR, "icon_previews/")
 

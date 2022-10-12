@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
@@ -31,6 +32,19 @@ class Plugin(OomoxIconsPlugin):
 
     name = 'archdroid'
     display_name = 'Archdroid'
+    about_text = translate(
+        "Port of Google's material design icons for "
+        "Android Lollipop 5.0 to Linux. "
+        "Some of these icons have been created manually "
+        "(and were influenced by Ubuntu Mono, Mint-X and Numix)."
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/GreenRaccoon23/archdroid-icon-theme',
+        },
+    ]
+
     export_dialog = ArchdroidIconsExportDialog
     preview_svg_dir = os.path.join(PLUGIN_DIR, "icon_previews/")
 

@@ -33,6 +33,18 @@ class Plugin(OomoxIconsPlugin):
 
     name = 'numix_icons'
     display_name = 'Numix'
+    about_text = translate(
+        'Numix is the official icon theme from the Numix Project. '
+        'It is heavily inspired by, and based upon parts of the '
+        'Elementary, Humanity and Gnome icon themes.'
+    )
+    about_links = [
+        {
+            'name': translate('Homepage'),
+            'url': 'https://github.com/numixproject/numix-icon-theme',
+        },
+    ]
+
     export_dialog = NumixIconsExportDialog
     preview_svg_dir = os.path.join(PLUGIN_DIR, "icon_previews/0/")
 
