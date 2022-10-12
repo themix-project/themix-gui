@@ -23,6 +23,12 @@ jobs:
             SKIP_SHELLCHECK: 1
             SKIP_MYPY: 1
             SKIP_VULTURE: 1
+
+          - PYVER: python310_ubuntu_2204
+            SKIP_SHELLCHECK: 1
+            SKIP_MYPY: 1
+            SKIP_VULTURE: 1
+
     env:
       PYVER: ${{ matrix.PYVER }}
       SKIP_SHELLCHECK: ${{ matrix.SKIP_SHELLCHECK }}

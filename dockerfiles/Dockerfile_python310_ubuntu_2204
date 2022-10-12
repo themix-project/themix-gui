@@ -1,4 +1,4 @@
-FROM library/ubuntu:focal
+FROM library/ubuntu:jammy
 WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
