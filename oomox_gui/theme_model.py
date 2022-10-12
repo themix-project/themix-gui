@@ -20,6 +20,7 @@ if TYPE_CHECKING:
         "type": str,
         "fallback_key": Optional[str],
         "fallback_value": Optional[Any],
+        "fallback_function": Optional[Callable[[Dict[str, Any]], Any]],
         "display_name": Optional[str],
         "min_value": Optional[Any],
         "max_value": Optional[Any],
