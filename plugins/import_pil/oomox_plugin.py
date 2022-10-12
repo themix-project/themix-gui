@@ -71,7 +71,6 @@ class Plugin(OomoxImportPluginAsync):
         },
     ]
 
-
     file_extensions = (
         '.jpg',
         '.png',
