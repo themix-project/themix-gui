@@ -8,7 +8,7 @@
 	path = plugins/icons_gnomecolors/gnome-colors-icon-theme
 	url = https://github.com/themix-project/gnome-colors-icon-theme.git
 [submodule "oomoxify"]
-	path = plugins/oomoxify
+	path = plugins/export_oomoxify
 	url = https://github.com/themix-project/oomoxify.git
 [submodule "arc-theme"]
 	path = plugins/theme_arc/arc-theme
