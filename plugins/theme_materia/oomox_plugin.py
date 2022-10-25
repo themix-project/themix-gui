@@ -2,10 +2,8 @@ import os
 
 from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxThemePlugin
-from oomox_gui.export_common import CommonGtkThemeExportDialog, OPTION_GTK2_HIDPI
+from oomox_gui.export_common import CommonGtkThemeExportDialog
 from oomox_gui.color import convert_theme_color_to_gdk, mix_theme_colors
-
-OPTION_DEFAULT_PATH = 'default_path'
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")
@@ -18,40 +16,25 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
         )
         new_destination_dir, theme_name = export_path.rsplit('/', 1)
         self.command = [
             "bash",
             os.path.join(THEME_DIR, "change_color.sh"),
-            "--hidpi", str(self.export_config[OPTION_GTK2_HIDPI]),
+            "--hidpi", str(self.export_config[self.OPTIONS.GTK2_HIDPI]),
             "--target", new_destination_dir,
             "--output", theme_name,
             self.temp_theme_path,
         ]
         super().do_export()
-        self.export_config[OPTION_DEFAULT_PATH] = new_destination_dir
-        self.export_config.save()
 
     def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
-        default_themes_path = os.path.join(os.environ['HOME'], '.themes')
         super().__init__(
             transient_for=transient_for,
             colorscheme=colorscheme,
             theme_name=theme_name,
-            add_options={
-                OPTION_DEFAULT_PATH: {
-                    'default': default_themes_path,
-                    'display_name': translate("Export _path: "),
-                },
-            },
             **kwargs
-        )
-        self.option_widgets[OPTION_DEFAULT_PATH].set_text(
-            os.path.join(
-                self.export_config[OPTION_DEFAULT_PATH],
-                self.theme_name,
-            )
         )
 
 

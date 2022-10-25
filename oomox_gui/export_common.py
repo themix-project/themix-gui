@@ -278,10 +278,13 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         super().do_export()
 
 
-OPTION_GTK2_HIDPI = 'gtk2_hidpi'
-
-
 class CommonGtkThemeExportDialog(ExportDialogWithOptions):
+
+    default_themes_path = os.path.join(os.environ['HOME'], '.themes')
+
+    class OPTIONS:
+        GTK2_HIDPI = 'gtk2_hidpi'
+        DEFAULT_PATH = 'default_path'
 
     @g_abstractproperty
     def config_name(self):
@@ -293,7 +296,11 @@ class CommonGtkThemeExportDialog(ExportDialogWithOptions):
             **kwargs
     ):
         export_options = override_options or {
-            OPTION_GTK2_HIDPI: {
+            self.OPTIONS.DEFAULT_PATH: {
+                'default': self.default_themes_path,
+                'display_name': translate("Export _path: "),
+            },
+            self.OPTIONS.GTK2_HIDPI: {
                 'default': False,
                 'display_name': translate("Generate 2x scaled (_HiDPI) assets for GTK+2"),
             },
@@ -305,3 +312,21 @@ class CommonGtkThemeExportDialog(ExportDialogWithOptions):
             theme_name=theme_name, export_options=export_options,
             **kwargs
         )
+        if self.OPTIONS.DEFAULT_PATH in self.option_widgets:
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].set_text(
+                os.path.join(
+                    self.export_config[self.OPTIONS.DEFAULT_PATH],
+                    self.theme_name,
+                )
+            )
+
+    def do_export(self):
+        export_path = os.path.expanduser(
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+        )
+        new_destination_dir, _theme_name = export_path.rsplit('/', 1)
+
+        super().do_export()
+
+        self.export_config[self.OPTIONS.DEFAULT_PATH] = new_destination_dir
+        self.export_config.save()
