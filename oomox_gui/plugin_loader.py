@@ -1,4 +1,5 @@
 import os
+import sys
 import traceback
 
 from gi.repository import Gtk
@@ -96,13 +97,12 @@ class PluginLoader:
                     '\n' * 2 +
                     traceback.format_exc()
                 )
-                # @TODO: have no clue why gtk dialogs stopped working here,
-                # but guess that's just gtk traditions to break things once in a while
-                print(f"{message_header}\n{message_text}")
-                error_dialog = Gtk.MessageDialog()
-                error_dialog.text = message_header
-                error_dialog.secondary_text = message_text
-                error_dialog.buttons = Gtk.ButtonsType.CLOSE
+                sys.stderr.write(f"{message_header}\n{message_text}\n")
+                error_dialog = Gtk.MessageDialog(
+                    text=message_header,
+                    secondary_text=message_text,
+                    buttons=Gtk.ButtonsType.CLOSE
+                )
                 error_dialog.run()
                 error_dialog.destroy()
 
