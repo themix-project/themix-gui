@@ -51,6 +51,9 @@ class CommonOomoxConfig:
         with open(self.config_path, 'w', encoding=DEFAULT_ENCODING) as file_object:
             return json.dump(self.config, file_object)
 
+    def get(self, item, fallback=None):
+        return self.config.get(item, fallback)
+
     def __getitem__(self, item):
         return self.config[item]
 
