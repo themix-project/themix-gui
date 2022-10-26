@@ -4,14 +4,14 @@
 _pkgname=themix-icons-gnome-colors
 _reponame=gnome-colors-icon-theme
 pkgname="${_pkgname}-git"
-pkgver=5.5.6.r0.gd2cb7eb
+pkgver=5.5.6.r0.gd2cb7eb.1.14.r104.gc68cf48e
 pkgrel=1
 pkgdesc="Gnome-Colors icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
 url="https://github.com/themix-project/gnome-colors-icon-theme"
 license=('GPL3')
 source=(
-	"git+https://github.com/themix-project/oomox.git#branch=master"
+	"oomox::git+https://github.com/themix-project/oomox.git#branch=master"
 	"${_reponame}::git+https://github.com/themix-project/gnome-colors-icon-theme.git#branch=master"
 )
 md5sums=('SKIP'
@@ -48,7 +48,10 @@ conflicts=(
 
 pkgver() {
 	cd "${srcdir}/${_reponame}"
-	git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	plugin=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    cd "${srcdir}/oomox"
+	app=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    echo "$plugin.$app"
 }
 
 package() {
