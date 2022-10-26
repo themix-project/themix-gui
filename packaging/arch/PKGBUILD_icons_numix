@@ -5,7 +5,7 @@ _pkgname=themix-icons-numix
 _reponame1=numix-icon-theme
 _reponame2=numix-folders
 pkgname="${_pkgname}-git"
-pkgver=22.08.16.r1.gb5001d962
+pkgver=22.08.16.r1.gb5001d962.e6197dd14
 pkgrel=1
 pkgdesc="Numix icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
@@ -45,7 +45,10 @@ conflicts=(
 
 pkgver() {
 	cd "${srcdir}/${_reponame1}"
-	git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	repo1=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
+	cd "${srcdir}/${_reponame2}"
+	repo2=$(git describe --tags --long --always | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
+    echo "$repo1.$repo2"
 }
 
 package() {
