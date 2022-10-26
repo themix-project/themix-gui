@@ -12,6 +12,7 @@ readlink -e "$pkgbuild_path" > /dev/null
 
 aur_dev_repo_root=~/build/
 
+mkdir -p "${aur_dev_repo_root}/${pkg_name}"
 cp "$pkgbuild_path" "${aur_dev_repo_root}/${pkg_name}/PKGBUILD"
 cd "${aur_dev_repo_root}/${pkg_name}/"
 updpkgsums ; makepkg -fsr ; makepkg --printsrcinfo > .SRCINFO
