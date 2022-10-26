@@ -1,7 +1,7 @@
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
-from oomox_gui.export_common import FileBasedExportDialog
+from oomox_gui.export_common import CommonIconThemeExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
 from oomox_gui.i18n import translate
 
@@ -10,21 +10,23 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 ARCHDROID_THEME_DIR = os.path.join(PLUGIN_DIR, "archdroid-icon-theme/")
 
 
-class ArchdroidIconsExportDialog(FileBasedExportDialog):
+class ArchdroidIconsExportDialog(CommonIconThemeExportDialog):
+
+    config_name = 'icons_archdroid'
     timeout = 100
 
     def do_export(self):
+        export_path = os.path.expanduser(
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+        )
         self.command = [
             "bash",
             os.path.join(ARCHDROID_THEME_DIR, "change_color.sh"),
-            "-o", self.theme_name,
+            "--output", self.theme_name,
+            "--destdir", export_path,
             self.temp_theme_path,
         ]
         super().do_export()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.do_export()
 
 
 class Plugin(OomoxIconsPlugin):
