@@ -15,7 +15,7 @@ result=$(git log \
 	"$@" \
 )
 
-if [[ "${style}" = "none" ]] ; then
+if [[ "${style}" = "default" ]] ; then
 	echo "$result"
 else
 	echo "Notable changes:"
