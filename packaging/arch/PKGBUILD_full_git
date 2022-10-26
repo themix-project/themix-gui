@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/themix-project/oomox
 
 pkgname=themix-full-git
-pkgver=1.14
+pkgver=1.15
 pkgrel=1
 pkgdesc="Themix: GUI for generating different color variations
 of Materia, Oomox themes

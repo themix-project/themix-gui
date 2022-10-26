@@ -2,7 +2,7 @@
 # Upstream URL: https://github.com/themix-project/oomox
 
 pkgname=oomox-git
-pkgver=1.14
+pkgver=1.15
 pkgrel=1
 pkgdesc="The project packaging has been changed - please install 'themix-full-git' instead"
 arch=('x86_64' 'i686')
