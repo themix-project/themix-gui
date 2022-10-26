@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 release_msg="$1"
 
-plugin_name=oomoxify
+plugin_name=export_oomoxify
 pkg_name=themix-export-spotify-git
 plugin_subdir=/
 pkgbuild_path=plugins/export_oomoxify/packaging/arch/PKGBUILD
