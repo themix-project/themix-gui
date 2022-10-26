@@ -3,7 +3,7 @@
 
 pkgname=themix-full-git
 pkgver=1.15
-pkgrel=1
+pkgrel=2
 pkgdesc="Themix: GUI for generating different color variations
 of Materia, Oomox themes
 (GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
@@ -27,7 +27,7 @@ depends=(
 	'themix-plugin-base16-git'
 
 	#'themix-theme-arc-git'
-	'themix-theme-materia-git'
+	#'themix-theme-materia-git'
 	'themix-theme-oomox-git'
 
 	'themix-icons-archdroid-git'
