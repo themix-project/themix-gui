@@ -5,11 +5,9 @@ pkgname=themix-full
 pkgver=1.15
 pkgrel=2
 pkgdesc="Themix: GUI for generating different color variations
-of Materia, Oomox themes
-(GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
-ArchDroid, Gnome-Colors, Numix, Papirus, Suru++ icons,
-and terminal palettes.
-Have a hack for HiDPI in GTK2."
+of Oomox theme (GTK2 + HiDPI hack, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
+icons (ArchDroid, Gnome-Colors, Numix, Papirus, Suru++),
+Base16 plugin (Alacritty, Emacs, GTK4, KDE, VIM and MANY more)"
 arch=('x86_64' 'i686')
 url="https://github.com/themix-project/oomox"
 license=('GPL3')
