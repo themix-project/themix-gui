@@ -8,7 +8,7 @@ print_usage() {
 
 	echo "
 usage:
-	$0 [-o OUTPUT_THEME_NAME] [-c COLOR] PRESET_NAME_OR_PATH
+	$0 [-o OUTPUT_THEME_NAME] [-c COLOR] [-d DEST_DIR] PRESET_NAME_OR_PATH
 
 examples:
 	$0 -o droid_test_3 -c 5e468c
@@ -55,6 +55,10 @@ do
 			OUTPUT_THEME_NAME="$2"
 			shift
 			;;
+		-d|--destdir)
+			output_dir="$2"
+			shift
+			;;
 		-c|--color)
 			ICONS_COLOR="${2#\#}"  # remove leading hash symbol
 			shift
@@ -99,7 +103,7 @@ trap post_clean_up EXIT SIGHUP SIGINT SIGTERM
 : "${ICONS_COLOR:=$SEL_BG}"
 : "${OUTPUT_THEME_NAME:=oomox-$THEME}"
 
-output_dir="$HOME/.icons/$OUTPUT_THEME_NAME"
+output_dir="${output_dir:-$HOME/.icons/$OUTPUT_THEME_NAME}"
 
 light_folder_fallback="$ICONS_COLOR"
 medium_base_fallback="$(darker "$ICONS_COLOR" 20)"

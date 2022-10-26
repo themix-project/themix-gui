@@ -8,7 +8,7 @@ print_usage() {
 
 	echo "
 usage:
-	$0 [-o OUTPUT_THEME_NAME] [-c COLOR] PRESET_NAME_OR_PATH
+	$0 [-o OUTPUT_THEME_NAME] [-c COLOR] [-d DEST_DIR] PRESET_NAME_OR_PATH
 
 examples:
 	$0 -o droid_test_3 -c 5e468c

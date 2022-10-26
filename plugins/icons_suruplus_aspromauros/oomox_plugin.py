@@ -24,7 +24,7 @@ class SuruPlusIconsExportDialog(CommonIconThemeExportDialog):
         self.command = [
             "bash",
             os.path.join(PLUGIN_DIR, "change_color.sh"),
-            "-o", self.theme_name,
+            "--output", self.theme_name,
             "--destdir", export_path,
             self.temp_theme_path,
         ]
