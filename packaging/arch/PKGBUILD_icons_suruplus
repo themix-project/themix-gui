@@ -4,14 +4,14 @@
 _pkgname=themix-icons-suru-plus
 _reponame=suru-plus
 pkgname="${_pkgname}-git"
-pkgver=30.0.r2.g9bd895f32
+pkgver=30.0.r2.g9bd895f32.1.14.r101.g3e1fc8b1
 pkgrel=1
 pkgdesc="Suru++ icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
 url="https://github.com/gusbemacbe/suru-plus/"
 license=('GPL3')
 source=(
-	"git+https://github.com/themix-project/oomox.git#branch=master"
+	"oomox::git+https://github.com/themix-project/oomox.git#branch=master"
 	"${_reponame}::git+https://github.com/gusbemacbe/suru-plus.git#branch=master"
 )
 md5sums=('SKIP'
@@ -42,7 +42,10 @@ conflicts=(
 
 pkgver() {
 	cd "${srcdir}/${_reponame}"
-	git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//'
+	plugin=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    cd "${srcdir}/oomox"
+	app=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    echo "$plugin.$app"
 }
 
 package() {
