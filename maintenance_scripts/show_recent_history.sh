@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-filter="cat"
+style="default"
 if [[ "${1:-}" = '-c' ]] ; then
-	filter="grep -v -i -E \
-		-e (typing|typehint|coverage|github|docker|vulture) \
-		-e actionless\s[^[:print:]]\[m(doc|chore|test|style|Revert|Merge|refactor)\
-		-e [^[:print:]]\[31m[[:print:]]+[^[:print:]]\[m
-	"
+	style="compact"
 	shift
 fi
 
@@ -19,11 +15,16 @@ result=$(git log \
 	"$@" \
 )
 
-if [[ "${filter}" = "cat" ]] ; then
+if [[ "${style}" = "none" ]] ; then
 	echo "$result"
 else
 	echo "Notable changes:"
-	echo "$result" | $filter
+	echo "$result" \
+	| grep -v -i -E \
+		-e "(typing|typehint|coverage|github|docker|vulture)" \
+		-e "actionless\s[^[:print:]]\[m(doc|chore|test|style|Revert|Merge|refactor)" \
+	| sed \
+		-E "s/[^[:print:]]\[31m[[:print:]]+[^[:print:]]\[m//g"
 	echo
 	echo "Submodule changes:"
 	grep submodule <<< "$result"
