@@ -2,7 +2,6 @@
 import subprocess
 import os
 import tempfile
-from typing import NamedTuple
 from threading import Thread
 
 from gi.repository import Gtk, GLib, Pango
@@ -278,7 +277,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         self.export_config.save()
         super().do_export()
 
-    class OPTIONS(NamedTuple):
+    class OPTIONS:
         pass
 
 
@@ -358,6 +357,38 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
                 'display_name': translate("Generate 2x scaled (_HiDPI) assets for GTK+2"),
             },
         }
+        if add_options:
+            export_options.update(add_options)
+        super().__init__(
+            transient_for=transient_for,
+            colorscheme=colorscheme, theme_name=theme_name,
+            export_options=export_options, override_options=override_options,
+            **kwargs
+        )
+
+
+class CommonIconThemeExportDialog(DialogWithExportPath):
+
+    default_export_dir = os.path.join(os.environ['HOME'], '.icons')
+
+    @g_abstractproperty
+    def config_name(self):
+        pass
+
+    def __init__(
+            self, transient_for, colorscheme, theme_name,
+            add_options=None, override_options=None,
+            **kwargs
+    ):
+        if os.environ.get('XDG_CURRENT_DESKTOP', '').lower() in ('kde', 'lxqt', ):
+            self.default_export_dir = os.path.join(
+                os.environ.get(
+                    'XDG_DATA_HOME',
+                    os.path.join(os.environ['HOME'], '.local/share')
+                ),
+                'icons',
+            )
+        export_options = override_options or {}
         if add_options:
             export_options.update(add_options)
         super().__init__(

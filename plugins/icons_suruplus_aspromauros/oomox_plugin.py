@@ -2,7 +2,7 @@
 import os
 
 from oomox_gui.config import FALLBACK_COLOR
-from oomox_gui.export_common import ExportDialogWithOptions
+from oomox_gui.export_common import CommonIconThemeExportDialog
 from oomox_gui.plugin_api import OomoxIconsPlugin
 from oomox_gui.i18n import translate
 from oomox_gui.color import mix_theme_colors
@@ -10,17 +10,15 @@ from oomox_gui.color import mix_theme_colors
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 
-OPTION_DEFAULT_PATH = 'default_path'
 
-
-class SuruPlusIconsExportDialog(ExportDialogWithOptions):
+class SuruPlusIconsExportDialog(CommonIconThemeExportDialog):
 
     timeout = 300
     config_name = 'icons_suruplus_aspromauros'
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[OPTION_DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
         )
 
         self.command = [
@@ -31,43 +29,6 @@ class SuruPlusIconsExportDialog(ExportDialogWithOptions):
             self.temp_theme_path,
         ]
         super().do_export()
-
-        new_destdir_guess = export_path.rsplit('/'+self.theme_name, 1)
-        if new_destdir_guess:
-            new_destination_dir = new_destdir_guess[0]
-        else:
-            new_destination_dir = os.path.abspath(
-                os.path.join(export_path, '/..')
-            )
-        self.export_config[OPTION_DEFAULT_PATH] = new_destination_dir
-        self.export_config.save()
-
-    def __init__(self, *args, **kwargs):
-        default_icons_path = os.path.join(os.environ['HOME'], '.icons')
-        if os.environ.get('XDG_CURRENT_DESKTOP', '').lower() in ('kde', 'lxqt', ):
-            default_icons_path = os.path.join(
-                os.environ.get(
-                    'XDG_DATA_HOME',
-                    os.path.join(os.environ['HOME'], '.local/share')
-                ),
-                'icons',
-            )
-        super().__init__(
-            *args,
-            export_options={
-                OPTION_DEFAULT_PATH: {
-                    'default': default_icons_path,
-                    'display_name': translate("Export _path: "),
-                },
-            },
-            **kwargs
-        )
-        self.option_widgets[OPTION_DEFAULT_PATH].set_text(
-            os.path.join(
-                self.export_config[OPTION_DEFAULT_PATH],
-                self.theme_name,
-            )
-        )
 
 
 class Plugin(OomoxIconsPlugin):
