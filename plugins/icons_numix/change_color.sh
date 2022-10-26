@@ -57,6 +57,10 @@ do
 			OUTPUT_THEME_NAME="${2}"
 			shift
 		;;
+		-d|--destdir)
+			output_dir="$2"
+			shift
+			;;
 		-c|--color)
 			ICONS_ARCHDROID="${2}"
 			shift
@@ -91,7 +95,7 @@ fi
 
 
 OUTPUT_THEME_NAME="${OUTPUT_THEME_NAME-oomox-$THEME-flat}"
-output_dir="${HOME}/.icons/${OUTPUT_THEME_NAME}"
+output_dir="${output_dir:-$HOME/.icons/$OUTPUT_THEME_NAME}"
 
 tmp_dir="$(mktemp -d)"
 function post_clean_up {
