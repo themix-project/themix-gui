@@ -4,14 +4,14 @@
 _pkgname=themix-icons-papirus
 _reponame=papirus-icon-theme
 pkgname="${_pkgname}-git"
-pkgver=20220910.r12.g11e75c8a6c
+pkgver=20220910.r12.g11e75c8a6c.1.14.r103.g9eec28b4
 pkgrel=1
 pkgdesc="Papirus icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
 url="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/"
 license=('GPL3')
 source=(
-	"git+https://github.com/themix-project/oomox.git#branch=master"
+	"oomox::git+https://github.com/themix-project/oomox.git#branch=master"
 	"${_reponame}::git+https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git#branch=master"
 )
 md5sums=('SKIP'
@@ -42,7 +42,10 @@ conflicts=(
 
 pkgver() {
 	cd "${srcdir}/${_reponame}"
-	git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	plugin=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    cd "${srcdir}/oomox"
+	app=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    echo "$plugin.$app"
 }
 
 package() {
