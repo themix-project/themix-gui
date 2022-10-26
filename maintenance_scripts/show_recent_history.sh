@@ -27,7 +27,9 @@ else
 		-E "s/[^[:print:]]\[31m[[:print:]]+[^[:print:]]\[m//g"
 	echo
 	echo "Submodule changes:"
-	grep submodule <<< "$result"
+	grep submodule <<< "$result" \
+	| grep -v -i -E \
+		-e "actionless\s[^[:print:]]\[m(Revert|Merge)"
 	echo
 	echo "Previous release:"
 	echo "$result" | tail -n1
