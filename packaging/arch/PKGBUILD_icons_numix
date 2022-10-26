@@ -5,14 +5,14 @@ _pkgname=themix-icons-numix
 _reponame1=numix-icon-theme
 _reponame2=numix-folders
 pkgname="${_pkgname}-git"
-pkgver=22.08.16.r1.gb5001d962
+pkgver=22.08.16.r1.gb5001d962.e6197dd14.1.14.r102.g1bb45bb5
 pkgrel=1
 pkgdesc="Numix icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
 url="https://github.com/numixproject/numix-icon-theme"
 license=('GPL3')
 source=(
-	"git+https://github.com/themix-project/oomox.git#branch=master"
+	"oomox::git+https://github.com/themix-project/oomox.git#branch=master"
 	"${_reponame1}::git+https://github.com/numixproject/numix-icon-theme.git#branch=master"
 	"${_reponame2}::git+https://github.com/numixproject/numix-folders.git#branch=master"
 )
@@ -45,7 +45,12 @@ conflicts=(
 
 pkgver() {
 	cd "${srcdir}/${_reponame1}"
-	git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	plugin1=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+	cd "${srcdir}/${_reponame2}"
+	plugin2=$(git describe --tags --long --always | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    cd "${srcdir}/oomox"
+	app=$(git describe --tags --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//')
+    echo "$plugin1.$plugin2.$app"
 }
 
 package() {
