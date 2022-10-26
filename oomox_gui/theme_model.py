@@ -28,6 +28,7 @@ if TYPE_CHECKING:
         "value_filter": Optional[Dict[str, Any]],
         "filter": Optional[Callable[[Dict[str, Any]], bool]],
         "reload_theme": Optional[bool],
+        "reload_options": Optional[bool],
     }, total=False)
     ThemeModelSection = List[ThemeModelValue]
     ThemeModel = Dict[str, ThemeModelSection]
