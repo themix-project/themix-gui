@@ -16,6 +16,7 @@ Table of contents:
   * [Installing manually](#other-distributions "")
   * [Using with tiling WMs](#using-with-tiling-wms "")
   * [Extra GTK3 CSS hacks](#extra-gtk3-css-hacks "")
+  * [CLI](#cli "")
   * [Spotify](#spotify "")
   * [Review videos/Usage instructions](#review-articles-and-videos "")
 
@@ -168,7 +169,7 @@ make -f po.mk install
 ./gui.sh
 ```
 
-After exporting a theme select the generated theme (oomox-YOUR-THEME-NAME) in your appearance config tool (for example, _lxappearance_ or _gnome-tweak-tool_).
+After exporting a theme select the generated theme (oomox-YOUR-THEME-NAME) in your appearance config tool (for example, `lxappearance` or `gnome-tweak-tool`).
 
 
 ### CLI
