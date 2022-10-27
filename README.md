@@ -106,7 +106,7 @@ Oomox theme:
  - `find`
  - `grep`
 
-Materia theme:
+Materia theme (deprecated):
  - `sassc>=3.4`
  - `glib-compile-schemas` from `glib2`
  - `gdk-pixbuf2`
@@ -115,7 +115,7 @@ Materia theme:
  - `grep`
  - `optipng`
  - `gtk2-engine-murrine`
- - `resvg` or `inkscape`
+ - `inkscape` (or `resvg`, but it's currently disabled)
  - `parallel`
  - `meson`
 
