@@ -141,6 +141,9 @@ Spotify theme:
 
 Import colors from images:
  - `python3 PIL or Pillow`
+ - `python3 colorz` - optional, extra image analyzer
+ - `python3 colorthief` - optional, extra image analyzer
+ - `python3 haishoku` - optional, extra image analyzer
 
 Base16 format support:
  - `python3 pystache`
