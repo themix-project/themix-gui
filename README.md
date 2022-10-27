@@ -6,7 +6,7 @@ Themix GUI designer
 Graphical application for generating different color variations of Oomox (Numix-based) and Materia (ex-Flat-Plat) themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm), Archdroid, Gnome-Color, Numix, Papirus and Suru++ icon themes. Have a hack for HiDPI in gtk2. Its Base16 plugin also allowing a lot of app themes support like Alacritty, Emacs, GTK4, KDE, VIM and many more.
 
 <a href="https://aur.archlinux.org/packages/themix-full-git"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_aur.png" height="54"></a>
-<a href="https://slackbuilds.org/repository/14.2/desktop/oomox/"><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_slackware.png" height="54"></a>
+<a href="https://slackbuilds.org/result/?search=oomox&sv="><img src="https://raw.githubusercontent.com/themix-project/oomox/master/packaging/download_slackware.png" height="54"></a>
 <a href="https://flathub.org/apps/details/com.github.themix_project.Oomox"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" height="54"></a>
 <a href="https://github.com/Botspot/pi-apps"><img src="https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true" height="53" style="border-radius: 9px; border: 1px #bbb solid;"></a>
 
