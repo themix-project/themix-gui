@@ -199,8 +199,6 @@ class FileBasedExportDialog(ExportDialog):
 
 class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
 
-    option_widgets = {}  # type: Dict[str, Gtk.Widget]
-
     @g_abstractproperty
     def config_name(self):
         pass
@@ -220,6 +218,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             export_options=None, headline=None,
             **kwargs
     ):
+        self.option_widgets = {}  # type: Dict[str, Gtk.Widget]
         export_options = export_options or {}
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
