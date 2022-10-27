@@ -7,6 +7,7 @@ Graphical application for designing themes and exporting them using plugins, for
   * Oomox and Materia themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm). Have a hack for HiDPI in gtk2.
   * Icons (Archdroid, Gnome-Colors, Numix, Papirus and Suru++).
   * Base16 plugin, which  also allows a lot of app themes support like Alacritty, Emacs, GTK4, KDE, VIM and many more.
+
 Import plugins also available, such as:
   * generating color palettes from image;
   * importing it from Xresources;
