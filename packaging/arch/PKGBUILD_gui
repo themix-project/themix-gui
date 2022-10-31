@@ -3,7 +3,7 @@
 
 pkgname=themix-gui-git
 pkgver=1.15
-pkgrel=2
+pkgrel=1
 pkgdesc="Plugin-based theme designer GUI for
  environments (like GTK2, GTK3, Cinnamon, GNOME, MATE, Openbox, Xfwm),
  icons and terminal palettes."
