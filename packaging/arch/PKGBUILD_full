@@ -38,6 +38,8 @@ depends=(
 makedepends=(
 )
 optdepends=(
+    'oomox-qt5-styleplugin: Qt5 style plugin'
+    'oomox-qt6-styleplugin: Qt6 style plugin'
 )
 provides=(
 )

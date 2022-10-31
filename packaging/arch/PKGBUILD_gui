@@ -40,6 +40,9 @@ optdepends=(
 	'themix-icons-suru-plus: Icons Style plugin'
 	'themix-icons-suru-plus-aspromauros: Icons Style plugin'
 
+    'oomox-qt5-styleplugin-git: Qt5 style plugin'
+    'oomox-qt6-styleplugin-git: Qt6 style plugin'
+
 	'xorg-xrdb: for the `xresources` theme'
 )
 provides=('themix-gui')
