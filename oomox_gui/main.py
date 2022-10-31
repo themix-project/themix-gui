@@ -37,6 +37,18 @@ if TYPE_CHECKING:
     from typing import Optional  # noqa
 
 
+class DoubleWindowError(RuntimeError):
+
+    def __init__(self):
+        super().__init__('App window already set')
+
+
+class NoWindowError(RuntimeError):
+
+    def __init__(self):
+        super().__init__('App window not yet set')
+
+
 class NewDialog(EntryDialog):
 
     def __init__(
@@ -723,13 +735,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     @classmethod
     def set_instance(cls, window_instance):
         if cls._window_instance:
-            raise RuntimeError('App window already set')
+            raise DoubleWindowError()
         cls._window_instance = window_instance
 
     @classmethod
     def get_instance(cls):
         if not cls._window_instance:
-            raise RuntimeError('App window not yet set')
+            raise NoWindowError()
         return cls._window_instance
 
     def __init__(self, application):
