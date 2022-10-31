@@ -19,7 +19,7 @@ from oomox_gui.helpers import (
     get_plugin_module, apply_chain, call_method_from_class, delayed_partial,
 )
 from oomox_gui.i18n import translate
-from oomox_gui.main import OomoxApplicationWindow
+from oomox_gui.main import OomoxApplicationWindow, NoWindowError
 from oomox_gui.theme_model import get_first_theme_option
 
 
@@ -463,14 +463,19 @@ class Plugin(OomoxImportPluginAsync):
                 hex_palette, template_path, inverse_palette, result_callback
             )
         else:
-            _app = OomoxApplicationWindow.get_instance()
-            _app.disable(translate('Extracting palette from image…'))
-            _app.schedule_task(
-                cls._generate_terminal_palette_task,
+            palette_task_args = [
                 template_path, image_path, quality, use_whole_palette, inverse_palette,
                 start_time, result_callback,
-            )
-            _app.enable()
+            ]
+            try:
+                _app = OomoxApplicationWindow.get_instance()
+                _app.disable(translate('Extracting palette from image…'))
+                _app.schedule_task(
+                    cls._generate_terminal_palette_task, *palette_task_args
+                )
+                _app.enable()
+            except NoWindowError:
+                cls._generate_terminal_palette_task(*palette_task_args)
 
     @classmethod
     def _generate_terminal_palette_task(  # noqa
@@ -575,13 +580,18 @@ class Plugin(OomoxImportPluginAsync):
             result_callback(palette)
 
         if not cls._terminal_palette_cache.get(_id):
-            _app = OomoxApplicationWindow.get_instance()
-            _app.disable(translate('Generating terminal palette…'))
-            _app.schedule_task(
-                cls._generate_terminal_palette,
+            generate_terminal_palette_args = [
                 template_path, image_path, quality, use_whole_palette, inverse_palette,
                 _result_callback
-            )
-            _app.enable()
+            ]
+            try:
+                _app = OomoxApplicationWindow.get_instance()
+                _app.disable(translate('Generating terminal palette…'))
+                _app.schedule_task(
+                    cls._generate_terminal_palette, *generate_terminal_palette_args
+                )
+                _app.enable()
+            except NoWindowError:
+                cls._generate_terminal_palette(*generate_terminal_palette_args)
         else:
             _result_callback(cls._terminal_palette_cache[_id])
