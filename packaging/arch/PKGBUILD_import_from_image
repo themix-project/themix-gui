@@ -39,7 +39,7 @@ pkgver() {
 
 package() {
 	_oomox_dir=/opt/oomox
-	_plugin_name=import_pil
+	_plugin_name=import_from_image
 
 	cd "${srcdir}/oomox"
 	make DESTDIR="${pkgdir}" APPDIR="${_oomox_dir}" PREFIX="/usr" install_import_images

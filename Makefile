@@ -121,7 +121,7 @@ install_export_xresources:
 
 
 install_import_images:
-	$(eval PLUGIN_NAME := "import_pil")
+	$(eval PLUGIN_NAME := "import_from_image")
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \

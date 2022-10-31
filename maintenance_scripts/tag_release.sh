@@ -41,7 +41,7 @@ pkgbuilds=(
 		packaging/arch/PKGBUILD_full
 		packaging/arch/PKGBUILD_full_git
 		packaging/arch/PKGBUILD_gui
-		packaging/arch/PKGBUILD_import_image
+		packaging/arch/PKGBUILD_import_from_image
 		packaging/arch/PKGBUILD_old
 )
 for pkgbuild_path in "${pkgbuilds[@]}"; do
@@ -111,7 +111,7 @@ update_aur_pkg(){
 
 update_aur_pkg themix-full-git PKGBUILD_full_git
 update_aur_pkg themix-gui-git PKGBUILD_gui
-update_aur_pkg themix-import-images-git PKGBUILD_import_image
+update_aur_pkg themix-import-images-git PKGBUILD_import_from_image
 
 echo
 echo '$$$$$$$$$$$$$$$$$$$$$$$$$'

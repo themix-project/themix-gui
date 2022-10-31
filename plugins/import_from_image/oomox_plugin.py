@@ -21,6 +21,7 @@ from oomox_gui.helpers import (
 from oomox_gui.i18n import translate
 from oomox_gui.main import OomoxApplicationWindow, NoWindowError
 from oomox_gui.theme_model import get_first_theme_option
+from oomox_gui.migrations import PluginMigrationConfig
 
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -57,7 +58,7 @@ def get_gray_colors(palette: List[HexColor]) -> List[HexColor]:
 
 class Plugin(OomoxImportPluginAsync):
 
-    name = 'import_pil'
+    name = 'import_from_image'
     display_name = translate('Image colors')
     import_text = translate('Colors from Image')
     about_text = translate(
@@ -76,6 +77,21 @@ class Plugin(OomoxImportPluginAsync):
         '.png',
         '.gif',
     )
+
+    def __init__(self):
+        super().__init__()
+        self.migrate()
+
+    config_version = 1
+
+    def migrate(self):
+        config = PluginMigrationConfig(plugin=self)
+        if config.version < 1:
+            parent_dir = os.path.dirname(self.user_theme_dir)
+            old_plugin_dir_name = '__plugin__import_pil'
+            old_user_theme_dir = os.path.join(parent_dir, old_plugin_dir_name)
+            os.rename(old_user_theme_dir, self.user_theme_dir)
+        config.update(version=self.config_version)
 
     default_theme = {
         "TERMINAL_THEME_MODE": "manual",
@@ -205,7 +221,7 @@ class Plugin(OomoxImportPluginAsync):
             'display_name': translate('Import Colors from Image'),
             'type': 'separator',
             'value_filter': {
-                'FROM_PLUGIN': ['import_pil']
+                'FROM_PLUGIN': ['import_pil', 'import_from_image', ]
             },
         },
         {

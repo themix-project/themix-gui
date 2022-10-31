@@ -64,7 +64,7 @@ depends=(
 	'parallel'  # materia
 	'meson'  # materia
 	'optipng'  # materia, arc
-	'python-pillow'  # import_pil
+	'python-pillow'  # import_from_image
 	'python-pystache'  #  base16_format
 	'python-yaml'  #  base16_format
 
