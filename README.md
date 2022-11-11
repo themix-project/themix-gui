@@ -55,7 +55,7 @@ AUR helpers are [not officially supported by Arch Linux](https://wiki.archlinux.
 #### Open the GUI
 
 ```
-oomox-gui
+themix-gui
 ```
 
 
