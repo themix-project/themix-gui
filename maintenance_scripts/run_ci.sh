@@ -27,6 +27,10 @@ echo -e "\n== Running python compile:"
 python3 -O -m compileall ./oomox_gui/ ./plugins/*/oomox_plugin.py | (grep -v -e '^Listing' -e '^Compiling' || true)
 echo ':: python compile passed ::'
 
+echo -e "\n== Running python import:"
+python3 -c "import oomox_gui.main"
+echo ':: python import passed ::'
+
 echo -e "\n== Running flake8:"
 flake8 oomox_gui/ ./plugins/*/oomox_plugin.py 2>&1 \
 | (
