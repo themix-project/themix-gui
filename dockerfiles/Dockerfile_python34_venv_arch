@@ -39,4 +39,4 @@ RUN echo -e "#!/usr/bin/env bash\n \
     deactivate ; \
     \
     killall Xvfb \
-" > /opt/oomox-build/maintenance_scripts/run_ci.sh
+" > /opt/oomox-build/maintenance_scripts/lint.sh

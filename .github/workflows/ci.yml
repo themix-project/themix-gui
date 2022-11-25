@@ -53,4 +53,4 @@ jobs:
         -e SKIP_MYPY=${SKIP_MYPY}
         -e SKIP_VULTURE=${SKIP_VULTURE}
         oomox:latest
-        ./maintenance_scripts/run_ci.sh
+        ./maintenance_scripts/lint.sh
