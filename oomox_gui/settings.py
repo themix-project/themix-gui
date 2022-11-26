@@ -1,22 +1,18 @@
 import os
 import json
+from typing import Any
 
 from .i18n import translate
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    from typing import Dict  # noqa
-
-
 class CommonOomoxConfig:
 
-    name = None
-    config_dir = None
-    config_path = None
-    default_config = {}  # type: Dict[str,str]
-    config = None
+    name: str
+    config_dir: str
+    config_path: str
+    default_config: dict[str, str]
+    config: dict[str, Any]
 
     def __init__(self, config_dir, config_name, default_config=None):
         self.name = config_name
@@ -60,12 +56,21 @@ class CommonOomoxConfig:
     def __setitem__(self, item, value):
         self.config[item] = value
 
+    @property
+    def _public_members(self):
+        return dir(self) + list(self.__annotations__.keys())
+
     def __getattr__(self, item):
+        if item in self._public_members:
+            return super().__getattribute__(item)
         if item in self.default_config.keys():
             return self.config[item]
         return self.__getattribute__(item)
 
     def __setattr__(self, item, value):
+        if item in self._public_members:
+            super().__setattr__(item, value)
+            return
         if item in self.default_config.keys():
             self.config[item] = value
         elif item not in dir(self):

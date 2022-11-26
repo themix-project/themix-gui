@@ -15,8 +15,8 @@ def hex_to_int(text: HexColor) -> int:
     return int(f"0x{text}", 0)
 
 
-def int_to_hex(myint: int) -> HexColor:
-    return f"{int(myint):02x}"
+def int_to_hex(num: int | float) -> HexColor:
+    return f"{int(num):02x}"
 
 
 def color_list_from_hex(color_text: HexColor) -> Tuple[str, str, str]:
@@ -46,7 +46,7 @@ def is_dark(color_text: HexColor) -> bool:
     return hex_lightness(color_text) < 0.5
 
 
-def hex_darker(color_text: HexColor, darken_amount=10) -> HexColor:
+def hex_darker(color_text: HexColor, darken_amount: int = 10) -> HexColor:
     # @TODO: use real lightness from HSV or Lab color model?
     return color_hex_from_list([
         max(min(hex_to_int(channel_text) - darken_amount, 255), 0)
@@ -106,7 +106,8 @@ SMALLEST_DIFF = ColorDiff("000000", "ffffff")
 def find_closest_color(
         color_hex: HexColor,
         colors_hex: Sequence[HexColor],
-        min_lightness=0, max_lightness=255*3
+        min_lightness: int = 0,
+        max_lightness: int = 255*3,
 ) -> Union[Tuple[None, None], Tuple[HexColor, ColorDiff]]:
     smallest_diff = SMALLEST_DIFF
     closest_color = None
@@ -128,14 +129,14 @@ def find_closest_color(
 
 def convert_theme_color_to_gdk(theme_color: HexColor) -> Gdk.RGBA:
     gdk_color = Gdk.RGBA()
-    gdk_color.parse("#" + theme_color)  # type: ignore[attr-defined]
+    gdk_color.parse("#" + theme_color)
     return gdk_color
 
 
 def convert_gdk_to_theme_color(gdk_color: Gdk.RGBA) -> HexColor:
     return "".join([
         int_to_hex(n * 255)
-        for n in (gdk_color.red, gdk_color.green, gdk_color.blue)  # type: ignore[attr-defined]
+        for n in (gdk_color.red, gdk_color.green, gdk_color.blue)
     ])
 
 

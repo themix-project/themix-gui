@@ -5,10 +5,6 @@ from gi.types import GObjectMeta
 
 from .i18n import translate
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    from typing import List  # noqa
-
 
 class ActionProperty(str):
 
@@ -39,7 +35,7 @@ class CenterLabel(Gtk.Label):
         if label:
             self.set_text(label)
         self.set_justify(Gtk.Justification.CENTER)
-        self.set_alignment(0.5, 0.5)
+        self.set_alignment(0.5, 0.5)  # type: ignore[arg-type]
         self.set_margin_left(6)
         self.set_margin_right(6)
         self.set_margin_top(6)
@@ -124,7 +120,7 @@ class ScaledImage(Gtk.Image):
     def set_from_bytes(self, bytes_sequence, width=None, height=None):
         self._set_orig_dimensions(width=width, height=height)
         stream = Gio.MemoryInputStream.new_from_bytes(
-            GLib.Bytes.new(bytes_sequence)
+            GLib.Bytes.new(bytes_sequence)  # type: ignore[arg-type]
         )
         self.oomox_width = self.orig_width
         self.oomox_height = self.orig_height
@@ -134,8 +130,8 @@ class ScaledImage(Gtk.Image):
             stream,
             self.oomox_width*self.scale_factor if self.oomox_width else -1,
             self.oomox_height*self.scale_factor if self.oomox_height else -1,
-            True,
-            None
+            True,  # type: ignore[arg-type]
+            None  # type: ignore[arg-type]
         )
         self.oomox_width = pixbuf.props.width // self.scale_factor
         self.oomox_height = pixbuf.props.height // self.scale_factor
@@ -258,7 +254,7 @@ def g_abstractproperty(_function):
 
 class _WarnOnceDialog(Gtk.MessageDialog):
 
-    _already_shown = []  # type: List[str]
+    _already_shown = []  # type: list[str]
 
     @staticmethod
     def _marshal(text, secondary_text, buttons):
