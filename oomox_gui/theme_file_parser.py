@@ -61,6 +61,7 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
 
 
 def _set_fallback_values(preset_path, colorscheme, from_plugin):
+    key: str | None
     if not colorscheme:
         theme_keys = [
             item['key']
