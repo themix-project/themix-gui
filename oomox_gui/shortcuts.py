@@ -10,7 +10,7 @@ from .plugin_loader import PluginLoader
 def show_shortcuts(parent_window):
     path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
     obj_id = "shortcuts"
-    builder = Gtk.Builder.new_from_file(path)
+    builder = Gtk.Builder.new_from_file(path)  # type: ignore[arg-type]
     shortcuts_window = builder.get_object(obj_id)
     shortcuts_window.set_transient_for(parent_window)
     shortcuts_window.set_title(translate("Themix-GUI Keyboard Shortcuts"))
@@ -41,7 +41,7 @@ def show_shortcuts(parent_window):
         for plugin in plugin_list.values():
             if not plugin.shortcut:
                 continue
-            shortcut = Gtk.ShortcutsShortcut(
+            shortcut = Gtk.ShortcutsShortcut(  # type: ignore[call-arg]
                 title=get_text(plugin),
                 accelerator=plugin.shortcut
             )
