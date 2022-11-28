@@ -5,6 +5,7 @@ import sys
 import signal
 import shutil
 import traceback
+from typing import Callable, Any
 
 from gi.repository import Gtk, Gio, GLib, Gdk
 
@@ -14,7 +15,7 @@ from .helpers import mkdir_p
 from .gtk_helpers import (
     ImageButton, ImageMenuButton,
     EntryDialog, YesNoDialog,
-    ActionsEnum, warn_once,
+    ActionsEnum, ActionProperty, warn_once,
 )
 from .theme_file import (
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
@@ -104,23 +105,23 @@ def dialog_is_yes(dialog):
 
 class AppActions(ActionsEnum):
     _target = "app"
-    quit = "quit"
+    quit = ActionProperty(_target, "quit")
 
 
 class WindowActions(ActionsEnum):
     _target = "win"
-    import_menu = "import_menu"
-    import_themix_colors = "import_themix_colors"
-    clone = "clone"
-    export_icons = "icons"
-    export_theme = "theme"
-    export_menu = "export_menu"
-    menu = "menu"
-    remove = "remove"
-    rename = "rename"
-    save = "save"
-    show_help = "show_help"
-    show_about = "show_about"
+    import_menu = ActionProperty(_target, "import_menu")
+    import_themix_colors = ActionProperty(_target, "import_themix_colors")
+    clone = ActionProperty(_target, "clone")
+    export_icons = ActionProperty(_target, "icons")
+    export_theme = ActionProperty(_target, "theme")
+    export_menu = ActionProperty(_target, "export_menu")
+    menu = ActionProperty(_target, "menu")
+    remove = ActionProperty(_target, "remove")
+    rename = ActionProperty(_target, "rename")
+    save = ActionProperty(_target, "save")
+    show_help = ActionProperty(_target, "show_help")
+    show_about = ActionProperty(_target, "show_about")
 
 
 class WindowWithActions(Gtk.ApplicationWindow):
@@ -528,8 +529,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _init_headerbar(self):  # pylint: disable=too-many-locals,too-many-statements
         self.headerbar = Gtk.HeaderBar()
-        self.headerbar.set_show_close_button(True)
-        self.headerbar.props.title = translate("Oo-mox GUI")
+        self.headerbar.set_show_close_button(True)  # type: ignore[arg-type]
+        self.headerbar.props.title = translate("Oo-mox GUI")  # type: ignore[attr-defined]
 
         # @TODO:
         # new_button = ImageButton("text-x-generic-symbolic", translate("Create New Theme"))  # noqa
@@ -538,7 +539,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         import_menu = Gio.Menu()
         import_menu.append_item(Gio.MenuItem.new(
             translate("Oomox Colors File"),
-            WindowActions.import_themix_colors.get_id()  # pylint:disable=no-member
+            WindowActions.import_themix_colors.get_id()
         ))
 
         for plugin_name, plugin in PluginLoader.get_import_plugins().items():
@@ -554,12 +555,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
         import_button.set_use_popover(True)
         import_button.set_menu_model(import_menu)
-        self.add_action(Gio.PropertyAction(
+        self.add_action(Gio.PropertyAction(  # type: ignore[call-arg,arg-type]
             name=WindowActions.import_menu,
             object=import_button,
             property_name="active"
         ))
-        self.headerbar.pack_start(import_button)
+        self.headerbar.pack_start(import_button)  # type: ignore[arg-type]
 
         #
 
@@ -595,8 +596,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         linked_preset_box.add(clone_button)
         linked_preset_box.add(rename_button)
         # linked_preset_box.add(remove_button)
-        self.headerbar.pack_start(linked_preset_box)
-        self.headerbar.pack_start(remove_button)
+        self.headerbar.pack_start(linked_preset_box)  # type: ignore[arg-type]
+        self.headerbar.pack_start(remove_button)  # type: ignore[arg-type]
 
         #
 
@@ -604,20 +605,20 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         menu_button = ImageMenuButton("open-menu-symbolic")
         menu_button.set_use_popover(True)
         menu_button.set_menu_model(menu)
-        self.add_action(Gio.PropertyAction(
+        self.add_action(Gio.PropertyAction(  # type: ignore[call-arg,arg-type]
             name=WindowActions.menu,
             object=menu_button,
             property_name="active"
         ))
-        self.headerbar.pack_end(menu_button)
+        self.headerbar.pack_end(menu_button)  # type: ignore[arg-type]
 
         menu.append_item(Gio.MenuItem.new(
             translate("Keyboard Shortcuts"),
-            WindowActions.show_help.get_id()  # pylint:disable=no-member
+            WindowActions.show_help.get_id()
         ))
         menu.append_item(Gio.MenuItem.new(
             translate("About"),
-            WindowActions.show_about.get_id()  # pylint:disable=no-member
+            WindowActions.show_about.get_id()
         ))
 
         #
@@ -649,7 +650,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         )
         export_button.set_use_popover(True)
         export_button.set_menu_model(export_menu)
-        self.add_action(Gio.PropertyAction(
+        self.add_action(Gio.PropertyAction(  # type: ignore[call-arg,arg-type]
             name=WindowActions.export_menu,
             object=export_button,
             property_name="active"
@@ -662,7 +663,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         linked_export_box.add(export_theme_button)
         linked_export_box.add(export_icons_button)
         linked_export_box.add(export_button)
-        self.headerbar.pack_end(linked_export_box)
+        self.headerbar.pack_end(linked_export_box)  # type: ignore[arg-type]
 
         #
 
@@ -702,7 +703,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add(overlay)
         # self.add(self.box)
 
-        self.paned_box = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL)
+        self.paned_box = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL)  # type: ignore[call-arg]
         self.paned_box.set_wide_handle(True)
         self.box.pack_start(self.paned_box, expand=True, fill=True, padding=0)
 
@@ -787,15 +788,13 @@ class OomoxGtkApplication(Gtk.Application):
 
     window = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         super().__init__(
-            *args,
             application_id="com.github.themix_project.Oomox",
             flags=(
                 Gio.ApplicationFlags.HANDLES_COMMAND_LINE |
                 Gio.ApplicationFlags.NON_UNIQUE
             ),
-            **kwargs
         )
         # @TODO: use oomox-gui as the only one entrypoint to all cli tools
         # self.add_main_option("test", ord("t"), GLib.OptionFlags.NONE,
@@ -833,7 +832,7 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
-        _plugin_shortcuts = {}
+        _plugin_shortcuts: dict[str, str] = {}
         for plugin_list, plugin_action_template in (
             (PluginLoader.get_import_plugins(), "import_plugin_{}"),
             (PluginLoader.get_export_plugins(), "export_plugin_{}"),

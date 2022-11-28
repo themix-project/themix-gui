@@ -12,10 +12,10 @@ if TYPE_CHECKING:
 
 class ActionProperty(str):
 
-    target = None  # type: str
-    name = None  # type: str
+    target: str
+    name: str
 
-    def __new__(cls, name: str, target: str) -> 'ActionProperty':
+    def __new__(cls, target: str, name: str) -> 'ActionProperty':
         obj = str.__new__(cls, name)
         obj.name = name
         obj.target = target
@@ -25,15 +25,7 @@ class ActionProperty(str):
         return '.'.join([self.target, self.name])
 
 
-class ActionsABC(ABCMeta):
-
-    def __getattribute__(cls, item: str) -> ActionProperty:
-        if item.startswith('_') or item not in dir(cls):
-            return ABCMeta.__getattribute__(cls, item)
-        return ActionProperty(name=item, target=cls._target)
-
-
-class ActionsEnum(metaclass=ActionsABC):
+class ActionsEnum(metaclass=ABCMeta):
 
     @property
     @abstractmethod
