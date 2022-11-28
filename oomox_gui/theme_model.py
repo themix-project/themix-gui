@@ -575,7 +575,10 @@ def get_theme_model() -> 'ThemeModel':
     return CachedThemeModel.get()
 
 
-def get_theme_options_by_key(key, fallback: 'Optional[ThemeModelValue]' = None) -> 'List[ThemeModelValue]':
+def get_theme_options_by_key(
+        key: str,
+        fallback: ThemeModelValue | None = None
+) -> list[ThemeModelValue]:
     result = []
     for _section_id, section in get_theme_model().items():
         for theme_option in section:
@@ -586,7 +589,10 @@ def get_theme_options_by_key(key, fallback: 'Optional[ThemeModelValue]' = None) 
     return result
 
 
-def get_first_theme_option(key, fallback: 'Optional[ThemeModelValue]' = None) -> 'ThemeModelValue':
+def get_first_theme_option(
+        key: str,
+        fallback: ThemeModelValue | None = None
+) -> ThemeModelValue:
     result = get_theme_options_by_key(key, fallback=fallback)
     if result:
         return result[0]
