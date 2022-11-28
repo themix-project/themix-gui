@@ -1,7 +1,8 @@
 # pylint: disable=invalid-name
 import os
-from typing import TYPE_CHECKING
-from typing import List, Dict, Any, Optional, Callable, Union
+from typing import (
+    TYPE_CHECKING, List, Dict, Any, Optional, Callable, Union,
+)
 
 from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR
@@ -34,7 +35,7 @@ if TYPE_CHECKING:
     ThemeModel = Dict[str, ThemeModelSection]
 
 
-def sorted_dict(_dict: 'Dict') -> 'Dict':
+def sorted_dict(_dict: dict) -> dict:  # type: ignore[type-arg]
     return dict(sorted(_dict.items(), key=lambda x: x))
 
 
