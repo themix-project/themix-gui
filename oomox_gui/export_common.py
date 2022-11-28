@@ -3,7 +3,6 @@ import subprocess
 import os
 import tempfile
 from threading import Thread
-from typing import NamedTuple
 
 from gi.repository import Gtk, GLib, Pango
 
@@ -202,7 +201,7 @@ class FileBasedExportDialog(ExportDialog):
             os.remove(self.temp_theme_path)
 
 
-class ExportDialogWithOptionsOptions(NamedTuple):
+class ExportDialogWithOptionsOptions:
     pass
 
 
