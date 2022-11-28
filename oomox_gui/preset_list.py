@@ -1,14 +1,16 @@
 import os
 from collections import namedtuple
+from typing import Callable
 
 from gi.repository import Gtk, Gdk, GLib
 
 from .i18n import translate
 from .config import USER_COLORS_DIR, COLORS_DIR
+from .gtk_helpers import warn_once
 from .settings import UI_SETTINGS
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
-from .theme_file import get_presets, group_presets_by_dir
+from .theme_file import PresetFile, get_presets, group_presets_by_dir
 
 
 Section = namedtuple('Section', ['id', 'display_name'])
@@ -31,10 +33,10 @@ class Keys:
 
 class ThemePresetList(Gtk.ScrolledWindow):
 
-    _update_signal = None
-    treestore = None
-    treeview = None
-    preset_select_callback = None
+    _update_signal: int | None = None
+    treestore: Gtk.TreeStore
+    treeview: Gtk.TreeView
+    preset_select_callback: Callable[[dict[str, str], str], None]
 
     DISPLAY_NAME = 0
     THEME_NAME = 1
@@ -48,7 +50,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         self.preset_select_callback = preset_select_callback
 
         self.treestore = Gtk.TreeStore(str, str, str, bool)
-        self.treeview = Gtk.TreeView(
+        self.treeview = Gtk.TreeView(  # type: ignore[call-arg]
             model=self.treestore, headers_visible=False
         )
         self.treeview.connect(
@@ -68,7 +70,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
         self.add(self.treeview)
 
-        GLib.idle_add(
+        GLib.idle_add(  # type: ignore[call-overload]
             self.focus_first_available,
             priority=GLib.PRIORITY_HIGH
         )
@@ -94,9 +96,16 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
     def focus_first_available(self):
         init_iter = self.treestore.get_iter_first()
-        while init_iter and not self.treeview.row_expanded(self.treestore.get_path(init_iter)):
+        while (
+                init_iter and
+                not self.treeview.row_expanded(
+                    self.treestore.get_path(init_iter)  # type: ignore[arg-type]
+                )
+        ):
             init_iter = self.treestore.iter_next(init_iter)
         init_iter = self.treestore.iter_children(init_iter)
+        if not init_iter:
+            raise RuntimeError("No themes found or smth else went wrong")
         self.treeview.set_cursor(self.treestore.get_path(init_iter))
 
     def load_presets(self):
@@ -166,14 +175,14 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
     def _add_preset(self, display_name, name, path, saveable, parent=None):
         return self.treestore.append(
-            parent, (display_name, name, path, saveable)
+            parent, [display_name, name, path, saveable]
         )
 
     def _add_directory(self, name, tree_id=None, parent=None, template='{}'):
         tree_id = tree_id or name
-        return self.treestore.append(parent, (
+        return self.treestore.append(parent, [
             template.format(name), _SECTION_RESERVED_NAME, tree_id, False
-        ))
+        ])
 
     def _add_section(self, section, parent=None):
         return self._add_directory(
@@ -214,7 +223,10 @@ class ThemePresetList(Gtk.ScrolledWindow):
             self, dirname, preset_list,
             plugin_name=None, parent=None, subdir_path=None
     ):
-        sorted_preset_list = sorted(preset_list, key=lambda x: x.name.lower())
+        def preset_sorter(preset: PresetFile) -> str:
+            return preset.name.lower()
+
+        sorted_preset_list = sorted(preset_list, key=preset_sorter)
 
         first_preset = sorted_preset_list[0]
         piter = self._add_preset(
@@ -301,6 +313,9 @@ class ThemePresetList(Gtk.ScrolledWindow):
                         continue
                     preset_plugin = plugin
                 if not plugin_theme_dir:
+                    continue
+                if not preset_plugin:
+                    warn_once("Can't load plugin", f"for opening {preset_dir}.")
                     continue
                 plugin_name = preset_plugin.display_name or preset_plugin.name
                 if plugin_theme_dir == preset_plugin.user_theme_dir:

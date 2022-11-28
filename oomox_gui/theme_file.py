@@ -1,6 +1,6 @@
 import os
 import shutil
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from itertools import groupby
 
 from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
@@ -9,7 +9,11 @@ from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX
 
 
-PresetFile = namedtuple('PresetFile', ['name', 'path', 'default', 'is_saveable', ])
+class PresetFile:
+    name: str
+    path: str
+    default: str
+    is_saveable: bool
 
 
 def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
