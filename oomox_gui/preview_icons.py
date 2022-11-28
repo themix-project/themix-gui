@@ -15,14 +15,14 @@ class IconsNames(Enum):
 
 class IconThemePreview(Gtk.ListBox):
 
-    icons_plugin_name = None
+    icons_plugin_name: str | None = None
 
-    icons_templates = None
-    icons_imageboxes = None
+    icons_templates: dict[str, str]
+    icons_imageboxes: dict[str, ScaledImage]
 
     def __init__(self):
-        self.icons_imageboxes = {}
         self.icons_templates = {}
+        self.icons_imageboxes = {}
 
         super().__init__()
         self.set_margin_left(10)

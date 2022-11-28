@@ -9,7 +9,7 @@ from gi.repository import Gtk, GLib, Pango
 from .i18n import translate
 from .config import USER_EXPORT_CONFIG_DIR, DEFAULT_ENCODING
 from .settings import CommonOomoxConfig
-from .theme_file import save_colorscheme
+from .theme_file import save_colorscheme, ThemeT
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 
 
@@ -30,21 +30,21 @@ class ExportConfig(CommonOomoxConfig):
 
 class ExportDialog(Gtk.Dialog):
 
-    colorscheme = None
-    theme_name = None
-    command = None
+    colorscheme: ThemeT
+    theme_name: str
+    command: str
     timeout = 300
 
     # widgets:
-    box = None
-    top_area = None
-    label = None
-    spinner = None
-    options_box = None
-    scrolled_window = None
-    log = None
-    error_box = None
-    apply_button = None
+    box: Gtk.Box
+    top_area: Gtk.Box
+    label: CenterLabel
+    spinner: Gtk.Spinner
+    options_box: Gtk.Box
+    scrolled_window: Gtk.ScrolledWindow
+    log: Gtk.TextView
+    error_box: Gtk.Box
+    apply_button: Gtk.Button
 
     def _close_button_callback(self, _widget):
         self.destroy()
@@ -60,7 +60,7 @@ class ExportDialog(Gtk.Dialog):
         error_label = CenterLabel(
             label=translate("Something went wrong :(")
         )
-        error_label.set_alignment(0.5, 0.5)
+        error_label.set_alignment(0.5, 0.5)  # type: ignore[arg-type]
 
         error_dismiss_button = Gtk.Button(label=translate("_Dismiss"), use_underline=True)
         error_dismiss_button.connect("clicked", self._close_button_callback)
@@ -88,7 +88,7 @@ class ExportDialog(Gtk.Dialog):
         # from .terminal import generate_terminal_colors_for_oomox
         # self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
 
-        Gtk.Dialog.__init__(self, headline, transient_for, 0)
+        Gtk.Dialog.__init__(self, headline, transient_for, 0)  # type: ignore[call-arg]
         self.set_default_size(width, height)
         self.label = CenterLabel()
         self.spinner = Gtk.Spinner()
@@ -103,7 +103,7 @@ class ExportDialog(Gtk.Dialog):
         )
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
         #
-        self.scrolled_window = Gtk.ScrolledWindow(expand=True)
+        self.scrolled_window = Gtk.ScrolledWindow(expand=True)  # type: ignore[call-arg]
         self.scrolled_window.set_margin_bottom(5)
         self.scrolled_window.add(self.log)
         #
@@ -166,7 +166,10 @@ class ExportDialog(Gtk.Dialog):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT
             ) as proc:
-                for line in iter(proc.stdout.readline, b''):
+                for line in iter(
+                        proc.stdout.readline,  # type: ignore[union-attr]
+                        b''
+                ):
                     captured_log += line.decode(DEFAULT_ENCODING)
                     GLib.idle_add(update_ui, captured_log)
                 proc.communicate(timeout=self.timeout)
@@ -182,7 +185,7 @@ class ExportDialog(Gtk.Dialog):
 
 class FileBasedExportDialog(ExportDialog):
 
-    temp_theme_path = None
+    temp_theme_path: str
 
     def __init__(self, transient_for, **kwargs):
         super().__init__(transient_for=transient_for, **kwargs)
@@ -194,10 +197,17 @@ class FileBasedExportDialog(ExportDialog):
         )
 
     def __del__(self):
-        os.remove(self.temp_theme_path)
+        if getattr(self, 'temp_theme_path', None):
+            os.remove(self.temp_theme_path)
+
+
+class ExportDialogWithOptionsOptions:
+    pass
 
 
 class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
+
+    OPTIONS: ExportDialogWithOptionsOptions = ExportDialogWithOptionsOptions()
 
     @g_abstractproperty
     def config_name(self):
@@ -237,7 +247,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
 
         for option_name, option in export_options.items():
             value = self.export_config[option_name]
-            value_widget = None
+            value_widget: Gtk.Widget
             if isinstance(value, bool):
                 value_widget = \
                     Gtk.CheckButton.new_with_mnemonic(
@@ -250,11 +260,11 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
                 self.option_widgets[option_name] = value_widget
             elif isinstance(value, str):
                 value_widget = Gtk.HBox()
-                label = Gtk.Label(
+                label = Gtk.Label(  # type: ignore[call-arg]
                     label=option.get('display_name', option_name),
                     use_underline=True
                 )
-                entry = Gtk.Entry(text=value)
+                entry = Gtk.Entry(text=value)  # type: ignore[call-arg]
                 entry.connect(
                     "changed", self._create_option_entry_callback(option_name)
                 )
@@ -276,11 +286,14 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         self.export_config.save()
         super().do_export()
 
-    class OPTIONS:
-        pass
+
+class DialogWithExportPathOptions(ExportDialogWithOptionsOptions):
+    DEFAULT_PATH: str = 'default_path'
 
 
 class DialogWithExportPath(ExportDialogWithOptions):
+
+    OPTIONS: DialogWithExportPathOptions = DialogWithExportPathOptions()
 
     @g_abstractproperty
     def default_export_dir(self):
@@ -296,7 +309,6 @@ class DialogWithExportPath(ExportDialogWithOptions):
             export_options=None,
             **kwargs
     ):
-        self.OPTIONS.DEFAULT_PATH = 'default_path'
         export_options = override_options or export_options or {}
         if not override_options:
             export_options.update({
@@ -317,7 +329,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
                 (self.OPTIONS.DEFAULT_PATH in self.option_widgets) and
                 (self.export_config.get(self.OPTIONS.DEFAULT_PATH))
         ):
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].set_text(
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].set_text(  # type: ignore[attr-defined]
                 os.path.join(
                     self.export_config[self.OPTIONS.DEFAULT_PATH],
                     self.theme_name,
@@ -326,7 +338,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()  # type: ignore[attr-defined]
         )
         new_destination_dir, _theme_name = export_path.rsplit('/', 1)
 
@@ -336,8 +348,13 @@ class DialogWithExportPath(ExportDialogWithOptions):
         self.export_config.save()
 
 
+class CommonGtkThemeExportDialogOptions(DialogWithExportPathOptions):
+    GTK2_HIDPI = 'gtk2_hidpi'
+
+
 class CommonGtkThemeExportDialog(DialogWithExportPath):
 
+    OPTIONS: CommonGtkThemeExportDialogOptions = CommonGtkThemeExportDialogOptions()
     default_export_dir = os.path.join(os.environ['HOME'], '.themes')
 
     @g_abstractproperty
@@ -349,7 +366,6 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
             add_options=None, override_options=None,
             **kwargs
     ):
-        self.OPTIONS.GTK2_HIDPI = 'gtk2_hidpi'
         export_options = override_options or {
             self.OPTIONS.GTK2_HIDPI: {
                 'default': False,

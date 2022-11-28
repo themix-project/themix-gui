@@ -28,7 +28,7 @@ class PluginInfo(Gtk.ListBoxRow):
                 self.box.add(about)
 
         for link_info in plugin.about_links or []:
-            link = Gtk.LinkButton.new_with_label(
+            link = Gtk.LinkButton.new_with_label(  # type: ignore[call-arg]
                 link_info['url'],
                 link_info['name']
             )
@@ -40,7 +40,7 @@ class PluginInfo(Gtk.ListBoxRow):
 
 def show_about(parent_window):
     path = os.path.join(SCRIPT_DIR, 'about.ui')
-    builder = Gtk.Builder.new_from_file(path)
+    builder = Gtk.Builder.new_from_file(path)  # type: ignore[arg-type]
 
     about_window = builder.get_object("about")
     about_window.set_transient_for(parent_window)
@@ -52,7 +52,7 @@ def show_about(parent_window):
 
     def update_listbox_header(row, before):
         if before and not row.get_header():
-            separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+            separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)  # type: ignore[call-arg]
             separator.set_margin_top(4)
             separator.set_margin_bottom(8)
             row.set_header(separator)

@@ -12,6 +12,7 @@ whitelist.typing.List
 whitelist.typing.Iterable
 whitelist.typing.Optional
 whitelist.theme_model.ThemeModel
+whitelist.theme_file.PresetFile.default
 whitelist.plugin_api.ColorScheme
 
 # stdlib

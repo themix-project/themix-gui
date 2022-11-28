@@ -17,18 +17,18 @@ WIDGET_SPACING = 10
 
 
 class CssProviders():
-    theme = None
-    gradient = None
-    border = None
-    headerbar_border = None
-    wm_border = None
-    caret = None
-    reset_style = None
+    theme: dict[str, Gtk.CssProvider]
+    border: dict[str, Gtk.CssProvider]
+    gradient: dict[str, Gtk.CssProvider]
+    headerbar_border: Gtk.CssProvider
+    wm_border: Gtk.CssProvider
+    caret: Gtk.CssProvider
+    reset_style: Gtk.CssProvider
 
     def __init__(self):
         self.theme = {}
-        self.gradient = {}
         self.border = {}
+        self.gradient = {}
         self.headerbar_border = Gtk.CssProvider()
         self.headerbar_border.load_from_data((
             """
@@ -53,29 +53,29 @@ class CssProviders():
 
 class PreviewHeaderbar(Gtk.HeaderBar):
 
-    title = None
-    button = None
+    title: Gtk.Label
+    button: Gtk.Button
 
     def __init__(self):
         super().__init__()
-        self.set_show_close_button(False)
+        self.set_show_close_button(False)  # type: ignore[arg-type]
         self.title = Gtk.Label(label=translate("Headerbar"))
-        self.props.custom_title = self.title
+        self.props.custom_title = self.title  # type: ignore[attr-defined]
         self.button = Gtk.Button(label=f'   {translate("Button")}   ')
-        self.pack_end(self.button)
+        self.pack_end(self.button)  # type: ignore[arg-type]
 
 
 class PreviewWidgets(Gtk.Box):
 
     # gtk preview widgets:
-    headerbar = None
-    menubar = None
-    label = None
-    sel_label = None
-    entry = None
-    preview_imageboxes = None
-    preview_imageboxes_templates = None
-    button = None
+    headerbar: PreviewHeaderbar
+    menubar: Gtk.MenuBar
+    label: Gtk.Label
+    sel_label: Gtk.Label
+    entry: Gtk.Entry
+    preview_imageboxes: dict[str, ScaledImage]
+    preview_imageboxes_templates: dict[str, str]
+    button: Gtk.Button
 
     def __init__(self):
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
@@ -91,17 +91,17 @@ class PreviewWidgets(Gtk.Box):
         self.menubar = Gtk.MenuBar()
         menuitem1 = Gtk.MenuItem(label=translate('File'))
         menuitem1.set_submenu(self.create_menu(3, True))
-        self.menubar.append(menuitem1)
+        self.menubar.append(menuitem1)  # type: ignore[attr-defined]
         menuitem2 = Gtk.MenuItem(label=translate('Edit'))
         menuitem2.set_submenu(self.create_menu(6, True))
-        self.menubar.append(menuitem2)
+        self.menubar.append(menuitem2)  # type: ignore[attr-defined]
 
         headerbox.pack_start(self.headerbar, True, True, 0)
-        headerbox.pack_start(self.menubar, True, True, 0)
+        headerbox.pack_start(self.menubar, True, True, 0)  # type: ignore[arg-type]
 
         self.label = Gtk.Label(label=translate("This is a label"))
         self.sel_label = Gtk.Label(label=translate("Selected item"))
-        self.entry = Gtk.Entry(text=translate("Text entry"))
+        self.entry = Gtk.Entry(text=translate("Text entry"))  # type: ignore[call-arg]
         self.button = Gtk.Button(label=translate("Button"))
 
         self.preview_imageboxes = {}
@@ -133,8 +133,10 @@ class PreviewWidgets(Gtk.Box):
         for i in range(0, n_items):
             sensitive = (i + 1) % 3 != 0
             label = translate('Item {id}') if sensitive else translate('Insensitive Item {id}')
-            item = Gtk.MenuItem(label=label.format(id=i + 1),
-                                sensitive=sensitive)
+            item = Gtk.MenuItem(  # type: ignore[call-arg]
+                label=label.format(id=i + 1),
+                sensitive=sensitive
+            )
             menu.append(item)
             if has_submenus and (i + 1) % 2 == 0:
                 item.set_submenu(self.create_menu(2))
@@ -180,16 +182,16 @@ class ThemePreview(Gtk.Grid):
     BG = 'bg'  # pylint: disable=invalid-name
     FG = 'fg'  # pylint: disable=invalid-name
 
-    WM_BORDER_WIDTH = 2
+    WM_BORDER_WIDTH: int = 2
 
-    theme_plugin_name = None
-    css_providers = None
+    theme_plugin_name: str | None = None
+    css_providers: CssProviders
 
     # widget sections:
-    background = None
-    gtk_preview = None
-    icons_preview = None
-    terminal_preview = None
+    background: Gtk.Grid
+    gtk_preview: PreviewWidgets
+    icons_preview: IconThemePreview | None = None
+    terminal_preview: TerminalThemePreview | None = None
 
     def __init__(self):
         super().__init__(row_spacing=6, column_spacing=6)
@@ -406,7 +408,7 @@ class ThemePreview(Gtk.Grid):
         )
         self.override_widget_color(self.gtk_preview.button, self.FG, converted["BTN_FG"])
         self.override_widget_color(self.gtk_preview.button, self.BG, converted["BTN_BG"])
-        for item in self.gtk_preview.menubar.get_children():
+        for item in self.gtk_preview.menubar.get_children():  # type: ignore[attr-defined]
             self.override_widget_color(item, self.FG, converted["HDR_FG"])
             self.override_widget_color(
                 item, self.BG, mix("HDR_BG", "HDR_FG", 0.21),
@@ -487,12 +489,16 @@ class ThemePreview(Gtk.Grid):
             self.gtk_preview.update_preview_imageboxes(colorscheme_with_fallbacks, theme_plugin)
             self.gtk_preview.show()
 
+        if not self.icons_preview:
+            raise RuntimeError("Icon preview widget failed to load")
         if not icons_plugin:
             self.icons_preview.hide()
         else:
             self.icons_preview.update_preview(colorscheme_with_fallbacks, icons_plugin)
             self.icons_preview.show()
 
+        if not self.terminal_preview:
+            raise RuntimeError("Terminal preview widget failed to load")
         self.terminal_preview.update_preview(colorscheme_with_fallbacks)
 
     def get_theme_css_provider(self, theme_plugin):
@@ -509,7 +515,7 @@ class ThemePreview(Gtk.Grid):
             return css_provider
         css_provider = Gtk.CssProvider()
         try:
-            css_provider.load_from_path(css_path)
+            css_provider.load_from_path(css_path)  # type: ignore[arg-type]
         except GLib.Error as exc:
             print(exc)
         self.css_providers.theme[css_path] = css_provider
@@ -540,7 +546,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
             if isinstance(widget, Gtk.Container):
-                widget.forall(apply_css)
+                widget.forall(apply_css)  # type: ignore[arg-type]
         apply_css(self)
 
         Gtk.StyleContext.add_provider(

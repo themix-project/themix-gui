@@ -5,17 +5,13 @@ from gi.types import GObjectMeta
 
 from .i18n import translate
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    from typing import List  # noqa
-
 
 class ActionProperty(str):
 
-    target = None  # type: str
-    name = None  # type: str
+    target: str
+    name: str
 
-    def __new__(cls, name: str, target: str) -> 'ActionProperty':
+    def __new__(cls, target: str, name: str) -> 'ActionProperty':
         obj = str.__new__(cls, name)
         obj.name = name
         obj.target = target
@@ -25,15 +21,7 @@ class ActionProperty(str):
         return '.'.join([self.target, self.name])
 
 
-class ActionsABC(ABCMeta):
-
-    def __getattribute__(cls, item: str) -> ActionProperty:
-        if item.startswith('_') or item not in dir(cls):
-            return ABCMeta.__getattribute__(cls, item)
-        return ActionProperty(name=item, target=cls._target)
-
-
-class ActionsEnum(metaclass=ActionsABC):
+class ActionsEnum(metaclass=ABCMeta):
 
     @property
     @abstractmethod
@@ -47,7 +35,7 @@ class CenterLabel(Gtk.Label):
         if label:
             self.set_text(label)
         self.set_justify(Gtk.Justification.CENTER)
-        self.set_alignment(0.5, 0.5)
+        self.set_alignment(0.5, 0.5)  # type: ignore[arg-type]
         self.set_margin_left(6)
         self.set_margin_right(6)
         self.set_margin_top(6)
@@ -63,7 +51,7 @@ class ImageButtonContainer(Gtk.Box):
     def __init__(self, icon_name, tooltip_text=None, label=None):
         super().__init__()
         self.box = Gtk.Box()
-        self.icon = Gio.ThemedIcon(name=icon_name)
+        self.icon = Gio.ThemedIcon(name=icon_name)  # type: ignore[call-arg]
         self.image = Gtk.Image.new_from_gicon(self.icon, Gtk.IconSize.BUTTON)
         self.get_style_context().add_class('image-button')
         if label:
@@ -76,13 +64,13 @@ class ImageButtonContainer(Gtk.Box):
             self.set_tooltip_text(tooltip_text)
 
 
-class ImageButton(Gtk.Button, ImageButtonContainer):
+class ImageButton(Gtk.Button, ImageButtonContainer):  # type: ignore[misc]
     def __init__(self, *args, **kwargs):
         Gtk.Button.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
-class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):
+class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):  # type: ignore[misc]
     def __init__(self, *args, **kwargs):
         Gtk.MenuButton.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
@@ -132,7 +120,7 @@ class ScaledImage(Gtk.Image):
     def set_from_bytes(self, bytes_sequence, width=None, height=None):
         self._set_orig_dimensions(width=width, height=height)
         stream = Gio.MemoryInputStream.new_from_bytes(
-            GLib.Bytes.new(bytes_sequence)
+            GLib.Bytes.new(bytes_sequence)  # type: ignore[arg-type]
         )
         self.oomox_width = self.orig_width
         self.oomox_height = self.orig_height
@@ -142,8 +130,8 @@ class ScaledImage(Gtk.Image):
             stream,
             self.oomox_width*self.scale_factor if self.oomox_width else -1,
             self.oomox_height*self.scale_factor if self.oomox_height else -1,
-            True,
-            None
+            True,  # type: ignore[arg-type]
+            None  # type: ignore[arg-type]
         )
         self.oomox_width = pixbuf.props.width // self.scale_factor
         self.oomox_height = pixbuf.props.height // self.scale_factor
@@ -152,7 +140,7 @@ class ScaledImage(Gtk.Image):
 
 class EntryDialog(Gtk.Dialog):
 
-    entry = None
+    entry: Gtk.Entry
     entry_text = ''
 
     def do_response(self, response):  # pylint: disable=arguments-differ
@@ -266,7 +254,7 @@ def g_abstractproperty(_function):
 
 class _WarnOnceDialog(Gtk.MessageDialog):
 
-    _already_shown = []  # type: List[str]
+    _already_shown = []  # type: list[str]
 
     @staticmethod
     def _marshal(text, secondary_text, buttons):

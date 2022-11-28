@@ -2,7 +2,7 @@ name: Code Style
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, mypy ]
   pull_request:
     branches: [ master ]
 
@@ -18,11 +18,6 @@ jobs:
             SKIP_SHELLCHECK: 0
             SKIP_MYPY: 0
             SKIP_VULTURE: 0
-
-          - PYVER: python38_ubuntu_2004
-            SKIP_SHELLCHECK: 1
-            SKIP_MYPY: 1
-            SKIP_VULTURE: 1
 
           - PYVER: python310_ubuntu_2204
             SKIP_SHELLCHECK: 1

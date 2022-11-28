@@ -1,5 +1,6 @@
 import json
 import os
+from typing import Any
 
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 from .plugin_api import OomoxPlugin
@@ -11,6 +12,8 @@ CONFIG_MIGRATIONS_DIR = os.path.join(
 
 
 class MigrationConfig:
+
+    DEFAULT_VERSION = 0
 
     def __init__(self, component_name):
         if not os.path.exists(CONFIG_MIGRATIONS_DIR):
@@ -24,13 +27,16 @@ class MigrationConfig:
         except Exception:
             self.config = {}
         if not self.config.get('version'):
-            self.config['version'] = 0
+            self.config['version'] = self.DEFAULT_VERSION
 
     @property
     def version(self) -> int:
-        return self.config['version']
+        version_from_config = self.config['version']
+        if not isinstance(version_from_config, int):
+            return self.DEFAULT_VERSION
+        return version_from_config
 
-    def update(self, version: int, **kwargs) -> None:
+    def update(self, version: int, **kwargs: Any) -> None:
         self.config['version'] = version
         for key, value in kwargs.items():
             self.config[key] = value

@@ -20,8 +20,9 @@ def ls_r(path):
 def get_plugin_module(name, path, submodule=None):
     if sys.version_info.minor < 5:
         raise RuntimeError('Python 3.5+ is required')
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
+    #                           i guess myp stubs for importlib are incomplete:
+    spec = importlib.util.spec_from_file_location(name, path)  # type: ignore[attr-defined]
+    module = importlib.util.module_from_spec(spec)  # type: ignore[attr-defined]
     spec.loader.exec_module(module)
     if submodule:
         return getattr(module, submodule)

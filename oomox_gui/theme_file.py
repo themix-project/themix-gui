@@ -1,7 +1,8 @@
 import os
 import shutil
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from itertools import groupby
+from typing import NamedTuple
 
 from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
 from .helpers import ls_r, mkdir_p
@@ -9,7 +10,14 @@ from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX
 
 
-PresetFile = namedtuple('PresetFile', ['name', 'path', 'default', 'is_saveable', ])
+class PresetFile(NamedTuple):
+    name: str
+    path: str
+    default: bool
+    is_saveable: bool
+
+
+ThemeT = dict[str, str]
 
 
 def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
@@ -66,7 +74,9 @@ def get_presets():
             ))
         result = defaultdict(list)
         for dir_name, group in group_presets_by_dir(file_paths, colors_dir):
-            result[dir_name] = sorted(list(group), key=lambda x: x.name)
+            def preset_sorter(preset: PresetFile) -> str:
+                return preset.name
+            result[dir_name] = sorted(list(group), key=preset_sorter)
         all_results[colors_dir] = dict(result)
     return all_results
 
