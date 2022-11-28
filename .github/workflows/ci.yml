@@ -2,7 +2,7 @@ name: Code Style
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, mypy ]
   pull_request:
     branches: [ master ]
 
