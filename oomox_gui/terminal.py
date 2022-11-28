@@ -80,7 +80,8 @@ def generate_theme_from_hint(
             is_dark(theme_bg) != is_dark(hex_colors['background'])
     ):
         theme_bg, theme_fg = theme_fg, theme_bg
-    _closest_key, diff = None, None
+    _closest_key: str | None
+    diff: ColorDiff
     if theme_hint:
         _closest_key = theme_hint
         diff = ColorDiff(hex_colors[theme_hint], theme_color)
@@ -130,22 +131,20 @@ class ContinueNext(Exception):
 
 
 # @TODO:
-# These two functions are temporary until progressbar API won't be implemented in UI
+# get_term_width() and ProgressBar() are temporary until progressbar API won't be implemented in UI:
 def get_term_width():
     return shutil.get_terminal_size((80, 80)).columns
 
 
 class ProgressBar():
 
-    message = None
-    print_ratio = None
+    message: str
+    print_ratio: float
     index = 0
     progress = 0
 
     LEFT_DECORATION = '['
     RIGHT_DECORATION = ']'
-    # EMPTY = '-'
-    # FULL = '#'
 
     def __init__(self, length, message=None):
         message = message or str(length)
@@ -155,24 +154,14 @@ class ProgressBar():
             len(self.LEFT_DECORATION) - len(self.RIGHT_DECORATION)
         )
         self.print_ratio = length / width
-        # sys.stderr.write(message)
-        # sys.stderr.write(self.LEFT_DECORATION + self.EMPTY * width + self.RIGHT_DECORATION)
-        # sys.stderr.write('{}[\bb'.format(chr(27)) * (width + len(self.RIGHT_DECORATION)))
-        # sys.stderr.flush()
 
     def update(self):
         self.index += 1
         if self.index / self.print_ratio > self.progress:
             self.progress += 1
-            # sys.stderr.write(self.FULL)
-            # sys.stderr.flush()
 
     def __enter__(self):
         return self.update
-
-    # def __exit__(self, *exc_details):
-        # sys.stderr.write('\n')
-# ######## END
 
 
 def sort_by_saturation(c):
@@ -182,15 +171,15 @@ def sort_by_saturation(c):
         abs(c[2]-c[1])+abs(c[2]-c[0])
 
 
-def get_grayest_colors(palette):
+def get_grayest_colors(palette: list[str]) -> list[str]:
     list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
     saturation_list = sorted(
         list_of_colors,
         key=sort_by_saturation
     )
-    gray_colors = saturation_list[:(len(saturation_list)//3)]
-    gray_colors.sort(key=sum)
-    gray_colors = [color_hex_from_list(c) for c in gray_colors]
+    gray_color_values = saturation_list[:(len(saturation_list)//3)]
+    gray_color_values.sort(key=sum)
+    gray_colors = [color_hex_from_list(c) for c in gray_color_values]
     return gray_colors
 
 
@@ -242,9 +231,9 @@ def _generate_theme_from_full_palette(
                 all_colors.append(hex_darker(color, -i))
 
     grayest_colors = get_grayest_colors(all_colors)
-    bright_colors = set(all_colors)
-    bright_colors.difference_update(grayest_colors)
-    bright_colors = list(bright_colors)
+    bright_colors_set = set(all_colors)
+    bright_colors_set.difference_update(grayest_colors)
+    bright_colors = list(bright_colors_set)
 
     bright_colors_as_color_lists = [
         [
@@ -255,8 +244,8 @@ def _generate_theme_from_full_palette(
     START = [-0xff, -0xff, -0xff]
     END = [0xff, 0xff, 0xff]
     best_diff_color_values = [0, 0, 0]
-    biggest_number_of_similar = None
-    prev_biggest_number_of_similar = 'not_found'
+    biggest_number_of_similar: float | None = None
+    prev_biggest_number_of_similar: float | None = None
     best_result = None
 
     _debug_iteration_counter = 0
@@ -295,7 +284,7 @@ def _generate_theme_from_full_palette(
                                     raise ContinueNext()
                             modified_colors[key] = new_value
 
-                        num_of_similar = 0
+                        num_of_similar = 0.0
                         for modified_color in modified_colors.values():
                             for bright_color in bright_colors_as_color_lists:
                                 abs_diff = 0
@@ -341,12 +330,15 @@ def _generate_theme_from_full_palette(
     # for bright_color in bright_colors:
     #     print(bg256(bright_color, bright_color))
 
-    modified_colors = {
+    if not best_result:
+        raise RuntimeError('Everything went wrong 🥲')
+
+    result_colors = {
         key: color_hex_from_list(c)
         for key, c in best_result.items()
     }
-    # return modified_colors
-    result_callback(modified_colors)
+    # return result_colors
+    result_callback(result_colors)
 
 
 _FULL_PALETTE_CACHE = {}  # type: Dict[str, Dict[str, str]]
@@ -445,7 +437,7 @@ def _generate_themes_from_oomox(
             theme_fg=colorscheme["TERMINAL_FOREGROUND"],
             auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
             extend_palette=colorscheme["TERMINAL_THEME_EXTEND_PALETTE"],
-            accuracy=255+8-colorscheme.get("TERMINAL_THEME_ACCURACY"),
+            accuracy=255 + 8 - colorscheme["TERMINAL_THEME_ACCURACY"],
             app=app, result_callback=_callback,
         )
         return
