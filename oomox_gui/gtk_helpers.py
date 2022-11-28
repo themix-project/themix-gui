@@ -51,7 +51,7 @@ class ImageButtonContainer(Gtk.Box):
     def __init__(self, icon_name, tooltip_text=None, label=None):
         super().__init__()
         self.box = Gtk.Box()
-        self.icon = Gio.ThemedIcon(name=icon_name)
+        self.icon = Gio.ThemedIcon(name=icon_name)  # type: ignore[call-arg]
         self.image = Gtk.Image.new_from_gicon(self.icon, Gtk.IconSize.BUTTON)
         self.get_style_context().add_class('image-button')
         if label:
@@ -64,13 +64,13 @@ class ImageButtonContainer(Gtk.Box):
             self.set_tooltip_text(tooltip_text)
 
 
-class ImageButton(Gtk.Button, ImageButtonContainer):
+class ImageButton(Gtk.Button, ImageButtonContainer):  # type: ignore[misc]
     def __init__(self, *args, **kwargs):
         Gtk.Button.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
-class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):
+class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):  # type: ignore[misc]
     def __init__(self, *args, **kwargs):
         Gtk.MenuButton.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
@@ -140,7 +140,7 @@ class ScaledImage(Gtk.Image):
 
 class EntryDialog(Gtk.Dialog):
 
-    entry = None
+    entry: Gtk.Entry
     entry_text = ''
 
     def do_response(self, response):  # pylint: disable=arguments-differ
