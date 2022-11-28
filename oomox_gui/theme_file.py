@@ -13,7 +13,7 @@ from .plugin_api import PLUGIN_PATH_PREFIX
 class PresetFile(NamedTuple):
     name: str
     path: str
-    default: str
+    default: bool
     is_saveable: bool
 
 
@@ -74,7 +74,9 @@ def get_presets():
             ))
         result = defaultdict(list)
         for dir_name, group in group_presets_by_dir(file_paths, colors_dir):
-            result[dir_name] = sorted(list(group), key=lambda x: x.name)
+            def preset_sorter(preset: PresetFile) -> str:
+                return preset.name
+            result[dir_name] = sorted(list(group), key=preset_sorter)
         all_results[colors_dir] = dict(result)
     return all_results
 
