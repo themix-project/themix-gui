@@ -22,7 +22,7 @@ class TerminalThemePreview(Gtk.Box):
         (translate("cyan"), 6, 14),
         (translate("white"), 7, 15),
     )
-    terminal_widgets = None
+    terminal_widgets: dict[str, Gtk.Label]
 
     def __init__(self):
         super().__init__()
@@ -71,19 +71,19 @@ class TerminalThemePreview(Gtk.Box):
         }
         term_bg = converted["background"]
         self.terminal_widgets["normal"].override_color(
-            Gtk.StateType.NORMAL, converted["foreground"]
+            Gtk.StateType.NORMAL, converted["foreground"]  # type: ignore[arg-type]
         )
-        self.override_background_color(Gtk.StateType.NORMAL, term_bg)
+        self.override_background_color(Gtk.StateType.NORMAL, term_bg)  # type: ignore[arg-type]
         for color_row in self.COLOR_ROWS:
             _color_name, normal_id, highlight_id = color_row
             key1 = f"color{normal_id}"
             key2 = f"color{highlight_id}"
             self.terminal_widgets[key1].override_color(
-                Gtk.StateType.NORMAL, converted[key1]
+                Gtk.StateType.NORMAL, converted[key1]  # type: ignore[arg-type]
             )
             self.terminal_widgets[key2].override_color(
-                Gtk.StateType.NORMAL, term_bg
+                Gtk.StateType.NORMAL, term_bg  # type: ignore[arg-type]
             )
             self.terminal_widgets[key2].override_background_color(
-                Gtk.StateType.NORMAL, converted[key2]
+                Gtk.StateType.NORMAL, converted[key2]  # type: ignore[arg-type]
             )
