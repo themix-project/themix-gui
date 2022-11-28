@@ -90,7 +90,8 @@ class Plugin(OomoxImportPluginAsync):
             parent_dir = os.path.dirname(self.user_theme_dir)
             old_plugin_dir_name = '__plugin__import_pil'
             old_user_theme_dir = os.path.join(parent_dir, old_plugin_dir_name)
-            os.rename(old_user_theme_dir, self.user_theme_dir)
+            if os.path.exists(old_user_theme_dir):
+                os.rename(old_user_theme_dir, self.user_theme_dir)
         config.update(version=self.config_version)
 
     default_theme = {
