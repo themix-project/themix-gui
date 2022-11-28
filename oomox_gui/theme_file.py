@@ -2,6 +2,7 @@ import os
 import shutil
 from collections import defaultdict
 from itertools import groupby
+from typing import NamedTuple
 
 from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
 from .helpers import ls_r, mkdir_p
@@ -9,11 +10,14 @@ from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX
 
 
-class PresetFile:
+class PresetFile(NamedTuple):
     name: str
     path: str
     default: str
     is_saveable: bool
+
+
+ThemeT = dict[str, str]
 
 
 def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
