@@ -1,13 +1,14 @@
 import os
-from typing import Dict, Union, Callable
+from typing import Callable
 
 from .i18n import translate
 from .theme_model import get_theme_model
 from .plugin_loader import PluginLoader
 from .config import DEFAULT_ENCODING
+from .theme_file import ThemeT
 
 
-ColorScheme = Dict[str, Union[str, bool, int, float]]
+ColorScheme = ThemeT
 
 
 class NoPluginsInstalled(Exception):
@@ -21,7 +22,7 @@ class NoPluginsInstalled(Exception):
         )
 
 
-def str_to_bool(value):
+def str_to_bool(value: str) -> bool:
     return value.lower() == 'true'
 
 
@@ -94,7 +95,7 @@ def _set_fallback_values(preset_path, colorscheme, from_plugin):
 
 def read_colorscheme_from_path(
         preset_path: str,
-        callback: Callable[[ColorScheme, ], None]
+        callback: Callable[[ThemeT, ], None]
 ) -> None:
     preset_path = os.path.abspath(preset_path)
     colorscheme = {}

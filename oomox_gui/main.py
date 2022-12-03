@@ -18,6 +18,7 @@ from .gtk_helpers import (
     ActionsEnum, ActionProperty, warn_once,
 )
 from .theme_file import (
+    ThemeT,
     get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
     save_colorscheme, remove_colorscheme, import_colorscheme,
 )
@@ -27,7 +28,9 @@ from .colors_list import ThemeColorsList
 from .preview import ThemePreview
 from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import PluginLoader
-from .plugin_api import PLUGIN_PATH_PREFIX, OomoxIconsPlugin, OomoxThemePlugin
+from .plugin_api import (
+    PLUGIN_PATH_PREFIX, OomoxIconsPlugin, OomoxThemePlugin, OomoxImportPlugin
+)
 from .settings import UISettings
 from .about import show_about
 from .shortcuts import show_shortcuts
@@ -35,24 +38,25 @@ from .shortcuts import show_shortcuts
 
 class DoubleWindowError(RuntimeError):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__('App window already set')
 
 
 class NoWindowError(RuntimeError):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__('App window not yet set')
 
 
 class NewDialog(EntryDialog):
 
     def __init__(
-            self, transient_for,
-            title=translate("New Theme"),
-            text=translate("Please input new theme name:"),
-            entry_text=None
-    ):
+            self,
+            transient_for: Gtk.Window,
+            title: str = translate("New Theme"),
+            text: str = translate("Please input new theme name:"),
+            entry_text: str | None = None
+    ) -> None:
         super().__init__(
             transient_for=transient_for,
             title=title,
@@ -63,7 +67,7 @@ class NewDialog(EntryDialog):
 
 class RenameDialog(NewDialog):
 
-    def __init__(self, transient_for, entry_text):
+    def __init__(self, transient_for: Gtk.Window, entry_text: str) -> None:
         super().__init__(
             transient_for=transient_for,
             title=translate("Rename Theme"),
@@ -73,7 +77,7 @@ class RenameDialog(NewDialog):
 
 class UnsavedDialog(YesNoDialog):
 
-    def __init__(self, transient_for):
+    def __init__(self, transient_for: Gtk.Window) -> None:
         super().__init__(
             transient_for=transient_for,
             title=translate("Unsaved Changes"),
@@ -83,7 +87,7 @@ class UnsavedDialog(YesNoDialog):
 
 class RemoveDialog(YesNoDialog):
 
-    def __init__(self, transient_for):
+    def __init__(self, transient_for: Gtk.Window) -> None:
         super().__init__(
             transient_for=transient_for,
             title=translate("Remove Theme"),
@@ -94,7 +98,7 @@ class RemoveDialog(YesNoDialog):
         )
 
 
-def dialog_is_yes(dialog):
+def dialog_is_yes(dialog: Gtk.Dialog) -> bool:
     return dialog.run() in (Gtk.ResponseType.YES, Gtk.ResponseType.OK)
 
 
@@ -121,22 +125,24 @@ class WindowActions(ActionsEnum):
 
 class WindowWithActions(Gtk.ApplicationWindow):
 
-    def _action_tooltip(self, action, tooltip):
+    def _action_tooltip(self, action: ActionProperty, tooltip: str) -> str:
         action_id = action.get_id()
         app = self.get_application()
         if not app:
             raise RuntimeError("No app")
-        accels = app.get_accels_for_action(action_id)
+        accels = app.get_accels_for_action(action_id)  # type: ignore[arg-type]
         if accels:
             key, mods = Gtk.accelerator_parse(accels[0])
             tooltip += f' ({Gtk.accelerator_get_label(key, mods)})'
         return tooltip
 
-    def attach_action(self, widget, action, with_tooltip=True):
+    def attach_action(
+            self, widget: Gtk.Widget, action: ActionProperty, with_tooltip: bool = True
+    ) -> None:
         action_id = action.get_id()
-        widget.set_action_name(action_id)
+        widget.set_action_name(action_id)  # type: ignore[attr-defined]
         if with_tooltip:
-            tooltip = self._action_tooltip(action, widget.get_tooltip_text())
+            tooltip = self._action_tooltip(action, widget.get_tooltip_text() or '')
             widget.set_tooltip_text(tooltip)
 
     def add_simple_action(self, action_name: str, callback: Callable[..., Any]) -> Gio.SimpleAction:
@@ -149,8 +155,8 @@ class WindowWithActions(Gtk.ApplicationWindow):
 class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods
 
     colorscheme_name: str
-    colorscheme_path = None
-    colorscheme: dict[str, str]
+    colorscheme_path: str
+    colorscheme: ThemeT
     colorscheme_is_user: bool
     theme_edited: bool = False
     #
@@ -176,25 +182,28 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     _currently_focused_widget = Gtk.Widget | None
     _inhibit_id: str | None = None
 
-    def _unset_save_needed(self):
+    def _unset_save_needed(self) -> None:
         self.headerbar.props.title = self.colorscheme_name  # type: ignore[attr-defined]
         if self._inhibit_id:
-            self.application.uninhibit(self._inhibit_id)
+            self.application.uninhibit(self._inhibit_id)  # type: ignore[arg-type]
         self.action_save.set_enabled(False)
         self.theme_edited = False
 
-    def _set_save_needed(self):
+    def _set_save_needed(self) -> None:
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.colorscheme_name  # type: ignore[attr-defined]
         self._inhibit_id = self.application.inhibit(
-            self,
-            Gtk.ApplicationInhibitFlags.LOGOUT | Gtk.ApplicationInhibitFlags.SUSPEND,
-            translate("There are unsaved changes.\nSave them?")
+            self,  # type: ignore[arg-type]
+            (
+                Gtk.ApplicationInhibitFlags.LOGOUT |  # type: ignore[arg-type]
+                Gtk.ApplicationInhibitFlags.SUSPEND
+            ),
+            translate("There are unsaved changes.\nSave them?")  # type: ignore[arg-type]
         )
         self.action_save.set_enabled(True)
         self.theme_edited = True
 
-    def save_theme(self, name=None):
+    def save_theme(self, name: str | None = None) -> None:
         if not name:
             name = self.colorscheme_name
         if not self.preset_list.preset_is_saveable():
@@ -214,7 +223,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if old_path != new_path:
             self.reload_presets()
 
-    def remove_theme(self, path=None):
+    def remove_theme(self, path: str | None = None) -> None:
         if not path:
             path = self.colorscheme_path
         try:
@@ -222,7 +231,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         except FileNotFoundError:
             pass
 
-    def import_theme_from_path(self, path, new_name):
+    def import_theme_from_path(self, path: str, new_name: str) -> None:
         old_path = self.colorscheme_path
         new_path = import_colorscheme(new_name, path)
         self.colorscheme_name = new_name
@@ -231,7 +240,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.reload_presets()
         self.on_preset_selected(new_name, new_path)
 
-    def import_themix_colors(self):
+    def import_themix_colors(self) -> None:
         self.ask_unsaved_changes()
 
         filechooser_dialog = Gtk.FileChooserNative.new(
@@ -261,7 +270,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 )
                 return
 
-    def import_from_plugin(self, plugin):
+    def import_from_plugin(self, plugin: OomoxImportPlugin) -> None:
         self.ask_unsaved_changes()
         filechooser_dialog = Gtk.FileChooserNative.new(
             translate("Please choose an image file"),  # type: ignore[arg-type]
@@ -287,7 +296,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme_path = new_theme_path
         self.reload_presets()
 
-    def clone_theme(self):
+    def clone_theme(self) -> None:
         new_theme_name = self.colorscheme_name
         if is_colorscheme_exists(get_user_theme_path(new_theme_name)):
             new_theme_name += '_'
@@ -302,7 +311,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         else:
             self.clone_theme()
 
-    def rename_theme(self, entry_text=None):
+    def rename_theme(self, entry_text: str | None = None) -> None:
         dialog = RenameDialog(
             transient_for=self,
             entry_text=entry_text or self.colorscheme_name
@@ -318,14 +327,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         else:
             self.rename_theme(entry_text=new_theme_name)
 
-    def ask_unsaved_changes(self):
+    def ask_unsaved_changes(self) -> None:
         if self.theme_edited:
             if dialog_is_yes(UnsavedDialog(transient_for=self)):
                 self.save_theme()
             # else:  @TODO: remove this branch?
                 # self.theme_edited = False
 
-    def ask_colorscheme_exists(self, colorscheme_name):
+    def ask_colorscheme_exists(self, colorscheme_name: str) -> bool:
         if not is_colorscheme_exists(get_user_theme_path(colorscheme_name)):
             return False
         dialog = Gtk.MessageDialog(
@@ -339,27 +348,27 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         dialog.destroy()
         return True
 
-    def _select_theme_plugin(self):
+    def _select_theme_plugin(self) -> None:
         theme_plugin_name = self.colorscheme['THEME_STYLE']
         self.plugin_theme = None
         for theme_plugin in PluginLoader.get_theme_plugins().values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
-    def _select_icons_plugin(self):
+    def _select_icons_plugin(self) -> None:
         icons_plugin_name = self.colorscheme['ICONS_STYLE']
         self.plugin_icons = None
         for icons_plugin in PluginLoader.get_icons_plugins().values():
             if icons_plugin.name == icons_plugin_name:
                 self.plugin_icons = icons_plugin
 
-    def load_colorscheme(self, colorscheme):
+    def load_colorscheme(self, colorscheme: ThemeT) -> None:
         self.colorscheme = colorscheme
         self._select_theme_plugin()
         self._select_icons_plugin()
         self.generate_terminal_colors(callback=self._load_colorscheme_callback)
 
-    def _load_colorscheme_callback(self):
+    def _load_colorscheme_callback(self) -> None:
         try:
             self.preview.update_preview(
                 colorscheme=self.colorscheme,
@@ -383,16 +392,20 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             )
 
     @staticmethod
-    def schedule_task(task, *args):
+    def schedule_task(task: Callable[..., None], *args: Any) -> None:
         Gdk.threads_add_idle(GLib.PRIORITY_LOW, task, *args)
 
-    def on_preset_selected(self, selected_preset, selected_preset_path):
+    def on_preset_selected(
+            self,
+            selected_preset_name: str,
+            selected_preset_path: str
+    ) -> None:
         self.ask_unsaved_changes()
-        self.colorscheme_name = selected_preset
+        self.colorscheme_name = selected_preset_name
         self.colorscheme_path = selected_preset_path
         read_colorscheme_from_path(selected_preset_path, callback=self._on_preset_selected_callback)
 
-    def _on_preset_selected_callback(self, colorscheme):
+    def _on_preset_selected_callback(self, colorscheme: ThemeT) -> None:
         self.load_colorscheme(colorscheme)
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
@@ -400,27 +413,28 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.action_rename.set_enabled(self.preset_list.preset_is_saveable())
         self.action_remove.set_enabled(self.colorscheme_is_user)
 
-    def theme_reload(self):
+    def theme_reload(self) -> ThemeT:
         self.on_preset_selected(
             self.colorscheme_name, self.colorscheme_path
         )
         return self.colorscheme
 
-    def generate_terminal_colors(self, callback):
-        def _generate_terminal_colors(colors):
+    def generate_terminal_colors(self, callback: Callable[[], None]) -> None:
+        def _generate_terminal_colors(colors: ThemeT) -> None:
             self.colorscheme.update(colors)
             callback()
 
         generate_terminal_colors_for_oomox(
             self.colorscheme,
-            app=self, result_callback=_generate_terminal_colors,
+            app=self,
+            result_callback=_generate_terminal_colors,
         )
 
-    def on_color_edited(self, colorscheme):
+    def on_color_edited(self, colorscheme: ThemeT) -> None:
         self.load_colorscheme(colorscheme)
         self._set_save_needed()
 
-    def reload_presets(self):
+    def reload_presets(self) -> None:
         self.preset_list.reload_presets(self.colorscheme_path)
 
     def disable(self, message: str = '') -> None:
@@ -449,22 +463,22 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     # Signal handlers:
     ###########################################################################
 
-    def _on_import_themix_colors(self, _action, _param=None):
+    def _on_import_themix_colors(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         return self.import_themix_colors()
 
-    def _on_import_plugin(self, action, _param=None):
+    def _on_import_plugin(self, action: Gio.SimpleAction, _param: Any = None) -> None:
         plugin = PluginLoader.get_import_plugins()[
-            action.props.name.replace('import_plugin_', '')
+            action.props.name.replace('import_plugin_', '')  # type: ignore[attr-defined]
         ]
         self.import_from_plugin(plugin)
 
-    def _on_clone(self, _action, _param=None):
-        return self.clone_theme()
+    def _on_clone(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+        self.clone_theme()
 
-    def _on_rename(self, _action, _param=None):
+    def _on_rename(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         self.rename_theme()
 
-    def _on_remove(self, _action, _param=None):
+    def _on_remove(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         if not dialog_is_yes(RemoveDialog(transient_for=self)):
             return
         self.remove_theme()
@@ -472,10 +486,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.action_remove.set_enabled(False)
         self.reload_presets()
 
-    def _on_save(self, _action, _param=None):
+    def _on_save(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         self.save_theme()
 
-    def _on_export_theme(self, _action, _param=None):
+    def _on_export_theme(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         if not self.plugin_theme:
             raise RuntimeError("No Theme plugin selected")
         self.plugin_theme.export_dialog(  # type: ignore[operator]
@@ -484,7 +498,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _on_export_icontheme(self, _action, _param=None):
+    def _on_export_icontheme(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         if not self.plugin_icons:
             raise RuntimeError("No Icons plugin selected")
         self.plugin_icons.export_dialog(  # type: ignore[operator]
@@ -493,9 +507,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _on_export_plugin(self, action, _param=None):
+    def _on_export_plugin(self, action: Gio.SimpleAction, _param: Any = None) -> None:
         plugin = PluginLoader.get_export_plugins()[
-            action.props.name.replace('export_plugin_', '')
+            action.props.name.replace('export_plugin_', '')  # type: ignore[attr-defined]
         ]
         plugin.export_dialog(
             transient_for=self,
@@ -503,26 +517,26 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _before_quit(self):
+    def _before_quit(self) -> None:
         self.ask_unsaved_changes()
         self.ui_settings.window_width, self.ui_settings.window_height = self.get_size()
         self.ui_settings.save()
 
-    def _on_quit(self, _arg1=None, _arg2=None):
+    def _on_quit(self, _arg1: Any = None, _arg2: Any = None) -> None:
         self._before_quit()
 
-    def close(self):  # pylint: disable=arguments-differ
+    def close(self) -> None:  # pylint: disable=arguments-differ
         self._before_quit()
         super().close()
 
-    def _on_show_help(self, _action, _param=None):
+    def _on_show_help(self, _action: Any, _param: Any = None) -> None:
         # @TODO: refactor to use .set_help_overlay() ?
         show_shortcuts(self)
 
-    def _on_show_about(self, _action, _param=None):
+    def _on_show_about(self, _action: Any, _param: Any = None) -> None:
         show_about(self)
 
-    def _on_pane_resize(self, _action, _param=None):
+    def _on_pane_resize(self, _action: Any, _param: Any = None) -> None:
         position = self.paned_box.get_position()
         self.ui_settings.preset_list_width = position
 
@@ -530,7 +544,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     # Init widgets:
     ###########################################################################
 
-    def _init_headerbar(self):  # pylint: disable=too-many-locals,too-many-statements
+    def _init_headerbar(self) -> None:  # pylint: disable=too-many-locals,too-many-statements
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)  # type: ignore[arg-type]
         self.headerbar.props.title = translate("Oo-mox GUI")  # type: ignore[attr-defined]
@@ -672,7 +686,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         self.set_titlebar(self.headerbar)
 
-    def _init_status_spinner(self):
+    def _init_status_spinner(self) -> None:
         self.spinner = Gtk.Spinner()
         self.spinner_message = Gtk.Label()
         revealer_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -687,7 +701,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.spinner_revealer.set_valign(Gtk.Align.START)
         self.spinner_revealer.add(revealer_frame)
 
-    def _init_window(self):
+    def _init_window(self) -> None:
         self.set_wmclass("oomox", "Oomox")
         self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
@@ -710,7 +724,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.paned_box.set_wide_handle(True)
         self.box.pack_start(self.paned_box, expand=True, fill=True, padding=0)
 
-    def _init_actions(self):
+    def _init_actions(self) -> None:
         self.add_simple_action(
             WindowActions.import_themix_colors, self._on_import_themix_colors
         )
@@ -731,24 +745,25 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 f"export_plugin_{plugin_name}", self._on_export_plugin
             )
 
-    def _init_plugins(self):
+    def _init_plugins(self) -> None:
+        # @TODO: ?
         pass
 
     _window_instance: 'OomoxApplicationWindow | None' = None
 
     @classmethod
-    def set_instance(cls, window_instance):
+    def set_instance(cls, window_instance: 'OomoxApplicationWindow') -> None:
         if cls._window_instance:
             raise DoubleWindowError()
         cls._window_instance = window_instance
 
     @classmethod
-    def get_instance(cls):
+    def get_instance(cls) -> 'OomoxApplicationWindow':
         if not cls._window_instance:
             raise NoWindowError()
         return cls._window_instance
 
-    def __init__(self, application):
+    def __init__(self, application: 'OomoxGtkApplication') -> None:
         super().__init__(
             application=application,
             title=translate("Themix GUI"),
@@ -790,9 +805,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
 class OomoxGtkApplication(Gtk.Application):
 
-    window = None
+    window: OomoxApplicationWindow | None = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(
             application_id="com.github.themix_project.Oomox",
             flags=(
@@ -804,7 +819,7 @@ class OomoxGtkApplication(Gtk.Application):
         # self.add_main_option("test", ord("t"), GLib.OptionFlags.NONE,
         # GLib.OptionArg.NONE, "Command line test", None)
 
-    def do_startup(self):  # pylint: disable=arguments-differ
+    def do_startup(self) -> None:  # pylint: disable=arguments-differ
 
         Gtk.Application.do_startup(self)
 
@@ -816,7 +831,13 @@ class OomoxGtkApplication(Gtk.Application):
 
         _shortcuts = {}
 
-        def set_accels_for_action(action, accels, action_id=None):
+        def set_accels_for_action(
+                action: ActionProperty | None,
+                accels: list[str],
+                action_id: str | None = None,
+        ) -> None:
+            if not (action or action_id):
+                raise RuntimeError("Either `action` or `action_id` should be set")
             action_id = action_id or action.get_id()
             for accel in accels:
                 if accel in _shortcuts:
@@ -873,44 +894,44 @@ class OomoxGtkApplication(Gtk.Application):
                     continue
                 action_name = plugin_action_template.format(plugin_name)
                 set_accels_for_action(
-                    action_name,
-                    [plugin.shortcut],
-                    f"win.{action_name}"
+                    action=None,
+                    accels=[plugin.shortcut],
+                    action_id=f"win.{action_name}"
                 )
                 _plugin_shortcuts[plugin.shortcut] = plugin_name
 
-    def do_activate(self):  # pylint: disable=arguments-differ
+    def do_activate(self) -> None:  # pylint: disable=arguments-differ
         if not self.window:
             self.window = OomoxApplicationWindow(application=self)
         self.window.present()
 
-    def do_command_line(self, _command_line):  # pylint: disable=arguments-differ
+    def do_command_line(self, _command_line: None) -> int:  # pylint: disable=arguments-differ
         # options = command_line.get_options_dict()
         # if options.contains("test"):
         #     print("Test argument received")
         self.activate()
         return 0
 
-    def quit(self):  # pylint: disable=arguments-differ
+    def quit(self) -> None:  # pylint: disable=arguments-differ
         if self.window:
             self.window.close()
         else:
             super().quit()
 
-    def _on_quit(self, _action, _param=None):
+    def _on_quit(self, _action: Any, _param: Any | None = None) -> None:
         self.quit()
 
 
-def main():
+def main() -> None:
 
     app = OomoxGtkApplication()
 
-    def handle_sig_int(*_whatever):  # pragma: no cover
+    def handle_sig_int(*_whatever: Any) -> None:  # pragma: no cover
         sys.stderr.write("\n\nCanceled by user (SIGINT)\n")
         app.quit()
         sys.exit(128 + signal.SIGINT)
 
-    def handle_sig_term(*_whatever):  # pragma: no cover
+    def handle_sig_term(*_whatever: Any) -> None:  # pragma: no cover
         sys.stderr.write("\n\nTerminated by SIGTERM\n")
         app.quit()
         sys.exit(128 + signal.SIGTERM)

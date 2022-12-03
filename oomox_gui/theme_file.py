@@ -17,7 +17,7 @@ class PresetFile(NamedTuple):
     is_saveable: bool
 
 
-ThemeT = dict[str, str]
+ThemeT = dict[str, str | bool | int | float]
 
 
 def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
