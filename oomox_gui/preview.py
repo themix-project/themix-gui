@@ -1,6 +1,7 @@
 import os
+from typing import Any, Sequence
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gdk
 
 from .theme_model import get_theme_model
 from .color import (
@@ -11,6 +12,8 @@ from .preview_terminal import TerminalThemePreview
 from .preview_icons import IconThemePreview
 from .config import FALLBACK_COLOR, DEFAULT_ENCODING
 from .i18n import translate
+from .theme_file import ThemeT
+from .plugin_api import OomoxThemePlugin, OomoxIconsPlugin
 
 
 WIDGET_SPACING = 10
@@ -25,7 +28,7 @@ class CssProviders():
     caret: Gtk.CssProvider
     reset_style: Gtk.CssProvider
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.theme = {}
         self.border = {}
         self.gradient = {}
@@ -56,7 +59,7 @@ class PreviewHeaderbar(Gtk.HeaderBar):
     title: Gtk.Label
     button: Gtk.Button
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.set_show_close_button(False)  # type: ignore[arg-type]
         self.title = Gtk.Label(label=translate("Headerbar"))
@@ -77,7 +80,7 @@ class PreviewWidgets(Gtk.Box):
     preview_imageboxes_templates: dict[str, str]
     button: Gtk.Button
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(orientation=Gtk.Orientation.VERTICAL)
 
         self.grid = Gtk.Grid(row_spacing=6, column_spacing=6)
@@ -128,7 +131,7 @@ class PreviewWidgets(Gtk.Box):
         self.pack_start(headerbox, True, True, 0)
         self.pack_start(self.grid, True, True, 0)
 
-    def create_menu(self, n_items, has_submenus=False):
+    def create_menu(self, n_items: int, has_submenus: bool = False) -> Gtk.Menu:
         menu = Gtk.Menu()
         for i in range(0, n_items):
             sensitive = (i + 1) % 3 != 0
@@ -142,7 +145,7 @@ class PreviewWidgets(Gtk.Box):
                 item.set_submenu(self.create_menu(2))
         return menu
 
-    def load_imageboxes_templates(self, theme_plugin):
+    def load_imageboxes_templates(self, theme_plugin: OomoxThemePlugin) -> None:
         for icon in theme_plugin.PreviewImageboxesNames:
             template_path = f"{icon.value}.svg.template"
             with open(
@@ -153,7 +156,9 @@ class PreviewWidgets(Gtk.Box):
                 self.preview_imageboxes_templates[icon.name] = \
                         file_object.read().decode(DEFAULT_ENCODING)
 
-    def update_preview_imageboxes(self, colorscheme, theme_plugin):
+    def update_preview_imageboxes(
+            self, colorscheme: ThemeT, theme_plugin: OomoxThemePlugin
+    ) -> None:
         transform_function = theme_plugin.preview_transform_function
         self.load_imageboxes_templates(theme_plugin)
         for icon in theme_plugin.PreviewImageboxesNames:
@@ -166,10 +171,10 @@ class PreviewWidgets(Gtk.Box):
             )
 
 
-def _get_menu_widgets(shell):
+def _get_menu_widgets(shell: Gtk.MenuShell) -> Sequence[Gtk.Menu | Gtk.MenuShell]:
     """ gets a menu shell (menu or menubar) and all its children """
     children = [shell]
-    for child in shell:
+    for child in shell:  # type: ignore[attr-defined]
         children.append(child)
         submenu = child.get_submenu()
         if submenu:
@@ -193,13 +198,13 @@ class ThemePreview(Gtk.Grid):
     icons_preview: IconThemePreview | None = None
     terminal_preview: TerminalThemePreview | None = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(row_spacing=6, column_spacing=6)
         self.set_border_width(10)
         self.css_providers = CssProviders()
         self.init_widgets()
 
-    def init_widgets(self):
+    def init_widgets(self) -> None:
         self.gtk_preview = PreviewWidgets()
         self.background = Gtk.Grid(row_spacing=WIDGET_SPACING, column_spacing=6)
         self.attach(self.background, 1, 1, 3, 1)
@@ -227,14 +232,22 @@ class ThemePreview(Gtk.Grid):
 
         self.gtk_preview.button.connect("style-updated", self._queue_resize)
 
-    def override_widget_color(self, widget, value, color, state=Gtk.StateType.NORMAL):
+    def override_widget_color(
+            self,
+            widget: Gtk.Widget,
+            value: str,
+            color: Gdk.RGBA,
+            state: Gtk.StateFlags = Gtk.StateFlags.NORMAL
+    ) -> None:
         if value == self.BG:
-            return widget.override_background_color(state, color)
+            widget.override_background_color(state, color)  # type: ignore[arg-type]
+            return
         if value == self.FG:
-            return widget.override_color(state, color)
+            widget.override_color(state, color)  # type: ignore[arg-type]
+            return
         raise NotImplementedError()
 
-    def update_preview_carets(self, colorscheme):
+    def update_preview_carets(self, colorscheme: ThemeT) -> None:
         self.css_providers.caret.load_from_data((
             (Gtk.get_minor_version() >= 20 and """
             * {{
@@ -260,8 +273,8 @@ class ThemePreview(Gtk.Grid):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-    def update_preview_gradients(self, colorscheme):
-        gradient = colorscheme['GRADIENT']
+    def update_preview_gradients(self, colorscheme: ThemeT) -> None:
+        gradient: float = colorscheme['GRADIENT']  # type: ignore[assignment]
         if gradient == 0:
             self.reset_gradients()
             return
@@ -305,7 +318,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def reset_gradients(self):
+    def reset_gradients(self) -> None:
         css_provider_gradient = self.css_providers.gradient.get("reset")
         if not css_provider_gradient:
             css_provider_gradient = \
@@ -330,7 +343,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def update_preview_borders(self, colorscheme):
+    def update_preview_borders(self, colorscheme: ThemeT) -> None:
         for widget_name, widget, fg, bg, ratio in (  # pylint: disable=invalid-name
                 (
                     'button',
@@ -350,13 +363,13 @@ class ThemePreview(Gtk.Grid):
                     colorscheme['TXT_BG'],
                     colorscheme['TXT_FG'],
                     0.8 * (0.7 + (
-                        0 if hex_lightness(colorscheme['TXT_BG']) > 0.66 else (
-                            0.1 if hex_lightness(colorscheme['TXT_BG']) > 0.33 else 0.3
+                        0 if hex_lightness(colorscheme['TXT_BG']) > 0.66 else (  # type: ignore[arg-type]
+                            0.1 if hex_lightness(colorscheme['TXT_BG']) > 0.33 else 0.3  # type: ignore[arg-type]
                         )
                     ))
                 ),
         ):
-            border_color = mix_theme_colors(fg, bg, ratio)
+            border_color = mix_theme_colors(fg, bg, ratio)  # type: ignore[arg-type]
             css_provider_border_color = self.css_providers.border.get(widget_name)
             if not css_provider_border_color:
                 css_provider_border_color = \
@@ -376,11 +389,11 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def update_preview_colors(self, colorscheme):
+    def update_preview_colors(self, colorscheme: ThemeT) -> None:
 
         converted = {
             theme_value['key']: convert_theme_color_to_gdk(
-                colorscheme[theme_value['key']]
+                colorscheme[theme_value['key']]  # type: ignore[arg-type]
             )
             for section in get_theme_model().values()
             for theme_value in section if (
@@ -389,8 +402,8 @@ class ThemePreview(Gtk.Grid):
             )
         }
 
-        def mix(color1, color2, amount):
-            return mix_gdk_colors(converted[color2], converted[color1], amount)
+        def mix(color_id1: str, color_id2: str, amount: float) -> Gdk.RGBA:
+            return mix_gdk_colors(converted[color_id2], converted[color_id1], amount)
 
         self.override_widget_color(self.background, self.BG, converted["BG"])
         self.override_widget_color(self.gtk_preview.label, self.FG, converted["FG"])
@@ -432,7 +445,9 @@ class ThemePreview(Gtk.Grid):
                     widget, self.FG, converted["SEL_FG"],
                     state=Gtk.StateFlags.PRELIGHT
                 )
-        self.override_widget_color(self.gtk_preview.menubar, self.BG, converted["HDR_BG"])
+        self.override_widget_color(
+            self.gtk_preview.menubar, self.BG, converted["HDR_BG"]  # type: ignore[arg-type]
+        )
         self.override_widget_color(self.gtk_preview.headerbar, self.BG, converted["HDR_BG"])
         self.override_widget_color(self.gtk_preview.headerbar.title, self.FG, converted["HDR_FG"])
         self.override_widget_color(
@@ -444,10 +459,11 @@ class ThemePreview(Gtk.Grid):
             converted["HDR_BTN_BG"]
         )
 
-        self.override_widget_color(
-            self.icons_preview, self.BG,
-            converted["TXT_BG"]
-        )
+        if self.icons_preview:
+            self.override_widget_color(
+                self.icons_preview, self.BG,
+                converted["TXT_BG"]
+            )
 
         self.css_providers.wm_border.load_from_data(
             f"""
@@ -465,8 +481,13 @@ class ThemePreview(Gtk.Grid):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-    def update_preview(self, colorscheme, theme_plugin, icons_plugin):
-        colorscheme_with_fallbacks = {}
+    def update_preview(
+            self,
+            colorscheme: ThemeT,
+            theme_plugin: OomoxThemePlugin,
+            icons_plugin: OomoxIconsPlugin,
+    ) -> None:
+        colorscheme_with_fallbacks: ThemeT = {}
         for section in get_theme_model().values():
             for theme_value in section:
                 if 'key' not in theme_value:
@@ -474,7 +495,7 @@ class ThemePreview(Gtk.Grid):
                 result = colorscheme.get(theme_value['key'])
                 if not result and theme_value['type'] == 'color':
                     result = FALLBACK_COLOR
-                colorscheme_with_fallbacks[theme_value['key']] = result
+                colorscheme_with_fallbacks[theme_value['key']] = result  # type: ignore[assignment]
 
         if not theme_plugin:
             self.gtk_preview.hide()
@@ -501,7 +522,7 @@ class ThemePreview(Gtk.Grid):
             raise RuntimeError("Terminal preview widget failed to load")
         self.terminal_preview.update_preview(colorscheme_with_fallbacks)
 
-    def get_theme_css_provider(self, theme_plugin):
+    def get_theme_css_provider(self, theme_plugin: OomoxThemePlugin) -> Gtk.CssProvider:
         css_dir = theme_plugin.gtk_preview_dir
 
         _css_postfix = '20' if Gtk.get_minor_version() >= 20 else ''
@@ -521,8 +542,8 @@ class ThemePreview(Gtk.Grid):
         self.css_providers.theme[css_path] = css_provider
         return css_provider
 
-    def override_css_style(self, colorscheme, theme_plugin):
-        new_theme_plugin_name = colorscheme["THEME_STYLE"]
+    def override_css_style(self, colorscheme: ThemeT, theme_plugin: OomoxThemePlugin) -> None:
+        new_theme_plugin_name: str = colorscheme["THEME_STYLE"]  # type: ignore[assignment]
         if new_theme_plugin_name == self.theme_plugin_name:
             return
         if self.theme_plugin_name:
@@ -533,7 +554,7 @@ class ThemePreview(Gtk.Grid):
         self.theme_plugin_name = new_theme_plugin_name
         base_theme_css_provider = self.get_theme_css_provider(theme_plugin)
 
-        def apply_css(widget):
+        def apply_css(widget: Gtk.Widget) -> None:
             widget_style_context = widget.get_style_context()
             Gtk.StyleContext.add_provider(
                 widget_style_context,
@@ -557,6 +578,6 @@ class ThemePreview(Gtk.Grid):
 
         self.show_all()
 
-    def _queue_resize(self, *_args):
+    def _queue_resize(self, *_args: Any) -> None:
         # print(args)
         self.queue_resize()
