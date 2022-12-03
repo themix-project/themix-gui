@@ -37,10 +37,10 @@ class CommonOomoxConfig:
             force_reload=force_reload
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.config)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Config<{str(self)}>"
 
     @classmethod
@@ -61,33 +61,33 @@ class CommonOomoxConfig:
                 print(exc)
         return cls.config
 
-    def save(self):
+    def save(self) -> None:
         if not os.path.exists(self.config_dir):
             os.makedirs(self.config_dir)
         with open(self.config_path, 'w', encoding=DEFAULT_ENCODING) as file_object:
             return json.dump(self.config, file_object)
 
-    def get(self, item, fallback=None):
+    def get(self, item: str, fallback: Any = None) -> Any:
         return self.config.get(item, fallback)
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: str) -> Any:
         return self.config[item]
 
-    def __setitem__(self, item, value):
+    def __setitem__(self, item: str, value: Any) -> None:
         self.config[item] = value
 
     @property
-    def _public_members(self):
+    def _public_members(self) -> list[str]:
         return dir(self) + list(self.__annotations__.keys())
 
-    def __getattr__(self, item):
+    def __getattr__(self, item: str) -> Any:
         if item in self._public_members:
             return super().__getattribute__(item)
         if item in self.default_config.keys():
             return self.config[item]
         return self.__getattribute__(item)
 
-    def __setattr__(self, item, value):
+    def __setattr__(self, item: str, value: Any) -> None:
         if item in self._public_members:
             super().__setattr__(item, value)
             return
@@ -100,7 +100,7 @@ class CommonOomoxConfig:
 
 
 class OomoxSettings(CommonOomoxConfig):
-    def __init__(self, config_name, default_config):
+    def __init__(self, config_name: str, default_config: dict[str, Any]) -> None:
         super().__init__(
             config_dir=USER_CONFIG_DIR,
             config_name=config_name,
@@ -110,7 +110,7 @@ class OomoxSettings(CommonOomoxConfig):
 
 class UISettings(OomoxSettings):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(
             config_name='ui_config',
             default_config=dict(
