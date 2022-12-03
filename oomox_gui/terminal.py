@@ -2,6 +2,7 @@
 import os
 import shutil
 import sys
+from typing import Callable, Any
 
 from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR, DEFAULT_ENCODING
@@ -11,11 +12,13 @@ from .color import (
     int_list_from_hex,
 )
 from .theme_model import get_theme_model
+from .theme_file import ThemeT
 
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
     from typing import Dict  # noqa
+    from .main import OomoxApplicationWindow
 
 
 RED = 0
@@ -23,7 +26,15 @@ GREEN = 1
 BLUE = 2
 
 
-def find_closest_color_key(color_hex, colors_hex, highlight=True):
+TerminalThemeT = dict[str, str]
+OomoxTerminalThemeT = dict[str, str]
+
+
+def find_closest_color_key(
+        color_hex: str,
+        colors_hex: TerminalThemeT,
+        highlight: bool = True
+) -> tuple[str | None, ColorDiff]:
     smallest_diff = SMALLEST_DIFF
     smallest_key = None
     highlight_keys = [f"color{i}" for i in range(8, 15 + 1)]
@@ -51,7 +62,7 @@ VALID_COLOR_CHARS = [
 ]
 
 
-def import_xcolors(path):
+def import_xcolors(path: str) -> dict[str, str]:
     hex_colors = {}
     with open(os.path.expanduser(path), encoding=DEFAULT_ENCODING) as file_object:
         for line in file_object.read().split('\n'):
@@ -72,9 +83,13 @@ def import_xcolors(path):
 
 
 def generate_theme_from_hint(
-        template_path, theme_color, theme_bg, theme_fg,
-        theme_hint=None, auto_swap_colors=True
-):
+        template_path: str,
+        theme_color: str,
+        theme_bg: str,
+        theme_fg: str,
+        theme_hint: str | None = None,
+        auto_swap_colors: bool = True,
+) -> TerminalThemeT:
     hex_colors = import_xcolors(template_path)
     if auto_swap_colors and (
             is_dark(theme_bg) != is_dark(hex_colors['background'])
@@ -108,8 +123,8 @@ def generate_theme_from_hint(
     return modified_colors
 
 
-def get_all_colors_from_oomox_colorscheme(palette):
-    all_colors = []
+def get_all_colors_from_oomox_colorscheme(palette: ThemeT) -> list[str]:
+    all_colors: list[str] = []
     for section_name, section in get_theme_model().items():
         if section_name == 'terminal':
             continue
@@ -122,7 +137,7 @@ def get_all_colors_from_oomox_colorscheme(palette):
             color_value = palette.get(theme_model_item['key'])
             if not color_value or color_value in all_colors:
                 continue
-            all_colors.append(color_value)
+            all_colors.append(color_value)  # type: ignore[arg-type]
     return all_colors
 
 
@@ -132,7 +147,7 @@ class ContinueNext(Exception):
 
 # @TODO:
 # get_term_width() and ProgressBar() are temporary until progressbar API won't be implemented in UI:
-def get_term_width():
+def get_term_width() -> int:
     return shutil.get_terminal_size((80, 80)).columns
 
 
@@ -146,7 +161,7 @@ class ProgressBar():
     LEFT_DECORATION = '['
     RIGHT_DECORATION = ']'
 
-    def __init__(self, length, message=None):
+    def __init__(self, length: int, message: str | None = None) -> None:
         message = message or str(length)
         self.message = message
         width = (
@@ -155,16 +170,16 @@ class ProgressBar():
         )
         self.print_ratio = length / width
 
-    def update(self):
+    def update(self) -> None:
         self.index += 1
         if self.index / self.print_ratio > self.progress:
             self.progress += 1
 
-    def __enter__(self):
+    def __enter__(self) -> Callable[[], None]:
         return self.update
 
 
-def sort_by_saturation(c):
+def sort_by_saturation(c: list[int]) -> int:
     # pylint: disable=invalid-name
     return abs(c[0]-c[1])+abs(c[0]-c[2]) + \
         abs(c[1]-c[0])+abs(c[1]-c[2]) + \
@@ -183,15 +198,18 @@ def get_grayest_colors(palette: list[str]) -> list[str]:
     return gray_colors
 
 
-def get_lightness(theme_color):
+def get_lightness(theme_color: str) -> int:
     return sum(int_list_from_hex(theme_color))
 
 
-def _generate_theme_from_full_palette(
-        result_callback,
-        reference_colors, all_colors, theme_bg,
-        accuracy=None, extend_palette=False,
-):  # noqa  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
+def _generate_theme_from_full_palette(  # noqa  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
+        result_callback: Callable[[TerminalThemeT], None],
+        reference_colors: dict[str, str],
+        all_colors: list[str],
+        theme_bg: str,
+        accuracy: int | None = None,
+        extend_palette: bool = False,
+) -> None:
     hex_colors = reference_colors
     # @TODO: refactor it some day :3
 
@@ -344,12 +362,18 @@ def _generate_theme_from_full_palette(
 _FULL_PALETTE_CACHE = {}  # type: Dict[str, Dict[str, str]]
 
 
-def generate_theme_from_full_palette(
-        palette, theme_bg, theme_fg, template_path,
-        app, result_callback,
-        auto_swap_colors=True, accuracy=None, extend_palette=None,
-        **kwargs
-):  # pylint: disable=too-many-arguments,too-many-locals
+def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-many-locals
+        palette: ThemeT,
+        theme_bg: str,
+        theme_fg: str,
+        template_path: str,
+        app: 'OomoxApplicationWindow',
+        result_callback: Callable[[TerminalThemeT], None],
+        auto_swap_colors: bool = True,
+        accuracy: int | None = None,
+        extend_palette: bool | None = None,
+        **kwargs: Any
+) -> None:
 
     reference_colors = import_xcolors(template_path)
 
@@ -381,7 +405,7 @@ def generate_theme_from_full_palette(
             cache_id, theme_bg, theme_fg, result_callback
         )
     else:
-        def _callback(generated_colors):
+        def _callback(generated_colors: TerminalThemeT) -> None:
             _FULL_PALETTE_CACHE[cache_id] = generated_colors
             _generate_theme_from_full_palette_callback(
                 cache_id, theme_bg, theme_fg, result_callback
@@ -402,7 +426,12 @@ def generate_theme_from_full_palette(
         # print(time() - before)
 
 
-def _generate_theme_from_full_palette_callback(cache_id, theme_bg, theme_fg, result_callback):
+def _generate_theme_from_full_palette_callback(
+        cache_id: str,
+        theme_bg: str,
+        theme_fg: str,
+        result_callback: Callable[[TerminalThemeT], None],
+) -> None:
     modified_colors = {}
     modified_colors.update(_FULL_PALETTE_CACHE[cache_id])
     modified_colors["background"] = theme_bg
@@ -411,14 +440,15 @@ def _generate_theme_from_full_palette_callback(cache_id, theme_bg, theme_fg, res
 
 
 def _generate_themes_from_oomox(
-        original_colorscheme,
-        app, result_callback,
-):
+        original_colorscheme: ThemeT,
+        app: 'OomoxApplicationWindow',
+        result_callback: Callable[[ThemeT], None],
+) -> None:
     colorscheme = {}
     colorscheme.update(original_colorscheme)
     term_colorscheme = None
 
-    def _callback(term_colorscheme):
+    def _callback(term_colorscheme: TerminalThemeT) -> None:
         _generate_themes_from_oomox_callback(colorscheme, term_colorscheme, result_callback)
 
     if colorscheme['TERMINAL_THEME_MODE'] in ('auto', ):
@@ -427,30 +457,39 @@ def _generate_themes_from_oomox(
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
         if colorscheme["THEME_STYLE"] == "materia":
             colorscheme["TERMINAL_FOREGROUND"] = colorscheme["FG"]
+
+    terminal_base_template: str = colorscheme["TERMINAL_BASE_TEMPLATE"]  # type: ignore[assignment]
+    terminal_theme_accuracy: int = colorscheme["TERMINAL_THEME_ACCURACY"]  # type: ignore[assignment]
+    terminal_theme_extend_palette: bool = colorscheme["TERMINAL_THEME_EXTEND_PALETTE"]  # type: ignore[assignment]
+    terminal_theme_auto_bgfg: bool = colorscheme["TERMINAL_THEME_AUTO_BGFG"]  # type: ignore[assignment]
+    terminal_background: str = colorscheme["TERMINAL_BACKGROUND"]  # type: ignore[assignment]
+    terminal_foreground: str = colorscheme["TERMINAL_FOREGROUND"]  # type: ignore[assignment]
+    terminal_accent_color: str = colorscheme["TERMINAL_ACCENT_COLOR"]  # type: ignore[assignment]
     if colorscheme['TERMINAL_THEME_MODE'] == 'smarty':
         generate_theme_from_full_palette(
             template_path=os.path.join(
-                TERMINAL_TEMPLATE_DIR, colorscheme["TERMINAL_BASE_TEMPLATE"]
+                TERMINAL_TEMPLATE_DIR, terminal_base_template
             ),
             palette=colorscheme,
-            theme_bg=colorscheme["TERMINAL_BACKGROUND"],
-            theme_fg=colorscheme["TERMINAL_FOREGROUND"],
-            auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"],
-            extend_palette=colorscheme["TERMINAL_THEME_EXTEND_PALETTE"],
-            accuracy=255 + 8 - colorscheme["TERMINAL_THEME_ACCURACY"],
-            app=app, result_callback=_callback,
+            theme_bg=terminal_background,
+            theme_fg=terminal_foreground,
+            auto_swap_colors=terminal_theme_auto_bgfg,
+            extend_palette=terminal_theme_extend_palette,
+            accuracy=255 + 8 - terminal_theme_accuracy,
+            app=app,
+            result_callback=_callback,
         )
         return
     if colorscheme['TERMINAL_THEME_MODE'] in ('basic', 'auto'):
         term_colorscheme = generate_theme_from_hint(
             template_path=os.path.join(
-                TERMINAL_TEMPLATE_DIR, colorscheme["TERMINAL_BASE_TEMPLATE"]
+                TERMINAL_TEMPLATE_DIR, terminal_base_template
             ),
-            theme_color=colorscheme["TERMINAL_ACCENT_COLOR"],
-            theme_bg=colorscheme["TERMINAL_BACKGROUND"],
-            theme_fg=colorscheme["TERMINAL_FOREGROUND"],
+            theme_color=terminal_accent_color,
+            theme_bg=terminal_background,
+            theme_fg=terminal_foreground,
             theme_hint=None,
-            auto_swap_colors=colorscheme["TERMINAL_THEME_AUTO_BGFG"]
+            auto_swap_colors=terminal_theme_auto_bgfg,
         )
     else:
         term_colorscheme = convert_oomox_theme_to_xrdb(colorscheme)
@@ -458,8 +497,10 @@ def _generate_themes_from_oomox(
 
 
 def _generate_themes_from_oomox_callback(
-        colorscheme, term_colorscheme, result_callback,
-):
+        colorscheme: ThemeT,
+        term_colorscheme: TerminalThemeT,
+        result_callback: Callable[[ThemeT], None],
+) -> None:
     for i in range(16):
         colorscheme[f"TERMINAL_COLOR{i}"] = term_colorscheme[f"color{i}"]
     if colorscheme['TERMINAL_THEME_MODE'] != 'manual':
@@ -468,34 +509,36 @@ def _generate_themes_from_oomox_callback(
     result_callback(colorscheme)
 
 
-def convert_oomox_theme_to_xrdb(colorscheme):
-    term_colorscheme = {}
+def convert_oomox_theme_to_xrdb(colorscheme: ThemeT) -> TerminalThemeT:
+    term_colorscheme: TerminalThemeT = {}
     for i in range(16):
         theme_key = f"TERMINAL_COLOR{i}"
         term_key = f"color{i}"
         if colorscheme.get(theme_key):
-            term_colorscheme[term_key] = colorscheme[theme_key]
-    term_colorscheme['background'] = colorscheme['TERMINAL_BACKGROUND']
-    term_colorscheme['foreground'] = colorscheme['TERMINAL_FOREGROUND']
-    term_colorscheme['cursorColor'] = colorscheme['TERMINAL_CURSOR']
+            term_colorscheme[term_key] = colorscheme[theme_key]  # type: ignore[assignment]
+    term_colorscheme['background'] = colorscheme['TERMINAL_BACKGROUND']  # type: ignore[assignment]
+    term_colorscheme['foreground'] = colorscheme['TERMINAL_FOREGROUND']  # type: ignore[assignment]
+    term_colorscheme['cursorColor'] = colorscheme['TERMINAL_CURSOR']  # type: ignore[assignment]
     return term_colorscheme
 
 
-def generate_xrdb_theme_from_oomox(colorscheme):
+def generate_xrdb_theme_from_oomox(colorscheme: ThemeT) -> TerminalThemeT:
     return convert_oomox_theme_to_xrdb(colorscheme)
 
 
 def generate_terminal_colors_for_oomox(
-        colorscheme,
-        app, result_callback,
-):
+        colorscheme: ThemeT,
+        app: 'OomoxApplicationWindow',
+        result_callback: Callable[[ThemeT], None],
+) -> None:
     _generate_themes_from_oomox(
         colorscheme,
-        app=app, result_callback=result_callback,
+        app=app,
+        result_callback=result_callback,
     )
 
 
-def cli():
+def cli() -> None:
     args = sys.argv
     if len(args) < 5:
         print(
@@ -510,7 +553,7 @@ def cli():
     theme_fg = args[4]
     theme_hint = args[5] if len(args) > 5 else None
     auto_swap_colors = (args[6] not in ["y", "yes", "true", "1"]) \
-        if len(args) > 6 else None
+        if len(args) > 6 else False
     term_colorscheme = generate_theme_from_hint(
         template_path=template_path,
         theme_color=theme_color,
