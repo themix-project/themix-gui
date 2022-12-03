@@ -171,6 +171,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     spinner: Gtk.Spinner
     spinner_message: Gtk.Label
     spinner_revealer: Gtk.Revealer
+    paned_box: Gtk.Paned
 
     _currently_focused_widget = Gtk.Widget | None
     _inhibit_id: str | None = None
