@@ -15,7 +15,7 @@ class MigrationConfig:
 
     DEFAULT_VERSION = 0
 
-    def __init__(self, component_name):
+    def __init__(self, component_name: str) -> None:
         if not os.path.exists(CONFIG_MIGRATIONS_DIR):
             os.makedirs(CONFIG_MIGRATIONS_DIR)
 
