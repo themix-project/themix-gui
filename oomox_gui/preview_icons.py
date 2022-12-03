@@ -1,10 +1,15 @@
 import os
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
 
 from .gtk_helpers import ScaledImage
 from .config import DEFAULT_ENCODING
+
+if TYPE_CHECKING:
+    from .plugin_api import OomoxIconsPlugin
+    from .theme_file import ThemeT
 
 
 class IconsNames(Enum):
@@ -20,7 +25,7 @@ class IconThemePreview(Gtk.ListBox):
     icons_templates: dict[str, str]
     icons_imageboxes: dict[str, ScaledImage]
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.icons_templates = {}
         self.icons_imageboxes = {}
 
@@ -39,7 +44,7 @@ class IconThemePreview(Gtk.ListBox):
         self.add(row)
         self.show_all()
 
-    def update_preview(self, colorscheme, theme_plugin):
+    def update_preview(self, colorscheme: 'ThemeT', theme_plugin: 'OomoxIconsPlugin') -> None:
         theme_plugin.preview_before_load_callback(self, colorscheme)
         transform_function = theme_plugin.preview_transform_function
         self.load_icon_templates(theme_plugin)
@@ -50,7 +55,7 @@ class IconThemePreview(Gtk.ListBox):
             ).encode('ascii')
             self.icons_imageboxes[icon.name].set_from_bytes(new_svg_image)
 
-    def load_icon_templates(self, theme_plugin):
+    def load_icon_templates(self, theme_plugin: 'OomoxIconsPlugin') -> None:
         if theme_plugin.name == self.icons_plugin_name:
             return
         self.icons_plugin_name = theme_plugin.name
