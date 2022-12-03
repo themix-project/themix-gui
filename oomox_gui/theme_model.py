@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name
 import os
 from typing import (
-    TYPE_CHECKING, List, Dict, Any, Optional, Callable, Union,
+    TYPE_CHECKING, List, Dict, Any, Callable, Union, Mapping
 )
 
 from .i18n import translate
@@ -9,27 +9,28 @@ from .config import TERMINAL_TEMPLATE_DIR
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
-    from typing_extensions import TypedDict
+    from typing_extensions import TypedDict, NotRequired
     from .plugin_api import OomoxPlugin  # noqa
+    from .theme_file import ThemeValueT
     Option = TypedDict('Option', {
         'value': Union[str, int],
-        'display_name': Optional[str],
-        'description': Optional[str],
+        'display_name': NotRequired[str],
+        'description': NotRequired[str],
     }, total=False)
     ThemeModelValue = TypedDict('ThemeModelValue', {
         "key": str,
         "type": str,
-        "fallback_key": Optional[str],
-        "fallback_value": Optional[Any],
-        "fallback_function": Optional[Callable[[Dict[str, Any]], Any]],
-        "display_name": Optional[str],
-        "min_value": Optional[Any],
-        "max_value": Optional[Any],
-        "options": Optional[List[Option]],
-        "value_filter": Optional[Dict[str, Any]],
-        "filter": Optional[Callable[[Dict[str, Any]], bool]],
-        "reload_theme": Optional[bool],
-        "reload_options": Optional[bool],
+        "fallback_key": NotRequired[str],
+        "fallback_value": NotRequired[Any],
+        "fallback_function": NotRequired[Callable[[Dict[str, Any]], Any]],
+        "display_name": NotRequired[str],
+        "min_value": NotRequired[Any],
+        "max_value": NotRequired[Any],
+        "options": NotRequired[List[Option]],
+        "value_filter": NotRequired[Dict[str, list[ThemeValueT] | ThemeValueT]],
+        "filter": NotRequired[Callable[[Dict[str, Any]], bool]],
+        "reload_theme": NotRequired[bool],
+        "reload_options": NotRequired[bool],
     }, total=False)
     ThemeModelSection = List[ThemeModelValue]
     ThemeModel = Dict[str, ThemeModelSection]
@@ -51,7 +52,7 @@ def merge_model_with_plugin(
         theme_model_name: str,
         theme_plugin: 'OomoxPlugin',
         base_theme_model: 'List[ThemeModelValue]',
-        value_filter_key: 'Optional[str]' = None
+        value_filter_key: 'str | None' = None
 ) -> 'ThemeModelSection':
     result: 'ThemeModelSection' = []
     plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name, None)
@@ -90,9 +91,9 @@ def merge_model_with_plugin(
 
 def merge_model_with_plugins(
         theme_model_name: str,
-        plugins: 'Dict[str, OomoxPlugin]',
-        base_theme_model: 'Optional[ThemeModelSection]' = None,
-        value_filter_key: 'Optional[str]' = None
+        plugins: 'Mapping[str, OomoxPlugin]',
+        base_theme_model: 'ThemeModelSection | None' = None,
+        value_filter_key: 'str | None' = None
 ) -> 'ThemeModelSection':
     if base_theme_model is None:
         base_theme_model = []
@@ -115,7 +116,7 @@ def get_theme_model_uncached() -> 'ThemeModel':
 
     def merge_theme_model_with_plugins(
             theme_model_name: str,
-            base_theme_model: 'Optional[ThemeModelSection]' = None
+            base_theme_model: 'ThemeModelSection | None' = None
     ) -> 'ThemeModelSection':
         return merge_model_with_plugins(
             theme_model_name=theme_model_name,

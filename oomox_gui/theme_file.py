@@ -2,12 +2,12 @@ import os
 import shutil
 from collections import defaultdict
 from itertools import groupby
-from typing import NamedTuple
+from typing import NamedTuple, Callable
 
 from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
 from .helpers import ls_r, mkdir_p
 from .plugin_loader import PluginLoader
-from .plugin_api import PLUGIN_PATH_PREFIX
+from .plugin_api import PLUGIN_PATH_PREFIX, OomoxImportPlugin
 
 
 class PresetFile(NamedTuple):
@@ -17,10 +17,15 @@ class PresetFile(NamedTuple):
     is_saveable: bool
 
 
-ThemeT = dict[str, str | bool | int | float]
+ThemeValueT = str | bool | int | float
+ThemeT = dict[str, ThemeValueT]
 
 
-def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
+def get_theme_name_and_plugin(
+        theme_path: str,
+        colors_dir: str,
+        plugin: OomoxImportPlugin | None
+) -> tuple[str, OomoxImportPlugin | None]:
     display_name = "".join(
         theme_path.rsplit(colors_dir)
     ).lstrip('/')
@@ -37,11 +42,11 @@ def get_theme_name_and_plugin(theme_path, colors_dir, plugin):
     return display_name, plugin
 
 
-def get_preset_groups_sorter(colors_dir):
+def get_preset_groups_sorter(colors_dir: str) -> Callable[[PresetFile], str]:
     return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/', maxsplit=1)[0]
 
 
-def group_presets_by_dir(preset_list, preset_dir):
+def group_presets_by_dir(preset_list: list[PresetFile], preset_dir: str) -> list[tuple[str, list[PresetFile]]]:
     return [
         (dir_name, list(group))
         for dir_name, group in groupby(
@@ -51,7 +56,7 @@ def group_presets_by_dir(preset_list, preset_dir):
     ]
 
 
-def get_presets():
+def get_presets() -> dict[str, dict[str, list[PresetFile]]]:
     all_results = {}
     for colors_dir, is_default, plugin in [
             (COLORS_DIR, True, None),
@@ -81,11 +86,11 @@ def get_presets():
     return all_results
 
 
-def get_user_theme_path(user_theme_name):
+def get_user_theme_path(user_theme_name: str) -> str:
     return os.path.join(USER_COLORS_DIR, user_theme_name.lstrip('/'))
 
 
-def save_colorscheme(preset_name, colorscheme, path=None):
+def save_colorscheme(preset_name: str, colorscheme: ThemeT, path: str | None = None) -> str:
     colorscheme_to_write = {}
     colorscheme_to_write.update(colorscheme)
     colorscheme_to_write["NAME"] = f'"{preset_name}"'
@@ -107,7 +112,7 @@ def save_colorscheme(preset_name, colorscheme, path=None):
     return path
 
 
-def import_colorscheme(preset_name, import_path):
+def import_colorscheme(preset_name: str, import_path: str) -> str:
     new_path = get_user_theme_path(preset_name)
     if not os.path.exists(new_path):
         mkdir_p(os.path.dirname(new_path))
@@ -115,14 +120,14 @@ def import_colorscheme(preset_name, import_path):
     return new_path
 
 
-def remove_colorscheme(preset_name):
+def remove_colorscheme(preset_name: str) -> None:
     path = os.path.join(USER_COLORS_DIR, preset_name)
     os.remove(path)
 
 
-def is_user_colorscheme(preset_path):
+def is_user_colorscheme(preset_path: str) -> bool:
     return preset_path.startswith(USER_COLORS_DIR)
 
 
-def is_colorscheme_exists(preset_path):
+def is_colorscheme_exists(preset_path: str) -> bool:
     return os.path.exists(preset_path)
