@@ -3,6 +3,7 @@ import subprocess
 import os
 import tempfile
 from threading import Thread
+from typing import Any, Callable
 
 from gi.repository import Gtk, GLib, Pango
 
@@ -20,7 +21,7 @@ if TYPE_CHECKING:
 
 class ExportConfig(CommonOomoxConfig):
 
-    def __init__(self, config_name, default_config=None):
+    def __init__(self, config_name: str, default_config: dict[str, Any] | None = None) -> None:
         super().__init__(
             config_name=config_name,
             default_config=default_config,
@@ -46,14 +47,14 @@ class ExportDialog(Gtk.Dialog):
     error_box: Gtk.Box
     apply_button: Gtk.Button
 
-    def _close_button_callback(self, _widget):
+    def _close_button_callback(self, _widget: Gtk.Button) -> None:
         self.destroy()
 
-    def show_text(self):
+    def show_text(self) -> None:
         if not self.scrolled_window.get_visible():
             self.scrolled_window.show_all()
 
-    def show_error(self):
+    def show_error(self) -> None:
         self.box.remove(self.label)
         self.box.remove(self.spinner)
 
@@ -70,17 +71,18 @@ class ExportDialog(Gtk.Dialog):
         self.error_box.show_all()
         self.box.add(self.error_box)
 
-    def set_text(self, text):
+    def set_text(self, text: str) -> None:
         self.log.get_buffer().set_text(text)
 
     def __init__(
-            self, transient_for,
-            colorscheme,
-            theme_name,
-            headline=translate("Export Theme"),
-            width=150,
-            height=80,
-    ):
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: ThemeT,
+            theme_name: str,
+            headline: str = translate("Export Theme"),
+            width: int = 150,
+            height: int = 80,
+    ) -> None:
         self.theme_name = 'oomox-' + theme_name.split('/')[-1]
 
         # @TODO: make sure it doesn't break things:
@@ -139,7 +141,7 @@ class ExportDialog(Gtk.Dialog):
         self.box.add(self.spinner)
         self.box.add(self.scrolled_window)
 
-    def do_export(self):
+    def do_export(self) -> None:
         self.box.remove(self.options_box)
         self.box.remove(self.apply_button)
         self.scrolled_window.set_size_request(-1, 200)
@@ -148,16 +150,16 @@ class ExportDialog(Gtk.Dialog):
         self.spinner.start()
         self.set_title(translate("Exporting…"))
 
-        def update_ui(text):
+        def update_ui(text: str) -> None:
             self.set_text(text)
 
-        def ui_done():
+        def ui_done() -> None:
             self.destroy()
 
-        def ui_error():
+        def ui_error() -> None:
             self.show_error()
 
-        def do_export():
+        def do_export() -> None:
             self.label.set_text(translate("Please wait while\nnew colorscheme will be created."))
             self.label.show()
             captured_log = ""
@@ -187,7 +189,7 @@ class FileBasedExportDialog(ExportDialog):
 
     temp_theme_path: str
 
-    def __init__(self, transient_for, **kwargs):
+    def __init__(self, transient_for: Gtk.Window, **kwargs: Any) -> None:
         super().__init__(transient_for=transient_for, **kwargs)
 
         self.temp_theme_path = save_colorscheme(
@@ -196,7 +198,7 @@ class FileBasedExportDialog(ExportDialog):
             path=tempfile.mkstemp()[1]
         )
 
-    def __del__(self):
+    def __del__(self) -> None:
         if getattr(self, 'temp_theme_path', None):
             os.remove(self.temp_theme_path)
 
@@ -209,25 +211,31 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
 
     OPTIONS: ExportDialogWithOptionsOptions = ExportDialogWithOptionsOptions()
 
-    @g_abstractproperty
-    def config_name(self):
+    config_name: str
+
+    @g_abstractproperty  # type: ignore[no-redef]
+    def config_name(self) -> None:
         pass
 
-    def _create_option_checkbox_callback(self, option_id):
-        def callback(widget):
+    def _create_option_checkbox_callback(self, option_id: str) -> Callable[[Gtk.CheckButton], None]:
+        def callback(widget: Gtk.CheckButton) -> None:
             self.export_config[option_id] = widget.get_active()
         return callback
 
-    def _create_option_entry_callback(self, option_id):
-        def callback(widget):
+    def _create_option_entry_callback(self, option_id: str) -> Callable[[Gtk.Entry], None]:
+        def callback(widget: Gtk.Entry) -> None:
             self.export_config[option_id] = widget.get_text()
         return callback
 
     def __init__(
-            self, transient_for, colorscheme, theme_name,
-            export_options=None, headline=None,
-            **kwargs
-    ):
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: ThemeT,
+            theme_name: str,
+            export_options: dict[str, Any] | None = None,
+            headline: str | None = None,
+            **kwargs: Any
+    ) -> None:
         self.option_widgets = {}  # type: Dict[str, Gtk.Widget]
         export_options = export_options or {}
         super().__init__(
@@ -282,7 +290,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         self.box.add(self.apply_button)
         self.apply_button.show()
 
-    def do_export(self):
+    def do_export(self) -> None:
         self.export_config.save()
         super().do_export()
 
@@ -295,20 +303,27 @@ class DialogWithExportPath(ExportDialogWithOptions):
 
     OPTIONS: DialogWithExportPathOptions = DialogWithExportPathOptions()
 
-    @g_abstractproperty
-    def default_export_dir(self):
+    default_export_dir: str
+    config_name: str
+
+    @g_abstractproperty  # type: ignore[no-redef]
+    def default_export_dir(self) -> None:
         pass
 
-    @g_abstractproperty
-    def config_name(self):
+    @g_abstractproperty  # type: ignore[no-redef]
+    def config_name(self) -> None:  # type: ignore[override]
         pass
 
     def __init__(
-            self, transient_for, colorscheme, theme_name,
-            add_options=None, override_options=None,
-            export_options=None,
-            **kwargs
-    ):
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: ThemeT,
+            theme_name: str,
+            add_options: dict[str, Any] | None = None,
+            override_options: dict[str, Any] | None = None,
+            export_options: dict[str, Any] | None = None,
+            **kwargs: Any
+    ) -> None:
         export_options = override_options or export_options or {}
         if not override_options:
             export_options.update({
@@ -336,7 +351,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
                 )
             )
 
-    def do_export(self):
+    def do_export(self) -> None:
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()  # type: ignore[attr-defined]
         )
@@ -355,17 +370,22 @@ class CommonGtkThemeExportDialogOptions(DialogWithExportPathOptions):
 class CommonGtkThemeExportDialog(DialogWithExportPath):
 
     OPTIONS: CommonGtkThemeExportDialogOptions = CommonGtkThemeExportDialogOptions()
-    default_export_dir = os.path.join(os.environ['HOME'], '.themes')
+    default_export_dir: str = os.path.join(os.environ['HOME'], '.themes')
+    config_name: str
 
-    @g_abstractproperty
-    def config_name(self):
+    @g_abstractproperty  # type: ignore[no-redef]
+    def config_name(self) -> None:  # type: ignore[override]
         pass
 
     def __init__(
-            self, transient_for, colorscheme, theme_name,
-            add_options=None, override_options=None,
-            **kwargs
-    ):
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: ThemeT,
+            theme_name: str,
+            add_options: dict[str, Any] | None = None,
+            override_options: dict[str, Any] | None = None,
+            **kwargs: Any
+    ) -> None:
         export_options = override_options or {
             self.OPTIONS.GTK2_HIDPI: {
                 'default': False,
@@ -384,17 +404,23 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
 
 class CommonIconThemeExportDialog(DialogWithExportPath):
 
-    default_export_dir = os.path.join(os.environ['HOME'], '.icons')
+    default_export_dir: str = os.path.join(os.environ['HOME'], '.icons')
 
-    @g_abstractproperty
-    def config_name(self):
+    config_name: str
+
+    @g_abstractproperty  # type: ignore[no-redef]
+    def config_name(self) -> None:  # type: ignore[override]
         pass
 
     def __init__(
-            self, transient_for, colorscheme, theme_name,
-            add_options=None, override_options=None,
-            **kwargs
-    ):
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: ThemeT,
+            theme_name: str,
+            add_options: dict[str, Any] | None = None,
+            override_options: dict[str, Any] | None = None,
+            **kwargs: Any
+    ) -> None:
         if os.environ.get('XDG_CURRENT_DESKTOP', '').lower() in ('kde', 'lxqt', ):
             self.default_export_dir = os.path.join(
                 os.environ.get(
