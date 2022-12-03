@@ -1,11 +1,14 @@
 import os
-from typing import Callable
+from typing import Callable, TYPE_CHECKING
 
 from .i18n import translate
 from .theme_model import get_theme_model
 from .plugin_loader import PluginLoader
 from .config import DEFAULT_ENCODING
-from .theme_file import ThemeT
+from .theme_file import ThemeT, ThemeValueT
+
+if TYPE_CHECKING:
+    from .theme_model import ThemeModelValue
 
 
 ColorScheme = ThemeT
@@ -13,7 +16,7 @@ ColorScheme = ThemeT
 
 class NoPluginsInstalled(Exception):
 
-    def __init__(self, theme_value):
+    def __init__(self, theme_value: 'ThemeModelValue'):
         self.theme_value = theme_value
         super().__init__(
             translate("No plugins installed for {plugin_type}").format(
@@ -26,10 +29,13 @@ def str_to_bool(value: str) -> bool:
     return value.lower() == 'true'
 
 
-def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-branches
-    result_value = colorscheme.get(theme_value['key'])
-    fallback_key = theme_value.get('fallback_key')
-    fallback_value = theme_value.get('fallback_value')
+def parse_theme_value(  # pylint: disable=too-many-branches
+        theme_value: 'ThemeModelValue',
+        colorscheme: ThemeT,
+) -> ThemeValueT:
+    result_value: ThemeValueT | None = colorscheme.get(theme_value['key'])
+    fallback_key: str | None = theme_value.get('fallback_key')
+    fallback_value: ThemeValueT | None = theme_value.get('fallback_value')
     fallback_function = theme_value.get('fallback_function')
 
     if result_value is None:
@@ -45,9 +51,9 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
         if isinstance(result_value, str):
             result_value = str_to_bool(result_value)
     elif value_type == 'int':
-        result_value = int(result_value)
+        result_value = int(result_value)  # type: ignore[arg-type]
     elif value_type == 'float':
-        result_value = float(result_value)
+        result_value = float(result_value)  # type: ignore[arg-type]
     elif value_type == 'options':
         available_options = [option['value'] for option in theme_value['options']]
         if result_value not in available_options:
@@ -58,10 +64,10 @@ def parse_theme_value(theme_value, colorscheme):  # pylint: disable=too-many-bra
                     raise NoPluginsInstalled(theme_value)
                 result_value = available_options[0]
 
-    return result_value
+    return result_value  # type: ignore[return-value]
 
 
-def _set_fallback_values(preset_path, colorscheme, from_plugin):
+def _set_fallback_values(preset_path: str, colorscheme: ThemeT, from_plugin: str | None = None) -> None:
     key: str | None
     if not colorscheme:
         theme_keys = [
@@ -109,10 +115,13 @@ def read_colorscheme_from_path(
         ):
             from_plugin = plugin_name
             if plugin.is_async:
-                def actual_callback(_colorscheme):
-                    _set_fallback_values(preset_path, _colorscheme, from_plugin)
-                    callback(_colorscheme)
-                plugin.read_colorscheme_from_path(preset_path, callback=actual_callback)
+                def actual_callback(colorscheme2: ThemeT) -> None:
+                    _set_fallback_values(preset_path, colorscheme2, from_plugin)
+                    callback(colorscheme2)
+                plugin.read_colorscheme_from_path(
+                    preset_path,
+                    callback=actual_callback  # type: ignore[call-arg]
+                )
                 return
             colorscheme = plugin.read_colorscheme_from_path(preset_path)
             break
