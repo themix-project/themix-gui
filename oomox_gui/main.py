@@ -838,7 +838,7 @@ class OomoxGtkApplication(Gtk.Application):
         ) -> None:
             if not (action or action_id):
                 raise RuntimeError("Either `action` or `action_id` should be set")
-            action_id = action_id or action.get_id()
+            action_id = action_id or action.get_id()  # type: ignore[union-attr]
             for accel in accels:
                 if accel in _shortcuts:
                     raise Exception(f'Shortcut "{accel}" is already set.')

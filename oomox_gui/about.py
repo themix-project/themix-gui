@@ -5,11 +5,12 @@ from gi.repository import Gtk
 from .i18n import translate
 from .config import SCRIPT_DIR
 from .plugin_loader import PluginLoader
+from .plugin_api import OomoxPlugin
 
 
 class PluginInfo(Gtk.ListBoxRow):
 
-    def __init__(self, plugin):
+    def __init__(self, plugin: OomoxPlugin) -> None:
         super().__init__()
         self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self.box)
@@ -38,7 +39,7 @@ class PluginInfo(Gtk.ListBoxRow):
             self.box.add(link)
 
 
-def show_about(parent_window):
+def show_about(parent_window: Gtk.Window) -> None:
     path = os.path.join(SCRIPT_DIR, 'about.ui')
     builder = Gtk.Builder.new_from_file(path)  # type: ignore[arg-type]
 
@@ -50,7 +51,7 @@ def show_about(parent_window):
     about_window.show()
     plugins_box = builder.get_object("plugins_box")
 
-    def update_listbox_header(row, before):
+    def update_listbox_header(row: Gtk.ListBoxRow, before: bool) -> None:
         if before and not row.get_header():
             separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)  # type: ignore[call-arg]
             separator.set_margin_top(4)
