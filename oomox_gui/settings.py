@@ -6,6 +6,9 @@ from .i18n import translate
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 
 
+PRESET_LIST_MIN_SIZE = 150
+
+
 class CommonOomoxConfig:
 
     name: str
@@ -14,7 +17,13 @@ class CommonOomoxConfig:
     default_config: dict[str, str]
     config: dict[str, Any]
 
-    def __init__(self, config_dir, config_name, default_config=None):
+    def __init__(
+            self,
+            config_dir: str,
+            config_name: str,
+            default_config: dict[str, Any] | None = None,
+            force_reload: bool = False
+    ):
         self.name = config_name
         self.config_dir = config_dir
         self.config_path = os.path.join(
@@ -22,8 +31,11 @@ class CommonOomoxConfig:
             f"{self.name}.json"
         )
         self.default_config = default_config or {}
-        self.config = self.default_config or {}
-        self.load()
+        self.config = self.load(
+            default_config=self.default_config,
+            config_path=self.config_path,
+            force_reload=force_reload
+        )
 
     def __str__(self):
         return str(self.config)
@@ -31,15 +43,23 @@ class CommonOomoxConfig:
     def __repr__(self):
         return f"Config<{str(self)}>"
 
-    def load(self):
-        try:
-            with open(self.config_path, 'r', encoding=DEFAULT_ENCODING) as file_object:
-                for key, value in json.load(file_object).items():
-                    self.config[key] = value
-        except Exception as exc:
-            print(translate("Can't read config file"))
-            print(exc)
-        return self.config
+    @classmethod
+    def load(
+            cls,
+            config_path: str,
+            default_config: dict[str, Any],
+            force_reload: bool,
+    ) -> dict[str, Any]:
+        if force_reload or not getattr(cls, 'config', None):
+            cls.config = default_config or {}
+            try:
+                with open(config_path, 'r', encoding=DEFAULT_ENCODING) as file_object:
+                    for key, value in json.load(file_object).items():
+                        cls.config[key] = value
+            except Exception as exc:
+                print(translate("Can't read config file"))
+                print(exc)
+        return cls.config
 
     def save(self):
         if not os.path.exists(self.config_dir):
@@ -88,16 +108,19 @@ class OomoxSettings(CommonOomoxConfig):
         )
 
 
-PRESET_LIST_MIN_SIZE = 150
-UI_SETTINGS = OomoxSettings(
-    config_name='ui_config', default_config=dict(
-        window_width=600,
-        window_height=400,
-        preset_list_minimal_width=PRESET_LIST_MIN_SIZE,
-        preset_list_width=PRESET_LIST_MIN_SIZE,
-        preset_list_sections_expanded={},
-    )
-)
+class UISettings(OomoxSettings):
+
+    def __init__(self):
+        super().__init__(
+            config_name='ui_config',
+            default_config=dict(
+                window_width=600,
+                window_height=400,
+                preset_list_minimal_width=PRESET_LIST_MIN_SIZE,
+                preset_list_width=PRESET_LIST_MIN_SIZE,
+                preset_list_sections_expanded={},
+            )
+        )
 
 # SETTINGS = OomoxSettings(
 #     config_name='app_config', default_config=dict(

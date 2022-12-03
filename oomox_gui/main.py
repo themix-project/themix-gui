@@ -28,7 +28,7 @@ from .preview import ThemePreview
 from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX, OomoxIconsPlugin, OomoxThemePlugin
-from .settings import UI_SETTINGS
+from .settings import UISettings
 from .about import show_about
 from .shortcuts import show_shortcuts
 
@@ -505,8 +505,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _before_quit(self):
         self.ask_unsaved_changes()
-        UI_SETTINGS.window_width, UI_SETTINGS.window_height = self.get_size()
-        UI_SETTINGS.save()
+        self.ui_settings.window_width, self.ui_settings.window_height = self.get_size()
+        self.ui_settings.save()
 
     def _on_quit(self, _arg1=None, _arg2=None):
         self._before_quit()
@@ -524,7 +524,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_pane_resize(self, _action, _param=None):
         position = self.paned_box.get_position()
-        UI_SETTINGS.preset_list_width = position
+        self.ui_settings.preset_list_width = position
 
     ###########################################################################
     # Init widgets:
@@ -692,8 +692,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_role("Oomox-GUI")
         self.connect("delete-event", self._on_quit)
         self.set_default_size(
-            width=UI_SETTINGS.window_width,
-            height=UI_SETTINGS.window_height
+            width=self.ui_settings.window_width,
+            height=self.ui_settings.window_height
         )
 
         self._init_headerbar()
@@ -758,6 +758,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.set_instance(self)
         self.colorscheme = {}
         mkdir_p(USER_COLORS_DIR)
+        self.ui_settings = UISettings()
 
         self._init_actions()
         self._init_window()
@@ -783,7 +784,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.theme_edit.hide_all_rows()
         self.preview.hide()
 
-        self.paned_box.set_position(UI_SETTINGS.preset_list_width)
+        self.paned_box.set_position(self.ui_settings.preset_list_width)
         self.paned_box.connect("notify::position", self._on_pane_resize)
 
 

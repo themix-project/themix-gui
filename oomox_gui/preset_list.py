@@ -7,7 +7,7 @@ from gi.repository import Gtk, Gdk, GLib
 from .i18n import translate
 from .config import USER_COLORS_DIR, COLORS_DIR
 from .gtk_helpers import warn_once
-from .settings import UI_SETTINGS
+from .settings import UISettings
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
 from .theme_file import PresetFile, get_presets, group_presets_by_dir
@@ -45,7 +45,8 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
     def __init__(self, preset_select_callback):
         super().__init__()
-        self.set_size_request(width=UI_SETTINGS.preset_list_minimal_width, height=-1)
+        self.ui_settings = UISettings()
+        self.set_size_request(width=self.ui_settings.preset_list_minimal_width, height=-1)
 
         self.preset_select_callback = preset_select_callback
 
@@ -292,7 +293,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 dirname=preset_dir, preset_list=preset_list,
                 parent=presets_iter
             )
-        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
+        if self.ui_settings.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
     def _load_plugin_presets(self, all_presets):
@@ -341,7 +342,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                         parent=plugin_presets_iter
                     )
 
-        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
+        if self.ui_settings.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
     def _load_user_presets(self, all_presets):
@@ -353,7 +354,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 dirname=preset_dir, preset_list=preset_list,
                 parent=user_presets_iter
             )
-        if UI_SETTINGS.preset_list_sections_expanded.get(Sections.USER.id, True):
+        if self.ui_settings.preset_list_sections_expanded.get(Sections.USER.id, True):
             self.treeview.expand_row(self.treestore.get_path(user_presets_iter), False)
 
     ###########################################################################
@@ -391,9 +392,9 @@ class ThemePresetList(Gtk.ScrolledWindow):
     def _on_row_expanded(self, _treeview, treeiter, _treepath):
         if self.treestore.get_value(treeiter, self.THEME_NAME) == _SECTION_RESERVED_NAME:
             section_id = self.treestore.get_value(treeiter, self.THEME_PATH)
-            UI_SETTINGS.preset_list_sections_expanded[section_id] = True
+            self.ui_settings.preset_list_sections_expanded[section_id] = True
 
     def _on_row_collapsed(self, _treeview, treeiter, _treepath):
         if self.treestore.get_value(treeiter, self.THEME_NAME) == _SECTION_RESERVED_NAME:
             section_id = self.treestore.get_value(treeiter, self.THEME_PATH)
-            UI_SETTINGS.preset_list_sections_expanded[section_id] = False
+            self.ui_settings.preset_list_sections_expanded[section_id] = False
