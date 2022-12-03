@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
+from typing import Type, Any
 
-from gi.repository import Gtk, Gio, GLib, GdkPixbuf
+from gi.repository import Gtk, Gio, GLib, GdkPixbuf, Pango
 from gi.types import GObjectMeta
 
 from .i18n import translate
@@ -30,7 +31,7 @@ class ActionsEnum(metaclass=ABCMeta):
 
 
 class CenterLabel(Gtk.Label):
-    def __init__(self, label=None):
+    def __init__(self, label: str | None = None) -> None:
         super().__init__()
         if label:
             self.set_text(label)
@@ -48,7 +49,12 @@ class ImageButtonContainer(Gtk.Box):
     icon = None
     image = None
 
-    def __init__(self, icon_name, tooltip_text=None, label=None):
+    def __init__(
+            self,
+            icon_name: str,
+            tooltip_text: str | None = None,
+            label: str | None = None
+    ) -> None:
         super().__init__()
         self.box = Gtk.Box()
         self.icon = Gio.ThemedIcon(name=icon_name)  # type: ignore[call-arg]
@@ -65,26 +71,32 @@ class ImageButtonContainer(Gtk.Box):
 
 
 class ImageButton(Gtk.Button, ImageButtonContainer):  # type: ignore[misc]
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         Gtk.Button.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
 class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):  # type: ignore[misc]
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         Gtk.MenuButton.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
 class ScaledImage(Gtk.Image):
 
-    scale_factor = None
-    orig_width = None
-    orig_height = None
-    oomox_width = None
-    oomox_height = None
+    scale_factor: float
+    orig_width: int | None = None
+    orig_height: int | None = None
+    oomox_width: int | None = None
+    oomox_height: int | None = None
 
-    def __init__(self, *args, width=None, height=None, **kwargs):
+    def __init__(
+            self,
+            *args: Any,
+            width: int | None = None,
+            height: int | None = None,
+            **kwargs: Any
+    ) -> None:
         super().__init__(*args, **kwargs)
         if not width or height:
             raise TypeError('Either "width" or "height" should be set')
@@ -92,32 +104,37 @@ class ScaledImage(Gtk.Image):
         style_context = self.get_style_context()
         self.scale_factor = style_context.get_scale()
 
-    def _set_orig_dimensions(self, width=None, height=None):
+    def _set_orig_dimensions(self, width: int | None = None, height: int | None = None) -> None:
         if width:
             self.orig_width = width
         if height:
             self.orig_height = height
 
-    def do_draw(self, cr):  # pylint: disable=arguments-differ
-        if self.oomox_width:
-            cr.scale(1/self.scale_factor, 1/self.scale_factor)
+    def do_draw(self, cr: Pango.Matrix) -> None:  # pylint: disable=arguments-differ
+        if self.oomox_width and self.oomox_height:
+            cr.scale(1/self.scale_factor, 1/self.scale_factor)  # type: ignore[arg-type]
             cr.translate(
-                self.oomox_width - self.oomox_width/self.scale_factor,
-                self.oomox_height - self.oomox_height/self.scale_factor
+                self.oomox_width - self.oomox_width/self.scale_factor,  # type: ignore[arg-type]
+                self.oomox_height - self.oomox_height/self.scale_factor  # type: ignore[arg-type]
             )
             Gtk.Image.do_draw(self, cr)
 
-    def do_get_preferred_width(self):  # pylint: disable=arguments-differ
+    def do_get_preferred_width(self) -> tuple[int, int]:  # pylint: disable=arguments-differ
         if self.oomox_width:
             return self.oomox_width, self.oomox_width
         return Gtk.Image.do_get_preferred_width(self)
 
-    def do_get_preferred_height(self):  # pylint: disable=arguments-differ
+    def do_get_preferred_height(self) -> tuple[int, int]:  # pylint: disable=arguments-differ
         if self.oomox_height:
             return self.oomox_height, self.oomox_height
-        return Gtk.Image.do_get_preferred_height(self)
+        return Gtk.Image.do_get_preferred_height(self)  # type: ignore[no-any-return]
 
-    def set_from_bytes(self, bytes_sequence, width=None, height=None):
+    def set_from_bytes(
+            self,
+            bytes_sequence: bytes,
+            width: int | None = None,
+            height: int | None = None
+    ) -> None:
         self._set_orig_dimensions(width=width, height=height)
         stream = Gio.MemoryInputStream.new_from_bytes(
             GLib.Bytes.new(bytes_sequence)  # type: ignore[arg-type]
@@ -128,8 +145,8 @@ class ScaledImage(Gtk.Image):
         # @TODO: is it possible to make it faster?
         pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(
             stream,
-            self.oomox_width*self.scale_factor if self.oomox_width else -1,
-            self.oomox_height*self.scale_factor if self.oomox_height else -1,
+            self.oomox_width*self.scale_factor if self.oomox_width else -1,  # type: ignore[arg-type]
+            self.oomox_height*self.scale_factor if self.oomox_height else -1,  # type: ignore[arg-type]
             True,  # type: ignore[arg-type]
             None  # type: ignore[arg-type]
         )
@@ -143,14 +160,17 @@ class EntryDialog(Gtk.Dialog):
     entry: Gtk.Entry
     entry_text = ''
 
-    def do_response(self, response):  # pylint: disable=arguments-differ
+    def do_response(self, response: Gtk.ResponseType) -> None:  # pylint: disable=arguments-differ
         if response == Gtk.ResponseType.OK:
             self.entry_text = self.entry.get_text()
         self.destroy()
 
     def __init__(
-            self, transient_for,
-            title, text, entry_text=None
+            self,
+            transient_for: Gtk.Window,
+            title: str,
+            text: str,
+            entry_text: str | None = None
     ):
         super().__init__(
             title=title,
@@ -180,13 +200,16 @@ class EntryDialog(Gtk.Dialog):
 
 class YesNoDialog(Gtk.Dialog):
 
-    def do_response(self, _response):  # pylint: disable=arguments-differ
+    def do_response(self, _response: Gtk.ResponseType) -> None:  # pylint: disable=arguments-differ
         self.destroy()
 
-    def __init__(self, transient_for,
-                 title="",
-                 text=translate("Are you sure?"),
-                 default_response=Gtk.ResponseType.NO):
+    def __init__(
+            self,
+            transient_for: Gtk.Window,
+            title: str = "",
+            text: str = translate("Are you sure?"),
+            default_response: Gtk.ResponseType = Gtk.ResponseType.NO
+    ):
         super().__init__(
             title=title,
             transient_for=transient_for,
@@ -214,8 +237,8 @@ class GObjectABCMeta(GObjectMeta, type):
 
     ABS_METHODS = '__abstract_methods__'
 
-    def __init__(cls, name, transient_fors, data):
-        super().__init__(name, transient_fors, data)
+    def __init__(cls, name: str, transient_for: Gtk.Window, data: Any) -> None:
+        super().__init__(name, transient_for, data)  # type: ignore[arg-type]
         this_required_methods = []
         for property_name in dir(cls):
             if getattr(cls, property_name) is GObjectABCMetaAbstractProperty:
@@ -248,7 +271,7 @@ class GObjectABCMeta(GObjectMeta, type):
                 )
 
 
-def g_abstractproperty(_function):
+def g_abstractproperty(_function: Any) -> Type[GObjectABCMetaAbstractProperty]:
     return GObjectABCMetaAbstractProperty
 
 
@@ -257,18 +280,18 @@ class _WarnOnceDialog(Gtk.MessageDialog):
     _already_shown = []  # type: list[str]
 
     @staticmethod
-    def _marshal(text, secondary_text, buttons):
+    def _marshal(text: str, secondary_text: str, buttons: Gtk.ButtonsType) -> str:
         return f"{text},{secondary_text},{buttons}"
 
     @classmethod
-    def add_shown(cls, text, secondary_text, buttons):
+    def add_shown(cls, text: str, secondary_text: str, buttons: Gtk.ButtonsType) -> None:
         cls._already_shown.append(cls._marshal(text, secondary_text, buttons))
 
     @classmethod
-    def was_shown(cls, text, secondary_text, buttons):
+    def was_shown(cls, text: str, secondary_text: str, buttons: Gtk.ButtonsType) -> bool:
         return cls._marshal(text, secondary_text, buttons) in cls._already_shown
 
-    def __init__(self, text, secondary_text, buttons):
+    def __init__(self, text: str, secondary_text: str, buttons: Gtk.ButtonsType) -> None:
         super().__init__(
             text=text,
             secondary_text=secondary_text,
@@ -276,7 +299,11 @@ class _WarnOnceDialog(Gtk.MessageDialog):
         )
 
 
-def warn_once(text, secondary_text='', buttons=Gtk.ButtonsType.CLOSE):
+def warn_once(
+        text: str,
+        secondary_text: str = '',
+        buttons: Gtk.ButtonsType = Gtk.ButtonsType.CLOSE
+) -> None:
     dialog = _WarnOnceDialog(text, secondary_text, buttons)
     if dialog.was_shown(text, secondary_text, buttons):
         return
