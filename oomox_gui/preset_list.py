@@ -1,6 +1,6 @@
 import os
 from collections import namedtuple
-from typing import Callable
+from typing import Any, Callable, overload, Literal
 
 from gi.repository import Gtk, Gdk, GLib
 
@@ -38,19 +38,43 @@ class ThemePresetList(Gtk.ScrolledWindow):
     treeview: Gtk.TreeView
     preset_select_callback: Callable[[dict[str, str], str], None]
 
-    DISPLAY_NAME = 0
-    THEME_NAME = 1
-    THEME_PATH = 2
-    IS_SAVEABLE = 3
+    DISPLAY_NAME: Literal[0] = 0
+    DISPLAY_NAME_TYPE = str
+    THEME_NAME: Literal[1] = 1
+    THEME_NAME_TYPE = str
+    THEME_PATH: Literal[2] = 2
+    THEME_PATH_TYPE = str
+    IS_SAVEABLE: Literal[3] = 3
+    IS_SAVEABLE_TYPE = bool
 
-    def __init__(self, preset_select_callback):
+    @overload
+    def _get_selected_value(self, value: Literal[0, 1, 2]) -> str:
+        ...
+
+    @overload
+    def _get_selected_value(self, value: Literal[3]) -> bool:
+        ...
+
+    def _get_selected_value(self, value: int) -> Any:
+        treepath = self._get_current_treepath()
+        treeiter = self.treestore.get_iter(treepath)
+        return self.treestore.get_value(treeiter, value)
+
+    def __init__(
+            self, preset_select_callback: Callable[[dict[str, str], str], None]
+    ) -> None:
         super().__init__()
         self.ui_settings = UISettings()
         self.set_size_request(width=self.ui_settings.preset_list_minimal_width, height=-1)
 
         self.preset_select_callback = preset_select_callback
 
-        self.treestore = Gtk.TreeStore(str, str, str, bool)
+        self.treestore = Gtk.TreeStore(
+            self.DISPLAY_NAME_TYPE,
+            self.THEME_NAME_TYPE,
+            self.THEME_PATH_TYPE,
+            self.IS_SAVEABLE_TYPE,
+        )
         self.treeview = Gtk.TreeView(  # type: ignore[call-arg]
             model=self.treestore, headers_visible=False
         )
@@ -80,13 +104,13 @@ class ThemePresetList(Gtk.ScrolledWindow):
     # Public interface:
     ###########################################################################
 
-    def get_preset_path(self):
+    def get_preset_path(self) -> str:
         return self._get_selected_value(self.THEME_PATH)
 
-    def preset_is_saveable(self):
+    def preset_is_saveable(self) -> bool:
         return self._get_selected_value(self.IS_SAVEABLE)
 
-    def focus_preset_by_filepath(self, filepath):
+    def focus_preset_by_filepath(self, filepath: str) -> bool:
         treepath = self._find_treepath_by_filepath(
             self.treestore, filepath
         )
@@ -95,7 +119,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             return True
         return False
 
-    def focus_first_available(self):
+    def focus_first_available(self) -> None:
         init_iter = self.treestore.get_iter_first()
         while (
                 init_iter and
@@ -109,7 +133,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             raise RuntimeError("No themes found or smth else went wrong")
         self.treeview.set_cursor(self.treestore.get_path(init_iter))
 
-    def load_presets(self):
+    def load_presets(self) -> None:
         if self._update_signal:
             self.treeview.disconnect(self._update_signal)
 
@@ -123,7 +147,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             "cursor_changed", self._on_preset_select
         )
 
-    def reload_presets(self, focus_on_theme=None):
+    def reload_presets(self, focus_on_theme: str | None = None) -> None:
         old_treepath = self._get_current_treepath()
         focus_on_theme = focus_on_theme or self.get_preset_path()
         self.load_presets()
@@ -134,7 +158,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
     # Private methods:
     ###########################################################################
 
-    def _focus_preset_by_treepath(self, treepath):
+    def _focus_preset_by_treepath(self, treepath: Gtk.TreePath) -> None:
         path_found = False
         while not path_found:
             try:
@@ -142,28 +166,25 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 path_found = True
             except ValueError:
                 treepath.prev()
-        self.treeview.expand_to_path(treepath)
+        self.treeview.expand_to_path(treepath)  # type: ignore[arg-type]
         self.treeview.set_cursor(treepath)
 
-    def _get_current_treepath(self):
-        return self.treeview.get_cursor()[0]
-
-    def _get_selected_value(self, value):
-        treepath = self._get_current_treepath()
+    def _get_current_treepath(self) -> Gtk.TreePath:
+        treepath: Gtk.TreePath = self.treeview.get_cursor()[0]
         if not treepath:
-            return None
-        treeiter = self.treestore.get_iter(treepath)
-        return self.treestore.get_value(treeiter, value)
+            raise RuntimeError("PresetList: Can't get current TreePath")
+        return treepath
 
     def _find_treepath_by_filepath(
-            self, store, target_filepath, treeiter=None
-    ):
+            self, store: Gtk.TreeStore, target_filepath: str,
+            treeiter: Gtk.TreeIter | None = None
+    ) -> Gtk.TreePath | None:
         if not treeiter:
             treeiter = self.treestore.get_iter_first()
         while treeiter:
             current_filepath = store[treeiter][self.THEME_PATH]
             if current_filepath == target_filepath:
-                return store[treeiter].path
+                return store.get_path(treeiter)
             if store.iter_has_child(treeiter):
                 childiter = store.iter_children(treeiter)
                 child_result = self._find_treepath_by_filepath(
@@ -174,25 +195,36 @@ class ThemePresetList(Gtk.ScrolledWindow):
             treeiter = store.iter_next(treeiter)
         return None
 
-    def _add_preset(self, display_name, name, path, saveable, parent=None):
+    def _add_preset(
+        self, display_name: str, name: str, path: str, saveable: bool,
+        parent: Gtk.TreeIter | None = None
+    ) -> Gtk.TreeIter:
         return self.treestore.append(
             parent, [display_name, name, path, saveable]
         )
 
-    def _add_directory(self, name, tree_id=None, parent=None, template='{}'):
+    def _add_directory(
+            self, name: str, tree_id: str | None = None,
+            parent: Gtk.TreeIter | None = None, template: str = '{}'
+    ) -> Gtk.TreeIter:
         tree_id = tree_id or name
         return self.treestore.append(parent, [
             template.format(name), _SECTION_RESERVED_NAME, tree_id, False
         ])
 
-    def _add_section(self, section, parent=None):
+    def _add_section(
+            self, section: Section, parent: Gtk.TreeIter | None = None
+    ) -> Gtk.TreeIter:
         return self._add_directory(
             template='<b>{}</b>', name=section.display_name,
             parent=parent, tree_id=section.id,
         )
 
     @staticmethod
-    def _format_dirname(preset, dirname, plugin_name=None, parent_dir=None):
+    def _format_dirname(
+            preset: PresetFile, dirname: str, plugin_name: str | None = None,
+            parent_dir: str | None = None
+    ) -> str:
         dir_template = '{}: {}'
         if parent_dir:
             preset_relpath = preset.path[len('/'.join(parent_dir.split('/')[:-1])):]
@@ -211,7 +243,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         return dir_display_name
 
     @staticmethod
-    def _format_childname(preset_relpath):
+    def _format_childname(preset_relpath: str) -> str:
         dir_template = '{}: {}'
         dir_display_name, _slash, item_display_name = preset_relpath.lstrip('/').partition('/')
         if item_display_name:
@@ -221,9 +253,10 @@ class ThemePresetList(Gtk.ScrolledWindow):
         return dir_display_name
 
     def _add_presets(
-            self, dirname, preset_list,
-            plugin_name=None, parent=None, subdir_path=None
-    ):
+            self, dirname: str, preset_list: list[PresetFile],
+            plugin_name: str | None = None, parent: Gtk.TreeIter | None = None,
+            subdir_path: str | None = None
+    ) -> None:
         def preset_sorter(preset: PresetFile) -> str:
             return preset.name.lower()
 
@@ -279,7 +312,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                     parent=piter
                 )
 
-    def _load_system_presets(self, all_presets):
+    def _load_system_presets(self, all_presets: dict[str, dict[str, list[PresetFile]]]) -> None:
         featured_dirs = ('Featured', )
         presets_iter = self._add_section(Sections.PRESETS)
         sorted_system_presets = sorted(
@@ -296,7 +329,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         if self.ui_settings.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
-    def _load_plugin_presets(self, all_presets):
+    def _load_plugin_presets(self, all_presets: dict[str, dict[str, list[PresetFile]]]) -> None:
         plugins_iter = self._add_section(Sections.PLUGINS)
         for colors_dir, presets in all_presets.items():
             for preset_dir, preset_list in sorted(presets.items()):
@@ -345,7 +378,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         if self.ui_settings.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
-    def _load_user_presets(self, all_presets):
+    def _load_user_presets(self, all_presets: dict[str, dict[str, list[PresetFile]]]) -> None:
         user_presets_iter = self._add_section(Sections.USER)
         for preset_dir, preset_list in sorted(all_presets.get(USER_COLORS_DIR, {}).items()):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):
@@ -361,7 +394,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
     # Signal handlers:
     ###########################################################################
 
-    def _on_preset_select(self, _widget):
+    def _on_preset_select(self, _widget: Gtk.Widget) -> None:
         treepath = self._get_current_treepath()
         if not treepath:
             return
@@ -374,7 +407,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             current_theme, current_preset_path
         )
 
-    def _on_keypress(self, _widget, event):
+    def _on_keypress(self, _widget: Gtk.Widget, event: Gdk.EventKey) -> None:
         key = event.keyval
         if event.type != Gdk.EventType.KEY_PRESS:
             return
@@ -387,14 +420,18 @@ class ThemePresetList(Gtk.ScrolledWindow):
             if key == Keys.RIGHT_ARROW:
                 self.treeview.expand_row(treepath, False)
             elif key == Keys.LEFT_ARROW:
-                self.treeview.collapse_row(treepath)
+                self.treeview.collapse_row(treepath)  # type: ignore[arg-type]
 
-    def _on_row_expanded(self, _treeview, treeiter, _treepath):
+    def _on_row_expanded(
+            self, _treeview: Gtk.TreeView, treeiter: Gtk.TreeIter, _treepath: Gtk.TreePath
+    ) -> None:
         if self.treestore.get_value(treeiter, self.THEME_NAME) == _SECTION_RESERVED_NAME:
             section_id = self.treestore.get_value(treeiter, self.THEME_PATH)
             self.ui_settings.preset_list_sections_expanded[section_id] = True
 
-    def _on_row_collapsed(self, _treeview, treeiter, _treepath):
+    def _on_row_collapsed(
+            self, _treeview: Gtk.TreeView, treeiter: Gtk.TreeIter, _treepath: Gtk.TreePath
+    ) -> None:
         if self.treestore.get_value(treeiter, self.THEME_NAME) == _SECTION_RESERVED_NAME:
             section_id = self.treestore.get_value(treeiter, self.THEME_PATH)
             self.ui_settings.preset_list_sections_expanded[section_id] = False
