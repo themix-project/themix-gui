@@ -36,7 +36,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
     _update_signal: int | None = None
     treestore: Gtk.TreeStore
     treeview: Gtk.TreeView
-    preset_select_callback: Callable[[dict[str, str], str], None]
+    preset_select_callback: Callable[[str, str], None]
 
     DISPLAY_NAME: Literal[0] = 0
     DISPLAY_NAME_TYPE = str
@@ -61,7 +61,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         return self.treestore.get_value(treeiter, value)
 
     def __init__(
-            self, preset_select_callback: Callable[[dict[str, str], str], None]
+            self, preset_select_callback: Callable[[str, str], None]
     ) -> None:
         super().__init__()
         self.ui_settings = UISettings()

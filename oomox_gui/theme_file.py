@@ -17,7 +17,7 @@ class PresetFile(NamedTuple):
     is_saveable: bool
 
 
-ThemeValueT = str | bool | int | float
+ThemeValueT = str | bool | int | float | Exception
 ThemeT = dict[str, ThemeValueT]
 
 

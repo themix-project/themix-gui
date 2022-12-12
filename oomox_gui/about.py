@@ -1,4 +1,5 @@
 import os
+from typing import Mapping, Sequence
 
 from gi.repository import Gtk
 
@@ -58,12 +59,13 @@ def show_about(parent_window: Gtk.Window) -> None:
             separator.set_margin_bottom(8)
             row.set_header(separator)
 
-    for title, plugin_list in (
+    data: Sequence[tuple[str, Mapping[str, OomoxPlugin]]] = (
             (translate('Theme Plugins'), PluginLoader.get_theme_plugins(), ),
             (translate('Icon Plugins'), PluginLoader.get_icons_plugins(), ),
             (translate('Import Plugins'), PluginLoader.get_import_plugins(), ),
             (translate('Export Plugins'), PluginLoader.get_export_plugins(), ),
-    ):
+    )
+    for title, plugin_list in data:
         section_label = Gtk.Label(title)
         section_label.set_margin_top(8)
         section_label.set_margin_bottom(4)

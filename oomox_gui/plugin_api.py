@@ -7,7 +7,7 @@ from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    from typing import List, Iterable, Optional, Callable  # noqa
+    from typing import List, Iterable, Optional, Callable, Type  # noqa
     from typing_extensions import TypedDict  # noqa
 
     from .export_common import ExportDialog  # noqa
@@ -52,7 +52,7 @@ class OomoxThemePlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> 'ExportDialog':
+    def export_dialog(self) -> 'Type[ExportDialog]':
         pass
 
     enabled_keys_gtk = []  # type: List[str]
@@ -97,7 +97,7 @@ class OomoxIconsPlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> 'ExportDialog':
+    def export_dialog(self) -> 'Type[ExportDialog]':
         pass
 
     @abstractmethod
@@ -114,7 +114,7 @@ class OomoxExportPlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> 'ExportDialog':
+    def export_dialog(self) -> 'Type[ExportDialog]':
         pass
 
     # Text to display in export menu:

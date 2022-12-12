@@ -5,7 +5,7 @@ import sys
 import signal
 import shutil
 import traceback
-from typing import Callable, Any
+from typing import Callable, Any, Mapping, Sequence
 
 from gi.repository import Gtk, Gio, GLib, Gdk
 
@@ -29,7 +29,8 @@ from .preview import ThemePreview
 from .terminal import generate_terminal_colors_for_oomox
 from .plugin_loader import PluginLoader
 from .plugin_api import (
-    PLUGIN_PATH_PREFIX, OomoxIconsPlugin, OomoxThemePlugin, OomoxImportPlugin
+    PLUGIN_PATH_PREFIX,
+    OomoxIconsPlugin, OomoxThemePlugin, OomoxImportPlugin, OomoxExportPlugin,
 )
 from .settings import UISettings
 from .about import show_about
@@ -387,7 +388,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             if not isinstance(theme_value, Exception):
                 continue
             warn_once(
-                text=theme_value,
+                text=str(theme_value),
                 buttons=Gtk.ButtonsType.CLOSE
             )
 
@@ -492,7 +493,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _on_export_theme(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         if not self.plugin_theme:
             raise RuntimeError("No Theme plugin selected")
-        self.plugin_theme.export_dialog(  # type: ignore[operator]
+        self.plugin_theme.export_dialog(
             transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
@@ -501,7 +502,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _on_export_icontheme(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
         if not self.plugin_icons:
             raise RuntimeError("No Icons plugin selected")
-        self.plugin_icons.export_dialog(  # type: ignore[operator]
+        self.plugin_icons.export_dialog(
             transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme
@@ -559,10 +560,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             WindowActions.import_themix_colors.get_id()
         ))
 
-        for plugin_name, plugin in PluginLoader.get_import_plugins().items():
-            if plugin.import_text:
+        for plugin_name, import_plugin in PluginLoader.get_import_plugins().items():
+            if import_plugin.import_text:
                 import_menu.append_item(Gio.MenuItem.new(
-                    plugin.import_text or plugin.display_name,
+                    import_plugin.import_text or import_plugin.display_name,
                     f"win.import_plugin_{plugin_name}"
                 ))
 
@@ -656,9 +657,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         export_menu = Gio.Menu()
         if PluginLoader.get_export_plugins():
-            for plugin_name, plugin in PluginLoader.get_export_plugins().items():
+            for plugin_name, export_plugin in PluginLoader.get_export_plugins().items():
                 export_menu.append_item(Gio.MenuItem.new(
-                    plugin.export_text or plugin.display_name,
+                    export_plugin.export_text or export_plugin.display_name,
                     f"win.export_plugin_{plugin_name}"
                 ))
         export_button = ImageMenuButton(
@@ -857,11 +858,15 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
+
         _plugin_shortcuts: dict[str, str] = {}
-        for plugin_list, plugin_action_template in (
+        import_and_export_plugins: Sequence[
+                tuple[Mapping[str, OomoxImportPlugin | OomoxExportPlugin], str]
+        ] = (
             (PluginLoader.get_import_plugins(), "import_plugin_{}"),
             (PluginLoader.get_export_plugins(), "export_plugin_{}"),
-        ):
+        )
+        for plugin_list, plugin_action_template in import_and_export_plugins:
             for plugin_name, plugin in plugin_list.items():
                 if not plugin.shortcut:
                     continue

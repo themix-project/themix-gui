@@ -20,36 +20,36 @@ if TYPE_CHECKING:
 
 class PluginLoader:
 
-    _ALL_PLUGINS: "Dict[str, OomoxPlugin]" = {}
-    _THEME_PLUGINS: "Dict[str, OomoxPlugin]" = {}
-    _ICONS_PLUGINS: "Dict[str, OomoxPlugin]" = {}
-    _EXPORT_PLUGINS: "Dict[str, OomoxPlugin]" = {}
-    _IMPORT_PLUGINS: "Dict[str, OomoxPlugin]" = {}
+    _ALL_PLUGINS: dict[str, OomoxPlugin] = {}
+    _THEME_PLUGINS: dict[str, OomoxThemePlugin] = {}
+    _ICONS_PLUGINS: dict[str, OomoxIconsPlugin] = {}
+    _EXPORT_PLUGINS: dict[str, OomoxExportPlugin] = {}
+    _IMPORT_PLUGINS: dict[str, OomoxImportPlugin] = {}
 
     _init_done = False
 
     @classmethod
-    def get_all_plugins(cls):
+    def get_all_plugins(cls) -> dict[str, OomoxPlugin]:
         cls.init_plugins()
         return cls._ALL_PLUGINS
 
     @classmethod
-    def get_theme_plugins(cls):
+    def get_theme_plugins(cls) -> dict[str, OomoxThemePlugin]:
         cls.init_plugins()
         return cls._THEME_PLUGINS
 
     @classmethod
-    def get_icons_plugins(cls):
+    def get_icons_plugins(cls) -> dict[str, OomoxIconsPlugin]:
         cls.init_plugins()
         return cls._ICONS_PLUGINS
 
     @classmethod
-    def get_export_plugins(cls):
+    def get_export_plugins(cls) -> dict[str, OomoxExportPlugin]:
         cls.init_plugins()
         return cls._EXPORT_PLUGINS
 
     @classmethod
-    def get_import_plugins(cls):
+    def get_import_plugins(cls) -> dict[str, OomoxImportPlugin]:
         cls.init_plugins()
         return cls._IMPORT_PLUGINS
 
@@ -107,7 +107,7 @@ class PluginLoader:
                 error_dialog.destroy()
 
 
-def _print_debug_plugins():
+def _print_debug_plugins() -> None:
     # @TODO: remove debug code:
     plugin_loader = PluginLoader()
     print("MAIN:")

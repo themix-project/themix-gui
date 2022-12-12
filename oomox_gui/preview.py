@@ -484,8 +484,8 @@ class ThemePreview(Gtk.Grid):
     def update_preview(
             self,
             colorscheme: ThemeT,
-            theme_plugin: OomoxThemePlugin,
-            icons_plugin: OomoxIconsPlugin,
+            theme_plugin: OomoxThemePlugin | None,
+            icons_plugin: OomoxIconsPlugin | None,
     ) -> None:
         colorscheme_with_fallbacks: ThemeT = {}
         for section in get_theme_model().values():

@@ -127,7 +127,7 @@ class NumericListBoxRow(OomoxListBoxRow):
     def connect_changed_signal(self) -> None:
         self.changed_signal = self.value_widget.connect(
             "value-changed",
-            self.on_value_changed  # type: ignore[arg-type]
+            self.on_value_changed
         )
 
     def set_value(self, value: float) -> None:  # type: ignore[override]
@@ -755,7 +755,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         raise RuntimeError(
                             f"Row is of type {theme_value['type']} is not OomoxListBoxRow"
                         )
-                    row.set_value(theme[key])  # type: ignore[misc]
+                    row.set_value(theme[key])  # type: ignore[call-arg]
                 row.show()
                 rows_displayed_in_section += 1
 
@@ -782,7 +782,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         isinstance(row, OomoxListBoxRow) and
                         row.value == old_value
                 ):
-                    row.set_value(new_value)  # type: ignore[misc]
+                    row.set_value(new_value)  # type: ignore[call-arg]
                     row.callback(row.key, row.value)
 
     def __init__(

@@ -1,8 +1,13 @@
+from typing import TYPE_CHECKING
+
 from gi.repository import Gtk
 
 from .terminal import generate_xrdb_theme_from_oomox
 from .color import convert_theme_color_to_gdk
 from .i18n import translate
+
+if TYPE_CHECKING:
+    from .theme_file import ThemeT
 
 
 WIDGET_SPACING = 10
@@ -24,7 +29,7 @@ class TerminalThemePreview(Gtk.Box):
     )
     terminal_widgets: dict[str, Gtk.Label]
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.set_margin_right(WIDGET_SPACING)
         self.set_margin_left(WIDGET_SPACING)
@@ -63,7 +68,7 @@ class TerminalThemePreview(Gtk.Box):
             previous_row.set_margin_left(self.LEFT_MARGIN)
         self.set_center_widget(self.background)
 
-    def update_preview(self, colorscheme):
+    def update_preview(self, colorscheme: 'ThemeT') -> None:
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
         converted = {
             key: convert_theme_color_to_gdk(theme_value)

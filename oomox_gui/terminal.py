@@ -27,7 +27,6 @@ BLUE = 2
 
 
 TerminalThemeT = dict[str, str]
-OomoxTerminalThemeT = dict[str, str]
 
 
 def find_closest_color_key(
