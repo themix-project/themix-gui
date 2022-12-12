@@ -58,8 +58,14 @@ echo ':: pylint passed ::'
 if [[ "${SKIP_MYPY:-}" = "1" ]] ; then
 	echo -e "\n!! WARNING !! skipping mypy"
 else
-	echo -e "\n== Running mypy:"
-	python -m mypy oomox_gui
+	python -m venv mypy_venv --system-site-packages
+	(
+		# shellcheck disable=SC1091
+		. ./mypy_venv/bin/activate
+		python -m pip install types-Pillow
+		echo -e "\n== Running mypy:"
+		python -m mypy oomox_gui
+	)
 	echo ':: mypy passed ::'
 fi
 

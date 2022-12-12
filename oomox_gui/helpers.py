@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from types import ModuleType
-from typing import TypeVar, Iterable
+from typing import TypeVar, Iterable, Callable, Any
 
 
 def mkdir_p(path: str) -> None:
@@ -42,3 +42,32 @@ def natural_sort(list_to_sort: list[SortableT]) -> Iterable[SortableT]:
         return tuple(convert(c) for c in re.split('([0-9]+)', key))
 
     return sorted(list_to_sort, key=alphanum_key)
+
+
+def apply_chain(func: Callable[..., Any], *args_args: Iterable[Iterable[Any]]) -> Any:
+    result = func
+    for args in args_args:
+        result = result(*args)
+    return result
+
+
+def call_method_from_class(
+        klass: type, klass_args: Iterable[Any], method_name: str, method_args: Iterable[Any]
+) -> Any | None:
+    return getattr(klass(*klass_args), method_name)(*method_args)
+
+
+DelayedPartialReturnT = TypeVar("DelayedPartialReturnT")
+DelayedPartialArgT = TypeVar("DelayedPartialArgT")
+
+
+def delayed_partial(
+        func: Callable[..., DelayedPartialReturnT],
+        delayed_args: Iterable[tuple[Callable[[DelayedPartialArgT], Any], Iterable[DelayedPartialArgT]]],
+        rest_args: Iterable[Any]
+) -> DelayedPartialReturnT:
+    computed_args = []
+    for delayed_func, args in delayed_args:
+        computed_args.append(delayed_func(*args))
+    all_args = computed_args + list(rest_args)
+    return func(*all_args)

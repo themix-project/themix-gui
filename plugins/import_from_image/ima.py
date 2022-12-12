@@ -1,3 +1,4 @@
+import sys
 from PIL import Image
 
 
@@ -139,7 +140,16 @@ def jolteon(smeargle, bulbasaur):
     return parasect
 
 
-def get_hex_palette(image_path, use_whole_palette=False, accuracy=48, quality=400):
+HexColor = str
+if sys.version_info.minor >= 9:
+    from typing import Annotated  # pylint: disable=no-name-in-module,useless-suppression
+    HexColor = Annotated[str, 6]  # type: ignore[misc, assignment]
+
+
+def get_hex_palette(
+        image_path: str, use_whole_palette: bool = False,
+        accuracy: int = 48, quality: int = 400
+) -> list[HexColor]:
     smeargle = Image.open(image_path)
     whirlipede = jolteon(smeargle, quality)
     if not use_whole_palette:
