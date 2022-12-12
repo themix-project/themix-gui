@@ -1,4 +1,5 @@
 import os
+from typing import TYPE_CHECKING, Mapping, Sequence
 
 from gi.repository import Gtk
 
@@ -6,8 +7,12 @@ from .i18n import translate
 from .config import SCRIPT_DIR
 from .plugin_loader import PluginLoader
 
+if TYPE_CHECKING:
+    from typing import Callable
+    from .plugin_api import OomoxImportPlugin, OomoxExportPlugin
 
-def show_shortcuts(parent_window):
+
+def show_shortcuts(parent_window: Gtk.Window) -> None:
     path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
     obj_id = "shortcuts"
     builder = Gtk.Builder.new_from_file(path)  # type: ignore[arg-type]
@@ -17,7 +22,10 @@ def show_shortcuts(parent_window):
     shortcuts_window.set_wmclass("oomox", "Oomox")
     shortcuts_window.set_role("Oomox-Shortcuts")
 
-    for section_id, plugin_list, get_text in (
+    data: '''Sequence[
+        tuple[str, Mapping[str, OomoxImportPlugin], Callable[[OomoxImportPlugin], str]] |
+        tuple[str, Mapping[str, OomoxExportPlugin], Callable[[OomoxExportPlugin], str]]
+    ]'''= (
             (
                     "import_section",
                     PluginLoader.get_import_plugins(),
@@ -36,13 +44,14 @@ def show_shortcuts(parent_window):
                         translate("Export {plugin_name}").format(plugin_name=plugin.display_name)
                     ),
             ),
-    ):
+    )
+    for section_id, plugin_list, get_text in data:
         section = builder.get_object(section_id)
         for plugin in plugin_list.values():
             if not plugin.shortcut:
                 continue
             shortcut = Gtk.ShortcutsShortcut(  # type: ignore[call-arg]
-                title=get_text(plugin),
+                title=get_text(plugin),  # type: ignore[arg-type]
                 accelerator=plugin.shortcut
             )
             section.add(shortcut)
