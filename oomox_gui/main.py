@@ -131,7 +131,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         app = self.get_application()
         if not app:
             raise RuntimeError("No app")
-        accels = app.get_accels_for_action(action_id)  # type: ignore[arg-type]
+        accels = app.get_accels_for_action(action_id)
         if accels:
             key, mods = Gtk.accelerator_parse(accels[0])
             tooltip += f' ({Gtk.accelerator_get_label(key, mods)})'
@@ -181,12 +181,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     paned_box: Gtk.Paned
 
     _currently_focused_widget = Gtk.Widget | None
-    _inhibit_id: str | None = None
+    _inhibit_id: int | None = None
 
     def _unset_save_needed(self) -> None:
         self.headerbar.props.title = self.colorscheme_name  # type: ignore[attr-defined]
         if self._inhibit_id:
-            self.application.uninhibit(self._inhibit_id)  # type: ignore[arg-type]
+            self.application.uninhibit(self._inhibit_id)
         self.action_save.set_enabled(False)
         self.theme_edited = False
 
@@ -194,12 +194,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         if not self.theme_edited:
             self.headerbar.props.title = "*" + self.colorscheme_name  # type: ignore[attr-defined]
         self._inhibit_id = self.application.inhibit(
-            self,  # type: ignore[arg-type]
+            self,
             (
-                Gtk.ApplicationInhibitFlags.LOGOUT |  # type: ignore[arg-type]
+                Gtk.ApplicationInhibitFlags.LOGOUT |
                 Gtk.ApplicationInhibitFlags.SUSPEND
             ),
-            translate("There are unsaved changes.\nSave them?")  # type: ignore[arg-type]
+            translate("There are unsaved changes.\nSave them?")
         )
         self.action_save.set_enabled(True)
         self.theme_edited = True
@@ -448,7 +448,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.spinner_message.set_text(message)
             self.spinner.start()
 
-        GLib.timeout_add(0, disable_ui_callback, priority=GLib.PRIORITY_HIGH)  # type: ignore[call-overload]
+        GLib.timeout_add(0, disable_ui_callback, priority=GLib.PRIORITY_HIGH)  # type: ignore[misc, call-arg, arg-type]
 
     def enable(self) -> None:
         def enable_ui_callback() -> None:
@@ -458,7 +458,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.set_focus(self._currently_focused_widget)  # type: ignore[arg-type]
             self.spinner.stop()
 
-        GLib.idle_add(enable_ui_callback, priority=GLib.PRIORITY_LOW)  # type: ignore[call-overload]
+        GLib.idle_add(enable_ui_callback, priority=GLib.PRIORITY_LOW)
 
     ###########################################################################
     # Signal handlers:

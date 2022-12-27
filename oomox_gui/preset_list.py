@@ -95,7 +95,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
         self.add(self.treeview)
 
-        GLib.idle_add(  # type: ignore[call-overload]
+        GLib.idle_add(
             self.focus_first_available,
             priority=GLib.PRIORITY_HIGH
         )

@@ -61,7 +61,7 @@ class ExportDialog(Gtk.Dialog):
         error_label = CenterLabel(
             label=translate("Something went wrong :(")
         )
-        error_label.set_alignment(0.5, 0.5)  # type: ignore[arg-type]
+        error_label.set_alignment(0.5, 0.5)
 
         error_dismiss_button = Gtk.Button(label=translate("_Dismiss"), use_underline=True)
         error_dismiss_button.connect("clicked", self._close_button_callback)

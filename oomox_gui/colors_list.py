@@ -178,7 +178,7 @@ class FloatListBoxRow(NumericListBoxRow):
     def on_value_changed(self, widget: Gtk.SpinButton) -> None:  # type: ignore[override]
         raw_value = widget.get_value()
         self.value = int(raw_value*100)/100  # limit float to 2 digits
-        GLib.idle_add(self.callback, self.key, self.value)  # type: ignore[call-overload]
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(
             self,
@@ -210,7 +210,7 @@ class IntListBoxRow(NumericListBoxRow):
 
     def on_value_changed(self, widget: Gtk.SpinButton) -> None:  # type: ignore[override]
         self.value = widget.get_value_as_int()
-        GLib.idle_add(self.callback, self.key, self.value)  # type: ignore[call-overload]
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(
             self,
@@ -252,7 +252,7 @@ class BoolListBoxRow(OomoxListBoxRow):
 
     def on_switch_activated(self, switch: Gtk.Switch, _gparam: Any) -> None:
         self.value = switch.get_active()
-        GLib.idle_add(self.callback, self.key, self.value)  # type: ignore[call-overload]
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(
             self,
@@ -281,7 +281,7 @@ class OptionsListBoxRow(OomoxListBoxRow):
     def on_dropdown_changed(self, combobox: Gtk.ComboBox) -> None:
         value_id = combobox.get_active()
         self.value = self.options[value_id]['value']
-        GLib.idle_add(self.callback, self.key, self.value)  # type: ignore[call-overload]
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def set_value(self, value: str) -> None:  # type: ignore[override]
         self.disconnect_changed_signal()
@@ -460,7 +460,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             self.value = None
         if self.value:
             self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
-        GLib.idle_add(self.callback, self.key, self.value)  # type: ignore[call-overload]
+        GLib.idle_add(self.callback, self.key, self.value)
 
     def on_color_set(self, gtk_value: Gdk.RGBA) -> None:
         self.value = convert_gdk_to_theme_color(gtk_value)
