@@ -8,7 +8,7 @@ if [[ -z "${DISPLAY:-}" ]] ; then
 
 	clean_up() {
 		echo -e "\n== Killing Xvfb..."
-		kill ${xvfb_pid}
+		kill "$xvfb_pid"
 		echo "== Done."
 	}
 	trap clean_up EXIT SIGHUP SIGINT SIGTERM

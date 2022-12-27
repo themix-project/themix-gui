@@ -51,7 +51,6 @@ do
 	case ${1} in
 		-h|--help)
 			print_usage
-			exit 0
 		;;
 		-o|--output)
 			OUTPUT_THEME_NAME="${2}"
@@ -69,7 +68,6 @@ do
 			if [[ "${1}" == -* ]] || [[ ${THEME-} ]]; then
 				echo "unknown option ${1}"
 				print_usage
-				exit 2
 			fi
 			THEME="${1}"
 		;;
