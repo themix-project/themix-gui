@@ -70,13 +70,13 @@ class ImageButtonContainer(Gtk.Box):
             self.set_tooltip_text(tooltip_text)
 
 
-class ImageButton(Gtk.Button, ImageButtonContainer):  # type: ignore[misc]
+class ImageButton(Gtk.Button, ImageButtonContainer):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         Gtk.Button.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
-class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):
+class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):  # type: ignore[misc]
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         Gtk.MenuButton.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
