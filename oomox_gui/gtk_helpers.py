@@ -36,7 +36,7 @@ class CenterLabel(Gtk.Label):
         if label:
             self.set_text(label)
         self.set_justify(Gtk.Justification.CENTER)
-        self.set_alignment(0.5, 0.5)  # type: ignore[arg-type]
+        self.set_alignment(0.5, 0.5)
         self.set_margin_left(6)
         self.set_margin_right(6)
         self.set_margin_top(6)
@@ -76,7 +76,7 @@ class ImageButton(Gtk.Button, ImageButtonContainer):  # type: ignore[misc]
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
-class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):  # type: ignore[misc]
+class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         Gtk.MenuButton.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
@@ -112,10 +112,10 @@ class ScaledImage(Gtk.Image):
 
     def do_draw(self, cr: Pango.Matrix) -> None:  # pylint: disable=arguments-differ
         if self.oomox_width and self.oomox_height:
-            cr.scale(1/self.scale_factor, 1/self.scale_factor)  # type: ignore[arg-type]
+            cr.scale(1/self.scale_factor, 1/self.scale_factor)
             cr.translate(
-                self.oomox_width - self.oomox_width/self.scale_factor,  # type: ignore[arg-type]
-                self.oomox_height - self.oomox_height/self.scale_factor  # type: ignore[arg-type]
+                self.oomox_width - self.oomox_width/self.scale_factor,
+                self.oomox_height - self.oomox_height/self.scale_factor
             )
             Gtk.Image.do_draw(self, cr)
 
@@ -137,7 +137,7 @@ class ScaledImage(Gtk.Image):
     ) -> None:
         self._set_orig_dimensions(width=width, height=height)
         stream = Gio.MemoryInputStream.new_from_bytes(
-            GLib.Bytes.new(bytes_sequence)  # type: ignore[arg-type]
+            GLib.Bytes.new(bytes_sequence)
         )
         self.oomox_width = self.orig_width
         self.oomox_height = self.orig_height
@@ -145,10 +145,10 @@ class ScaledImage(Gtk.Image):
         # @TODO: is it possible to make it faster?
         pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(
             stream,
-            self.oomox_width*self.scale_factor if self.oomox_width else -1,  # type: ignore[arg-type]
-            self.oomox_height*self.scale_factor if self.oomox_height else -1,  # type: ignore[arg-type]
-            True,  # type: ignore[arg-type]
-            None  # type: ignore[arg-type]
+            self.oomox_width*self.scale_factor if self.oomox_width else -1,
+            self.oomox_height*self.scale_factor if self.oomox_height else -1,
+            True,
+            None
         )
         self.oomox_width = pixbuf.props.width // self.scale_factor
         self.oomox_height = pixbuf.props.height // self.scale_factor

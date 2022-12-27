@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 def show_shortcuts(parent_window: Gtk.Window) -> None:
     path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
     obj_id = "shortcuts"
-    builder = Gtk.Builder.new_from_file(path)  # type: ignore[arg-type]
+    builder = Gtk.Builder.new_from_file(path)
     shortcuts_window = builder.get_object(obj_id)
     shortcuts_window.set_transient_for(parent_window)
     shortcuts_window.set_title(translate("Themix-GUI Keyboard Shortcuts"))
