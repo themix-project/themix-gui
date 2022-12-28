@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Final
 
 from gi.repository import Gtk
 
@@ -10,14 +10,13 @@ if TYPE_CHECKING:
     from .theme_file import ThemeT
 
 
-WIDGET_SPACING = 10
+WIDGET_SPACING: Final = 10
 
 
 class TerminalThemePreview(Gtk.Box):
 
-    LEFT_MARGIN = 18
-
-    COLOR_ROWS = (
+    LEFT_MARGIN: Final = 18
+    COLOR_ROWS: Final = (
         (translate("black"), 0, 8),
         (translate("red"), 1, 9),
         (translate("green"), 2, 10),
@@ -27,6 +26,7 @@ class TerminalThemePreview(Gtk.Box):
         (translate("cyan"), 6, 14),
         (translate("white"), 7, 15),
     )
+
     terminal_widgets: dict[str, Gtk.Label]
 
     def __init__(self) -> None:

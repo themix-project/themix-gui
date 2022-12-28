@@ -1,5 +1,5 @@
 import sys
-from typing import Sequence, Tuple, Union
+from typing import Final, Sequence, Tuple, Union
 
 from gi.repository import Gdk
 
@@ -100,7 +100,7 @@ class ColorDiff():
         return result
 
 
-SMALLEST_DIFF = ColorDiff("000000", "ffffff")
+SMALLEST_DIFF: Final = ColorDiff("000000", "ffffff")
 
 
 def find_closest_color(

@@ -1,6 +1,7 @@
 import os
 from abc import ABCMeta, abstractmethod
 from enum import Enum
+from typing import Final
 
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
@@ -19,7 +20,7 @@ if TYPE_CHECKING:
     AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
 
 
-PLUGIN_PATH_PREFIX = "__plugin__"
+PLUGIN_PATH_PREFIX: Final = "__plugin__"
 
 
 class OomoxPlugin(metaclass=ABCMeta):

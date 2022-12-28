@@ -1,12 +1,12 @@
 import json
 import os
-from typing import Any
+from typing import Any, Final
 
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 from .plugin_api import OomoxPlugin
 
 
-CONFIG_MIGRATIONS_DIR = os.path.join(
+CONFIG_MIGRATIONS_DIR: Final = os.path.join(
     USER_CONFIG_DIR, "migrations/"
 )
 

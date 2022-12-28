@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import TYPE_CHECKING, Any, Callable, Sequence
+from typing import TYPE_CHECKING, Any, Callable, Final, Sequence
 
 from gi.repository import Gtk, GLib, Gdk
 
@@ -17,8 +17,8 @@ if TYPE_CHECKING:
     from .theme_model import Option
 
 
-SECTION_MARGIN = 20
-LIST_ITEM_MARGIN = 10
+SECTION_MARGIN: Final = 20
+LIST_ITEM_MARGIN: Final = 10
 
 
 def check_value_filter(

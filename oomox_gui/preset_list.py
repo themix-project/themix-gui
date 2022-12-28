@@ -1,6 +1,6 @@
 import os
 from collections import namedtuple
-from typing import Any, Callable, overload, Literal
+from typing import Any, Callable, Final, overload, Literal
 
 from gi.repository import Gtk, Gdk, GLib
 
@@ -22,13 +22,13 @@ class Sections:
     USER = Section('user', translate("User Presets"))
 
 
-_SECTION_RESERVED_NAME = '<section>'
+_SECTION_RESERVED_NAME: Final = '<section>'
 
 
 class Keys:
-    RIGHT_ARROW = 65363
-    LEFT_ARROW = 65361
-    KEY_F5 = 65474
+    RIGHT_ARROW: Final = 65363
+    LEFT_ARROW: Final = 65361
+    KEY_F5: Final = 65474
 
 
 class ThemePresetList(Gtk.ScrolledWindow):
@@ -38,13 +38,13 @@ class ThemePresetList(Gtk.ScrolledWindow):
     treeview: Gtk.TreeView
     preset_select_callback: Callable[[str, str], None]
 
-    DISPLAY_NAME: Literal[0] = 0
+    DISPLAY_NAME: Final = 0
     DISPLAY_NAME_TYPE = str
-    THEME_NAME: Literal[1] = 1
+    THEME_NAME: Final = 1
     THEME_NAME_TYPE = str
-    THEME_PATH: Literal[2] = 2
+    THEME_PATH: Final = 2
     THEME_PATH_TYPE = str
-    IS_SAVEABLE: Literal[3] = 3
+    IS_SAVEABLE: Final = 3
     IS_SAVEABLE_TYPE = bool
 
     @overload

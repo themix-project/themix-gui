@@ -1,5 +1,5 @@
 import os
-from typing import Any, Sequence
+from typing import Any, Final, Sequence
 
 from gi.repository import Gtk, GLib, Gdk
 
@@ -16,7 +16,7 @@ from .theme_file import ThemeT
 from .plugin_api import OomoxThemePlugin, OomoxIconsPlugin
 
 
-WIDGET_SPACING = 10
+WIDGET_SPACING: Final = 10
 
 
 class CssProviders():

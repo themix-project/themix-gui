@@ -1,12 +1,12 @@
 import os
 import json
-from typing import Any
+from typing import Any, Final
 
 from .i18n import translate
 from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
 
 
-PRESET_LIST_MIN_SIZE = 150
+PRESET_LIST_MIN_SIZE: Final = 150
 
 
 class CommonOomoxConfig:

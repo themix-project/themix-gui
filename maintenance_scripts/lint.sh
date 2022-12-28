@@ -31,6 +31,10 @@ echo -e "\n== Running python import:"
 python3 -c "import oomox_gui.main"
 echo ':: python import passed ::'
 
+echo -e "\n== Checking for non-Final globals:"
+./maintenance_scripts/get_non_final_expressions.sh
+echo ':: check passed ::'
+
 echo -e "\n== Running flake8:"
 flake8 oomox_gui/ ./plugins/*/oomox_plugin.py 2>&1 \
 | (

@@ -2,7 +2,7 @@
 import os
 import shutil
 import sys
-from typing import Callable, Any
+from typing import Any, Callable, Final
 
 from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR, DEFAULT_ENCODING
@@ -21,9 +21,14 @@ if TYPE_CHECKING:
     from .main import OomoxApplicationWindow
 
 
-RED = 0
-GREEN = 1
-BLUE = 2
+RED: Final = 0
+GREEN: Final = 1
+BLUE: Final = 2
+VALID_COLOR_CHARS: Final = [
+    chr(i) for i in range(ord('a'), ord('f') + 1)
+] + [
+    str(i) for i in range(10)
+]
 
 
 TerminalThemeT = dict[str, str]
@@ -52,13 +57,6 @@ def find_closest_color_key(
             smallest_diff = diff
             smallest_key = preset_key
     return smallest_key, smallest_diff
-
-
-VALID_COLOR_CHARS = [
-    chr(i) for i in range(ord('a'), ord('f') + 1)
-] + [
-    str(i) for i in range(10)
-]
 
 
 def import_xcolors(path: str) -> dict[str, str]:
@@ -358,7 +356,17 @@ def _generate_theme_from_full_palette(  # noqa  pylint: disable=invalid-name,too
     result_callback(result_colors)
 
 
-_FULL_PALETTE_CACHE = {}  # type: Dict[str, Dict[str, str]]
+class FullPaletteCache():
+
+    _cache: dict[str, dict[str, str]] = {}
+
+    @classmethod
+    def get(cls, key: str) -> dict[str, str] | None:
+        return cls._cache.get(key)
+
+    @classmethod
+    def set(cls, key: str, value: dict[str, str]) -> None:
+        cls._cache[key] = value
 
 
 def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-many-locals
@@ -399,13 +407,13 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         ] + all_colors
     ) + template_path + theme_bg + str(accuracy) + str(extend_palette)
 
-    if cache_id in _FULL_PALETTE_CACHE:
+    if FullPaletteCache.get(cache_id):
         _generate_theme_from_full_palette_callback(
             cache_id, theme_bg, theme_fg, result_callback
         )
     else:
         def _callback(generated_colors: TerminalThemeT) -> None:
-            _FULL_PALETTE_CACHE[cache_id] = generated_colors
+            FullPaletteCache.set(cache_id, generated_colors)
             _generate_theme_from_full_palette_callback(
                 cache_id, theme_bg, theme_fg, result_callback
             )
@@ -431,8 +439,11 @@ def _generate_theme_from_full_palette_callback(
         theme_fg: str,
         result_callback: Callable[[TerminalThemeT], None],
 ) -> None:
+    cached_palette = FullPaletteCache.get(cache_id)
+    if not cached_palette:
+        raise RuntimeError(f"No cached palette with {cache_id=}")
     modified_colors = {}
-    modified_colors.update(_FULL_PALETTE_CACHE[cache_id])
+    modified_colors.update(cached_palette)
     modified_colors["background"] = theme_bg
     modified_colors["foreground"] = theme_fg
     result_callback(modified_colors)
