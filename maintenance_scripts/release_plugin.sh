@@ -53,7 +53,7 @@ echo
 if [[ "${answer}" = "y" ]] ; then
 	if [[ "$pkgbuild_path" == plugins/* ]] ; then
 		git -C "$plugin_dir_path" add "$relative_pkgbuild_path"
-		git -C "$plugin_dir_path" commit -m "chore: push release"
+		git -C "$plugin_dir_path" commit -m "chore: push release" || true
 		git -C "$plugin_dir_path" push ssh HEAD
 		#git -C "$plugin_dir_path" pull origin master
 	else
