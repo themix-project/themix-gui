@@ -26,6 +26,7 @@ class ExportConfig(CommonOomoxConfig):
             config_name=config_name,
             default_config=default_config,
             config_dir=USER_EXPORT_CONFIG_DIR,
+            force_reload=True,
         )
 
 
