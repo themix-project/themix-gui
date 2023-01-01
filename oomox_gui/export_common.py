@@ -269,7 +269,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
                 self.option_widgets[option_name] = value_widget
             elif isinstance(value, str):
                 value_widget = Gtk.HBox()
-                label = Gtk.Label(  # type: ignore[call-arg]
+                label = Gtk.Label(
                     label=option.get('display_name', option_name),
                     use_underline=True
                 )
