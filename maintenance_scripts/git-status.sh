@@ -8,4 +8,6 @@ git -c 'color.status=always' status \
         -e '[^/]*png' \
         -e '[^/]git-status' \
         -e 'misc' \
-        -e 'modified:   plugins/.* (untracked content)'
+        -e 'modified:   plugins/.* (untracked content)' \
+        -e 'plugins/theme_arc/arc-theme' \
+        -e 'plugins/theme_materia/materia-theme'
