@@ -8,6 +8,7 @@ if [[ "${1:-}" = '-c' ]] ; then
 fi
 
 result=$(git log \
+	--graph \
 	--pretty=tformat:"%Cred%D%Creset %ad %Cgreen%h %Cblue%an %Creset%s" \
 	--date='format:%Y-%m-%d' \
 	--color=always \
