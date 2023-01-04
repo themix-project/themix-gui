@@ -54,7 +54,7 @@ install_gui: install_import_random
 
 
 install_theme_arc:
-	$(eval PLUGIN_NAME := "theme_arc")
+	$(eval PLUGIN_NAME := theme_arc)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -64,13 +64,13 @@ install_theme_arc:
 
 
 install_theme_oomox:
-	$(eval PLUGIN_NAME := "theme_oomox")
+	$(eval PLUGIN_NAME := theme_oomox)
 	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
 install_theme_materia:
-	$(eval PLUGIN_NAME := "theme_materia")
-	$(eval CLI_NAME := "oomox-materia-cli")
+	$(eval PLUGIN_NAME := theme_materia)
+	$(eval CLI_NAME := oomox-materia-cli)
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
 	cp -prf \
@@ -89,12 +89,12 @@ install_theme_materia:
 
 
 install_export_oomoxify:
-	$(eval PLUGIN_NAME := "oomoxify")
+	$(eval PLUGIN_NAME := oomoxify)
 	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
 install_import_random:
-	$(eval PLUGIN_NAME := "import_random")
+	$(eval PLUGIN_NAME := import_random)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -103,7 +103,7 @@ install_import_random:
 
 
 install_import_xresources:
-	$(eval PLUGIN_NAME := "import_xresources")
+	$(eval PLUGIN_NAME := import_xresources)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -112,7 +112,7 @@ install_import_xresources:
 
 
 install_export_xresources:
-	$(eval PLUGIN_NAME := "export_xresources")
+	$(eval PLUGIN_NAME := export_xresources)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -121,7 +121,7 @@ install_export_xresources:
 
 
 install_import_images:
-	$(eval PLUGIN_NAME := "import_from_image")
+	$(eval PLUGIN_NAME := import_from_image)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -130,13 +130,13 @@ install_import_images:
 
 
 install_plugin_base16:
-	$(eval PLUGIN_NAME := "base16")
+	$(eval PLUGIN_NAME := base16)
 	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
 install_icons_archdroid:
-	$(eval PLUGIN_NAME := "icons_archdroid")
-	$(eval CLI_NAME := "oomox-archdroid-icons-cli")
+	$(eval PLUGIN_NAME := icons_archdroid)
+	$(eval CLI_NAME := oomox-archdroid-icons-cli)
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
 	cp -prf \
@@ -155,8 +155,8 @@ install_icons_archdroid:
 
 
 install_icons_gnomecolors:
-	$(eval PLUGIN_NAME := "icons_gnomecolors")
-	$(eval CLI_NAME := "oomox-gnome-colors-icons-cli")
+	$(eval PLUGIN_NAME := icons_gnomecolors)
+	$(eval CLI_NAME := oomox-gnome-colors-icons-cli)
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
 	cp -prf \
@@ -175,7 +175,7 @@ install_icons_gnomecolors:
 
 
 install_icons_numix:
-	$(eval PLUGIN_NAME := "icons_numix")
+	$(eval PLUGIN_NAME := icons_numix)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -185,7 +185,7 @@ install_icons_numix:
 
 
 install_icons_papirus:
-	$(eval PLUGIN_NAME := "icons_papirus")
+	$(eval PLUGIN_NAME := icons_papirus)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -195,7 +195,7 @@ install_icons_papirus:
 
 
 install_icons_suruplus:
-	$(eval PLUGIN_NAME := "icons_suruplus")
+	$(eval PLUGIN_NAME := icons_suruplus)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -205,7 +205,7 @@ install_icons_suruplus:
 
 
 install_icons_suruplus_aspromauros:
-	$(eval PLUGIN_NAME := "icons_suruplus_aspromauros")
+	$(eval PLUGIN_NAME := icons_suruplus_aspromauros)
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
