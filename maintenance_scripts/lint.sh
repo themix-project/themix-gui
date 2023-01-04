@@ -91,6 +91,8 @@ if [[ "${SKIP_SHELLCHECK:-}" = "1" ]] ; then
 else
 	echo -e "\n== Running shellcheck:"
 	./maintenance_scripts/shellcheck.sh
+	echo -e "\n== Running shellcheck on Makefile..."
+	./maintenance_scripts/makefile_shellcheck.py
 fi
 
 
