@@ -24,6 +24,7 @@ def get_targets() -> list[str]:
             " | grep -E '^[^. ]+:' -o"
             # " | sort"
             " | sort -r"
+            " | uniq"
             " | sed 's/:$//g'"
         ),
         shell=True,
