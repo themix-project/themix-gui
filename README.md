@@ -1,7 +1,7 @@
 Themix GUI designer
 =====
 
-[![Code Style](https://github.com/themix-project/oomox/actions/workflows/ci.yml/badge.svg)](https://github.com/themix-project/oomox/actions/workflows/ci.yml)
+[![Code Style](https://github.com/themix-project/oomox/actions/workflows/ci.yml/badge.svg)](https://github.com/themix-project/oomox/actions/workflows/ci.yml) [![Commit Activity](https://img.shields.io/github/commit-activity/y/themix-project/themix-gui?color=pink&logo=amp&logoColor=pink)](https://github.com/themix-project/themix-gui/graphs/commit-activity)
 
 Graphical application for designing themes and exporting them using plugins, for example:
   * [Oomox](https://github.com/themix-project/oomox-gtk-theme/) and [Materia](https://github.com/nana-4/materia-theme/) themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm). Have a hack for HiDPI in gtk2.
