@@ -1,45 +1,45 @@
 [tool.ruff]
 line-length = 100
-#select = [
-#    "F",
-#    "E", "W",
-#    "C90",
-#    "I",
-#    "D",
-#    "UP",
-#    "N",
-#    "YTT",
-#    "ANN",
-#    "S",
-#    "BLE",
-#    "FBT",
-#    "B",
-#    "A",
-#    "C4",
-#    "T10",
-#    "EM",
-#    "ISC",
-#    "ICN",
-#    "T20",
+select = [
+    "F",
+    "E", "W",
+    "C90",
+    #"I", 2
+    #"D", 1
+    #"UP",
+    #"N",
+    #"YTT", 3
+    #"ANN",
+    "S",
+    "BLE",
+    #"FBT",
+    #"B", 4
+    #"A", 5
+    #"C4", 6
+    "T10",
+    #"EM",
+    "ISC",
+    "ICN",
+    #"T20",
 #    #"PT",  # pytest
-#    "Q",
-#    "RET",
-#    "SIM",
-#    "TID",
-#    "ARG",
-#    "DTZ",
-#    "ERA",
+    #"Q", 7
+    #"RET", 8
+    #"SIM", 9
+    "TID",
+    #"ARG", 10
+    "DTZ",
+    "ERA",
 #    #"PD",  # pandas
-#    "PGH",
-#    "PLC", "PLE", "PLR", "PLW",
-#    "PIE",
-#    "COM",
-#    "INP",
-#    "EXE",
-#    "TYP",
-#    "TRY",
-#    "RUF",
-#]
+    #"PGH", 0
+    #"PLC", "PLE", "PLR", "PLW", 11
+    "PIE",
+    #"COM",
+    #"INP",
+    "EXE",
+    "TYP",
+    #"TRY", 12
+    #"RUF", 0.1
+]
 ignore = [
 	# enable back later:
 	"C901",  # "too complex"
