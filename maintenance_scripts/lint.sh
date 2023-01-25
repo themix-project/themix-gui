@@ -44,15 +44,19 @@ echo -e "\n== Checking for non-Final globals:"
 ./maintenance_scripts/get_non_final_expressions.sh
 echo ':: check passed ::'
 
-echo -e "\n== Running Ruff:"
-if [[ ! -f "${APP_DIR}/env/bin/activate" ]] ; then
-	"$PYTHON" -m venv "${APP_DIR}/env" --system-site-packages
-	# shellcheck disable=SC1091
-	. "${APP_DIR}/env/bin/activate"
-	"$PYTHON" -m pip install ruff --upgrade
-	deactivate
+if [[ "${SKIP_RUFF:-}" = "1" ]] ; then
+	echo -e "\n!! WARNING !! skipping Ruff"
+else
+	echo -e "\n== Running Ruff:"
+	if [[ ! -f "${APP_DIR}/env/bin/activate" ]] ; then
+		"$PYTHON" -m venv "${APP_DIR}/env" --system-site-packages
+		# shellcheck disable=SC1091
+		. "${APP_DIR}/env/bin/activate"
+		"$PYTHON" -m pip install ruff --upgrade
+		deactivate
+	fi
+	"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
 fi
-"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
 
 echo -e "\n== Running flake8:"
 flake8 oomox_gui/ ./plugins/*/oomox_plugin.py 2>&1 \
