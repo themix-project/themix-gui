@@ -363,8 +363,15 @@ class ThemePreview(Gtk.Grid):
                     colorscheme['TXT_BG'],
                     colorscheme['TXT_FG'],
                     0.8 * (0.7 + (
-                        0 if hex_lightness(colorscheme['TXT_BG']) > 0.66 else (  # type: ignore[arg-type]
-                            0.1 if hex_lightness(colorscheme['TXT_BG']) > 0.33 else 0.3  # type: ignore[arg-type]
+                        0
+                        if hex_lightness(
+                            colorscheme['TXT_BG']  # type: ignore[arg-type]
+                        ) > 0.66 else (
+                            0.1
+                            if hex_lightness(
+                                colorscheme['TXT_BG']  # type: ignore[arg-type]
+                            ) > 0.33 else
+                            0.3
                         )
                     ))
                 ),

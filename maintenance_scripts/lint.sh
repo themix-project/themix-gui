@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -ueo pipefail
 
+script_dir=$(readlink -e "$(dirname "${0}")")
+APP_DIR="$(readlink -e "${script_dir}"/..)"
+
 if [[ -z "${DISPLAY:-}" ]] ; then
 	# we need it as we're a GTK app:
 	Xvfb :99 -ac -screen 0 1920x1080x16 -nolisten tcp 2>&1  &
@@ -18,7 +21,13 @@ if [[ -z "${DISPLAY:-}" ]] ; then
 	sleep 3
 fi
 
+PYTHON=python3
 export PYTHONWARNINGS='default,error:::oomox_gui[.*],error:::plugins[.*]'
+TARGETS=(
+	'oomox_gui'
+	./plugins/*/oomox_plugin.py
+	./maintenance_scripts/*.py
+)
 
 echo '== Running on system python'
 python3 --version
@@ -34,6 +43,16 @@ echo ':: python import passed ::'
 echo -e "\n== Checking for non-Final globals:"
 ./maintenance_scripts/get_non_final_expressions.sh
 echo ':: check passed ::'
+
+echo -e "\n== Running Ruff:"
+if [[ ! -f "${APP_DIR}/env/bin/activate" ]] ; then
+	"$PYTHON" -m venv "${APP_DIR}/env" --system-site-packages
+	# shellcheck disable=SC1091
+	. "${APP_DIR}/env/bin/activate"
+	"$PYTHON" -m pip install ruff --upgrade
+	deactivate
+fi
+"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
 
 echo -e "\n== Running flake8:"
 flake8 oomox_gui/ ./plugins/*/oomox_plugin.py 2>&1 \

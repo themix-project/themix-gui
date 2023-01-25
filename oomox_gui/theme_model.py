@@ -287,7 +287,9 @@ def get_theme_model_uncached() -> 'ThemeModel':
             'display_name': translate('Gradient'),
         },
     ]
-    THEME_MODEL['theme_options'] = merge_theme_model_with_plugins('options', BASE_THEME_MODEL_OPTIONS)
+    THEME_MODEL['theme_options'] = merge_theme_model_with_plugins(
+        'options', BASE_THEME_MODEL_OPTIONS
+    )
 
     BASE_ICON_THEME_MODEL: 'ThemeModelSection' = [
         {

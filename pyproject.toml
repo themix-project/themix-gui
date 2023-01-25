@@ -1,0 +1,85 @@
+[tool.ruff]
+line-length = 100
+#select = [
+#    "F",
+#    "E", "W",
+#    "C90",
+#    "I",
+#    "D",
+#    "UP",
+#    "N",
+#    "YTT",
+#    "ANN",
+#    "S",
+#    "BLE",
+#    "FBT",
+#    "B",
+#    "A",
+#    "C4",
+#    "T10",
+#    "EM",
+#    "ISC",
+#    "ICN",
+#    "T20",
+#    #"PT",  # pytest
+#    "Q",
+#    "RET",
+#    "SIM",
+#    "TID",
+#    "ARG",
+#    "DTZ",
+#    "ERA",
+#    #"PD",  # pandas
+#    "PGH",
+#    "PLC", "PLE", "PLR", "PLW",
+#    "PIE",
+#    "COM",
+#    "INP",
+#    "EXE",
+#    "TYP",
+#    "TRY",
+#    "RUF",
+#]
+ignore = [
+	# enable back later:
+	"C901",  # "too complex"
+	"ERA001", # commented out code
+
+	"ANN101",  # annotate self
+	"ANN102",  # annotate cls
+	"ANN401",  # disable Any
+
+	"BLE001",  # disallow catching Exception
+
+	# docstrings
+	"D100",
+	"D101",
+	"D102",
+	"D103",
+	#
+	"D105",
+	"D107",
+	"D203", # conflicts with D211
+	"D205",
+	"D212", # conflicts with D213
+	"D400",
+	"D401", # idk, it seems broken? pydocstyle.org is down so i can't check how it's supposed to work
+	"D415",
+
+	#"Q000",  # force double-quotes
+]
+
+[tool.ruff.per-file-ignores]
+"pikaur_test/test_*.py" = [
+	"ANN201",
+	"ANN206",
+	"PLR2004",
+	"T201",
+]
+"maintenance_scripts/*.py" = [
+	"INP001",
+	"T201",
+]
+"maintenance_scripts/pikaman.py" = [
+	"ARG002",
+]

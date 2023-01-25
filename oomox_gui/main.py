@@ -153,7 +153,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         return action
 
 
-class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods
+class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods  # noqa: E501
 
     colorscheme_name: str
     colorscheme_path: str
@@ -448,7 +448,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.spinner_message.set_text(message)
             self.spinner.start()
 
-        GLib.timeout_add(0, disable_ui_callback, priority=GLib.PRIORITY_HIGH)  # type: ignore[misc, call-arg, arg-type]
+        GLib.timeout_add(
+            0,
+            disable_ui_callback,  # type: ignore[misc, call-arg, arg-type]
+            priority=GLib.PRIORITY_HIGH,
+        )
 
     def enable(self) -> None:
         def enable_ui_callback() -> None:
@@ -881,14 +885,20 @@ class OomoxGtkApplication(Gtk.Application):
                                 'Shortcut "{shortcut}" already assigned to {action_type} "{name}".'
                             ).format(
                                 shortcut=plugin.shortcut,
-                                action_type=translate('plugin') if _is_plugin_shortcut else translate('action'),
+                                action_type=translate(
+                                    'plugin'
+                                    if _is_plugin_shortcut else
+                                    'action'
+                                ),
                                 name=(
                                     _plugin_shortcuts[plugin.shortcut]
                                     if _is_plugin_shortcut
                                     else _shortcuts[plugin.shortcut]
                                 )
                             ),
-                            translate('Shortcut will be disabled for "{plugin_name}" plugin.').format(
+                            translate(
+                                'Shortcut will be disabled for "{plugin_name}" plugin.'
+                            ).format(
                                 plugin_name=plugin_name
                             )
                         )),

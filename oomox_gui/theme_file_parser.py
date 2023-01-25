@@ -67,7 +67,11 @@ def parse_theme_value(  # pylint: disable=too-many-branches
     return result_value  # type: ignore[return-value]
 
 
-def _set_fallback_values(preset_path: str, colorscheme: ThemeT, from_plugin: str | None = None) -> None:
+def _set_fallback_values(
+        preset_path: str,
+        colorscheme: ThemeT,
+        from_plugin: str | None = None,
+) -> None:
     key: str | None
     if not colorscheme:
         theme_keys = [

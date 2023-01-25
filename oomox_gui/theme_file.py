@@ -46,7 +46,10 @@ def get_preset_groups_sorter(colors_dir: str) -> Callable[[PresetFile], str]:
     return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/', maxsplit=1)[0]
 
 
-def group_presets_by_dir(preset_list: list[PresetFile], preset_dir: str) -> list[tuple[str, list[PresetFile]]]:
+def group_presets_by_dir(
+        preset_list: list[PresetFile],
+        preset_dir: str,
+) -> list[tuple[str, list[PresetFile]]]:
     return [
         (dir_name, list(group))
         for dir_name, group in groupby(

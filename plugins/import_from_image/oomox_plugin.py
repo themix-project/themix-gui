@@ -422,7 +422,9 @@ class Plugin(OomoxImportPluginAsync):
             except Exception as exc:
                 print(exc)
             try:
-                colorthief_result: list[tuple[int, int, int]] = colorthief_future.get()  # type: ignore[assignment]
+                colorthief_result: list[tuple[int, int, int]] = (
+                    colorthief_future.get(),  # type: ignore[assignment]
+                )
                 hex_palette += [
                     color_hex_from_list(color) for color in colorthief_result
                 ]
@@ -543,7 +545,9 @@ class Plugin(OomoxImportPluginAsync):
             hex_palette = image_analyzer.get_hex_palette(
                 image_path, quality=int(quality), use_whole_palette=use_whole_palette
             )[:]
-        print(f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s")
+        print(
+            f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s"
+        )
         _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
         cls._palette_cache[_id] = hex_palette
         cls._generate_terminal_palette_callback(
@@ -588,7 +592,8 @@ class Plugin(OomoxImportPluginAsync):
         for key, value in reference_palette.items():
             if key not in ['color0', 'color7', 'color8', 'color15', 'foreground', 'background']:
                 closest_color, _diff = find_closest_color(
-                    value, bright_colors_list, min_lightness=min_lightness, max_lightness=max_lightness
+                    value, bright_colors_list,
+                    min_lightness=min_lightness, max_lightness=max_lightness
                 )
             else:
                 closest_color, _diff = find_closest_color(value, hex_palette)

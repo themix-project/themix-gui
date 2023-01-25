@@ -622,16 +622,20 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         for section_id, section in get_theme_model().items():
             self._all_section_boxes[section_id] = section_box = SectionListBox()
             for option_idx, theme_value in enumerate(section):
-                key: str = theme_value.get('key', theme_value.get('display_name'))  # type: ignore[assignment]
+                key: str = theme_value.get(  # type: ignore[assignment]
+                    'key', theme_value.get('display_name')
+                )
                 if (not key) and (theme_value.get('type') != 'separator'):
                     print(
-                        f"build_theme_model_rows: WARNING: theme value {theme_value} doesn't have a `key`"
+                        f"build_theme_model_rows: WARNING:"
+                        f" theme value {theme_value} doesn't have a `key`"
                     )
                     continue
                 display_name: str = theme_value.get('display_name', key)
                 if not display_name:
                     raise RuntimeError(
-                        f"build_theme_model_rows: WARNING: theme value {theme_value} doesn't have a `display_name`"
+                        f"build_theme_model_rows: WARNING:"
+                        f" theme value {theme_value} doesn't have a `display_name`"
                     )
                 row: OomoxListBoxRow | SectionHeader | None = None
 
@@ -647,7 +651,10 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         'TERMINAL_BASE_TEMPLATE', 'TERMINAL_THEME_MODE',
                         'TERMINAL_THEME_AUTO_BGFG', 'TERMINAL_FG', 'TERMINAL_BG',
                 ]:
-                    def _callback(key: str, value: ThemeValueT) -> None:  # pylint:disable=unused-argument
+                    def _callback(  # pylint:disable=unused-argument
+                            key: str,
+                            value: ThemeValueT,
+                    ) -> None:
                         self.open_theme(self.theme)
                     callbacks += [_callback, ]
 
@@ -720,19 +727,26 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         for section_id, section in get_theme_model().items():
             rows_displayed_in_section = 0
             for option_idx, theme_value in enumerate(section):
-                key: str = theme_value.get('key', theme_value.get('display_name'))  # type: ignore[assignment]
+                key: str = theme_value.get(  # type: ignore[assignment]
+                    'key', theme_value.get('display_name')
+                )
                 if (not key) and (theme_value.get('type') != 'separator'):
-                    print(f"open_theme: WARNING: theme value {theme_value} doesn't have a `key`")
+                    print(
+                        f"open_theme: WARNING:"
+                        f" theme value {theme_value} doesn't have a `key`"
+                    )
                     continue
                 display_name: str = theme_value.get('display_name', key)
                 if not display_name:
                     raise RuntimeError(
-                        f"open_theme: WARNING: theme value {theme_value} doesn't have a `display_name`"
+                        f"open_theme: WARNING:"
+                        f" theme value {theme_value} doesn't have a `display_name`"
                     )
                 if isinstance(theme.get(key or display_name), Exception):
                     error_messages.append(str(theme[key or display_name]))
                     continue
-                row: OomoxListBoxRow | SectionHeader | None = self._all_rows.get(section_id, {}).get(option_idx)
+                row: OomoxListBoxRow | SectionHeader | None = \
+                    self._all_rows.get(section_id, {}).get(option_idx)
 
                 if not row:
                     continue

@@ -54,7 +54,9 @@ def show_about(parent_window: Gtk.Window) -> None:
 
     def update_listbox_header(row: Gtk.ListBoxRow, before: bool) -> None:
         if before and not row.get_header():
-            separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)  # type: ignore[call-arg]
+            separator = Gtk.Separator(
+                orientation=Gtk.Orientation.HORIZONTAL,  # type: ignore[call-arg]
+            )
             separator.set_margin_top(4)
             separator.set_margin_bottom(8)
             row.set_header(separator)

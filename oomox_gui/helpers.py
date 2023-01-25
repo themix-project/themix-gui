@@ -63,7 +63,9 @@ DelayedPartialArgT = TypeVar("DelayedPartialArgT")
 
 def delayed_partial(
         func: Callable[..., DelayedPartialReturnT],
-        delayed_args: Iterable[tuple[Callable[[DelayedPartialArgT], Any], Iterable[DelayedPartialArgT]]],
+        delayed_args: Iterable[
+            tuple[Callable[[DelayedPartialArgT], Any], Iterable[DelayedPartialArgT]]
+        ],
         rest_args: Iterable[Any]
 ) -> DelayedPartialReturnT:
     computed_args = []

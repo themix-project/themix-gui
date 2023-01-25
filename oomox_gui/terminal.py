@@ -469,9 +469,15 @@ def _generate_themes_from_oomox(
             colorscheme["TERMINAL_FOREGROUND"] = colorscheme["FG"]
 
     terminal_base_template: str = colorscheme["TERMINAL_BASE_TEMPLATE"]  # type: ignore[assignment]
-    terminal_theme_accuracy: int = colorscheme["TERMINAL_THEME_ACCURACY"]  # type: ignore[assignment]
-    terminal_theme_extend_palette: bool = colorscheme["TERMINAL_THEME_EXTEND_PALETTE"]  # type: ignore[assignment]
-    terminal_theme_auto_bgfg: bool = colorscheme["TERMINAL_THEME_AUTO_BGFG"]  # type: ignore[assignment]
+    terminal_theme_accuracy: int = (
+        colorscheme["TERMINAL_THEME_ACCURACY"]  # type: ignore[assignment]
+    )
+    terminal_theme_extend_palette: bool = (
+        colorscheme["TERMINAL_THEME_EXTEND_PALETTE"]  # type: ignore[assignment]
+    )
+    terminal_theme_auto_bgfg: bool = (
+        colorscheme["TERMINAL_THEME_AUTO_BGFG"]  # type: ignore[assignment]
+    )
     terminal_background: str = colorscheme["TERMINAL_BACKGROUND"]  # type: ignore[assignment]
     terminal_foreground: str = colorscheme["TERMINAL_FOREGROUND"]  # type: ignore[assignment]
     terminal_accent_color: str = colorscheme["TERMINAL_ACCENT_COLOR"]  # type: ignore[assignment]

@@ -122,7 +122,9 @@ class ExportDialog(Gtk.Dialog):
         self.options_box.set_margin_top(5)
         self.options_box.set_margin_bottom(15)
 
-        self.apply_button = Gtk.Button(label=translate("_Apply Options and Export"), use_underline=True)
+        self.apply_button = Gtk.Button(
+            label=translate("_Apply Options and Export"), use_underline=True,
+        )
         self.apply_button.connect("clicked", lambda x: self.do_export())
 
         self.error_box = Gtk.Box(
