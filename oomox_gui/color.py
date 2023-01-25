@@ -5,7 +5,7 @@ from gi.repository import Gdk
 
 HexColor = str
 IntColor = Sequence[int]
-if sys.version_info.minor >= 9:
+if sys.version_info >= (3, 9):
     from typing import Annotated  # pylint: disable=no-name-in-module,useless-suppression
     HexColor = Annotated[str, 6]  # type: ignore[misc, assignment]
     IntColor = Annotated[Sequence[int], 3]  # type: ignore[misc, assignment]
