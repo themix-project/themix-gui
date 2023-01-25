@@ -1,4 +1,4 @@
-""" This file is licensed under GPLv3, see https://www.gnu.org/licenses/ """
+"""Licensed under GPLv3, see https://www.gnu.org/licenses/"""
 
 # pylint: disable=invalid-name,protected-access,pointless-statement
 

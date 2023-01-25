@@ -172,7 +172,7 @@ class PreviewWidgets(Gtk.Box):
 
 
 def _get_menu_widgets(shell: Gtk.MenuShell) -> Sequence[Gtk.Menu | Gtk.MenuShell]:
-    """ gets a menu shell (menu or menubar) and all its children """
+    """Gets a menu shell (menu or menubar) and all its children."""
     children = [shell]
     for child in shell:  # type: ignore[attr-defined]
         children.append(child)

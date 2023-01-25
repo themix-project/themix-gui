@@ -1,3 +1,4 @@
+"""Themix GUI"""
 import gi
 
 
