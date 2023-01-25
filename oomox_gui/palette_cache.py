@@ -2,8 +2,7 @@ import json
 
 from gi.repository import Gdk
 
-from .config import USER_PALETTE_PATH, DEFAULT_ENCODING
-
+from .config import DEFAULT_ENCODING, USER_PALETTE_PATH
 
 PaletteCacheT = list[str]
 

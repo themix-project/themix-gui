@@ -1,9 +1,9 @@
 import os
 
+from oomox_gui.color import convert_theme_color_to_gdk, mix_theme_colors
+from oomox_gui.export_common import CommonGtkThemeExportDialog
 from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxThemePlugin
-from oomox_gui.export_common import CommonGtkThemeExportDialog
-from oomox_gui.color import convert_theme_color_to_gdk, mix_theme_colors
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")

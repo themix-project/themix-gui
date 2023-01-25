@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 
-from oomox_gui.i18n import translate
 from oomox_gui.export_common import ExportDialog
 from oomox_gui.helpers import natural_sort
+from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxExportPlugin
 from oomox_gui.terminal import generate_xrdb_theme_from_oomox
 

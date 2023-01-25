@@ -4,13 +4,16 @@ import traceback
 
 from gi.repository import Gtk
 
-from .i18n import translate
 from .config import PLUGINS_DIR, USER_PLUGINS_DIR
-from .plugin_api import (
-    OomoxPlugin,
-    OomoxImportPlugin, OomoxThemePlugin, OomoxIconsPlugin, OomoxExportPlugin,
-)
 from .helpers import get_plugin_module
+from .i18n import translate
+from .plugin_api import (
+    OomoxExportPlugin,
+    OomoxIconsPlugin,
+    OomoxImportPlugin,
+    OomoxPlugin,
+    OomoxThemePlugin,
+)
 
 
 class PluginLoader:

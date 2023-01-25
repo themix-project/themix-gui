@@ -3,13 +3,14 @@ from typing import TYPE_CHECKING, Mapping, Sequence
 
 from gi.repository import Gtk
 
-from .i18n import translate
 from .config import SCRIPT_DIR
+from .i18n import translate
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
     from typing import Callable
-    from .plugin_api import OomoxImportPlugin, OomoxExportPlugin
+
+    from .plugin_api import OomoxExportPlugin, OomoxImportPlugin
 
 
 def show_shortcuts(parent_window: Gtk.Window) -> None:

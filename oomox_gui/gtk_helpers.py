@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
-from typing import Type, Any
+from typing import Any, Type
 
-from gi.repository import Gtk, Gio, GLib, GdkPixbuf, Pango
+from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
 from gi.types import GObjectMeta
 
 from .i18n import translate

@@ -2,12 +2,12 @@ import os
 import shutil
 from collections import defaultdict
 from itertools import groupby
-from typing import NamedTuple, Callable
+from typing import Callable, NamedTuple
 
-from .config import COLORS_DIR, USER_COLORS_DIR, DEFAULT_ENCODING
+from .config import COLORS_DIR, DEFAULT_ENCODING, USER_COLORS_DIR
 from .helpers import ls_r, mkdir_p
-from .plugin_loader import PluginLoader
 from .plugin_api import PLUGIN_PATH_PREFIX, OomoxImportPlugin
+from .plugin_loader import PluginLoader
 
 
 class PresetFile(NamedTuple):

@@ -1,7 +1,6 @@
 import os
 from typing import Final
 
-
 FALLBACK_COLOR: Final = "F33333"
 DEFAULT_ENCODING: Final = 'utf-8'
 

@@ -4,7 +4,7 @@ select = [
     "F",
     "E", "W",
     "C90",
-    #"I", 2
+    "I",
     "D",
     #"UP",
     #"N",
@@ -71,6 +71,9 @@ ignore = [
 ]
 
 [tool.ruff.per-file-ignores]
+"oomog_gui/main.py" = [
+    "E402",
+]
 "pikaur_test/test_*.py" = [
 	"ANN201",
 	"ANN206",

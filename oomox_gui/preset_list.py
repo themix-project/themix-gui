@@ -1,17 +1,16 @@
 import os
 from collections import namedtuple
-from typing import Any, Callable, Final, overload, Literal
+from typing import Any, Callable, Final, Literal, overload
 
-from gi.repository import Gtk, Gdk, GLib
+from gi.repository import Gdk, GLib, Gtk
 
-from .i18n import translate
-from .config import USER_COLORS_DIR, COLORS_DIR
+from .config import COLORS_DIR, USER_COLORS_DIR
 from .gtk_helpers import warn_once
-from .settings import UISettings
+from .i18n import translate
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
+from .settings import UISettings
 from .theme_file import PresetFile, get_presets, group_presets_by_dir
-
 
 Section = namedtuple('Section', ['id', 'display_name'])
 

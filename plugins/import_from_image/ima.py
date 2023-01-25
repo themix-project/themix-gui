@@ -1,6 +1,6 @@
 import sys
-from PIL import Image
 
+from PIL import Image
 
 SMOKE, WEED, EVERYDAY = 0, 1, 2
 

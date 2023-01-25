@@ -2,9 +2,8 @@ import os
 
 from oomox_gui.config import FALLBACK_COLOR
 from oomox_gui.export_common import CommonIconThemeExportDialog
-from oomox_gui.plugin_api import OomoxIconsPlugin
 from oomox_gui.i18n import translate
-
+from oomox_gui.plugin_api import OomoxIconsPlugin
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 ARCHDROID_THEME_DIR = os.path.join(PLUGIN_DIR, "archdroid-icon-theme/")

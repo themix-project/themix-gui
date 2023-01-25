@@ -2,9 +2,9 @@ from typing import TYPE_CHECKING, Final
 
 from gi.repository import Gtk
 
-from .terminal import generate_xrdb_theme_from_oomox
 from .color import convert_theme_color_to_gdk
 from .i18n import translate
+from .terminal import generate_xrdb_theme_from_oomox
 
 if TYPE_CHECKING:
     from .theme_file import ThemeT

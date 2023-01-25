@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from types import ModuleType
-from typing import TypeVar, Iterable, Callable, Any
+from typing import Any, Callable, Iterable, TypeVar
 
 
 def mkdir_p(path: str) -> None:

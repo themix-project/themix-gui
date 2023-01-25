@@ -1,25 +1,34 @@
 # -*- coding: utf-8 -*-
 # pylint:disable=import-outside-toplevel
-import os
 import gc
+import os
 from multiprocessing.pool import Pool
 from time import time
-from typing import TYPE_CHECKING, Sequence, Any, Callable
+from typing import TYPE_CHECKING, Any, Callable, Sequence
 
-from oomox_gui.plugin_api import OomoxImportPluginAsync
-from oomox_gui.config import TERMINAL_TEMPLATE_DIR
 from oomox_gui.color import (
-    hex_to_int, color_list_from_hex, color_hex_from_list, int_list_from_hex,
-    find_closest_color, hex_darker, is_dark, HexColor
+    HexColor,
+    color_hex_from_list,
+    color_list_from_hex,
+    find_closest_color,
+    hex_darker,
+    hex_to_int,
+    int_list_from_hex,
+    is_dark,
 )
-from oomox_gui.terminal import import_xcolors
+from oomox_gui.config import TERMINAL_TEMPLATE_DIR
 from oomox_gui.helpers import (
-    get_plugin_module, delayed_partial, call_method_from_class, apply_chain
+    apply_chain,
+    call_method_from_class,
+    delayed_partial,
+    get_plugin_module,
 )
 from oomox_gui.i18n import translate
-from oomox_gui.main import OomoxApplicationWindow, NoWindowError
-from oomox_gui.theme_model import get_first_theme_option
+from oomox_gui.main import NoWindowError, OomoxApplicationWindow
 from oomox_gui.migrations import PluginMigrationConfig
+from oomox_gui.plugin_api import OomoxImportPluginAsync
+from oomox_gui.terminal import import_xcolors
+from oomox_gui.theme_model import get_first_theme_option
 
 if TYPE_CHECKING:
     from oomox_gui.theme_file import ThemeT
@@ -383,8 +392,8 @@ class Plugin(OomoxImportPluginAsync):
         cls, image_path: str, use_whole_palette: bool, quality_per_plugin: list[int]
     ) -> list[HexColor]:
         hex_palette = []
-        from colorz import colorz  # pylint: disable=import-error,useless-suppression
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
+        from colorz import colorz  # pylint: disable=import-error,useless-suppression
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error,useless-suppression
         with Pool() as pool:
             oomox_future = pool.apply_async(apply_chain, (

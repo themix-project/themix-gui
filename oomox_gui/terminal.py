@@ -2,20 +2,28 @@
 import os
 import shutil
 import sys
-from typing import Any, Callable, Final
-
-from .i18n import translate
-from .config import TERMINAL_TEMPLATE_DIR, DEFAULT_ENCODING
-from .color import (
-    SMALLEST_DIFF, ColorDiff, is_dark,
-    hex_to_int, color_list_from_hex, color_hex_from_list, hex_darker,
-    int_list_from_hex,
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    Final,
 )
-from .theme_model import get_theme_model
+
+from .color import (
+    SMALLEST_DIFF,
+    ColorDiff,
+    color_hex_from_list,
+    color_list_from_hex,
+    hex_darker,
+    hex_to_int,
+    int_list_from_hex,
+    is_dark,
+)
+from .config import DEFAULT_ENCODING, TERMINAL_TEMPLATE_DIR
+from .i18n import translate
 from .theme_file import ThemeT
+from .theme_model import get_theme_model
 
-
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
     from .main import OomoxApplicationWindow
 

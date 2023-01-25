@@ -1,10 +1,9 @@
 import os
 import subprocess
 
-from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.config import DEFAULT_ENCODING
+from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.theme_model import get_theme_model
-
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 

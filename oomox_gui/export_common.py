@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-import subprocess
 import os
+import subprocess
 import tempfile
 from threading import Thread
 from typing import Any, Callable
 
-from gi.repository import Gtk, GLib, Pango
+from gi.repository import GLib, Gtk, Pango
 
-from .i18n import translate
-from .config import USER_EXPORT_CONFIG_DIR, DEFAULT_ENCODING
-from .settings import CommonOomoxConfig
-from .theme_file import save_colorscheme, ThemeT
+from .config import DEFAULT_ENCODING, USER_EXPORT_CONFIG_DIR
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
+from .i18n import translate
+from .settings import CommonOomoxConfig
+from .theme_file import ThemeT, save_colorscheme
 
 
 class ExportConfig(CommonOomoxConfig):

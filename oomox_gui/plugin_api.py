@@ -1,22 +1,23 @@
 import os
 from abc import ABCMeta, abstractmethod
 from enum import Enum
-from typing import Final
+from typing import (
+    TYPE_CHECKING,
+    Final,
+)
 
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
-
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    from typing import Iterable, Optional, Callable, Type  # noqa: F401
+    from typing import Callable, Iterable, Optional, Type  # noqa: F401
+
     from typing_extensions import TypedDict
 
     from .export_common import ExportDialog
     from .preview import ThemePreview
     from .preview_icons import IconThemePreview
-
-    from .theme_model import ThemeModelValue  # noqa: F401
     from .theme_file_parser import ColorScheme
+    from .theme_model import ThemeModelValue  # noqa: F401
     AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
 
 

@@ -1,40 +1,51 @@
 #!/bin/env python3
 # -*- coding: utf-8 -*-
 import os
-import sys
-import signal
 import shutil
+import signal
+import sys
 import traceback
-from typing import Callable, Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
-from gi.repository import Gtk, Gio, GLib, Gdk
+from gi.repository import Gdk, Gio, GLib, Gtk
 
-from .i18n import translate
-from .config import USER_COLORS_DIR
-from .helpers import mkdir_p
-from .gtk_helpers import (
-    ImageButton, ImageMenuButton,
-    EntryDialog, YesNoDialog,
-    ActionsEnum, ActionProperty, warn_once,
-)
-from .theme_file import (
-    ThemeT,
-    get_user_theme_path, is_user_colorscheme, is_colorscheme_exists,
-    save_colorscheme, remove_colorscheme, import_colorscheme,
-)
-from .theme_file_parser import read_colorscheme_from_path
-from .preset_list import ThemePresetList
+from .about import show_about
 from .colors_list import ThemeColorsList
-from .preview import ThemePreview
-from .terminal import generate_terminal_colors_for_oomox
-from .plugin_loader import PluginLoader
+from .config import USER_COLORS_DIR
+from .gtk_helpers import (
+    ActionProperty,
+    ActionsEnum,
+    EntryDialog,
+    ImageButton,
+    ImageMenuButton,
+    YesNoDialog,
+    warn_once,
+)
+from .helpers import mkdir_p
+from .i18n import translate
 from .plugin_api import (
     PLUGIN_PATH_PREFIX,
-    OomoxIconsPlugin, OomoxThemePlugin, OomoxImportPlugin, OomoxExportPlugin,
+    OomoxExportPlugin,
+    OomoxIconsPlugin,
+    OomoxImportPlugin,
+    OomoxThemePlugin,
 )
+from .plugin_loader import PluginLoader
+from .preset_list import ThemePresetList
+from .preview import ThemePreview
 from .settings import UISettings
-from .about import show_about
 from .shortcuts import show_shortcuts
+from .terminal import generate_terminal_colors_for_oomox
+from .theme_file import (
+    ThemeT,
+    get_user_theme_path,
+    import_colorscheme,
+    is_colorscheme_exists,
+    is_user_colorscheme,
+    remove_colorscheme,
+    save_colorscheme,
+)
+from .theme_file_parser import read_colorscheme_from_path
 
 
 class DoubleWindowError(RuntimeError):

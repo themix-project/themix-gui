@@ -1,15 +1,14 @@
 # pylint: disable=invalid-name
 import os
-from typing import (
-    TYPE_CHECKING, List, Dict, Any, Callable, Union, Mapping
-)
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Mapping, Union
 
-from .i18n import translate
 from .config import TERMINAL_TEMPLATE_DIR
+from .i18n import translate
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
-    from typing_extensions import TypedDict, NotRequired
+    from typing_extensions import NotRequired, TypedDict
+
     from .plugin_api import OomoxPlugin
     from .theme_file import ThemeValueT
     Option = TypedDict('Option', {

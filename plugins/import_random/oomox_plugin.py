@@ -3,11 +3,10 @@ import random
 
 from gi.repository import Gdk
 
-from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.color import convert_gdk_to_theme_color
 from oomox_gui.config import DEFAULT_ENCODING
+from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.theme_model import get_theme_model
-
 
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 

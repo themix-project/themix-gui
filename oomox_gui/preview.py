@@ -1,20 +1,22 @@
 import os
 from typing import Any, Final, Sequence
 
-from gi.repository import Gtk, GLib, Gdk
+from gi.repository import Gdk, GLib, Gtk
 
-from .theme_model import get_theme_model
 from .color import (
-    convert_theme_color_to_gdk, mix_theme_colors, mix_gdk_colors, hex_lightness,
+    convert_theme_color_to_gdk,
+    hex_lightness,
+    mix_gdk_colors,
+    mix_theme_colors,
 )
+from .config import DEFAULT_ENCODING, FALLBACK_COLOR
 from .gtk_helpers import ScaledImage
-from .preview_terminal import TerminalThemePreview
-from .preview_icons import IconThemePreview
-from .config import FALLBACK_COLOR, DEFAULT_ENCODING
 from .i18n import translate
+from .plugin_api import OomoxIconsPlugin, OomoxThemePlugin
+from .preview_icons import IconThemePreview
+from .preview_terminal import TerminalThemePreview
 from .theme_file import ThemeT
-from .plugin_api import OomoxThemePlugin, OomoxIconsPlugin
-
+from .theme_model import get_theme_model
 
 WIDGET_SPACING: Final = 10
 

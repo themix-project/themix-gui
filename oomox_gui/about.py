@@ -3,10 +3,10 @@ from typing import Mapping, Sequence
 
 from gi.repository import Gtk
 
-from .i18n import translate
 from .config import SCRIPT_DIR
-from .plugin_loader import PluginLoader
+from .i18n import translate
 from .plugin_api import OomoxPlugin
+from .plugin_loader import PluginLoader
 
 
 class PluginInfo(Gtk.ListBoxRow):

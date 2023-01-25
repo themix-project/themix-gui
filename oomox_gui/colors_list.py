@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from typing import TYPE_CHECKING, Any, Callable, Final, Sequence
 
-from gi.repository import Gtk, GLib, Gdk
+from gi.repository import Gdk, GLib, Gtk
 
-from .theme_model import get_theme_model, get_theme_options_by_key
-from .theme_file import ThemeT, ThemeValueT
-from .palette_cache import PaletteCache
 from .color import (
-    convert_theme_color_to_gdk, convert_gdk_to_theme_color,
+    convert_gdk_to_theme_color,
+    convert_theme_color_to_gdk,
 )
-from .gtk_helpers import GObjectABCMeta, g_abstractproperty, ScaledImage
 from .config import FALLBACK_COLOR
+from .gtk_helpers import GObjectABCMeta, ScaledImage, g_abstractproperty
 from .i18n import translate
+from .palette_cache import PaletteCache
+from .theme_file import ThemeT, ThemeValueT
+from .theme_model import get_theme_model, get_theme_options_by_key
 
 if TYPE_CHECKING:
     from .theme_model import Option

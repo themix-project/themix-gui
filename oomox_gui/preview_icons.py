@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
 
-from .gtk_helpers import ScaledImage
 from .config import DEFAULT_ENCODING
+from .gtk_helpers import ScaledImage
 
 if TYPE_CHECKING:
     from .plugin_api import OomoxIconsPlugin

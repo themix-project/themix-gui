@@ -1,10 +1,9 @@
-import os
 import json
+import os
 from typing import Any, Final
 
+from .config import DEFAULT_ENCODING, USER_CONFIG_DIR
 from .i18n import translate
-from .config import USER_CONFIG_DIR, DEFAULT_ENCODING
-
 
 PRESET_LIST_MIN_SIZE: Final = 150
 

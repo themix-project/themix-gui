@@ -1,11 +1,11 @@
 import os
-from typing import Callable, TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 
-from .i18n import translate
-from .theme_model import get_theme_model
-from .plugin_loader import PluginLoader
 from .config import DEFAULT_ENCODING
+from .i18n import translate
+from .plugin_loader import PluginLoader
 from .theme_file import ThemeT, ThemeValueT
+from .theme_model import get_theme_model
 
 if TYPE_CHECKING:
     from .theme_model import ThemeModelValue
