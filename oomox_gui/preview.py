@@ -292,7 +292,8 @@ class ThemePreview(Gtk.Grid):
                     "HDR_BTN_BG",
                     "TXT_BG",
                     "HDR_BG"
-                ]
+                ],
+                strict=True,
         ):
             color = colorscheme[color_key]
             css_provider_gradient = self.css_providers.gradient.get(color_key)

@@ -75,10 +75,11 @@ class ExportDialog(Gtk.Dialog):
             transient_for: Gtk.Window,
             colorscheme: ThemeT,
             theme_name: str,
-            headline: str = translate("Export Theme"),
+            headline: str | None = None,
             width: int = 150,
             height: int = 80,
     ) -> None:
+        headline = headline or translate("Export Theme")
         self.theme_name = 'oomox-' + theme_name.split('/')[-1]
 
         # @TODO: make sure it doesn't break things:

@@ -65,10 +65,12 @@ class NewDialog(EntryDialog):
     def __init__(
             self,
             transient_for: Gtk.Window,
-            title: str = translate("New Theme"),
-            text: str = translate("Please input new theme name:"),
+            title: str | None = None,
+            text: str | None = None,
             entry_text: str | None = None
     ) -> None:
+        title = title or translate("New Theme")
+        text = text or translate("Please input new theme name:")
         super().__init__(
             transient_for=transient_for,
             title=title,

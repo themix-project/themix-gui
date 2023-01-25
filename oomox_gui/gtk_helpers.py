@@ -207,9 +207,10 @@ class YesNoDialog(Gtk.Dialog):
             self,
             transient_for: Gtk.Window,
             title: str = "",
-            text: str = translate("Are you sure?"),
+            text: str | None = None,
             default_response: Gtk.ResponseType = Gtk.ResponseType.NO
     ):
+        text = text or translate("Are you sure?")
         super().__init__(
             title=title,
             transient_for=transient_for,

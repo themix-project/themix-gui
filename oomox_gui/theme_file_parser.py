@@ -119,12 +119,16 @@ def read_colorscheme_from_path(
         ):
             from_plugin = plugin_name
             if plugin.is_async:
-                def actual_callback(colorscheme2: ThemeT) -> None:
-                    _set_fallback_values(preset_path, colorscheme2, from_plugin)
-                    callback(colorscheme2)
+                def _get_actual_callback(
+                        plugin_to_use: str | None
+                ) -> Callable[[ThemeT], None]:
+                    def actual_callback(colorscheme2: ThemeT) -> None:
+                        _set_fallback_values(preset_path, colorscheme2, plugin_to_use)
+                        callback(colorscheme2)
+                    return actual_callback
                 plugin.read_colorscheme_from_path(
                     preset_path,
-                    callback=actual_callback  # type: ignore[call-arg]
+                    callback=_get_actual_callback(from_plugin)  # type: ignore[call-arg]
                 )
                 return
             colorscheme = plugin.read_colorscheme_from_path(preset_path)

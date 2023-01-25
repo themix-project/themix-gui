@@ -662,9 +662,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 def create_callback(
                         _callbacks: Sequence[Callable[[str, ThemeValueT], None]]
                 ) -> Callable[[str, ThemeValueT], None]:
-                    def _callback(key: str, value: ThemeValueT) -> None:
+                    def _callback(key2: str, value: ThemeValueT) -> None:
                         for each in _callbacks:
-                            each(key, value)
+                            each(key2, value)
 
                     return _callback
 
