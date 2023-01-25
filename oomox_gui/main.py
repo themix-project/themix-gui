@@ -555,7 +555,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.headerbar.props.title = translate("Oo-mox GUI")  # type: ignore[attr-defined]
 
         # @TODO:
-        # new_button = ImageButton("text-x-generic-symbolic", translate("Create New Theme"))  # noqa
+        # new_button = ImageButton("text-x-generic-symbolic", translate("Create New Theme"))
         # self.headerbar.pack_start(new_button)
 
         import_menu = Gio.Menu()

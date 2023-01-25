@@ -17,7 +17,6 @@ from .theme_file import ThemeT
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    from typing import Dict  # noqa
     from .main import OomoxApplicationWindow
 
 
@@ -199,7 +198,7 @@ def get_lightness(theme_color: str) -> int:
     return sum(int_list_from_hex(theme_color))
 
 
-def _generate_theme_from_full_palette(  # noqa  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
+def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
         result_callback: Callable[[TerminalThemeT], None],
         reference_colors: dict[str, str],
         all_colors: list[str],

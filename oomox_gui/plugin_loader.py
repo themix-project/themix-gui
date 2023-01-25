@@ -13,11 +13,6 @@ from .plugin_api import (
 from .helpers import get_plugin_module
 
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    from typing import Dict  # noqa
-
-
 class PluginLoader:
 
     _ALL_PLUGINS: dict[str, OomoxPlugin] = {}

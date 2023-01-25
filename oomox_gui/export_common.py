@@ -14,11 +14,6 @@ from .theme_file import save_colorscheme, ThemeT
 from .gtk_helpers import CenterLabel, GObjectABCMeta, g_abstractproperty
 
 
-from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
-if TYPE_CHECKING:
-    from typing import Dict  # noqa
-
-
 class ExportConfig(CommonOomoxConfig):
 
     def __init__(self, config_name: str, default_config: dict[str, Any] | None = None) -> None:
@@ -239,7 +234,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             headline: str | None = None,
             **kwargs: Any
     ) -> None:
-        self.option_widgets = {}  # type: Dict[str, Gtk.Widget]
+        self.option_widgets: dict[str, Gtk.Widget] = {}
         export_options = export_options or {}
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,

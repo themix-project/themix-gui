@@ -54,6 +54,4 @@ class PaletteCache():
             if string != ''
         ]
         if gtk_color_converted not in palette_cache_list:
-            cls.set(
-                ([gtk_color_converted] + palette_cache_list)[:20]
-            )
+            cls.set([gtk_color_converted, *palette_cache_list][:20])

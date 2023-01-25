@@ -312,7 +312,7 @@ class Plugin(OomoxImportPluginAsync):
             'value': 'colorz64',
             'display_name': translate('colorz lib: high quality'),
         }]
-    except:  # noqa pylint: disable=bare-except
+    except:  # noqa: E722 pylint: disable=bare-except
         pass
 
     try:
@@ -324,7 +324,7 @@ class Plugin(OomoxImportPluginAsync):
             'value': 'colorthief32',
             'display_name': translate('colorthief lib: doublepass'),
         }]
-    except:  # noqa pylint: disable=bare-except
+    except:  # noqa: E722  pylint: disable=bare-except
         pass
 
     try:
@@ -334,13 +334,13 @@ class Plugin(OomoxImportPluginAsync):
             'value': 'haishoku',
             'display_name': translate('haishoku lib'),
         })
-    except:  # noqa pylint: disable=bare-except
+    except:  # noqa: E722  pylint: disable=bare-except
         pass
 
     try:
-        import colorthief  # noqa pylint: disable=import-error,useless-suppression
-        import colorz  # noqa pylint: disable=import-error,useless-suppression
-        import haishoku  # noqa pylint: disable=import-error,useless-suppression
+        import colorthief  # noqa: F811  pylint: disable=import-error,useless-suppression
+        import colorz  # noqa: F811  pylint: disable=import-error,useless-suppression
+        import haishoku  # noqa: F811  pylint: disable=import-error,useless-suppression
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]['options'] += [{
             'value': 'all_low',
@@ -349,7 +349,7 @@ class Plugin(OomoxImportPluginAsync):
             'value': 'all_medium',
             'display_name': translate('all available: medium quality'),
         }]
-    except:  # noqa pylint: disable=bare-except
+    except:  # noqa: E722  pylint: disable=bare-except
         pass
 
     _terminal_palette_cache: dict[str, dict[str, str]] = {}
@@ -486,7 +486,7 @@ class Plugin(OomoxImportPluginAsync):
         return image_path+quality+str(use_whole_palette)
 
     @classmethod
-    def _generate_terminal_palette(  # noqa
+    def _generate_terminal_palette(
             cls, template_path: str, image_path: str, quality: str,
             use_whole_palette: bool, inverse_palette: bool,
             result_callback: Callable[[dict[str, str]], None],
@@ -513,7 +513,7 @@ class Plugin(OomoxImportPluginAsync):
                 generate_terminal_palette_task()
 
     @classmethod
-    def _generate_terminal_palette_task(  # noqa
+    def _generate_terminal_palette_task(
             cls, template_path: str, image_path: str, quality: str,
             use_whole_palette: bool, inverse_palette: bool,
             start_time: float,
@@ -555,7 +555,7 @@ class Plugin(OomoxImportPluginAsync):
         )
 
     @classmethod
-    def _generate_terminal_palette_callback(  # noqa  pylint: disable=too-many-locals
+    def _generate_terminal_palette_callback(  # pylint: disable=too-many-locals
             cls, hex_palette: list[str],
             template_path: str, inverse_palette: bool,
             result_callback: Callable[[dict[str, str]], None],

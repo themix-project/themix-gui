@@ -8,15 +8,15 @@ from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 from typing import TYPE_CHECKING  # pylint: disable=wrong-import-order
 if TYPE_CHECKING:
-    from typing import List, Iterable, Optional, Callable, Type  # noqa
-    from typing_extensions import TypedDict  # noqa
+    from typing import Iterable, Optional, Callable, Type  # noqa: F401
+    from typing_extensions import TypedDict
 
-    from .export_common import ExportDialog  # noqa
-    from .preview import ThemePreview  # noqa
-    from .preview_icons import IconThemePreview  # noqa
+    from .export_common import ExportDialog
+    from .preview import ThemePreview
+    from .preview_icons import IconThemePreview
 
-    from .theme_model import ThemeModelValue  # noqa
-    from .theme_file_parser import ColorScheme  # noqa
+    from .theme_model import ThemeModelValue  # noqa: F401
+    from .theme_file_parser import ColorScheme
     AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
 
 
@@ -36,7 +36,7 @@ class OomoxPlugin(metaclass=ABCMeta):
         pass
 
     about_text = None  # type: Optional[str]
-    about_links = None  # type: Optional[List[AboutLink]]
+    about_links = None  # type: Optional[list[AboutLink]]
 
 
 class OomoxThemePlugin(OomoxPlugin):
@@ -56,13 +56,13 @@ class OomoxThemePlugin(OomoxPlugin):
     def export_dialog(self) -> 'Type[ExportDialog]':
         pass
 
-    enabled_keys_gtk = []  # type: List[str]
-    enabled_keys_options = []  # type: List[str]
-    enabled_keys_extra = []  # type: List[str]
+    enabled_keys_gtk = []  # type: list[str]
+    enabled_keys_options = []  # type: list[str]
+    enabled_keys_extra = []  # type: list[str]
 
-    theme_model_gtk = []  # type: List[ThemeModelValue]
-    theme_model_options = []  # type: List[ThemeModelValue]
-    theme_model_extra = []  # type: List[ThemeModelValue]
+    theme_model_gtk = []  # type: list[ThemeModelValue]
+    theme_model_options = []  # type: list[ThemeModelValue]
+    theme_model_extra = []  # type: list[ThemeModelValue]
 
     def preview_before_load_callback(
             self, preview_object: 'ThemePreview', colorscheme: 'ColorScheme'
@@ -88,8 +88,8 @@ class OomoxThemePlugin(OomoxPlugin):
 
 class OomoxIconsPlugin(OomoxPlugin):
 
-    enabled_keys_icons = []  # type: List[str]
-    theme_model_icons = []  # type: List[ThemeModelValue]
+    enabled_keys_icons = []  # type: list[str]
+    theme_model_icons = []  # type: list[ThemeModelValue]
 
     @property
     @abstractmethod
@@ -121,7 +121,7 @@ class OomoxExportPlugin(OomoxPlugin):
     # Text to display in export menu:
     export_text = None  # type: Optional[str]
 
-    theme_model_extra = []  # type: List[ThemeModelValue]
+    theme_model_extra = []  # type: list[ThemeModelValue]
 
     shortcut = None  # type: Optional[str]
 
@@ -145,7 +145,7 @@ class OomoxImportPlugin(OomoxPlugin):
 
     plugin_theme_dir = None  # type: Optional[str]
 
-    theme_model_import = []  # type: List[ThemeModelValue]
+    theme_model_import = []  # type: list[ThemeModelValue]
 
     @property
     def user_theme_dir(self) -> str:

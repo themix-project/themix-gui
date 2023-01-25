@@ -30,7 +30,7 @@ select = [
     "DTZ",
     "ERA",
 #    #"PD",  # pandas
-    #"PGH", 0
+    "PGH",
     #"PLC", "PLE", "PLR", "PLW", 11
     "PIE",
     #"COM",
@@ -38,7 +38,7 @@ select = [
     "EXE",
     "TYP",
     #"TRY", 12
-    #"RUF", 0.1
+    "RUF",
 ]
 ignore = [
 	# enable back later:

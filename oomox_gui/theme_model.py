@@ -10,7 +10,7 @@ from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
     from typing_extensions import TypedDict, NotRequired
-    from .plugin_api import OomoxPlugin  # noqa
+    from .plugin_api import OomoxPlugin
     from .theme_file import ThemeValueT
     Option = TypedDict('Option', {
         'value': Union[str, int],
