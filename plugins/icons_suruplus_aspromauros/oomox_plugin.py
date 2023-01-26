@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 
 from oomox_gui.color import mix_theme_colors

@@ -18,7 +18,7 @@ class PaletteCache():
     @staticmethod
     def load() -> PaletteCacheT:
         try:
-            with open(USER_PALETTE_PATH, "r", encoding=DEFAULT_ENCODING) as file_object:
+            with open(USER_PALETTE_PATH, encoding=DEFAULT_ENCODING) as file_object:
                 result = json.load(file_object)
         except FileNotFoundError:
             return []

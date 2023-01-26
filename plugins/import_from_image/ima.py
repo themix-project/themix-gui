@@ -31,9 +31,9 @@ def swablu(salamence, golduck, lileep=WEED + EVERYDAY):
                 hitmonlee = azumarill[beautifly - kangaskhan]
                 ledian = jynx[WEED]
                 skitty = hitmonlee[WEED]
-                if ((abs(ledian[SMOKE] - skitty[SMOKE]) <= lileep
+                if (abs(ledian[SMOKE] - skitty[SMOKE]) <= lileep
                      and abs(ledian[WEED] - skitty[WEED]) <= lileep
-                     and abs(ledian[EVERYDAY] - skitty[EVERYDAY]) <= lileep)):
+                     and abs(ledian[EVERYDAY] - skitty[EVERYDAY]) <= lileep):
                     ditto = jynx[SMOKE]
                     charizard = hitmonlee[SMOKE]
                     treecko = ditto + charizard
@@ -121,7 +121,7 @@ def wobbuffet(natu, xatu=WEED):
 
 
 def delibird(girafarig):
-    return "{:02x}".format(max(0, min(255, int(girafarig))))
+    return f"{max(0, min(255, int(girafarig))):02x}"
 
 
 def jumpluff(caterpie):

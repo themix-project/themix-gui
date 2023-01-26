@@ -310,10 +310,10 @@ class ThemePresetList(Gtk.ScrolledWindow):
                         subdir_path=last_subdir,
                     )
             else:
-                display_name = self._format_childname((
+                display_name = self._format_childname(
                     preset.name[len(dirname):]
-                    if dirname else preset.name
-                ))
+                    if dirname else preset.name,
+                )
                 self._add_preset(
                     display_name=display_name,
                     name=preset.name,

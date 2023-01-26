@@ -56,7 +56,7 @@ class CommonOomoxConfig:
         if force_reload or not getattr(cls, "config", None):
             cls.config = default_config or {}
             try:
-                with open(config_path, "r", encoding=DEFAULT_ENCODING) as file_object:
+                with open(config_path, encoding=DEFAULT_ENCODING) as file_object:
                     for key, value in json.load(file_object).items():
                         cls.config[key] = value
             except Exception as exc:

@@ -6,7 +6,7 @@ select = [
     "C90",
     "I",
     "D",
-    #"UP",
+    "UP",
     "N",
     "YTT",
     #"ANN", 2
