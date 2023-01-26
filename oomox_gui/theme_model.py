@@ -1,18 +1,21 @@
 # pylint: disable=invalid-name
 import os
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Mapping, Union
+from typing import TYPE_CHECKING
 
 from .config import TERMINAL_TEMPLATE_DIR
 from .i18n import translate
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
+    from typing import Any, Callable, Mapping
+
     from typing_extensions import NotRequired, TypedDict
 
     from .plugin_api import OomoxPlugin
     from .theme_file import ThemeValueT
+
     Option = TypedDict('Option', {
-        'value': Union[str, int],
+        'value': str | int,
         'display_name': NotRequired[str],
         'description': NotRequired[str],
     }, total=False)
@@ -21,25 +24,25 @@ if TYPE_CHECKING:
         "type": str,
         "fallback_key": NotRequired[str],
         "fallback_value": NotRequired[Any],
-        "fallback_function": NotRequired[Callable[[Dict[str, Any]], Any]],
+        "fallback_function": NotRequired[Callable[[dict[str, Any]], Any]],
         "display_name": NotRequired[str],
         "min_value": NotRequired[Any],
         "max_value": NotRequired[Any],
-        "options": NotRequired[List[Option]],
-        "value_filter": NotRequired[Dict[str, list[ThemeValueT] | ThemeValueT]],
-        "filter": NotRequired[Callable[[Dict[str, Any]], bool]],
+        "options": NotRequired[list[Option]],
+        "value_filter": NotRequired[dict[str, list[ThemeValueT] | ThemeValueT]],
+        "filter": NotRequired[Callable[[dict[str, Any]], bool]],
         "reload_theme": NotRequired[bool],
         "reload_options": NotRequired[bool],
     }, total=False)
-    ThemeModelSection = List[ThemeModelValue]
-    ThemeModel = Dict[str, ThemeModelSection]
+    ThemeModelSection = list[ThemeModelValue]
+    ThemeModel = dict[str, ThemeModelSection]
 
 
 def sorted_dict(_dict: dict) -> dict:  # type: ignore[type-arg]
     return dict(sorted(_dict.items(), key=lambda x: x))
 
 
-def get_key_indexes(base_theme_model: 'List[ThemeModelValue]') -> 'Dict[str, int]':
+def get_key_indexes(base_theme_model: 'list[ThemeModelValue]') -> 'dict[str, int]':
     return {
         theme_value['key']: index
         for index, theme_value in enumerate(base_theme_model)
@@ -49,8 +52,8 @@ def get_key_indexes(base_theme_model: 'List[ThemeModelValue]') -> 'Dict[str, int
 
 def merge_model_with_plugin(
         theme_model_name: str,
-        theme_plugin: 'OomoxPlugin',
-        base_theme_model: 'List[ThemeModelValue]',
+        theme_plugin: "OomoxPlugin",
+        base_theme_model: 'list[ThemeModelValue]',
         value_filter_key: 'str | None' = None
 ) -> 'ThemeModelSection':
     result: 'ThemeModelSection' = []
@@ -90,7 +93,7 @@ def merge_model_with_plugin(
 
 def merge_model_with_plugins(
         theme_model_name: str,
-        plugins: 'Mapping[str, OomoxPlugin]',
+        plugins: "Mapping[str, OomoxPlugin]",
         base_theme_model: 'ThemeModelSection | None' = None,
         value_filter_key: 'str | None' = None
 ) -> 'ThemeModelSection':

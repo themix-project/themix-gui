@@ -4,10 +4,9 @@ import gc
 import os
 from multiprocessing.pool import Pool
 from time import time
-from typing import TYPE_CHECKING, Any, Callable, Sequence
+from typing import TYPE_CHECKING
 
 from oomox_gui.color import (
-    HexColor,
     color_hex_from_list,
     color_list_from_hex,
     find_closest_color,
@@ -31,6 +30,9 @@ from oomox_gui.terminal import import_xcolors
 from oomox_gui.theme_model import get_first_theme_option
 
 if TYPE_CHECKING:
+    from typing import Any, Callable, Sequence
+
+    from oomox_gui.color import HexColor
     from oomox_gui.theme_file import ThemeT
 
 
@@ -46,7 +48,7 @@ HIGH_QUALITY = 400
 image_analyzer = get_plugin_module('ima', os.path.join(PLUGIN_DIR, 'ima.py'))
 
 
-def sort_by_saturation(c: Sequence[int]) -> int:  # pylint: disable=invalid-name
+def sort_by_saturation(c: "Sequence[int]") -> int:  # pylint: disable=invalid-name
     if len(c) != 3:
         raise TypeError(c)
     return abs(c[0]-c[1])+abs(c[0]-c[2]) + \
@@ -54,7 +56,7 @@ def sort_by_saturation(c: Sequence[int]) -> int:  # pylint: disable=invalid-name
         abs(c[2]-c[1])+abs(c[2]-c[0])
 
 
-def get_gray_colors(palette: list[HexColor]) -> list[HexColor]:
+def get_gray_colors(palette: "list[HexColor]") -> "list[HexColor]":
     list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
     saturation_list = sorted(
         list_of_colors,
@@ -365,14 +367,14 @@ class Plugin(OomoxImportPluginAsync):
     _palette_cache: dict[str, list[str]] = {}
 
     @classmethod
-    def _get_haishoku_palette(cls, image_path: str) -> list[HexColor]:
+    def _get_haishoku_palette(cls, image_path: str) -> "list[HexColor]":
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error,useless-suppression
         palette = Haishoku.getPalette(image_path)
         hex_palette = [color_hex_from_list(color) for _percentage, color in palette]
         return hex_palette
 
     @classmethod
-    def _get_colorthief_palette(cls, image_path: str, color_count: int) -> list[HexColor]:
+    def _get_colorthief_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
         color_thief = ColorThief(image_path)
         palette = color_thief.get_palette(color_count=color_count)
@@ -380,7 +382,7 @@ class Plugin(OomoxImportPluginAsync):
         return hex_palette
 
     @classmethod
-    def _get_colorz_lib_palette(cls, image_path: str, color_count: int) -> list[HexColor]:
+    def _get_colorz_lib_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
         from colorz import colorz  # pylint: disable=import-error,useless-suppression
         with open(image_path, 'rb') as fobj:
             palette = colorz(fobj, color_count, 50, 200)
@@ -390,7 +392,7 @@ class Plugin(OomoxImportPluginAsync):
     @classmethod
     def _get_all_available_palettes(  # pylint: disable=too-many-locals
         cls, image_path: str, use_whole_palette: bool, quality_per_plugin: list[int]
-    ) -> list[HexColor]:
+    ) -> "list[HexColor]":
         hex_palette = []
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
         from colorz import colorz  # pylint: disable=import-error,useless-suppression
@@ -476,7 +478,7 @@ class Plugin(OomoxImportPluginAsync):
         theme_template: str = get_first_theme_option(  # type: ignore[assignment]
             '_PIL_THEME_TEMPLATE', {}
         ).get('fallback_value')
-        oomox_theme: dict[str, Any] = {}
+        oomox_theme: dict[str, "Any"] = {}
         oomox_theme.update(self.default_theme)
         if theme_template in self.default_themes:
             oomox_theme.update(self.default_themes[theme_template])
@@ -498,7 +500,7 @@ class Plugin(OomoxImportPluginAsync):
     def _generate_terminal_palette(
             cls, template_path: str, image_path: str, quality: str,
             use_whole_palette: bool, inverse_palette: bool,
-            result_callback: Callable[[dict[str, str]], None],
+            result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
         start_time = time()
         _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
@@ -526,7 +528,7 @@ class Plugin(OomoxImportPluginAsync):
             cls, template_path: str, image_path: str, quality: str,
             use_whole_palette: bool, inverse_palette: bool,
             start_time: float,
-            result_callback: Callable[[dict[str, str]], None],
+            result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
         if quality.startswith('colorz'):
             hex_palette = cls._get_colorz_lib_palette(
@@ -567,7 +569,7 @@ class Plugin(OomoxImportPluginAsync):
     def _generate_terminal_palette_callback(  # pylint: disable=too-many-locals
             cls, hex_palette: list[str],
             template_path: str, inverse_palette: bool,
-            result_callback: Callable[[dict[str, str]], None],
+            result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
         gray_colors = get_gray_colors(hex_palette)
         bright_colors = set(hex_palette)
@@ -616,7 +618,7 @@ class Plugin(OomoxImportPluginAsync):
     @classmethod
     def generate_terminal_palette(
             cls, template_path: str, image_path: str,
-            result_callback: 'Callable[[ThemeT], None]',
+            result_callback: "Callable[[ThemeT], None]",
     ) -> None:
         quality: int = get_first_theme_option(
             '_PIL_PALETTE_QUALITY', {}

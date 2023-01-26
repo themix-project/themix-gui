@@ -1,11 +1,16 @@
 import json
 import os
-from typing import Any, Final
+from typing import TYPE_CHECKING
 
 from .config import DEFAULT_ENCODING, USER_CONFIG_DIR
-from .plugin_api import OomoxPlugin
 
-CONFIG_MIGRATIONS_DIR: Final = os.path.join(
+if TYPE_CHECKING:
+    from typing import Any, Final
+
+    from .plugin_api import OomoxPlugin
+
+
+CONFIG_MIGRATIONS_DIR: "Final" = os.path.join(
     USER_CONFIG_DIR, "migrations/"
 )
 
@@ -35,7 +40,7 @@ class MigrationConfig:
             return self.DEFAULT_VERSION
         return version_from_config
 
-    def update(self, version: int, **kwargs: Any) -> None:
+    def update(self, version: int, **kwargs: "Any") -> None:
         self.config['version'] = version
         for key, value in kwargs.items():
             self.config[key] = value
@@ -45,5 +50,5 @@ class MigrationConfig:
 
 class PluginMigrationConfig(MigrationConfig):
 
-    def __init__(self, plugin: OomoxPlugin):
+    def __init__(self, plugin: "OomoxPlugin"):
         super().__init__(component_name=plugin.name)

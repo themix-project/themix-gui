@@ -2,8 +2,15 @@ import importlib
 import os
 import re
 import sys
-from types import ModuleType
-from typing import Any, Callable, Iterable, TypeVar
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from types import ModuleType
+    from typing import Any, Callable, Iterable, TypeVar
+
+    SortableT = TypeVar('SortableT', bound=str)
+    DelayedPartialReturnT = TypeVar("DelayedPartialReturnT")
+    DelayedPartialArgT = TypeVar("DelayedPartialArgT")
 
 
 def mkdir_p(path: str) -> None:
@@ -19,7 +26,7 @@ def ls_r(path: str) -> list[str]:
     ]
 
 
-def get_plugin_module(name: str, path: str, submodule: str | None = None) -> ModuleType:
+def get_plugin_module(name: str, path: str, submodule: str | None = None) -> "ModuleType":
     if sys.version_info < (3, 5):
         raise RuntimeError('Python 3.5+ is required')
     #                           i guess mypy stubs for importlib are incomplete:
@@ -31,10 +38,7 @@ def get_plugin_module(name: str, path: str, submodule: str | None = None) -> Mod
     return module  # type: ignore[no-any-return]
 
 
-SortableT = TypeVar('SortableT', bound=str)
-
-
-def natural_sort(list_to_sort: list[SortableT]) -> Iterable[SortableT]:
+def natural_sort(list_to_sort: "list[SortableT]") -> "Iterable[SortableT]":
     def convert(text: str) -> str | int:
         return int(text) if text.isdigit() else text.lower()
 
@@ -44,7 +48,7 @@ def natural_sort(list_to_sort: list[SortableT]) -> Iterable[SortableT]:
     return sorted(list_to_sort, key=alphanum_key)
 
 
-def apply_chain(func: Callable[..., Any], *args_args: Iterable[Iterable[Any]]) -> Any:
+def apply_chain(func: "Callable[..., Any]", *args_args: "Iterable[Iterable[Any]]") -> "Any":
     result = func
     for args in args_args:
         result = result(*args)
@@ -52,22 +56,18 @@ def apply_chain(func: Callable[..., Any], *args_args: Iterable[Iterable[Any]]) -
 
 
 def call_method_from_class(
-        klass: type, klass_args: Iterable[Any], method_name: str, method_args: Iterable[Any]
-) -> Any | None:
+        klass: type, klass_args: "Iterable[Any]", method_name: str, method_args: "Iterable[Any]"
+) -> "Any | None":
     return getattr(klass(*klass_args), method_name)(*method_args)
 
 
-DelayedPartialReturnT = TypeVar("DelayedPartialReturnT")
-DelayedPartialArgT = TypeVar("DelayedPartialArgT")
-
-
 def delayed_partial(
-        func: Callable[..., DelayedPartialReturnT],
-        delayed_args: Iterable[
+        func: "Callable[..., DelayedPartialReturnT]",
+        delayed_args: """Iterable[
             tuple[Callable[[DelayedPartialArgT], Any], Iterable[DelayedPartialArgT]]
-        ],
-        rest_args: Iterable[Any]
-) -> DelayedPartialReturnT:
+        ]""",
+        rest_args: "Iterable[Any]"
+) -> "DelayedPartialReturnT":
     computed_args = []
     for delayed_func, args in delayed_args:
         computed_args.append(delayed_func(*args))

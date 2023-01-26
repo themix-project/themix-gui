@@ -1,17 +1,16 @@
 import os
-from typing import TYPE_CHECKING, Callable
+from typing import TYPE_CHECKING
 
 from .config import DEFAULT_ENCODING
 from .i18n import translate
 from .plugin_loader import PluginLoader
-from .theme_file import ThemeT, ThemeValueT
 from .theme_model import get_theme_model
 
 if TYPE_CHECKING:
+    from typing import Callable
+
+    from .theme_file import ThemeT, ThemeValueT
     from .theme_model import ThemeModelValue
-
-
-ColorScheme = ThemeT
 
 
 class NoPluginsInstalled(Exception):
@@ -31,11 +30,11 @@ def str_to_bool(value: str) -> bool:
 
 def parse_theme_value(  # pylint: disable=too-many-branches
         theme_value: 'ThemeModelValue',
-        colorscheme: ThemeT,
-) -> ThemeValueT:
-    result_value: ThemeValueT | None = colorscheme.get(theme_value['key'])
+        colorscheme: "ThemeT",
+) -> "ThemeValueT":
+    result_value: "ThemeValueT | None" = colorscheme.get(theme_value['key'])
     fallback_key: str | None = theme_value.get('fallback_key')
-    fallback_value: ThemeValueT | None = theme_value.get('fallback_value')
+    fallback_value: "ThemeValueT | None" = theme_value.get('fallback_value')
     fallback_function = theme_value.get('fallback_function')
 
     if result_value is None:
@@ -69,7 +68,7 @@ def parse_theme_value(  # pylint: disable=too-many-branches
 
 def _set_fallback_values(
         preset_path: str,
-        colorscheme: ThemeT,
+        colorscheme: "ThemeT",
         from_plugin: str | None = None,
 ) -> None:
     key: str | None
@@ -105,7 +104,7 @@ def _set_fallback_values(
 
 def read_colorscheme_from_path(
         preset_path: str,
-        callback: Callable[[ThemeT, ], None]
+        callback: "Callable[[ThemeT, ], None]"
 ) -> None:
     preset_path = os.path.abspath(preset_path)
     colorscheme = {}
@@ -121,8 +120,8 @@ def read_colorscheme_from_path(
             if plugin.is_async:
                 def _get_actual_callback(
                         plugin_to_use: str | None
-                ) -> Callable[[ThemeT], None]:
-                    def actual_callback(colorscheme2: ThemeT) -> None:
+                ) -> "Callable[[ThemeT], None]":
+                    def actual_callback(colorscheme2: "ThemeT") -> None:
                         _set_fallback_values(preset_path, colorscheme2, plugin_to_use)
                         callback(colorscheme2)
                     return actual_callback

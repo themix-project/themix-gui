@@ -2,12 +2,7 @@
 import os
 import shutil
 import sys
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Callable,
-    Final,
-)
+from typing import TYPE_CHECKING
 
 from .color import (
     SMALLEST_DIFF,
@@ -21,17 +16,23 @@ from .color import (
 )
 from .config import DEFAULT_ENCODING, TERMINAL_TEMPLATE_DIR
 from .i18n import translate
-from .theme_file import ThemeT
 from .theme_model import get_theme_model
 
 if TYPE_CHECKING:
+    from typing import (
+        Any,
+        Callable,
+        Final,
+    )
+
     from .main import OomoxApplicationWindow
+    from .theme_file import ThemeT
 
 
-RED: Final = 0
-GREEN: Final = 1
-BLUE: Final = 2
-VALID_COLOR_CHARS: Final = [
+RED: "Final" = 0
+GREEN: "Final" = 1
+BLUE: "Final" = 2
+VALID_COLOR_CHARS: "Final" = [
     chr(i) for i in range(ord('a'), ord('f') + 1)
 ] + [
     str(i) for i in range(10)
@@ -127,7 +128,7 @@ def generate_theme_from_hint(
     return modified_colors
 
 
-def get_all_colors_from_oomox_colorscheme(palette: ThemeT) -> list[str]:
+def get_all_colors_from_oomox_colorscheme(palette: "ThemeT") -> list[str]:
     all_colors: list[str] = []
     for section_name, section in get_theme_model().items():
         if section_name == 'terminal':
@@ -179,7 +180,7 @@ class ProgressBar():
         if self.index / self.print_ratio > self.progress:
             self.progress += 1
 
-    def __enter__(self) -> Callable[[], None]:
+    def __enter__(self) -> "Callable[[], None]":
         return self.update
 
 
@@ -207,7 +208,7 @@ def get_lightness(theme_color: str) -> int:
 
 
 def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
-        result_callback: Callable[[TerminalThemeT], None],
+        result_callback: "Callable[[TerminalThemeT], None]",
         reference_colors: dict[str, str],
         all_colors: list[str],
         theme_bg: str,
@@ -377,16 +378,16 @@ class FullPaletteCache():
 
 
 def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-many-locals
-        palette: ThemeT,
+        palette: "ThemeT",
         theme_bg: str,
         theme_fg: str,
         template_path: str,
-        app: 'OomoxApplicationWindow',
-        result_callback: Callable[[TerminalThemeT], None],
+        app: "OomoxApplicationWindow",
+        result_callback: "Callable[[TerminalThemeT], None]",
         auto_swap_colors: bool = True,
         accuracy: int | None = None,
         extend_palette: bool | None = None,
-        **kwargs: Any
+        **kwargs: "Any"
 ) -> None:
 
     reference_colors = import_xcolors(template_path)
@@ -444,7 +445,7 @@ def _generate_theme_from_full_palette_callback(
         cache_id: str,
         theme_bg: str,
         theme_fg: str,
-        result_callback: Callable[[TerminalThemeT], None],
+        result_callback: "Callable[[TerminalThemeT], None]",
 ) -> None:
     cached_palette = FullPaletteCache.get(cache_id)
     if not cached_palette:
@@ -457,9 +458,9 @@ def _generate_theme_from_full_palette_callback(
 
 
 def _generate_themes_from_oomox(
-        original_colorscheme: ThemeT,
-        app: 'OomoxApplicationWindow',
-        result_callback: Callable[[ThemeT], None],
+        original_colorscheme: "ThemeT",
+        app: "OomoxApplicationWindow",
+        result_callback: "Callable[[ThemeT], None]",
 ) -> None:
     colorscheme = {}
     colorscheme.update(original_colorscheme)
@@ -520,9 +521,9 @@ def _generate_themes_from_oomox(
 
 
 def _generate_themes_from_oomox_callback(
-        colorscheme: ThemeT,
+        colorscheme: "ThemeT",
         term_colorscheme: TerminalThemeT,
-        result_callback: Callable[[ThemeT], None],
+        result_callback: "Callable[[ThemeT], None]",
 ) -> None:
     for i in range(16):
         colorscheme[f"TERMINAL_COLOR{i}"] = term_colorscheme[f"color{i}"]
@@ -532,7 +533,7 @@ def _generate_themes_from_oomox_callback(
     result_callback(colorscheme)
 
 
-def convert_oomox_theme_to_xrdb(colorscheme: ThemeT) -> TerminalThemeT:
+def convert_oomox_theme_to_xrdb(colorscheme: "ThemeT") -> TerminalThemeT:
     term_colorscheme: TerminalThemeT = {}
     for i in range(16):
         theme_key = f"TERMINAL_COLOR{i}"
@@ -545,14 +546,14 @@ def convert_oomox_theme_to_xrdb(colorscheme: ThemeT) -> TerminalThemeT:
     return term_colorscheme
 
 
-def generate_xrdb_theme_from_oomox(colorscheme: ThemeT) -> TerminalThemeT:
+def generate_xrdb_theme_from_oomox(colorscheme: "ThemeT") -> TerminalThemeT:
     return convert_oomox_theme_to_xrdb(colorscheme)
 
 
 def generate_terminal_colors_for_oomox(
-        colorscheme: ThemeT,
-        app: 'OomoxApplicationWindow',
-        result_callback: Callable[[ThemeT], None],
+        colorscheme: "ThemeT",
+        app: "OomoxApplicationWindow",
+        result_callback: "Callable[[ThemeT], None]",
 ) -> None:
     _generate_themes_from_oomox(
         colorscheme,

@@ -1,17 +1,21 @@
 import os
-from typing import Mapping, Sequence
+from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
 
 from .config import SCRIPT_DIR
 from .i18n import translate
-from .plugin_api import OomoxPlugin
 from .plugin_loader import PluginLoader
+
+if TYPE_CHECKING:
+    from typing import Mapping, Sequence
+
+    from .plugin_api import OomoxPlugin
 
 
 class PluginInfo(Gtk.ListBoxRow):
 
-    def __init__(self, plugin: OomoxPlugin) -> None:
+    def __init__(self, plugin: "OomoxPlugin") -> None:
         super().__init__()
         self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self.box)
@@ -61,7 +65,7 @@ def show_about(parent_window: Gtk.Window) -> None:
             separator.set_margin_bottom(8)
             row.set_header(separator)
 
-    data: Sequence[tuple[str, Mapping[str, OomoxPlugin]]] = (
+    data: "Sequence[tuple[str, Mapping[str, OomoxPlugin]]]" = (
             (translate('Theme Plugins'), PluginLoader.get_theme_plugins(), ),
             (translate('Icon Plugins'), PluginLoader.get_icons_plugins(), ),
             (translate('Import Plugins'), PluginLoader.get_import_plugins(), ),

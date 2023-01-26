@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Final
+from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
 
@@ -7,16 +7,18 @@ from .i18n import translate
 from .terminal import generate_xrdb_theme_from_oomox
 
 if TYPE_CHECKING:
+    from typing import Final
+
     from .theme_file import ThemeT
 
 
-WIDGET_SPACING: Final = 10
+WIDGET_SPACING: "Final" = 10
 
 
 class TerminalThemePreview(Gtk.Box):
 
-    LEFT_MARGIN: Final = 18
-    COLOR_ROWS: Final = (
+    LEFT_MARGIN: "Final" = 18
+    COLOR_ROWS: "Final" = (
         (translate("black"), 0, 8),
         (translate("red"), 1, 9),
         (translate("green"), 2, 10),

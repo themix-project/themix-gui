@@ -1,6 +1,6 @@
 import os
 from collections import namedtuple
-from typing import Any, Callable, Final, Literal, overload
+from typing import TYPE_CHECKING, overload
 
 from gi.repository import Gdk, GLib, Gtk
 
@@ -10,7 +10,13 @@ from .i18n import translate
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
 from .settings import UISettings
-from .theme_file import PresetFile, get_presets, group_presets_by_dir
+from .theme_file import get_presets, group_presets_by_dir
+
+if TYPE_CHECKING:
+    from typing import Any, Callable, Final, Literal
+
+    from .theme_file import PresetFile
+
 
 Section = namedtuple('Section', ['id', 'display_name'])
 
@@ -21,13 +27,13 @@ class Sections:
     USER = Section('user', translate("User Presets"))
 
 
-_SECTION_RESERVED_NAME: Final = '<section>'
+_SECTION_RESERVED_NAME: "Final" = '<section>'
 
 
 class Keys:
-    RIGHT_ARROW: Final = 65363
-    LEFT_ARROW: Final = 65361
-    KEY_F5: Final = 65474
+    RIGHT_ARROW: "Final" = 65363
+    LEFT_ARROW: "Final" = 65361
+    KEY_F5: "Final" = 65474
 
 
 class ThemePresetList(Gtk.ScrolledWindow):
@@ -35,32 +41,32 @@ class ThemePresetList(Gtk.ScrolledWindow):
     _update_signal: int | None = None
     treestore: Gtk.TreeStore
     treeview: Gtk.TreeView
-    preset_select_callback: Callable[[str, str], None]
+    preset_select_callback: "Callable[[str, str], None]"
 
-    DISPLAY_NAME: Final = 0
+    DISPLAY_NAME: "Final" = 0
     DISPLAY_NAME_TYPE = str
-    THEME_NAME: Final = 1
+    THEME_NAME: "Final" = 1
     THEME_NAME_TYPE = str
-    THEME_PATH: Final = 2
+    THEME_PATH: "Final" = 2
     THEME_PATH_TYPE = str
-    IS_SAVEABLE: Final = 3
+    IS_SAVEABLE: "Final" = 3
     IS_SAVEABLE_TYPE = bool
 
     @overload
-    def _get_selected_value(self, value: Literal[0, 1, 2]) -> str:
+    def _get_selected_value(self, value: "Literal[0, 1, 2]") -> str:
         ...
 
     @overload
-    def _get_selected_value(self, value: Literal[3]) -> bool:
+    def _get_selected_value(self, value: "Literal[3]") -> bool:
         ...
 
-    def _get_selected_value(self, value: int) -> Any:
+    def _get_selected_value(self, value: int) -> "Any":
         treepath = self._get_current_treepath()
         treeiter = self.treestore.get_iter(treepath)
         return self.treestore.get_value(treeiter, value)
 
     def __init__(
-            self, preset_select_callback: Callable[[str, str], None]
+            self, preset_select_callback: "Callable[[str, str], None]"
     ) -> None:
         super().__init__()
         self.ui_settings = UISettings()
@@ -221,8 +227,10 @@ class ThemePresetList(Gtk.ScrolledWindow):
 
     @staticmethod
     def _format_dirname(
-            preset: PresetFile, dirname: str, plugin_name: str | None = None,
-            parent_dir: str | None = None
+            preset: "PresetFile",
+            dirname: str,
+            plugin_name: str | None = None,
+            parent_dir: str | None = None,
     ) -> str:
         dir_template = '{}: {}'
         if parent_dir:
@@ -252,11 +260,14 @@ class ThemePresetList(Gtk.ScrolledWindow):
         return dir_display_name
 
     def _add_presets(
-            self, dirname: str, preset_list: list[PresetFile],
-            plugin_name: str | None = None, parent: Gtk.TreeIter | None = None,
+            self,
+            dirname: str,
+            preset_list: "list[PresetFile]",
+            plugin_name: str | None = None,
+            parent: Gtk.TreeIter | None = None,
             subdir_path: str | None = None
     ) -> None:
-        def preset_sorter(preset: PresetFile) -> str:
+        def preset_sorter(preset: "PresetFile") -> str:
             return preset.name.lower()
 
         sorted_preset_list = sorted(preset_list, key=preset_sorter)
@@ -311,7 +322,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                     parent=piter
                 )
 
-    def _load_system_presets(self, all_presets: dict[str, dict[str, list[PresetFile]]]) -> None:
+    def _load_system_presets(self, all_presets: "dict[str, dict[str, list[PresetFile]]]") -> None:
         featured_dirs = ('Featured', )
         presets_iter = self._add_section(Sections.PRESETS)
         sorted_system_presets = sorted(
@@ -328,7 +339,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         if self.ui_settings.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
-    def _load_plugin_presets(self, all_presets: dict[str, dict[str, list[PresetFile]]]) -> None:
+    def _load_plugin_presets(self, all_presets: "dict[str, dict[str, list[PresetFile]]]") -> None:
         plugins_iter = self._add_section(Sections.PLUGINS)
         for colors_dir, presets in all_presets.items():
             for preset_dir, preset_list in sorted(presets.items()):
@@ -377,7 +388,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         if self.ui_settings.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
-    def _load_user_presets(self, all_presets: dict[str, dict[str, list[PresetFile]]]) -> None:
+    def _load_user_presets(self, all_presets: "dict[str, dict[str, list[PresetFile]]]") -> None:
         user_presets_iter = self._add_section(Sections.USER)
         for preset_dir, preset_list in sorted(all_presets.get(USER_COLORS_DIR, {}).items()):
             if preset_dir.startswith(PLUGIN_PATH_PREFIX):

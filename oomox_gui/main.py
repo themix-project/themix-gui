@@ -5,7 +5,7 @@ import shutil
 import signal
 import sys
 import traceback
-from typing import Any, Callable, Mapping, Sequence
+from typing import TYPE_CHECKING
 
 from gi.repository import Gdk, Gio, GLib, Gtk
 
@@ -23,13 +23,7 @@ from .gtk_helpers import (
 )
 from .helpers import mkdir_p
 from .i18n import translate
-from .plugin_api import (
-    PLUGIN_PATH_PREFIX,
-    OomoxExportPlugin,
-    OomoxIconsPlugin,
-    OomoxImportPlugin,
-    OomoxThemePlugin,
-)
+from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
 from .preset_list import ThemePresetList
 from .preview import ThemePreview
@@ -37,7 +31,6 @@ from .settings import UISettings
 from .shortcuts import show_shortcuts
 from .terminal import generate_terminal_colors_for_oomox
 from .theme_file import (
-    ThemeT,
     get_user_theme_path,
     import_colorscheme,
     is_colorscheme_exists,
@@ -46,6 +39,17 @@ from .theme_file import (
     save_colorscheme,
 )
 from .theme_file_parser import read_colorscheme_from_path
+
+if TYPE_CHECKING:
+    from typing import Any, Callable, Mapping, Sequence
+
+    from .plugin_api import (
+        OomoxExportPlugin,
+        OomoxIconsPlugin,
+        OomoxImportPlugin,
+        OomoxThemePlugin,
+    )
+    from .theme_file import ThemeT
 
 
 class DoubleWindowError(RuntimeError):
@@ -159,7 +163,9 @@ class WindowWithActions(Gtk.ApplicationWindow):
             tooltip = self._action_tooltip(action, widget.get_tooltip_text() or '')
             widget.set_tooltip_text(tooltip)
 
-    def add_simple_action(self, action_name: str, callback: Callable[..., Any]) -> Gio.SimpleAction:
+    def add_simple_action(
+            self, action_name: str, callback: "Callable[..., Any]"
+    ) -> Gio.SimpleAction:
         action = Gio.SimpleAction.new(action_name, None)
         action.connect("activate", callback)
         self.add_action(action)
@@ -170,12 +176,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     colorscheme_name: str
     colorscheme_path: str
-    colorscheme: ThemeT
+    colorscheme: "ThemeT"
     colorscheme_is_user: bool
     theme_edited: bool = False
     #
-    plugin_theme: OomoxThemePlugin | None = None
-    plugin_icons: OomoxIconsPlugin | None = None
+    plugin_theme: "OomoxThemePlugin | None" = None
+    plugin_icons: "OomoxIconsPlugin | None" = None
     #
     # actions:
     action_save: Gio.SimpleAction
@@ -284,7 +290,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
                 )
                 return
 
-    def import_from_plugin(self, plugin: OomoxImportPlugin) -> None:
+    def import_from_plugin(self, plugin: "OomoxImportPlugin") -> None:
         self.ask_unsaved_changes()
         filechooser_dialog = Gtk.FileChooserNative.new(
             translate("Please choose an image file"),  # type: ignore[arg-type]
@@ -376,7 +382,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             if icons_plugin.name == icons_plugin_name:
                 self.plugin_icons = icons_plugin
 
-    def load_colorscheme(self, colorscheme: ThemeT) -> None:
+    def load_colorscheme(self, colorscheme: "ThemeT") -> None:
         self.colorscheme = colorscheme
         self._select_theme_plugin()
         self._select_icons_plugin()
@@ -406,7 +412,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             )
 
     @staticmethod
-    def schedule_task(task: Callable[..., None], *args: Any) -> None:
+    def schedule_task(task: "Callable[..., None]", *args: "Any") -> None:
         Gdk.threads_add_idle(GLib.PRIORITY_LOW, task, *args)
 
     def on_preset_selected(
@@ -419,7 +425,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme_path = selected_preset_path
         read_colorscheme_from_path(selected_preset_path, callback=self._on_preset_selected_callback)
 
-    def _on_preset_selected_callback(self, colorscheme: ThemeT) -> None:
+    def _on_preset_selected_callback(self, colorscheme: "ThemeT") -> None:
         self.load_colorscheme(colorscheme)
         self.colorscheme_is_user = is_user_colorscheme(self.colorscheme_path)
         self.theme_edit.open_theme(self.colorscheme)
@@ -427,14 +433,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.action_rename.set_enabled(self.preset_list.preset_is_saveable())
         self.action_remove.set_enabled(self.colorscheme_is_user)
 
-    def theme_reload(self) -> ThemeT:
+    def theme_reload(self) -> "ThemeT":
         self.on_preset_selected(
             self.colorscheme_name, self.colorscheme_path
         )
         return self.colorscheme
 
-    def generate_terminal_colors(self, callback: Callable[[], None]) -> None:
-        def _generate_terminal_colors(colors: ThemeT) -> None:
+    def generate_terminal_colors(self, callback: "Callable[[], None]") -> None:
+        def _generate_terminal_colors(colors: "ThemeT") -> None:
             self.colorscheme.update(colors)
             callback()
 
@@ -444,7 +450,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             result_callback=_generate_terminal_colors,
         )
 
-    def on_color_edited(self, colorscheme: ThemeT) -> None:
+    def on_color_edited(self, colorscheme: "ThemeT") -> None:
         self.load_colorscheme(colorscheme)
         self._set_save_needed()
 
@@ -481,22 +487,22 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     # Signal handlers:
     ###########################################################################
 
-    def _on_import_themix_colors(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_import_themix_colors(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         return self.import_themix_colors()
 
-    def _on_import_plugin(self, action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_import_plugin(self, action: Gio.SimpleAction, _param: "Any" = None) -> None:
         plugin = PluginLoader.get_import_plugins()[
             action.props.name.replace('import_plugin_', '')  # type: ignore[attr-defined]
         ]
         self.import_from_plugin(plugin)
 
-    def _on_clone(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_clone(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         self.clone_theme()
 
-    def _on_rename(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_rename(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         self.rename_theme()
 
-    def _on_remove(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_remove(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         if not dialog_is_yes(RemoveDialog(transient_for=self)):
             return
         self.remove_theme()
@@ -504,10 +510,10 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.action_remove.set_enabled(False)
         self.reload_presets()
 
-    def _on_save(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_save(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         self.save_theme()
 
-    def _on_export_theme(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_export_theme(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         if not self.plugin_theme:
             raise RuntimeError("No Theme plugin selected")
         self.plugin_theme.export_dialog(
@@ -516,7 +522,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _on_export_icontheme(self, _action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_export_icontheme(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         if not self.plugin_icons:
             raise RuntimeError("No Icons plugin selected")
         self.plugin_icons.export_dialog(
@@ -525,7 +531,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             colorscheme=self.colorscheme
         )
 
-    def _on_export_plugin(self, action: Gio.SimpleAction, _param: Any = None) -> None:
+    def _on_export_plugin(self, action: Gio.SimpleAction, _param: "Any" = None) -> None:
         plugin = PluginLoader.get_export_plugins()[
             action.props.name.replace('export_plugin_', '')  # type: ignore[attr-defined]
         ]
@@ -540,21 +546,21 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.ui_settings.window_width, self.ui_settings.window_height = self.get_size()
         self.ui_settings.save()
 
-    def _on_quit(self, _arg1: Any = None, _arg2: Any = None) -> None:
+    def _on_quit(self, _arg1: "Any" = None, _arg2: "Any" = None) -> None:
         self._before_quit()
 
     def close(self) -> None:  # pylint: disable=arguments-differ
         self._before_quit()
         super().close()
 
-    def _on_show_help(self, _action: Any, _param: Any = None) -> None:
+    def _on_show_help(self, _action: "Any", _param: "Any" = None) -> None:
         # @TODO: refactor to use .set_help_overlay() ?
         show_shortcuts(self)
 
-    def _on_show_about(self, _action: Any, _param: Any = None) -> None:
+    def _on_show_about(self, _action: "Any", _param: "Any" = None) -> None:
         show_about(self)
 
-    def _on_pane_resize(self, _action: Any, _param: Any = None) -> None:
+    def _on_pane_resize(self, _action: "Any", _param: "Any" = None) -> None:
         position = self.paned_box.get_position()
         self.ui_settings.preset_list_width = position
 
@@ -877,9 +883,9 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
 
         _plugin_shortcuts: dict[str, str] = {}
-        import_and_export_plugins: Sequence[
+        import_and_export_plugins: """Sequence[
                 tuple[Mapping[str, OomoxImportPlugin | OomoxExportPlugin], str]
-        ] = (
+        ]""" = (
             (PluginLoader.get_import_plugins(), "import_plugin_{}"),
             (PluginLoader.get_export_plugins(), "export_plugin_{}"),
         )
@@ -946,7 +952,7 @@ class OomoxGtkApplication(Gtk.Application):
         else:
             super().quit()
 
-    def _on_quit(self, _action: Any, _param: Any | None = None) -> None:
+    def _on_quit(self, _action: "Any", _param: "Any | None" = None) -> None:
         self.quit()
 
 
@@ -954,12 +960,12 @@ def main() -> None:
 
     app = OomoxGtkApplication()
 
-    def handle_sig_int(*_whatever: Any) -> None:  # pragma: no cover
+    def handle_sig_int(*_whatever: "Any") -> None:  # pragma: no cover
         sys.stderr.write("\n\nCanceled by user (SIGINT)\n")
         app.quit()
         sys.exit(128 + signal.SIGINT)
 
-    def handle_sig_term(*_whatever: Any) -> None:  # pragma: no cover
+    def handle_sig_term(*_whatever: "Any") -> None:  # pragma: no cover
         sys.stderr.write("\n\nTerminated by SIGTERM\n")
         app.quit()
         sys.exit(128 + signal.SIGTERM)

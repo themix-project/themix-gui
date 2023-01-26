@@ -1,7 +1,7 @@
 import os
-from typing import Any, Final, Sequence
+from typing import TYPE_CHECKING
 
-from gi.repository import Gdk, GLib, Gtk
+from gi.repository import GLib, Gtk
 
 from .color import (
     convert_theme_color_to_gdk,
@@ -12,13 +12,20 @@ from .color import (
 from .config import DEFAULT_ENCODING, FALLBACK_COLOR
 from .gtk_helpers import ScaledImage
 from .i18n import translate
-from .plugin_api import OomoxIconsPlugin, OomoxThemePlugin
 from .preview_icons import IconThemePreview
 from .preview_terminal import TerminalThemePreview
-from .theme_file import ThemeT
 from .theme_model import get_theme_model
 
-WIDGET_SPACING: Final = 10
+if TYPE_CHECKING:
+    from typing import Any, Final, Sequence
+
+    from gi.repository import Gdk
+
+    from .plugin_api import OomoxIconsPlugin, OomoxThemePlugin
+    from .theme_file import ThemeT
+
+
+WIDGET_SPACING: "Final" = 10
 
 
 class CssProviders():
@@ -147,7 +154,7 @@ class PreviewWidgets(Gtk.Box):
                 item.set_submenu(self.create_menu(2))
         return menu
 
-    def load_imageboxes_templates(self, theme_plugin: OomoxThemePlugin) -> None:
+    def load_imageboxes_templates(self, theme_plugin: "OomoxThemePlugin") -> None:
         for icon in theme_plugin.PreviewImageboxesNames:
             template_path = f"{icon.value}.svg.template"
             with open(
@@ -159,7 +166,7 @@ class PreviewWidgets(Gtk.Box):
                         file_object.read().decode(DEFAULT_ENCODING)
 
     def update_preview_imageboxes(
-            self, colorscheme: ThemeT, theme_plugin: OomoxThemePlugin
+            self, colorscheme: "ThemeT", theme_plugin: "OomoxThemePlugin",
     ) -> None:
         transform_function = theme_plugin.preview_transform_function
         self.load_imageboxes_templates(theme_plugin)
@@ -173,7 +180,7 @@ class PreviewWidgets(Gtk.Box):
             )
 
 
-def _get_menu_widgets(shell: Gtk.MenuShell) -> Sequence[Gtk.Menu | Gtk.MenuShell]:
+def _get_menu_widgets(shell: Gtk.MenuShell) -> "Sequence[Gtk.Menu | Gtk.MenuShell]":
     """Gets a menu shell (menu or menubar) and all its children."""
     children = [shell]
     for child in shell:  # type: ignore[attr-defined]
@@ -238,7 +245,7 @@ class ThemePreview(Gtk.Grid):
             self,
             widget: Gtk.Widget,
             value: str,
-            color: Gdk.RGBA,
+            color: "Gdk.RGBA",
             state: Gtk.StateFlags = Gtk.StateFlags.NORMAL
     ) -> None:
         if value == self.BG:
@@ -249,7 +256,7 @@ class ThemePreview(Gtk.Grid):
             return
         raise NotImplementedError()
 
-    def update_preview_carets(self, colorscheme: ThemeT) -> None:
+    def update_preview_carets(self, colorscheme: "ThemeT") -> None:
         self.css_providers.caret.load_from_data((
             (Gtk.get_minor_version() >= 20 and """
             * {{
@@ -275,7 +282,7 @@ class ThemePreview(Gtk.Grid):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-    def update_preview_gradients(self, colorscheme: ThemeT) -> None:
+    def update_preview_gradients(self, colorscheme: "ThemeT") -> None:
         gradient: float = colorscheme['GRADIENT']  # type: ignore[assignment]
         if gradient == 0:
             self.reset_gradients()
@@ -346,7 +353,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def update_preview_borders(self, colorscheme: ThemeT) -> None:
+    def update_preview_borders(self, colorscheme: "ThemeT") -> None:
         for widget_name, widget, fg, bg, ratio in (  # pylint: disable=invalid-name
                 (
                     'button',
@@ -399,7 +406,7 @@ class ThemePreview(Gtk.Grid):
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-    def update_preview_colors(self, colorscheme: ThemeT) -> None:
+    def update_preview_colors(self, colorscheme: "ThemeT") -> None:
 
         converted = {
             theme_value['key']: convert_theme_color_to_gdk(
@@ -412,7 +419,7 @@ class ThemePreview(Gtk.Grid):
             )
         }
 
-        def mix(color_id1: str, color_id2: str, amount: float) -> Gdk.RGBA:
+        def mix(color_id1: str, color_id2: str, amount: float) -> "Gdk.RGBA":
             return mix_gdk_colors(converted[color_id2], converted[color_id1], amount)
 
         self.override_widget_color(self.background, self.BG, converted["BG"])
@@ -493,11 +500,11 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview(
             self,
-            colorscheme: ThemeT,
-            theme_plugin: OomoxThemePlugin | None,
-            icons_plugin: OomoxIconsPlugin | None,
+            colorscheme: "ThemeT",
+            theme_plugin: "OomoxThemePlugin | None",
+            icons_plugin: "OomoxIconsPlugin | None",
     ) -> None:
-        colorscheme_with_fallbacks: ThemeT = {}
+        colorscheme_with_fallbacks: "ThemeT" = {}
         for section in get_theme_model().values():
             for theme_value in section:
                 if 'key' not in theme_value:
@@ -532,7 +539,7 @@ class ThemePreview(Gtk.Grid):
             raise RuntimeError("Terminal preview widget failed to load")
         self.terminal_preview.update_preview(colorscheme_with_fallbacks)
 
-    def get_theme_css_provider(self, theme_plugin: OomoxThemePlugin) -> Gtk.CssProvider:
+    def get_theme_css_provider(self, theme_plugin: "OomoxThemePlugin") -> Gtk.CssProvider:
         css_dir = theme_plugin.gtk_preview_dir
 
         _css_postfix = '20' if Gtk.get_minor_version() >= 20 else ''
@@ -552,7 +559,7 @@ class ThemePreview(Gtk.Grid):
         self.css_providers.theme[css_path] = css_provider
         return css_provider
 
-    def override_css_style(self, colorscheme: ThemeT, theme_plugin: OomoxThemePlugin) -> None:
+    def override_css_style(self, colorscheme: "ThemeT", theme_plugin: "OomoxThemePlugin") -> None:
         new_theme_plugin_name: str = colorscheme["THEME_STYLE"]  # type: ignore[assignment]
         if new_theme_plugin_name == self.theme_plugin_name:
             return
@@ -588,6 +595,6 @@ class ThemePreview(Gtk.Grid):
 
         self.show_all()
 
-    def _queue_resize(self, *_args: Any) -> None:
+    def _queue_resize(self, *_args: "Any") -> None:
         # print(args)
         self.queue_resize()

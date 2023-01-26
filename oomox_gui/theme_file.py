@@ -2,12 +2,20 @@ import os
 import shutil
 from collections import defaultdict
 from itertools import groupby
-from typing import Callable, NamedTuple
+from typing import TYPE_CHECKING, NamedTuple
 
 from .config import COLORS_DIR, DEFAULT_ENCODING, USER_COLORS_DIR
 from .helpers import ls_r, mkdir_p
-from .plugin_api import PLUGIN_PATH_PREFIX, OomoxImportPlugin
+from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
+
+if TYPE_CHECKING:
+    from typing import Callable
+
+    from .plugin_api import OomoxImportPlugin
+
+    ThemeValueT = str | bool | int | float | Exception
+    ThemeT = dict[str, ThemeValueT]
 
 
 class PresetFile(NamedTuple):
@@ -17,15 +25,11 @@ class PresetFile(NamedTuple):
     is_saveable: bool
 
 
-ThemeValueT = str | bool | int | float | Exception
-ThemeT = dict[str, ThemeValueT]
-
-
 def get_theme_name_and_plugin(
         theme_path: str,
         colors_dir: str,
-        plugin: OomoxImportPlugin | None
-) -> tuple[str, OomoxImportPlugin | None]:
+        plugin: "OomoxImportPlugin | None"
+) -> "tuple[str, OomoxImportPlugin | None]":
     display_name = "".join(
         theme_path.rsplit(colors_dir)
     ).lstrip('/')
@@ -42,7 +46,7 @@ def get_theme_name_and_plugin(
     return display_name, plugin
 
 
-def get_preset_groups_sorter(colors_dir: str) -> Callable[[PresetFile], str]:
+def get_preset_groups_sorter(colors_dir: str) -> "Callable[[PresetFile], str]":
     return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/', maxsplit=1)[0]
 
 
@@ -93,7 +97,7 @@ def get_user_theme_path(user_theme_name: str) -> str:
     return os.path.join(USER_COLORS_DIR, user_theme_name.lstrip('/'))
 
 
-def save_colorscheme(preset_name: str, colorscheme: ThemeT, path: str | None = None) -> str:
+def save_colorscheme(preset_name: str, colorscheme: "ThemeT", path: str | None = None) -> str:
     colorscheme_to_write = {}
     colorscheme_to_write.update(colorscheme)
     colorscheme_to_write["NAME"] = f'"{preset_name}"'

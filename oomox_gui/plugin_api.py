@@ -1,27 +1,25 @@
 import os
 from abc import ABCMeta, abstractmethod
 from enum import Enum
-from typing import (
-    TYPE_CHECKING,
-    Final,
-)
+from typing import TYPE_CHECKING
 
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 if TYPE_CHECKING:
-    from typing import Callable, Iterable, Optional, Type  # noqa: F401
+    from typing import Callable, Final, Iterable, Optional, Type  # noqa: F401
 
     from typing_extensions import TypedDict
 
     from .export_common import ExportDialog
     from .preview import ThemePreview
     from .preview_icons import IconThemePreview
-    from .theme_file_parser import ColorScheme
+    from .theme_file import ThemeT
     from .theme_model import ThemeModelValue  # noqa: F401
+
     AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
 
 
-PLUGIN_PATH_PREFIX: Final = "__plugin__"
+PLUGIN_PATH_PREFIX: "Final" = "__plugin__"
 
 
 class OomoxPlugin(metaclass=ABCMeta):
@@ -66,7 +64,7 @@ class OomoxThemePlugin(OomoxPlugin):
     theme_model_extra = []  # type: list[ThemeModelValue]
 
     def preview_before_load_callback(
-            self, preview_object: 'ThemePreview', colorscheme: 'ColorScheme'
+            self, preview_object: 'ThemePreview', colorscheme: 'ThemeT'
     ) -> None:
         pass
 
@@ -77,7 +75,7 @@ class OomoxThemePlugin(OomoxPlugin):
         PreviewImageboxesNames.CHECKBOX.name: 16,
     }
 
-    def preview_transform_function(self, svg_template: str, colorscheme: 'ColorScheme') -> str:
+    def preview_transform_function(self, svg_template: str, colorscheme: 'ThemeT') -> str:
         for key in (
                 "SEL_BG", "SEL_FG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):
@@ -103,11 +101,11 @@ class OomoxIconsPlugin(OomoxPlugin):
         pass
 
     @abstractmethod
-    def preview_transform_function(self, svg_template: str, colorscheme: 'ColorScheme') -> str:
+    def preview_transform_function(self, svg_template: str, colorscheme: 'ThemeT') -> str:
         pass
 
     def preview_before_load_callback(
-            self, preview_object: 'IconThemePreview', colorscheme: 'ColorScheme'
+            self, preview_object: 'IconThemePreview', colorscheme: 'ThemeT'
     ) -> None:
         pass
 
@@ -132,7 +130,7 @@ class OomoxImportPlugin(OomoxPlugin):
     is_async = False
 
     @abstractmethod
-    def read_colorscheme_from_path(self, preset_path: str) -> 'ColorScheme':
+    def read_colorscheme_from_path(self, preset_path: str) -> 'ThemeT':
         pass
 
     # Text to display in import menu:
@@ -163,6 +161,6 @@ class OomoxImportPluginAsync(OomoxImportPlugin):
 
     @abstractmethod
     def read_colorscheme_from_path(  # type: ignore[override] #  pylint: disable=arguments-differ
-            self, preset_path: str, callback: 'Callable[[ColorScheme,], None]'
+            self, preset_path: str, callback: 'Callable[[ThemeT,], None]'
     ) -> None:
         pass

@@ -1,5 +1,5 @@
 import os
-from typing import TYPE_CHECKING, Mapping, Sequence
+from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
 
@@ -8,7 +8,7 @@ from .i18n import translate
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
-    from typing import Callable
+    from typing import Callable, Mapping, Sequence
 
     from .plugin_api import OomoxExportPlugin, OomoxImportPlugin
 

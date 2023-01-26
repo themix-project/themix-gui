@@ -1,8 +1,11 @@
 import json
-
-from gi.repository import Gdk
+from typing import TYPE_CHECKING
 
 from .config import DEFAULT_ENCODING, USER_PALETTE_PATH
+
+if TYPE_CHECKING:
+    from gi.repository import Gdk
+
 
 PaletteCacheT = list[str]
 
@@ -46,7 +49,7 @@ class PaletteCache():
         return ':'.join(cls.get())
 
     @classmethod
-    def add_color(cls, gtk_color: Gdk.RGBA) -> None:
+    def add_color(cls, gtk_color: "Gdk.RGBA") -> None:
         gtk_color_converted = gtk_color.to_color().to_string()  # type: ignore[func-returns-value]
         palette_cache_list = [
             string for string in cls.get()  # pylint: disable=not-an-iterable

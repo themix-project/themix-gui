@@ -1,11 +1,15 @@
 import json
 import os
-from typing import Any, Final
+from typing import TYPE_CHECKING
 
 from .config import DEFAULT_ENCODING, USER_CONFIG_DIR
 from .i18n import translate
 
-PRESET_LIST_MIN_SIZE: Final = 150
+if TYPE_CHECKING:
+    from typing import Any, Final
+
+
+PRESET_LIST_MIN_SIZE: "Final" = 150
 
 
 class CommonOomoxConfig:
@@ -14,13 +18,13 @@ class CommonOomoxConfig:
     config_dir: str
     config_path: str
     default_config: dict[str, str]
-    config: dict[str, Any]
+    config: dict[str, "Any"]
 
     def __init__(
             self,
             config_dir: str,
             config_name: str,
-            default_config: dict[str, Any] | None = None,
+            default_config: dict[str, "Any"] | None = None,
             force_reload: bool = False
     ):
         self.name = config_name
@@ -46,9 +50,9 @@ class CommonOomoxConfig:
     def load(
             cls,
             config_path: str,
-            default_config: dict[str, Any],
+            default_config: dict[str, "Any"],
             force_reload: bool,
-    ) -> dict[str, Any]:
+    ) -> dict[str, "Any"]:
         if force_reload or not getattr(cls, 'config', None):
             cls.config = default_config or {}
             try:
@@ -66,27 +70,27 @@ class CommonOomoxConfig:
         with open(self.config_path, 'w', encoding=DEFAULT_ENCODING) as file_object:
             return json.dump(self.config, file_object)
 
-    def get(self, item: str, fallback: Any = None) -> Any:
+    def get(self, item: str, fallback: "Any" = None) -> "Any":
         return self.config.get(item, fallback)
 
-    def __getitem__(self, item: str) -> Any:
+    def __getitem__(self, item: str) -> "Any":
         return self.config[item]
 
-    def __setitem__(self, item: str, value: Any) -> None:
+    def __setitem__(self, item: str, value: "Any") -> None:
         self.config[item] = value
 
     @property
     def _public_members(self) -> list[str]:
         return dir(self) + list(self.__annotations__.keys())
 
-    def __getattr__(self, item: str) -> Any:
+    def __getattr__(self, item: str) -> "Any":
         if item in self._public_members:
             return super().__getattribute__(item)
         if item in self.default_config.keys():
             return self.config[item]
         return self.__getattribute__(item)
 
-    def __setattr__(self, item: str, value: Any) -> None:
+    def __setattr__(self, item: str, value: "Any") -> None:
         if item in self._public_members:
             super().__setattr__(item, value)
             return
@@ -99,7 +103,7 @@ class CommonOomoxConfig:
 
 
 class OomoxSettings(CommonOomoxConfig):
-    def __init__(self, config_name: str, default_config: dict[str, Any]) -> None:
+    def __init__(self, config_name: str, default_config: dict[str, "Any"]) -> None:
         super().__init__(
             config_dir=USER_CONFIG_DIR,
             config_name=config_name,

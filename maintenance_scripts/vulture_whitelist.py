@@ -7,12 +7,33 @@ from vulture.whitelist_utils import Whitelist  # pylint: disable=import-error,no
 whitelist = Whitelist()
 
 # typehints
-whitelist.typing.List
+whitelist.typing.Any
+whitelist.typing.BinaryIO
+whitelist.typing.Final
+whitelist.typing.IOStream
 whitelist.typing.Iterable
+whitelist.typing.Iterable
+whitelist.typing.Literal
+whitelist.typing.Mapping
+whitelist.typing.ModuleType
+whitelist.typing.MutableMapping
+whitelist.typing.NoReturn
 whitelist.typing.Optional
+whitelist.typing.Pattern
+whitelist.typing.Sequence
+whitelist.typing.TextIO
+whitelist.typing.TracebackType
+whitelist.typing.Tuple
+whitelist.typing.Type
+whitelist.color.HexColor
+whitelist.color.IntColor
 whitelist.theme_model.ThemeModel
 whitelist.theme_file.PresetFile.default
-whitelist.plugin_api.ColorScheme
+whitelist.theme_file.ThemeT
+
+whitelist.helpers.SortableT
+whitelist.helpers.DelayedPartialReturnT
+whitelist.helpers.DelayedPartialArgT
 
 # stdlib
 whitelist.Thread.daemon

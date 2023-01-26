@@ -1,10 +1,15 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Type
+from typing import TYPE_CHECKING
 
-from gi.repository import GdkPixbuf, Gio, GLib, Gtk, Pango
+from gi.repository import GdkPixbuf, Gio, GLib, Gtk
 from gi.types import GObjectMeta
 
 from .i18n import translate
+
+if TYPE_CHECKING:
+    from typing import Any, Type
+
+    from gi.repository import Pango
 
 
 class ActionProperty(str):
@@ -71,13 +76,13 @@ class ImageButtonContainer(Gtk.Box):
 
 
 class ImageButton(Gtk.Button, ImageButtonContainer):
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, *args: "Any", **kwargs: "Any") -> None:
         Gtk.Button.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
 
 class ImageMenuButton(Gtk.MenuButton, ImageButtonContainer):  # type: ignore[misc]
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, *args: "Any", **kwargs: "Any") -> None:
         Gtk.MenuButton.__init__(self)
         ImageButtonContainer.__init__(self, *args, **kwargs)
 
@@ -92,10 +97,10 @@ class ScaledImage(Gtk.Image):
 
     def __init__(
             self,
-            *args: Any,
+            *args: "Any",
             width: int | None = None,
             height: int | None = None,
-            **kwargs: Any
+            **kwargs: "Any"
     ) -> None:
         super().__init__(*args, **kwargs)
         if not width or height:
@@ -110,7 +115,7 @@ class ScaledImage(Gtk.Image):
         if height:
             self.orig_height = height
 
-    def do_draw(self, cr: Pango.Matrix) -> None:  # pylint: disable=arguments-differ
+    def do_draw(self, cr: "Pango.Matrix") -> None:  # pylint: disable=arguments-differ
         if self.oomox_width and self.oomox_height:
             cr.scale(1/self.scale_factor, 1/self.scale_factor)
             cr.translate(
@@ -238,7 +243,7 @@ class GObjectABCMeta(GObjectMeta, type):
 
     ABS_METHODS = '__abstract_methods__'
 
-    def __init__(cls, name: str, transient_for: Gtk.Window, data: Any) -> None:
+    def __init__(cls, name: str, transient_for: Gtk.Window, data: "Any") -> None:
         super().__init__(name, transient_for, data)  # type: ignore[arg-type]
         this_required_methods = []
         for property_name in dir(cls):
@@ -272,7 +277,7 @@ class GObjectABCMeta(GObjectMeta, type):
                 )
 
 
-def g_abstractproperty(_function: Any) -> Type[GObjectABCMetaAbstractProperty]:
+def g_abstractproperty(_function: "Any") -> "Type[GObjectABCMetaAbstractProperty]":
     return GObjectABCMetaAbstractProperty
 
 
