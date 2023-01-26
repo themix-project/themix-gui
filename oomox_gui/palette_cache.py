@@ -2,6 +2,7 @@ import json
 from typing import TYPE_CHECKING
 
 from .config import DEFAULT_ENCODING, USER_PALETTE_PATH
+from .helpers import log_error
 
 if TYPE_CHECKING:
     from gi.repository import Gdk
@@ -19,14 +20,16 @@ class PaletteCache():
         try:
             with open(USER_PALETTE_PATH, "r", encoding=DEFAULT_ENCODING) as file_object:
                 result = json.load(file_object)
-            if not isinstance(result, list):
-                raise RuntimeError("Error loading palette cache")
-            for item in result:
-                if not isinstance(item, str):
-                    raise RuntimeError("Error loading palette cache")
-            return result
-        except (FileNotFoundError, RuntimeError):
+        except FileNotFoundError:
             return []
+        if not isinstance(result, list):
+            log_error("Error loading palette cache")
+            return []
+        for item in result:
+            if not isinstance(item, str):
+                log_error("Error loading palette cache")
+                return []
+        return result
 
     @staticmethod
     def save(palette_cache_list: PaletteCacheT) -> None:

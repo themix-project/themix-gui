@@ -73,3 +73,7 @@ def delayed_partial(
         computed_args.append(delayed_func(*args))
     all_args = computed_args + list(rest_args)
     return func(*all_args)
+
+
+def log_error(info: "Any") -> None:
+    sys.stderr.write(f"{str(info)}\n")

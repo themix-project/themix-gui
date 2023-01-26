@@ -37,7 +37,7 @@ select = [
     #"INP",
     "EXE",
     "TCH",
-    #"TRY", 12
+    "TRY",
     "RUF",
 ]
 ignore = [
