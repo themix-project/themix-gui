@@ -61,7 +61,7 @@ def find_closest_color_key(
             continue
         diff = ColorDiff(preset_color, color_hex)
         # if diff.minabs < smallest_diff.minabs:
-        if diff.abs < smallest_diff.abs:
+        if diff.abs_sum < smallest_diff.abs_sum:
             smallest_diff = diff
             smallest_key = preset_key
     return smallest_key, smallest_diff
@@ -373,7 +373,7 @@ class FullPaletteCache():
         return cls._cache.get(key)
 
     @classmethod
-    def set(cls, key: str, value: dict[str, str]) -> None:
+    def put(cls, key: str, value: dict[str, str]) -> None:
         cls._cache[key] = value
 
 
@@ -421,7 +421,7 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         )
     else:
         def _callback(generated_colors: TerminalThemeT) -> None:
-            FullPaletteCache.set(cache_id, generated_colors)
+            FullPaletteCache.put(cache_id, generated_colors)
             _generate_theme_from_full_palette_callback(
                 cache_id, theme_bg, theme_fg, result_callback
             )

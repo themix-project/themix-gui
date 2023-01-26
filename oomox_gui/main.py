@@ -122,7 +122,7 @@ def dialog_is_yes(dialog: Gtk.Dialog) -> bool:
 
 class AppActions(ActionsEnum):
     _target = "app"
-    quit = ActionProperty(_target, "quit")
+    quit_action = ActionProperty(_target, "quit")
 
 
 class WindowActions(ActionsEnum):
@@ -848,7 +848,7 @@ class OomoxGtkApplication(Gtk.Application):
         Gtk.Application.do_startup(self)
 
         quit_action = Gio.SimpleAction.new(
-            AppActions.quit, None
+            AppActions.quit_action, None
         )
         quit_action.connect("activate", self._on_quit)
         self.add_action(quit_action)
@@ -869,7 +869,7 @@ class OomoxGtkApplication(Gtk.Application):
                 _shortcuts[accel] = action_id
             self.set_accels_for_action(action_id, accels)
 
-        set_accels_for_action(AppActions.quit, ["<Primary>Q"])
+        set_accels_for_action(AppActions.quit_action, ["<Primary>Q"])
 
         set_accels_for_action(WindowActions.import_menu, ["<Primary>M"])
         set_accels_for_action(WindowActions.clone, ["<Shift><Primary>S"])
@@ -946,7 +946,7 @@ class OomoxGtkApplication(Gtk.Application):
         self.activate()
         return 0
 
-    def quit(self) -> None:  # pylint: disable=arguments-differ
+    def quit(self) -> None:  # pylint: disable=arguments-differ  # noqa: A003
         if self.window:
             self.window.close()
         else:

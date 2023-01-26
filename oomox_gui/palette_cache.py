@@ -34,7 +34,7 @@ class PaletteCache():
             return json.dump(palette_cache_list, file_object)
 
     @classmethod
-    def set(cls, palette_cache_list: PaletteCacheT) -> None:
+    def put(cls, palette_cache_list: PaletteCacheT) -> None:
         cls._palette_cache = palette_cache_list
         cls.save(palette_cache_list)
 
@@ -56,4 +56,4 @@ class PaletteCache():
             if string != ''
         ]
         if gtk_color_converted not in palette_cache_list:
-            cls.set([gtk_color_converted, *palette_cache_list][:20])
+            cls.put([gtk_color_converted, *palette_cache_list][:20])

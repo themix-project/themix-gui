@@ -63,15 +63,15 @@ class ColorDiff():
     b: int  # pylint: disable=invalid-name
 
     @property
-    def list(self) -> "IntColor":
+    def color_list(self) -> "IntColor":
         return [self.r, self.g, self.b]
 
     @property
     def abs_list(self) -> "IntColor":
-        return [abs(c) for c in self.list]
+        return [abs(c) for c in self.color_list]
 
     @property
-    def abs(self) -> int:
+    def abs_sum(self) -> int:
         return sum(self.abs_list)
 
     @property
@@ -80,7 +80,7 @@ class ColorDiff():
         return abs(r-g)+abs(r-b) + abs(g-r)+abs(g-b) + abs(b-g)+abs(b-r)
 
     def __repr__(self) -> str:
-        return str(self.abs)
+        return str(self.abs_sum)
 
     def __init__(self, theme_color_1: "HexColor", theme_color_2: "HexColor") -> None:
         color_list_1 = color_list_from_hex(theme_color_1)
@@ -121,7 +121,7 @@ def find_closest_color(
         diff = ColorDiff(preset_color, color_hex)
         # @TODO: use real lightness from HSV or Lab color model
         lightness = (sum(int_list_from_hex(preset_color)))
-        if (diff.abs < smallest_diff.abs) and (max_lightness >= lightness >= min_lightness):
+        if (diff.abs_sum < smallest_diff.abs_sum) and (max_lightness >= lightness >= min_lightness):
             smallest_diff = diff
             closest_color = preset_color
     if not closest_color:
