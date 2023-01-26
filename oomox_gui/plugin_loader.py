@@ -1,11 +1,10 @@
 import os
-import sys
 import traceback
 
 from gi.repository import Gtk
 
 from .config import PLUGINS_DIR, USER_PLUGINS_DIR
-from .helpers import get_plugin_module
+from .helpers import get_plugin_module, log_error
 from .i18n import translate
 from .plugin_api import (
     OomoxExportPlugin,
@@ -95,7 +94,7 @@ class PluginLoader:
                     "\n" * 2 +
                     traceback.format_exc()
                 )
-                sys.stderr.write(f"{message_header}\n{message_text}\n")
+                log_error(f"{message_header}\n{message_text}")
                 error_dialog = Gtk.MessageDialog(
                     text=message_header,
                     secondary_text=message_text,

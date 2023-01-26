@@ -21,7 +21,7 @@ from .gtk_helpers import (
     YesNoDialog,
     warn_once,
 )
-from .helpers import mkdir_p
+from .helpers import log_error, mkdir_p
 from .i18n import translate
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
@@ -961,12 +961,12 @@ def main() -> None:
     app = OomoxGtkApplication()
 
     def handle_sig_int(*_whatever: "Any") -> None:  # pragma: no cover
-        sys.stderr.write("\n\nCanceled by user (SIGINT)\n")
+        log_error("\n\nCanceled by user (SIGINT)")
         app.quit()
         sys.exit(128 + signal.SIGINT)
 
     def handle_sig_term(*_whatever: "Any") -> None:  # pragma: no cover
-        sys.stderr.write("\n\nTerminated by SIGTERM\n")
+        log_error("\n\nTerminated by SIGTERM")
         app.quit()
         sys.exit(128 + signal.SIGTERM)
 
