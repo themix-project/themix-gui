@@ -7,12 +7,12 @@ select = [
     "I",
     "D",
     #"UP",
-    #"N",
+    "N",
     "YTT",
-    #"ANN",
+    #"ANN", 2
     "S",
     "BLE",
-    #"FBT",
+    #"FBT", 1
     "B",
     "A",
     "C4",

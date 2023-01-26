@@ -44,6 +44,7 @@ MEDIUM_QUALITY = 200
 HIGH_QUALITY = 400
 # ULTRA_QUALITY = 1000
 
+ACCURACY = 40
 
 image_analyzer = get_plugin_module("ima", os.path.join(PLUGIN_DIR, "ima.py"))
 
@@ -575,7 +576,6 @@ class Plugin(OomoxImportPluginAsync):
         bright_colors = set(hex_palette)
         bright_colors.difference_update(gray_colors)
         bright_colors_list = list(bright_colors)
-        ACCURACY = 40  # pylint: disable=invalid-name
         hex_palette += [hex_darker(c, ACCURACY) for c in gray_colors]
         hex_palette += [hex_darker(c, -ACCURACY) for c in gray_colors]
         reference_palette = import_xcolors(os.path.join(TERMINAL_TEMPLATE_DIR, template_path))

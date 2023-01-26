@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from .theme_model import ThemeModelValue
 
 
-class NoPluginsInstalled(Exception):
+class NoPluginsInstalledError(Exception):
 
     def __init__(self, theme_value: "ThemeModelValue"):
         self.theme_value = theme_value
@@ -60,7 +60,7 @@ def parse_theme_value(  # pylint: disable=too-many-branches
                 result_value = fallback_value
             else:
                 if not available_options:
-                    raise NoPluginsInstalled(theme_value)
+                    raise NoPluginsInstalledError(theme_value)
                 result_value = available_options[0]
 
     return result_value  # type: ignore[return-value]
@@ -96,7 +96,7 @@ def _set_fallback_values(
                 continue
             try:
                 colorscheme[key] = parse_theme_value(theme_model_item, colorscheme)
-            except NoPluginsInstalled as exc:
+            except NoPluginsInstalledError as exc:
                 colorscheme[key] = exc
     if from_plugin:
         colorscheme["FROM_PLUGIN"] = from_plugin

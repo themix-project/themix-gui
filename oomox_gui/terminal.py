@@ -146,7 +146,7 @@ def get_all_colors_from_oomox_colorscheme(palette: "ThemeT") -> list[str]:
     return all_colors
 
 
-class ContinueNext(Exception):
+class ContinueNext(Exception):  # noqa: N818
     pass
 
 
@@ -207,7 +207,15 @@ def get_lightness(theme_color: str) -> int:
     return sum(int_list_from_hex(theme_color))
 
 
-def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-name,too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
+# how far should be the colors to be counted as similar (0 .. 255*3)
+# COLOR_DIFF_MARGIN = 30
+COLOR_DIFF_MARGIN: "Final" = 60
+# 1 means similarity to template the same important as mathing color palette
+# COLOR_SIMILARITY_IMPORTANCE = 2
+COLOR_SIMILARITY_IMPORTANCE: "Final" = 2.5
+
+
+def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
         result_callback: "Callable[[TerminalThemeT], None]",
         reference_colors: dict[str, str],
         all_colors: list[str],
@@ -218,9 +226,8 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
     hex_colors = reference_colors
     # @TODO: refactor it some day :3
 
-    # how far should be the colors to be counted as similar (0 .. 255*3)
-    # DIFF_MARGIN = 30
-    DIFF_MARGIN = 60
+    color_start = [-0xff, -0xff, -0xff]
+    color_end = [0xff, 0xff, 0xff]
 
     # criterias to recognize bright colors (0 .. 255*3)
     is_dark_bg = is_dark(theme_bg)
@@ -235,11 +242,6 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
         min_lightness = lightness_delta
     else:
         max_lightness = max_possible_lightness - lightness_delta
-    # BRIGHTNESS_MARGIN = 20
-
-    # 1 means similarity to template the same important as mathing color palette
-    # SIMILARITY_IMPORTANCE = 2
-    SIMILARITY_IMPORTANCE = 2.5
 
     accuracy = accuracy or 0x20
     hex_colors_as_color_lists = {
@@ -264,8 +266,6 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
         ] for value in bright_colors
     ]
 
-    START = [-0xff, -0xff, -0xff]
-    END = [0xff, 0xff, 0xff]
     best_diff_color_values = [0, 0, 0]
     biggest_number_of_similar: float | None = None
     prev_biggest_number_of_similar: float | None = None
@@ -278,14 +278,14 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
         # print()
         # print(('ITERATION', _debug_iteration_counter))
         progress = ProgressBar(
-            length=((int(abs(START[0] - END[0])/accuracy) + 2) ** 3),
+            length=((int(abs(color_start[0] - color_end[0])/accuracy) + 2) ** 3),
         )
-        red = START[RED]
-        while red < END[RED] + accuracy:
-            green = START[GREEN]
-            while green < END[GREEN] + accuracy:
-                blue = START[BLUE]
-                while blue < END[BLUE] + accuracy:
+        red = color_start[RED]
+        while red < color_end[RED] + accuracy:
+            green = color_start[GREEN]
+            while green < color_end[GREEN] + accuracy:
+                blue = color_start[BLUE]
+                while blue < color_end[BLUE] + accuracy:
                     try:
 
                         color_list = [red, green, blue]
@@ -313,11 +313,11 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
                                 abs_diff = 0
                                 for i in range(3):
                                     abs_diff += abs(modified_color[i] - bright_color[i])
-                                if abs_diff < DIFF_MARGIN:
+                                if abs_diff < COLOR_DIFF_MARGIN:
                                     num_of_similar += 1
 
                         similarity_to_reference = (
-                            255*3 - sum(abs(c) for c in color_list) * SIMILARITY_IMPORTANCE
+                            255*3 - sum(abs(c) for c in color_list) * COLOR_SIMILARITY_IMPORTANCE
                         ) / (255*3)
                         num_of_similar *= similarity_to_reference
 
@@ -344,8 +344,8 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
             break
         prev_biggest_number_of_similar = biggest_number_of_similar
         for i in range(3):
-            START[i] = max(best_diff_color_values[i] - accuracy, -255)
-            END[i] = min(best_diff_color_values[i] + accuracy, 255)
+            color_start[i] = max(best_diff_color_values[i] - accuracy, -255)
+            color_end[i] = min(best_diff_color_values[i] + accuracy, 255)
         accuracy = round(accuracy / 2)
         # print(('DEEPER!', accuracy))
 

@@ -1,4 +1,3 @@
-# pylint: disable=invalid-name
 import os
 from typing import TYPE_CHECKING
 
@@ -127,15 +126,15 @@ def get_theme_model_uncached() -> "ThemeModel":
             plugins=PluginLoader.get_theme_plugins(),
         )
 
-    THEME_MODEL: "ThemeModel" = {}
+    theme_model: "ThemeModel" = {}
 
-    THEME_MODEL["import"] = merge_model_with_plugins(
+    theme_model["import"] = merge_model_with_plugins(
         theme_model_name="import",
         value_filter_key="FROM_PLUGIN",
         plugins=PluginLoader.get_import_plugins(),
     )
 
-    THEME_MODEL["base"] = [
+    theme_model["base"] = [
         {
             "type": "separator",
             "display_name": translate("Theme Style"),
@@ -156,7 +155,7 @@ def get_theme_model_uncached() -> "ThemeModel":
         },
     ]
 
-    BASE_THEME_MODEL_GTK: "ThemeModelSection" = [
+    base_theme_model_gtk: "ThemeModelSection" = [
         {
             "type": "separator",
             "display_name": translate("Theme Colors"),
@@ -263,14 +262,14 @@ def get_theme_model_uncached() -> "ThemeModel":
             "filter": lambda _v: False,
         },
     ]
-    THEME_MODEL["colors"] = merge_model_with_plugins(
+    theme_model["colors"] = merge_model_with_plugins(
         theme_model_name="gtk",
-        base_theme_model=merge_theme_model_with_plugins("gtk", BASE_THEME_MODEL_GTK),
+        base_theme_model=merge_theme_model_with_plugins("gtk", base_theme_model_gtk),
         value_filter_key="FROM_PLUGIN",
         plugins=PluginLoader.get_import_plugins(),
     )
 
-    BASE_THEME_MODEL_OPTIONS: "ThemeModelSection" = [
+    base_theme_model_options: "ThemeModelSection" = [
         {
             "type": "separator",
             "display_name": translate("Theme Options"),
@@ -289,11 +288,11 @@ def get_theme_model_uncached() -> "ThemeModel":
             "display_name": translate("Gradient"),
         },
     ]
-    THEME_MODEL["theme_options"] = merge_theme_model_with_plugins(
-        "options", BASE_THEME_MODEL_OPTIONS,
+    theme_model["theme_options"] = merge_theme_model_with_plugins(
+        "options", base_theme_model_options,
     )
 
-    BASE_ICON_THEME_MODEL: "ThemeModelSection" = [
+    base_icon_theme_model: "ThemeModelSection" = [
         {
             "type": "separator",
             "display_name": translate("Iconset"),
@@ -312,14 +311,14 @@ def get_theme_model_uncached() -> "ThemeModel":
             "display_name": translate("Icons Style"),
         },
     ]
-    THEME_MODEL["icons"] = merge_model_with_plugins(
-        base_theme_model=BASE_ICON_THEME_MODEL,
+    theme_model["icons"] = merge_model_with_plugins(
+        base_theme_model=base_icon_theme_model,
         theme_model_name="icons",
         value_filter_key="ICONS_STYLE",
         plugins=PluginLoader.get_icons_plugins(),
     )
 
-    THEME_MODEL["terminal"] = [
+    theme_model["terminal"] = [
         {
             "type": "separator",
             "display_name": translate("Terminal"),
@@ -557,13 +556,13 @@ def get_theme_model_uncached() -> "ThemeModel":
     ]
 
     _theme_export_plugins = merge_theme_model_with_plugins("extra")
-    THEME_MODEL["export"] = merge_model_with_plugins(
+    theme_model["export"] = merge_model_with_plugins(
         base_theme_model=_theme_export_plugins,
         theme_model_name="extra",
         plugins=PluginLoader.get_export_plugins(),
     )
 
-    return THEME_MODEL
+    return theme_model
 
 
 class CachedThemeModel:
