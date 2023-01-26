@@ -126,7 +126,7 @@ class ExportDialog(Gtk.Dialog):
         self.apply_button = Gtk.Button(
             label=translate("_Apply Options and Export"), use_underline=True,
         )
-        self.apply_button.connect("clicked", lambda x: self.do_export())
+        self.apply_button.connect("clicked", lambda _x: self.do_export())
 
         self.error_box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5

@@ -657,8 +657,8 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         "TERMINAL_THEME_AUTO_BGFG", "TERMINAL_FG", "TERMINAL_BG",
                 ]:
                     def _callback(  # pylint:disable=unused-argument
-                            key: str,
-                            value: "ThemeValueT",
+                            key: str,  # noqa: ARG001
+                            value: "ThemeValueT",  # noqa: ARG001
                     ) -> None:
                         self.open_theme(self.theme)
                     callbacks += [_callback, ]
