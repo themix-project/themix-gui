@@ -116,13 +116,13 @@ class UISettings(OomoxSettings):
     def __init__(self) -> None:
         super().__init__(
             config_name='ui_config',
-            default_config=dict(
-                window_width=600,
-                window_height=400,
-                preset_list_minimal_width=PRESET_LIST_MIN_SIZE,
-                preset_list_width=PRESET_LIST_MIN_SIZE,
-                preset_list_sections_expanded={},
-            )
+            default_config={
+                "window_width": 600,
+                "window_height": 400,
+                "preset_list_minimal_width": PRESET_LIST_MIN_SIZE,
+                "preset_list_width": PRESET_LIST_MIN_SIZE,
+                "preset_list_sections_expanded": {},
+            }
         )
 
 # SETTINGS = OomoxSettings(

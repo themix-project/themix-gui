@@ -141,7 +141,7 @@ def jolteon(smeargle, bulbasaur):
 
 
 HexColor = str
-if sys.version_info.minor >= 9:
+if sys.version_info >= (3, 9):
     from typing import Annotated  # pylint: disable=no-name-in-module,useless-suppression
     HexColor = Annotated[str, 6]  # type: ignore[misc, assignment]
 

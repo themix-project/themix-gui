@@ -673,7 +673,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     return _callback
 
                 callback = create_callback(callbacks)
-                standard_kwargs = dict(colors_list=self, callback=callback)
+                standard_kwargs = {"colors_list": self, "callback": callback}
 
                 if theme_value['type'] == 'color':
                     row = ColorListBoxRow(

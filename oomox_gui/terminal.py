@@ -73,7 +73,7 @@ def import_xcolors(path: str) -> dict[str, str]:
         for line in file_object.read().split('\n'):
             if line.strip().startswith('!'):
                 continue
-            pair = list(s.strip() for s in line.split(':'))
+            pair = [s.strip() for s in line.split(':')]
             if len(pair) < 2:
                 continue
             key, value = pair

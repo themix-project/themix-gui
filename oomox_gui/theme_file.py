@@ -88,7 +88,7 @@ def get_presets() -> dict[str, dict[str, list[PresetFile]]]:
         for dir_name, group in group_presets_by_dir(file_paths, colors_dir):
             def preset_sorter(preset: PresetFile) -> str:
                 return preset.name
-            result[dir_name] = sorted(list(group), key=preset_sorter)
+            result[dir_name] = sorted(group, key=preset_sorter)
         all_results[colors_dir] = dict(result)
     return all_results
 
