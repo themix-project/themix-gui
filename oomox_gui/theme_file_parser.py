@@ -19,8 +19,8 @@ class NoPluginsInstalled(Exception):
         self.theme_value = theme_value
         super().__init__(
             translate("No plugins installed for {plugin_type}").format(
-                plugin_type=self.theme_value["display_name"]
-            )
+                plugin_type=self.theme_value["display_name"],
+            ),
         )
 
 
@@ -104,7 +104,7 @@ def _set_fallback_values(
 
 def read_colorscheme_from_path(
         preset_path: str,
-        callback: "Callable[[ThemeT, ], None]"
+        callback: "Callable[[ThemeT, ], None]",
 ) -> None:
     preset_path = os.path.abspath(preset_path)
     colorscheme = {}
@@ -119,7 +119,7 @@ def read_colorscheme_from_path(
             from_plugin = plugin_name
             if plugin.is_async:
                 def _get_actual_callback(
-                        plugin_to_use: str | None
+                        plugin_to_use: str | None,
                 ) -> "Callable[[ThemeT], None]":
                     def actual_callback(colorscheme2: "ThemeT") -> None:
                         _set_fallback_values(preset_path, colorscheme2, plugin_to_use)
@@ -127,7 +127,7 @@ def read_colorscheme_from_path(
                     return actual_callback
                 plugin.read_colorscheme_from_path(
                     preset_path,
-                    callback=_get_actual_callback(from_plugin)  # type: ignore[call-arg]
+                    callback=_get_actual_callback(from_plugin),  # type: ignore[call-arg]
                 )
                 return
             colorscheme = plugin.read_colorscheme_from_path(preset_path)

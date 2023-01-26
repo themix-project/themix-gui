@@ -25,19 +25,19 @@ class CommonOomoxConfig:
             config_dir: str,
             config_name: str,
             default_config: dict[str, "Any"] | None = None,
-            force_reload: bool = False
+            force_reload: bool = False,
     ):
         self.name = config_name
         self.config_dir = config_dir
         self.config_path = os.path.join(
             self.config_dir,
-            f"{self.name}.json"
+            f"{self.name}.json",
         )
         self.default_config = default_config or {}
         self.config = self.load(
             default_config=self.default_config,
             config_path=self.config_path,
-            force_reload=force_reload
+            force_reload=force_reload,
         )
 
     def __str__(self) -> str:
@@ -107,7 +107,7 @@ class OomoxSettings(CommonOomoxConfig):
         super().__init__(
             config_dir=USER_CONFIG_DIR,
             config_name=config_name,
-            default_config=default_config
+            default_config=default_config,
         )
 
 
@@ -122,7 +122,7 @@ class UISettings(OomoxSettings):
                 "preset_list_minimal_width": PRESET_LIST_MIN_SIZE,
                 "preset_list_width": PRESET_LIST_MIN_SIZE,
                 "preset_list_sections_expanded": {},
-            }
+            },
         )
 
 # SETTINGS = OomoxSettings(

@@ -14,13 +14,13 @@ OOMOX_ROOT_DIR: "Final" = os.path.abspath(os.path.join(SCRIPT_DIR, "../"))
 
 
 COLORS_DIR: "Final" = os.path.join(
-    OOMOX_ROOT_DIR, "colors/"
+    OOMOX_ROOT_DIR, "colors/",
 )
 PLUGINS_DIR: "Final" = os.path.join(
-    OOMOX_ROOT_DIR, "plugins/"
+    OOMOX_ROOT_DIR, "plugins/",
 )
 TERMINAL_TEMPLATE_DIR: "Final" = os.path.join(
-    OOMOX_ROOT_DIR, "terminal_templates/"
+    OOMOX_ROOT_DIR, "terminal_templates/",
 )
 
 
@@ -29,20 +29,20 @@ USER_CONFIG_DIR: "Final" = os.path.abspath(os.path.join(
         "XDG_CONFIG_HOME",
         os.path.join(
             os.environ.get("HOME", os.path.expanduser("~")),
-            ".config/"
-        )
+            ".config/",
+        ),
     ),
-    "oomox/"
+    "oomox/",
 ))
 USER_COLORS_DIR: "Final" = os.path.join(
-    USER_CONFIG_DIR, "colors/"
+    USER_CONFIG_DIR, "colors/",
 )
 USER_PLUGINS_DIR: "Final" = os.path.join(
-    USER_CONFIG_DIR, "plugins/"
+    USER_CONFIG_DIR, "plugins/",
 )
 USER_PALETTE_PATH: "Final" = os.path.join(
-    USER_CONFIG_DIR, "recent_palette.json"
+    USER_CONFIG_DIR, "recent_palette.json",
 )
 USER_EXPORT_CONFIG_DIR: "Final" = os.path.join(
-    USER_CONFIG_DIR, "export_config/"
+    USER_CONFIG_DIR, "export_config/",
 )

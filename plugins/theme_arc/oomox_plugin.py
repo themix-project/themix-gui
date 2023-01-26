@@ -62,7 +62,7 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
                     "display_name": translate("Generate theme for _Xfwm"),
                 },
             },
-            **kwargs
+            **kwargs,
         )
 
 
@@ -89,7 +89,7 @@ def _monkeypatch_update_preview_borders(preview_object):
                         mix_theme_colors(
                             colorscheme["HDR_BTN_FG"],
                             colorscheme["HDR_BTN_BG"],
-                            0.12
+                            0.12,
                         ),
                     ), (
                         "entry",
@@ -108,12 +108,12 @@ def _monkeypatch_update_preview_borders(preview_object):
                         border-color: #{border_color};
                         border-radius: {colorscheme["ROUNDNESS"]}px;
                     }}
-                    """.encode("ascii")
+                    """.encode("ascii"),
                 )
                 Gtk.StyleContext.add_provider(
                     widget.get_style_context(),
                     css_provider_border_color,
-                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
                 )
 
     preview_object.update_preview_borders = _update_preview_borders
@@ -162,7 +162,7 @@ class Plugin(OomoxThemePlugin):
             "key": "ARC_WIDGET_BORDER_COLOR",
             "fallback_function": lambda colors: mix_theme_colors(
                 colors["BTN_BG"], colors["BTN_FG"],
-                0.75
+                0.75,
             ),
             "type": "color",
             "display_name": translate("Border"),

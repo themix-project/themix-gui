@@ -60,7 +60,7 @@ class ExportDialog(Gtk.Dialog):
         self.box.remove(self.spinner)
 
         error_label = CenterLabel(
-            label=translate("Something went wrong :(")
+            label=translate("Something went wrong :("),
         )
         error_label.set_alignment(0.5, 0.5)
 
@@ -103,7 +103,7 @@ class ExportDialog(Gtk.Dialog):
         # self.log.set_cursor_visible(False)
         self.log.override_font(
             # @TODO: make log size configurable?
-            Pango.font_description_from_string("monospace 8")
+            Pango.font_description_from_string("monospace 8"),
         )
         self.log.set_wrap_mode(Gtk.WrapMode.CHAR)
         #
@@ -114,11 +114,11 @@ class ExportDialog(Gtk.Dialog):
         adj = self.scrolled_window.get_vadjustment()
         adj.connect(
             "changed",
-            lambda adj: adj.set_value(adj.get_upper() - adj.get_page_size())
+            lambda adj: adj.set_value(adj.get_upper() - adj.get_page_size()),
         )
 
         self.options_box = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL, spacing=5
+            orientation=Gtk.Orientation.VERTICAL, spacing=5,
         )
         self.options_box.set_margin_top(5)
         self.options_box.set_margin_bottom(15)
@@ -129,7 +129,7 @@ class ExportDialog(Gtk.Dialog):
         self.apply_button.connect("clicked", lambda _x: self.do_export())
 
         self.error_box = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL, spacing=5
+            orientation=Gtk.Orientation.VERTICAL, spacing=5,
         )
         self.error_box.set_margin_bottom(10)
 
@@ -170,11 +170,11 @@ class ExportDialog(Gtk.Dialog):
             with subprocess.Popen(
                 self.command,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT
+                stderr=subprocess.STDOUT,
             ) as proc:
                 for line in iter(
                         proc.stdout.readline,  # type: ignore[union-attr]
-                        b""
+                        b"",
                 ):
                     captured_log += line.decode(DEFAULT_ENCODING)
                     GLib.idle_add(update_ui, captured_log)
@@ -199,7 +199,7 @@ class FileBasedExportDialog(ExportDialog):
         self.temp_theme_path = save_colorscheme(
             preset_name=self.theme_name,
             colorscheme=self.colorscheme,
-            path=tempfile.mkstemp()[1]
+            path=tempfile.mkstemp()[1],
         )
 
     def __del__(self) -> None:
@@ -222,7 +222,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         pass
 
     def _create_option_checkbox_callback(
-            self, option_id: str
+            self, option_id: str,
     ) -> "Callable[[Gtk.CheckButton], None]":
         def callback(widget: Gtk.CheckButton) -> None:
             self.export_config[option_id] = widget.get_active()
@@ -240,14 +240,14 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             theme_name: str,
             export_options: "dict[str, Any] | None" = None,
             headline: str | None = None,
-            **kwargs: "Any"
+            **kwargs: "Any",
     ) -> None:
         self.option_widgets: dict[str, Gtk.Widget] = {}
         export_options = export_options or {}
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
             headline=headline or translate("Theme Export Options"),
-            **kwargs
+            **kwargs,
         )
         self.label.hide()
 
@@ -256,7 +256,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             default_config={
                 option_name: option["default"]
                 for option_name, option in export_options.items()
-            }
+            },
         )
 
         for option_name, option in export_options.items():
@@ -265,10 +265,10 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             if isinstance(value, bool):
                 value_widget = \
                     Gtk.CheckButton.new_with_mnemonic(
-                        option["display_name"]
+                        option["display_name"],
                     )
                 value_widget.connect(
-                    "toggled", self._create_option_checkbox_callback(option_name)
+                    "toggled", self._create_option_checkbox_callback(option_name),
                 )
                 value_widget.set_active(value)
                 self.option_widgets[option_name] = value_widget
@@ -276,11 +276,11 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
                 value_widget = Gtk.HBox()
                 label = Gtk.Label(
                     label=option.get("display_name", option_name),
-                    use_underline=True
+                    use_underline=True,
                 )
                 entry = Gtk.Entry(text=value)  # type: ignore[call-arg]
                 entry.connect(
-                    "changed", self._create_option_entry_callback(option_name)
+                    "changed", self._create_option_entry_callback(option_name),
                 )
                 entry.set_width_chars(min(len(value) + 15, 60))
                 label.set_mnemonic_widget(entry)
@@ -328,7 +328,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
             add_options: dict[str, "Any"] | None = None,
             override_options: dict[str, "Any"] | None = None,
             export_options: dict[str, "Any"] | None = None,
-            **kwargs: "Any"
+            **kwargs: "Any",
     ) -> None:
         export_options = override_options or export_options or {}
         if not override_options:
@@ -344,7 +344,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
             transient_for=transient_for,
             colorscheme=colorscheme, theme_name=theme_name,
             export_options=export_options,
-            **kwargs
+            **kwargs,
         )
         if (
                 (self.OPTIONS.DEFAULT_PATH in self.option_widgets) and
@@ -354,12 +354,12 @@ class DialogWithExportPath(ExportDialogWithOptions):
                 os.path.join(
                     self.export_config[self.OPTIONS.DEFAULT_PATH],
                     self.theme_name,
-                )
+                ),
             )
 
     def do_export(self) -> None:
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()  # type: ignore[attr-defined]
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),  # type: ignore[attr-defined]
         )
         new_destination_dir, _theme_name = export_path.rsplit("/", 1)
 
@@ -390,7 +390,7 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
             theme_name: str,
             add_options: dict[str, "Any"] | None = None,
             override_options: dict[str, "Any"] | None = None,
-            **kwargs: "Any"
+            **kwargs: "Any",
     ) -> None:
         export_options = override_options or {
             self.OPTIONS.GTK2_HIDPI: {
@@ -404,7 +404,7 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
             transient_for=transient_for,
             colorscheme=colorscheme, theme_name=theme_name,
             export_options=export_options, override_options=override_options,
-            **kwargs
+            **kwargs,
         )
 
 
@@ -425,13 +425,13 @@ class CommonIconThemeExportDialog(DialogWithExportPath):
             theme_name: str,
             add_options: dict[str, "Any"] | None = None,
             override_options: dict[str, "Any"] | None = None,
-            **kwargs: "Any"
+            **kwargs: "Any",
     ) -> None:
-        if os.environ.get("XDG_CURRENT_DESKTOP", "").lower() in ("kde", "lxqt", ):
+        if os.environ.get("XDG_CURRENT_DESKTOP", "").lower() in ("kde", "lxqt"):
             self.default_export_dir = os.path.join(
                 os.environ.get(
                     "XDG_DATA_HOME",
-                    os.path.join(os.environ["HOME"], ".local/share")
+                    os.path.join(os.environ["HOME"], ".local/share"),
                 ),
                 "icons",
             )
@@ -442,5 +442,5 @@ class CommonIconThemeExportDialog(DialogWithExportPath):
             transient_for=transient_for,
             colorscheme=colorscheme, theme_name=theme_name,
             export_options=export_options, override_options=override_options,
-            **kwargs
+            **kwargs,
         )

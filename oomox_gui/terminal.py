@@ -45,7 +45,7 @@ TerminalThemeT = dict[str, str]
 def find_closest_color_key(
         color_hex: str,
         colors_hex: TerminalThemeT,
-        highlight: bool = True
+        highlight: bool = True,
 ) -> tuple[str | None, ColorDiff]:
     smallest_diff = SMALLEST_DIFF
     smallest_key = None
@@ -107,7 +107,7 @@ def generate_theme_from_hint(
         diff = ColorDiff(hex_colors[theme_hint], theme_color)
     else:
         _closest_key, diff = find_closest_color_key(
-            theme_color, hex_colors, highlight=False
+            theme_color, hex_colors, highlight=False,
         )
     modified_colors = {
         key: diff.apply_to(value)
@@ -116,14 +116,14 @@ def generate_theme_from_hint(
     modified_colors["background"] = theme_bg
     modified_colors["foreground"] = theme_fg
     for source, destinations in {
-            "background": ("color0", "color8",),
-            "foreground": ("color7", "color15",),
+            "background": ("color0", "color8"),
+            "foreground": ("color7", "color15"),
     }.items():
         for key in destinations:
             modified_colors[key] = ColorDiff(
-                hex_colors[source], hex_colors[key]
+                hex_colors[source], hex_colors[key],
             ).apply_to(
-                modified_colors[source]
+                modified_colors[source],
             )
     return modified_colors
 
@@ -195,7 +195,7 @@ def get_grayest_colors(palette: list[str]) -> list[str]:
     list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
     saturation_list = sorted(
         list_of_colors,
-        key=sort_by_saturation
+        key=sort_by_saturation,
     )
     gray_color_values = saturation_list[:(len(saturation_list)//3)]
     gray_color_values.sort(key=sum)
@@ -278,7 +278,7 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
         # print()
         # print(('ITERATION', _debug_iteration_counter))
         progress = ProgressBar(
-            length=((int(abs(START[0] - END[0])/accuracy) + 2) ** 3)
+            length=((int(abs(START[0] - END[0])/accuracy) + 2) ** 3),
         )
         red = START[RED]
         while red < END[RED] + accuracy:
@@ -299,8 +299,8 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=invalid-na
                                     255,
                                     max(
                                         0,
-                                        new_value[i] + (red, green, blue)[i]
-                                    )
+                                        new_value[i] + (red, green, blue)[i],
+                                    ),
                                 )
                             if key not in ["color0", "color7", "color8", "color15"]:
                                 if not min_lightness <= sum(new_value) <= max_lightness:
@@ -387,7 +387,7 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         auto_swap_colors: bool = True,
         accuracy: int | None = None,
         extend_palette: bool | None = None,
-        **kwargs: "Any"
+        **kwargs: "Any",
 ) -> None:
 
     reference_colors = import_xcolors(template_path)
@@ -412,18 +412,18 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
     cache_id = str(
         [
             kwargs[name] for name in sorted(kwargs, key=lambda x: x[0])
-        ] + all_colors
+        ] + all_colors,
     ) + template_path + theme_bg + str(accuracy) + str(extend_palette)
 
     if FullPaletteCache.get(cache_id):
         _generate_theme_from_full_palette_callback(
-            cache_id, theme_bg, theme_fg, result_callback
+            cache_id, theme_bg, theme_fg, result_callback,
         )
     else:
         def _callback(generated_colors: TerminalThemeT) -> None:
             FullPaletteCache.put(cache_id, generated_colors)
             _generate_theme_from_full_palette_callback(
-                cache_id, theme_bg, theme_fg, result_callback
+                cache_id, theme_bg, theme_fg, result_callback,
             )
         # from time import time
         # before = time()
@@ -492,7 +492,7 @@ def _generate_themes_from_oomox(
     if colorscheme["TERMINAL_THEME_MODE"] == "smarty":
         generate_theme_from_full_palette(
             template_path=os.path.join(
-                TERMINAL_TEMPLATE_DIR, terminal_base_template
+                TERMINAL_TEMPLATE_DIR, terminal_base_template,
             ),
             palette=colorscheme,
             theme_bg=terminal_background,
@@ -507,7 +507,7 @@ def _generate_themes_from_oomox(
     if colorscheme["TERMINAL_THEME_MODE"] in ("basic", "auto"):
         term_colorscheme = generate_theme_from_hint(
             template_path=os.path.join(
-                TERMINAL_TEMPLATE_DIR, terminal_base_template
+                TERMINAL_TEMPLATE_DIR, terminal_base_template,
             ),
             theme_color=terminal_accent_color,
             theme_bg=terminal_background,
@@ -568,7 +568,7 @@ def cli() -> None:
         print(
             f"Usage: {sys.argv[0]} "
             "TEMPLATE_PATH ACCENT_COLOR BG FG "
-            "[ACCENT_KEY_NAME] [AUTO_DETECT_FG_BG=YES]"
+            "[ACCENT_KEY_NAME] [AUTO_DETECT_FG_BG=YES]",
         )
         sys.exit(1)
     template_path = args[1]

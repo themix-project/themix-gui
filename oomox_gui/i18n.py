@@ -13,9 +13,9 @@ class OomoxTranslation():
                 "oomox",
                 localedir=os.path.join(
                     os.path.dirname(os.path.realpath(__file__)),
-                    "..", "locale"
+                    "..", "locale",
                 ),
-                fallback=True
+                fallback=True,
             )
         return cls.translation
 

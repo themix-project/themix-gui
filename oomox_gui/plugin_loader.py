@@ -54,7 +54,7 @@ class PluginLoader:
     def load_plugin(cls, plugin_name: str, plugin_path: str) -> None:
         plugin_module = get_plugin_module(
             plugin_name,
-            os.path.join(plugin_path, "oomox_plugin.py")
+            os.path.join(plugin_path, "oomox_plugin.py"),
         )
         plugin_class = plugin_module.Plugin
         plugin = plugin_class()
@@ -86,7 +86,7 @@ class PluginLoader:
                 cls.load_plugin(plugin_name, plugin_path)
             except Exception as exc:
                 message_header = translate('Error loading plugin "{plugin_name}"').format(
-                    plugin_name=plugin_name
+                    plugin_name=plugin_name,
                 )
                 message_text = (
                     plugin_path +
@@ -98,7 +98,7 @@ class PluginLoader:
                 error_dialog = Gtk.MessageDialog(
                     text=message_header,
                     secondary_text=message_text,
-                    buttons=Gtk.ButtonsType.CLOSE
+                    buttons=Gtk.ButtonsType.CLOSE,
                 )
                 error_dialog.run()
                 error_dialog.destroy()
@@ -123,7 +123,7 @@ def _print_debug_plugins() -> None:
     print()
     for plugin_name, plugin in plugin_loader.get_all_plugins().items():
         print(
-            f"{plugin_name}: {plugin.display_name}"
+            f"{plugin_name}: {plugin.display_name}",
         )
 
 

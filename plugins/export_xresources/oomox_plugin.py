@@ -33,7 +33,7 @@ class XresourcesExportDialog(ExportDialog):
             *args,
             headline=translate("Terminal Colorscheme"),
             height=440,
-            **kwargs
+            **kwargs,
         )
         self.label.set_text(translate("Paste this colorscheme to your ~/.Xresources:"))
         self.scrolled_window.show_all()

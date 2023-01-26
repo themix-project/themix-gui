@@ -149,18 +149,18 @@ def mix_gdk_colors(gdk_color_1: Gdk.RGBA, gdk_color_2: Gdk.RGBA, ratio: float) -
             result_gdk_color, attr, (
                 getattr(gdk_color_1, attr) * ratio +
                 getattr(gdk_color_2, attr) * (1 - ratio)
-            )
+            ),
         )
     return result_gdk_color
 
 
 def mix_theme_colors(
-        theme_color_1: "HexColor", theme_color_2: "HexColor", ratio: float
+        theme_color_1: "HexColor", theme_color_2: "HexColor", ratio: float,
 ) -> "HexColor":
     return convert_gdk_to_theme_color(
         mix_gdk_colors(
             convert_theme_color_to_gdk(theme_color_1),
             convert_theme_color_to_gdk(theme_color_2),
-            ratio=ratio
-        )
+            ratio=ratio,
+        ),
     )

@@ -60,7 +60,7 @@ def get_gray_colors(palette: "list[HexColor]") -> "list[HexColor]":
     list_of_colors = [[hex_to_int(s) for s in color_list_from_hex(c)] for c in palette]
     saturation_list = sorted(
         list_of_colors,
-        key=sort_by_saturation
+        key=sort_by_saturation,
     )
     gray_colors = saturation_list[:(len(saturation_list)//3)]
     gray_colors.sort(key=sum)
@@ -75,7 +75,7 @@ class Plugin(OomoxImportPluginAsync):
     import_text = translate("Colors from Image")
     about_text = translate(
         "Generate a theme based on any image "
-        "using different algorithms for determining the main colors."
+        "using different algorithms for determining the main colors.",
     )
     about_links = [
         {
@@ -115,7 +115,7 @@ class Plugin(OomoxImportPluginAsync):
             "TERMINAL_THEME_MODE": "manual",
             "ROUNDNESS": 20,
             "ICONS_STYLE": "archdroid",
-        }
+        },
     }
     translation_common = {
         "NAME": "scheme",
@@ -234,7 +234,7 @@ class Plugin(OomoxImportPluginAsync):
             "display_name": translate("Import Colors from Image"),
             "type": "separator",
             "value_filter": {
-                "FROM_PLUGIN": ["import_pil", "import_from_image", ]
+                "FROM_PLUGIN": ["import_pil", "import_from_image"],
             },
         },
         {
@@ -276,7 +276,7 @@ class Plugin(OomoxImportPluginAsync):
             "display_name": translate("Stronger Follow Palette Template"),
             "reload_theme": True,
             "value_filter": {
-                "_PIL_PALETTE_QUALITY": [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY]
+                "_PIL_PALETTE_QUALITY": [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY],
             },
         },
         {
@@ -391,7 +391,7 @@ class Plugin(OomoxImportPluginAsync):
 
     @classmethod
     def _get_all_available_palettes(  # pylint: disable=too-many-locals
-        cls, image_path: str, use_whole_palette: bool, quality_per_plugin: list[int]
+        cls, image_path: str, use_whole_palette: bool, quality_per_plugin: list[int],
     ) -> "list[HexColor]":
         hex_palette = []
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
@@ -401,7 +401,7 @@ class Plugin(OomoxImportPluginAsync):
             oomox_future = pool.apply_async(apply_chain, (
                 get_plugin_module,
                 ("ima", os.path.join(PLUGIN_DIR, "ima.py"), "get_hex_palette"),
-                (image_path, use_whole_palette, 48, quality_per_plugin[0])
+                (image_path, use_whole_palette, 48, quality_per_plugin[0]),
             ))
             from functools import partial
             _opener = partial(open, image_path, "rb")
@@ -410,16 +410,16 @@ class Plugin(OomoxImportPluginAsync):
                 (
                     (_opener, ()),
                 ),
-                (quality_per_plugin[1], 50, 200, ),
+                (quality_per_plugin[1], 50, 200),
             ))
             colorthief_future = pool.apply_async(call_method_from_class, (
                 ColorThief,
                 (image_path, ),
                 "get_palette",
-                (quality_per_plugin[2], )
+                (quality_per_plugin[2], ),
             ))
             haishoku_future = pool.apply_async(
-                Haishoku.getPalette, (image_path, )
+                Haishoku.getPalette, (image_path, ),
             )
             pool.close()
             hex_palette += oomox_future.get()
@@ -453,7 +453,7 @@ class Plugin(OomoxImportPluginAsync):
     def read_colorscheme_from_path(  # type: ignore[override]
             self,
             preset_path: str,
-            callback: "Callable[[ThemeT], None]"
+            callback: "Callable[[ThemeT], None]",
     ) -> None:
 
         get_first_theme_option("_PIL_IMAGE_PREVIEW")["fallback_value"] = preset_path
@@ -462,7 +462,7 @@ class Plugin(OomoxImportPluginAsync):
             self.read_colorscheme_from_path_callback(image_palette, callback)
 
         palette_style: str = get_first_theme_option(  # type: ignore[assignment]
-            "_PIL_PALETTE_STYLE"
+            "_PIL_PALETTE_STYLE",
         ).get("fallback_value")
         self.generate_terminal_palette(
             palette_style,
@@ -473,10 +473,10 @@ class Plugin(OomoxImportPluginAsync):
     def read_colorscheme_from_path_callback(
             self,
             image_palette: "ThemeT",
-            callback: "Callable[[ThemeT], None]"
+            callback: "Callable[[ThemeT], None]",
     ) -> None:
         theme_template: str = get_first_theme_option(  # type: ignore[assignment]
-            "_PIL_THEME_TEMPLATE", {}
+            "_PIL_THEME_TEMPLATE", {},
         ).get("fallback_value")
         oomox_theme: dict[str, "Any"] = {}
         oomox_theme.update(self.default_theme)
@@ -485,7 +485,7 @@ class Plugin(OomoxImportPluginAsync):
         translation: dict[str, str] = {}
         translation.update(self.translation_common)
         translation.update(
-            self.theme_translations[theme_template]
+            self.theme_translations[theme_template],
         )
         for oomox_key, image_palette_key in translation.items():
             if image_palette_key in image_palette:
@@ -507,7 +507,7 @@ class Plugin(OomoxImportPluginAsync):
         hex_palette = cls._palette_cache.get(_id)
         if hex_palette:
             cls._generate_terminal_palette_callback(
-                hex_palette, template_path, inverse_palette, result_callback
+                hex_palette, template_path, inverse_palette, result_callback,
             )
         else:
             def generate_terminal_palette_task() -> None:
@@ -532,11 +532,11 @@ class Plugin(OomoxImportPluginAsync):
     ) -> None:
         if quality.startswith("colorz"):
             hex_palette = cls._get_colorz_lib_palette(
-                image_path, color_count=int(quality.split("colorz")[1])
+                image_path, color_count=int(quality.split("colorz")[1]),
             )
         elif quality.startswith("colorthief"):
             hex_palette = cls._get_colorthief_palette(
-                image_path, color_count=int(quality.split("colorthief")[1]) + 1
+                image_path, color_count=int(quality.split("colorthief")[1]) + 1,
             )
         elif quality == "haishoku":
             hex_palette = cls._get_haishoku_palette(image_path)
@@ -550,19 +550,19 @@ class Plugin(OomoxImportPluginAsync):
                 raise NotImplementedError()
             hex_palette = cls._get_all_available_palettes(
                 image_path=image_path, use_whole_palette=use_whole_palette,
-                quality_per_plugin=quality_per_plugin
+                quality_per_plugin=quality_per_plugin,
             )
         else:
             hex_palette = image_analyzer.get_hex_palette(
-                image_path, quality=int(quality), use_whole_palette=use_whole_palette
+                image_path, quality=int(quality), use_whole_palette=use_whole_palette,
             )[:]
         print(
-            f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s"
+            f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s",
         )
         _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
         cls._palette_cache[_id] = hex_palette
         cls._generate_terminal_palette_callback(
-            hex_palette, template_path, inverse_palette, result_callback
+            hex_palette, template_path, inverse_palette, result_callback,
         )
 
     @classmethod
@@ -604,7 +604,7 @@ class Plugin(OomoxImportPluginAsync):
             if key not in ["color0", "color7", "color8", "color15", "foreground", "background"]:
                 closest_color, _diff = find_closest_color(
                     value, bright_colors_list,
-                    min_lightness=min_lightness, max_lightness=max_lightness
+                    min_lightness=min_lightness, max_lightness=max_lightness,
                 )
             else:
                 closest_color, _diff = find_closest_color(value, hex_palette)
@@ -621,13 +621,13 @@ class Plugin(OomoxImportPluginAsync):
             result_callback: "Callable[[ThemeT], None]",
     ) -> None:
         quality: int = get_first_theme_option(
-            "_PIL_PALETTE_QUALITY", {}
+            "_PIL_PALETTE_QUALITY", {},
         ).get("fallback_value")  # type: ignore[assignment]
         use_whole_palette = bool(
-            get_first_theme_option("_PIL_PALETTE_STRICT", {}).get("fallback_value")
+            get_first_theme_option("_PIL_PALETTE_STRICT", {}).get("fallback_value"),
         )
         inverse_palette = bool(
-            get_first_theme_option("_PIL_PALETTE_INVERSE", {}).get("fallback_value")
+            get_first_theme_option("_PIL_PALETTE_INVERSE", {}).get("fallback_value"),
         )
         _id = template_path+image_path+str(quality)+str(use_whole_palette)+str(inverse_palette)
 
@@ -645,7 +645,7 @@ class Plugin(OomoxImportPluginAsync):
                     quality=str(quality),
                     use_whole_palette=use_whole_palette,
                     inverse_palette=inverse_palette,
-                    result_callback=_result_callback
+                    result_callback=_result_callback,
                 )
             try:
                 _app = OomoxApplicationWindow.get_instance()

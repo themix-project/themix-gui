@@ -25,7 +25,7 @@ class PluginInfo(Gtk.ListBoxRow):
         plugin_name.set_halign(Gtk.Align.START)
         self.box.add(plugin_name)
 
-        for attr in ("about_text", "description",):
+        for attr in ("about_text", "description"):
             value = getattr(plugin, attr, None)
             if value:
                 about = Gtk.Label(value)
@@ -36,7 +36,7 @@ class PluginInfo(Gtk.ListBoxRow):
         for link_info in plugin.about_links or []:
             link = Gtk.LinkButton.new_with_label(
                 link_info["url"],
-                link_info["name"]
+                link_info["name"],
             )
             link.set_hexpand(False)
             # link.set_halign(Gtk.Align.CENTER)
@@ -66,10 +66,10 @@ def show_about(parent_window: Gtk.Window) -> None:
             row.set_header(separator)
 
     data: "Sequence[tuple[str, Mapping[str, OomoxPlugin]]]" = (
-            (translate("Theme Plugins"), PluginLoader.get_theme_plugins(), ),
-            (translate("Icon Plugins"), PluginLoader.get_icons_plugins(), ),
-            (translate("Import Plugins"), PluginLoader.get_import_plugins(), ),
-            (translate("Export Plugins"), PluginLoader.get_export_plugins(), ),
+            (translate("Theme Plugins"), PluginLoader.get_theme_plugins()),
+            (translate("Icon Plugins"), PluginLoader.get_icons_plugins()),
+            (translate("Import Plugins"), PluginLoader.get_import_plugins()),
+            (translate("Export Plugins"), PluginLoader.get_export_plugins()),
     )
     for title, plugin_list in data:
         section_label = Gtk.Label(title)

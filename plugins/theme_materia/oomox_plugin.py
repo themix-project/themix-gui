@@ -16,7 +16,7 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
         new_destination_dir, theme_name = export_path.rsplit("/", 1)
         self.command = [
@@ -34,7 +34,7 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
             transient_for=transient_for,
             colorscheme=colorscheme,
             theme_name=theme_name,
-            **kwargs
+            **kwargs,
         )
 
 
@@ -55,9 +55,9 @@ def _monkeypatch_update_preview_colors(preview_object):
                     mix_theme_colors(
                         colorscheme["SEL_BG"],
                         colorscheme["BG"],
-                        colorscheme["MATERIA_SELECTION_OPACITY"]
-                    )
-                )
+                        colorscheme["MATERIA_SELECTION_OPACITY"],
+                    ),
+                ),
             )
             preview_object.override_widget_color(
                 preview_object.gtk_preview.entry, preview_object.BG,
@@ -65,9 +65,9 @@ def _monkeypatch_update_preview_colors(preview_object):
                     mix_theme_colors(
                         colorscheme["FG"],
                         colorscheme["BG"],
-                        0.04
-                    )
-                )
+                        0.04,
+                    ),
+                ),
             )
 
     preview_object.update_preview_colors = _update_preview_colors

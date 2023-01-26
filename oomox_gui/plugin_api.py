@@ -64,7 +64,7 @@ class OomoxThemePlugin(OomoxPlugin):
     theme_model_extra = []  # type: list[ThemeModelValue]
 
     def preview_before_load_callback(
-            self, preview_object: "ThemePreview", colorscheme: "ThemeT"
+            self, preview_object: "ThemePreview", colorscheme: "ThemeT",
     ) -> None:
         pass
 
@@ -80,7 +80,7 @@ class OomoxThemePlugin(OomoxPlugin):
                 "SEL_BG", "SEL_FG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):
             svg_template = svg_template.replace(
-                f"%{key}%", str(colorscheme.get(key) or FALLBACK_COLOR)
+                f"%{key}%", str(colorscheme.get(key) or FALLBACK_COLOR),
             )
         return svg_template
 
@@ -105,7 +105,7 @@ class OomoxIconsPlugin(OomoxPlugin):
         pass
 
     def preview_before_load_callback(
-            self, preview_object: "IconThemePreview", colorscheme: "ThemeT"
+            self, preview_object: "IconThemePreview", colorscheme: "ThemeT",
     ) -> None:
         pass
 
@@ -149,7 +149,7 @@ class OomoxImportPlugin(OomoxPlugin):
     @property
     def user_theme_dir(self) -> str:
         return os.path.abspath(
-            os.path.join(USER_COLORS_DIR, PLUGIN_PATH_PREFIX + self.name)
+            os.path.join(USER_COLORS_DIR, PLUGIN_PATH_PREFIX + self.name),
         )
 
     shortcut = None  # type: Optional[str]
@@ -161,6 +161,6 @@ class OomoxImportPluginAsync(OomoxImportPlugin):
 
     @abstractmethod
     def read_colorscheme_from_path(  # type: ignore[override] #  pylint: disable=arguments-differ
-            self, preset_path: str, callback: "Callable[[ThemeT,], None]"
+            self, preset_path: str, callback: "Callable[[ThemeT,], None]",
     ) -> None:
         pass

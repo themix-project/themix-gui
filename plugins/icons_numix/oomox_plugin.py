@@ -15,7 +15,7 @@ class NumixIconsExportDialog(CommonIconThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
         self.command = [
             "bash",
@@ -37,7 +37,7 @@ class Plugin(OomoxIconsPlugin):
     about_text = translate(
         "Numix is the official icon theme from the Numix Project. "
         "It is heavily inspired by, and based upon parts of the "
-        "Elementary, Humanity and Gnome icon themes."
+        "Elementary, Humanity and Gnome icon themes.",
     )
     about_links = [
         {
@@ -102,7 +102,7 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_before_load_callback(self, preview_object, colorscheme):
         self.preview_svg_dir = os.path.join(
-            PLUGIN_DIR, "icon_previews/", colorscheme["ICONS_NUMIX_STYLE"]
+            PLUGIN_DIR, "icon_previews/", colorscheme["ICONS_NUMIX_STYLE"],
         )
         preview_object.icons_plugin_name = "_update"
 
@@ -110,9 +110,9 @@ class Plugin(OomoxIconsPlugin):
         # ).replace(
         #     "00ff00", colorscheme["ICONS_LIGHT"] or FALLBACK_COLOR
         return svg_template.replace(
-            "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
+            "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR,
         ).replace(
-            "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
+            "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR,
         ).replace(
-            "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
+            "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR,
         )

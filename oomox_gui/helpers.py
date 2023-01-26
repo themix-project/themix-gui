@@ -56,7 +56,7 @@ def apply_chain(func: "Callable[..., Any]", *args_args: "Iterable[Iterable[Any]]
 
 
 def call_method_from_class(
-        klass: type, klass_args: "Iterable[Any]", method_name: str, method_args: "Iterable[Any]"
+        klass: type, klass_args: "Iterable[Any]", method_name: str, method_args: "Iterable[Any]",
 ) -> "Any | None":
     return getattr(klass(*klass_args), method_name)(*method_args)
 
@@ -66,7 +66,7 @@ def delayed_partial(
         delayed_args: """Iterable[
             tuple[Callable[[DelayedPartialArgT], Any], Iterable[DelayedPartialArgT]]
         ]""",
-        rest_args: "Iterable[Any]"
+        rest_args: "Iterable[Any]",
 ) -> "DelayedPartialReturnT":
     computed_args = []
     for delayed_func, args in delayed_args:

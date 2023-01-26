@@ -16,7 +16,7 @@ class GnomeColorsIconsExportDialog(CommonIconThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
         self.command = [
             "bash",
@@ -35,7 +35,7 @@ class Plugin(OomoxIconsPlugin):
     about_text = translate(
         "GNOME-Colors is mostly inspired/based on "
         "Tango, GNOME, Elementary, Tango-Generator "
-        "and many other open-source projects."
+        "and many other open-source projects.",
     )
     about_links = [
         {
@@ -76,11 +76,11 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         return svg_template.replace(
-            "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
+            "LightFolderBase", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR,
         ).replace(
-            "LightBase", colorscheme["ICONS_LIGHT"] or FALLBACK_COLOR
+            "LightBase", colorscheme["ICONS_LIGHT"] or FALLBACK_COLOR,
         ).replace(
-            "MediumBase", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
+            "MediumBase", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR,
         ).replace(
-            "DarkStroke", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
+            "DarkStroke", colorscheme["ICONS_DARK"] or FALLBACK_COLOR,
         )

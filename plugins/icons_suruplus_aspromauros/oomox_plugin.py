@@ -17,7 +17,7 @@ class SuruPlusIconsExportDialog(CommonIconThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
 
         self.command = [
@@ -36,7 +36,7 @@ class Plugin(OomoxIconsPlugin):
     about_text = translate(
         "These aspromautic or monochromatic icons are based on "
         "Suru++ 30 Dark icons. It is flat, minimalist and designed "
-        "for full dark environments."
+        "for full dark environments.",
     )
     about_links = [
         {
@@ -54,7 +54,7 @@ class Plugin(OomoxIconsPlugin):
             "type": "color",
             "fallback_function": lambda colors: mix_theme_colors(
                 colors["MENU_FG"], colors["BTN_FG"],
-                0.66
+                0.66,
             ),
             "display_name": translate("Actions Icons"),
             "value_filter": {
@@ -96,16 +96,16 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         icon_preview = svg_template.replace(
-            "%SYMBOLIC_ACTION%", colorscheme["ICONS_SYMBOLIC_ACTION"] or FALLBACK_COLOR
+            "%SYMBOLIC_ACTION%", colorscheme["ICONS_SYMBOLIC_ACTION"] or FALLBACK_COLOR,
         ).replace(
-            "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR
+            "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR,
         )
         if colorscheme["SURUPLUS_GRADIENT_ENABLED"] and "arrongin" in svg_template:
             icon_preview = icon_preview.replace(
-                "currentColor", "url(#arrongin)"
+                "currentColor", "url(#arrongin)",
             ).replace(
-                "%GRADIENT1%", colorscheme["SURUPLUS_GRADIENT1"] or FALLBACK_COLOR
+                "%GRADIENT1%", colorscheme["SURUPLUS_GRADIENT1"] or FALLBACK_COLOR,
             ).replace(
-                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR
+                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR,
             )
         return icon_preview

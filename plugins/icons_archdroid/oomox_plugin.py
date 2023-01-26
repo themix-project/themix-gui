@@ -16,7 +16,7 @@ class ArchdroidIconsExportDialog(CommonIconThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
         self.command = [
             "bash",
@@ -36,7 +36,7 @@ class Plugin(OomoxIconsPlugin):
         "Port of Google's material design icons for "
         "Android Lollipop 5.0 to Linux. "
         "Some of these icons have been created manually "
-        "(and were influenced by Ubuntu Mono, Mint-X and Numix)."
+        "(and were influenced by Ubuntu Mono, Mint-X and Numix).",
     )
     about_links = [
         {
@@ -59,5 +59,5 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         return svg_template.replace(
-            "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"] or FALLBACK_COLOR
+            "%ICONS_ARCHDROID%", colorscheme["ICONS_ARCHDROID"] or FALLBACK_COLOR,
         )

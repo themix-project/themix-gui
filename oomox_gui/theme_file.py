@@ -28,10 +28,10 @@ class PresetFile(NamedTuple):
 def get_theme_name_and_plugin(
         theme_path: str,
         colors_dir: str,
-        plugin: "OomoxImportPlugin | None"
+        plugin: "OomoxImportPlugin | None",
 ) -> "tuple[str, OomoxImportPlugin | None]":
     display_name = "".join(
-        theme_path.rsplit(colors_dir)
+        theme_path.rsplit(colors_dir),
     ).lstrip("/")
     rel_path = "".join(theme_path.rsplit(colors_dir))
     if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
@@ -58,7 +58,7 @@ def group_presets_by_dir(
         (dir_name, list(group))
         for dir_name, group in groupby(
             preset_list,
-            get_preset_groups_sorter(preset_dir)
+            get_preset_groups_sorter(preset_dir),
         )
     ]
 
@@ -76,7 +76,7 @@ def get_presets() -> dict[str, dict[str, list[PresetFile]]]:
         file_paths = []
         for path in ls_r(colors_dir):
             display_name, preset_plugin = get_theme_name_and_plugin(
-                path, colors_dir, plugin
+                path, colors_dir, plugin,
             )
             file_paths.append(PresetFile(
                 name=display_name,

@@ -36,7 +36,7 @@ class Plugin(OomoxImportPlugin):
     name = "import_random"
     display_name = "Random"
     plugin_theme_dir = os.path.abspath(
-        os.path.join(PLUGIN_DIR, "colors")
+        os.path.join(PLUGIN_DIR, "colors"),
     )
 
     theme_model_import = [

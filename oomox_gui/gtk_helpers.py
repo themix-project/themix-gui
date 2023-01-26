@@ -58,7 +58,7 @@ class ImageButtonContainer(Gtk.Box):
             self,
             icon_name: str,
             tooltip_text: str | None = None,
-            label: str | None = None
+            label: str | None = None,
     ) -> None:
         super().__init__()
         self.box = Gtk.Box()
@@ -100,7 +100,7 @@ class ScaledImage(Gtk.Image):
             *args: "Any",
             width: int | None = None,
             height: int | None = None,
-            **kwargs: "Any"
+            **kwargs: "Any",
     ) -> None:
         super().__init__(*args, **kwargs)
         if not width or height:
@@ -120,7 +120,7 @@ class ScaledImage(Gtk.Image):
             cr.scale(1/self.scale_factor, 1/self.scale_factor)
             cr.translate(
                 self.oomox_width - self.oomox_width/self.scale_factor,
-                self.oomox_height - self.oomox_height/self.scale_factor
+                self.oomox_height - self.oomox_height/self.scale_factor,
             )
             Gtk.Image.do_draw(self, cr)
 
@@ -138,11 +138,11 @@ class ScaledImage(Gtk.Image):
             self,
             bytes_sequence: bytes,
             width: int | None = None,
-            height: int | None = None
+            height: int | None = None,
     ) -> None:
         self._set_orig_dimensions(width=width, height=height)
         stream = Gio.MemoryInputStream.new_from_bytes(
-            GLib.Bytes.new(bytes_sequence)
+            GLib.Bytes.new(bytes_sequence),
         )
         self.oomox_width = self.orig_width
         self.oomox_height = self.orig_height
@@ -153,7 +153,7 @@ class ScaledImage(Gtk.Image):
             self.oomox_width*self.scale_factor if self.oomox_width else -1,
             self.oomox_height*self.scale_factor if self.oomox_height else -1,
             True,
-            None
+            None,
         )
         self.oomox_width = pixbuf.props.width // self.scale_factor
         self.oomox_height = pixbuf.props.height // self.scale_factor
@@ -175,12 +175,12 @@ class EntryDialog(Gtk.Dialog):
             transient_for: Gtk.Window,
             title: str,
             text: str,
-            entry_text: str | None = None
+            entry_text: str | None = None,
     ):
         super().__init__(
             title=title,
             transient_for=transient_for,
-            flags=0
+            flags=0,
         )
 
         self.set_default_size(150, 100)
@@ -213,13 +213,13 @@ class YesNoDialog(Gtk.Dialog):
             transient_for: Gtk.Window,
             title: str = "",
             text: str | None = None,
-            default_response: Gtk.ResponseType = Gtk.ResponseType.NO
+            default_response: Gtk.ResponseType = Gtk.ResponseType.NO,
     ):
         text = text or translate("Are you sure?")
         super().__init__(
             title=title,
             transient_for=transient_for,
-            flags=0
+            flags=0,
         )
         self.set_default_size(150, 100)
 
@@ -253,7 +253,7 @@ class GObjectABCMeta(GObjectMeta, type):
         if this_required_methods:
             setattr(
                 cls, cls.ABS_METHODS,
-                getattr(cls, cls.ABS_METHODS, []) + this_required_methods
+                getattr(cls, cls.ABS_METHODS, []) + this_required_methods,
             )
 
         if not (
@@ -273,7 +273,7 @@ class GObjectABCMeta(GObjectMeta, type):
             if missing_methods:
                 raise TypeError(
                     f"Can't instantiate abstract class {cls.__name__}"
-                    f" with abstract methods {','.join(missing_methods)}"
+                    f" with abstract methods {','.join(missing_methods)}",
                 )
 
 
@@ -301,14 +301,14 @@ class _WarnOnceDialog(Gtk.MessageDialog):
         super().__init__(
             text=text,
             secondary_text=secondary_text,
-            buttons=buttons
+            buttons=buttons,
         )
 
 
 def warn_once(
         text: str,
         secondary_text: str = "",
-        buttons: Gtk.ButtonsType = Gtk.ButtonsType.CLOSE
+        buttons: Gtk.ButtonsType = Gtk.ButtonsType.CLOSE,
 ) -> None:
     dialog = _WarnOnceDialog(text, secondary_text, buttons)
     if dialog.was_shown(text, secondary_text, buttons):

@@ -129,13 +129,13 @@ class PreviewWidgets(Gtk.Box):
         self.grid.set_margin_right(WIDGET_SPACING)
         self.grid.attach(fake_checkbox, 3, 3, 1, 1)
         self.grid.attach_next_to(
-            self.sel_label, fake_checkbox, Gtk.PositionType.BOTTOM, 1, 1
+            self.sel_label, fake_checkbox, Gtk.PositionType.BOTTOM, 1, 1,
         )
         self.grid.attach_next_to(
-            self.entry, self.sel_label, Gtk.PositionType.BOTTOM, 1, 1
+            self.entry, self.sel_label, Gtk.PositionType.BOTTOM, 1, 1,
         )
         self.grid.attach_next_to(
-            self.button, self.entry, Gtk.PositionType.BOTTOM, 1, 1
+            self.button, self.entry, Gtk.PositionType.BOTTOM, 1, 1,
         )
         self.pack_start(headerbox, True, True, 0)
         self.pack_start(self.grid, True, True, 0)
@@ -147,7 +147,7 @@ class PreviewWidgets(Gtk.Box):
             label = translate("Item {id}") if sensitive else translate("Insensitive Item {id}")
             item = Gtk.MenuItem(  # type: ignore[call-arg]
                 label=label.format(id=i + 1),
-                sensitive=sensitive
+                sensitive=sensitive,
             )
             menu.append(item)
             if has_submenus and (i + 1) % 2 == 0:
@@ -159,8 +159,8 @@ class PreviewWidgets(Gtk.Box):
             template_path = f"{icon.value}.svg.template"
             with open(
                     os.path.join(
-                        theme_plugin.gtk_preview_dir, template_path
-                    ), "rb"
+                        theme_plugin.gtk_preview_dir, template_path,
+                    ), "rb",
             ) as file_object:
                 self.preview_imageboxes_templates[icon.name] = \
                         file_object.read().decode(DEFAULT_ENCODING)
@@ -173,10 +173,10 @@ class PreviewWidgets(Gtk.Box):
         for icon in theme_plugin.PreviewImageboxesNames:
             new_svg_image = transform_function(
                 self.preview_imageboxes_templates[icon.name],
-                colorscheme
+                colorscheme,
             ).encode("ascii")
             self.preview_imageboxes[icon.name].set_from_bytes(
-                new_svg_image, width=theme_plugin.preview_sizes[icon.name]
+                new_svg_image, width=theme_plugin.preview_sizes[icon.name],
             )
 
 
@@ -226,7 +226,7 @@ class ThemePreview(Gtk.Grid):
         self.icons_preview = IconThemePreview()
         self.background.attach_next_to(
             self.icons_preview, self.gtk_preview,
-            Gtk.PositionType.BOTTOM, 1, 1
+            Gtk.PositionType.BOTTOM, 1, 1,
         )
 
         if self.terminal_preview:
@@ -235,7 +235,7 @@ class ThemePreview(Gtk.Grid):
         self.terminal_preview.set_margin_bottom(WIDGET_SPACING)
         self.background.attach_next_to(
             self.terminal_preview, self.icons_preview,
-            Gtk.PositionType.BOTTOM, 1, 1
+            Gtk.PositionType.BOTTOM, 1, 1,
         )
         self.background.set_margin_bottom(WIDGET_SPACING)
 
@@ -246,7 +246,7 @@ class ThemePreview(Gtk.Grid):
             widget: Gtk.Widget,
             value: str,
             color: "Gdk.RGBA",
-            state: Gtk.StateFlags = Gtk.StateFlags.NORMAL
+            state: Gtk.StateFlags = Gtk.StateFlags.NORMAL,
     ) -> None:
         if value == self.BG:
             widget.override_background_color(state, color)  # type: ignore[arg-type]
@@ -273,13 +273,13 @@ class ThemePreview(Gtk.Grid):
             """).format(
                 primary_caret_color=colorscheme["CARET1_FG"],
                 secondary_caret_color=colorscheme["CARET2_FG"],
-                caret_aspect_ratio=colorscheme["CARET_SIZE"]
+                caret_aspect_ratio=colorscheme["CARET_SIZE"],
             )
         ).encode("ascii"))
         Gtk.StyleContext.add_provider(
             self.gtk_preview.entry.get_style_context(),
             self.css_providers.caret,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
     def update_preview_gradients(self, colorscheme: "ThemeT") -> None:
@@ -298,7 +298,7 @@ class ThemePreview(Gtk.Grid):
                     "BTN_BG",
                     "HDR_BTN_BG",
                     "TXT_BG",
-                    "HDR_BG"
+                    "HDR_BG",
                 ],
                 strict=True,
         ):
@@ -325,7 +325,7 @@ class ThemePreview(Gtk.Grid):
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_gradient,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
             )
 
     def reset_gradients(self) -> None:
@@ -350,7 +350,7 @@ class ThemePreview(Gtk.Grid):
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_gradient,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
             )
 
     def update_preview_borders(self, colorscheme: "ThemeT") -> None:
@@ -360,13 +360,13 @@ class ThemePreview(Gtk.Grid):
                     self.gtk_preview.button,
                     colorscheme["BTN_FG"],
                     colorscheme["BTN_BG"],
-                    0.22
+                    0.22,
                 ), (
                     "headerbar_button",
                     self.gtk_preview.headerbar.button,
                     colorscheme["HDR_BTN_FG"],
                     colorscheme["HDR_BTN_BG"],
-                    0.22
+                    0.22,
                 ), (
                     "entry",
                     self.gtk_preview.entry,
@@ -375,15 +375,15 @@ class ThemePreview(Gtk.Grid):
                     0.8 * (0.7 + (
                         0
                         if hex_lightness(
-                            colorscheme["TXT_BG"]  # type: ignore[arg-type]
+                            colorscheme["TXT_BG"],  # type: ignore[arg-type]
                         ) > 0.66 else (
                             0.1
                             if hex_lightness(
-                                colorscheme["TXT_BG"]  # type: ignore[arg-type]
+                                colorscheme["TXT_BG"],  # type: ignore[arg-type]
                             ) > 0.33 else
                             0.3
                         )
-                    ))
+                    )),
                 ),
         ):
             border_color = mix_theme_colors(fg, bg, ratio)  # type: ignore[arg-type]
@@ -398,19 +398,19 @@ class ThemePreview(Gtk.Grid):
                     border-color: #{border_color};
                     border-radius: {colorscheme["ROUNDNESS"]}px;
                 }}
-                """.encode("ascii")
+                """.encode("ascii"),
             )
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_border_color,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
             )
 
     def update_preview_colors(self, colorscheme: "ThemeT") -> None:
 
         converted = {
             theme_value["key"]: convert_theme_color_to_gdk(
-                colorscheme[theme_value["key"]]  # type: ignore[arg-type]
+                colorscheme[theme_value["key"]],  # type: ignore[arg-type]
             )
             for section in get_theme_model().values()
             for theme_value in section if (
@@ -430,11 +430,11 @@ class ThemePreview(Gtk.Grid):
         self.override_widget_color(self.gtk_preview.entry, self.BG, converted["TXT_BG"])
         self.override_widget_color(
             self.gtk_preview.entry, self.FG, converted["SEL_FG"],
-            state=Gtk.StateFlags.SELECTED
+            state=Gtk.StateFlags.SELECTED,
         )
         self.override_widget_color(
             self.gtk_preview.entry, self.BG, converted["SEL_BG"],
-            state=Gtk.StateFlags.SELECTED
+            state=Gtk.StateFlags.SELECTED,
         )
         self.override_widget_color(self.gtk_preview.button, self.FG, converted["BTN_FG"])
         self.override_widget_color(self.gtk_preview.button, self.BG, converted["BTN_BG"])
@@ -442,7 +442,7 @@ class ThemePreview(Gtk.Grid):
             self.override_widget_color(item, self.FG, converted["HDR_FG"])
             self.override_widget_color(
                 item, self.BG, mix("HDR_BG", "HDR_FG", 0.21),
-                state=Gtk.StateFlags.PRELIGHT
+                state=Gtk.StateFlags.PRELIGHT,
             )
             for widget in _get_menu_widgets(item.get_submenu()):
                 if isinstance(widget, Gtk.MenuShell):
@@ -456,30 +456,30 @@ class ThemePreview(Gtk.Grid):
                     self.override_widget_color(widget, self.FG, color)
                 self.override_widget_color(
                     widget, self.BG, converted["SEL_BG"],
-                    state=Gtk.StateFlags.PRELIGHT
+                    state=Gtk.StateFlags.PRELIGHT,
                 )
                 self.override_widget_color(
                     widget, self.FG, converted["SEL_FG"],
-                    state=Gtk.StateFlags.PRELIGHT
+                    state=Gtk.StateFlags.PRELIGHT,
                 )
         self.override_widget_color(
-            self.gtk_preview.menubar, self.BG, converted["HDR_BG"]  # type: ignore[arg-type]
+            self.gtk_preview.menubar, self.BG, converted["HDR_BG"],  # type: ignore[arg-type]
         )
         self.override_widget_color(self.gtk_preview.headerbar, self.BG, converted["HDR_BG"])
         self.override_widget_color(self.gtk_preview.headerbar.title, self.FG, converted["HDR_FG"])
         self.override_widget_color(
             self.gtk_preview.headerbar.button, self.FG,
-            converted["HDR_BTN_FG"]
+            converted["HDR_BTN_FG"],
         )
         self.override_widget_color(
             self.gtk_preview.headerbar.button, self.BG,
-            converted["HDR_BTN_BG"]
+            converted["HDR_BTN_BG"],
         )
 
         if self.icons_preview:
             self.override_widget_color(
                 self.icons_preview, self.BG,
-                converted["TXT_BG"]
+                converted["TXT_BG"],
             )
 
         self.css_providers.wm_border.load_from_data(
@@ -490,12 +490,12 @@ class ThemePreview(Gtk.Grid):
                     border-width: {self.WM_BORDER_WIDTH}px;
                     border-style: solid;
                 }}
-            """.encode("ascii")
+            """.encode("ascii"),
         )
         Gtk.StyleContext.add_provider(
             self.background.get_style_context(),
             self.css_providers.wm_border,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
     def update_preview(
@@ -576,12 +576,12 @@ class ThemePreview(Gtk.Grid):
             Gtk.StyleContext.add_provider(
                 widget_style_context,
                 self.css_providers.reset_style,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
             )
             Gtk.StyleContext.add_provider(
                 widget_style_context,
                 base_theme_css_provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
             )
             if isinstance(widget, Gtk.Container):
                 widget.forall(apply_css)  # type: ignore[arg-type]
@@ -590,7 +590,7 @@ class ThemePreview(Gtk.Grid):
         Gtk.StyleContext.add_provider(
             self.gtk_preview.headerbar.get_style_context(),
             self.css_providers.headerbar_border,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
         self.show_all()

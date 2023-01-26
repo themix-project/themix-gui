@@ -24,7 +24,7 @@ class XrdbCache():
         with subprocess.Popen(
             command,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
+            stderr=subprocess.STDOUT,
         ) as proc:
             for line in iter(proc.stdout.readline, b""):
                 line = line.decode(DEFAULT_ENCODING)
@@ -49,7 +49,7 @@ class Plugin(OomoxImportPlugin):
     name = "import_xresources"
     display_name = "Xresources"
     plugin_theme_dir = os.path.abspath(
-        os.path.join(PLUGIN_DIR, "colors")
+        os.path.join(PLUGIN_DIR, "colors"),
     )
 
     # theme_model_import = []

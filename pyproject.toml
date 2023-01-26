@@ -33,7 +33,7 @@ select = [
     "PGH",
     #"PLC", "PLE", "PLR", "PLW", 11
     "PIE",
-    #"COM",
+    "COM",
     #"INP",
     "EXE",
     "TCH",

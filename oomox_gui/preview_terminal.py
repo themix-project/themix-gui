@@ -60,11 +60,11 @@ class TerminalThemePreview(Gtk.Box):
             twi[key2].set_markup(f"<tt>{color_name}</tt>")
             self.background.attach_next_to(
                 twi[key1], previous_row,
-                Gtk.PositionType.BOTTOM, 1, 1
+                Gtk.PositionType.BOTTOM, 1, 1,
             )
             self.background.attach_next_to(
                 twi[key2], twi[key1],
-                Gtk.PositionType.RIGHT, 1, 1
+                Gtk.PositionType.RIGHT, 1, 1,
             )
             previous_row = twi[key1]
             previous_row.set_margin_left(self.LEFT_MARGIN)
@@ -78,7 +78,7 @@ class TerminalThemePreview(Gtk.Box):
         }
         term_bg = converted["background"]
         self.terminal_widgets["normal"].override_color(
-            Gtk.StateType.NORMAL, converted["foreground"]  # type: ignore[arg-type]
+            Gtk.StateType.NORMAL, converted["foreground"],  # type: ignore[arg-type]
         )
         self.override_background_color(Gtk.StateType.NORMAL, term_bg)  # type: ignore[arg-type]
         for color_row in self.COLOR_ROWS:
@@ -86,11 +86,11 @@ class TerminalThemePreview(Gtk.Box):
             key1 = f"color{normal_id}"
             key2 = f"color{highlight_id}"
             self.terminal_widgets[key1].override_color(
-                Gtk.StateType.NORMAL, converted[key1]  # type: ignore[arg-type]
+                Gtk.StateType.NORMAL, converted[key1],  # type: ignore[arg-type]
             )
             self.terminal_widgets[key2].override_color(
-                Gtk.StateType.NORMAL, term_bg  # type: ignore[arg-type]
+                Gtk.StateType.NORMAL, term_bg,  # type: ignore[arg-type]
             )
             self.terminal_widgets[key2].override_background_color(
-                Gtk.StateType.NORMAL, converted[key2]  # type: ignore[arg-type]
+                Gtk.StateType.NORMAL, converted[key2],  # type: ignore[arg-type]
             )

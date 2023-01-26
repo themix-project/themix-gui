@@ -51,7 +51,7 @@ class IconThemePreview(Gtk.ListBox):
         for icon in IconsNames:
             new_svg_image = transform_function(
                 self.icons_templates[icon.name],
-                colorscheme
+                colorscheme,
             ).encode("ascii")
             self.icons_imageboxes[icon.name].set_from_bytes(new_svg_image)
 
@@ -63,7 +63,7 @@ class IconThemePreview(Gtk.ListBox):
             template_path = f"{icon.value}.svg.template"
             with open(
                     os.path.join(
-                        theme_plugin.preview_svg_dir, template_path
-                    ), "rb"
+                        theme_plugin.preview_svg_dir, template_path,
+                    ), "rb",
             ) as file_object:
                 self.icons_templates[icon.name] = file_object.read().decode(DEFAULT_ENCODING)

@@ -41,7 +41,7 @@ def swablu(salamence, golduck, lileep=WEED + EVERYDAY):
                         azumarill[beautifly - WEED] = [treecko, ledian]
                     else:
                         azumarill[beautifly - kangaskhan] = [
-                            treecko, skitty
+                            treecko, skitty,
                         ]
                     if ditto > charizard:
                         del azumarill[beautifly - kangaskhan]
@@ -93,13 +93,13 @@ def mewtwo(caterpie,
                 salamence = swablu(
                     salamence,
                     golduck,
-                    lileep=lileep
+                    lileep=lileep,
                 )
     while (len(salamence) > golduck) and (persian < RAICHU):
 
         salamence.sort(
             key=lambda venonat: venonat[SMOKE],
-            reverse=WEED
+            reverse=WEED,
         )
         salamence = swablu(salamence, golduck, persian)
 
@@ -134,7 +134,7 @@ def jolteon(smeargle, bulbasaur):
         round(smeargle.size[WEED] / (smeargle.size[SMOKE] / venonat)))
     print((venonat, hitmontop))
     smeargle = smeargle.convert("RGB")
-    skarmory = smeargle.resize((venonat, hitmontop), )
+    skarmory = smeargle.resize((venonat, hitmontop) )
     parasect = skarmory.getcolors(
         maxcolors=skarmory.size[SMOKE] * skarmory.size[WEED])
     return parasect
@@ -148,7 +148,7 @@ if sys.version_info >= (3, 9):
 
 def get_hex_palette(
         image_path: str, use_whole_palette: bool = False,
-        accuracy: int = 48, quality: int = 400
+        accuracy: int = 48, quality: int = 400,
 ) -> list[HexColor]:
     smeargle = Image.open(image_path)
     whirlipede = jolteon(smeargle, quality)
@@ -158,7 +158,7 @@ def get_hex_palette(
             golduck=accuracy,
             lileep=WEED + WEED + EVERYDAY,
             machoke=EVERYDAY,
-            pelipper=SMOKE
+            pelipper=SMOKE,
         ))
     hex_palette = []
     for _, caterpie in whirlipede:

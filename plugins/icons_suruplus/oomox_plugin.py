@@ -16,7 +16,7 @@ class SuruPlusIconsExportDialog(CommonIconThemeExportDialog):
 
     def do_export(self):
         export_path = os.path.expanduser(
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
         self.command = [
             "bash",
@@ -33,7 +33,7 @@ class Plugin(OomoxIconsPlugin):
     display_name = "Suru++"
     about_text = translate(
         "A cyberpunkish, elegant, futuristic, macOS-like, Papirus-like "
-        "and modern Suru icons based on Suru iconset."
+        "and modern Suru icons based on Suru iconset.",
     )
     about_links = [
         {
@@ -69,7 +69,7 @@ class Plugin(OomoxIconsPlugin):
             "type": "color",
             "fallback_function": lambda colors: mix_theme_colors(
                 colors["MENU_FG"], colors["BTN_FG"],
-                0.66
+                0.66,
             ),
             "display_name": translate("Actions Icons"),
             "value_filter": {
@@ -111,22 +111,22 @@ class Plugin(OomoxIconsPlugin):
 
     def preview_transform_function(self, svg_template, colorscheme):
         icon_preview = svg_template.replace(
-            "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR
+            "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR,
         ).replace(
-            "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR
+            "%MEDIUM%", colorscheme["ICONS_MEDIUM"] or FALLBACK_COLOR,
         ).replace(
-            "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR
+            "%DARK%", colorscheme["ICONS_DARK"] or FALLBACK_COLOR,
         ).replace(
-            "%SYMBOLIC_ACTION%", colorscheme["ICONS_SYMBOLIC_ACTION"] or FALLBACK_COLOR
+            "%SYMBOLIC_ACTION%", colorscheme["ICONS_SYMBOLIC_ACTION"] or FALLBACK_COLOR,
         ).replace(
-            "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR
+            "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR,
         )
         if colorscheme["SURUPLUS_GRADIENT_ENABLED"] and "arrongin" in svg_template:
             icon_preview = icon_preview.replace(
-                "currentColor", "url(#arrongin)"
+                "currentColor", "url(#arrongin)",
             ).replace(
-                "%GRADIENT1%", colorscheme["SURUPLUS_GRADIENT1"] or FALLBACK_COLOR
+                "%GRADIENT1%", colorscheme["SURUPLUS_GRADIENT1"] or FALLBACK_COLOR,
             ).replace(
-                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR
+                "%GRADIENT2%", colorscheme["SURUPLUS_GRADIENT2"] or FALLBACK_COLOR,
             )
         return icon_preview

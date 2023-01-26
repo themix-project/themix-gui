@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 CONFIG_MIGRATIONS_DIR: "Final" = os.path.join(
-    USER_CONFIG_DIR, "migrations/"
+    USER_CONFIG_DIR, "migrations/",
 )
 
 
