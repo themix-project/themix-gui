@@ -18,7 +18,7 @@ class XrdbCache():
             return cls._cache
 
         timeout = 10
-        command = ['xrdb', '-query']
+        command = ["xrdb", "-query"]
 
         result = {}
         with subprocess.Popen(
@@ -26,17 +26,17 @@ class XrdbCache():
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT
         ) as proc:
-            for line in iter(proc.stdout.readline, b''):
+            for line in iter(proc.stdout.readline, b""):
                 line = line.decode(DEFAULT_ENCODING)
-                key, value, *_rest = line.split(':')
-                key = key.lstrip('*').lstrip('.')
+                key, value, *_rest = line.split(":")
+                key = key.lstrip("*").lstrip(".")
                 value = value.strip()
                 result[key] = value
             proc.communicate(timeout=timeout)
             if proc.returncode == 0:
                 cls._cache = result
                 return result
-        print('xrdb not found')
+        print("xrdb not found")
         return None
 
     @classmethod
@@ -46,10 +46,10 @@ class XrdbCache():
 
 class Plugin(OomoxImportPlugin):
 
-    name = 'import_xresources'
-    display_name = 'Xresources'
+    name = "import_xresources"
+    display_name = "Xresources"
     plugin_theme_dir = os.path.abspath(
-        os.path.join(PLUGIN_DIR, 'colors')
+        os.path.join(PLUGIN_DIR, "colors")
     )
 
     # theme_model_import = []
@@ -57,23 +57,23 @@ class Plugin(OomoxImportPlugin):
     def read_colorscheme_from_path(self, preset_path):
 
         theme_keys = [
-            item['key']
+            item["key"]
             for section in get_theme_model().values()
             for item in section
-            if 'key' in item
+            if "key" in item
         ]
 
         colorscheme = {}
 
         with open(preset_path, encoding=DEFAULT_ENCODING) as file_object:
             for line in file_object.readlines():
-                key, _sep, value = line.strip().partition('=')
+                key, _sep, value = line.strip().partition("=")
                 if key.startswith("#") or key not in theme_keys:
                     continue
-                if value.startswith('xrdb.'):
-                    xrdb_color = XrdbCache.get().get(value.replace('xrdb.', ''))
-                    if xrdb_color and xrdb_color.startswith('#'):
-                        value = xrdb_color.replace('#', '')
+                if value.startswith("xrdb."):
+                    xrdb_color = XrdbCache.get().get(value.replace("xrdb.", ""))
+                    if xrdb_color and xrdb_color.startswith("#"):
+                        value = xrdb_color.replace("#", "")
                 colorscheme[key] = value
 
         XrdbCache.clear()

@@ -45,7 +45,7 @@ HIGH_QUALITY = 400
 # ULTRA_QUALITY = 1000
 
 
-image_analyzer = get_plugin_module('ima', os.path.join(PLUGIN_DIR, 'ima.py'))
+image_analyzer = get_plugin_module("ima", os.path.join(PLUGIN_DIR, "ima.py"))
 
 
 def sort_by_saturation(c: "Sequence[int]") -> int:  # pylint: disable=invalid-name
@@ -70,24 +70,24 @@ def get_gray_colors(palette: "list[HexColor]") -> "list[HexColor]":
 
 class Plugin(OomoxImportPluginAsync):
 
-    name = 'import_from_image'
-    display_name = translate('Image colors')
-    import_text = translate('Colors from Image')
+    name = "import_from_image"
+    display_name = translate("Image colors")
+    import_text = translate("Colors from Image")
     about_text = translate(
-        'Generate a theme based on any image '
-        'using different algorithms for determining the main colors.'
+        "Generate a theme based on any image "
+        "using different algorithms for determining the main colors."
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/themix-project/oomox/',
+            "name": translate("Homepage"),
+            "url": "https://github.com/themix-project/oomox/",
         },
     ]
 
     file_extensions = (
-        '.jpg',
-        '.png',
-        '.gif',
+        ".jpg",
+        ".png",
+        ".gif",
     )
 
     def __init__(self) -> None:
@@ -100,7 +100,7 @@ class Plugin(OomoxImportPluginAsync):
         config = PluginMigrationConfig(plugin=self)
         if config.version < 1:
             parent_dir = os.path.dirname(self.user_theme_dir)
-            old_plugin_dir_name = '__plugin__import_pil'
+            old_plugin_dir_name = "__plugin__import_pil"
             old_user_theme_dir = os.path.join(parent_dir, old_plugin_dir_name)
             if os.path.exists(old_user_theme_dir):
                 os.rename(old_user_theme_dir, self.user_theme_dir)
@@ -231,109 +231,109 @@ class Plugin(OomoxImportPluginAsync):
 
     theme_model_import = [
         {
-            'display_name': translate('Import Colors from Image'),
-            'type': 'separator',
-            'value_filter': {
-                'FROM_PLUGIN': ['import_pil', 'import_from_image', ]
+            "display_name": translate("Import Colors from Image"),
+            "type": "separator",
+            "value_filter": {
+                "FROM_PLUGIN": ["import_pil", "import_from_image", ]
             },
         },
         {
-            'key': '_PIL_PALETTE_QUALITY',
-            'type': 'options',
-            'options': [{
-                'value': LOW_QUALITY,
-                'display_name': translate('oomox: low quality'),
+            "key": "_PIL_PALETTE_QUALITY",
+            "type": "options",
+            "options": [{
+                "value": LOW_QUALITY,
+                "display_name": translate("oomox: low quality"),
             }, {
-                'value': MEDIUM_QUALITY,
-                'display_name': translate('oomox: medium quality'),
+                "value": MEDIUM_QUALITY,
+                "display_name": translate("oomox: medium quality"),
             }, {
-                'value': HIGH_QUALITY,
-                'display_name': translate('oomox: high quality'),
+                "value": HIGH_QUALITY,
+                "display_name": translate("oomox: high quality"),
             }],
             # }, {
             #     'value': ULTRA_QUALITY,
             #     'display_name': 'ultra',
-            'fallback_value': LOW_QUALITY,
-            'display_name': translate('Image Analysis'),
-            'reload_theme': True,
+            "fallback_value": LOW_QUALITY,
+            "display_name": translate("Image Analysis"),
+            "reload_theme": True,
         },
         {
-            'key': '_PIL_PALETTE_STYLE',
-            'type': 'options',
-            'options': [
-                {'value': template_name}
+            "key": "_PIL_PALETTE_STYLE",
+            "type": "options",
+            "options": [
+                {"value": template_name}
                 for template_name in sorted(os.listdir(TERMINAL_TEMPLATE_DIR))
             ],
             # 'fallback_value': 'monovedek_pale_gray',
-            'fallback_value': 'basic',
-            'display_name': translate('Palette Style'),
-            'reload_theme': True,
+            "fallback_value": "basic",
+            "display_name": translate("Palette Style"),
+            "reload_theme": True,
         },
         {
-            'key': '_PIL_PALETTE_STRICT',
-            'type': 'bool',
-            'fallback_value': False,
-            'display_name': translate('Stronger Follow Palette Template'),
-            'reload_theme': True,
-            'value_filter': {
-                '_PIL_PALETTE_QUALITY': [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY]
+            "key": "_PIL_PALETTE_STRICT",
+            "type": "bool",
+            "fallback_value": False,
+            "display_name": translate("Stronger Follow Palette Template"),
+            "reload_theme": True,
+            "value_filter": {
+                "_PIL_PALETTE_QUALITY": [LOW_QUALITY, MEDIUM_QUALITY, HIGH_QUALITY]
             },
         },
         {
-            'key': '_PIL_PALETTE_INVERSE',
-            'type': 'bool',
-            'fallback_value': False,
-            'display_name': translate('Dark/Light Colors'),
-            'reload_theme': True,
+            "key": "_PIL_PALETTE_INVERSE",
+            "type": "bool",
+            "fallback_value": False,
+            "display_name": translate("Dark/Light Colors"),
+            "reload_theme": True,
         },
         {
-            'key': '_PIL_THEME_TEMPLATE',
-            'type': 'options',
-            'options': [
-                {'value': template_name}
+            "key": "_PIL_THEME_TEMPLATE",
+            "type": "options",
+            "options": [
+                {"value": template_name}
                 for template_name in sorted(theme_translations.keys())
             ],
-            'fallback_value': '1',
-            'display_name': translate('GUI Theme Template'),
-            'reload_theme': True,
+            "fallback_value": "1",
+            "display_name": translate("GUI Theme Template"),
+            "reload_theme": True,
         },
         {
-            'key': '_PIL_IMAGE_PREVIEW',
-            'type': 'image_path',
-            'fallback_value': None,
-            'display_name': translate('Image Thumbnail'),
+            "key": "_PIL_IMAGE_PREVIEW",
+            "type": "image_path",
+            "fallback_value": None,
+            "display_name": translate("Image Thumbnail"),
         },
     ]
     theme_model_gtk = [
         {
-            'display_name': translate('Edit Generated Theme'),
-            'type': 'separator',
+            "display_name": translate("Edit Generated Theme"),
+            "type": "separator",
         },
     ]
 
     try:
         import colorz  # pylint: disable=import-error,useless-suppression
-        theme_model_import[1]['options'] += [{
-            'value': 'colorz16',
-            'display_name': translate('colorz lib: low quality'),
+        theme_model_import[1]["options"] += [{
+            "value": "colorz16",
+            "display_name": translate("colorz lib: low quality"),
         }, {
-            'value': 'colorz32',
-            'display_name': translate('colorz lib: medium quality'),
+            "value": "colorz32",
+            "display_name": translate("colorz lib: medium quality"),
         }, {
-            'value': 'colorz64',
-            'display_name': translate('colorz lib: high quality'),
+            "value": "colorz64",
+            "display_name": translate("colorz lib: high quality"),
         }]
     except:  # noqa: E722 pylint: disable=bare-except
         pass
 
     try:
         import colorthief  # pylint: disable=import-error,useless-suppression
-        theme_model_import[1]['options'] += [{
-            'value': 'colorthief16',
-            'display_name': translate('colorthief lib'),
+        theme_model_import[1]["options"] += [{
+            "value": "colorthief16",
+            "display_name": translate("colorthief lib"),
         }, {
-            'value': 'colorthief32',
-            'display_name': translate('colorthief lib: doublepass'),
+            "value": "colorthief32",
+            "display_name": translate("colorthief lib: doublepass"),
         }]
     except:  # noqa: E722  pylint: disable=bare-except
         pass
@@ -341,9 +341,9 @@ class Plugin(OomoxImportPluginAsync):
     try:
         import haishoku  # pylint: disable=import-error,useless-suppression
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
-        theme_model_import[1]['options'].append({
-            'value': 'haishoku',
-            'display_name': translate('haishoku lib'),
+        theme_model_import[1]["options"].append({
+            "value": "haishoku",
+            "display_name": translate("haishoku lib"),
         })
     except:  # noqa: E722  pylint: disable=bare-except
         pass
@@ -353,12 +353,12 @@ class Plugin(OomoxImportPluginAsync):
         import colorz  # noqa: F811  pylint: disable=import-error,useless-suppression
         import haishoku  # noqa: F811  pylint: disable=import-error,useless-suppression
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
-        theme_model_import[1]['options'] += [{
-            'value': 'all_low',
-            'display_name': translate('all available: low quality'),
+        theme_model_import[1]["options"] += [{
+            "value": "all_low",
+            "display_name": translate("all available: low quality"),
         }, {
-            'value': 'all_medium',
-            'display_name': translate('all available: medium quality'),
+            "value": "all_medium",
+            "display_name": translate("all available: medium quality"),
         }]
     except:  # noqa: E722  pylint: disable=bare-except
         pass
@@ -384,7 +384,7 @@ class Plugin(OomoxImportPluginAsync):
     @classmethod
     def _get_colorz_lib_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
         from colorz import colorz  # pylint: disable=import-error,useless-suppression
-        with open(image_path, 'rb') as fobj:
+        with open(image_path, "rb") as fobj:
             palette = colorz(fobj, color_count, 50, 200)
         hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
         return hex_palette
@@ -400,11 +400,11 @@ class Plugin(OomoxImportPluginAsync):
         with Pool() as pool:
             oomox_future = pool.apply_async(apply_chain, (
                 get_plugin_module,
-                ('ima', os.path.join(PLUGIN_DIR, 'ima.py'), 'get_hex_palette'),
+                ("ima", os.path.join(PLUGIN_DIR, "ima.py"), "get_hex_palette"),
                 (image_path, use_whole_palette, 48, quality_per_plugin[0])
             ))
             from functools import partial
-            _opener = partial(open, image_path, 'rb')
+            _opener = partial(open, image_path, "rb")
             colorz_future = pool.apply_async(delayed_partial, (
                 colorz,
                 (
@@ -415,7 +415,7 @@ class Plugin(OomoxImportPluginAsync):
             colorthief_future = pool.apply_async(call_method_from_class, (
                 ColorThief,
                 (image_path, ),
-                'get_palette',
+                "get_palette",
                 (quality_per_plugin[2], )
             ))
             haishoku_future = pool.apply_async(
@@ -453,17 +453,17 @@ class Plugin(OomoxImportPluginAsync):
     def read_colorscheme_from_path(  # type: ignore[override]
             self,
             preset_path: str,
-            callback: 'Callable[[ThemeT], None]'
+            callback: "Callable[[ThemeT], None]"
     ) -> None:
 
-        get_first_theme_option('_PIL_IMAGE_PREVIEW')['fallback_value'] = preset_path
+        get_first_theme_option("_PIL_IMAGE_PREVIEW")["fallback_value"] = preset_path
 
-        def _callback(image_palette: 'ThemeT') -> None:
+        def _callback(image_palette: "ThemeT") -> None:
             self.read_colorscheme_from_path_callback(image_palette, callback)
 
         palette_style: str = get_first_theme_option(  # type: ignore[assignment]
-            '_PIL_PALETTE_STYLE'
-        ).get('fallback_value')
+            "_PIL_PALETTE_STYLE"
+        ).get("fallback_value")
         self.generate_terminal_palette(
             palette_style,
             preset_path,
@@ -472,12 +472,12 @@ class Plugin(OomoxImportPluginAsync):
 
     def read_colorscheme_from_path_callback(
             self,
-            image_palette: 'ThemeT',
-            callback: 'Callable[[ThemeT], None]'
+            image_palette: "ThemeT",
+            callback: "Callable[[ThemeT], None]"
     ) -> None:
         theme_template: str = get_first_theme_option(  # type: ignore[assignment]
-            '_PIL_THEME_TEMPLATE', {}
-        ).get('fallback_value')
+            "_PIL_THEME_TEMPLATE", {}
+        ).get("fallback_value")
         oomox_theme: dict[str, "Any"] = {}
         oomox_theme.update(self.default_theme)
         if theme_template in self.default_themes:
@@ -517,7 +517,7 @@ class Plugin(OomoxImportPluginAsync):
                 )
             try:
                 _app = OomoxApplicationWindow.get_instance()
-                _app.disable(translate('Extracting palette from image…'))
+                _app.disable(translate("Extracting palette from image…"))
                 _app.schedule_task(generate_terminal_palette_task)
                 _app.enable()
             except NoWindowError:
@@ -530,21 +530,21 @@ class Plugin(OomoxImportPluginAsync):
             start_time: float,
             result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
-        if quality.startswith('colorz'):
+        if quality.startswith("colorz"):
             hex_palette = cls._get_colorz_lib_palette(
-                image_path, color_count=int(quality.split('colorz')[1])
+                image_path, color_count=int(quality.split("colorz")[1])
             )
-        elif quality.startswith('colorthief'):
+        elif quality.startswith("colorthief"):
             hex_palette = cls._get_colorthief_palette(
-                image_path, color_count=int(quality.split('colorthief')[1]) + 1
+                image_path, color_count=int(quality.split("colorthief")[1]) + 1
             )
-        elif quality == 'haishoku':
+        elif quality == "haishoku":
             hex_palette = cls._get_haishoku_palette(image_path)
-        elif quality.startswith('all_'):
-            _quality = quality.split('_')[1]
-            if _quality == 'low':
+        elif quality.startswith("all_"):
+            _quality = quality.split("_")[1]
+            if _quality == "low":
                 quality_per_plugin = [100, 16, 16]
-            elif _quality == 'medium':
+            elif _quality == "medium":
                 quality_per_plugin = [200, 32, 32]
             else:
                 raise NotImplementedError()
@@ -581,12 +581,12 @@ class Plugin(OomoxImportPluginAsync):
         reference_palette = import_xcolors(os.path.join(TERMINAL_TEMPLATE_DIR, template_path))
         result_palette = {}
         if inverse_palette:
-            reference_palette['foreground'], reference_palette['background'] = \
-                reference_palette['background'], reference_palette['foreground']
-        is_dark_bg = is_dark(reference_palette['background'])
+            reference_palette["foreground"], reference_palette["background"] = \
+                reference_palette["background"], reference_palette["foreground"]
+        is_dark_bg = is_dark(reference_palette["background"])
 
         max_possible_lightness = 255 * 3
-        new_bg_color, _diff = find_closest_color(reference_palette['background'], hex_palette)
+        new_bg_color, _diff = find_closest_color(reference_palette["background"], hex_palette)
         if not new_bg_color:
             raise RuntimeError("No color")
         # @TODO: use real lightness from HSV or Lab color model
@@ -601,7 +601,7 @@ class Plugin(OomoxImportPluginAsync):
             max_lightness = max_possible_lightness - lightness_delta
 
         for key, value in reference_palette.items():
-            if key not in ['color0', 'color7', 'color8', 'color15', 'foreground', 'background']:
+            if key not in ["color0", "color7", "color8", "color15", "foreground", "background"]:
                 closest_color, _diff = find_closest_color(
                     value, bright_colors_list,
                     min_lightness=min_lightness, max_lightness=max_lightness
@@ -621,19 +621,19 @@ class Plugin(OomoxImportPluginAsync):
             result_callback: "Callable[[ThemeT], None]",
     ) -> None:
         quality: int = get_first_theme_option(
-            '_PIL_PALETTE_QUALITY', {}
-        ).get('fallback_value')  # type: ignore[assignment]
+            "_PIL_PALETTE_QUALITY", {}
+        ).get("fallback_value")  # type: ignore[assignment]
         use_whole_palette = bool(
-            get_first_theme_option('_PIL_PALETTE_STRICT', {}).get('fallback_value')
+            get_first_theme_option("_PIL_PALETTE_STRICT", {}).get("fallback_value")
         )
         inverse_palette = bool(
-            get_first_theme_option('_PIL_PALETTE_INVERSE', {}).get('fallback_value')
+            get_first_theme_option("_PIL_PALETTE_INVERSE", {}).get("fallback_value")
         )
         _id = template_path+image_path+str(quality)+str(use_whole_palette)+str(inverse_palette)
 
         def _result_callback(generated_palette: dict[str, str]) -> None:
             cls._terminal_palette_cache[_id] = generated_palette
-            palette: 'ThemeT' = {}
+            palette: "ThemeT" = {}
             palette.update(cls._terminal_palette_cache[_id])
             result_callback(palette)
 
@@ -649,7 +649,7 @@ class Plugin(OomoxImportPluginAsync):
                 )
             try:
                 _app = OomoxApplicationWindow.get_instance()
-                _app.disable(translate('Generating terminal palette…'))
+                _app.disable(translate("Generating terminal palette…"))
                 _app.schedule_task(generate_terminal_palette_task)
                 _app.enable()
             except NoWindowError:

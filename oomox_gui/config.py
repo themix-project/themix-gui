@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
 
 FALLBACK_COLOR: "Final" = "F33333"
-DEFAULT_ENCODING: "Final" = 'utf-8'
+DEFAULT_ENCODING: "Final" = "utf-8"
 
 
 SCRIPT_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))

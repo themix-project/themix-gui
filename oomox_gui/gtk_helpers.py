@@ -17,14 +17,14 @@ class ActionProperty(str):
     target: str
     name: str
 
-    def __new__(cls, target: str, name: str) -> 'ActionProperty':
+    def __new__(cls, target: str, name: str) -> "ActionProperty":
         obj = str.__new__(cls, name)
         obj.name = name
         obj.target = target
         return obj
 
     def get_id(self) -> str:
-        return '.'.join([self.target, self.name])
+        return ".".join([self.target, self.name])
 
 
 class ActionsEnum(metaclass=ABCMeta):
@@ -64,11 +64,11 @@ class ImageButtonContainer(Gtk.Box):
         self.box = Gtk.Box()
         self.icon = Gio.ThemedIcon(name=icon_name)  # type: ignore[call-arg]
         self.image = Gtk.Image.new_from_gicon(self.icon, Gtk.IconSize.BUTTON)
-        self.get_style_context().add_class('image-button')
+        self.get_style_context().add_class("image-button")
         if label:
             self.label = Gtk.Label(label)
             self.box.pack_start(self.label, True, True, 3)
-            self.get_style_context().add_class('text-button')
+            self.get_style_context().add_class("text-button")
         self.box.pack_start(self.image, True, True, 3 if self.label else 0)
         self.add(self.box)
         if tooltip_text:
@@ -163,7 +163,7 @@ class ScaledImage(Gtk.Image):
 class EntryDialog(Gtk.Dialog):
 
     entry: Gtk.Entry
-    entry_text = ''
+    entry_text = ""
 
     def do_response(self, response: Gtk.ResponseType) -> None:  # pylint: disable=arguments-differ
         if response == Gtk.ResponseType.OK:
@@ -241,7 +241,7 @@ class GObjectABCMetaAbstractProperty():
 
 class GObjectABCMeta(GObjectMeta, type):
 
-    ABS_METHODS = '__abstract_methods__'
+    ABS_METHODS = "__abstract_methods__"
 
     def __init__(cls, name: str, transient_for: Gtk.Window, data: "Any") -> None:
         super().__init__(name, transient_for, data)  # type: ignore[arg-type]
@@ -307,7 +307,7 @@ class _WarnOnceDialog(Gtk.MessageDialog):
 
 def warn_once(
         text: str,
-        secondary_text: str = '',
+        secondary_text: str = "",
         buttons: Gtk.ButtonsType = Gtk.ButtonsType.CLOSE
 ) -> None:
     dialog = _WarnOnceDialog(text, secondary_text, buttons)

@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from types import ModuleType
     from typing import Any, Callable, Iterable, TypeVar
 
-    SortableT = TypeVar('SortableT', bound=str)
+    SortableT = TypeVar("SortableT", bound=str)
     DelayedPartialReturnT = TypeVar("DelayedPartialReturnT")
     DelayedPartialArgT = TypeVar("DelayedPartialArgT")
 
@@ -28,7 +28,7 @@ def ls_r(path: str) -> list[str]:
 
 def get_plugin_module(name: str, path: str, submodule: str | None = None) -> "ModuleType":
     if sys.version_info < (3, 5):
-        raise RuntimeError('Python 3.5+ is required')
+        raise RuntimeError("Python 3.5+ is required")
     #                           i guess mypy stubs for importlib are incomplete:
     spec = importlib.util.spec_from_file_location(name, path)  # type: ignore[attr-defined]
     module = importlib.util.module_from_spec(spec)  # type: ignore[attr-defined]
@@ -43,7 +43,7 @@ def natural_sort(list_to_sort: "list[SortableT]") -> "Iterable[SortableT]":
         return int(text) if text.isdigit() else text.lower()
 
     def alphanum_key(key: str) -> tuple[str | int, ...]:
-        return tuple(convert(c) for c in re.split('([0-9]+)', key))
+        return tuple(convert(c) for c in re.split("([0-9]+)", key))
 
     return sorted(list_to_sort, key=alphanum_key)
 

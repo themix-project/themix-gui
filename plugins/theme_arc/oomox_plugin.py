@@ -12,14 +12,14 @@ from oomox_gui.plugin_api import OomoxThemePlugin
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 THEME_DIR = os.path.join(PLUGIN_DIR, "arc-theme/")
 
-OPTION_EXPORT_CINNAMON_THEME = 'OPTION_EXPORT_CINNAMON_THEME'
-OPTION_EXPORT_GNOME_SHELL_THEME = 'OPTION_EXPORT_GNOME_SHELL_THEME'
-OPTION_EXPORT_XFWM_THEME = 'OPTION_EXPORT_XFWM_THEME'
+OPTION_EXPORT_CINNAMON_THEME = "OPTION_EXPORT_CINNAMON_THEME"
+OPTION_EXPORT_GNOME_SHELL_THEME = "OPTION_EXPORT_GNOME_SHELL_THEME"
+OPTION_EXPORT_XFWM_THEME = "OPTION_EXPORT_XFWM_THEME"
 
 
 class ArcThemeExportDialog(CommonGtkThemeExportDialog):
 
-    config_name = 'arc_theme'
+    config_name = "arc_theme"
     timeout = 1000
 
     def do_export(self):
@@ -50,16 +50,16 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
             theme_name=theme_name,
             override_options={
                 OPTION_EXPORT_CINNAMON_THEME: {
-                    'default': False,
-                    'display_name': translate("Generate theme for _Cinnamon"),
+                    "default": False,
+                    "display_name": translate("Generate theme for _Cinnamon"),
                 },
                 OPTION_EXPORT_GNOME_SHELL_THEME: {
-                    'default': False,
-                    'display_name': translate("Generate theme for GNOME _Shell"),
+                    "default": False,
+                    "display_name": translate("Generate theme for GNOME _Shell"),
                 },
                 OPTION_EXPORT_XFWM_THEME: {
-                    'default': False,
-                    'display_name': translate("Generate theme for _Xfwm"),
+                    "default": False,
+                    "display_name": translate("Generate theme for _Xfwm"),
                 },
             },
             **kwargs
@@ -67,7 +67,7 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
 
 
 def _monkeypatch_update_preview_borders(preview_object):
-    _monkeypatch_id = '_arc_borders_monkeypatched'
+    _monkeypatch_id = "_arc_borders_monkeypatched"
 
     if getattr(preview_object, _monkeypatch_id, None):
         return
@@ -80,21 +80,21 @@ def _monkeypatch_update_preview_borders(preview_object):
         else:
             for widget_name, widget, border_color in (
                     (
-                        'button',
+                        "button",
                         preview_object.gtk_preview.button,
-                        colorscheme['ARC_WIDGET_BORDER_COLOR'],
+                        colorscheme["ARC_WIDGET_BORDER_COLOR"],
                     ), (
-                        'headerbar_button',
+                        "headerbar_button",
                         preview_object.gtk_preview.headerbar.button,
                         mix_theme_colors(
-                            colorscheme['HDR_BTN_FG'],
-                            colorscheme['HDR_BTN_BG'],
+                            colorscheme["HDR_BTN_FG"],
+                            colorscheme["HDR_BTN_BG"],
                             0.12
                         ),
                     ), (
-                        'entry',
+                        "entry",
                         preview_object.gtk_preview.entry,
-                        colorscheme['ARC_WIDGET_BORDER_COLOR'],
+                        colorscheme["ARC_WIDGET_BORDER_COLOR"],
                     ),
             ):
                 css_provider_border_color = preview_object.css_providers.border.get(widget_name)
@@ -108,7 +108,7 @@ def _monkeypatch_update_preview_borders(preview_object):
                         border-color: #{border_color};
                         border-radius: {colorscheme["ROUNDNESS"]}px;
                     }}
-                    """.encode('ascii')
+                    """.encode("ascii")
                 )
                 Gtk.StyleContext.add_provider(
                     widget.get_style_context(),
@@ -122,16 +122,16 @@ def _monkeypatch_update_preview_borders(preview_object):
 
 class Plugin(OomoxThemePlugin):
 
-    name = 'arc'
-    display_name = 'Arc'
+    name = "arc"
+    display_name = "Arc"
     description = (
-        'GTK+2, GTK+3\n'
-        'Cinnamon, GNOME Shell, Metacity, Openbox, Unity, Xfwm'
+        "GTK+2, GTK+3\n"
+        "Cinnamon, GNOME Shell, Metacity, Openbox, Unity, Xfwm"
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/arc-design/arc-theme',
+            "name": translate("Homepage"),
+            "url": "https://github.com/arc-design/arc-theme",
         },
     ]
 
@@ -142,16 +142,16 @@ class Plugin(OomoxThemePlugin):
     }
 
     enabled_keys_gtk = [
-        'BG',
-        'FG',
-        'HDR_BG',
-        'HDR_FG',
-        'SEL_BG',
-        'SEL_FG',
-        'TXT_BG',
-        'BTN_BG',
-        'HDR_BTN_BG',
-        'ACCENT_BG',
+        "BG",
+        "FG",
+        "HDR_BG",
+        "HDR_FG",
+        "SEL_BG",
+        "SEL_FG",
+        "TXT_BG",
+        "BTN_BG",
+        "HDR_BTN_BG",
+        "ACCENT_BG",
     ]
     # enabled_keys_options = [
     #     'ROUNDNESS',
@@ -159,24 +159,24 @@ class Plugin(OomoxThemePlugin):
 
     theme_model_gtk = [
         {
-            'key': 'ARC_WIDGET_BORDER_COLOR',
-            'fallback_function': lambda colors: mix_theme_colors(
-                colors['BTN_BG'], colors['BTN_FG'],
+            "key": "ARC_WIDGET_BORDER_COLOR",
+            "fallback_function": lambda colors: mix_theme_colors(
+                colors["BTN_BG"], colors["BTN_FG"],
                 0.75
             ),
-            'type': 'color',
-            'display_name': translate('Border'),
-            'description': translate('not supported by GTK+2 theme'),
+            "type": "color",
+            "display_name": translate("Border"),
+            "description": translate("not supported by GTK+2 theme"),
         },
     ]
 
     theme_model_options = [
         {
-            'key': 'ARC_TRANSPARENCY',
-            'type': 'bool',
-            'fallback_value': True,
-            'display_name': translate('Enable Theme Transparency'),
-            'description': translate('not supported by GTK+2 theme'),
+            "key": "ARC_TRANSPARENCY",
+            "type": "bool",
+            "fallback_value": True,
+            "display_name": translate("Enable Theme Transparency"),
+            "description": translate("not supported by GTK+2 theme"),
         },
         # {
         #     'key': 'GTK3_GENERATE_DARK',

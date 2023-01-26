@@ -49,7 +49,7 @@ class CssProviders():
                 border-radius: 0;
             }
             """
-        ).encode('ascii'))
+        ).encode("ascii"))
         self.wm_border = Gtk.CssProvider()
         self.caret = Gtk.CssProvider()
         self.reset_style = Gtk.CssProvider()
@@ -60,7 +60,7 @@ class CssProviders():
                 border: none;
             }
             """
-        ).encode('ascii'))
+        ).encode("ascii"))
 
 
 class PreviewHeaderbar(Gtk.HeaderBar):
@@ -101,10 +101,10 @@ class PreviewWidgets(Gtk.Box):
         self.headerbar = PreviewHeaderbar()
 
         self.menubar = Gtk.MenuBar()
-        menuitem1 = Gtk.MenuItem(label=translate('File'))
+        menuitem1 = Gtk.MenuItem(label=translate("File"))
         menuitem1.set_submenu(self.create_menu(3, True))
         self.menubar.append(menuitem1)  # type: ignore[attr-defined]
-        menuitem2 = Gtk.MenuItem(label=translate('Edit'))
+        menuitem2 = Gtk.MenuItem(label=translate("Edit"))
         menuitem2.set_submenu(self.create_menu(6, True))
         self.menubar.append(menuitem2)  # type: ignore[attr-defined]
 
@@ -118,10 +118,10 @@ class PreviewWidgets(Gtk.Box):
 
         self.preview_imageboxes = {}
         self.preview_imageboxes_templates = {}
-        self.preview_imageboxes['CHECKBOX'] = ScaledImage(width=16)
+        self.preview_imageboxes["CHECKBOX"] = ScaledImage(width=16)
 
         fake_checkbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-        fake_checkbox.pack_start(self.preview_imageboxes['CHECKBOX'], False, False, 0)
+        fake_checkbox.pack_start(self.preview_imageboxes["CHECKBOX"], False, False, 0)
         fake_checkbox.pack_start(self.label, False, False, 0)
         fake_checkbox.set_margin_left(WIDGET_SPACING // 2)
 
@@ -144,7 +144,7 @@ class PreviewWidgets(Gtk.Box):
         menu = Gtk.Menu()
         for i in range(0, n_items):
             sensitive = (i + 1) % 3 != 0
-            label = translate('Item {id}') if sensitive else translate('Insensitive Item {id}')
+            label = translate("Item {id}") if sensitive else translate("Insensitive Item {id}")
             item = Gtk.MenuItem(  # type: ignore[call-arg]
                 label=label.format(id=i + 1),
                 sensitive=sensitive
@@ -174,7 +174,7 @@ class PreviewWidgets(Gtk.Box):
             new_svg_image = transform_function(
                 self.preview_imageboxes_templates[icon.name],
                 colorscheme
-            ).encode('ascii')
+            ).encode("ascii")
             self.preview_imageboxes[icon.name].set_from_bytes(
                 new_svg_image, width=theme_plugin.preview_sizes[icon.name]
             )
@@ -193,8 +193,8 @@ def _get_menu_widgets(shell: Gtk.MenuShell) -> "Sequence[Gtk.Menu | Gtk.MenuShel
 
 class ThemePreview(Gtk.Grid):
 
-    BG = 'bg'  # pylint: disable=invalid-name
-    FG = 'fg'  # pylint: disable=invalid-name
+    BG = "bg"  # pylint: disable=invalid-name
+    FG = "fg"  # pylint: disable=invalid-name
 
     WM_BORDER_WIDTH: int = 2
 
@@ -271,11 +271,11 @@ class ThemePreview(Gtk.Grid):
                 -GtkWidget-cursor-aspect-ratio: {caret_aspect_ratio};
             }}
             """).format(
-                primary_caret_color=colorscheme['CARET1_FG'],
-                secondary_caret_color=colorscheme['CARET2_FG'],
-                caret_aspect_ratio=colorscheme['CARET_SIZE']
+                primary_caret_color=colorscheme["CARET1_FG"],
+                secondary_caret_color=colorscheme["CARET2_FG"],
+                caret_aspect_ratio=colorscheme["CARET_SIZE"]
             )
-        ).encode('ascii'))
+        ).encode("ascii"))
         Gtk.StyleContext.add_provider(
             self.gtk_preview.entry.get_style_context(),
             self.css_providers.caret,
@@ -283,7 +283,7 @@ class ThemePreview(Gtk.Grid):
         )
 
     def update_preview_gradients(self, colorscheme: "ThemeT") -> None:
-        gradient: float = colorscheme['GRADIENT']  # type: ignore[assignment]
+        gradient: float = colorscheme["GRADIENT"]  # type: ignore[assignment]
         if gradient == 0:
             self.reset_gradients()
             return
@@ -321,7 +321,7 @@ class ThemePreview(Gtk.Grid):
                     amount1=1 + gradient / 2,
                     amount2=1 - gradient / 2,
                 )
-            ).encode('ascii'))
+            ).encode("ascii"))
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
                 css_provider_gradient,
@@ -340,7 +340,7 @@ class ThemePreview(Gtk.Grid):
                     background-image: none;
                 }
                 """
-            ).encode('ascii'))
+            ).encode("ascii"))
         for widget in [
                 self.gtk_preview.button,
                 self.gtk_preview.headerbar.button,
@@ -356,30 +356,30 @@ class ThemePreview(Gtk.Grid):
     def update_preview_borders(self, colorscheme: "ThemeT") -> None:
         for widget_name, widget, fg, bg, ratio in (  # pylint: disable=invalid-name
                 (
-                    'button',
+                    "button",
                     self.gtk_preview.button,
-                    colorscheme['BTN_FG'],
-                    colorscheme['BTN_BG'],
+                    colorscheme["BTN_FG"],
+                    colorscheme["BTN_BG"],
                     0.22
                 ), (
-                    'headerbar_button',
+                    "headerbar_button",
                     self.gtk_preview.headerbar.button,
-                    colorscheme['HDR_BTN_FG'],
-                    colorscheme['HDR_BTN_BG'],
+                    colorscheme["HDR_BTN_FG"],
+                    colorscheme["HDR_BTN_BG"],
                     0.22
                 ), (
-                    'entry',
+                    "entry",
                     self.gtk_preview.entry,
-                    colorscheme['TXT_BG'],
-                    colorscheme['TXT_FG'],
+                    colorscheme["TXT_BG"],
+                    colorscheme["TXT_FG"],
                     0.8 * (0.7 + (
                         0
                         if hex_lightness(
-                            colorscheme['TXT_BG']  # type: ignore[arg-type]
+                            colorscheme["TXT_BG"]  # type: ignore[arg-type]
                         ) > 0.66 else (
                             0.1
                             if hex_lightness(
-                                colorscheme['TXT_BG']  # type: ignore[arg-type]
+                                colorscheme["TXT_BG"]  # type: ignore[arg-type]
                             ) > 0.33 else
                             0.3
                         )
@@ -398,7 +398,7 @@ class ThemePreview(Gtk.Grid):
                     border-color: #{border_color};
                     border-radius: {colorscheme["ROUNDNESS"]}px;
                 }}
-                """.encode('ascii')
+                """.encode("ascii")
             )
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
@@ -409,13 +409,13 @@ class ThemePreview(Gtk.Grid):
     def update_preview_colors(self, colorscheme: "ThemeT") -> None:
 
         converted = {
-            theme_value['key']: convert_theme_color_to_gdk(
-                colorscheme[theme_value['key']]  # type: ignore[arg-type]
+            theme_value["key"]: convert_theme_color_to_gdk(
+                colorscheme[theme_value["key"]]  # type: ignore[arg-type]
             )
             for section in get_theme_model().values()
             for theme_value in section if (
-                theme_value['type'] == 'color' and
-                not theme_value['key'].startswith('TERMINAL_')
+                theme_value["type"] == "color" and
+                not theme_value["key"].startswith("TERMINAL_")
             )
         }
 
@@ -490,7 +490,7 @@ class ThemePreview(Gtk.Grid):
                     border-width: {self.WM_BORDER_WIDTH}px;
                     border-style: solid;
                 }}
-            """.encode('ascii')
+            """.encode("ascii")
         )
         Gtk.StyleContext.add_provider(
             self.background.get_style_context(),
@@ -507,12 +507,12 @@ class ThemePreview(Gtk.Grid):
         colorscheme_with_fallbacks: "ThemeT" = {}
         for section in get_theme_model().values():
             for theme_value in section:
-                if 'key' not in theme_value:
+                if "key" not in theme_value:
                     continue
-                result = colorscheme.get(theme_value['key'])
-                if not result and theme_value['type'] == 'color':
+                result = colorscheme.get(theme_value["key"])
+                if not result and theme_value["type"] == "color":
                     result = FALLBACK_COLOR
-                colorscheme_with_fallbacks[theme_value['key']] = result  # type: ignore[assignment]
+                colorscheme_with_fallbacks[theme_value["key"]] = result  # type: ignore[assignment]
 
         if not theme_plugin:
             self.gtk_preview.hide()
@@ -542,7 +542,7 @@ class ThemePreview(Gtk.Grid):
     def get_theme_css_provider(self, theme_plugin: "OomoxThemePlugin") -> Gtk.CssProvider:
         css_dir = theme_plugin.gtk_preview_dir
 
-        _css_postfix = '20' if Gtk.get_minor_version() >= 20 else ''
+        _css_postfix = "20" if Gtk.get_minor_version() >= 20 else ""
         css_name = f"theme{_css_postfix}.css"
         css_path = os.path.join(css_dir, css_name)
         if not os.path.exists(css_path):

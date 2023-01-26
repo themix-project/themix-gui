@@ -23,28 +23,28 @@ class MigrationConfig:
         if not os.path.exists(CONFIG_MIGRATIONS_DIR):
             os.makedirs(CONFIG_MIGRATIONS_DIR)
 
-        filename = f'{component_name}.json'
+        filename = f"{component_name}.json"
         self.filepath = os.path.join(CONFIG_MIGRATIONS_DIR, filename)
         try:
             with open(self.filepath, encoding=DEFAULT_ENCODING) as fobj:
                 self.config = json.load(fobj)
         except Exception:
             self.config = {}
-        if not self.config.get('version'):
-            self.config['version'] = self.DEFAULT_VERSION
+        if not self.config.get("version"):
+            self.config["version"] = self.DEFAULT_VERSION
 
     @property
     def version(self) -> int:
-        version_from_config = self.config['version']
+        version_from_config = self.config["version"]
         if not isinstance(version_from_config, int):
             return self.DEFAULT_VERSION
         return version_from_config
 
     def update(self, version: int, **kwargs: "Any") -> None:
-        self.config['version'] = version
+        self.config["version"] = version
         for key, value in kwargs.items():
             self.config[key] = value
-        with open(self.filepath, 'w', encoding=DEFAULT_ENCODING) as fobj:
+        with open(self.filepath, "w", encoding=DEFAULT_ENCODING) as fobj:
             json.dump(self.config, fobj)
 
 

@@ -15,27 +15,27 @@ if TYPE_CHECKING:
 
 class NoPluginsInstalled(Exception):
 
-    def __init__(self, theme_value: 'ThemeModelValue'):
+    def __init__(self, theme_value: "ThemeModelValue"):
         self.theme_value = theme_value
         super().__init__(
             translate("No plugins installed for {plugin_type}").format(
-                plugin_type=self.theme_value['display_name']
+                plugin_type=self.theme_value["display_name"]
             )
         )
 
 
 def str_to_bool(value: str) -> bool:
-    return value.lower() == 'true'
+    return value.lower() == "true"
 
 
 def parse_theme_value(  # pylint: disable=too-many-branches
-        theme_value: 'ThemeModelValue',
+        theme_value: "ThemeModelValue",
         colorscheme: "ThemeT",
 ) -> "ThemeValueT":
-    result_value: "ThemeValueT | None" = colorscheme.get(theme_value['key'])
-    fallback_key: str | None = theme_value.get('fallback_key')
-    fallback_value: "ThemeValueT | None" = theme_value.get('fallback_value')
-    fallback_function = theme_value.get('fallback_function')
+    result_value: "ThemeValueT | None" = colorscheme.get(theme_value["key"])
+    fallback_key: str | None = theme_value.get("fallback_key")
+    fallback_value: "ThemeValueT | None" = theme_value.get("fallback_value")
+    fallback_function = theme_value.get("fallback_function")
 
     if result_value is None:
         if fallback_value is not None:
@@ -45,16 +45,16 @@ def parse_theme_value(  # pylint: disable=too-many-branches
         elif fallback_function:
             result_value = fallback_function(colorscheme)
 
-    value_type = theme_value['type']
-    if value_type == 'bool':
+    value_type = theme_value["type"]
+    if value_type == "bool":
         if isinstance(result_value, str):
             result_value = str_to_bool(result_value)
-    elif value_type == 'int':
+    elif value_type == "int":
         result_value = int(result_value)  # type: ignore[arg-type]
-    elif value_type == 'float':
+    elif value_type == "float":
         result_value = float(result_value)  # type: ignore[arg-type]
-    elif value_type == 'options':
-        available_options = [option['value'] for option in theme_value['options']]
+    elif value_type == "options":
+        available_options = [option["value"] for option in theme_value["options"]]
         if result_value not in available_options:
             if fallback_value in available_options:
                 result_value = fallback_value
@@ -74,24 +74,24 @@ def _set_fallback_values(
     key: str | None
     if not colorscheme:
         theme_keys = [
-            item['key']
+            item["key"]
             for section in get_theme_model().values()
             for item in section
-            if 'key' in item
+            if "key" in item
         ]
 
-        theme_keys.append('NOGUI')
+        theme_keys.append("NOGUI")
 
         with open(preset_path, encoding=DEFAULT_ENCODING) as file_object:
             for line in file_object.readlines():
-                key, _sep, value = line.strip().partition('=')
+                key, _sep, value = line.strip().partition("=")
                 if key.startswith("#") or key not in theme_keys:
                     continue
                 colorscheme[key] = value
 
     for section in get_theme_model().values():  # @TODO: store theme in memory also in two levels?
         for theme_model_item in section:
-            key = theme_model_item.get('key')
+            key = theme_model_item.get("key")
             if not key:
                 continue
             try:
@@ -99,7 +99,7 @@ def _set_fallback_values(
             except NoPluginsInstalled as exc:
                 colorscheme[key] = exc
     if from_plugin:
-        colorscheme['FROM_PLUGIN'] = from_plugin
+        colorscheme["FROM_PLUGIN"] = from_plugin
 
 
 def read_colorscheme_from_path(

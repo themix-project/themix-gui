@@ -10,10 +10,10 @@ class OomoxTranslation():
     def get(cls) -> gettext.NullTranslations:
         if not cls.translation:
             cls.translation = gettext.translation(
-                'oomox',
+                "oomox",
                 localedir=os.path.join(
                     os.path.dirname(os.path.realpath(__file__)),
-                    '..', 'locale'
+                    "..", "locale"
                 ),
                 fallback=True
             )

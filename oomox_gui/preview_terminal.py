@@ -70,7 +70,7 @@ class TerminalThemePreview(Gtk.Box):
             previous_row.set_margin_left(self.LEFT_MARGIN)
         self.set_center_widget(self.background)
 
-    def update_preview(self, colorscheme: 'ThemeT') -> None:
+    def update_preview(self, colorscheme: "ThemeT") -> None:
         term_colorscheme = generate_xrdb_theme_from_oomox(colorscheme)
         converted = {
             key: convert_theme_color_to_gdk(theme_value)

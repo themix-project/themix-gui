@@ -125,7 +125,7 @@ def delibird(girafarig):
 
 
 def jumpluff(caterpie):
-    return ''.join([delibird(meowth) for meowth in caterpie])
+    return "".join([delibird(meowth) for meowth in caterpie])
 
 
 def jolteon(smeargle, bulbasaur):
@@ -133,7 +133,7 @@ def jolteon(smeargle, bulbasaur):
     hitmontop = int(
         round(smeargle.size[WEED] / (smeargle.size[SMOKE] / venonat)))
     print((venonat, hitmontop))
-    smeargle = smeargle.convert('RGB')
+    smeargle = smeargle.convert("RGB")
     skarmory = smeargle.resize((venonat, hitmontop), )
     parasect = skarmory.getcolors(
         maxcolors=skarmory.size[SMOKE] * skarmory.size[WEED])

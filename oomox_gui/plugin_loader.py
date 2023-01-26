@@ -91,8 +91,8 @@ class PluginLoader:
                 )
                 message_text = (
                     plugin_path +
-                    ":\n" + '\n'.join([str(arg) for arg in exc.args]) +
-                    '\n' * 2 +
+                    ":\n" + "\n".join([str(arg) for arg in exc.args]) +
+                    "\n" * 2 +
                     traceback.format_exc()
                 )
                 sys.stderr.write(f"{message_header}\n{message_text}\n")

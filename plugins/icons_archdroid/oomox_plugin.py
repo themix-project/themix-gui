@@ -11,7 +11,7 @@ ARCHDROID_THEME_DIR = os.path.join(PLUGIN_DIR, "archdroid-icon-theme/")
 
 class ArchdroidIconsExportDialog(CommonIconThemeExportDialog):
 
-    config_name = 'icons_archdroid'
+    config_name = "icons_archdroid"
     timeout = 100
 
     def do_export(self):
@@ -30,8 +30,8 @@ class ArchdroidIconsExportDialog(CommonIconThemeExportDialog):
 
 class Plugin(OomoxIconsPlugin):
 
-    name = 'archdroid'
-    display_name = 'Archdroid'
+    name = "archdroid"
+    display_name = "Archdroid"
     about_text = translate(
         "Port of Google's material design icons for "
         "Android Lollipop 5.0 to Linux. "
@@ -40,8 +40,8 @@ class Plugin(OomoxIconsPlugin):
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/GreenRaccoon23/archdroid-icon-theme',
+            "name": translate("Homepage"),
+            "url": "https://github.com/GreenRaccoon23/archdroid-icon-theme",
         },
     ]
 
@@ -50,10 +50,10 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_ARCHDROID',
-            'type': 'color',
-            'fallback_key': 'SEL_BG',
-            'display_name': translate('Icons Color'),
+            "key": "ICONS_ARCHDROID",
+            "type": "color",
+            "fallback_key": "SEL_BG",
+            "display_name": translate("Icons Color"),
         },
     ]
 

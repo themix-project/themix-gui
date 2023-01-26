@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from .theme_file import ThemeT
     from .theme_model import ThemeModelValue  # noqa: F401
 
-    AboutLink = TypedDict('AboutLink', {'name': str, 'url': str})
+    AboutLink = TypedDict("AboutLink", {"name": str, "url": str})
 
 
 PLUGIN_PATH_PREFIX: "Final" = "__plugin__"
@@ -52,7 +52,7 @@ class OomoxThemePlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> 'Type[ExportDialog]':
+    def export_dialog(self) -> "Type[ExportDialog]":
         pass
 
     enabled_keys_gtk = []  # type: list[str]
@@ -64,18 +64,18 @@ class OomoxThemePlugin(OomoxPlugin):
     theme_model_extra = []  # type: list[ThemeModelValue]
 
     def preview_before_load_callback(
-            self, preview_object: 'ThemePreview', colorscheme: 'ThemeT'
+            self, preview_object: "ThemePreview", colorscheme: "ThemeT"
     ) -> None:
         pass
 
     class PreviewImageboxesNames(Enum):
-        CHECKBOX = 'checkbox-checked'
+        CHECKBOX = "checkbox-checked"
 
     preview_sizes = {
         PreviewImageboxesNames.CHECKBOX.name: 16,
     }
 
-    def preview_transform_function(self, svg_template: str, colorscheme: 'ThemeT') -> str:
+    def preview_transform_function(self, svg_template: str, colorscheme: "ThemeT") -> str:
         for key in (
                 "SEL_BG", "SEL_FG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):
@@ -97,15 +97,15 @@ class OomoxIconsPlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> 'Type[ExportDialog]':
+    def export_dialog(self) -> "Type[ExportDialog]":
         pass
 
     @abstractmethod
-    def preview_transform_function(self, svg_template: str, colorscheme: 'ThemeT') -> str:
+    def preview_transform_function(self, svg_template: str, colorscheme: "ThemeT") -> str:
         pass
 
     def preview_before_load_callback(
-            self, preview_object: 'IconThemePreview', colorscheme: 'ThemeT'
+            self, preview_object: "IconThemePreview", colorscheme: "ThemeT"
     ) -> None:
         pass
 
@@ -114,7 +114,7 @@ class OomoxExportPlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> 'Type[ExportDialog]':
+    def export_dialog(self) -> "Type[ExportDialog]":
         pass
 
     # Text to display in export menu:
@@ -130,7 +130,7 @@ class OomoxImportPlugin(OomoxPlugin):
     is_async = False
 
     @abstractmethod
-    def read_colorscheme_from_path(self, preset_path: str) -> 'ThemeT':
+    def read_colorscheme_from_path(self, preset_path: str) -> "ThemeT":
         pass
 
     # Text to display in import menu:
@@ -161,6 +161,6 @@ class OomoxImportPluginAsync(OomoxImportPlugin):
 
     @abstractmethod
     def read_colorscheme_from_path(  # type: ignore[override] #  pylint: disable=arguments-differ
-            self, preset_path: str, callback: 'Callable[[ThemeT,], None]'
+            self, preset_path: str, callback: "Callable[[ThemeT,], None]"
     ) -> None:
         pass

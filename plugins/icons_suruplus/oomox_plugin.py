@@ -12,7 +12,7 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 class SuruPlusIconsExportDialog(CommonIconThemeExportDialog):
 
     timeout = 300
-    config_name = 'icons_suru'
+    config_name = "icons_suru"
 
     def do_export(self):
         export_path = os.path.expanduser(
@@ -29,16 +29,16 @@ class SuruPlusIconsExportDialog(CommonIconThemeExportDialog):
 
 
 class Plugin(OomoxIconsPlugin):
-    name = 'suruplus_icons'
-    display_name = 'Suru++'
+    name = "suruplus_icons"
+    display_name = "Suru++"
     about_text = translate(
-        'A cyberpunkish, elegant, futuristic, macOS-like, Papirus-like '
-        'and modern Suru icons based on Suru iconset.'
+        "A cyberpunkish, elegant, futuristic, macOS-like, Papirus-like "
+        "and modern Suru icons based on Suru iconset."
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/gusbemacbe/suru-plus',
+            "name": translate("Homepage"),
+            "url": "https://github.com/gusbemacbe/suru-plus",
         },
     ]
 
@@ -47,64 +47,64 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_LIGHT_FOLDER',
-            'type': 'color',
-            'fallback_key': 'SEL_BG',
-            'display_name': translate('Light Base (Folders)'),
+            "key": "ICONS_LIGHT_FOLDER",
+            "type": "color",
+            "fallback_key": "SEL_BG",
+            "display_name": translate("Light Base (Folders)"),
         },
         {
-            'key': 'ICONS_MEDIUM',
-            'type': 'color',
-            'fallback_key': 'BTN_BG',
-            'display_name': translate('Medium Base'),
+            "key": "ICONS_MEDIUM",
+            "type": "color",
+            "fallback_key": "BTN_BG",
+            "display_name": translate("Medium Base"),
         },
         {
-            'key': 'ICONS_DARK',
-            'type': 'color',
-            'fallback_key': 'HDR_BG',
-            'display_name': translate('Dark Stroke'),
+            "key": "ICONS_DARK",
+            "type": "color",
+            "fallback_key": "HDR_BG",
+            "display_name": translate("Dark Stroke"),
         },
         {
-            'key': 'ICONS_SYMBOLIC_ACTION',
-            'type': 'color',
-            'fallback_function': lambda colors: mix_theme_colors(
-                colors['MENU_FG'], colors['BTN_FG'],
+            "key": "ICONS_SYMBOLIC_ACTION",
+            "type": "color",
+            "fallback_function": lambda colors: mix_theme_colors(
+                colors["MENU_FG"], colors["BTN_FG"],
                 0.66
             ),
-            'display_name': translate('Actions Icons'),
-            'value_filter': {
-                'SURUPLUS_GRADIENT_ENABLED': False,
+            "display_name": translate("Actions Icons"),
+            "value_filter": {
+                "SURUPLUS_GRADIENT_ENABLED": False,
             },
         },
         {
-            'key': 'ICONS_SYMBOLIC_PANEL',
-            'type': 'color',
-            'fallback_key': 'FG',
-            'display_name': translate('Panel Icons'),
+            "key": "ICONS_SYMBOLIC_PANEL",
+            "type": "color",
+            "fallback_key": "FG",
+            "display_name": translate("Panel Icons"),
         },
         {
-            'key': 'SURUPLUS_GRADIENT_ENABLED',
-            'type': 'bool',
-            'fallback_value': False,
-            'reload_options': True,
-            'display_name': translate('Enable Gradients'),
+            "key": "SURUPLUS_GRADIENT_ENABLED",
+            "type": "bool",
+            "fallback_value": False,
+            "reload_options": True,
+            "display_name": translate("Enable Gradients"),
         },
         {
-            'key': 'SURUPLUS_GRADIENT1',
-            'type': 'color',
-            'fallback_key': 'ICONS_SYMBOLIC_ACTION',
-            'display_name': translate('Gradient Start Color'),
-            'value_filter': {
-                'SURUPLUS_GRADIENT_ENABLED': True,
+            "key": "SURUPLUS_GRADIENT1",
+            "type": "color",
+            "fallback_key": "ICONS_SYMBOLIC_ACTION",
+            "display_name": translate("Gradient Start Color"),
+            "value_filter": {
+                "SURUPLUS_GRADIENT_ENABLED": True,
             },
         },
         {
-            'key': 'SURUPLUS_GRADIENT2',
-            'type': 'color',
-            'fallback_key': 'SEL_BG',
-            'display_name': translate('Gradient End Color'),
-            'value_filter': {
-                'SURUPLUS_GRADIENT_ENABLED': True,
+            "key": "SURUPLUS_GRADIENT2",
+            "type": "color",
+            "fallback_key": "SEL_BG",
+            "display_name": translate("Gradient End Color"),
+            "value_filter": {
+                "SURUPLUS_GRADIENT_ENABLED": True,
             },
         },
     ]
@@ -121,7 +121,7 @@ class Plugin(OomoxIconsPlugin):
         ).replace(
             "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR
         )
-        if colorscheme['SURUPLUS_GRADIENT_ENABLED'] and 'arrongin' in svg_template:
+        if colorscheme["SURUPLUS_GRADIENT_ENABLED"] and "arrongin" in svg_template:
             icon_preview = icon_preview.replace(
                 "currentColor", "url(#arrongin)"
             ).replace(

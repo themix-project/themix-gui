@@ -10,8 +10,8 @@ from oomox_gui.terminal import generate_xrdb_theme_from_oomox
 
 def generate_xresources(terminal_colorscheme):
     color_keys = terminal_colorscheme.keys()
-    color_regex = re.compile('color[0-9]')
-    return '\n'.join([
+    color_regex = re.compile("color[0-9]")
+    return "\n".join([
         f"*{key}:  #{terminal_colorscheme[key]}"
         for key in (
             sorted([
@@ -35,7 +35,7 @@ class XresourcesExportDialog(ExportDialog):
             height=440,
             **kwargs
         )
-        self.label.set_text(translate('Paste this colorscheme to your ~/.Xresources:'))
+        self.label.set_text(translate("Paste this colorscheme to your ~/.Xresources:"))
         self.scrolled_window.show_all()
         try:
             term_colorscheme = generate_xrdb_theme_from_oomox(self.colorscheme)
@@ -48,8 +48,8 @@ class XresourcesExportDialog(ExportDialog):
 
 
 class Plugin(OomoxExportPlugin):
-    name = 'xresources'
-    display_name = translate('Xresources')
+    name = "xresources"
+    display_name = translate("Xresources")
     export_text = translate("Export _Xresources theme…")
     shortcut = "<Primary>X"
     export_dialog = XresourcesExportDialog

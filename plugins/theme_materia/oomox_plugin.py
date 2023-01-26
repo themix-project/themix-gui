@@ -11,14 +11,14 @@ THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")
 
 class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
 
-    config_name = 'materia_theme'
+    config_name = "materia_theme"
     timeout = 1000
 
     def do_export(self):
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()
         )
-        new_destination_dir, theme_name = export_path.rsplit('/', 1)
+        new_destination_dir, theme_name = export_path.rsplit("/", 1)
         self.command = [
             "bash",
             os.path.join(THEME_DIR, "change_color.sh"),
@@ -39,7 +39,7 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
 
 
 def _monkeypatch_update_preview_colors(preview_object):
-    _monkeypatch_id = '_materia_update_colors_monkeypatched'
+    _monkeypatch_id = "_materia_update_colors_monkeypatched"
 
     if getattr(preview_object, _monkeypatch_id, None):
         return
@@ -76,16 +76,16 @@ def _monkeypatch_update_preview_colors(preview_object):
 
 class Plugin(OomoxThemePlugin):
 
-    name = 'materia'
-    display_name = 'Materia'
+    name = "materia"
+    display_name = "Materia"
     description = (
-        'GTK+2, GTK+3\n'
-        'Cinnamon, GNOME Shell, Metacity, Unity, Xfwm'
+        "GTK+2, GTK+3\n"
+        "Cinnamon, GNOME Shell, Metacity, Unity, Xfwm"
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/nana-4/materia-theme/',
+            "name": translate("Homepage"),
+            "url": "https://github.com/nana-4/materia-theme/",
         },
     ]
 
@@ -96,52 +96,52 @@ class Plugin(OomoxThemePlugin):
     }
 
     enabled_keys_gtk = [
-        'BG',
-        'FG',
-        'HDR_BG',
-        'HDR_FG',
-        'SEL_BG',
+        "BG",
+        "FG",
+        "HDR_BG",
+        "HDR_FG",
+        "SEL_BG",
     ]
 
     enabled_keys_options = [
-        'ROUNDNESS',
+        "ROUNDNESS",
     ]
 
     theme_model_gtk = [
         {
-            'key': 'TXT_BG',
-            'type': 'color',
-            'fallback_key': 'BG',
-            'display_name': translate('View'),
+            "key": "TXT_BG",
+            "type": "color",
+            "fallback_key": "BG",
+            "display_name": translate("View"),
         },
         {
-            'key': 'BTN_BG',
-            'type': 'color',
-            'fallback_key': 'BG',
-            'display_name': translate('Surface (like Button, Menu, Popover)'),
+            "key": "BTN_BG",
+            "type": "color",
+            "fallback_key": "BG",
+            "display_name": translate("Surface (like Button, Menu, Popover)"),
         },
     ]
 
     theme_model_options = [
         {
-            'key': 'MATERIA_SELECTION_OPACITY',
-            'type': 'float',
-            'fallback_value': 0.32,
-            'max_value': 1.0,
-            'display_name': translate('Selection Opacity'),
+            "key": "MATERIA_SELECTION_OPACITY",
+            "type": "float",
+            "fallback_value": 0.32,
+            "max_value": 1.0,
+            "display_name": translate("Selection Opacity"),
         },
         {
-            'key': 'MATERIA_PANEL_OPACITY',
-            'type': 'float',
-            'fallback_value': 0.6,
-            'max_value': 1.0,
-            'display_name': translate('DE Panel Opacity'),
+            "key": "MATERIA_PANEL_OPACITY",
+            "type": "float",
+            "fallback_value": 0.6,
+            "max_value": 1.0,
+            "display_name": translate("DE Panel Opacity"),
         },
         {
-            'key': 'MATERIA_STYLE_COMPACT',
-            'type': 'bool',
-            'fallback_value': True,
-            'display_name': translate('Compact Style'),
+            "key": "MATERIA_STYLE_COMPACT",
+            "type": "bool",
+            "fallback_value": True,
+            "display_name": translate("Compact Style"),
         },
     ]
 

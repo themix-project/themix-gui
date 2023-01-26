@@ -85,7 +85,7 @@ class ExportDialog(Gtk.Dialog):
             height: int = 80,
     ) -> None:
         headline = headline or translate("Export Theme")
-        self.theme_name = 'oomox-' + theme_name.split('/')[-1]
+        self.theme_name = "oomox-" + theme_name.split("/")[-1]
 
         # @TODO: make sure it doesn't break things:
         self.colorscheme = colorscheme
@@ -113,7 +113,7 @@ class ExportDialog(Gtk.Dialog):
         #
         adj = self.scrolled_window.get_vadjustment()
         adj.connect(
-            'changed',
+            "changed",
             lambda adj: adj.set_value(adj.get_upper() - adj.get_page_size())
         )
 
@@ -174,7 +174,7 @@ class ExportDialog(Gtk.Dialog):
             ) as proc:
                 for line in iter(
                         proc.stdout.readline,  # type: ignore[union-attr]
-                        b''
+                        b""
                 ):
                     captured_log += line.decode(DEFAULT_ENCODING)
                     GLib.idle_add(update_ui, captured_log)
@@ -203,7 +203,7 @@ class FileBasedExportDialog(ExportDialog):
         )
 
     def __del__(self) -> None:
-        if getattr(self, 'temp_theme_path', None):
+        if getattr(self, "temp_theme_path", None):
             os.remove(self.temp_theme_path)
 
 
@@ -254,7 +254,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
         self.export_config = ExportConfig(
             config_name=self.config_name,
             default_config={
-                option_name: option['default']
+                option_name: option["default"]
                 for option_name, option in export_options.items()
             }
         )
@@ -265,7 +265,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             if isinstance(value, bool):
                 value_widget = \
                     Gtk.CheckButton.new_with_mnemonic(
-                        option['display_name']
+                        option["display_name"]
                     )
                 value_widget.connect(
                     "toggled", self._create_option_checkbox_callback(option_name)
@@ -275,7 +275,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             elif isinstance(value, str):
                 value_widget = Gtk.HBox()
                 label = Gtk.Label(
-                    label=option.get('display_name', option_name),
+                    label=option.get("display_name", option_name),
                     use_underline=True
                 )
                 entry = Gtk.Entry(text=value)  # type: ignore[call-arg]
@@ -302,7 +302,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
 
 
 class DialogWithExportPathOptions(ExportDialogWithOptionsOptions):
-    DEFAULT_PATH: str = 'default_path'
+    DEFAULT_PATH: str = "default_path"
 
 
 class DialogWithExportPath(ExportDialogWithOptions):
@@ -334,8 +334,8 @@ class DialogWithExportPath(ExportDialogWithOptions):
         if not override_options:
             export_options.update({
                 self.OPTIONS.DEFAULT_PATH: {
-                    'default': self.default_export_dir,
-                    'display_name': translate("Export _path: "),
+                    "default": self.default_export_dir,
+                    "display_name": translate("Export _path: "),
                 },
             })
         if add_options:
@@ -361,7 +361,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text()  # type: ignore[attr-defined]
         )
-        new_destination_dir, _theme_name = export_path.rsplit('/', 1)
+        new_destination_dir, _theme_name = export_path.rsplit("/", 1)
 
         super().do_export()
 
@@ -370,13 +370,13 @@ class DialogWithExportPath(ExportDialogWithOptions):
 
 
 class CommonGtkThemeExportDialogOptions(DialogWithExportPathOptions):
-    GTK2_HIDPI = 'gtk2_hidpi'
+    GTK2_HIDPI = "gtk2_hidpi"
 
 
 class CommonGtkThemeExportDialog(DialogWithExportPath):
 
     OPTIONS: CommonGtkThemeExportDialogOptions = CommonGtkThemeExportDialogOptions()
-    default_export_dir: str = os.path.join(os.environ['HOME'], '.themes')
+    default_export_dir: str = os.path.join(os.environ["HOME"], ".themes")
     config_name: str
 
     @g_abstractproperty  # type: ignore[no-redef]
@@ -394,8 +394,8 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
     ) -> None:
         export_options = override_options or {
             self.OPTIONS.GTK2_HIDPI: {
-                'default': False,
-                'display_name': translate("Generate 2x scaled (_HiDPI) assets for GTK+2"),
+                "default": False,
+                "display_name": translate("Generate 2x scaled (_HiDPI) assets for GTK+2"),
             },
         }
         if add_options:
@@ -410,7 +410,7 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
 
 class CommonIconThemeExportDialog(DialogWithExportPath):
 
-    default_export_dir: str = os.path.join(os.environ['HOME'], '.icons')
+    default_export_dir: str = os.path.join(os.environ["HOME"], ".icons")
 
     config_name: str
 
@@ -427,13 +427,13 @@ class CommonIconThemeExportDialog(DialogWithExportPath):
             override_options: dict[str, "Any"] | None = None,
             **kwargs: "Any"
     ) -> None:
-        if os.environ.get('XDG_CURRENT_DESKTOP', '').lower() in ('kde', 'lxqt', ):
+        if os.environ.get("XDG_CURRENT_DESKTOP", "").lower() in ("kde", "lxqt", ):
             self.default_export_dir = os.path.join(
                 os.environ.get(
-                    'XDG_DATA_HOME',
-                    os.path.join(os.environ['HOME'], '.local/share')
+                    "XDG_DATA_HOME",
+                    os.path.join(os.environ["HOME"], ".local/share")
                 ),
-                'icons',
+                "icons",
             )
         export_options = override_options or {}
         if add_options:

@@ -12,7 +12,7 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 class PapirusIconsExportDialog(CommonIconThemeExportDialog):
 
     timeout = 100
-    config_name = 'icons_papirus'
+    config_name = "icons_papirus"
 
     def do_export(self):
         export_path = os.path.expanduser(
@@ -29,18 +29,18 @@ class PapirusIconsExportDialog(CommonIconThemeExportDialog):
 
 
 class Plugin(OomoxIconsPlugin):
-    name = 'papirus_icons'
-    display_name = 'Papirus'
+    name = "papirus_icons"
+    display_name = "Papirus"
     about_text = translate(
-        'Papirus is a free and open source SVG icon theme for Linux, '
-        'based on Paper Icon Set with a lot of new icons and a few extras, '
-        'like Hardcode-Tray support, KDE colorscheme support, '
-        'Folder Color support, and others.'
+        "Papirus is a free and open source SVG icon theme for Linux, "
+        "based on Paper Icon Set with a lot of new icons and a few extras, "
+        "like Hardcode-Tray support, KDE colorscheme support, "
+        "Folder Color support, and others."
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme',
+            "name": translate("Homepage"),
+            "url": "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme",
         },
     ]
 
@@ -49,37 +49,37 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_LIGHT_FOLDER',
-            'type': 'color',
-            'fallback_key': 'SEL_BG',
-            'display_name': translate('Light Base (Folders)'),
+            "key": "ICONS_LIGHT_FOLDER",
+            "type": "color",
+            "fallback_key": "SEL_BG",
+            "display_name": translate("Light Base (Folders)"),
         },
         {
-            'key': 'ICONS_MEDIUM',
-            'type': 'color',
-            'fallback_key': 'BTN_BG',
-            'display_name': translate('Medium Base'),
+            "key": "ICONS_MEDIUM",
+            "type": "color",
+            "fallback_key": "BTN_BG",
+            "display_name": translate("Medium Base"),
         },
         {
-            'key': 'ICONS_DARK',
-            'type': 'color',
-            'fallback_key': 'HDR_BG',
-            'display_name': translate('Dark Stroke'),
+            "key": "ICONS_DARK",
+            "type": "color",
+            "fallback_key": "HDR_BG",
+            "display_name": translate("Dark Stroke"),
         },
         {
-            'key': 'ICONS_SYMBOLIC_ACTION',
-            'type': 'color',
-            'fallback_function': lambda colors: mix_theme_colors(
-                colors['MENU_FG'], colors['BTN_FG'],
+            "key": "ICONS_SYMBOLIC_ACTION",
+            "type": "color",
+            "fallback_function": lambda colors: mix_theme_colors(
+                colors["MENU_FG"], colors["BTN_FG"],
                 0.66
             ),
-            'display_name': translate('Actions Icons'),
+            "display_name": translate("Actions Icons"),
         },
         {
-            'key': 'ICONS_SYMBOLIC_PANEL',
-            'type': 'color',
-            'fallback_key': 'FG',
-            'display_name': translate('Panel Icons'),
+            "key": "ICONS_SYMBOLIC_PANEL",
+            "type": "color",
+            "fallback_key": "FG",
+            "display_name": translate("Panel Icons"),
         },
     ]
 

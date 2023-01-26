@@ -32,11 +32,11 @@ def get_theme_name_and_plugin(
 ) -> "tuple[str, OomoxImportPlugin | None]":
     display_name = "".join(
         theme_path.rsplit(colors_dir)
-    ).lstrip('/')
+    ).lstrip("/")
     rel_path = "".join(theme_path.rsplit(colors_dir))
     if not plugin and rel_path.startswith(PLUGIN_PATH_PREFIX):
-        display_name = '/'.join(display_name.split('/')[1:])
-        plugin_name = rel_path.split(PLUGIN_PATH_PREFIX, maxsplit=2)[1].split('/', maxsplit=1)[0]
+        display_name = "/".join(display_name.split("/")[1:])
+        plugin_name = rel_path.split(PLUGIN_PATH_PREFIX, maxsplit=2)[1].split("/", maxsplit=1)[0]
         plugin = PluginLoader.get_import_plugins().get(plugin_name)
     if plugin:
         for ext in plugin.file_extensions:
@@ -47,7 +47,7 @@ def get_theme_name_and_plugin(
 
 
 def get_preset_groups_sorter(colors_dir: str) -> "Callable[[PresetFile], str]":
-    return lambda x: ''.join(x.path.rsplit(colors_dir)).split('/', maxsplit=1)[0]
+    return lambda x: "".join(x.path.rsplit(colors_dir)).split("/", maxsplit=1)[0]
 
 
 def group_presets_by_dir(
@@ -94,7 +94,7 @@ def get_presets() -> dict[str, dict[str, list[PresetFile]]]:
 
 
 def get_user_theme_path(user_theme_name: str) -> str:
-    return os.path.join(USER_COLORS_DIR, user_theme_name.lstrip('/'))
+    return os.path.join(USER_COLORS_DIR, user_theme_name.lstrip("/"))
 
 
 def save_colorscheme(preset_name: str, colorscheme: "ThemeT", path: str | None = None) -> str:
@@ -104,12 +104,12 @@ def save_colorscheme(preset_name: str, colorscheme: "ThemeT", path: str | None =
     path = path or get_user_theme_path(preset_name)
     if not os.path.exists(path):
         mkdir_p(os.path.dirname(path))
-    with open(path, 'w', encoding=DEFAULT_ENCODING) as file_object:
+    with open(path, "w", encoding=DEFAULT_ENCODING) as file_object:
         for key, value in sorted(colorscheme_to_write.items()):
             if (
-                    key not in ('NOGUI', )
+                    key not in ("NOGUI", )
             ) and (
-                not key.startswith('_')
+                not key.startswith("_")
             ) and (
                 value is not None
             ) and (

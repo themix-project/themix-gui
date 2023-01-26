@@ -55,13 +55,13 @@ if TYPE_CHECKING:
 class DoubleWindowError(RuntimeError):
 
     def __init__(self) -> None:
-        super().__init__('App window already set')
+        super().__init__("App window already set")
 
 
 class NoWindowError(RuntimeError):
 
     def __init__(self) -> None:
-        super().__init__('App window not yet set')
+        super().__init__("App window not yet set")
 
 
 class NewDialog(EntryDialog):
@@ -151,7 +151,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         accels = app.get_accels_for_action(action_id)
         if accels:
             key, mods = Gtk.accelerator_parse(accels[0])
-            tooltip += f' ({Gtk.accelerator_get_label(key, mods)})'
+            tooltip += f" ({Gtk.accelerator_get_label(key, mods)})"
         return tooltip
 
     def attach_action(
@@ -160,7 +160,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         action_id = action.get_id()
         widget.set_action_name(action_id)  # type: ignore[attr-defined]
         if with_tooltip:
-            tooltip = self._action_tooltip(action, widget.get_tooltip_text() or '')
+            tooltip = self._action_tooltip(action, widget.get_tooltip_text() or "")
             widget.set_tooltip_text(tooltip)
 
     def add_simple_action(
@@ -319,9 +319,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def clone_theme(self) -> None:
         new_theme_name = self.colorscheme_name
         if is_colorscheme_exists(get_user_theme_path(new_theme_name)):
-            new_theme_name += '_'
+            new_theme_name += "_"
         if new_theme_name.startswith(PLUGIN_PATH_PREFIX):
-            new_theme_name = '/'.join(new_theme_name.split('/')[1:])
+            new_theme_name = "/".join(new_theme_name.split("/")[1:])
         dialog = NewDialog(transient_for=self, entry_text=new_theme_name)
         if not dialog_is_yes(dialog):
             return
@@ -369,14 +369,14 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         return True
 
     def _select_theme_plugin(self) -> None:
-        theme_plugin_name = self.colorscheme['THEME_STYLE']
+        theme_plugin_name = self.colorscheme["THEME_STYLE"]
         self.plugin_theme = None
         for theme_plugin in PluginLoader.get_theme_plugins().values():
             if theme_plugin.name == theme_plugin_name:
                 self.plugin_theme = theme_plugin
 
     def _select_icons_plugin(self) -> None:
-        icons_plugin_name = self.colorscheme['ICONS_STYLE']
+        icons_plugin_name = self.colorscheme["ICONS_STYLE"]
         self.plugin_icons = None
         for icons_plugin in PluginLoader.get_icons_plugins().values():
             if icons_plugin.name == icons_plugin_name:
@@ -457,7 +457,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def reload_presets(self) -> None:
         self.preset_list.reload_presets(self.colorscheme_path)
 
-    def disable(self, message: str = '') -> None:
+    def disable(self, message: str = "") -> None:
         def disable_ui_callback() -> None:
             self._currently_focused_widget = self.get_focus()
             self.spinner_revealer.set_reveal_child(True)
@@ -492,7 +492,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_import_plugin(self, action: Gio.SimpleAction, _param: "Any" = None) -> None:
         plugin = PluginLoader.get_import_plugins()[
-            action.props.name.replace('import_plugin_', '')  # type: ignore[attr-defined]
+            action.props.name.replace("import_plugin_", "")  # type: ignore[attr-defined]
         ]
         self.import_from_plugin(plugin)
 
@@ -533,7 +533,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_export_plugin(self, action: Gio.SimpleAction, _param: "Any" = None) -> None:
         plugin = PluginLoader.get_export_plugins()[
-            action.props.name.replace('export_plugin_', '')  # type: ignore[attr-defined]
+            action.props.name.replace("export_plugin_", "")  # type: ignore[attr-defined]
         ]
         plugin.export_dialog(
             transient_for=self,
@@ -717,7 +717,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         revealer_box.add(self.spinner)
         revealer_box.add(self.spinner_message)
         revealer_frame = Gtk.Frame()
-        revealer_frame.get_style_context().add_class('app-notification')
+        revealer_frame.get_style_context().add_class("app-notification")
         revealer_frame.add(revealer_box)
         self.spinner_revealer = Gtk.Revealer()
         self.spinner_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
@@ -773,21 +773,21 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         # @TODO: ?
         pass
 
-    _window_instance: 'OomoxApplicationWindow | None' = None
+    _window_instance: "OomoxApplicationWindow | None" = None
 
     @classmethod
-    def set_instance(cls, window_instance: 'OomoxApplicationWindow') -> None:
+    def set_instance(cls, window_instance: "OomoxApplicationWindow") -> None:
         if cls._window_instance:
             raise DoubleWindowError()
         cls._window_instance = window_instance
 
     @classmethod
-    def get_instance(cls) -> 'OomoxApplicationWindow':
+    def get_instance(cls) -> "OomoxApplicationWindow":
         if not cls._window_instance:
             raise NoWindowError()
         return cls._window_instance
 
-    def __init__(self, application: 'OomoxGtkApplication') -> None:
+    def __init__(self, application: "OomoxGtkApplication") -> None:
         super().__init__(
             application=application,
             title=translate("Themix GUI"),
@@ -899,15 +899,15 @@ class OomoxGtkApplication(Gtk.Application):
                         text=translate('Error while loading plugin "{plugin_name}"').format(
                             plugin_name=plugin_name
                         ),
-                        secondary_text='\n'.join((
+                        secondary_text="\n".join((
                             translate(
                                 'Shortcut "{shortcut}" already assigned to {action_type} "{name}".'
                             ).format(
                                 shortcut=plugin.shortcut,
                                 action_type=translate(
-                                    'plugin'
+                                    "plugin"
                                     if _is_plugin_shortcut else
-                                    'action'
+                                    "action"
                                 ),
                                 name=(
                                     _plugin_shortcuts[plugin.shortcut]

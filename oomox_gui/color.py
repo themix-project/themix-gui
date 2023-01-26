@@ -33,7 +33,7 @@ def int_list_from_hex(color_text: "HexColor") -> "IntColor":
 
 
 def color_hex_from_list(color_list: "IntColor") -> "HexColor":
-    return ''.join([int_to_hex(i) for i in color_list])
+    return "".join([int_to_hex(i) for i in color_list])
 
 
 def hex_lightness(color_text: "HexColor") -> float:
@@ -57,7 +57,7 @@ def hex_darker(color_text: "HexColor", darken_amount: int = 10) -> "HexColor":
 
 
 class ColorDiff():
-    channels = ['r', 'g', 'b']
+    channels = ["r", "g", "b"]
     r: int  # pylint: disable=invalid-name
     g: int  # pylint: disable=invalid-name
     b: int  # pylint: disable=invalid-name
@@ -92,7 +92,7 @@ class ColorDiff():
 
     def apply_to(self, color_text: "HexColor") -> "HexColor":
         color_list = color_list_from_hex(color_text)
-        result = ''
+        result = ""
         for channel_index, channel_text in enumerate(color_list):
             channel = hex_to_int(channel_text)
             int_result = channel - getattr(self, self.channels[channel_index])
@@ -144,7 +144,7 @@ def convert_gdk_to_theme_color(gdk_color: Gdk.RGBA) -> "HexColor":
 
 def mix_gdk_colors(gdk_color_1: Gdk.RGBA, gdk_color_2: Gdk.RGBA, ratio: float) -> Gdk.RGBA:
     result_gdk_color = Gdk.RGBA()
-    for attr in ('red', 'green', 'blue', 'alpha'):
+    for attr in ("red", "green", "blue", "alpha"):
         setattr(
             result_gdk_color, attr, (
                 getattr(gdk_color_1, attr) * ratio +

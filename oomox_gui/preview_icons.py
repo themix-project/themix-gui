@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 
 class IconsNames(Enum):
-    HOME = 'user-home'
-    DESKTOP = 'user-desktop'
-    FILE_MANAGER = 'system-file-manager'
+    HOME = "user-home"
+    DESKTOP = "user-desktop"
+    FILE_MANAGER = "system-file-manager"
 
 
 class IconThemePreview(Gtk.ListBox):
@@ -44,7 +44,7 @@ class IconThemePreview(Gtk.ListBox):
         self.add(row)
         self.show_all()
 
-    def update_preview(self, colorscheme: 'ThemeT', theme_plugin: 'OomoxIconsPlugin') -> None:
+    def update_preview(self, colorscheme: "ThemeT", theme_plugin: "OomoxIconsPlugin") -> None:
         theme_plugin.preview_before_load_callback(self, colorscheme)
         transform_function = theme_plugin.preview_transform_function
         self.load_icon_templates(theme_plugin)
@@ -52,10 +52,10 @@ class IconThemePreview(Gtk.ListBox):
             new_svg_image = transform_function(
                 self.icons_templates[icon.name],
                 colorscheme
-            ).encode('ascii')
+            ).encode("ascii")
             self.icons_imageboxes[icon.name].set_from_bytes(new_svg_image)
 
-    def load_icon_templates(self, theme_plugin: 'OomoxIconsPlugin') -> None:
+    def load_icon_templates(self, theme_plugin: "OomoxIconsPlugin") -> None:
         if theme_plugin.name == self.icons_plugin_name:
             return
         self.icons_plugin_name = theme_plugin.name

@@ -12,7 +12,7 @@ GNOME_COLORS_ICON_THEME_DIR = os.path.join(PLUGIN_DIR, "gnome-colors-icon-theme/
 class GnomeColorsIconsExportDialog(CommonIconThemeExportDialog):
 
     timeout = 600
-    config_name = 'icons_gnomecolors'
+    config_name = "icons_gnomecolors"
 
     def do_export(self):
         export_path = os.path.expanduser(
@@ -30,17 +30,17 @@ class GnomeColorsIconsExportDialog(CommonIconThemeExportDialog):
 
 class Plugin(OomoxIconsPlugin):
 
-    name = 'gnome_colors'
-    display_name = 'Gnome-Colors'
+    name = "gnome_colors"
+    display_name = "Gnome-Colors"
     about_text = translate(
-        'GNOME-Colors is mostly inspired/based on '
-        'Tango, GNOME, Elementary, Tango-Generator '
-        'and many other open-source projects.'
+        "GNOME-Colors is mostly inspired/based on "
+        "Tango, GNOME, Elementary, Tango-Generator "
+        "and many other open-source projects."
     )
     about_links = [
         {
-            'name': translate('Homepage'),
-            'url': 'https://github.com/themix-project/gnome-colors-icon-theme',
+            "name": translate("Homepage"),
+            "url": "https://github.com/themix-project/gnome-colors-icon-theme",
         },
     ]
 
@@ -49,28 +49,28 @@ class Plugin(OomoxIconsPlugin):
 
     theme_model_icons = [
         {
-            'key': 'ICONS_LIGHT_FOLDER',
-            'type': 'color',
-            'fallback_key': 'SEL_BG',
-            'display_name': translate('Light Base (Folders)'),
+            "key": "ICONS_LIGHT_FOLDER",
+            "type": "color",
+            "fallback_key": "SEL_BG",
+            "display_name": translate("Light Base (Folders)"),
         },
         {
-            'key': 'ICONS_LIGHT',
-            'fallback_key': 'SEL_BG',
-            'type': 'color',
-            'display_name': translate('Light Base'),
+            "key": "ICONS_LIGHT",
+            "fallback_key": "SEL_BG",
+            "type": "color",
+            "display_name": translate("Light Base"),
         },
         {
-            'key': 'ICONS_MEDIUM',
-            'type': 'color',
-            'fallback_key': 'BTN_BG',
-            'display_name': translate('Medium Base'),
+            "key": "ICONS_MEDIUM",
+            "type": "color",
+            "fallback_key": "BTN_BG",
+            "display_name": translate("Medium Base"),
         },
         {
-            'key': 'ICONS_DARK',
-            'type': 'color',
-            'fallback_key': 'HDR_BG',
-            'display_name': translate('Dark Stroke'),
+            "key": "ICONS_DARK",
+            "type": "color",
+            "fallback_key": "HDR_BG",
+            "display_name": translate("Dark Stroke"),
         },
     ]
 

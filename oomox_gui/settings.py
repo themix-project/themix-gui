@@ -53,10 +53,10 @@ class CommonOomoxConfig:
             default_config: dict[str, "Any"],
             force_reload: bool,
     ) -> dict[str, "Any"]:
-        if force_reload or not getattr(cls, 'config', None):
+        if force_reload or not getattr(cls, "config", None):
             cls.config = default_config or {}
             try:
-                with open(config_path, 'r', encoding=DEFAULT_ENCODING) as file_object:
+                with open(config_path, "r", encoding=DEFAULT_ENCODING) as file_object:
                     for key, value in json.load(file_object).items():
                         cls.config[key] = value
             except Exception as exc:
@@ -67,7 +67,7 @@ class CommonOomoxConfig:
     def save(self) -> None:
         if not os.path.exists(self.config_dir):
             os.makedirs(self.config_dir)
-        with open(self.config_path, 'w', encoding=DEFAULT_ENCODING) as file_object:
+        with open(self.config_path, "w", encoding=DEFAULT_ENCODING) as file_object:
             return json.dump(self.config, file_object)
 
     def get(self, item: str, fallback: "Any" = None) -> "Any":
@@ -115,7 +115,7 @@ class UISettings(OomoxSettings):
 
     def __init__(self) -> None:
         super().__init__(
-            config_name='ui_config',
+            config_name="ui_config",
             default_config={
                 "window_width": 600,
                 "window_height": 400,

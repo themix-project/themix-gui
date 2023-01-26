@@ -22,7 +22,7 @@ select = [
     "ICN",
     #"T20",
 #    #"PT",  # pytest
-    #"Q", 7
+    "Q",
     #"RET", 8
     #"SIM", 9
     "TID",

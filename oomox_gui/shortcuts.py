@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 def show_shortcuts(parent_window: Gtk.Window) -> None:
-    path = os.path.join(SCRIPT_DIR, 'shortcuts.ui')
+    path = os.path.join(SCRIPT_DIR, "shortcuts.ui")
     obj_id = "shortcuts"
     builder = Gtk.Builder.new_from_file(path)
     shortcuts_window = builder.get_object(obj_id)
@@ -23,16 +23,16 @@ def show_shortcuts(parent_window: Gtk.Window) -> None:
     shortcuts_window.set_wmclass("oomox", "Oomox")
     shortcuts_window.set_role("Oomox-Shortcuts")
 
-    data: '''Sequence[
+    data: """Sequence[
         tuple[str, Mapping[str, OomoxImportPlugin], Callable[[OomoxImportPlugin], str]] |
         tuple[str, Mapping[str, OomoxExportPlugin], Callable[[OomoxExportPlugin], str]]
-    ]''' = (
+    ]""" = (
             (
                     "import_section",
                     PluginLoader.get_import_plugins(),
                     lambda plugin: (
                         plugin.import_text and
-                        plugin.import_text.replace('_', '').replace('…', '') or
+                        plugin.import_text.replace("_", "").replace("…", "") or
                         translate("Import {plugin_name}").format(plugin_name=plugin.display_name)
                     ),
             ),
@@ -41,7 +41,7 @@ def show_shortcuts(parent_window: Gtk.Window) -> None:
                     PluginLoader.get_export_plugins(),
                     lambda plugin: (
                         plugin.export_text and
-                        plugin.export_text.replace('_', '').replace('…', '') or
+                        plugin.export_text.replace("_", "").replace("…", "") or
                         translate("Export {plugin_name}").format(plugin_name=plugin.display_name)
                     ),
             ),
