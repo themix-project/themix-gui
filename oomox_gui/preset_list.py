@@ -135,7 +135,8 @@ class ThemePresetList(Gtk.ScrolledWindow):
             init_iter = self.treestore.iter_next(init_iter)
         init_iter = self.treestore.iter_children(init_iter)
         if not init_iter:
-            raise RuntimeError("No themes found or smth else went wrong")
+            no_themes_found = "No themes found or smth else went wrong"
+            raise RuntimeError(no_themes_found)
         self.treeview.set_cursor(self.treestore.get_path(init_iter))
 
     def load_presets(self) -> None:
@@ -177,7 +178,8 @@ class ThemePresetList(Gtk.ScrolledWindow):
     def _get_current_treepath(self) -> Gtk.TreePath:
         treepath: Gtk.TreePath = self.treeview.get_cursor()[0]
         if not treepath:
-            raise RuntimeError("PresetList: Can't get current TreePath")
+            no_tree_path = "PresetList: Can't get current TreePath"
+            raise RuntimeError(no_tree_path)
         return treepath
 
     def _find_treepath_by_filepath(

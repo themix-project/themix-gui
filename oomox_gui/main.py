@@ -146,7 +146,8 @@ class WindowWithActions(Gtk.ApplicationWindow):
         action_id = action.get_id()
         app = self.get_application()
         if not app:
-            raise RuntimeError("No app")
+            no_app_error = "Application instance didn't initialized."
+            raise RuntimeError(no_app_error)
         accels = app.get_accels_for_action(action_id)
         if accels:
             key, mods = Gtk.accelerator_parse(accels[0])
@@ -514,7 +515,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_export_theme(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         if not self.plugin_theme:
-            raise RuntimeError("No Theme plugin selected")
+            no_theme_plugin_error = "No Theme plugin selected"
+            raise RuntimeError(no_theme_plugin_error)
         self.plugin_theme.export_dialog(
             transient_for=self,
             theme_name=self.colorscheme_name,
@@ -523,7 +525,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _on_export_icontheme(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         if not self.plugin_icons:
-            raise RuntimeError("No Icons plugin selected")
+            no_icon_plugin_error = "No Icons plugin selected"
+            raise RuntimeError(no_icon_plugin_error)
         self.plugin_icons.export_dialog(
             transient_for=self,
             theme_name=self.colorscheme_name,
@@ -860,11 +863,13 @@ class OomoxGtkApplication(Gtk.Application):
                 action_id: str | None = None,
         ) -> None:
             if not (action or action_id):
-                raise RuntimeError("Either `action` or `action_id` should be set")
+                required_props_error = "Either `action` or `action_id` should be set"
+                raise TypeError(required_props_error)
             action_id = action_id or action.get_id()  # type: ignore[union-attr]
             for accel in accels:
                 if accel in _shortcuts:
-                    raise Exception(f'Shortcut "{accel}" is already set.')
+                    shortcut_already_set = f'Shortcut "{accel}" is already set.'
+                    raise RuntimeError(shortcut_already_set)
                 _shortcuts[accel] = action_id
             self.set_accels_for_action(action_id, accels)
 

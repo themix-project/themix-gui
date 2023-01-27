@@ -1,9 +1,13 @@
 """Themix GUI"""
 import sys
+from typing import TYPE_CHECKING
 
 import gi
 
-MIN_PYTHON_VERSION = (3, 10)
+if TYPE_CHECKING:
+    from typing import Final
+
+MIN_PYTHON_VERSION: "Final" = (3, 10)
 if (version := sys.version_info) < MIN_PYTHON_VERSION:
     OLD_PYTHON_ERROR = (
         "\n"

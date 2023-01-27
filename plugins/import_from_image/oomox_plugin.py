@@ -587,7 +587,8 @@ class Plugin(OomoxImportPluginAsync):
         max_possible_lightness = 255 * 3
         new_bg_color, _diff = find_closest_color(reference_palette["background"], hex_palette)
         if not new_bg_color:
-            raise RuntimeError("No color")
+            cant_find_color = "No color detected"
+            raise RuntimeError(cant_find_color)
         # @TODO: use real lightness from HSV or Lab color model
         lightness_delta = sum(int_list_from_hex(new_bg_color)) * (1 if is_dark_bg else -1) + \
             max_possible_lightness // 4
@@ -608,7 +609,8 @@ class Plugin(OomoxImportPluginAsync):
             else:
                 closest_color, _diff = find_closest_color(value, hex_palette)
             if not closest_color:
-                raise RuntimeError(f"No closest color for {key} {value}.")
+                no_similar_color = f"No similar color found for {key} {value}."
+                raise RuntimeError(no_similar_color)
             result_palette[key] = closest_color
 
         gc.collect()

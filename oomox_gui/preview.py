@@ -528,7 +528,8 @@ class ThemePreview(Gtk.Grid):
             self.gtk_preview.show()
 
         if not self.icons_preview:
-            raise RuntimeError("Icon preview widget failed to load")
+            no_icon_preview = "Icon preview widget failed to load"
+            raise RuntimeError(no_icon_preview)
         if not icons_plugin:
             self.icons_preview.hide()
         else:
@@ -536,7 +537,8 @@ class ThemePreview(Gtk.Grid):
             self.icons_preview.show()
 
         if not self.terminal_preview:
-            raise RuntimeError("Terminal preview widget failed to load")
+            no_terminal_preview = "Terminal preview widget failed to load"
+            raise RuntimeError(no_terminal_preview)
         self.terminal_preview.update_preview(colorscheme_with_fallbacks)
 
     def get_theme_css_provider(self, theme_plugin: "OomoxThemePlugin") -> Gtk.CssProvider:

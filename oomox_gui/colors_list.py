@@ -98,6 +98,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
             self.value_widget.disconnect(self.changed_signal)
 
     def set_description(self, description_text: str | None = None) -> None:
+        label_not_added = "Description label is set as added but it's not."
         if description_text:
             if not self._description_label_added:
                 self.description_label = Gtk.Label(xalign=1)  # type: ignore[call-arg]
@@ -109,12 +110,12 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
                 self.description_label.show()
                 self._description_label_added = True
             if not self.description_label:
-                raise RuntimeError("Description label is set as added but it's not.")
+                raise RuntimeError(label_not_added)
             self.description_label.set_text(description_text)
         else:
             if self._description_label_added:
                 if not self.description_label:
-                    raise RuntimeError("Description label is set as added but it's not.")
+                    raise RuntimeError(label_not_added)
                 self.vbox.remove(self.description_label)
                 self._description_label_added = False
 
@@ -358,7 +359,8 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
 
         settings = Gtk.Settings.get_default()
         if not settings:
-            raise RuntimeError("Can't load Gtk Palette settings")
+            cant_load_palette_settings = "Can't load Gtk Palette settings"
+            raise RuntimeError(cant_load_palette_settings)
         settings.props.gtk_color_palette = PaletteCache.get_gtk()  # type: ignore[attr-defined]
 
         self.props.cancel_button.connect("clicked", self._on_cancel)  # type: ignore[attr-defined]
@@ -637,10 +639,11 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     continue
                 display_name: str = theme_value.get("display_name", key)
                 if not display_name:
-                    raise RuntimeError(
-                        f"build_theme_model_rows: WARNING:"
+                    no_display_name = (
+                        f"build_theme_model_rows: ERROR:"
                         f" theme value {theme_value} doesn't have a `display_name`",
                     )
+                    raise RuntimeError(no_display_name)
                 row: OomoxListBoxRow | SectionHeader | None = None
 
                 callbacks = [self.color_edited]
@@ -722,7 +725,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
             self.mainbox.add(section_box)
 
-    def open_theme(self, theme: "ThemeT") -> None:  # pylint: disable=too-many-branches
+    def open_theme(  # pylint: disable=too-many-branches,too-many-locals
+            self, theme: "ThemeT",
+    ) -> None:
         self.theme = theme
         error_messages = []
         if "NOGUI" in theme:
@@ -742,10 +747,11 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     continue
                 display_name: str = theme_value.get("display_name", key)
                 if not display_name:
-                    raise RuntimeError(
-                        f"open_theme: WARNING:"
+                    no_display_name = (
+                        f"build_theme_model_rows: ERROR:"
                         f" theme value {theme_value} doesn't have a `display_name`",
                     )
+                    raise RuntimeError(no_display_name)
                 if isinstance(theme.get(key or display_name), Exception):
                     error_messages.append(str(theme[key or display_name]))
                     continue
@@ -770,9 +776,11 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         "color", "options", "bool", "int", "float", "image_path",
                 ):
                     if not isinstance(row, OomoxListBoxRow):
-                        raise RuntimeError(
-                            f"Row is of type {theme_value['type']} is not OomoxListBoxRow",
+                        wrong_row_type = (
+                            f"Row is of type {theme_value['type']}"
+                            f" is not OomoxListBoxRow",
                         )
+                        raise TypeError(wrong_row_type)
                     row.set_value(theme[key])  # type: ignore[call-arg]
                 row.show()
                 rows_displayed_in_section += 1

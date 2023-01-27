@@ -5,8 +5,8 @@ from gi.repository import Gdk
 if TYPE_CHECKING:
     from typing import Annotated, Final, Sequence, Tuple
 
-    HexColor = Annotated[str, 6]  # type: ignore[misc, assignment]
-    IntColor = Annotated[Sequence[int], 3]  # type: ignore[misc, assignment]
+    HexColor = Annotated[str, 6]
+    IntColor = Annotated[Sequence[int], 3]
 
 
 def hex_to_int(text: "HexColor") -> int:

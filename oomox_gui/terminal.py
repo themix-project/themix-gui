@@ -353,7 +353,8 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-n
     #     print(bg256(bright_color, bright_color))
 
     if not best_result:
-        raise RuntimeError("Everything went wrong 🥲")
+        t_t = "Everything went wrong 🥲"
+        raise RuntimeError(t_t)
 
     result_colors = {
         key: color_hex_from_list(c)
@@ -448,7 +449,8 @@ def _generate_theme_from_full_palette_callback(
 ) -> None:
     cached_palette = FullPaletteCache.get(cache_id)
     if not cached_palette:
-        raise RuntimeError(f"No cached palette with {cache_id=}")
+        cant_open_palette = f"No cached palette with {cache_id=}"
+        raise RuntimeError(cant_open_palette)
     modified_colors = {}
     modified_colors.update(cached_palette)
     modified_colors["background"] = theme_bg

@@ -104,7 +104,8 @@ class ScaledImage(Gtk.Image):
     ) -> None:
         super().__init__(*args, **kwargs)
         if not width or height:
-            raise TypeError('Either "width" or "height" should be set')
+            required_props_error = 'Either "width" or "height" should be set'
+            raise TypeError(required_props_error)
         self._set_orig_dimensions(width=width, height=height)
         style_context = self.get_style_context()
         self.scale_factor = style_context.get_scale()
@@ -271,10 +272,11 @@ class GObjectABCMeta(GObjectMeta, type):
                 ):
                     missing_methods.append(method_name)
             if missing_methods:
-                raise TypeError(
+                missing_methods_error = (
                     f"Can't instantiate abstract class {cls.__name__}"
                     f" with abstract methods {','.join(missing_methods)}",
                 )
+                raise TypeError(missing_methods_error)
 
 
 def g_abstractproperty(_function: "Any") -> "Type[GObjectABCMetaAbstractProperty]":
