@@ -198,8 +198,7 @@ def get_grayest_colors(palette: list[str]) -> list[str]:
     )
     gray_color_values = saturation_list[:(len(saturation_list)//3)]
     gray_color_values.sort(key=sum)
-    gray_colors = [color_hex_from_list(c) for c in gray_color_values]
-    return gray_colors
+    return [color_hex_from_list(c) for c in gray_color_values]
 
 
 def get_lightness(theme_color: str) -> int:

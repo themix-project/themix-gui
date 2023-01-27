@@ -100,7 +100,7 @@ class Plugin(OomoxIconsPlugin):
             "%SYMBOLIC_PANEL%", colorscheme["ICONS_SYMBOLIC_PANEL"] or FALLBACK_COLOR,
         )
         if colorscheme["SURUPLUS_GRADIENT_ENABLED"] and "arrongin" in svg_template:
-            icon_preview = icon_preview.replace(
+            return icon_preview.replace(
                 "currentColor", "url(#arrongin)",
             ).replace(
                 "%GRADIENT1%", colorscheme["SURUPLUS_GRADIENT1"] or FALLBACK_COLOR,

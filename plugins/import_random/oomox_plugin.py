@@ -27,7 +27,7 @@ class ColorRandomizator():
     def get_theme_color_by_id(self, random_id):
         color = self.colors.get(random_id)
         if not color:
-            color = self.colors[random_id] = get_random_theme_color()
+            self.colors[random_id] = color = get_random_theme_color()
         return color
 
 

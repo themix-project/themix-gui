@@ -39,8 +39,7 @@ def check_value_filter(
                 value_found = True
                 continue
         filter_results.append(value_found)
-    all_filters_passed = min(filter_results) is not False
-    return all_filters_passed
+    return min(filter_results) is not False
 
 
 class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):

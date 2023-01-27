@@ -249,7 +249,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             )
         if plugin_name:
             dir_display_name = dir_template.format(plugin_name, dir_display_name)
-        return dir_display_name
+        return dir_display_name  # noqa: RET504
 
     @staticmethod
     def _format_childname(preset_relpath: str) -> str:
@@ -259,7 +259,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             dir_display_name = dir_template.format(
                 dir_display_name.replace("_", " "), item_display_name,
             )
-        return dir_display_name
+        return dir_display_name  # noqa: RET504
 
     def _add_presets(
             self,

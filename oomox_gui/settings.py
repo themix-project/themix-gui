@@ -98,7 +98,7 @@ class CommonOomoxConfig:
             self.config[item] = value
         elif item not in dir(self):
             raise KeyError(item)
-        else:
+        else:  # noqa: RET506
             super().__setattr__(item, value)
 
 

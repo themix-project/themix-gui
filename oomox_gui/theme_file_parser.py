@@ -28,7 +28,7 @@ def str_to_bool(value: str) -> bool:
     return value.lower() == "true"
 
 
-def parse_theme_value(  # pylint: disable=too-many-branches
+def parse_theme_value(
         theme_value: "ThemeModelValue",
         colorscheme: "ThemeT",
 ) -> "ThemeValueT":
@@ -46,22 +46,20 @@ def parse_theme_value(  # pylint: disable=too-many-branches
             result_value = fallback_function(colorscheme)
 
     value_type = theme_value["type"]
-    if value_type == "bool":
-        if isinstance(result_value, str):
-            result_value = str_to_bool(result_value)
-    elif value_type == "int":
-        result_value = int(result_value)  # type: ignore[arg-type]
-    elif value_type == "float":
-        result_value = float(result_value)  # type: ignore[arg-type]
-    elif value_type == "options":
+    if value_type == "bool" and isinstance(result_value, str):
+        return str_to_bool(result_value)
+    if value_type == "int":
+        return int(result_value)  # type: ignore[arg-type]
+    if value_type == "float":
+        return float(result_value)  # type: ignore[arg-type]
+    if value_type == "options":
         available_options = [option["value"] for option in theme_value["options"]]
         if result_value not in available_options:
             if fallback_value in available_options:
-                result_value = fallback_value
-            else:
-                if not available_options:
-                    raise NoPluginsInstalledError(theme_value)
-                result_value = available_options[0]
+                return fallback_value
+            if not available_options:
+                raise NoPluginsInstalledError(theme_value)
+            return available_options[0]
 
     return result_value  # type: ignore[return-value]
 

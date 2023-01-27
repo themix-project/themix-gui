@@ -64,8 +64,7 @@ def get_gray_colors(palette: "list[HexColor]") -> "list[HexColor]":
     )
     gray_colors = saturation_list[:(len(saturation_list)//3)]
     gray_colors.sort(key=sum)
-    gray_colors_hex = [color_hex_from_list(c) for c in gray_colors]
-    return gray_colors_hex
+    return [color_hex_from_list(c) for c in gray_colors]
 
 
 class Plugin(OomoxImportPluginAsync):
@@ -370,24 +369,21 @@ class Plugin(OomoxImportPluginAsync):
     def _get_haishoku_palette(cls, image_path: str) -> "list[HexColor]":
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error,useless-suppression
         palette = Haishoku.getPalette(image_path)
-        hex_palette = [color_hex_from_list(color) for _percentage, color in palette]
-        return hex_palette
+        return [color_hex_from_list(color) for _percentage, color in palette]
 
     @classmethod
     def _get_colorthief_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
         color_thief = ColorThief(image_path)
         palette = color_thief.get_palette(color_count=color_count)
-        hex_palette = [color_hex_from_list(color) for color in palette]
-        return hex_palette
+        return [color_hex_from_list(color) for color in palette]
 
     @classmethod
     def _get_colorz_lib_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
         from colorz import colorz  # pylint: disable=import-error,useless-suppression
         with open(image_path, "rb") as fobj:
             palette = colorz(fobj, color_count, 50, 200)
-        hex_palette = [color_hex_from_list(color) for pair in palette for color in pair]
-        return hex_palette
+        return [color_hex_from_list(color) for pair in palette for color in pair]
 
     @classmethod
     def _get_all_available_palettes(  # pylint: disable=too-many-locals

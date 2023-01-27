@@ -20,25 +20,25 @@ select = [
     "EM",
     "ISC",
     "ICN",
-    #"T20", 5
+    #"T20", 4
 #    #"PT",  # pytest
     "Q",
-    #"RET", 3
-    #"SIM", 4
+    "RET",
+    #"SIM", 3
     "TID",
     "ARG",
     "DTZ",
     "ERA",
 #    #"PD",  # pandas
     "PGH",
-    #"PL", 7
+    #"PL", 5
     "PIE",
     "COM",
-    #"INP", 8
+    #"INP", 6
     "EXE",
     "TCH",
     "TRY",
-	#"PTH", 9
+	#"PTH", 7
     "RUF",
 ]
 ignore = [
