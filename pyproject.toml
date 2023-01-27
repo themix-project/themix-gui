@@ -20,7 +20,7 @@ select = [
     "EM",
     "ISC",
     "ICN",
-    #"T20", 4
+    #"T20", 3
 #    #"PT",  # pytest
     "Q",
     "RET",
@@ -31,14 +31,14 @@ select = [
     "ERA",
 #    #"PD",  # pandas
     "PGH",
-    #"PL", 5
+    #"PL", 4
     "PIE",
     "COM",
-    #"INP", 6
+    "INP",
     "EXE",
     "TCH",
     "TRY",
-	#"PTH", 7
+	#"PTH", 5
     "RUF",
 ]
 ignore = [
@@ -75,11 +75,8 @@ ignore = [
 "oomog_gui/main.py" = [
     "E402",
 ]
-"pikaur_test/test_*.py" = [
-	"ANN201",
-	"ANN206",
-	"PLR2004",
-	"T201",
+"plugins/*/oomox_plugin.py" = [
+	"INP001",
 ]
 "maintenance_scripts/*.py" = [
 	"INP001",
