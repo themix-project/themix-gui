@@ -762,15 +762,16 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 if "NOGUI" in theme:
                     row.hide()
                     continue
-                if filter_func := theme_value.get("filter"):
-                    if not filter_func(theme):
-                        row.hide()
-                        continue
+                if (filter_func := theme_value.get("filter")) and not filter_func(theme):
+                    row.hide()
+                    continue
                 value_filter: "dict[str, ThemeValueT | list[ThemeValueT]] | None"
-                if value_filter := theme_value.get("value_filter"):
-                    if not check_value_filter(value_filter, theme):
-                        row.hide()
-                        continue
+                if (
+                        (value_filter := theme_value.get("value_filter"))
+                        and not check_value_filter(value_filter, theme)
+                ):
+                    row.hide()
+                    continue
                 if theme_value["type"] in (
                         "color", "options", "bool", "int", "float", "image_path",
                 ):
@@ -797,7 +798,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
     def hide_all_rows(self) -> None:
         self._error_messages_row.hide()
-        for section_id in get_theme_model().keys():
+        for section_id in get_theme_model():  # pylint: disable=not-an-iterable
             self._all_section_boxes[section_id].hide()
 
     def replace_all(self, old_value: str, new_value: str) -> None:

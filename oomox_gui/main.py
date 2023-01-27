@@ -1,4 +1,5 @@
 #!/bin/env python3
+import contextlib
 import os
 import shutil
 import signal
@@ -226,14 +227,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def save_theme(self, name: str | None = None) -> None:
         if not name:
             name = self.colorscheme_name
-        if not self.preset_list.preset_is_saveable():
-            if (
-                    name.startswith(PLUGIN_PATH_PREFIX)
-            ) or (
-                self.ask_colorscheme_exists(name)
-            ):
-                self.clone_theme()
-                return
+        if not self.preset_list.preset_is_saveable() and ((
+                name.startswith(PLUGIN_PATH_PREFIX)
+        ) or (
+            self.ask_colorscheme_exists(name)
+        )):
+            self.clone_theme()
+            return
         new_path = save_colorscheme(name, self.colorscheme)
         self._unset_save_needed()
 
@@ -246,10 +246,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def remove_theme(self, path: str | None = None) -> None:
         if not path:
             path = self.colorscheme_path
-        try:
+        with contextlib.suppress(FileNotFoundError):
             remove_colorscheme(path)
-        except FileNotFoundError:
-            pass
 
     def import_theme_from_path(self, path: str, new_name: str) -> None:
         old_path = self.colorscheme_path
@@ -348,11 +346,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.rename_theme(entry_text=new_theme_name)
 
     def ask_unsaved_changes(self) -> None:
-        if self.theme_edited:
-            if dialog_is_yes(UnsavedDialog(transient_for=self)):
-                self.save_theme()
-            # else:  @TODO: remove this branch?
-                # self.theme_edited = False
+        if self.theme_edited and dialog_is_yes(UnsavedDialog(transient_for=self)):
+            self.save_theme()
 
     def ask_colorscheme_exists(self, colorscheme_name: str) -> bool:
         if not is_colorscheme_exists(get_user_theme_path(colorscheme_name)):

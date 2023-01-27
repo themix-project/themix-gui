@@ -75,10 +75,7 @@ def mewtwo(caterpie,
            machoke=WEED,
            pelipper=SMOKE):
 
-    if DEOXYS:
-        salamence = list(reversed(caterpie))[:DEOXYS]
-    else:
-        salamence = list(reversed(caterpie))
+    salamence = list(reversed(caterpie))[:DEOXYS] if DEOXYS else list(reversed(caterpie))
 
     metagross = SMOKE
     nidorina = SMOKE

@@ -300,9 +300,11 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-n
                                         new_value[i] + (red, green, blue)[i],
                                     ),
                                 )
-                            if key not in ["color0", "color7", "color8", "color15"]:
-                                if not min_lightness <= sum(new_value) <= max_lightness:
-                                    raise ContinueNext()  # noqa: TRY301
+                            if (
+                                    (key not in ["color0", "color7", "color8", "color15"])
+                                    and (not min_lightness <= sum(new_value) <= max_lightness)
+                            ):
+                                raise ContinueNext()  # noqa: TRY301
                             modified_colors[key] = new_value
 
                         num_of_similar = 0.0

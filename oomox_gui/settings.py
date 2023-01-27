@@ -86,7 +86,7 @@ class CommonOomoxConfig:
     def __getattr__(self, item: str) -> "Any":
         if item in self._public_members:
             return super().__getattribute__(item)
-        if item in self.default_config.keys():
+        if item in self.default_config:
             return self.config[item]
         return self.__getattribute__(item)
 
@@ -94,7 +94,7 @@ class CommonOomoxConfig:
         if item in self._public_members:
             super().__setattr__(item, value)
             return
-        if item in self.default_config.keys():
+        if item in self.default_config:
             self.config[item] = value
         elif item not in dir(self):
             raise KeyError(item)
