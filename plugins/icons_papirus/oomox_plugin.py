@@ -1,4 +1,5 @@
 import os
+from typing import TYPE_CHECKING
 
 from oomox_gui.color import mix_theme_colors
 from oomox_gui.config import FALLBACK_COLOR
@@ -6,7 +7,13 @@ from oomox_gui.export_common import CommonIconThemeExportDialog
 from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxIconsPlugin
 
-PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
+if TYPE_CHECKING:
+    from typing import Final
+
+    from oomox_gui.theme_file import ThemeT
+
+
+PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
 
 
 class PapirusIconsExportDialog(CommonIconThemeExportDialog):
@@ -14,7 +21,7 @@ class PapirusIconsExportDialog(CommonIconThemeExportDialog):
     timeout = 100
     config_name = "icons_papirus"
 
-    def do_export(self):
+    def do_export(self) -> None:
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
@@ -83,7 +90,7 @@ class Plugin(OomoxIconsPlugin):
         },
     ]
 
-    def preview_transform_function(self, svg_template, colorscheme):
+    def preview_transform_function(self, svg_template: str, colorscheme: "ThemeT") -> str:
         return svg_template.replace(
             "%LIGHT%", colorscheme["ICONS_LIGHT_FOLDER"] or FALLBACK_COLOR,
         ).replace(

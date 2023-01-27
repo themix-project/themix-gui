@@ -26,7 +26,7 @@ class CommonOomoxConfig:
             config_name: str,
             default_config: dict[str, "Any"] | None = None,
             force_reload: bool = False,
-    ):
+    ) -> None:
         self.name = config_name
         self.config_dir = config_dir
         self.config_path = os.path.join(

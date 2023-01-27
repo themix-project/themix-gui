@@ -10,10 +10,10 @@ PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 
 class XrdbCache():
 
-    _cache = None
+    _cache: dict[str, str] | None = None
 
     @classmethod
-    def get(cls):
+    def get(cls) -> dict[str, str] | None:
         if cls._cache:
             return cls._cache
 
@@ -40,7 +40,7 @@ class XrdbCache():
         return None
 
     @classmethod
-    def clear(cls):
+    def clear(cls) -> None:
         cls._cache = None
 
 
@@ -54,7 +54,7 @@ class Plugin(OomoxImportPlugin):
 
     # theme_model_import = []
 
-    def read_colorscheme_from_path(self, preset_path):
+    def read_colorscheme_from_path(self, preset_path: str) -> dict[str, str]:
 
         theme_keys = [
             item["key"]

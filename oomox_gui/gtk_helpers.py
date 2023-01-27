@@ -177,7 +177,7 @@ class EntryDialog(Gtk.Dialog):
             title: str,
             text: str,
             entry_text: str | None = None,
-    ):
+    ) -> None:
         super().__init__(
             title=title,
             transient_for=transient_for,
@@ -215,7 +215,7 @@ class YesNoDialog(Gtk.Dialog):
             title: str = "",
             text: str | None = None,
             default_response: Gtk.ResponseType = Gtk.ResponseType.NO,
-    ):
+    ) -> None:
         text = text or translate("Are you sure?")
         super().__init__(
             title=title,

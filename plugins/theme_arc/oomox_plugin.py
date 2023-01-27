@@ -1,4 +1,5 @@
 import os
+from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
 
@@ -9,12 +10,19 @@ from oomox_gui.i18n import translate
 # from oomox_gui.export_common import OPTION_GTK2_HIDPI
 from oomox_gui.plugin_api import OomoxThemePlugin
 
-PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
-THEME_DIR = os.path.join(PLUGIN_DIR, "arc-theme/")
+if TYPE_CHECKING:
+    from typing import Any, Final
 
-OPTION_EXPORT_CINNAMON_THEME = "OPTION_EXPORT_CINNAMON_THEME"
-OPTION_EXPORT_GNOME_SHELL_THEME = "OPTION_EXPORT_GNOME_SHELL_THEME"
-OPTION_EXPORT_XFWM_THEME = "OPTION_EXPORT_XFWM_THEME"
+    from oomox_gui.preview import ThemePreview
+    from oomox_gui.theme_file import ThemeT
+
+
+PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
+THEME_DIR: "Final" = os.path.join(PLUGIN_DIR, "arc-theme/")
+
+OPTION_EXPORT_CINNAMON_THEME: "Final" = "OPTION_EXPORT_CINNAMON_THEME"
+OPTION_EXPORT_GNOME_SHELL_THEME: "Final" = "OPTION_EXPORT_GNOME_SHELL_THEME"
+OPTION_EXPORT_XFWM_THEME: "Final" = "OPTION_EXPORT_XFWM_THEME"
 
 
 class ArcThemeExportDialog(CommonGtkThemeExportDialog):
@@ -22,7 +30,7 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
     config_name = "arc_theme"
     timeout = 1000
 
-    def do_export(self):
+    def do_export(self) -> None:
         self.command = [
             "bash",
             os.path.join(THEME_DIR, "change_color.sh"),
@@ -43,7 +51,13 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
             ]
         super().do_export()
 
-    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+    def __init__(
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: "ThemeT",
+            theme_name: str,
+            **kwargs: "Any",
+    ) -> None:
         super().__init__(
             transient_for=transient_for,
             colorscheme=colorscheme,
@@ -66,7 +80,7 @@ class ArcThemeExportDialog(CommonGtkThemeExportDialog):
         )
 
 
-def _monkeypatch_update_preview_borders(preview_object):
+def _monkeypatch_update_preview_borders(preview_object: "ThemePreview") -> None:
     _monkeypatch_id = "_arc_borders_monkeypatched"
 
     if getattr(preview_object, _monkeypatch_id, None):
@@ -74,7 +88,7 @@ def _monkeypatch_update_preview_borders(preview_object):
 
     old_update_preview_borders = preview_object.update_preview_borders
 
-    def _update_preview_borders(colorscheme):
+    def _update_preview_borders(colorscheme: "ThemeT") -> None:
         if colorscheme["THEME_STYLE"] != "arc":
             old_update_preview_borders(colorscheme)
         else:
@@ -186,7 +200,9 @@ class Plugin(OomoxThemePlugin):
         # },
     ]
 
-    def preview_before_load_callback(self, preview_object, colorscheme):
+    def preview_before_load_callback(
+            self, preview_object: "ThemePreview", colorscheme: "ThemeT",
+    ) -> None:
         colorscheme["TXT_FG"] = colorscheme["FG"]
         colorscheme["BTN_FG"] = colorscheme["FG"]
         colorscheme["HDR_BTN_FG"] = colorscheme["HDR_FG"]

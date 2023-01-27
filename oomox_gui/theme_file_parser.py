@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class NoPluginsInstalledError(Exception):
 
-    def __init__(self, theme_value: "ThemeModelValue"):
+    def __init__(self, theme_value: "ThemeModelValue") -> None:
         self.theme_value = theme_value
         super().__init__(
             translate("No plugins installed for {plugin_type}").format(

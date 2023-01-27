@@ -1,5 +1,6 @@
 import os
 import random
+from typing import TYPE_CHECKING
 
 from gi.repository import Gdk
 
@@ -8,23 +9,30 @@ from oomox_gui.config import DEFAULT_ENCODING
 from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.theme_model import get_theme_model
 
-PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
+if TYPE_CHECKING:
+    from typing import Final
+
+    from oomox_gui.color import HexColor
+    from oomox_gui.theme_file import ThemeT
 
 
-def get_random_gdk_color():
+PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
+
+
+def get_random_gdk_color() -> Gdk.RGBA:
     return Gdk.RGBA(random.random(), random.random(), random.random(), 1)
 
 
-def get_random_theme_color():
+def get_random_theme_color() -> "HexColor":
     return convert_gdk_to_theme_color(get_random_gdk_color())
 
 
 class ColorRandomizator():
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.colors = {}
 
-    def get_theme_color_by_id(self, random_id):
+    def get_theme_color_by_id(self, random_id: str) -> "HexColor":
         color = self.colors.get(random_id)
         if not color:
             self.colors[random_id] = color = get_random_theme_color()
@@ -56,7 +64,7 @@ class Plugin(OomoxImportPlugin):
         # },
     ]
 
-    def read_colorscheme_from_path(self, preset_path):
+    def read_colorscheme_from_path(self, preset_path: str) -> "ThemeT":
 
         theme_keys = [
             item["key"]

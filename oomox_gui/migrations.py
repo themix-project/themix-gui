@@ -50,5 +50,5 @@ class MigrationConfig:
 
 class PluginMigrationConfig(MigrationConfig):
 
-    def __init__(self, plugin: "OomoxPlugin"):
+    def __init__(self, plugin: "OomoxPlugin") -> None:
         super().__init__(component_name=plugin.name)

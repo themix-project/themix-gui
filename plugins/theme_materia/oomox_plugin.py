@@ -1,12 +1,22 @@
 import os
+from typing import TYPE_CHECKING
 
 from oomox_gui.color import convert_theme_color_to_gdk, mix_theme_colors
 from oomox_gui.export_common import CommonGtkThemeExportDialog
 from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxThemePlugin
 
-PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
-THEME_DIR = os.path.join(PLUGIN_DIR, "materia-theme/")
+if TYPE_CHECKING:
+    from typing import Any, Final
+
+    from gi.repository import Gtk
+
+    from oomox_gui.preview import ThemePreview
+    from oomox_gui.theme_file import ThemeT
+
+
+PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
+THEME_DIR: "Final" = os.path.join(PLUGIN_DIR, "materia-theme/")
 
 
 class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
@@ -14,7 +24,7 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
     config_name = "materia_theme"
     timeout = 1000
 
-    def do_export(self):
+    def do_export(self) -> None:
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),
         )
@@ -29,7 +39,13 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
         ]
         super().do_export()
 
-    def __init__(self, transient_for, colorscheme, theme_name, **kwargs):
+    def __init__(
+            self,
+            transient_for: "Gtk.Window",
+            colorscheme: "ThemeT",
+            theme_name: str,
+            **kwargs: "Any",
+    ) -> None:
         super().__init__(
             transient_for=transient_for,
             colorscheme=colorscheme,
@@ -38,7 +54,7 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
         )
 
 
-def _monkeypatch_update_preview_colors(preview_object):
+def _monkeypatch_update_preview_colors(preview_object: "ThemePreview") -> None:
     _monkeypatch_id = "_materia_update_colors_monkeypatched"
 
     if getattr(preview_object, _monkeypatch_id, None):
@@ -46,7 +62,7 @@ def _monkeypatch_update_preview_colors(preview_object):
 
     old_update_preview_colors = preview_object.update_preview_colors
 
-    def _update_preview_colors(colorscheme):
+    def _update_preview_colors(colorscheme: "ThemeT") -> None:
         old_update_preview_colors(colorscheme)
         if colorscheme["THEME_STYLE"] == "materia":
             preview_object.override_widget_color(
@@ -145,7 +161,9 @@ class Plugin(OomoxThemePlugin):
         },
     ]
 
-    def preview_before_load_callback(self, preview_object, colorscheme):
+    def preview_before_load_callback(
+            self, preview_object: "ThemePreview", colorscheme: "ThemeT",
+    ) -> None:
         colorscheme["TXT_FG"] = colorscheme["FG"]
         colorscheme["WM_BORDER_FOCUS"] = colorscheme["HDR_BG"]
         colorscheme["WM_BORDER_UNFOCUS"] = colorscheme["BTN_BG"]

@@ -1,4 +1,5 @@
 import re
+from typing import TYPE_CHECKING
 
 from oomox_gui.export_common import ExportDialog
 from oomox_gui.helpers import natural_sort
@@ -6,8 +7,13 @@ from oomox_gui.i18n import translate
 from oomox_gui.plugin_api import OomoxExportPlugin
 from oomox_gui.terminal import generate_xrdb_theme_from_oomox
 
+if TYPE_CHECKING:
+    from typing import Any
 
-def generate_xresources(terminal_colorscheme):
+    from oomox_gui.color import HexColor
+
+
+def generate_xresources(terminal_colorscheme: "dict[str, HexColor]") -> str:
     color_keys = terminal_colorscheme.keys()
     color_regex = re.compile("color[0-9]")
     return "\n".join([
@@ -27,7 +33,7 @@ def generate_xresources(terminal_colorscheme):
 
 class XresourcesExportDialog(ExportDialog):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: "Any", **kwargs: "Any") -> None:
         super().__init__(
             *args,
             headline=translate("Terminal Colorscheme"),

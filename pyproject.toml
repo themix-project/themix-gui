@@ -9,10 +9,10 @@ select = [
     "UP",
     "N",
     "YTT",
-    #"ANN", 2
+    "ANN",
     "S",
     "BLE",
-    #"FBT", 1
+    #"FBT", # @TODO: Boolean positional arg/value in call
     "B",
     "A",
     "C4",
@@ -20,7 +20,7 @@ select = [
     "EM",
     "ISC",
     "ICN",
-    #"T20", 3
+    #"T20", # @TODO: refactor print() to logging
 #    #"PT",  # pytest
     "Q",
     "RET",
@@ -38,7 +38,7 @@ select = [
     "EXE",
     "TCH",
     "TRY",
-	#"PTH", 5
+	#"PTH", # @TODO: refactor os.path to pathlib.Path
     "RUF",
 ]
 ignore = [
