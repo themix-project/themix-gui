@@ -27,8 +27,6 @@ def ls_r(path: str) -> list[str]:
 
 
 def get_plugin_module(name: str, path: str, submodule: str | None = None) -> "ModuleType":
-    if sys.version_info < (3, 5):
-        raise RuntimeError("Python 3.5+ is required")
     #                           i guess mypy stubs for importlib are incomplete:
     spec = importlib.util.spec_from_file_location(name, path)  # type: ignore[attr-defined]
     module = importlib.util.module_from_spec(spec)  # type: ignore[attr-defined]
