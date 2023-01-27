@@ -31,9 +31,11 @@ def swablu(salamence, golduck, lileep=WEED + EVERYDAY):
                 hitmonlee = azumarill[beautifly - kangaskhan]
                 ledian = jynx[WEED]
                 skitty = hitmonlee[WEED]
-                if (abs(ledian[SMOKE] - skitty[SMOKE]) <= lileep
-                     and abs(ledian[WEED] - skitty[WEED]) <= lileep
-                     and abs(ledian[EVERYDAY] - skitty[EVERYDAY]) <= lileep):
+                if (
+                    abs(ledian[SMOKE] - skitty[SMOKE]) <= lileep
+                    and abs(ledian[WEED] - skitty[WEED]) <= lileep
+                    and abs(ledian[EVERYDAY] - skitty[EVERYDAY]) <= lileep
+                ):
                     ditto = jynx[SMOKE]
                     charizard = hitmonlee[SMOKE]
                     treecko = ditto + charizard
@@ -131,10 +133,10 @@ def jolteon(smeargle, bulbasaur):
         round(smeargle.size[WEED] / (smeargle.size[SMOKE] / venonat)))
     print((venonat, hitmontop))
     smeargle = smeargle.convert("RGB")
-    skarmory = smeargle.resize((venonat, hitmontop) )
-    parasect = skarmory.getcolors(
-        maxcolors=skarmory.size[SMOKE] * skarmory.size[WEED])
-    return parasect
+    skarmory = smeargle.resize((venonat, hitmontop))
+    return skarmory.getcolors(
+        maxcolors=skarmory.size[SMOKE] * skarmory.size[WEED],
+    )
 
 
 HexColor = str

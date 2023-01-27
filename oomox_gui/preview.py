@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from gi.repository import GLib, Gtk
 
 from .color import (
+    MAX_LIGHTNESS,
     convert_theme_color_to_gdk,
     hex_lightness,
     mix_gdk_colors,
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
 
 
 WIDGET_SPACING: "Final" = 10
+GTK_320_POSTFIX = 20
 
 
 class CssProviders():
@@ -258,7 +260,7 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_carets(self, colorscheme: "ThemeT") -> None:
         self.css_providers.caret.load_from_data((
-            (Gtk.get_minor_version() >= 20 and """
+            (Gtk.get_minor_version() >= GTK_320_POSTFIX and """
             * {{
                 caret-color: #{primary_caret_color};
                 -gtk-secondary-caret-color: #{secondary_caret_color};
@@ -376,11 +378,11 @@ class ThemePreview(Gtk.Grid):
                         0
                         if hex_lightness(
                             colorscheme["TXT_BG"],  # type: ignore[arg-type]
-                        ) > 0.66 else (
+                        ) > (MAX_LIGHTNESS*2/3) else (
                             0.1
                             if hex_lightness(
                                 colorscheme["TXT_BG"],  # type: ignore[arg-type]
-                            ) > 0.33 else
+                            ) > (MAX_LIGHTNESS/3) else
                             0.3
                         )
                     )),
@@ -544,7 +546,7 @@ class ThemePreview(Gtk.Grid):
     def get_theme_css_provider(self, theme_plugin: "OomoxThemePlugin") -> Gtk.CssProvider:
         css_dir = theme_plugin.gtk_preview_dir
 
-        _css_postfix = "20" if Gtk.get_minor_version() >= 20 else ""
+        _css_postfix = f"{GTK_320_POSTFIX}" if Gtk.get_minor_version() >= GTK_320_POSTFIX else ""
         css_name = f"theme{_css_postfix}.css"
         css_path = os.path.join(css_dir, css_name)
         if not os.path.exists(css_path):

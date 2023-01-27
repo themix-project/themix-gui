@@ -1,12 +1,22 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated, Sequence
 
 from gi.repository import Gdk
 
 if TYPE_CHECKING:
-    from typing import Annotated, Final, Sequence, Tuple
+    from typing import Final, Tuple
 
-    HexColor = Annotated[str, 6]
-    IntColor = Annotated[Sequence[int], 3]
+
+class RGB:
+    length: "Final" = 3
+    RED: "Final" = 0
+    GREEN: "Final" = 1
+    BLUE: "Final" = 2
+    hex_size = 255
+
+
+HexColor = Annotated[str, 6]
+
+IntColor = Annotated[Sequence[int], RGB.length]
 
 
 def hex_to_int(text: "HexColor") -> int:
@@ -23,31 +33,35 @@ def color_list_from_hex(color_text: "HexColor") -> "Tuple[str, str, str]":
 
 def int_list_from_hex(color_text: "HexColor") -> "IntColor":
     result = [hex_to_int(c) for c in color_list_from_hex(color_text)]
-    if len(result) != 3:
+    if len(result) != RGB.length:
         raise TypeError(color_text)
-    return (result[0], result[1], result[2])
+    return (result[RGB.RED], result[RGB.GREEN], result[RGB.BLUE])
 
 
 def color_hex_from_list(color_list: "IntColor") -> "HexColor":
     return "".join([int_to_hex(i) for i in color_list])
 
 
-def hex_lightness(color_text: "HexColor") -> float:
+MIN_LIGHTNESS: "Final" = 0
+MAX_LIGHTNESS: "Final" = 1
+
+
+def hex_lightness(color_text: "HexColor") -> Annotated[float, MIN_LIGHTNESS, MAX_LIGHTNESS]:
     # @TODO: use real lightness from HSV or Lab color model
     return sum(
         hex_to_int(channel_text)
         for channel_text in color_list_from_hex(color_text)
-    ) / 765
+    ) / (RGB.hex_size * RGB.length)
 
 
 def is_dark(color_text: "HexColor") -> bool:
-    return hex_lightness(color_text) < 0.5
+    return hex_lightness(color_text) < (MAX_LIGHTNESS / 2)
 
 
 def hex_darker(color_text: "HexColor", darken_amount: int = 10) -> "HexColor":
     # @TODO: use real lightness from HSV or Lab color model?
     return color_hex_from_list([
-        max(min(hex_to_int(channel_text) - darken_amount, 255), 0)
+        max(min(hex_to_int(channel_text) - darken_amount, RGB.hex_size), 0)
         for channel_text in color_list_from_hex(color_text)
     ])
 
@@ -93,7 +107,7 @@ class ColorDiff():
             channel = hex_to_int(channel_text)
             int_result = channel - getattr(self, self.channels[channel_index])
             int_result = max(int_result, 0)
-            int_result = min(int_result, 255)
+            int_result = min(int_result, RGB.hex_size)
             result += int_to_hex(int_result)
         return result
 
@@ -104,8 +118,8 @@ SMALLEST_DIFF: "Final" = ColorDiff("000000", "ffffff")
 def find_closest_color(
         color_hex: "HexColor",
         colors_hex: "Sequence[HexColor]",
-        min_lightness: int = 0,
-        max_lightness: int = 255*3,
+        min_lightness: int = MIN_LIGHTNESS,
+        max_lightness: int = RGB.hex_size*RGB.length,
 ) -> "Tuple[None, None] | Tuple[HexColor, ColorDiff]":
     smallest_diff = SMALLEST_DIFF
     closest_color = None
@@ -133,7 +147,7 @@ def convert_theme_color_to_gdk(theme_color: "HexColor") -> Gdk.RGBA:
 
 def convert_gdk_to_theme_color(gdk_color: Gdk.RGBA) -> "HexColor":
     return "".join([
-        int_to_hex(n * 255)
+        int_to_hex(n * RGB.hex_size)
         for n in (gdk_color.red, gdk_color.green, gdk_color.blue)
     ])
 

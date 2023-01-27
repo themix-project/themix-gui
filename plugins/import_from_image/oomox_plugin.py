@@ -6,6 +6,7 @@ from time import time
 from typing import TYPE_CHECKING
 
 from oomox_gui.color import (
+    RGB,
     color_hex_from_list,
     color_list_from_hex,
     find_closest_color,
@@ -29,9 +30,9 @@ from oomox_gui.terminal import import_xcolors
 from oomox_gui.theme_model import get_first_theme_option
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Sequence
+    from typing import Annotated, Any, Callable, Sequence
 
-    from oomox_gui.color import HexColor
+    from oomox_gui.color import HexColor, IntColor
     from oomox_gui.theme_file import ThemeT
 
 
@@ -48,12 +49,14 @@ ACCURACY = 40
 image_analyzer = get_plugin_module("ima", os.path.join(PLUGIN_DIR, "ima.py"))
 
 
-def sort_by_saturation(c: "Sequence[int]") -> int:  # pylint: disable=invalid-name
-    if len(c) != 3:
+def sort_by_saturation(c: "IntColor") -> int:  # pylint: disable=invalid-name
+    if len(c) != RGB.length:
         raise TypeError(c)
-    return abs(c[0]-c[1])+abs(c[0]-c[2]) + \
-        abs(c[1]-c[0])+abs(c[1]-c[2]) + \
-        abs(c[2]-c[1])+abs(c[2]-c[0])
+    return (
+        abs(c[RGB.RED]-c[RGB.GREEN])+abs(c[RGB.RED]-c[RGB.BLUE])
+        + abs(c[RGB.GREEN]-c[RGB.RED])+abs(c[RGB.GREEN]-c[RGB.BLUE])
+        + abs(c[RGB.BLUE]-c[RGB.GREEN])+abs(c[RGB.BLUE]-c[RGB.RED])
+    )
 
 
 def get_gray_colors(palette: "list[HexColor]") -> "list[HexColor]":
@@ -387,7 +390,10 @@ class Plugin(OomoxImportPluginAsync):
 
     @classmethod
     def _get_all_available_palettes(  # pylint: disable=too-many-locals
-        cls, image_path: str, use_whole_palette: bool, quality_per_plugin: list[int],
+            cls,
+            image_path: str,
+            use_whole_palette: bool,
+            quality_per_plugin: "Annotated[Sequence[int], 3]",
     ) -> "list[HexColor]":
         hex_palette = []
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression

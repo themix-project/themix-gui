@@ -290,7 +290,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         last_subdir = None
         last_subdir_iter = None
         for preset in sorted_preset_list[1:]:
-            if len(preset.name.split("/")) > 2:
+            if len(preset.name.split("/")) > 2:  # noqa: PLR2004
                 preset_subdir = os.path.dirname(preset.path)
                 if preset_subdir != last_subdir:
                     last_subdir = preset_subdir

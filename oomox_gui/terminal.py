@@ -73,7 +73,7 @@ def import_xcolors(path: str) -> dict[str, str]:
             if line.strip().startswith("!"):
                 continue
             pair = [s.strip() for s in line.split(":")]
-            if len(pair) < 2:
+            if len(pair) < 2:  # noqa: PLR2004
                 continue
             key, value = pair
             key = key.replace("*", "")
@@ -564,9 +564,17 @@ def generate_terminal_colors_for_oomox(
     )
 
 
+CLI_MIN_ARGS_NUM: "Final" = 5
+
+
+class CliArgs:
+    THEME_HINT: "Final" = 5
+    AUTO_SWAP_COLORS: "Final" = 6
+
+
 def cli() -> None:
     args = sys.argv
-    if len(args) < 5:
+    if len(args) < CLI_MIN_ARGS_NUM:
         print(
             f"Usage: {sys.argv[0]} "
             "TEMPLATE_PATH ACCENT_COLOR BG FG "
@@ -577,9 +585,12 @@ def cli() -> None:
     theme_color = args[2]
     theme_bg = args[3]
     theme_fg = args[4]
-    theme_hint = args[5] if len(args) > 5 else None
-    auto_swap_colors = (args[6] not in ["y", "yes", "true", "1"]) \
-        if len(args) > 6 else False
+    theme_hint = args[CliArgs.THEME_HINT] if len(args) > CliArgs.THEME_HINT else None
+    auto_swap_colors = (
+        (args[CliArgs.AUTO_SWAP_COLORS] not in ["y", "yes", "true", "1"])
+        if len(args) > CliArgs.AUTO_SWAP_COLORS else
+        False
+    )
     term_colorscheme = generate_theme_from_hint(
         template_path=template_path,
         theme_color=theme_color,
