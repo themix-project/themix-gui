@@ -89,7 +89,7 @@ install_theme_materia:
 
 
 install_export_oomoxify:
-	$(eval PLUGIN_NAME := oomoxify)
+	$(eval PLUGIN_NAME := export_oomoxify)
 	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
 
 
