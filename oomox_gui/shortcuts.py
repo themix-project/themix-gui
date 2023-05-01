@@ -8,7 +8,7 @@ from .i18n import translate
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
-    from typing import Callable, Mapping, Sequence
+    from collections.abc import Callable, Mapping, Sequence
 
     from .plugin_api import OomoxExportPlugin, OomoxImportPlugin
 

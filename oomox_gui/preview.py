@@ -18,7 +18,8 @@ from .preview_terminal import TerminalThemePreview
 from .theme_model import get_theme_model
 
 if TYPE_CHECKING:
-    from typing import Any, Final, Sequence
+    from collections.abc import Sequence
+    from typing import Any, Final
 
     from gi.repository import Gdk
 
@@ -256,7 +257,7 @@ class ThemePreview(Gtk.Grid):
         if value == self.FG:
             widget.override_color(state, color)  # type: ignore[arg-type]
             return
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def update_preview_carets(self, colorscheme: "ThemeT") -> None:
         self.css_providers.caret.load_from_data((

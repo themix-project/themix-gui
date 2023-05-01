@@ -18,9 +18,9 @@ from .i18n import translate
 from .theme_model import get_theme_model
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
     from typing import (
         Any,
-        Callable,
         Final,
     )
 
@@ -304,7 +304,7 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-n
                                     (key not in ["color0", "color7", "color8", "color15"])
                                     and (not min_lightness <= sum(new_value) <= max_lightness)
                             ):
-                                raise ContinueNext()  # noqa: TRY301
+                                raise ContinueNext  # noqa: TRY301
                             modified_colors[key] = new_value
 
                         num_of_similar = 0.0

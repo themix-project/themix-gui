@@ -13,7 +13,8 @@ from .palette_cache import PaletteCache
 from .theme_model import get_theme_model, get_theme_options_by_key
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Final, Sequence
+    from collections.abc import Callable, Sequence
+    from typing import Any, Final
 
     from gi.repository import Gdk
 
@@ -30,9 +31,8 @@ def check_value_filter(
         colorscheme: "ThemeT",
 ) -> bool:
     filter_results = []
-    for key, values in value_filter_data.items():
-        if not isinstance(values, list):
-            values = [values]
+    for key, _values in value_filter_data.items():
+        values = [_values] if not isinstance(_values, list) else _values
         value_found = False
         for value in values:
             if colorscheme.get(key) == value:
@@ -111,12 +111,11 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
             if not self.description_label:
                 raise RuntimeError(label_not_added)
             self.description_label.set_text(description_text)
-        else:
-            if self._description_label_added:
-                if not self.description_label:
-                    raise RuntimeError(label_not_added)
-                self.vbox.remove(self.description_label)
-                self._description_label_added = False
+        elif self._description_label_added:
+            if not self.description_label:
+                raise RuntimeError(label_not_added)
+            self.vbox.remove(self.description_label)
+            self._description_label_added = False
 
 
 class NumericListBoxRow(OomoxListBoxRow):
@@ -461,7 +460,7 @@ class ColorListBoxRow(OomoxListBoxRow):
 
     def on_color_input(self, widget: Gtk.Entry, value: str | None = None) -> None:
         self.value = value or widget.get_text()
-        if self.value == "":
+        if not self.value:
             self.value = None
         if self.value:
             self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))

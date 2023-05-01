@@ -22,6 +22,21 @@ if [[ -z "${DISPLAY:-}" ]] ; then
 fi
 
 PYTHON=python3
+
+FIX_MODE=0
+while getopts f name
+do
+   case $name in
+   f)   FIX_MODE=1;;
+   ?)   printf "Usage: %s: [-f] [TARGETS]\n" "$0"
+	   echo "Arguments:"
+	   echo "  -f	run in fix mode"
+		 exit 2;;
+   esac
+done
+shift $((OPTIND - 1))
+printf "Remaining arguments are: %s\n$*"
+
 export PYTHONWARNINGS='default,error:::oomox_gui[.*],error:::plugins[.*]'
 TARGETS=(
 	'oomox_gui'
@@ -55,7 +70,11 @@ else
 		"$PYTHON" -m pip install ruff --upgrade
 		deactivate
 	fi
-	"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
+	if [[ "$FIX_MODE" -eq 1 ]] ; then
+		"${APP_DIR}/env/bin/ruff" --fix "${TARGETS[@]}"
+	else
+		"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
+	fi
 fi
 
 echo -e "\n== Running flake8:"

@@ -46,6 +46,7 @@ whitelist.Gtk.Application.do_command_line
 whitelist.Gtk.Dialog.do_response
 
 # plugin api
+whitelist.AboutLink
 whitelist.OomoxPlugin.enabled_keys_gtk
 whitelist.OomoxPlugin.enabled_keys_options
 whitelist.OomoxPlugin.enabled_keys_icons

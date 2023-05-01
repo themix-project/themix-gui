@@ -20,7 +20,7 @@ PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
 
 
 def get_random_gdk_color() -> Gdk.RGBA:
-    return Gdk.RGBA(random.random(), random.random(), random.random(), 1)
+    return Gdk.RGBA(random.random(), random.random(), random.random(), 1)  # noqa: S311
 
 
 def get_random_theme_color() -> "HexColor":

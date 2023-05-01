@@ -30,7 +30,8 @@ from oomox_gui.terminal import import_xcolors
 from oomox_gui.theme_model import get_first_theme_option
 
 if TYPE_CHECKING:
-    from typing import Annotated, Any, Callable, Sequence
+    from collections.abc import Callable, Sequence
+    from typing import Annotated, Any
 
     from oomox_gui.color import HexColor, IntColor
     from oomox_gui.theme_file import ThemeT
@@ -326,7 +327,12 @@ class Plugin(OomoxImportPluginAsync):
             "display_name": translate("colorz lib: high quality"),
         }]
     except:  # noqa: E722 pylint: disable=bare-except
-        pass
+        print(
+            translate(
+                "Import Colors From Image plugin:"
+                " `{}` library is not installed - less color-import options are available.",
+            ).format("colorz"),
+        )
 
     try:
         import colorthief  # pylint: disable=import-error,useless-suppression
@@ -338,7 +344,12 @@ class Plugin(OomoxImportPluginAsync):
             "display_name": translate("colorthief lib: doublepass"),
         }]
     except:  # noqa: E722  pylint: disable=bare-except
-        pass
+        print(
+            translate(
+                "Import Colors From Image plugin:"
+                " `{}` library is not installed - less color-import options are available.",
+            ).format("colorthief"),
+        )
 
     try:
         import haishoku  # pylint: disable=import-error,useless-suppression
@@ -348,7 +359,12 @@ class Plugin(OomoxImportPluginAsync):
             "display_name": translate("haishoku lib"),
         })
     except:  # noqa: E722  pylint: disable=bare-except
-        pass
+        print(
+            translate(
+                "Import Colors From Image plugin:"
+                " `{}` library is not installed - less color-import options are available.",
+            ).format("haishoku"),
+        )
 
     try:
         import colorthief  # noqa: F811  pylint: disable=import-error,useless-suppression
@@ -363,7 +379,12 @@ class Plugin(OomoxImportPluginAsync):
             "display_name": translate("all available: medium quality"),
         }]
     except:  # noqa: E722  pylint: disable=bare-except
-        pass
+        print(
+            translate(
+                "Import Colors From Image plugin:"
+                " not all optional libraries are installed (see above).",
+            ),
+        )
 
     _terminal_palette_cache: dict[str, dict[str, str]] = {}
     _palette_cache: dict[str, list[str]] = {}
@@ -549,7 +570,7 @@ class Plugin(OomoxImportPluginAsync):
             elif _quality == "medium":
                 quality_per_plugin = [200, 32, 32]
             else:
-                raise NotImplementedError()
+                raise NotImplementedError
             hex_palette = cls._get_all_available_palettes(
                 image_path=image_path, use_whole_palette=use_whole_palette,
                 quality_per_plugin=quality_per_plugin,

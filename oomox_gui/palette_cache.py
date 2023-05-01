@@ -56,7 +56,7 @@ class PaletteCache():
         gtk_color_converted = gtk_color.to_color().to_string()  # type: ignore[func-returns-value]
         palette_cache_list = [
             string for string in cls.get()  # pylint: disable=not-an-iterable
-            if string != ""
+            if string
         ]
         if gtk_color_converted not in palette_cache_list:
             cls.put([gtk_color_converted, *palette_cache_list][:20])

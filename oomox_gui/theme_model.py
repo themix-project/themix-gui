@@ -6,7 +6,8 @@ from .i18n import translate
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Mapping
+    from collections.abc import Callable, Mapping
+    from typing import Any
 
     from typing_extensions import NotRequired, TypedDict
 

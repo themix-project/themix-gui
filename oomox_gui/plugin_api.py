@@ -6,7 +6,8 @@ from typing import TYPE_CHECKING
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
 if TYPE_CHECKING:
-    from typing import Callable, Final, Iterable, Optional, Type  # noqa: F401
+    from collections.abc import Callable, Iterable
+    from typing import Final
 
     from typing_extensions import TypedDict
 
@@ -14,7 +15,7 @@ if TYPE_CHECKING:
     from .preview import ThemePreview
     from .preview_icons import IconThemePreview
     from .theme_file import ThemeT
-    from .theme_model import ThemeModelValue  # noqa: F401
+    from .theme_model import ThemeModelValue
 
     AboutLink = TypedDict("AboutLink", {"name": str, "url": str})
 
@@ -34,8 +35,8 @@ class OomoxPlugin(metaclass=ABCMeta):
     def display_name(self) -> str:
         pass
 
-    about_text = None  # type: Optional[str]
-    about_links = None  # type: Optional[list[AboutLink]]
+    about_text: str | None = None
+    about_links: "list[AboutLink] | None" = None
 
 
 class OomoxThemePlugin(OomoxPlugin):
@@ -52,16 +53,16 @@ class OomoxThemePlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> "Type[ExportDialog]":
+    def export_dialog(self) -> "type[ExportDialog]":
         pass
 
-    enabled_keys_gtk = []  # type: list[str]
-    enabled_keys_options = []  # type: list[str]
-    enabled_keys_extra = []  # type: list[str]
+    enabled_keys_gtk: list[str] = []
+    enabled_keys_options: list[str] = []
+    enabled_keys_extra: list[str] = []
 
-    theme_model_gtk = []  # type: list[ThemeModelValue]
-    theme_model_options = []  # type: list[ThemeModelValue]
-    theme_model_extra = []  # type: list[ThemeModelValue]
+    theme_model_gtk: "list[ThemeModelValue]" = []
+    theme_model_options: "list[ThemeModelValue]" = []
+    theme_model_extra: "list[ThemeModelValue]" = []
 
     def preview_before_load_callback(
             self, preview_object: "ThemePreview", colorscheme: "ThemeT",
@@ -87,8 +88,8 @@ class OomoxThemePlugin(OomoxPlugin):
 
 class OomoxIconsPlugin(OomoxPlugin):
 
-    enabled_keys_icons = []  # type: list[str]
-    theme_model_icons = []  # type: list[ThemeModelValue]
+    enabled_keys_icons: list[str] = []
+    theme_model_icons: "list[ThemeModelValue]" = []
 
     @property
     @abstractmethod
@@ -97,7 +98,7 @@ class OomoxIconsPlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> "Type[ExportDialog]":
+    def export_dialog(self) -> "type[ExportDialog]":
         pass
 
     @abstractmethod
@@ -114,15 +115,15 @@ class OomoxExportPlugin(OomoxPlugin):
 
     @property
     @abstractmethod
-    def export_dialog(self) -> "Type[ExportDialog]":
+    def export_dialog(self) -> "type[ExportDialog]":
         pass
 
     # Text to display in export menu:
-    export_text = None  # type: Optional[str]
+    export_text: str | None = None
 
-    theme_model_extra = []  # type: list[ThemeModelValue]
+    theme_model_extra: "list[ThemeModelValue]" = []
 
-    shortcut = None  # type: Optional[str]
+    shortcut: str | None = None
 
 
 class OomoxImportPlugin(OomoxPlugin):
@@ -134,17 +135,17 @@ class OomoxImportPlugin(OomoxPlugin):
         pass
 
     # Text to display in import menu:
-    import_text = None  # type: Optional[str]
+    import_text: str | None = None
 
     # Text to name section of user presets imported with the plugin:
-    user_presets_display_name = None  # type: Optional[str]
+    user_presets_display_name: str | None = None
 
     # supported file extensions for filechooser dialog
-    file_extensions = []  # type: Iterable[str]
+    file_extensions: "Iterable[str]" = []
 
-    plugin_theme_dir = None  # type: Optional[str]
+    plugin_theme_dir: str | None = None
 
-    theme_model_import = []  # type: list[ThemeModelValue]
+    theme_model_import: "list[ThemeModelValue]" = []
 
     @property
     def user_theme_dir(self) -> str:
@@ -152,7 +153,7 @@ class OomoxImportPlugin(OomoxPlugin):
             os.path.join(USER_COLORS_DIR, PLUGIN_PATH_PREFIX + self.name),
         )
 
-    shortcut = None  # type: Optional[str]
+    shortcut: str | None = None
 
 
 class OomoxImportPluginAsync(OomoxImportPlugin):

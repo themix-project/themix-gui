@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Annotated, Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Annotated
 
 from gi.repository import Gdk
 
 if TYPE_CHECKING:
-    from typing import Final, Tuple
+    from typing import Final
 
 
 class RGB:
@@ -27,7 +28,7 @@ def int_to_hex(num: int | float) -> "HexColor":
     return f"{int(num):02x}"
 
 
-def color_list_from_hex(color_text: "HexColor") -> "Tuple[str, str, str]":
+def color_list_from_hex(color_text: "HexColor") -> "tuple[str, str, str]":
     return (color_text[:2], color_text[2:4], color_text[4:])
 
 
@@ -120,7 +121,7 @@ def find_closest_color(
         colors_hex: "Sequence[HexColor]",
         min_lightness: int = MIN_LIGHTNESS,
         max_lightness: int = RGB.hex_size*RGB.length,
-) -> "Tuple[None, None] | Tuple[HexColor, ColorDiff]":
+) -> "tuple[None, None] | tuple[HexColor, ColorDiff]":
     smallest_diff = SMALLEST_DIFF
     closest_color = None
     if not colors_hex:

@@ -7,7 +7,7 @@ from gi.types import GObjectMeta
 from .i18n import translate
 
 if TYPE_CHECKING:
-    from typing import Any, Type
+    from typing import Any
 
     from gi.repository import Pango
 
@@ -279,7 +279,7 @@ class GObjectABCMeta(GObjectMeta, type):
                 raise TypeError(missing_methods_error)
 
 
-def g_abstractproperty(_function: "Any") -> "Type[GObjectABCMetaAbstractProperty]":
+def g_abstractproperty(_function: "Any") -> "type[GObjectABCMetaAbstractProperty]":
     return GObjectABCMetaAbstractProperty
 
 

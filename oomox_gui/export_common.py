@@ -13,7 +13,8 @@ from .settings import CommonOomoxConfig
 from .theme_file import save_colorscheme
 
 if TYPE_CHECKING:
-    from typing import Any, Callable
+    from collections.abc import Callable
+    from typing import Any
 
     from .theme_file import ThemeT
 
@@ -167,7 +168,7 @@ class ExportDialog(Gtk.Dialog):
             self.label.show()
             captured_log = ""
             with subprocess.Popen(
-                self.command,
+                self.command,  # noqa: S603
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             ) as proc:
@@ -287,7 +288,7 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
                 value_widget.add(entry)
                 self.option_widgets[option_name] = entry
             else:
-                raise NotImplementedError()
+                raise NotImplementedError
             self.options_box.add(value_widget)
 
         self.box.add(self.options_box)

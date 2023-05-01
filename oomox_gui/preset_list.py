@@ -13,7 +13,8 @@ from .settings import UISettings
 from .theme_file import get_presets, group_presets_by_dir
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Final, Literal
+    from collections.abc import Callable
+    from typing import Any, Final, Literal
 
     from .theme_file import PresetFile
 
@@ -249,7 +250,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             )
         if plugin_name:
             dir_display_name = dir_template.format(plugin_name, dir_display_name)
-        return dir_display_name  # noqa: RET504
+        return dir_display_name
 
     @staticmethod
     def _format_childname(preset_relpath: str) -> str:
@@ -370,7 +371,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 grouped_presets = group_presets_by_dir(
                     preset_list, os.path.join(colors_dir, preset_dir),
                 )
-                if len(grouped_presets) == 1 and grouped_presets[0][0] == "":
+                if len(grouped_presets) == 1 and not grouped_presets[0][0]:
                     grouped_presets = [
                         (preset.name, [preset])
                         for preset in grouped_presets[0][1]

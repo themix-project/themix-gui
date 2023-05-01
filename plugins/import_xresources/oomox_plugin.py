@@ -22,12 +22,12 @@ class XrdbCache():
 
         result = {}
         with subprocess.Popen(
-            command,
+            command,  # noqa: S603
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         ) as proc:
-            for line in iter(proc.stdout.readline, b""):
-                line = line.decode(DEFAULT_ENCODING)
+            for byte_line in iter(proc.stdout.readline, b""):
+                line = byte_line.decode(DEFAULT_ENCODING)
                 key, value, *_rest = line.split(":")
                 key = key.lstrip("*").lstrip(".")
                 value = value.strip()

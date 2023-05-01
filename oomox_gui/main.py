@@ -41,7 +41,8 @@ from .theme_file import (
 from .theme_file_parser import read_colorscheme_from_path
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Mapping, Sequence
+    from collections.abc import Callable, Mapping, Sequence
+    from typing import Any
 
     from .plugin_api import (
         OomoxExportPlugin,
@@ -775,13 +776,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     @classmethod
     def set_instance(cls, window_instance: "OomoxApplicationWindow") -> None:
         if cls._window_instance:
-            raise DoubleWindowError()
+            raise DoubleWindowError
         cls._window_instance = window_instance
 
     @classmethod
     def get_instance(cls) -> "OomoxApplicationWindow":
         if not cls._window_instance:
-            raise NoWindowError()
+            raise NoWindowError
         return cls._window_instance
 
     def __init__(self, application: "OomoxGtkApplication") -> None:

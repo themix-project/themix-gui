@@ -10,7 +10,7 @@ from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
 
 if TYPE_CHECKING:
-    from typing import Callable
+    from collections.abc import Callable
 
     from .plugin_api import OomoxImportPlugin
 

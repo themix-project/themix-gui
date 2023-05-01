@@ -5,8 +5,9 @@ import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from collections.abc import Callable, Iterable
     from types import ModuleType
-    from typing import Any, Callable, Iterable, TypeVar
+    from typing import Any, TypeVar
 
     SortableT = TypeVar("SortableT", bound=str)
     DelayedPartialReturnT = TypeVar("DelayedPartialReturnT")

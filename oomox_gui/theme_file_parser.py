@@ -7,7 +7,7 @@ from .plugin_loader import PluginLoader
 from .theme_model import get_theme_model
 
 if TYPE_CHECKING:
-    from typing import Callable
+    from collections.abc import Callable
 
     from .theme_file import ThemeT, ThemeValueT
     from .theme_model import ThemeModelValue

@@ -45,6 +45,10 @@ ignore = [
 	# enable back later:
 	"C901",  # "too complex"
 	"ERA001", # commented out code
+	# already managed by pylint, mb replace completely to ruff later:
+	"PLR0912",  # too many branches
+	"PLR0913",  # too many arguments
+	"PLR0915",  # too many statements
 
 	"ANN101",  # annotate self
 	"ANN102",  # annotate cls
@@ -84,4 +88,7 @@ ignore = [
 ]
 "maintenance_scripts/pikaman.py" = [
 	"ARG002",
+]
+"maintenance_scripts/vulture_whitelist.py" = [
+	"B018",
 ]
