@@ -239,11 +239,12 @@ class ExportDialogWithOptions(FileBasedExportDialog, metaclass=GObjectABCMeta):
             colorscheme: "ThemeT",
             theme_name: str,
             export_options: "dict[str, Any] | None" = None,
+            override_options: dict[str, "Any"] | None = None,
             headline: str | None = None,
             **kwargs: "Any",
     ) -> None:
         self.option_widgets: dict[str, Gtk.Widget] = {}
-        export_options = export_options or {}
+        export_options = override_options or export_options or {}
         super().__init__(
             transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
             headline=headline or translate("Theme Export Options"),

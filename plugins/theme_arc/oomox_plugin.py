@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from gi.repository import Gtk
 
 from oomox_gui.color import mix_theme_colors
-from oomox_gui.export_common import CommonGtkThemeExportDialog
+from oomox_gui.export_common import ExportDialogWithOptions
 from oomox_gui.i18n import translate
 
 # from oomox_gui.export_common import OPTION_GTK2_HIDPI
@@ -25,7 +25,7 @@ OPTION_EXPORT_GNOME_SHELL_THEME: "Final" = "OPTION_EXPORT_GNOME_SHELL_THEME"
 OPTION_EXPORT_XFWM_THEME: "Final" = "OPTION_EXPORT_XFWM_THEME"
 
 
-class ArcThemeExportDialog(CommonGtkThemeExportDialog):
+class ArcThemeExportDialog(ExportDialogWithOptions):
 
     config_name = "arc_theme"
     timeout = 1000
