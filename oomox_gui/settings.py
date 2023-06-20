@@ -44,7 +44,7 @@ class CommonOomoxConfig:
         return str(self.config)
 
     def __repr__(self) -> str:
-        return f"Config<{str(self)}>"
+        return f"Config<{self!s}>"
 
     @classmethod
     def load(

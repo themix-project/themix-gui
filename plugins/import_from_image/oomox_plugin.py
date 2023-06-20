@@ -404,7 +404,7 @@ class Plugin(OomoxImportPluginAsync):
 
     @classmethod
     def _get_colorz_lib_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
-        from colorz import colorz  # pylint: disable=import-error,useless-suppression
+        from colorz import colorz  # pylint: disable=import-error,useless-suppression  # noqa: F811
         with open(image_path, "rb") as fobj:
             palette = colorz(fobj, color_count, 50, 200)
         return [color_hex_from_list(color) for pair in palette for color in pair]
@@ -418,7 +418,7 @@ class Plugin(OomoxImportPluginAsync):
     ) -> "list[HexColor]":
         hex_palette = []
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
-        from colorz import colorz  # pylint: disable=import-error,useless-suppression
+        from colorz import colorz  # pylint: disable=import-error,useless-suppression  # noqa: F811
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error,useless-suppression
         with Pool() as pool:
             oomox_future = pool.apply_async(apply_chain, (

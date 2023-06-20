@@ -75,4 +75,4 @@ def delayed_partial(
 
 
 def log_error(info: "Any") -> None:
-    sys.stderr.write(f"{str(info)}\n")
+    sys.stderr.write(f"{info!s}\n")
