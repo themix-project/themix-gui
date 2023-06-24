@@ -50,6 +50,8 @@ whitelist.Gtk.Dialog.do_response
 
 # plugin api
 whitelist.AboutLink
+whitelist.AboutLink.name
+whitelist.AboutLink.url
 whitelist.OomoxPlugin.enabled_keys_gtk
 whitelist.OomoxPlugin.enabled_keys_options
 whitelist.OomoxPlugin.enabled_keys_icons
