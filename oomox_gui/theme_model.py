@@ -14,26 +14,26 @@ if TYPE_CHECKING:
     from .plugin_api import OomoxPlugin
     from .theme_file import ThemeValueT
 
-    Option = TypedDict("Option", {
-        "value": str | int,
-        "display_name": NotRequired[str],
-        "description": NotRequired[str],
-    }, total=False)
-    ThemeModelValue = TypedDict("ThemeModelValue", {
-        "key": str,
-        "type": str,
-        "fallback_key": NotRequired[str],
-        "fallback_value": NotRequired[Any],
-        "fallback_function": NotRequired[Callable[[dict[str, Any]], Any]],
-        "display_name": NotRequired[str],
-        "min_value": NotRequired[Any],
-        "max_value": NotRequired[Any],
-        "options": NotRequired[list[Option]],
-        "value_filter": NotRequired[dict[str, list[ThemeValueT] | ThemeValueT]],
-        "filter": NotRequired[Callable[[dict[str, Any]], bool]],
-        "reload_theme": NotRequired[bool],
-        "reload_options": NotRequired[bool],
-    }, total=False)
+    class Option(TypedDict, total=False):
+        value: str | int
+        display_name: NotRequired[str]
+        description: NotRequired[str]
+
+    class ThemeModelValue(TypedDict, total=False):
+        key: str
+        type: str
+        fallback_key: NotRequired[str]
+        fallback_value: NotRequired[Any]
+        fallback_function: NotRequired[Callable[[dict[str, Any]], Any]]
+        display_name: NotRequired[str]
+        min_value: NotRequired[Any]
+        max_value: NotRequired[Any]
+        options: NotRequired[list[Option]]
+        value_filter: NotRequired[dict[str, list[ThemeValueT] | ThemeValueT]]
+        filter: NotRequired[Callable[[dict[str, Any]], bool]]
+        reload_theme: NotRequired[bool]
+        reload_options: NotRequired[bool]
+
     ThemeModelSection = list[ThemeModelValue]
     ThemeModel = dict[str, ThemeModelSection]
 

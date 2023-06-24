@@ -27,7 +27,7 @@ def get_random_theme_color() -> "HexColor":
     return convert_gdk_to_theme_color(get_random_gdk_color())
 
 
-class ColorRandomizator():
+class ColorRandomizator:
 
     def __init__(self) -> None:
         self.colors = {}

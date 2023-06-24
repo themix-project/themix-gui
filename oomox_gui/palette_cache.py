@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 PaletteCacheT = list[str]
 
 
-class PaletteCache():
+class PaletteCache:
 
     _palette_cache: PaletteCacheT | None = None
 

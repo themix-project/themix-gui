@@ -31,7 +31,7 @@ WIDGET_SPACING: "Final" = 10
 GTK_320_POSTFIX = 20
 
 
-class CssProviders():
+class CssProviders:
     theme: dict[str, Gtk.CssProvider]
     border: dict[str, Gtk.CssProvider]
     gradient: dict[str, Gtk.CssProvider]

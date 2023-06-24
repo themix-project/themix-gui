@@ -67,8 +67,10 @@ def hex_darker(color_text: "HexColor", darken_amount: int = 10) -> "HexColor":
     ])
 
 
-class ColorDiff():
-    channels = ["r", "g", "b"]
+RGB_CHANNELS: "Final[list[str]]" = ["r", "g", "b"]
+
+
+class ColorDiff:
     r: int  # pylint: disable=invalid-name
     g: int  # pylint: disable=invalid-name
     b: int  # pylint: disable=invalid-name
@@ -99,14 +101,14 @@ class ColorDiff():
         for channel_index, channel_1_text in enumerate(color_list_1):
             channel_1 = hex_to_int(channel_1_text)
             channel_2 = hex_to_int(color_list_2[channel_index])
-            setattr(self, self.channels[channel_index], channel_1-channel_2)
+            setattr(self, RGB_CHANNELS[channel_index], channel_1-channel_2)
 
     def apply_to(self, color_text: "HexColor") -> "HexColor":
         color_list = color_list_from_hex(color_text)
         result = ""
         for channel_index, channel_text in enumerate(color_list):
             channel = hex_to_int(channel_text)
-            int_result = channel - getattr(self, self.channels[channel_index])
+            int_result = channel - getattr(self, RGB_CHANNELS[channel_index])
             int_result = max(int_result, 0)
             int_result = min(int_result, RGB.hex_size)
             result += int_to_hex(int_result)

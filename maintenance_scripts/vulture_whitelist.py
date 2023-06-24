@@ -28,6 +28,9 @@ whitelist.typing.Type
 whitelist.color.HexColor
 whitelist.color.IntColor
 whitelist.theme_model.ThemeModel
+whitelist.theme_model.ThemeModelValue.filter
+whitelist.theme_model.ThemeModelValue.reload_theme
+whitelist.theme_model.ThemeModelValue.reload_options
 whitelist.theme_file.PresetFile.default
 whitelist.theme_file.ThemeT
 

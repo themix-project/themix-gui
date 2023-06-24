@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from gi.repository import GdkPixbuf, Gio, GLib, Gtk
 from gi.types import GObjectMeta
@@ -236,7 +236,7 @@ class YesNoDialog(Gtk.Dialog):
         self.show_all()
 
 
-class GObjectABCMetaAbstractProperty():
+class GObjectABCMetaAbstractProperty:
     pass
 
 
@@ -285,7 +285,7 @@ def g_abstractproperty(_function: "Any") -> "type[GObjectABCMetaAbstractProperty
 
 class _WarnOnceDialog(Gtk.MessageDialog):
 
-    _already_shown = []  # type: list[str]
+    _already_shown: ClassVar[list[str]] = []
 
     @staticmethod
     def _marshal(text: str, secondary_text: str, buttons: Gtk.ButtonsType) -> str:

@@ -260,7 +260,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             dir_display_name = dir_template.format(
                 dir_display_name.replace("_", " "), item_display_name,
             )
-        return dir_display_name  # noqa: RET504
+        return dir_display_name
 
     def _add_presets(
             self,

@@ -14,8 +14,9 @@ if TYPE_CHECKING:
 
     from .plugin_api import OomoxImportPlugin
 
-    ThemeValueT = str | bool | int | float | Exception
-    ThemeT = dict[str, ThemeValueT]
+
+ThemeValueT = str | bool | int | float | Exception
+ThemeT = dict[str, ThemeValueT]
 
 
 class PresetFile(NamedTuple):

@@ -8,7 +8,7 @@ from oomox_gui.theme_model import get_theme_model
 PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
-class XrdbCache():
+class XrdbCache:
 
     _cache: dict[str, str] | None = None
 

@@ -1,7 +1,7 @@
 import os
 from abc import ABCMeta, abstractmethod
 from enum import Enum
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from .config import FALLBACK_COLOR, USER_COLORS_DIR
 
@@ -17,7 +17,9 @@ if TYPE_CHECKING:
     from .theme_file import ThemeT
     from .theme_model import ThemeModelValue
 
-    AboutLink = TypedDict("AboutLink", {"name": str, "url": str})
+    class AboutLink(TypedDict):
+        name: str
+        url: str
 
 
 PLUGIN_PATH_PREFIX: "Final" = "__plugin__"
@@ -36,7 +38,7 @@ class OomoxPlugin(metaclass=ABCMeta):
         pass
 
     about_text: str | None = None
-    about_links: "list[AboutLink] | None" = None
+    about_links: ClassVar["list[AboutLink] | None"] = None
 
 
 class OomoxThemePlugin(OomoxPlugin):
@@ -56,13 +58,13 @@ class OomoxThemePlugin(OomoxPlugin):
     def export_dialog(self) -> "type[ExportDialog]":
         pass
 
-    enabled_keys_gtk: list[str] = []
-    enabled_keys_options: list[str] = []
-    enabled_keys_extra: list[str] = []
+    enabled_keys_gtk: ClassVar[list[str]] = []
+    enabled_keys_options: ClassVar[list[str]] = []
+    enabled_keys_extra: ClassVar[list[str]] = []
 
-    theme_model_gtk: "list[ThemeModelValue]" = []
-    theme_model_options: "list[ThemeModelValue]" = []
-    theme_model_extra: "list[ThemeModelValue]" = []
+    theme_model_gtk: ClassVar["list[ThemeModelValue]"] = []
+    theme_model_options: ClassVar["list[ThemeModelValue]"] = []
+    theme_model_extra: ClassVar["list[ThemeModelValue]"] = []
 
     def preview_before_load_callback(
             self, preview_object: "ThemePreview", colorscheme: "ThemeT",
@@ -72,7 +74,7 @@ class OomoxThemePlugin(OomoxPlugin):
     class PreviewImageboxesNames(Enum):
         CHECKBOX = "checkbox-checked"
 
-    preview_sizes = {
+    preview_sizes: ClassVar[dict[str, int]] = {
         PreviewImageboxesNames.CHECKBOX.name: 16,
     }
 
@@ -88,8 +90,8 @@ class OomoxThemePlugin(OomoxPlugin):
 
 class OomoxIconsPlugin(OomoxPlugin):
 
-    enabled_keys_icons: list[str] = []
-    theme_model_icons: "list[ThemeModelValue]" = []
+    enabled_keys_icons: ClassVar[list[str]] = []
+    theme_model_icons: ClassVar["list[ThemeModelValue]"] = []
 
     @property
     @abstractmethod
@@ -121,7 +123,7 @@ class OomoxExportPlugin(OomoxPlugin):
     # Text to display in export menu:
     export_text: str | None = None
 
-    theme_model_extra: "list[ThemeModelValue]" = []
+    theme_model_extra: ClassVar["list[ThemeModelValue]"] = []
 
     shortcut: str | None = None
 
@@ -141,11 +143,11 @@ class OomoxImportPlugin(OomoxPlugin):
     user_presets_display_name: str | None = None
 
     # supported file extensions for filechooser dialog
-    file_extensions: "Iterable[str]" = []
+    file_extensions: ClassVar["Iterable[str]"] = []
 
     plugin_theme_dir: str | None = None
 
-    theme_model_import: "list[ThemeModelValue]" = []
+    theme_model_import: ClassVar["list[ThemeModelValue]"] = []
 
     @property
     def user_theme_dir(self) -> str:

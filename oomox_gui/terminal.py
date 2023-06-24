@@ -1,7 +1,7 @@
 import os
 import shutil
 import sys
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from .color import (
     SMALLEST_DIFF,
@@ -155,7 +155,7 @@ def get_term_width() -> int:
     return shutil.get_terminal_size((80, 80)).columns
 
 
-class ProgressBar():
+class ProgressBar:
 
     message: str
     print_ratio: float
@@ -365,9 +365,9 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-n
     result_callback(result_colors)
 
 
-class FullPaletteCache():
+class FullPaletteCache:
 
-    _cache: dict[str, dict[str, str]] = {}
+    _cache: ClassVar[dict[str, dict[str, str]]] = {}
 
     @classmethod
     def get(cls, key: str) -> dict[str, str] | None:

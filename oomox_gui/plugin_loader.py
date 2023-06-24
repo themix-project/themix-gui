@@ -1,5 +1,6 @@
 import os
 import traceback
+from typing import ClassVar
 
 from gi.repository import Gtk
 
@@ -17,11 +18,11 @@ from .plugin_api import (
 
 class PluginLoader:
 
-    _ALL_PLUGINS: dict[str, OomoxPlugin] = {}
-    _THEME_PLUGINS: dict[str, OomoxThemePlugin] = {}
-    _ICONS_PLUGINS: dict[str, OomoxIconsPlugin] = {}
-    _EXPORT_PLUGINS: dict[str, OomoxExportPlugin] = {}
-    _IMPORT_PLUGINS: dict[str, OomoxImportPlugin] = {}
+    _ALL_PLUGINS: ClassVar[dict[str, OomoxPlugin]] = {}
+    _THEME_PLUGINS: ClassVar[dict[str, OomoxThemePlugin]] = {}
+    _ICONS_PLUGINS: ClassVar[dict[str, OomoxIconsPlugin]] = {}
+    _EXPORT_PLUGINS: ClassVar[dict[str, OomoxExportPlugin]] = {}
+    _IMPORT_PLUGINS: ClassVar[dict[str, OomoxImportPlugin]] = {}
 
     _init_done = False
 

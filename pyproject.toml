@@ -81,6 +81,7 @@ ignore = [
 ]
 "plugins/*/oomox_plugin.py" = [
 	"INP001",
+    "RUF012",
 ]
 "maintenance_scripts/*.py" = [
 	"INP001",

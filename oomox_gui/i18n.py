@@ -2,7 +2,7 @@ import gettext
 import os
 
 
-class OomoxTranslation():
+class OomoxTranslation:
 
     translation: gettext.NullTranslations | None = None
 
