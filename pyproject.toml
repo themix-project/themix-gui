@@ -1,4 +1,5 @@
 [tool.ruff]
+preview = true
 line-length = 100
 select = [
     "F",
@@ -82,6 +83,7 @@ ignore = [
 "plugins/*/oomox_plugin.py" = [
 	"INP001",
     "RUF012",
+    "PLR6301",
 ]
 "maintenance_scripts/*.py" = [
 	"INP001",

@@ -78,7 +78,11 @@ class OomoxThemePlugin(OomoxPlugin):
         PreviewImageboxesNames.CHECKBOX.name: 16,
     }
 
-    def preview_transform_function(self, svg_template: str, colorscheme: "ThemeT") -> str:
+    def preview_transform_function(
+            self,  # noqa: PLR6301
+            svg_template: str,
+            colorscheme: "ThemeT",
+    ) -> str:
         for key in (
                 "SEL_BG", "SEL_FG", "ACCENT_BG", "TXT_BG", "BG", "FG",
         ):

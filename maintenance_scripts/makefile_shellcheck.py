@@ -12,8 +12,8 @@ if len(sys.argv) > 1:
 DEFAULT_ENCODING = "utf-8"
 MAKE_SHELL = os.environ.get("MAKE_SHELL", "sh")
 # SKIP_TARGETS_WITH_CHARS = ("%", )
-SKIP_TARGETS_WITH_CHARS = ("%", "/" )
-SKIP_TARGETS = (".PHONY", ".PRECIOUS" )
+SKIP_TARGETS_WITH_CHARS = ("%", "/")
+SKIP_TARGETS = (".PHONY", ".PRECIOUS")
 
 
 def get_targets() -> list[str]:

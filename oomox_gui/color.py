@@ -90,7 +90,7 @@ class ColorDiff:
     @property
     def sat(self) -> int:
         r, g, b = self.abs_list
-        return abs(r-g)+abs(r-b) + abs(g-r)+abs(g-b) + abs(b-g)+abs(b-r)
+        return abs(r - g) + abs(r - b) + abs(g - r) + abs(g - b) + abs(b - g) + abs(b - r)
 
     def __repr__(self) -> str:
         return str(self.abs_sum)
@@ -101,7 +101,7 @@ class ColorDiff:
         for channel_index, channel_1_text in enumerate(color_list_1):
             channel_1 = hex_to_int(channel_1_text)
             channel_2 = hex_to_int(color_list_2[channel_index])
-            setattr(self, RGB_CHANNELS[channel_index], channel_1-channel_2)
+            setattr(self, RGB_CHANNELS[channel_index], channel_1 - channel_2)
 
     def apply_to(self, color_text: "HexColor") -> "HexColor":
         color_list = color_list_from_hex(color_text)
@@ -122,7 +122,7 @@ def find_closest_color(
         color_hex: "HexColor",
         colors_hex: "Sequence[HexColor]",
         min_lightness: int = MIN_LIGHTNESS,
-        max_lightness: int = RGB.hex_size*RGB.length,
+        max_lightness: int = RGB.hex_size * RGB.length,
 ) -> "tuple[None, None] | tuple[HexColor, ColorDiff]":
     smallest_diff = SMALLEST_DIFF
     closest_color = None
@@ -138,7 +138,7 @@ def find_closest_color(
             smallest_diff = diff
             closest_color = preset_color
     if not closest_color:
-        return find_closest_color(color_hex, colors_hex, min_lightness//2, max_lightness*2)
+        return find_closest_color(color_hex, colors_hex, min_lightness // 2, max_lightness * 2)
     return closest_color, smallest_diff
 
 
