@@ -367,9 +367,9 @@ class Plugin(OomoxImportPluginAsync):
         )
 
     try:
-        import colorthief  # noqa: F811  pylint: disable=import-error,useless-suppression
-        import colorz  # noqa: F811  pylint: disable=import-error,useless-suppression
-        import haishoku  # noqa: F811  pylint: disable=import-error,useless-suppression
+        import colorthief  # pylint: disable=import-error,useless-suppression
+        import colorz  # pylint: disable=import-error,useless-suppression
+        import haishoku  # pylint: disable=import-error,useless-suppression
         # theme_model_import['_PIL_PALETTE_QUALITY']['options'].append({
         theme_model_import[1]["options"] += [{
             "value": "all_low",
@@ -404,7 +404,7 @@ class Plugin(OomoxImportPluginAsync):
 
     @classmethod
     def _get_colorz_lib_palette(cls, image_path: str, color_count: int) -> "list[HexColor]":
-        from colorz import colorz  # pylint: disable=import-error,useless-suppression  # noqa: F811
+        from colorz import colorz  # pylint: disable=import-error,useless-suppression
         with open(image_path, "rb") as fobj:
             palette = colorz(fobj, color_count, 50, 200)
         return [color_hex_from_list(color) for pair in palette for color in pair]
@@ -418,7 +418,7 @@ class Plugin(OomoxImportPluginAsync):
     ) -> "list[HexColor]":
         hex_palette = []
         from colorthief import ColorThief  # pylint: disable=import-error,useless-suppression
-        from colorz import colorz  # pylint: disable=import-error,useless-suppression  # noqa: F811
+        from colorz import colorz  # pylint: disable=import-error,useless-suppression
         from haishoku.haishoku import Haishoku  # pylint: disable=import-error,useless-suppression
         with Pool() as pool:
             oomox_future = pool.apply_async(apply_chain, (

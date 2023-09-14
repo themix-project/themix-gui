@@ -145,7 +145,7 @@ class PreviewWidgets(Gtk.Box):
 
     def create_menu(self, n_items: int, has_submenus: bool = False) -> Gtk.Menu:
         menu = Gtk.Menu()
-        for i in range(0, n_items):
+        for i in range(n_items):
             sensitive = (i + 1) % 3 != 0
             label = translate("Item {id}") if sensitive else translate("Insensitive Item {id}")
             item = Gtk.MenuItem(  # type: ignore[call-arg]
@@ -312,18 +312,14 @@ class ThemePreview(Gtk.Grid):
                         self.css_providers.gradient[color_key] = \
                         Gtk.CssProvider()
             css_provider_gradient.load_from_data((
-                """
+                f"""
                 * {{
                     background-image: linear-gradient(to bottom,
-                        shade(#{color}, {amount1}),
-                        shade(#{color}, {amount2})
+                        shade(#{color}, {1 + gradient / 2}),
+                        shade(#{color}, {1 - gradient / 2})
                     );
                 }}
-                """.format(
-                    color=color,
-                    amount1=1 + gradient / 2,
-                    amount2=1 - gradient / 2,
-                )
+                """
             ).encode("ascii"))
             Gtk.StyleContext.add_provider(
                 widget.get_style_context(),
