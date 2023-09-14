@@ -166,7 +166,7 @@ class PreviewWidgets(Gtk.Box):
                     ), "rb",
             ) as file_object:
                 self.preview_imageboxes_templates[icon.name] = \
-                        file_object.read().decode(DEFAULT_ENCODING)
+                    file_object.read().decode(DEFAULT_ENCODING)
 
     def update_preview_imageboxes(
             self, colorscheme: "ThemeT", theme_plugin: "OomoxThemePlugin",
@@ -309,8 +309,8 @@ class ThemePreview(Gtk.Grid):
             css_provider_gradient = self.css_providers.gradient.get(color_key)
             if not css_provider_gradient:
                 css_provider_gradient = \
-                        self.css_providers.gradient[color_key] = \
-                        Gtk.CssProvider()
+                    self.css_providers.gradient[color_key] = \
+                    Gtk.CssProvider()
             css_provider_gradient.load_from_data((
                 f"""
                 * {{
@@ -331,8 +331,8 @@ class ThemePreview(Gtk.Grid):
         css_provider_gradient = self.css_providers.gradient.get("reset")
         if not css_provider_gradient:
             css_provider_gradient = \
-                    self.css_providers.gradient["reset"] = \
-                    Gtk.CssProvider()
+                self.css_providers.gradient["reset"] = \
+                Gtk.CssProvider()
             css_provider_gradient.load_from_data((
                 """
                 * {

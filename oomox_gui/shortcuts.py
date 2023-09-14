@@ -27,24 +27,24 @@ def show_shortcuts(parent_window: Gtk.Window) -> None:
         tuple[str, Mapping[str, OomoxImportPlugin], Callable[[OomoxImportPlugin], str]] |
         tuple[str, Mapping[str, OomoxExportPlugin], Callable[[OomoxExportPlugin], str]]
     ]""" = (
-            (
-                    "import_section",
-                    PluginLoader.get_import_plugins(),
-                    lambda plugin: (
-                        plugin.import_text and
-                        plugin.import_text.replace("_", "").replace("…", "") or
-                        translate("Import {plugin_name}").format(plugin_name=plugin.display_name)
-                    ),
+        (
+            "import_section",
+            PluginLoader.get_import_plugins(),
+            lambda plugin: (
+                plugin.import_text and
+                plugin.import_text.replace("_", "").replace("…", "") or
+                translate("Import {plugin_name}").format(plugin_name=plugin.display_name)
             ),
-            (
-                    "export_section",
-                    PluginLoader.get_export_plugins(),
-                    lambda plugin: (
-                        plugin.export_text and
-                        plugin.export_text.replace("_", "").replace("…", "") or
-                        translate("Export {plugin_name}").format(plugin_name=plugin.display_name)
-                    ),
+        ),
+        (
+            "export_section",
+            PluginLoader.get_export_plugins(),
+            lambda plugin: (
+                plugin.export_text and
+                plugin.export_text.replace("_", "").replace("…", "") or
+                translate("Export {plugin_name}").format(plugin_name=plugin.display_name)
             ),
+        ),
     )
     for section_id, plugin_list, get_text in data:
         section = builder.get_object(section_id)
