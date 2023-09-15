@@ -180,7 +180,7 @@ class FloatListBoxRow(NumericListBoxRow):
 
     def on_value_changed(self, widget: Gtk.SpinButton) -> None:  # type: ignore[override]
         raw_value = widget.get_value()
-        self.value = int(raw_value*100)/100  # limit float to 2 digits
+        self.value = int(raw_value * 100) / 100  # limit float to 2 digits
         GLib.idle_add(self.callback, self.key, self.value)
 
     def __init__(
@@ -572,7 +572,7 @@ class SectionListBox(Gtk.Box):
             margin=SECTION_MARGIN,
         )
         # self.set_margin_bottom(SECTION_MARGIN//2)
-        self.set_margin_top(SECTION_MARGIN//2)
+        self.set_margin_top(SECTION_MARGIN // 2)
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 

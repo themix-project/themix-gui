@@ -71,22 +71,32 @@ else
 		deactivate
 	fi
 	if [[ "$FIX_MODE" -eq 1 ]] ; then
-		"${APP_DIR}/env/bin/ruff" --fix "${TARGETS[@]}"
+		"${APP_DIR}/env/bin/ruff" --fix "${TARGETS[@]}" || true
 	else
 		"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
 	fi
 fi
 
 echo -e "\n== Running flake8:"
-flake8 oomox_gui/ ./plugins/*/oomox_plugin.py 2>&1 \
-| (
-	grep -v \
-		-e "^  warnings.warn($" \
-		-e "^/usr/lib/python3.10/site-packages/" \
-	|| true \
-)
+if [[ "$FIX_MODE" -eq 1 ]] ; then
+	for file in $(flake8 "${TARGETS[@]}" 2>&1 | cut -d: -f1 | uniq) ; do
+		autopep8 --in-place "$file"
+	done
+else
+	flake8 "${TARGETS[@]}" 2>&1 \
+	| (
+		grep -v \
+			-e "^  warnings.warn($" \
+			-e "^/usr/lib/python3.10/site-packages/" \
+		|| true \
+	)
+fi
 
 echo ':: flake8 passed ::'
+
+if [[ "$FIX_MODE" -eq 1 ]] ; then
+	exit 0
+fi
 
 echo -e "\n== Running pylint:"
 #pylint --jobs="$(nproc)" oomox_gui ./plugins/*/oomox_plugin.py --score no

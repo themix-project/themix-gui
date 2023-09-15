@@ -1,6 +1,14 @@
+[project]
+requires-python = ">=3.10"
+
+[tool.autopep8]
+max_line_length = 120
+ignore = ""
+aggressive = 1
+
 [tool.ruff]
 preview = true
-line-length = 100
+line-length = 120
 select = [
     "F",
     "E", "W",

@@ -118,10 +118,10 @@ class ScaledImage(Gtk.Image):
 
     def do_draw(self, cr: "Pango.Matrix") -> None:  # pylint: disable=arguments-differ
         if self.oomox_width and self.oomox_height:
-            cr.scale(1/self.scale_factor, 1/self.scale_factor)
+            cr.scale(1 / self.scale_factor, 1 / self.scale_factor)
             cr.translate(
-                self.oomox_width - self.oomox_width/self.scale_factor,
-                self.oomox_height - self.oomox_height/self.scale_factor,
+                self.oomox_width - self.oomox_width / self.scale_factor,
+                self.oomox_height - self.oomox_height / self.scale_factor,
             )
             Gtk.Image.do_draw(self, cr)
 
@@ -151,8 +151,8 @@ class ScaledImage(Gtk.Image):
         # @TODO: is it possible to make it faster?
         pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(
             stream,
-            self.oomox_width*self.scale_factor if self.oomox_width else -1,
-            self.oomox_height*self.scale_factor if self.oomox_height else -1,
+            self.oomox_width * self.scale_factor if self.oomox_width else -1,
+            self.oomox_height * self.scale_factor if self.oomox_height else -1,
             True,
             None,
         )

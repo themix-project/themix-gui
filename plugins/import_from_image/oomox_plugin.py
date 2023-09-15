@@ -54,9 +54,9 @@ def sort_by_saturation(c: "IntColor") -> int:  # pylint: disable=invalid-name
     if len(c) != RGB.length:
         raise TypeError(c)
     return (
-        abs(c[RGB.RED]-c[RGB.GREEN])+abs(c[RGB.RED]-c[RGB.BLUE])
-        + abs(c[RGB.GREEN]-c[RGB.RED])+abs(c[RGB.GREEN]-c[RGB.BLUE])
-        + abs(c[RGB.BLUE]-c[RGB.GREEN])+abs(c[RGB.BLUE]-c[RGB.RED])
+        abs(c[RGB.RED] - c[RGB.GREEN]) + abs(c[RGB.RED] - c[RGB.BLUE])
+        + abs(c[RGB.GREEN] - c[RGB.RED]) + abs(c[RGB.GREEN] - c[RGB.BLUE])
+        + abs(c[RGB.BLUE] - c[RGB.GREEN]) + abs(c[RGB.BLUE] - c[RGB.RED])
     )
 
 
@@ -66,7 +66,7 @@ def get_gray_colors(palette: "list[HexColor]") -> "list[HexColor]":
         list_of_colors,
         key=sort_by_saturation,
     )
-    gray_colors = saturation_list[:(len(saturation_list)//3)]
+    gray_colors = saturation_list[:(len(saturation_list) // 3)]
     gray_colors.sort(key=sum)
     return [color_hex_from_list(c) for c in gray_colors]
 
@@ -517,7 +517,7 @@ class Plugin(OomoxImportPluginAsync):
 
     @staticmethod
     def _generate_palette_id(image_path: str, quality: str, use_whole_palette: bool) -> str:
-        return image_path+quality+str(use_whole_palette)
+        return image_path + quality + str(use_whole_palette)
 
     @classmethod
     def _generate_terminal_palette(
@@ -653,7 +653,7 @@ class Plugin(OomoxImportPluginAsync):
         inverse_palette = bool(
             get_first_theme_option("_PIL_PALETTE_INVERSE", {}).get("fallback_value"),
         )
-        _id = template_path+image_path+str(quality)+str(use_whole_palette)+str(inverse_palette)
+        _id = template_path + image_path + str(quality) + str(use_whole_palette) + str(inverse_palette)
 
         def _result_callback(generated_palette: dict[str, str]) -> None:
             cls._terminal_palette_cache[_id] = generated_palette

@@ -375,11 +375,11 @@ class ThemePreview(Gtk.Grid):
                         0
                         if hex_lightness(
                             colorscheme["TXT_BG"],  # type: ignore[arg-type]
-                        ) > (MAX_LIGHTNESS*2/3) else (
+                        ) > (MAX_LIGHTNESS * 2 / 3) else (
                             0.1
                             if hex_lightness(
                                 colorscheme["TXT_BG"],  # type: ignore[arg-type]
-                            ) > (MAX_LIGHTNESS/3) else
+                            ) > (MAX_LIGHTNESS / 3) else
                             0.3
                         )
                     )),

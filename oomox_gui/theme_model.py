@@ -57,7 +57,7 @@ def merge_model_with_plugin(
         value_filter_key: "str | None" = None,
 ) -> "ThemeModelSection":
     result: "ThemeModelSection" = []
-    plugin_theme_model = getattr(theme_plugin, "theme_model_"+theme_model_name, None)
+    plugin_theme_model = getattr(theme_plugin, "theme_model_" + theme_model_name, None)
     if not plugin_theme_model:
         return result
     plugin_theme_model_keys = []
@@ -69,7 +69,7 @@ def merge_model_with_plugin(
     if not value_filter_key:
         return result
     plugin_enabled_keys = getattr(
-        theme_plugin, "enabled_keys_"+theme_model_name, [],
+        theme_plugin, "enabled_keys_" + theme_model_name, [],
     )
     key_indexes = get_key_indexes(base_theme_model)
     for base_theme_value in [

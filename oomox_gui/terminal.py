@@ -185,9 +185,9 @@ class ProgressBar:
 
 def sort_by_saturation(c: list[int]) -> int:
     # pylint: disable=invalid-name
-    return abs(c[0]-c[1])+abs(c[0]-c[2]) + \
-        abs(c[1]-c[0])+abs(c[1]-c[2]) + \
-        abs(c[2]-c[1])+abs(c[2]-c[0])
+    return abs(c[0] - c[1]) + abs(c[0] - c[2]) + \
+        abs(c[1] - c[0]) + abs(c[1] - c[2]) + \
+        abs(c[2] - c[1]) + abs(c[2] - c[0])
 
 
 def get_grayest_colors(palette: list[str]) -> list[str]:
@@ -196,7 +196,7 @@ def get_grayest_colors(palette: list[str]) -> list[str]:
         list_of_colors,
         key=sort_by_saturation,
     )
-    gray_color_values = saturation_list[:(len(saturation_list)//3)]
+    gray_color_values = saturation_list[:(len(saturation_list) // 3)]
     gray_color_values.sort(key=sum)
     return [color_hex_from_list(c) for c in gray_color_values]
 
@@ -276,7 +276,7 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-n
         # print()
         # print(('ITERATION', _debug_iteration_counter))
         progress = ProgressBar(
-            length=((int(abs(color_start[0] - color_end[0])/accuracy) + 2) ** 3),
+            length=((int(abs(color_start[0] - color_end[0]) / accuracy) + 2) ** 3),
         )
         red = color_start[RED]
         while red < color_end[RED] + accuracy:
@@ -317,8 +317,8 @@ def _generate_theme_from_full_palette(  # noqa: E501  pylint: disable=too-many-n
                                     num_of_similar += 1
 
                         similarity_to_reference = (
-                            255*3 - sum(abs(c) for c in color_list) * COLOR_SIMILARITY_IMPORTANCE
-                        ) / (255*3)
+                            255 * 3 - sum(abs(c) for c in color_list) * COLOR_SIMILARITY_IMPORTANCE
+                        ) / (255 * 3)
                         num_of_similar *= similarity_to_reference
 
                         if (
