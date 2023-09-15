@@ -448,10 +448,7 @@ class ThemePreview(Gtk.Grid):
                     self.override_widget_color(widget, self.BG, converted["HDR_BG"])
                     self.override_widget_color(widget, self.FG, converted["HDR_FG"])
                 else:
-                    if not widget.get_sensitive():  # :disabled
-                        color = mix("HDR_FG", "HDR_BG", 0.5)
-                    else:
-                        color = converted["HDR_FG"]
+                    color = mix("HDR_FG", "HDR_BG", 0.5) if not widget.get_sensitive() else converted["HDR_FG"]
                     self.override_widget_color(widget, self.FG, color)
                 self.override_widget_color(
                     widget, self.BG, converted["SEL_BG"],
