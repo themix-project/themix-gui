@@ -120,23 +120,23 @@ echo ":: Copying theme template..."
 cp -R "$root/papirus-icon-theme/Papirus" "$tmp_dir/"
 echo "== Template was copied to $tmp_dir"
 
-
+#[red]="       #e25252 #bf4b4b #4f1d1d #e4e4e4"
 echo ":: Replacing accent colors..."
 for size in 22x22 24x24 32x32 48x48 64x64; do
 	for icon_path in \
-		"$tmp_dir/Papirus/$size/places/folder-custom"{-*,}.svg \
-		"$tmp_dir/Papirus/$size/places/user-custom"{-*,}.svg
+		"$tmp_dir/Papirus/$size/places/folder-red"{-*,}.svg \
+		"$tmp_dir/Papirus/$size/places/user-red"{-*,}.svg
 	do
 		[ -f "$icon_path" ] || continue  # it's a file
 		[ -L "$icon_path" ] && continue  # it's not a symlink
 
-		new_icon_path="${icon_path/-custom/-oomox}"
+		new_icon_path="${icon_path/-red/-oomox}"
 		icon_name="${new_icon_path##*/}"
 		symlink_path="${new_icon_path/-oomox/}"  # remove color suffix
 
-		sed -e "s/value_light/$ICONS_LIGHT_FOLDER/g" \
-			-e "s/value_dark/$ICONS_MEDIUM/g" \
-			-e "s/323232/$ICONS_DARK/g" "$icon_path" > "$new_icon_path"
+		sed -e "s/#e25252/#$ICONS_LIGHT_FOLDER/g" \
+			-e "s/#bf4b4b/#$ICONS_MEDIUM/g" \
+			-e "s/#4f1d1d/#$ICONS_DARK/g" "$icon_path" > "$new_icon_path"
 
 		ln -sf "$icon_name" "$symlink_path"
 	done
