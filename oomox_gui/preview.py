@@ -261,13 +261,13 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_carets(self, colorscheme: "ThemeT") -> None:
         self.css_providers.caret.load_from_data((
-            (Gtk.get_minor_version() >= GTK_320_POSTFIX and """
+            ((Gtk.get_minor_version() >= GTK_320_POSTFIX and """
             * {{
                 caret-color: #{primary_caret_color};
                 -gtk-secondary-caret-color: #{secondary_caret_color};
                 -GtkWidget-cursor-aspect-ratio: {caret_aspect_ratio};
             }}
-            """ or """
+            """) or """
             * {{
                 -GtkWidget-cursor-color: #{primary_caret_color};
                 -GtkWidget-secondary-cursor-color: #{secondary_caret_color};

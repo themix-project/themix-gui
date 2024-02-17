@@ -31,8 +31,8 @@ def show_shortcuts(parent_window: Gtk.Window) -> None:
             "import_section",
             PluginLoader.get_import_plugins(),
             lambda plugin: (
-                plugin.import_text and
-                plugin.import_text.replace("_", "").replace("…", "") or
+                (plugin.import_text and
+                 plugin.import_text.replace("_", "").replace("…", "")) or
                 translate("Import {plugin_name}").format(plugin_name=plugin.display_name)
             ),
         ),
@@ -40,8 +40,8 @@ def show_shortcuts(parent_window: Gtk.Window) -> None:
             "export_section",
             PluginLoader.get_export_plugins(),
             lambda plugin: (
-                plugin.export_text and
-                plugin.export_text.replace("_", "").replace("…", "") or
+                (plugin.export_text and
+                 plugin.export_text.replace("_", "").replace("…", "")) or
                 translate("Export {plugin_name}").format(plugin_name=plugin.display_name)
             ),
         ),

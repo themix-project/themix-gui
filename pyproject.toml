@@ -7,8 +7,16 @@ ignore = ""
 aggressive = 1
 
 [tool.ruff]
-preview = true
 line-length = 120
+
+[tool.ruff.lint.mccabe]
+max-complexity = 19
+
+[tool.ruff.format]
+preview = true
+
+[tool.ruff.lint]
+preview = true
 select = [
     "F",
     "E", "W",
@@ -47,59 +55,67 @@ select = [
     "EXE",
     "TCH",
     "TRY",
-	#"PTH", # @TODO: refactor os.path to pathlib.Path
+    #"PTH", # @TODO: refactor os.path to pathlib.Path
     "RUF",
 ]
 ignore = [
-	# enable back later:
-	"C901",  # "too complex"
-	"ERA001", # commented out code
-	# already managed by pylint, mb replace completely to ruff later:
-	"PLR0912",  # too many branches
-	"PLR0913",  # too many arguments
-	"PLR0915",  # too many statements
+    # enable back later:
+    "C901",  # "too complex"
+    "ERA001", # commented out code
+    # already managed by pylint, mb replace completely to ruff later:
+    "PLC0415",  # `import` should be at the top-level of a file
+    "PLR0904",  # Too many public methods
+    "PLR0912",  # too many branches
+    "PLR0913",  # too many arguments
+    "PLR0914",  # too-many-locals
+    "PLR0915",  # too many statements
+    "PLR0917",  # Too many positional arguments
+    "PLR1702",  # Too many nested blocks
+    # bandit stuff:
+    "S404",
 
-	"ANN101",  # annotate self
-	"ANN102",  # annotate cls
-	"ANN401",  # disable Any
+    "ANN101",  # annotate self
+    "ANN102",  # annotate cls
+    "ANN401",  # disable Any
 
-	"BLE001",  # disallow catching Exception
+    "BLE001",  # disallow catching Exception
 
-	# docstrings
-	"D100",
-	"D101",
-	"D102",
-	"D103",
-	#
-	"D105",
+    # docstrings
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    #
+    "D105",
     "D106",
-	"D107",
-	"D203", # conflicts with D211
-	"D205",
-	"D212", # conflicts with D213
-	"D400",
-	"D401", # idk, it seems broken? pydocstyle.org is down so i can't check how it's supposed to work
-	"D415",
+    "D107",
+    "D203", # conflicts with D211
+    "D205",
+    "D212", # conflicts with D213
+    "D400",
+    "D401", # idk, it seems broken? pydocstyle.org is down so i can't check how it's supposed to work
+    "D415",
+    "PLR2044"  # line with empty comment
 
-	#"Q000",  # force double-quotes
+    #"Q000",  # force double-quotes
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "oomog_gui/main.py" = [
     "E402",
 ]
 "plugins/*/oomox_plugin.py" = [
-	"INP001",
+    "INP001",
     "RUF012",
     "PLR6301",
 ]
 "maintenance_scripts/*.py" = [
-	"INP001",
-	"T201",
+    "INP001",
+    "T201",
 ]
 "maintenance_scripts/pikaman.py" = [
-	"ARG002",
+    "ARG002",
 ]
 "maintenance_scripts/vulture_whitelist.py" = [
-	"B018",
+    "B018",
 ]

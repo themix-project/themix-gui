@@ -60,14 +60,14 @@ def get_targets() -> list[str]:
 
 def print_by_lines(text: str) -> None:
     for idx, line in enumerate(text.splitlines()):
-        print(f"{idx+1}: {line}")
+        print(f"{idx + 1}: {line}")
 
 
 def print_error_in_target(target: str) -> None:
     print(
-        f"\n{'-'*30}\n"
+        f"\n{'-' * 30}\n"
         f"ERROR in target `{target}`:"
-        f"\n{'-'*30}",
+        f"\n{'-' * 30}",
     )
 
 

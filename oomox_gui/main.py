@@ -118,7 +118,7 @@ class RemoveDialog(YesNoDialog):
 
 
 def dialog_is_yes(dialog: Gtk.Dialog) -> bool:
-    return dialog.run() in (Gtk.ResponseType.YES, Gtk.ResponseType.OK)
+    return dialog.run() in {Gtk.ResponseType.YES, Gtk.ResponseType.OK}
 
 
 class AppActions(ActionsEnum):
@@ -174,7 +174,7 @@ class WindowWithActions(Gtk.ApplicationWindow):
         return action
 
 
-class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods  # noqa: E501
+class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods
 
     colorscheme_name: str
     colorscheme_path: str
@@ -268,9 +268,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             Gtk.FileChooserAction.OPEN,  # type: ignore[arg-type]
         )
         filechooser_response = filechooser_dialog.run()
-        if filechooser_response in (
+        if filechooser_response in {
                 Gtk.ResponseType.CANCEL, Gtk.ResponseType.DELETE_EVENT,
-        ):
+        }:
             filechooser_dialog.destroy()
             return
         import_theme_path = filechooser_dialog.get_filename()
@@ -297,9 +297,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             Gtk.FileChooserAction.OPEN,  # type: ignore[arg-type]
         )
         filechooser_response = filechooser_dialog.run()
-        if filechooser_response in (
+        if filechooser_response in {
                 Gtk.ResponseType.CANCEL, Gtk.ResponseType.DELETE_EVENT,
-        ):
+        }:
             filechooser_dialog.destroy()
             return
         import_theme_path = filechooser_dialog.get_filename()
@@ -946,7 +946,7 @@ class OomoxGtkApplication(Gtk.Application):
         self.activate()
         return 0
 
-    def quit(self) -> None:  # pylint: disable=arguments-differ  # noqa: A003
+    def quit(self) -> None:  # pylint: disable=arguments-differ
         if self.window:
             self.window.close()
         else:

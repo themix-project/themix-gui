@@ -78,8 +78,8 @@ class OomoxThemePlugin(OomoxPlugin):
         PreviewImageboxesNames.CHECKBOX.name: 16,
     }
 
-    def preview_transform_function(
-            self,  # noqa: PLR6301
+    def preview_transform_function(  # noqa: PLR6301
+            self,
             svg_template: str,
             colorscheme: "ThemeT",
     ) -> str:

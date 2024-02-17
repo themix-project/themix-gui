@@ -624,7 +624,7 @@ class Plugin(OomoxImportPluginAsync):
             max_lightness = max_possible_lightness - lightness_delta
 
         for key, value in reference_palette.items():
-            if key not in ["color0", "color7", "color8", "color15", "foreground", "background"]:
+            if key not in {"color0", "color7", "color8", "color15", "foreground", "background"}:
                 closest_color, _diff = find_closest_color(
                     value, bright_colors_list,
                     min_lightness=min_lightness, max_lightness=max_lightness,

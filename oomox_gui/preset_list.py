@@ -426,7 +426,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             return
         if key == Keys.KEY_F5:
             self.reload_presets()
-        elif key in (Keys.LEFT_ARROW, Keys.RIGHT_ARROW):
+        elif key in {Keys.LEFT_ARROW, Keys.RIGHT_ARROW}:
             treepath = self._get_current_treepath()
             if not treepath:
                 return

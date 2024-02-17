@@ -428,7 +428,7 @@ class CommonIconThemeExportDialog(DialogWithExportPath):
             override_options: dict[str, "Any"] | None = None,
             **kwargs: "Any",
     ) -> None:
-        if os.environ.get("XDG_CURRENT_DESKTOP", "").lower() in ("kde", "lxqt"):
+        if os.environ.get("XDG_CURRENT_DESKTOP", "").lower() in {"kde", "lxqt"}:
             self.default_export_dir = os.path.join(
                 os.environ.get(
                     "XDG_DATA_HOME",

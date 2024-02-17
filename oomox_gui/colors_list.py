@@ -651,11 +651,11 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                             theme_option["fallback_value"] = value
                         self.theme = self.theme_reload_callback()
                     callbacks = [_callback]
-                elif theme_value.get("reload_options") or key in [
+                elif theme_value.get("reload_options") or key in {
                         "ICONS_STYLE", "THEME_STYLE",
                         "TERMINAL_BASE_TEMPLATE", "TERMINAL_THEME_MODE",
                         "TERMINAL_THEME_AUTO_BGFG", "TERMINAL_FG", "TERMINAL_BG",
-                ]:
+                }:
                     def _callback(  # pylint:disable=unused-argument
                             key: str,  # noqa: ARG001
                             value: "ThemeValueT",  # noqa: ARG001
@@ -771,9 +771,9 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 ):
                     row.hide()
                     continue
-                if theme_value["type"] in (
+                if theme_value["type"] in {
                         "color", "options", "bool", "int", "float", "image_path",
-                ):
+                }:
                     if not isinstance(row, OomoxListBoxRow):
                         wrong_row_type = (
                             f"Row is of type {theme_value['type']}"

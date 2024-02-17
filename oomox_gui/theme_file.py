@@ -108,7 +108,7 @@ def save_colorscheme(preset_name: str, colorscheme: "ThemeT", path: str | None =
     with open(path, "w", encoding=DEFAULT_ENCODING) as file_object:
         for key, value in sorted(colorscheme_to_write.items()):
             if (
-                    key not in ("NOGUI", )
+                    key not in {"NOGUI"}
             ) and (
                 not key.startswith("_")
             ) and (

@@ -71,7 +71,7 @@ else
 		deactivate
 	fi
 	if [[ "$FIX_MODE" -eq 1 ]] ; then
-		"${APP_DIR}/env/bin/ruff" --fix "${TARGETS[@]}" || true
+		"${APP_DIR}/env/bin/ruff" --unsafe-fixes --fix "${TARGETS[@]}" || true
 	else
 		"${APP_DIR}/env/bin/ruff" "${TARGETS[@]}"
 	fi
