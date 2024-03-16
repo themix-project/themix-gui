@@ -27,7 +27,7 @@ echo
 if [[ "${answer}" = "y" ]] ; then
 	git add PKGBUILD .SRCINFO
 	git commit -m "push version (${release_msg})"
-	git push origin HEAD
+	GIT_SSH_COMMAND="ssh -i ~/.ssh/aur" git push origin HEAD
 fi
 
 cd -
