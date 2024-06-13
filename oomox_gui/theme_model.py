@@ -56,7 +56,7 @@ def merge_model_with_plugin(
         base_theme_model: "list[ThemeModelValue]",
         value_filter_key: "str | None" = None,
 ) -> "ThemeModelSection":
-    result: "ThemeModelSection" = []
+    result: ThemeModelSection = []
     plugin_theme_model = getattr(theme_plugin, "theme_model_" + theme_model_name, None)
     if not plugin_theme_model:
         return result
@@ -127,7 +127,7 @@ def get_theme_model_uncached() -> "ThemeModel":
             plugins=PluginLoader.get_theme_plugins(),
         )
 
-    theme_model: "ThemeModel" = {}
+    theme_model: ThemeModel = {}
 
     theme_model["import"] = merge_model_with_plugins(
         theme_model_name="import",
@@ -156,7 +156,7 @@ def get_theme_model_uncached() -> "ThemeModel":
         },
     ]
 
-    base_theme_model_gtk: "ThemeModelSection" = [
+    base_theme_model_gtk: ThemeModelSection = [
         {
             "type": "separator",
             "display_name": translate("Theme Colors"),
@@ -270,7 +270,7 @@ def get_theme_model_uncached() -> "ThemeModel":
         plugins=PluginLoader.get_import_plugins(),
     )
 
-    base_theme_model_options: "ThemeModelSection" = [
+    base_theme_model_options: ThemeModelSection = [
         {
             "type": "separator",
             "display_name": translate("Theme Options"),
@@ -293,7 +293,7 @@ def get_theme_model_uncached() -> "ThemeModel":
         "options", base_theme_model_options,
     )
 
-    base_icon_theme_model: "ThemeModelSection" = [
+    base_icon_theme_model: ThemeModelSection = [
         {
             "type": "separator",
             "display_name": translate("Iconset"),

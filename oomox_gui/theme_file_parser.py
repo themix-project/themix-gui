@@ -32,9 +32,9 @@ def parse_theme_value(
         theme_value: "ThemeModelValue",
         colorscheme: "ThemeT",
 ) -> "ThemeValueT":
-    result_value: "ThemeValueT | None" = colorscheme.get(theme_value["key"])
+    result_value: ThemeValueT | None = colorscheme.get(theme_value["key"])
     fallback_key: str | None = theme_value.get("fallback_key")
-    fallback_value: "ThemeValueT | None" = theme_value.get("fallback_value")
+    fallback_value: ThemeValueT | None = theme_value.get("fallback_value")
     fallback_function = theme_value.get("fallback_function")
 
     if result_value is None:

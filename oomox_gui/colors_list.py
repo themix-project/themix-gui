@@ -413,7 +413,7 @@ class ColorDropdown(Gtk.MenuButton):
 
     def build_dropdown_menu(self) -> Gtk.Menu:
         self.drop_down = Gtk.Menu()
-        menu_items: "list[tuple[Gtk.MenuItem, Callable[[Gtk.MenuItem], None]]]" = []
+        menu_items: list[tuple[Gtk.MenuItem, Callable[[Gtk.MenuItem], None]]] = []
         menu_items.append((
             Gtk.MenuItem(label=translate("Replace all instances")), self.replace_all_instances,
         ))
@@ -764,7 +764,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 if (filter_func := theme_value.get("filter")) and not filter_func(theme):
                     row.hide()
                     continue
-                value_filter: "dict[str, ThemeValueT | list[ThemeValueT]] | None"
+                value_filter: dict[str, ThemeValueT | list[ThemeValueT]] | None
                 if (
                         (value_filter := theme_value.get("value_filter"))
                         and not check_value_filter(value_filter, theme)

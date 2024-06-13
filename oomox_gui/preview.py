@@ -500,7 +500,7 @@ class ThemePreview(Gtk.Grid):
             theme_plugin: "OomoxThemePlugin | None",
             icons_plugin: "OomoxIconsPlugin | None",
     ) -> None:
-        colorscheme_with_fallbacks: "ThemeT" = {}
+        colorscheme_with_fallbacks: ThemeT = {}
         for section in get_theme_model().values():
             for theme_value in section:
                 if "key" not in theme_value:

@@ -23,10 +23,10 @@ def show_shortcuts(parent_window: Gtk.Window) -> None:
     shortcuts_window.set_wmclass("oomox", "Oomox")
     shortcuts_window.set_role("Oomox-Shortcuts")
 
-    data: """Sequence[
+    data: Sequence[
         tuple[str, Mapping[str, OomoxImportPlugin], Callable[[OomoxImportPlugin], str]] |
         tuple[str, Mapping[str, OomoxExportPlugin], Callable[[OomoxExportPlugin], str]]
-    ]""" = (
+    ] = (
         (
             "import_section",
             PluginLoader.get_import_plugins(),

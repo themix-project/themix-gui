@@ -79,7 +79,7 @@ class ExportWrapper(Generic[ExportBaseClassT]):
             if base is ExportWrapperBase:
                 break
             new_mro.append(base)
-        new_mro = new_mro + list(base_class.__mro__)
+        new_mro += list(base_class.__mro__)
         new_class = type(cls.__name__, tuple(new_mro), dict(cls.__dict__))
         result: ExportBaseClassT = super(  # type: ignore[misc]  # pylint: disable=bad-super-call
             base_class, new_class,

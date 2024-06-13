@@ -501,7 +501,7 @@ class Plugin(OomoxImportPluginAsync):
         theme_template: str = get_first_theme_option(  # type: ignore[assignment]
             "_PIL_THEME_TEMPLATE", {},
         ).get("fallback_value")
-        oomox_theme: dict[str, "Any"] = {}
+        oomox_theme: dict[str, Any] = {}
         oomox_theme.update(self.default_theme)
         if theme_template in self.default_themes:
             oomox_theme.update(self.default_themes[theme_template])
@@ -657,7 +657,7 @@ class Plugin(OomoxImportPluginAsync):
 
         def _result_callback(generated_palette: dict[str, str]) -> None:
             cls._terminal_palette_cache[_id] = generated_palette
-            palette: "ThemeT" = {}
+            palette: ThemeT = {}
             palette.update(cls._terminal_palette_cache[_id])
             result_callback(palette)
 

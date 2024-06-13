@@ -880,9 +880,9 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
 
         _plugin_shortcuts: dict[str, str] = {}
-        import_and_export_plugins: """Sequence[
-                tuple[Mapping[str, OomoxImportPlugin | OomoxExportPlugin], str]
-        ]""" = (
+        import_and_export_plugins: Sequence[
+            tuple[Mapping[str, OomoxImportPlugin | OomoxExportPlugin], str]
+        ] = (
             (PluginLoader.get_import_plugins(), "import_plugin_{}"),
             (PluginLoader.get_export_plugins(), "export_plugin_{}"),
         )

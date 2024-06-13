@@ -65,7 +65,7 @@ def show_about(parent_window: Gtk.Window) -> None:
             separator.set_margin_bottom(8)
             row.set_header(separator)
 
-    data: "Sequence[tuple[str, Mapping[str, OomoxPlugin]]]" = (
+    data: Sequence[tuple[str, Mapping[str, OomoxPlugin]]] = (
         (translate("Theme Plugins"), PluginLoader.get_theme_plugins()),
         (translate("Icon Plugins"), PluginLoader.get_icons_plugins()),
         (translate("Import Plugins"), PluginLoader.get_import_plugins()),
