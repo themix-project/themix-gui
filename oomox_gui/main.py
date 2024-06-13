@@ -18,11 +18,13 @@ from .gtk_helpers import (
     EntryDialog,
     ImageButton,
     ImageMenuButton,
+    WindowWithActions,
     YesNoDialog,
     warn_once,
 )
 from .helpers import log_error, mkdir_p
 from .i18n import translate
+from .multi_export import MultiExportDialog
 from .plugin_api import PLUGIN_PATH_PREFIX
 from .plugin_loader import PluginLoader
 from .preset_list import ThemePresetList
@@ -131,6 +133,7 @@ class WindowActions(ActionsEnum):
     import_menu = ActionProperty(_target, "import_menu")
     import_themix_colors = ActionProperty(_target, "import_themix_colors")
     clone = ActionProperty(_target, "clone")
+    multi_export = ActionProperty(_target, "multi_export")
     export_icons = ActionProperty(_target, "icons")
     export_theme = ActionProperty(_target, "theme")
     export_menu = ActionProperty(_target, "export_menu")
@@ -140,38 +143,6 @@ class WindowActions(ActionsEnum):
     save = ActionProperty(_target, "save")
     show_help = ActionProperty(_target, "show_help")
     show_about = ActionProperty(_target, "show_about")
-
-
-class WindowWithActions(Gtk.ApplicationWindow):
-
-    def _action_tooltip(self, action: ActionProperty, tooltip: str) -> str:
-        action_id = action.get_id()
-        app = self.get_application()
-        if not app:
-            no_app_error = "Application instance didn't initialized."
-            raise RuntimeError(no_app_error)
-        accels = app.get_accels_for_action(action_id)
-        if accels:
-            key, mods = Gtk.accelerator_parse(accels[0])
-            tooltip += f" ({Gtk.accelerator_get_label(key, mods)})"
-        return tooltip
-
-    def attach_action(
-            self, widget: Gtk.Widget, action: ActionProperty, with_tooltip: bool = True,
-    ) -> None:
-        action_id = action.get_id()
-        widget.set_action_name(action_id)  # type: ignore[attr-defined]
-        if with_tooltip:
-            tooltip = self._action_tooltip(action, widget.get_tooltip_text() or "")
-            widget.set_tooltip_text(tooltip)
-
-    def add_simple_action(
-            self, action_name: str, callback: "Callable[..., Any]",
-    ) -> Gio.SimpleAction:
-        action = Gio.SimpleAction.new(action_name, None)
-        action.connect("activate", callback)
-        self.add_action(action)
-        return action
 
 
 class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods
@@ -509,6 +480,22 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _on_save(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         self.save_theme()
 
+    def _on_export_multi(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
+        if not self.plugin_theme:
+            no_theme_plugin_error = "No Theme plugin selected"
+            raise RuntimeError(no_theme_plugin_error)
+        MultiExportDialog(
+            transient_for=self,
+            theme_name=self.colorscheme_name,
+            colorscheme=self.colorscheme,
+            # test_export=self.plugin_theme.export_dialog(
+            #     transient_for=self,
+            #     theme_name=self.colorscheme_name,
+            #     colorscheme=self.colorscheme,
+            #     base_class=Gtk.Box,
+            # ),
+        )
+
     def _on_export_theme(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
         if not self.plugin_theme:
             no_theme_plugin_error = "No Theme plugin selected"
@@ -662,6 +649,13 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         #
 
+        multi_export_button = Gtk.Button(
+            label=translate("_Multi-Export…"),
+            use_underline=True,
+            tooltip_text=translate("Export theme for multiple frameworks or apps at once"),
+        )
+        self.attach_action(multi_export_button, WindowActions.multi_export)
+
         export_theme_button = Gtk.Button(
             label=translate("_Export Theme…"),
             use_underline=True,
@@ -699,6 +693,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         Gtk.StyleContext.add_class(
             linked_export_box.get_style_context(), "linked",
         )
+        linked_export_box.add(multi_export_button)
         linked_export_box.add(export_theme_button)
         linked_export_box.add(export_icons_button)
         linked_export_box.add(export_button)
@@ -758,6 +753,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.action_save = self.add_simple_action(WindowActions.save, self._on_save)
         self.action_rename = self.add_simple_action(WindowActions.rename, self._on_rename)
         self.action_remove = self.add_simple_action(WindowActions.remove, self._on_remove)
+        self.add_simple_action(WindowActions.multi_export, self._on_export_multi)
         self.add_simple_action(WindowActions.export_theme, self._on_export_theme)
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.show_help, self._on_show_help)
@@ -876,6 +872,7 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.save, ["<Primary>S"])
         set_accels_for_action(WindowActions.rename, ["F2"])
         set_accels_for_action(WindowActions.remove, ["<Primary>Delete"])
+        set_accels_for_action(WindowActions.multi_export, ["<Primary>Return"])
         set_accels_for_action(WindowActions.export_theme, ["<Primary>E"])
         set_accels_for_action(WindowActions.export_icons, ["<Primary>I"])
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])

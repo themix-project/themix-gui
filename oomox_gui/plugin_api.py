@@ -37,6 +37,10 @@ class OomoxPlugin(metaclass=ABCMeta):
     def display_name(self) -> str:
         pass
 
+    @property
+    def export_text(self) -> str | None:  # none is for compat with subclass
+        return self.display_name
+
     about_text: str | None = None
     about_links: ClassVar["list[AboutLink] | None"] = None
 

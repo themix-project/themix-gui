@@ -10,8 +10,10 @@ result=$(
 		-e '(dict|list)\[' \
 		-e TypeVar \
 		-e Sequence \
+		-e Generic \
 		-e namedtuple \
 		\
+		-e 'BaseClass' \
 		-e 'HexColor' \
 		-e 'ColorScheme' \
 	| sort

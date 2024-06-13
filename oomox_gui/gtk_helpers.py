@@ -7,6 +7,7 @@ from gi.types import GObjectMeta
 from .i18n import translate
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
     from typing import Any
 
     from gi.repository import Pango
@@ -318,3 +319,35 @@ def warn_once(
     dialog.run()
     dialog.add_shown(text, secondary_text, buttons)
     dialog.destroy()
+
+
+class WindowWithActions(Gtk.ApplicationWindow):
+
+    def _action_tooltip(self, action: ActionProperty, tooltip: str) -> str:
+        action_id = action.get_id()
+        app = self.get_application()
+        if not app:
+            no_app_error = "Application instance didn't initialized."
+            raise RuntimeError(no_app_error)
+        accels = app.get_accels_for_action(action_id)
+        if accels:
+            key, mods = Gtk.accelerator_parse(accels[0])
+            tooltip += f" ({Gtk.accelerator_get_label(key, mods)})"
+        return tooltip
+
+    def attach_action(
+            self, widget: Gtk.Widget, action: ActionProperty, with_tooltip: bool = True,
+    ) -> None:
+        action_id = action.get_id()
+        widget.set_action_name(action_id)  # type: ignore[attr-defined]
+        if with_tooltip:
+            tooltip = self._action_tooltip(action, widget.get_tooltip_text() or "")
+            widget.set_tooltip_text(tooltip)
+
+    def add_simple_action(
+            self, action_name: str, callback: "Callable[..., Any]",
+    ) -> Gio.SimpleAction:
+        action = Gio.SimpleAction.new(action_name, None)
+        action.connect("activate", callback)
+        self.add_action(action)
+        return action

@@ -93,6 +93,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">1</property>
+                <property name="accelerator">&lt;Primary&gt;Return</property>
+                <property name="title" translatable="yes">Multi-Export</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">1</property>
                 <property name="accelerator">&lt;Primary&gt;E</property>
                 <property name="title" translatable="yes">Export theme</property>
               </object>
