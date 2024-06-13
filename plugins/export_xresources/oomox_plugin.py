@@ -58,4 +58,4 @@ class Plugin(OomoxExportPlugin):
     export_text = translate("Export _Xresources theme…")
     shortcut = "<Primary>X"
     export_dialog = XresourcesExportDialog
-    multi_export_supported = False
+    multi_export_supported: bool = False
