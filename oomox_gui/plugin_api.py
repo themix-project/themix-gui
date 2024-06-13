@@ -62,6 +62,8 @@ class OomoxThemePlugin(OomoxPlugin):
     def export_dialog(self) -> "type[ExportDialog]":
         pass
 
+    multi_export_supported = True
+
     enabled_keys_gtk: ClassVar[list[str]] = []
     enabled_keys_options: ClassVar[list[str]] = []
     enabled_keys_extra: ClassVar[list[str]] = []
@@ -100,6 +102,7 @@ class OomoxIconsPlugin(OomoxPlugin):
 
     enabled_keys_icons: ClassVar[list[str]] = []
     theme_model_icons: ClassVar["list[ThemeModelValue]"] = []
+    multi_export_supported = True
 
     @property
     @abstractmethod
@@ -127,6 +130,8 @@ class OomoxExportPlugin(OomoxPlugin):
     @abstractmethod
     def export_dialog(self) -> "type[ExportDialog]":
         pass
+
+    multi_export_supported = True
 
     # Text to display in export menu:
     export_text: str | None = None

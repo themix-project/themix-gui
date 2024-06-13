@@ -121,7 +121,12 @@ class MultiExportDialog(BaseClass):
         self.plugins = {
             "theme": self.plugin_theme,
             "icons": self.plugin_icons,
-            **PluginLoader.get_export_plugins(),
+            **{
+                plugin_name: plugin
+                for plugin_name, plugin
+                in PluginLoader.get_export_plugins().items()
+                if plugin.multi_export_supported
+            },
         }
 
         export_menu = Gio.Menu()
