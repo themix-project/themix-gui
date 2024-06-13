@@ -30,10 +30,16 @@ if TYPE_CHECKING:
 
 class ExportConfig(CommonOomoxConfig):
 
-    def __init__(self, config_name: str, default_config: dict[str, "Any"] | None = None) -> None:
+    def __init__(
+            self,
+            config_name: str,
+            default_config: dict[str, "Any"] | None = None,
+            override_config: dict[str, "Any"] | None = None,
+    ) -> None:
         super().__init__(
             config_name=config_name,
             default_config=default_config,
+            override_config=override_config,
             config_dir=USER_EXPORT_CONFIG_DIR,
             force_reload=True,
         )
@@ -345,6 +351,7 @@ class ExportDialogWithOptions(FileBasedExportDialog):
     OPTIONS: ExportDialogWithOptionsOptions = ExportDialogWithOptionsOptions()
 
     config_name: str
+    export_config: ExportConfig
 
     @g_abstractproperty  # type: ignore[no-redef]
     def config_name(self) -> None:
@@ -362,34 +369,8 @@ class ExportDialogWithOptions(FileBasedExportDialog):
             self.export_config[option_id] = widget.get_text()
         return callback
 
-    def __init__(
-            self,
-            transient_for: Gtk.Window,
-            colorscheme: "ThemeT",
-            theme_name: str,
-            export_options: "dict[str, Any] | None" = None,
-            override_options: dict[str, "Any"] | None = None,
-            headline: str | None = None,
-            **kwargs: "Any",
-    ) -> None:
-        self.option_widgets: dict[str, Gtk.Widget] = {}
-        export_options = override_options or export_options or {}
-        super().__init__(
-            transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
-            headline=headline or translate("Theme Export Options"),
-            **kwargs,
-        )
-        self.label.hide()
-
-        self.export_config = ExportConfig(
-            config_name=self.config_name,
-            default_config={
-                option_name: option["default"]
-                for option_name, option in export_options.items()
-            },
-        )
-
-        for option_name, option in export_options.items():
+    def load_state_from_config(self) -> None:
+        for option_name, option in self.export_options.items():
             value = self.export_config[option_name]
             value_widget: Gtk.Widget
             if isinstance(value, bool):
@@ -420,6 +401,37 @@ class ExportDialogWithOptions(FileBasedExportDialog):
             else:
                 raise NotImplementedError
             self.options_box.add(value_widget)
+
+    def __init__(
+            self,
+            transient_for: Gtk.Window,
+            colorscheme: "ThemeT",
+            theme_name: str,
+            export_options: "dict[str, Any] | None" = None,
+            override_options: dict[str, "Any"] | None = None,
+            override_config: dict[str, "Any"] | None = None,
+            headline: str | None = None,
+            **kwargs: "Any",
+    ) -> None:
+        self.option_widgets: dict[str, Gtk.Widget] = {}
+        self.export_options = override_options or export_options or {}
+        super().__init__(
+            transient_for=transient_for, colorscheme=colorscheme, theme_name=theme_name,
+            headline=headline or translate("Theme Export Options"),
+            **kwargs,
+        )
+        self.label.hide()
+
+        self.export_config = ExportConfig(
+            config_name=self.config_name,
+            default_config={
+                option_name: option["default"]
+                for option_name, option in self.export_options.items()
+            },
+            override_config=override_config,
+        )
+
+        self.load_state_from_config()
 
         self.box.add(self.options_box)
         self.options_box.show_all()
@@ -491,12 +503,10 @@ class DialogWithExportPath(ExportDialogWithOptions):
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),  # type: ignore[attr-defined]
         )
-        new_destination_dir, _theme_name = export_path.rsplit("/", 1)
-
-        super().do_export()
-
+        new_destination_dir, _theme_name = export_path.rstrip("/").rsplit("/", 1)
         self.export_config[self.OPTIONS.DEFAULT_PATH] = new_destination_dir
         self.export_config.save()
+        super().do_export()
 
 
 class CommonGtkThemeExportDialogOptions(DialogWithExportPathOptions):

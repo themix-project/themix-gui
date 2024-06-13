@@ -25,6 +25,7 @@ class CommonOomoxConfig:
             config_dir: str,
             config_name: str,
             default_config: dict[str, "Any"] | None = None,
+            override_config: dict[str, "Any"] | None = None,
             force_reload: bool = False,
     ) -> None:
         self.name = config_name
@@ -34,7 +35,7 @@ class CommonOomoxConfig:
             f"{self.name}.json",
         )
         self.default_config = default_config or {}
-        self.config = self.load(
+        self.config = override_config or self.load(
             default_config=self.default_config,
             config_path=self.config_path,
             force_reload=force_reload,

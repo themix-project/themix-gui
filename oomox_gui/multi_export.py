@@ -2,7 +2,8 @@ from typing import TYPE_CHECKING
 
 from gi.repository import Gio, Gtk
 
-from .export_common import ExportDialog
+from .config import USER_EXPORT_CONFIG_DIR
+from .export_common import ExportDialogWithOptions
 from .gtk_helpers import (
     ImageButton,
     ImageMenuButton,
@@ -11,6 +12,7 @@ from .gtk_helpers import (
 from .i18n import translate
 from .plugin_api import OomoxExportPlugin, OomoxIconsPlugin, OomoxThemePlugin
 from .plugin_loader import PluginLoader
+from .settings import CommonOomoxConfig
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -29,8 +31,9 @@ class ExportWrapper(Gtk.Box):
 
     def __init__(
             self,
+            name: str,
             plugin: OomoxExportPlugin | OomoxThemePlugin | OomoxIconsPlugin,
-            export_dialog: ExportDialog,
+            export_dialog: ExportDialogWithOptions,
             remove_callback: "Callable[[Any], None]",
     ) -> None:
         super().__init__(  # type: ignore[misc]
@@ -38,6 +41,7 @@ class ExportWrapper(Gtk.Box):
             orientation=Gtk.Orientation.VERTICAL,
             spacing=5,
         )
+        self.name = name
         self.header = Gtk.Box(
             orientation=Gtk.Orientation.HORIZONTAL,
             spacing=5,
@@ -72,7 +76,7 @@ class MultiExportDialog(BaseClass):
 
     added_plugins: list[ExportWrapper]
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-locals
             self,
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
@@ -88,7 +92,6 @@ class MultiExportDialog(BaseClass):
         self.colorscheme_name = theme_name
         self.set_default_size(width, height)
 
-        # self.box = self.get_content_area()
         self.box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=DEFAULT_PADDING,
         )
@@ -161,27 +164,40 @@ class MultiExportDialog(BaseClass):
         ))
 
         self.box.pack_start(add_export_target_button, False, False, 0)
-        # self.box.set_center_widget(self.scroll)
         self.box.pack_start(self.scroll, True, True, 0)
         self.box.pack_end(export_all_button, False, False, 0)
 
         self.show_all()
 
+        self.config = CommonOomoxConfig(
+            config_dir=USER_EXPORT_CONFIG_DIR,
+            config_name="multi_export",
+            force_reload=True,
+        )
+        for plugin_name, plugin_config in self.config.config.items():
+            self.add_export_target(plugin_name, plugin_config)
+
     def _on_remove_export_target(self, export: ExportWrapper) -> None:
         self.added_plugins.remove(export)
         self.background.remove(export)
 
-    def add_export_target(self, export_plugin_name: str) -> None:
-        plugin = self.plugins[export_plugin_name]
+    def add_export_target(
+            self,
+            export_plugin_name: str,
+            default_config: dict[str, "Any"] | None = None,
+    ) -> None:
+        plugin = self.plugins.get(export_plugin_name)
         if not plugin:
-            raise TypeError
+            return
         export = ExportWrapper(
+            name=export_plugin_name,
             plugin=plugin,
             export_dialog=plugin.export_dialog(
                 transient_for=self,
                 theme_name=self.colorscheme_name,
                 colorscheme=self.colorscheme,
                 base_class=Gtk.Box,  # type: ignore[arg-type]
+                override_config=default_config,
             ),
             remove_callback=lambda _x: self._on_remove_export_target(export),
         )
@@ -195,5 +211,8 @@ class MultiExportDialog(BaseClass):
         self.add_export_target(export_plugin_name)
 
     def _on_export_all(self, _button: Gtk.Button) -> None:
+        self.config.config = {}
         for export in self.added_plugins:
             export.export_dialog.do_export()
+            self.config.config[export.name] = export.export_dialog.export_config.config
+        self.config.save()
