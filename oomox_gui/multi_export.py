@@ -174,8 +174,11 @@ class MultiExportDialog(BaseClass):
             config_name="multi_export",
             force_reload=True,
         )
-        for plugin_name, plugin_config in self.config.config.items():
-            self.add_export_target(plugin_name, plugin_config)
+        for _idx, data in self.config.config.items():
+            plugin_name = data.get("name")
+            plugin_config = data.get("config")
+            if plugin_name and plugin_config:
+                self.add_export_target(plugin_name, plugin_config)
 
     def _on_remove_export_target(self, export: ExportWrapper) -> None:
         self.added_plugins.remove(export)
@@ -212,7 +215,10 @@ class MultiExportDialog(BaseClass):
 
     def _on_export_all(self, _button: Gtk.Button) -> None:
         self.config.config = {}
-        for export in self.added_plugins:
+        for idx, export in enumerate(self.added_plugins):
             export.export_dialog.do_export()
-            self.config.config[export.name] = export.export_dialog.export_config.config
+            self.config.config[str(idx)] = {
+                "name": export.name,
+                "config": export.export_dialog.export_config.config,
+            }
         self.config.save()
