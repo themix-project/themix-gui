@@ -20,6 +20,7 @@ from .gtk_helpers import (
     ImageMenuButton,
     WindowWithActions,
     YesNoDialog,
+    dialog_is_yes,
     warn_once,
 )
 from .helpers import log_error, mkdir_p
@@ -117,10 +118,6 @@ class RemoveDialog(YesNoDialog):
                 "This can not be undone.",
             ),
         )
-
-
-def dialog_is_yes(dialog: Gtk.Dialog) -> bool:
-    return dialog.run() in {Gtk.ResponseType.YES, Gtk.ResponseType.OK}
 
 
 class AppActions(ActionsEnum):

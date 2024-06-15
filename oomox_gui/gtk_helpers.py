@@ -237,6 +237,10 @@ class YesNoDialog(Gtk.Dialog):
         self.show_all()
 
 
+def dialog_is_yes(dialog: Gtk.Dialog) -> bool:
+    return dialog.run() in {Gtk.ResponseType.YES, Gtk.ResponseType.OK}
+
+
 class GObjectABCMetaAbstractProperty:
     pass
 
