@@ -492,20 +492,32 @@ class DialogWithExportPath(ExportDialogWithOptions):
                 (self.OPTIONS.DEFAULT_PATH in self.option_widgets) and
                 (self.export_config.get(self.OPTIONS.DEFAULT_PATH))
         ):
-            self.option_widgets[self.OPTIONS.DEFAULT_PATH].set_text(  # type: ignore[attr-defined]
-                os.path.join(
-                    self.export_config[self.OPTIONS.DEFAULT_PATH],
+            new_export_path = self.export_config[self.OPTIONS.DEFAULT_PATH].replace(
+                "<THEME_NAME>",
+                self.theme_name,
+            )
+            if self.theme_name not in new_export_path:
+                new_export_path = os.path.join(
+                    new_export_path,
                     self.theme_name,
-                ),
+                )
+            self.option_widgets[self.OPTIONS.DEFAULT_PATH].set_text(  # type: ignore[attr-defined]
+                new_export_path,
             )
 
-    def do_export(self) -> None:
+    def remove_preset_name_from_path_config(self) -> None:
         export_path = os.path.expanduser(
             self.option_widgets[self.OPTIONS.DEFAULT_PATH].get_text(),  # type: ignore[attr-defined]
         )
-        new_destination_dir, _theme_name = export_path.rstrip("/").rsplit("/", 1)
-        self.export_config[self.OPTIONS.DEFAULT_PATH] = new_destination_dir
+        # new_destination_dir, _theme_name = export_path.rstrip("/").rsplit("/", 1)
+        self.export_config[self.OPTIONS.DEFAULT_PATH] = export_path.replace(
+            self.theme_name,
+            "<THEME_NAME>",
+        )
         self.export_config.save()
+
+    def do_export(self) -> None:
+        self.remove_preset_name_from_path_config()
         super().do_export()
 
 
