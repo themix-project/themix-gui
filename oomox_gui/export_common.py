@@ -2,11 +2,14 @@ import os
 import subprocess
 import tempfile
 from threading import Thread
-from typing import TYPE_CHECKING, Generic, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Generic,
+    TypeVar,
+)
 
 from gi.repository import (
     GLib,
-    # GObject,
     Gtk,
     Pango,
 )
@@ -14,8 +17,8 @@ from gi.repository import (
 from .config import DEFAULT_ENCODING, USER_EXPORT_CONFIG_DIR
 from .gtk_helpers import (
     CenterLabel,
-    # GObjectABCMeta,
     g_abstractproperty,
+    nongobject_check_class_for_gobject_metas,
 )
 from .i18n import translate
 from .settings import CommonOomoxConfig
@@ -87,6 +90,7 @@ class ExportWrapper(Generic[ExportBaseClassT]):
             new_mro.append(base)
         new_mro += list(base_class.__mro__)
         new_class = type(cls.__name__, tuple(new_mro), dict(cls.__dict__))
+        nongobject_check_class_for_gobject_metas(new_class)
         result: ExportBaseClassT = super(  # type: ignore[misc]  # pylint: disable=bad-super-call
             base_class, new_class,
         ).__new__(new_class)
