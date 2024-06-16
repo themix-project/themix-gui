@@ -34,6 +34,7 @@ jobs:
       SKIP_MYPY: ${{ matrix.SKIP_MYPY }}
       SKIP_VULTURE: ${{ matrix.SKIP_VULTURE }}
       SKIP_RUFF: ${{ matrix.SKIP_RUFF }}
+      SKIP_PYPROJECT: ${{ matrix.SKIP_PYPROJECT }}
 
     steps:
     - uses: actions/checkout@v2
@@ -53,5 +54,6 @@ jobs:
         -e SKIP_MYPY=${SKIP_MYPY}
         -e SKIP_VULTURE=${SKIP_VULTURE}
         -e SKIP_RUFF=${SKIP_RUFF}
+        -e SKIP_PYPROJECT=${SKIP_PYPROJECT}
         oomox:latest
         ./maintenance_scripts/lint.sh
