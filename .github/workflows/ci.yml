@@ -19,12 +19,14 @@ jobs:
             SKIP_MYPY: 0
             SKIP_VULTURE: 0
             SKIP_RUFF: 0
+            SKIP_PYPROJECT: 0
 
           - PYVER: python310_ubuntu_2204
             SKIP_SHELLCHECK: 1
             SKIP_MYPY: 1
             SKIP_VULTURE: 1
             SKIP_RUFF: 1
+            SKIP_PYPROJECT: 1
 
     env:
       PYVER: ${{ matrix.PYVER }}

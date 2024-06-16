@@ -172,16 +172,20 @@ else
 		echo ':: shellcheck makefile passed ::'
 	fi
 
-	echo -e "\n== Validate pyproject file..."
-	(
-		exit_code=0
-		result=$(validate-pyproject pyproject.toml 2>&1) || exit_code=$?
-		if [[ $exit_code -gt 0 ]] ; then
-			echo "$result"
-			exit $exit_code
-		fi
-	)
-	echo ':: pyproject validation passed ::'
+	if [[ "${SKIP_PYPROJECT:-}" = "1" ]] ; then
+		echo -e "\n!! WARNING !! skipping pyproject validation"
+	else
+		echo -e "\n== Validate pyproject file..."
+		(
+			exit_code=0
+			result=$(validate-pyproject pyproject.toml 2>&1) || exit_code=$?
+			if [[ $exit_code -gt 0 ]] ; then
+				echo "$result"
+				exit $exit_code
+			fi
+		)
+		echo ':: pyproject validation passed ::'
+	fi
 fi
 
 
