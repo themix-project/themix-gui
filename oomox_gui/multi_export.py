@@ -1,13 +1,17 @@
+import os
 from typing import TYPE_CHECKING
 
 from gi.repository import Gio, Gtk
 
 from .config import USER_EXPORT_CONFIG_DIR
-from .export_common import ExportDialogWithOptions
+from .export_common import DialogWithExportPath
 from .gtk_helpers import (
+    EntryDialog,
     ImageButton,
     ImageMenuButton,
     WindowWithActions,
+    YesNoDialog,
+    dialog_is_yes,
 )
 from .i18n import translate
 from .plugin_api import OomoxExportPlugin, OomoxIconsPlugin, OomoxThemePlugin
@@ -25,6 +29,39 @@ BaseClass = WindowWithActions
 
 
 DEFAULT_PADDING: "Final[int]" = 8
+CONFIG_FILE_PREFIX: "Final[str]" = "multi_export_"
+
+
+class SaveAsDialog(EntryDialog):
+
+    def __init__(
+            self,
+            transient_for: Gtk.Window,
+            title: str | None = None,
+            text: str | None = None,
+            entry_text: str | None = None,
+    ) -> None:
+        title = title or translate("Save Export Layout")
+        text = text or translate("Please input new export layout name:")
+        super().__init__(
+            transient_for=transient_for,
+            title=title,
+            text=text,
+            entry_text=entry_text,
+        )
+
+
+class RemoveDialog(YesNoDialog):
+
+    def __init__(self, transient_for: Gtk.Window) -> None:
+        super().__init__(
+            transient_for=transient_for,
+            title=translate("Remove Export Layout"),
+            text=translate(
+                "Are you sure you want to delete this export layout?\n"
+                "This can not be undone.",
+            ),
+        )
 
 
 class ExportWrapper(Gtk.Box):
@@ -33,7 +70,7 @@ class ExportWrapper(Gtk.Box):
             self,
             name: str,
             plugin: OomoxExportPlugin | OomoxThemePlugin | OomoxIconsPlugin,
-            export_dialog: ExportDialogWithOptions,
+            export_dialog: DialogWithExportPath,
             remove_callback: "Callable[[Any], None]",
     ) -> None:
         super().__init__(  # type: ignore[misc]
@@ -54,7 +91,7 @@ class ExportWrapper(Gtk.Box):
         self.export_dialog = export_dialog
         header_label = Gtk.Label(plugin.display_name)
         self.remove_button = ImageButton(
-            "edit-delete-symbolic", translate("Remove Theme…"),
+            "edit-delete-symbolic", translate("Remove export target…"),
         )
         self.remove_button.connect("clicked", remove_callback)
         separator = Gtk.Separator(
@@ -72,11 +109,13 @@ class ExportWrapper(Gtk.Box):
         # self.show()
 
 
-class MultiExportDialog(BaseClass):
+class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attributes
 
     added_plugins: list[ExportWrapper]
+    current_preset: str
+    config: CommonOomoxConfig
 
-    def __init__(  # pylint: disable=too-many-locals
+    def __init__(  # pylint: disable=too-many-locals,too-many-statements
             self,
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
@@ -86,7 +125,6 @@ class MultiExportDialog(BaseClass):
     ) -> None:
         BaseClass.__init__(self, Gtk.WindowType.TOPLEVEL)  # type: ignore[arg-type]
         self.transient_for = transient_for
-        self.set_title(translate("Multi-Export"))
         self.added_plugins = []
         self.colorscheme = colorscheme
         self.colorscheme_name = theme_name
@@ -98,6 +136,10 @@ class MultiExportDialog(BaseClass):
         self.background = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=5,
         )
+        self.background.set_margin_top(DEFAULT_PADDING)
+        self.background.set_margin_bottom(DEFAULT_PADDING)
+        self.background.set_margin_left(DEFAULT_PADDING)
+        self.background.set_margin_right(DEFAULT_PADDING)
         self.background.set_homogeneous(False)
         self.scroll = Gtk.ScrolledWindow(
             # expand=True,
@@ -143,35 +185,116 @@ class MultiExportDialog(BaseClass):
             self.add_simple_action(
                 f"export_plugin_{plugin_name}", self._on_add_export_target,
             )
+
         add_export_target_button = ImageMenuButton(
-            label=translate("Add export target…"), icon_name="pan-down-symbolic",
+            label=translate("Add export target…"),
+            icon_name="pan-down-symbolic",
             tooltip_text=translate("Add targets for Multi-Export"),
         )
-        add_export_target_button.set_margin_top(DEFAULT_PADDING)
-        add_export_target_button.set_margin_left(DEFAULT_PADDING)
-        add_export_target_button.set_margin_right(DEFAULT_PADDING)
         add_export_target_button.set_use_popover(True)
         add_export_target_button.set_menu_model(export_menu)
-        export_all_button = Gtk.Button(translate("Export All"))
-        export_all_button.connect("clicked", self._on_export_all)
-        export_all_button.set_margin_bottom(DEFAULT_PADDING)
-        export_all_button.set_margin_left(DEFAULT_PADDING)
-        export_all_button.set_margin_right(DEFAULT_PADDING)
         self.add_action(Gio.PropertyAction(  # type: ignore[call-arg,arg-type]
             name="win.add",
             object=add_export_target_button,
             property_name="active",
         ))
 
-        self.box.pack_start(add_export_target_button, False, False, 0)
+        self.options_store = Gtk.ListStore(str)
+        self.load_presets()
+        self.presets_dropdown = Gtk.ComboBox.new_with_model(self.options_store)
+        renderer_text = Gtk.CellRendererText()
+        self.presets_dropdown.pack_start(renderer_text, True)
+        self.presets_dropdown.add_attribute(renderer_text, "text", 0)
+        self.presets_dropdown.connect(
+            "changed",
+            self.on_preset_changed,
+        )
+
+        save_as_button = ImageButton(
+            "document-save-as-symbolic", translate("Save export layout as…"),
+        )
+        save_as_button.connect("clicked", self._on_save_as_preset)
+        self.remove_button = ImageButton(
+            "edit-delete-symbolic", translate("Remove export layout…"),
+        )
+        self.remove_button.connect("clicked", self._on_remove_preset)
+
+        export_all_button = Gtk.Button(translate("Export All"))
+        export_all_button.connect("clicked", self._on_export_all)
+
         self.box.pack_start(self.scroll, True, True, 0)
         self.box.pack_end(export_all_button, False, False, 0)
 
+        self.headerbar = Gtk.HeaderBar()
+        self.headerbar.set_show_close_button(True)  # type: ignore[arg-type]
+        self.headerbar.props.title = translate("Multi-Export")  # type: ignore[attr-defined]
+        self.headerbar.pack_start(add_export_target_button)  # type: ignore[arg-type]
+        self.headerbar.pack_end(self.remove_button)  # type: ignore[arg-type]
+        self.headerbar.pack_end(save_as_button)  # type: ignore[arg-type]
+        self.headerbar.pack_end(self.presets_dropdown)  # type: ignore[arg-type]
+        self.set_titlebar(self.headerbar)
+
+        self.set_preset(0)
+
         self.show_all()
 
+    def load_presets(self) -> None:
+        self.presets = [
+            "default",
+        ]
+        for filename in sorted(os.listdir(USER_EXPORT_CONFIG_DIR)):
+            if filename.startswith(CONFIG_FILE_PREFIX):
+                preset_name = filename.rsplit(
+                    ".json", maxsplit=1,
+                )[0].split(
+                    CONFIG_FILE_PREFIX, maxsplit=1,
+                )[1]
+                if preset_name not in self.presets:
+                    self.presets.append(preset_name)
+        self.options_store.clear()
+        for preset in self.presets:
+            self.options_store.append([preset])
+
+    def set_preset(self, preset_idx: int = 0) -> None:
+        self.current_preset = self.presets[preset_idx]
+        self.presets_dropdown.set_active(preset_idx)
+
+    def _on_save_as_preset(self, _button: Gtk.Button) -> None:
+        dialog = SaveAsDialog(transient_for=self, entry_text="")
+        if not dialog_is_yes(dialog):
+            return
+        new_preset_name = dialog.entry_text
         self.config = CommonOomoxConfig(
             config_dir=USER_EXPORT_CONFIG_DIR,
-            config_name="multi_export",
+            config_name=f"{CONFIG_FILE_PREFIX}{new_preset_name}",
+            force_reload=True,
+        )
+        self.save_preset_layout_to_config()
+        self.load_presets()
+        self.set_preset(self.presets.index(new_preset_name))
+
+    def _on_remove_preset(self, _button: Gtk.Button) -> None:
+        if self.current_preset == "default":
+            return
+        if not dialog_is_yes(RemoveDialog(transient_for=self)):
+            return
+        os.unlink(
+            os.path.join(
+                USER_EXPORT_CONFIG_DIR,
+                f"{CONFIG_FILE_PREFIX}{self.current_preset}.json",
+            ),
+        )
+        self.load_presets()
+        self.set_preset(0)
+
+    def on_preset_changed(self, widget: Gtk.ComboBox) -> None:
+        self.remove_all_export_targets()
+        preset_idx = widget.get_active()
+        self.current_preset = self.presets[preset_idx]
+        self.remove_button.set_sensitive(self.current_preset != "default")
+        self.config = CommonOomoxConfig(
+            config_dir=USER_EXPORT_CONFIG_DIR,
+            config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
             force_reload=True,
         )
         for _idx, data in self.config.config.items():
@@ -180,7 +303,11 @@ class MultiExportDialog(BaseClass):
             if plugin_name and plugin_config:
                 self.add_export_target(plugin_name, plugin_config)
 
-    def _on_remove_export_target(self, export: ExportWrapper) -> None:
+    def remove_all_export_targets(self) -> None:
+        for export in self.added_plugins[:]:
+            self.remove_export_target(export)
+
+    def remove_export_target(self, export: ExportWrapper) -> None:
         self.added_plugins.remove(export)
         self.background.remove(export)
 
@@ -202,7 +329,7 @@ class MultiExportDialog(BaseClass):
                 base_class=Gtk.Box,  # type: ignore[arg-type]
                 override_config=default_config,
             ),
-            remove_callback=lambda _x: self._on_remove_export_target(export),
+            remove_callback=lambda _x: self.remove_export_target(export),
         )
         export.export_dialog.box.remove(export.export_dialog.apply_button)
         self.added_plugins.append(export)
@@ -213,12 +340,17 @@ class MultiExportDialog(BaseClass):
         export_plugin_name = action.props.name.replace("export_plugin_", "")  # type: ignore[attr-defined]
         self.add_export_target(export_plugin_name)
 
-    def _on_export_all(self, _button: Gtk.Button) -> None:
+    def save_preset_layout_to_config(self) -> None:
         self.config.config = {}
         for idx, export in enumerate(self.added_plugins):
-            export.export_dialog.do_export()
+            export.export_dialog.remove_preset_name_from_path_config()
             self.config.config[str(idx)] = {
                 "name": export.name,
                 "config": export.export_dialog.export_config.config,
             }
         self.config.save()
+
+    def _on_export_all(self, _button: Gtk.Button) -> None:
+        for _idx, export in enumerate(self.added_plugins):
+            export.export_dialog.do_export()
+        self.save_preset_layout_to_config()
