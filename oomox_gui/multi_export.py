@@ -328,6 +328,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
                 colorscheme=self.colorscheme,
                 base_class=Gtk.Box,  # type: ignore[arg-type]
                 override_config=default_config,
+                preview_theme=False,
             ),
             remove_callback=lambda _x: self.remove_export_target(export),
         )

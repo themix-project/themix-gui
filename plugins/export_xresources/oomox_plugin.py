@@ -38,16 +38,22 @@ class XresourcesExportDialog(DialogWithExportPath):
     config_name = "xresources"
     default_export_dir = f"{os.environ['HOME']}/.Xresources_themes"
 
-    def __init__(self, *args: "Any", **kwargs: "Any") -> None:
+    def __init__(
+            self,
+            *args: "Any",
+            preview_theme: bool = True,
+            **kwargs: "Any",
+    ) -> None:
         super().__init__(
             *args,
             headline=translate("Terminal Colorscheme"),
             height=440,
             **kwargs,
         )
-        self.label.set_text(translate("Paste this colorscheme to your ~/.Xresources:"))
-        self.show_text()
-        self.scrolled_window.show_all()
+        if preview_theme:
+            self.label.set_text(translate("Paste this colorscheme to your ~/.Xresources:"))
+            self.show_text()
+            self.scrolled_window.show_all()
         try:
             term_colorscheme = generate_xrdb_theme_from_oomox(self.colorscheme)
             self.xresources_theme = generate_xresources(term_colorscheme)
