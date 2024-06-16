@@ -110,10 +110,14 @@ else
 	./maintenance_scripts/get_global_expressions.sh "${TARGETS[@]}"
 	echo ':: check passed ::'
 
-	echo -e "\n== Ruff..."
-	install_ruff
-	"$RUFF" check "${TARGETS[@]}"
-	echo ':: ruff passed ::'
+	if [[ "${SKIP_RUFF:-}" = "1" ]] ; then
+		echo -e "\n!! WARNING !! skipping Ruff"
+	else
+		echo -e "\n== Ruff..."
+		install_ruff
+		"$RUFF" check "${TARGETS[@]}"
+		echo ':: ruff passed ::'
+	fi
 
 	echo -e "\n== Running flake8:"
 	flake8 "${TARGETS[@]}" 2>&1
