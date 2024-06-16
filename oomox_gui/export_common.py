@@ -48,6 +48,9 @@ class ExportConfig(CommonOomoxConfig):
         )
 
 
+PossibleBaseClass = type[Gtk.Box | Gtk.Dialog]
+
+
 class ExportDialogT(Gtk.Dialog):
     base_class: type[Gtk.Dialog]
 
@@ -56,17 +59,12 @@ class ExportBoxT(Gtk.Box):
     base_class: type[Gtk.Box]
 
 
-# PossibleBaseClass = type[Gtk.Box | Gtk.Dialog]
-# ExportBaseClassT = TypeVar("ExportBaseClassT", bound=PossibleBaseClass)
-# ExportBaseClassT = TypeVar("ExportBaseClassT", Gtk.Dialog, Gtk.Box)
 ExportBaseClassT = TypeVar("ExportBaseClassT", ExportDialogT, ExportBoxT)
 
 # # ExportWrapperBase = GObject.Object
-# ExportWrapperBase: "Final[type]" = object
 ExportWrapperBase = Generic
 
 
-# class ExportWrapper(ExportWrapperBase):
 class ExportWrapper(Generic[ExportBaseClassT]):
     """
     Base class with ability to choose its parent class at the runtime.
@@ -74,13 +72,12 @@ class ExportWrapper(Generic[ExportBaseClassT]):
     inside Gtk.Dialog or Gtk.Box.
     """
 
-    # base_class: PossibleBaseClass
-    base_class: type[ExportBaseClassT]
+    base_class: PossibleBaseClass
 
     def __new__(  # type: ignore[misc]
             cls,
             *_args: "Any",
-            base_class: type[ExportBaseClassT] = Gtk.Dialog,  # type: ignore[assignment]
+            base_class: PossibleBaseClass = Gtk.Dialog,
             **_kwargs: "Any",
     ) -> ExportBaseClassT:
         new_mro = []
@@ -91,10 +88,10 @@ class ExportWrapper(Generic[ExportBaseClassT]):
         new_mro += list(base_class.__mro__)
         new_class = type(cls.__name__, tuple(new_mro), dict(cls.__dict__))
         nongobject_check_class_for_gobject_metas(new_class)
-        result: ExportBaseClassT = super(  # type: ignore[misc]  # pylint: disable=bad-super-call
+        result: ExportBaseClassT = super(  # type: ignore[arg-type]  # pylint: disable=bad-super-call
             base_class, new_class,
         ).__new__(new_class)
-        result.base_class = base_class
+        result.base_class = base_class  # type: ignore[assignment]
         return result
 
     def __init__(  # type: ignore[misc]
@@ -116,9 +113,9 @@ class ExportWrapper(Generic[ExportBaseClassT]):
         else:
             raise NotImplementedError
 
-    def get_content_area(self: ExportBaseClassT) -> ExportBoxT:  # type: ignore[misc]
+    def get_content_area(self: ExportBaseClassT) -> ExportBoxT | Gtk.Box:  # type: ignore[misc]
         if self.base_class is Gtk.Dialog:
-            return super().get_content_area()  # type: ignore[misc,return-value]  # pylint: disable=no-member
+            return super().get_content_area()  # type: ignore[misc]  # pylint: disable=no-member
         if self.base_class is Gtk.Box:
             return self  # type: ignore[return-value]
         raise NotImplementedError
