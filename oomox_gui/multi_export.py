@@ -25,7 +25,7 @@ if TYPE_CHECKING:
     from .theme_file import ThemeT
 
 
-BaseClass = WindowWithActions
+BaseClass = WindowWithActions  # checkglobals-ignore
 
 
 DEFAULT_PADDING: "Final[int]" = 8

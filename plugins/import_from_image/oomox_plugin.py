@@ -31,23 +31,24 @@ from oomox_gui.theme_model import get_first_theme_option
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Sequence
-    from typing import Annotated, Any
+    from types import ModuleType
+    from typing import Annotated, Any, Final
 
     from oomox_gui.color import HexColor, IntColor
     from oomox_gui.theme_file import ThemeT
 
 
-PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
+PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
 
 
-LOW_QUALITY = 100
-MEDIUM_QUALITY = 200
-HIGH_QUALITY = 400
-# ULTRA_QUALITY = 1000
+LOW_QUALITY: "Final" = 100
+MEDIUM_QUALITY: "Final" = 200
+HIGH_QUALITY: "Final" = 400
+# ULTRA_QUALITY: "Final" = 1000
 
-ACCURACY = 40
+ACCURACY: "Final" = 40
 
-image_analyzer = get_plugin_module("ima", os.path.join(PLUGIN_DIR, "ima.py"))
+image_analyzer: "ModuleType" = get_plugin_module("ima", os.path.join(PLUGIN_DIR, "ima.py"))
 
 
 def sort_by_saturation(c: "IntColor") -> int:  # pylint: disable=invalid-name

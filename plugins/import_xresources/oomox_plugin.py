@@ -1,11 +1,12 @@
 import os
 import subprocess
+from typing import Final
 
 from oomox_gui.config import DEFAULT_ENCODING
 from oomox_gui.plugin_api import OomoxImportPlugin
 from oomox_gui.theme_model import get_theme_model
 
-PLUGIN_DIR = os.path.dirname(os.path.realpath(__file__))
+PLUGIN_DIR: Final = os.path.dirname(os.path.realpath(__file__))
 
 
 class XrdbCache:

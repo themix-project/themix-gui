@@ -62,7 +62,7 @@ class ExportBoxT(Gtk.Box):
 ExportBaseClassT = TypeVar("ExportBaseClassT", ExportDialogT, ExportBoxT)
 
 # # ExportWrapperBase = GObject.Object
-ExportWrapperBase = Generic
+ExportWrapperBase = Generic  # checkglobals-ignore
 
 
 class ExportWrapper(Generic[ExportBaseClassT]):

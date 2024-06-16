@@ -4,7 +4,7 @@
 
 from vulture.whitelist_utils import Whitelist  # pylint: disable=import-error,no-name-in-module
 
-whitelist = Whitelist()
+whitelist: Whitelist = Whitelist()
 
 # typehints
 whitelist.typing.Any

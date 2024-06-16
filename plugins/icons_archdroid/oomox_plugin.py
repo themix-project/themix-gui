@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 PLUGIN_DIR: "Final" = os.path.dirname(os.path.realpath(__file__))
-ARCHDROID_THEME_DIR = os.path.join(PLUGIN_DIR, "archdroid-icon-theme/")
+ARCHDROID_THEME_DIR: "Final" = os.path.join(PLUGIN_DIR, "archdroid-icon-theme/")
 
 
 class ArchdroidIconsExportDialog(CommonIconThemeExportDialog):

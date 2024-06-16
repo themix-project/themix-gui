@@ -4,16 +4,20 @@ import os
 import subprocess  # nosec B404
 import sys
 import tempfile
+from typing import Final
 
-MAKEFILE = "./Makefile"
+MAKEFILE: str = "./Makefile"
 if len(sys.argv) > 1:
     MAKEFILE = sys.argv[1]
 
-DEFAULT_ENCODING = "utf-8"
-MAKE_SHELL = os.environ.get("MAKE_SHELL", "sh")
+DEFAULT_ENCODING: Final = "utf-8"
+MAKE_SHELL: Final = os.environ.get("MAKE_SHELL", "sh")
 # SKIP_TARGETS_WITH_CHARS = ("%", )
-SKIP_TARGETS_WITH_CHARS = ("%", "/")
-SKIP_TARGETS = (".PHONY", ".PRECIOUS")
+SKIP_TARGETS_WITH_CHARS: Final = ("%", "/")
+SKIP_TARGETS: Final = (".PHONY", ".PRECIOUS")
+
+
+_ALL: Final = "all"
 
 
 def get_targets() -> list[str]:
@@ -28,10 +32,11 @@ def get_targets() -> list[str]:
         ],
         encoding=DEFAULT_ENCODING,
     ).splitlines()
+    not_a_target_comment = "# Not a target:"
 
     targets = []
     for idx, line in enumerate(lines):
-        if lines[idx - 1] == "# Not a target:":
+        if lines[idx - 1] == not_a_target_comment:
             continue
 
         word = line.split(" ", maxsplit=1)[0]
@@ -53,8 +58,8 @@ def get_targets() -> list[str]:
     targets = sorted(set(targets), reverse=True)
 
     # check it last:
-    targets.remove("all")
-    targets.append("all")
+    targets.remove(_ALL)
+    targets.append(_ALL)
     return targets
 
 
@@ -74,8 +79,8 @@ def print_error_in_target(target: str) -> None:
 def main() -> None:
     print("Starting the check...")
     targets = get_targets()
-    if "all" not in targets:
-        print("ERROR: `all` target is not defined.")
+    if _ALL not in targets:
+        print(f"ERROR: `{_ALL}` target is not defined.")
         sys.exit(1)
 
     print("\nMake targets:")

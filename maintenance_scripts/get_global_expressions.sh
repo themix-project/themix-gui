@@ -5,6 +5,8 @@ result=$(
 	grep -REn "^[a-zA-Z_]+ = [^'\"].*" "$@" --color=always \
 	| grep -Ev \
 		-e ': Final' \
+		-e ' # nonfinal-ignore' \
+		-e ' # checkglobals-ignore' \
 		\
 		-e ' =.*\|' \
 		-e ' = [a-zA-Z_]+\[' \
