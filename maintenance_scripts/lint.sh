@@ -42,13 +42,15 @@ printf "Remaining arguments are: %s\n$*"
 
 
 PYTHON=python3
+TARGET_MODULE='oomox_gui'
 TARGETS=(
 	'./oomox_gui/'
 	./plugins/*/oomox_plugin.py
 	./maintenance_scripts/*.py
 )
-TARGET_MODULE='oomox_gui'
-export PYTHONWARNINGS='default,error:::'"$TARGET_MODULE"'[.*],error:::plugins[.*]'
+if [[ -n "${1:-}" ]] ; then
+	TARGETS=("$@")
+fi
 
 
 install_ruff() {
@@ -64,7 +66,7 @@ RUFF="${APP_DIR}/env/bin/ruff"
 
 
 if [[ "$CHECK_RUFF_RULES" -eq 1 ]] ; then
-	echo Ruff rules up-to-date...
+	echo -e "\n== Checking Ruff rules up-to-date:"
 	install_ruff
 	"$APP_DIR"/env/bin/pip install -U ruff
 	diff --color -u \
@@ -84,37 +86,47 @@ elif [[ "$FIX_MODE" -eq 1 ]] ; then
 	done
 	"$RUFF" check --unsafe-fixes --fix "${TARGETS[@]}"
 else
+	export PYTHONWARNINGS='default,error:::'"$TARGET_MODULE"'[.*],error:::plugins[.*]'
+
 	echo '== Running on system python'
-	python3 --version
+	"$PYTHON" --version
 
 	echo -e "\n== Running python compile:"
-	python3 -O -m compileall "${TARGETS[@]}" | (grep -v -e '^Listing' -e '^Compiling' || true)
+	"$PYTHON" -O -m compileall "${TARGETS[@]}" \
+	| (\
+		grep -v -e '^Listing' -e '^Compiling' || true \
+	)
 	echo ':: python compile passed ::'
 
 	echo -e "\n== Running python import:"
-	python3 -c "import ${TARGET_MODULE}.main"
+	"$PYTHON" -c "import ${TARGET_MODULE}.main"
 	echo ':: python import passed ::'
 
 	echo -e "\n== Checking for non-Final globals:"
-	./maintenance_scripts/get_non_final_expressions.sh
+	./maintenance_scripts/get_non_final_expressions.sh "${TARGETS[@]}"
 	echo ':: check passed ::'
 
-	echo Ruff...
+	echo -e "\n== Checking for unreasonable global vars:"
+	./maintenance_scripts/get_global_expressions.sh "${TARGETS[@]}"
+	echo ':: check passed ::'
+
+	echo -e "\n== Ruff..."
 	install_ruff
 	"$RUFF" check "${TARGETS[@]}"
+	echo ':: ruff passed ::'
 
 	echo -e "\n== Running flake8:"
 	flake8 "${TARGETS[@]}" 2>&1
 	echo ':: flake8 passed ::'
 
 	echo -e "\n== Running pylint:"
-	pylint "${TARGETS[@]}" --score no 2>&1 \
-	| (
-		grep -v \
-			-e "^  warnings.warn($" \
-			-e "^/usr/lib/python3.10/site-packages/" \
-		|| true \
-	)
+	pylint "${TARGETS[@]}" --score no 2>&1
+	#| (
+	#    grep -v \
+	#        -e "^  warnings.warn($" \
+	#        -e "^/usr/lib/python3.10/site-packages/" \
+	#    || true \
+	#)
 	echo ':: pylint passed ::'
 
 
@@ -150,9 +162,22 @@ else
 	else
 		echo -e "\n== Running shellcheck:"
 		./maintenance_scripts/shellcheck.sh
+		echo ':: shellcheck passed ::'
 		echo -e "\n== Running shellcheck on Makefile..."
 		./maintenance_scripts/makefile_shellcheck.py
+		echo ':: shellcheck makefile passed ::'
 	fi
+
+	echo -e "\n== Validate pyproject file..."
+	(
+		exit_code=0
+		result=$(validate-pyproject pyproject.toml 2>&1) || exit_code=$?
+		if [[ $exit_code -gt 0 ]] ; then
+			echo "$result"
+			exit $exit_code
+		fi
+	)
+	echo ':: pyproject validation passed ::'
 fi
 
 

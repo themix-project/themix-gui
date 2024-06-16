@@ -2,20 +2,17 @@
 set -ue
 
 result=$(
-	grep -REn "^[a-zA-Z_]+ = " "$@" --color=always \
+	grep -REn "^[a-zA-Z_]+ = [^'\"].*" "$@" --color=always \
 	| grep -Ev \
 		-e ': Final' \
 		\
-		-e '\|' \
-		-e '(dict|list)\[' \
+		-e ' =.*\|' \
+		-e ' = [a-zA-Z_]+\[' \
+		-e ' = str[^(]' \
 		-e TypeVar \
-		-e Sequence \
-		-e Generic \
 		-e namedtuple \
 		\
-		-e 'BaseClass' \
-		-e 'HexColor' \
-		-e 'ColorScheme' \
+		-e 'create_logger\(|running_as_root|sudo' \
 	| sort
 )
 echo -n "$result"
