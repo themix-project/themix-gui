@@ -41,6 +41,7 @@ class XresourcesExportDialog(ExportDialog):
             **kwargs,
         )
         self.label.set_text(translate("Paste this colorscheme to your ~/.Xresources:"))
+        self.show_text()
         self.scrolled_window.show_all()
         try:
             term_colorscheme = generate_xrdb_theme_from_oomox(self.colorscheme)
