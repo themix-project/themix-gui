@@ -123,6 +123,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             theme_name: str,
             width: int = 600,
             height: int = 600,
+            export_layout: str | None = None,
     ) -> None:
         BaseClass.__init__(self, Gtk.WindowType.TOPLEVEL)  # type: ignore[arg-type]
         self.transient_for = transient_for
@@ -242,7 +243,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.set_titlebar(self.headerbar)
 
         last_preset_idx = 0
-        last_preset = self.meta_config.config.get(LAST_PRESET)
+        last_preset = export_layout or self.meta_config.config.get(LAST_PRESET)
         if last_preset and last_preset in self.presets:
             last_preset_idx = self.presets.index(last_preset)
 
