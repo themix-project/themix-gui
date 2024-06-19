@@ -30,7 +30,10 @@ def print_help() -> None:
 
 
 def main() -> None:
-    if len(sys.argv) < (NUM_ARGS + 1):
+    if (
+        ((len(sys.argv) >= (1 + 1)) and sys.argv[1] in {"-h", "--help"})
+        or (len(sys.argv) < (NUM_ARGS + 1))
+    ):
         print_help()
         sys.exit(1)
 

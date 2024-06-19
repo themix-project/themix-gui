@@ -186,6 +186,23 @@ If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugi
 
 
 
+#### Multi-Export CLI
+
+
+```sh
+themix-multi-export --help
+```
+
+or
+
+```sh
+./multi_export_cli.sh --help
+```
+
+Example multi-export config file could be found in `./export_config_examples` directory of this git repository.
+
+
+
 #### Spotify:
 
 Spotify theme can be also exported from GUI, but if you prefer commandline interface:
