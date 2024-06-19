@@ -2,6 +2,8 @@ import importlib
 import os
 import re
 import sys
+import warnings
+from types import TracebackType
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -76,3 +78,44 @@ def delayed_partial(
 
 def log_error(info: "Any") -> None:
     sys.stderr.write(f"{info!s}\n")
+
+
+class SuppressWarningsFilter:
+
+    warn_list: list[warnings.WarningMessage]
+
+    def __init__(self, warning_class: type, message: str) -> None:
+        self.warning_class = warning_class
+        self.warning_message = message
+        self.warning_manager = warnings.catch_warnings(record=True)
+
+    def __enter__(self) -> None:
+        self.warn_list = self.warning_manager.__enter__()
+
+    def __exit__(
+            self,
+            exc_class: type[BaseException] | None,
+            exc_instance: BaseException | None,
+            exc_tb: TracebackType | None,
+    ) -> None:
+        if exc_instance:
+            raise exc_instance
+        self.warning_manager.__exit__(exc_class, exc_instance, exc_tb)
+        for warn in self.warn_list:
+            if (
+                (not sys.warnoptions)
+                and (warn.category is self.warning_class)
+                and (isinstance(warn.message, Warning))
+                and (warn.message.args)
+                and (
+                    warn.message.args[0] == self.warning_message,
+                )
+            ):
+                pass
+            else:
+                warnings.showwarning(
+                    message=warn.message,
+                    category=warn.category,
+                    filename=warn.filename,
+                    lineno=warn.lineno,
+                )
