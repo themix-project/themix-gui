@@ -1,6 +1,8 @@
 import os
 import subprocess
+import sys
 import tempfile
+import warnings
 from threading import Thread
 from typing import (
     TYPE_CHECKING,
@@ -86,9 +88,30 @@ class ExportWrapper(Generic[ExportBaseClassT]):
                 break
             new_mro.append(base)
         new_mro += list(base_class.__mro__)
-        new_class = type(cls.__name__, tuple(new_mro), dict(cls.__dict__))
+        new_class: type[ExportBaseClassT]
+        with warnings.catch_warnings(record=True) as warn_list:
+            new_class = type(cls.__name__, tuple(new_mro), dict(cls.__dict__))
+        for warn in warn_list:
+            if (
+                (not sys.warnoptions)
+                and (warn.category is RuntimeWarning)
+                and (isinstance(warn.message, Warning))
+                and (warn.message.args)
+                and (
+                    warn.message.args[0]
+                    == "Interface type gobject.GInterface has no Python implementation support",
+                )
+            ):
+                pass
+            else:
+                warnings.showwarning(
+                    message=warn.message,
+                    category=warn.category,
+                    filename=warn.filename,
+                    lineno=warn.lineno,
+                )
         nongobject_check_class_for_gobject_metas(new_class)
-        result: ExportBaseClassT = super(  # type: ignore[arg-type]  # pylint: disable=bad-super-call
+        result: ExportBaseClassT = super(  # type: ignore[arg-type]  # pylint: disable=bad-super-call,no-value-for-parameter  # noqa: E501,RUF100
             base_class, new_class,
         ).__new__(new_class)
         result.base_class = base_class  # type: ignore[assignment]
