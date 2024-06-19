@@ -525,8 +525,9 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
     def _before_quit(self) -> None:
         self.ask_unsaved_changes()
-        self.ui_settings.window_width, self.ui_settings.window_height = self.get_size()
-        self.ui_settings.save()
+        if self.show_window:
+            self.ui_settings.window_width, self.ui_settings.window_height = self.get_size()
+            self.ui_settings.save()
 
     def _on_quit(self, _arg1: "Any" = None, _arg2: "Any" = None) -> None:
         self._before_quit()
@@ -778,7 +779,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             raise NoWindowError
         return cls._window_instance
 
-    def __init__(self, application: "OomoxGtkApplication") -> None:
+    def __init__(self, application: "OomoxGtkApplication", show_window: bool = True) -> None:
         super().__init__(
             application=application,
             title=translate("Themix GUI"),
@@ -789,6 +790,11 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.colorscheme = {}
         mkdir_p(USER_COLORS_DIR)
         self.ui_settings = UISettings()
+        self.show_window = show_window
+        if not self.show_window:
+            self.add(Gtk.Label(translate("Multi-Export in progress...")))
+            self.show_all()
+            return
 
         self._init_actions()
         self._init_window()
@@ -822,7 +828,7 @@ class OomoxGtkApplication(Gtk.Application):
 
     window: OomoxApplicationWindow | None = None
 
-    def __init__(self) -> None:
+    def __init__(self, show_window: bool = True) -> None:
         super().__init__(
             application_id="com.github.themix_project.Oomox",
             flags=(
@@ -830,6 +836,7 @@ class OomoxGtkApplication(Gtk.Application):
                 Gio.ApplicationFlags.NON_UNIQUE
             ),
         )
+        self.show_window = show_window
         # @TODO: use oomox-gui as the only one entrypoint to all cli tools
         # self.add_main_option("test", ord("t"), GLib.OptionFlags.NONE,
         # GLib.OptionArg.NONE, "Command line test", None)
@@ -930,7 +937,7 @@ class OomoxGtkApplication(Gtk.Application):
 
     def do_activate(self) -> None:  # pylint: disable=arguments-differ
         if not self.window:
-            self.window = OomoxApplicationWindow(application=self)
+            self.window = OomoxApplicationWindow(application=self, show_window=self.show_window)
         self.window.present()
 
     def do_command_line(self, _command_line: None) -> int:  # pylint: disable=arguments-differ
