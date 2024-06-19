@@ -30,6 +30,7 @@ BaseClass = WindowWithActions  # checkglobals-ignore
 
 DEFAULT_PADDING: "Final[int]" = 8
 CONFIG_FILE_PREFIX: "Final[str]" = "multi_export_"
+LAST_PRESET = "last_preset"
 
 
 class SaveAsDialog(EntryDialog):
@@ -129,6 +130,12 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.colorscheme = colorscheme
         self.colorscheme_name = theme_name
         self.set_default_size(width, height)
+
+        self.meta_config = CommonOomoxConfig(
+            config_dir=USER_EXPORT_CONFIG_DIR,
+            config_name=f"{CONFIG_FILE_PREFIX}",
+            force_reload=True,
+        )
 
         self.box = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL, spacing=DEFAULT_PADDING,
@@ -234,7 +241,12 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.headerbar.pack_end(self.presets_dropdown)  # type: ignore[arg-type]
         self.set_titlebar(self.headerbar)
 
-        self.set_preset(0)
+        last_preset_idx = 0
+        last_preset = self.meta_config.config.get(LAST_PRESET)
+        if last_preset and last_preset in self.presets:
+            last_preset_idx = self.presets.index(last_preset)
+
+        self.set_preset(last_preset_idx)
 
         self.show_all()
 
@@ -350,6 +362,8 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
                 "config": export.export_dialog.export_config.config,
             }
         self.config.save()
+        self.meta_config.config[LAST_PRESET] = self.current_preset
+        self.meta_config.save()
 
     def _on_export_all(self, _button: Gtk.Button) -> None:
         for _idx, export in enumerate(self.added_plugins):
