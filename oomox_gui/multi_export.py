@@ -378,7 +378,10 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.meta_config.config[LAST_PRESET] = self.current_preset
         self.meta_config.save()
 
-    def _on_export_all(self, _button: Gtk.Button) -> None:
+    def export_all(self) -> None:
         for _idx, export in enumerate(self.added_plugins):
             export.export_dialog.do_export()
+
+    def _on_export_all(self, _button: Gtk.Button) -> None:
+        self.export_all()
         self.save_preset_layout_to_config()
