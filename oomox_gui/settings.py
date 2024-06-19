@@ -19,7 +19,7 @@ class CommonOomoxConfig:
     config_path: str
     default_config: dict[str, str]
     config: dict[str, "Any"]
-    config_cache: dict[str, dict[str, "Any"]] | None = None
+    config_cache: dict[str, dict[str, "Any"]]
 
     def __init__(
             self,
@@ -56,7 +56,7 @@ class CommonOomoxConfig:
             force_reload: bool,
     ) -> dict[str, "Any"]:
         if force_reload or not getattr(cls, "config", None):
-            if not cls.config_cache:
+            if not getattr(cls, "config_cache", None):
                 cls.config_cache = {}
             cls.config_cache[config_path] = default_config or {}
             try:

@@ -202,7 +202,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
     def set_text(self, text: str) -> None:
         self.log.get_buffer().set_text(text)
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
             self,
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
