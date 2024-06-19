@@ -211,6 +211,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
             width: int = 150,
             height: int = 80,
             base_class: type[ExportBaseClassT] = Gtk.Dialog,  # type: ignore[assignment]
+            callback: "Callable[[], None] | None" = None,
             **_kwargs: "Any",
     ) -> None:
         headline = headline or translate("Export Theme")
@@ -218,6 +219,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
 
         # @TODO: make sure it doesn't break things:
         self.colorscheme = colorscheme
+        self.callback = callback
         # from .terminal import generate_terminal_colors_for_oomox
         # self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
 
@@ -274,6 +276,11 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
 
         self.show_all()  # type: ignore[attr-defined]  # pylint: disable=no-member
         self.box.add(self.spinner)
+
+    def dialog_done(self) -> None:
+        super().dialog_done()
+        if self.callback:
+            self.callback()
 
     def do_export(self) -> None:
         self.box.remove(self.options_box)
