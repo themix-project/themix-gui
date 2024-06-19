@@ -321,7 +321,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             return
         export = ExportWrapper(
             name=export_plugin_name,
-            plugin=plugin,
+            plugin=plugin.__class__(),
             export_dialog=plugin.export_dialog(
                 transient_for=self,
                 theme_name=self.colorscheme_name,
