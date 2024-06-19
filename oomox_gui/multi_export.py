@@ -124,12 +124,14 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             width: int = 600,
             height: int = 600,
             export_layout: str | None = None,
+            export_callback: "Callable[[MultiExportDialog], None] | None" = None,
     ) -> None:
         BaseClass.__init__(self, Gtk.WindowType.TOPLEVEL)  # type: ignore[arg-type]
         self.transient_for = transient_for
         self.added_plugins = []
         self.colorscheme = colorscheme
         self.colorscheme_name = theme_name
+        self.export_callback = export_callback
         self.set_default_size(width, height)
 
         self.meta_config = CommonOomoxConfig(
@@ -324,6 +326,15 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.added_plugins.remove(export)
         self.background.remove(export)
 
+    callback_counter = 0
+
+    def _on_export_callback(self) -> None:
+        if not self.export_callback:
+            return
+        self.callback_counter += 1
+        if self.callback_counter == len(self.added_plugins):
+            self.export_callback(self)
+
     def add_export_target(
             self,
             export_plugin_name: str,
@@ -342,6 +353,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
                 base_class=Gtk.Box,  # type: ignore[arg-type]
                 override_config=default_config,
                 preview_theme=False,
+                callback=self._on_export_callback,
             ),
             remove_callback=lambda _x: self.remove_export_target(export),
         )
