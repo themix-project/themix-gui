@@ -30,7 +30,7 @@ BaseClass = WindowWithActions  # checkglobals-ignore
 
 DEFAULT_PADDING: "Final[int]" = 8
 CONFIG_FILE_PREFIX: "Final[str]" = "multi_export_"
-LAST_PRESET = "last_preset"
+LAST_PRESET: "Final[str]" = "last_preset"
 
 
 class SaveAsDialog(EntryDialog):
