@@ -25,7 +25,7 @@ class ActionProperty(str):
         return obj
 
     def get_id(self) -> str:
-        return ".".join([self.target, self.name])
+        return f"{self.target}.{self.name}"
 
 
 class ActionsEnum(metaclass=ABCMeta):

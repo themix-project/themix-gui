@@ -84,7 +84,7 @@ elif [[ "$FIX_MODE" -eq 1 ]] ; then
 	for file in $(flake8 "${TARGETS[@]}" 2>&1 | cut -d: -f1 | uniq) ; do
 		autopep8 --in-place "$file"
 	done
-	"$RUFF" check --unsafe-fixes --fix "${TARGETS[@]}"
+	"$RUFF" check --fix "${TARGETS[@]}"
 else
 	export PYTHONWARNINGS='default,error:::'"$TARGET_MODULE"'[.*],error:::plugins[.*]'
 

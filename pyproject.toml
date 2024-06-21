@@ -10,6 +10,7 @@ aggressive = 1
 
 [tool.ruff]
 line-length = 120
+unsafe-fixes = true
 
 [tool.ruff.lint.mccabe]
 max-complexity = 19
@@ -59,6 +60,25 @@ select = [
     "TRY",
     #"PTH", # @TODO: refactor os.path to pathlib.Path
     "RUF",
+    "AIR",
+    "ASYNC",
+    #"CPY",  # @TODO: add copyrights
+    #"DJ",  # django
+    "FA",
+    "FIX",
+    "FLY",
+    #"FURB",
+    "G",
+    "INT",
+    "LOG",
+    #"NPY",  # numpy
+    #"PERF",
+    #"PYI",
+    "RSE",
+    "SLF",
+    #"SLOT",
+    "TD",
+    "TRIO",
 ]
 ignore = [
     # enable back later:
