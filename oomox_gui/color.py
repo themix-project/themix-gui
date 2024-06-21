@@ -25,7 +25,7 @@ def hex_to_int(text: "HexColor") -> int:
     return int(f"0x{text}", 0)
 
 
-def int_to_hex(num: int | float) -> "HexColor":
+def int_to_hex(num: float) -> "HexColor":
     return f"{int(num):02x}"
 
 

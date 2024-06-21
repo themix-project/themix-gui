@@ -585,11 +585,12 @@ def get_theme_options_by_key(
         key: str,
         fallback: "ThemeModelValue | None" = None,
 ) -> "list[ThemeModelValue]":
-    result = []
-    for _section_id, section in get_theme_model().items():
-        for theme_option in section:
-            if key == theme_option.get("key"):
-                result.append(theme_option)
+    result = [
+        theme_option
+        for section in get_theme_model().values()
+        for theme_option in section
+        if key == theme_option.get("key")
+    ]
     if not result and fallback:
         return [fallback]
     return result

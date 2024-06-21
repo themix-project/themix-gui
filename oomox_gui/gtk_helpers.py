@@ -268,14 +268,15 @@ class GObjectABCMeta(GObjectMeta, type):
                 )
         ):
             required_methods = getattr(cls, cls.ABS_METHODS, [])
-            missing_methods = []
-            for method_name in required_methods:
+            missing_methods = [
+                method_name
+                for method_name in required_methods
                 if (
-                        not any(method_name in B.__dict__ for B in cls.__mro__)
+                    not any(method_name in B.__dict__ for B in cls.__mro__)
                 ) and (
                     method_name not in this_required_methods
-                ):
-                    missing_methods.append(method_name)
+                )
+            ]
             if missing_methods:
                 missing_methods_error = (
                     f"Can't instantiate abstract class {cls.__name__}"

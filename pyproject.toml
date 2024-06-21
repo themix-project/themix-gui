@@ -72,8 +72,8 @@ select = [
     "INT",
     "LOG",
     #"NPY",  # numpy
-    #"PERF",
-    #"PYI",
+    "PERF",
+    "PYI",
     "RSE",
     "SLF",
     #"SLOT",

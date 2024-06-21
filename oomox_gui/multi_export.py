@@ -312,7 +312,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
             force_reload=True,
         )
-        for _idx, data in self.config.config.items():
+        for data in self.config.config.values():
             plugin_name = data.get("name")
             plugin_config = data.get("config")
             if plugin_name and plugin_config:

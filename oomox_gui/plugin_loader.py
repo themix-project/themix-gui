@@ -85,7 +85,7 @@ class PluginLoader:
         for plugin_name, plugin_path in all_plugin_paths.items():
             try:
                 cls.load_plugin(plugin_name, plugin_path)
-            except Exception as exc:
+            except Exception as exc:  # noqa: PERF203
                 message_header = translate('Error loading plugin "{plugin_name}"').format(
                     plugin_name=plugin_name,
                 )

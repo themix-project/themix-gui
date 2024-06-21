@@ -1,6 +1,5 @@
 import os
-from collections import namedtuple
-from typing import TYPE_CHECKING, overload
+from typing import TYPE_CHECKING, NamedTuple, overload
 
 from gi.repository import Gdk, GLib, Gtk
 
@@ -19,7 +18,9 @@ if TYPE_CHECKING:
     from .theme_file import PresetFile
 
 
-Section = namedtuple("Section", ["id", "display_name"])
+class Section(NamedTuple):
+    name: str
+    display_name: str
 
 
 class Sections:
@@ -171,7 +172,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             try:
                 self.treestore.get_iter(treepath)
                 path_found = True
-            except ValueError:
+            except ValueError:  # noqa: PERF203
                 treepath.prev()
         self.treeview.expand_to_path(treepath)  # type: ignore[arg-type]
         self.treeview.set_cursor(treepath)
@@ -225,7 +226,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
     ) -> Gtk.TreeIter:
         return self._add_directory(
             template="<b>{}</b>", name=section.display_name,
-            parent=parent, tree_id=section.id,
+            parent=parent, tree_id=section.name,
         )
 
     @staticmethod
@@ -339,7 +340,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 dirname=preset_dir, preset_list=preset_list,
                 parent=presets_iter,
             )
-        if self.ui_settings.preset_list_sections_expanded.get(Sections.PRESETS.id, True):
+        if self.ui_settings.preset_list_sections_expanded.get(Sections.PRESETS.name, True):
             self.treeview.expand_row(self.treestore.get_path(presets_iter), False)
 
     def _load_plugin_presets(self, all_presets: "dict[str, dict[str, list[PresetFile]]]") -> None:
@@ -388,7 +389,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                         parent=plugin_presets_iter,
                     )
 
-        if self.ui_settings.preset_list_sections_expanded.get(Sections.PLUGINS.id, True):
+        if self.ui_settings.preset_list_sections_expanded.get(Sections.PLUGINS.name, True):
             self.treeview.expand_row(self.treestore.get_path(plugins_iter), False)
 
     def _load_user_presets(self, all_presets: "dict[str, dict[str, list[PresetFile]]]") -> None:
@@ -400,7 +401,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
                 dirname=preset_dir, preset_list=preset_list,
                 parent=user_presets_iter,
             )
-        if self.ui_settings.preset_list_sections_expanded.get(Sections.USER.id, True):
+        if self.ui_settings.preset_list_sections_expanded.get(Sections.USER.name, True):
             self.treeview.expand_row(self.treestore.get_path(user_presets_iter), False)
 
     ###########################################################################
