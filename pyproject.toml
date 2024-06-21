@@ -76,7 +76,7 @@ select = [
     "PYI",
     "RSE",
     "SLF",
-    #"SLOT",
+    "SLOT",
     "TD",
     "TRIO",
 ]

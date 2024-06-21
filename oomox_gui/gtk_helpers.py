@@ -15,6 +15,8 @@ if TYPE_CHECKING:
 
 class ActionProperty(str):
 
+    __slots__ = ("name", "target")
+
     target: str
     name: str
 
