@@ -46,6 +46,7 @@ TerminalThemeT = dict[str, str]
 def find_closest_color_key(
         color_hex: str,
         colors_hex: TerminalThemeT,
+        *,
         highlight: bool = True,
 ) -> tuple[str | None, ColorDiff]:
     smallest_diff = SMALLEST_DIFF
@@ -98,6 +99,7 @@ def generate_theme_from_hint(
         theme_bg: str,
         theme_fg: str,
         theme_hint: str | None = None,
+        *,
         auto_swap_colors: bool = True,
 ) -> TerminalThemeT:
     hex_colors = import_xcolors(template_path)
@@ -225,6 +227,7 @@ def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks
         all_colors: list[str],
         theme_bg: str,
         accuracy: int | None = None,
+        *,
         extend_palette: bool = False,
 ) -> None:
     hex_colors = reference_colors
@@ -390,6 +393,7 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         template_path: str,
         app: "OomoxApplicationWindow",
         result_callback: "Callable[[TerminalThemeT], None]",
+        *,
         auto_swap_colors: bool = True,
         accuracy: int | None = None,
         extend_palette: bool | None = None,

@@ -205,7 +205,9 @@ class ThemePresetList(Gtk.ScrolledWindow):
         return None
 
     def _add_preset(
-        self, display_name: str, name: str, path: str, saveable: bool,
+        self, display_name: str, name: str, path: str,
+        *,
+        saveable: bool,
         parent: Gtk.TreeIter | None = None,
     ) -> Gtk.TreeIter:
         return self.treestore.append(

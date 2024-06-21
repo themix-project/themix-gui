@@ -32,7 +32,7 @@ select = [
     "ANN",
     "S",
     "BLE",
-    #"FBT", # @TODO: Boolean positional arg/value in call
+    "FBT", # @TODO: Boolean positional arg/value in call
     "B",
     "A",
     "C4",
@@ -117,9 +117,10 @@ ignore = [
     "D400",
     "D401", # idk, it seems broken? pydocstyle.org is down so i can't check how it's supposed to work
     "D415",
-    "PLR2044"  # line with empty comment
+    "PLR2044",  # line with empty comment
 
     #"Q000",  # force double-quotes
+    "FBT003",  # conflicts with GTK/gi
 ]
 
 [tool.ruff.lint.per-file-ignores]

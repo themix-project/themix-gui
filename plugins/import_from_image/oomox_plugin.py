@@ -414,6 +414,7 @@ class Plugin(OomoxImportPluginAsync):
     def _get_all_available_palettes(  # pylint: disable=too-many-locals
             cls,
             image_path: str,
+            *,
             use_whole_palette: bool,
             quality_per_plugin: "Annotated[Sequence[int], 3]",
     ) -> "list[HexColor]":
@@ -517,27 +518,33 @@ class Plugin(OomoxImportPluginAsync):
         callback(oomox_theme)
 
     @staticmethod
-    def _generate_palette_id(image_path: str, quality: str, use_whole_palette: bool) -> str:
+    def _generate_palette_id(image_path: str, quality: str, *, use_whole_palette: bool) -> str:
         return image_path + quality + str(use_whole_palette)
 
     @classmethod
     def _generate_terminal_palette(
             cls, template_path: str, image_path: str, quality: str,
+            *,
             use_whole_palette: bool, inverse_palette: bool,
             result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
         start_time = time()
-        _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
+        _id = cls._generate_palette_id(image_path, quality, use_whole_palette=use_whole_palette)
         hex_palette = cls._palette_cache.get(_id)
         if hex_palette:
             cls._generate_terminal_palette_callback(
-                hex_palette, template_path, inverse_palette, result_callback,
+                hex_palette, template_path,
+                inverse_palette=inverse_palette,
+                result_callback=result_callback,
             )
         else:
             def generate_terminal_palette_task() -> None:
                 cls._generate_terminal_palette_task(
-                    template_path, image_path, quality, use_whole_palette, inverse_palette,
-                    start_time, result_callback,
+                    template_path, image_path, quality,
+                    use_whole_palette=use_whole_palette,
+                    inverse_palette=inverse_palette,
+                    start_time=start_time,
+                    result_callback=result_callback,
                 )
             try:
                 _app = OomoxApplicationWindow.get_instance()
@@ -550,6 +557,7 @@ class Plugin(OomoxImportPluginAsync):
     @classmethod
     def _generate_terminal_palette_task(
             cls, template_path: str, image_path: str, quality: str,
+            *,
             use_whole_palette: bool, inverse_palette: bool,
             start_time: float,
             result_callback: "Callable[[dict[str, str]], None]",
@@ -583,16 +591,21 @@ class Plugin(OomoxImportPluginAsync):
         print(
             f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s",
         )
-        _id = cls._generate_palette_id(image_path, quality, use_whole_palette)
+        _id = cls._generate_palette_id(image_path, quality, use_whole_palette=use_whole_palette)
         cls._palette_cache[_id] = hex_palette
         cls._generate_terminal_palette_callback(
-            hex_palette, template_path, inverse_palette, result_callback,
+            hex_palette, template_path,
+            inverse_palette=inverse_palette,
+            result_callback=result_callback,
         )
 
     @classmethod
     def _generate_terminal_palette_callback(  # pylint: disable=too-many-locals
-            cls, hex_palette: list[str],
-            template_path: str, inverse_palette: bool,
+            cls,
+            hex_palette: list[str],
+            template_path: str,
+            *,
+            inverse_palette: bool,
             result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
         gray_colors = get_gray_colors(hex_palette)

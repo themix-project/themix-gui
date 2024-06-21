@@ -106,10 +106,10 @@ class PreviewWidgets(Gtk.Box):
 
         self.menubar = Gtk.MenuBar()
         menuitem1 = Gtk.MenuItem(label=translate("File"))
-        menuitem1.set_submenu(self.create_menu(3, True))
+        menuitem1.set_submenu(self.create_menu(3, has_submenus=True))
         self.menubar.append(menuitem1)  # type: ignore[attr-defined]
         menuitem2 = Gtk.MenuItem(label=translate("Edit"))
-        menuitem2.set_submenu(self.create_menu(6, True))
+        menuitem2.set_submenu(self.create_menu(6, has_submenus=True))
         self.menubar.append(menuitem2)  # type: ignore[attr-defined]
 
         headerbox.pack_start(self.headerbar, True, True, 0)
@@ -144,7 +144,7 @@ class PreviewWidgets(Gtk.Box):
         self.pack_start(headerbox, True, True, 0)
         self.pack_start(self.grid, True, True, 0)
 
-    def create_menu(self, n_items: int, has_submenus: bool = False) -> Gtk.Menu:
+    def create_menu(self, n_items: int, *, has_submenus: bool = False) -> Gtk.Menu:
         menu = Gtk.Menu()
         for i in range(n_items):
             sensitive = (i + 1) % 3 != 0

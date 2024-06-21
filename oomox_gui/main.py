@@ -779,7 +779,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             raise NoWindowError
         return cls._window_instance
 
-    def __init__(self, application: "OomoxGtkApplication", show_window: bool = True) -> None:
+    def __init__(self, application: "OomoxGtkApplication", *, show_window: bool = True) -> None:
         super().__init__(
             application=application,
             title=translate("Themix GUI"),
@@ -828,7 +828,7 @@ class OomoxGtkApplication(Gtk.Application):
 
     window: OomoxApplicationWindow | None = None
 
-    def __init__(self, show_window: bool = True) -> None:
+    def __init__(self, *, show_window: bool = True) -> None:
         super().__init__(
             application_id="com.github.themix_project.Oomox",
             flags=(

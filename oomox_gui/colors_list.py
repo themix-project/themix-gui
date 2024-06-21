@@ -248,7 +248,7 @@ class BoolListBoxRow(OomoxListBoxRow):
     def connect_changed_signal(self) -> None:
         self.changed_signal = self.value_widget.connect("notify::active", self.on_switch_activated)
 
-    def set_value(self, value: bool) -> None:  # type: ignore[override]
+    def set_value(self, value: bool) -> None:  # type: ignore[override]  # noqa: FBT001
         self.disconnect_changed_signal()
         self.value = value
         self.value_widget.set_active(value)
@@ -576,7 +576,7 @@ class SectionListBox(Gtk.Box):
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
-        def update_listbox_header(row: Gtk.ListBoxRow, before: bool) -> None:
+        def update_listbox_header(row: Gtk.ListBoxRow, before: bool) -> None:  # noqa: FBT001
             if before and not row.get_header():
                 row.set_header(
                     Gtk.Separator(  # type: ignore[call-arg]

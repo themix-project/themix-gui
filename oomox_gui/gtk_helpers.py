@@ -364,7 +364,9 @@ class WindowWithActions(Gtk.ApplicationWindow):
         return tooltip
 
     def attach_action(
-            self, widget: Gtk.Widget, action: ActionProperty, with_tooltip: bool = True,
+            self, widget: Gtk.Widget, action: ActionProperty,
+            *,
+            with_tooltip: bool = True,
     ) -> None:
         action_id = action.get_id()
         widget.set_action_name(action_id)  # type: ignore[attr-defined]

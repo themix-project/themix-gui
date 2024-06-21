@@ -27,6 +27,7 @@ class CommonOomoxConfig:
             config_name: str,
             default_config: dict[str, "Any"] | None = None,
             override_config: dict[str, "Any"] | None = None,
+            *,
             force_reload: bool = False,
     ) -> None:
         self.name = config_name
@@ -53,6 +54,7 @@ class CommonOomoxConfig:
             cls,
             config_path: str,
             default_config: dict[str, "Any"],
+            *,
             force_reload: bool,
     ) -> dict[str, "Any"]:
         if force_reload or not getattr(cls, "config", None):
