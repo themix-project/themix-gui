@@ -1,5 +1,5 @@
 import os
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from enum import Enum
 from typing import TYPE_CHECKING, ClassVar
 
@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 PLUGIN_PATH_PREFIX: "Final" = "__plugin__"
 
 
-class OomoxPlugin(metaclass=ABCMeta):
+class OomoxPlugin(ABC):
 
     @property
     @abstractmethod

@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from gi.repository import GLib, Gtk
@@ -519,9 +520,8 @@ class ImagePathListBoxRow(OomoxListBoxRow):
     value_widget: ScaledImage
 
     def set_value(self, value: str) -> None:  # type: ignore[override]
-        with open(value, "rb") as image_file:
-            img_bytes = image_file.read()
-            self.value_widget.set_from_bytes(img_bytes)
+        img_bytes = Path(value).read_bytes()
+        self.value_widget.set_from_bytes(img_bytes)
 
     def __init__(
             self,

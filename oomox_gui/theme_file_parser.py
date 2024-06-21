@@ -81,7 +81,7 @@ def _set_fallback_values(
         theme_keys.append("NOGUI")
 
         with open(preset_path, encoding=DEFAULT_ENCODING) as file_object:
-            for line in file_object.readlines():
+            for line in file_object:
                 key, _sep, value = line.strip().partition("=")
                 if key.startswith("#") or key not in theme_keys:
                     continue

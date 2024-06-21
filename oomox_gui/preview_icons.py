@@ -1,5 +1,5 @@
-import os
 from enum import Enum
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from gi.repository import Gtk
@@ -61,9 +61,7 @@ class IconThemePreview(Gtk.ListBox):
         self.icons_plugin_name = theme_plugin.name
         for icon in IconsNames:
             template_path = f"{icon.value}.svg.template"
-            with open(
-                    os.path.join(
-                        theme_plugin.preview_svg_dir, template_path,
-                    ), "rb",
-            ) as file_object:
-                self.icons_templates[icon.name] = file_object.read().decode(DEFAULT_ENCODING)
+            data = Path(
+                Path(theme_plugin.preview_svg_dir) / Path(template_path),
+            ).read_bytes()
+            self.icons_templates[icon.name] = data.decode(DEFAULT_ENCODING)

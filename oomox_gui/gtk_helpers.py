@@ -1,4 +1,4 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, ClassVar
 
 from gi.repository import GdkPixbuf, Gio, GLib, Gtk
@@ -28,7 +28,7 @@ class ActionProperty(str):
         return f"{self.target}.{self.name}"
 
 
-class ActionsEnum(metaclass=ABCMeta):
+class ActionsEnum(ABC):
 
     @property
     @abstractmethod

@@ -1,5 +1,6 @@
 import os
 import re
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from oomox_gui.config import DEFAULT_ENCODING
@@ -70,7 +71,7 @@ class XresourcesExportDialog(DialogWithExportPath):
         parent_dir = os.path.dirname(export_path)
         if not os.path.exists(parent_dir):
             os.makedirs(parent_dir)
-        with open(export_path, "w", encoding=DEFAULT_ENCODING) as fobj:
+        with Path(export_path).open("w", encoding=DEFAULT_ENCODING) as fobj:
             fobj.write(self.xresources_theme)
         self.remove_preset_name_from_path_config()
         self.export_config.save()

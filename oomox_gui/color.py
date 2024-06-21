@@ -1,3 +1,4 @@
+import operator
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Annotated
 
@@ -29,7 +30,9 @@ def int_to_hex(num: int | float) -> "HexColor":
 
 
 def color_list_from_hex(color_text: "HexColor") -> "tuple[str, str, str]":
-    return (color_text[:2], color_text[2:4], color_text[4:])
+    result: tuple[str, str, str]
+    result = operator.itemgetter(slice(2), slice(2, 4), slice(4, 6))(color_text)
+    return result
 
 
 def int_list_from_hex(color_text: "HexColor") -> "IntColor":

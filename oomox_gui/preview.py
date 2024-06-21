@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from gi.repository import GLib, Gtk
@@ -160,13 +161,10 @@ class PreviewWidgets(Gtk.Box):
     def load_imageboxes_templates(self, theme_plugin: "OomoxThemePlugin") -> None:
         for icon in theme_plugin.PreviewImageboxesNames:
             template_path = f"{icon.value}.svg.template"
-            with open(
-                    os.path.join(
-                        theme_plugin.gtk_preview_dir, template_path,
-                    ), "rb",
-            ) as file_object:
-                self.preview_imageboxes_templates[icon.name] = \
-                    file_object.read().decode(DEFAULT_ENCODING)
+            data = Path(
+                Path(theme_plugin.gtk_preview_dir) / Path(template_path),
+            ).read_bytes()
+            self.preview_imageboxes_templates[icon.name] = data.decode(DEFAULT_ENCODING)
 
     def update_preview_imageboxes(
             self, colorscheme: "ThemeT", theme_plugin: "OomoxThemePlugin",

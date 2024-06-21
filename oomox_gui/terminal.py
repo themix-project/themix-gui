@@ -1,6 +1,8 @@
+import operator
 import os
 import shutil
 import sys
+from pathlib import Path
 from typing import TYPE_CHECKING, ClassVar
 
 from .color import (
@@ -70,21 +72,23 @@ def find_closest_color_key(
 
 def import_xcolors(path: str) -> dict[str, str]:
     hex_colors = {}
-    with open(os.path.expanduser(path), encoding=DEFAULT_ENCODING) as file_object:
-        for line in file_object.read().split("\n"):
-            if line.strip().startswith("!"):
-                continue
-            pair = [s.strip() for s in line.split(":")]
-            if len(pair) < 2:  # noqa: PLR2004
-                continue
-            key, value = pair
-            key = key.replace("*", "")
-            value = value.replace("#", "").lower()
-            for char in value:
-                if char not in VALID_COLOR_CHARS:
-                    break
-            else:
-                hex_colors[key] = value
+    text = Path(
+        os.path.expanduser(path),
+    ).read_text(encoding=DEFAULT_ENCODING)
+    for line in text.split("\n"):
+        if line.strip().startswith("!"):
+            continue
+        pair = [s.strip() for s in line.split(":")]
+        if len(pair) < 2:  # noqa: PLR2004
+            continue
+        key, value = pair
+        key = key.replace("*", "")
+        value = value.replace("#", "").lower()
+        for char in value:
+            if char not in VALID_COLOR_CHARS:
+                break
+        else:
+            hex_colors[key] = value
     return hex_colors
 
 
@@ -250,10 +254,9 @@ def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks
         ] for key, value in hex_colors.items()
     }
     if extend_palette:
-        for color in all_colors[:]:
+        for color in all_colors.copy():
             for i in (20, 40, 60):
-                all_colors.append(hex_darker(color, i))
-                all_colors.append(hex_darker(color, -i))
+                all_colors.extend((hex_darker(color, i), hex_darker(color, -i)))
 
     grayest_colors = get_grayest_colors(all_colors)
     bright_colors_set = set(all_colors)
@@ -414,7 +417,7 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
     all_colors = sorted(get_all_colors_from_oomox_colorscheme(palette))
     cache_id = str(
         [
-            kwargs[name] for name in sorted(kwargs, key=lambda x: x[0])
+            kwargs[name] for name in sorted(kwargs, key=operator.itemgetter(0))
         ] + all_colors,
     ) + template_path + theme_bg + str(accuracy) + str(extend_palette)
 
@@ -473,7 +476,7 @@ def _generate_themes_from_oomox(
     def _callback(term_colorscheme: TerminalThemeT) -> None:
         _generate_themes_from_oomox_callback(colorscheme, term_colorscheme, result_callback)
 
-    if colorscheme["TERMINAL_THEME_MODE"] in {"auto"}:
+    if colorscheme["TERMINAL_THEME_MODE"] == "auto":
         colorscheme["TERMINAL_ACCENT_COLOR"] = colorscheme["SEL_BG"]
         colorscheme["TERMINAL_BACKGROUND"] = colorscheme["TXT_BG"]
         colorscheme["TERMINAL_FOREGROUND"] = colorscheme["TXT_FG"]
