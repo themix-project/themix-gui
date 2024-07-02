@@ -439,13 +439,14 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         # before = time()
         app.disable(translate("Generating terminal palette…"))
         app.schedule_task(
-            _generate_theme_from_full_palette,
-            _callback,
-            reference_colors,
-            all_colors,
-            theme_bg,
-            accuracy,
-            extend_palette,
+            lambda: _generate_theme_from_full_palette(
+                _callback,
+                reference_colors,
+                all_colors,
+                theme_bg,
+                accuracy,
+                extend_palette=extend_palette,
+            ),
         )
         app.enable()
         # print(time() - before)
