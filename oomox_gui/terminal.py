@@ -396,7 +396,7 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         *,
         auto_swap_colors: bool = True,
         accuracy: int | None = None,
-        extend_palette: bool | None = None,
+        extend_palette: bool = False,
         **kwargs: "Any",
 ) -> None:
 
