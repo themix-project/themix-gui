@@ -315,8 +315,8 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
             self.label.set_text(translate("Please wait while\nnew colorscheme will be created."))
             self.label.show()
             captured_log = ""
-            with subprocess.Popen(
-                self.command,  # noqa: S603
+            with subprocess.Popen(  # noqa: S603
+                self.command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             ) as proc:

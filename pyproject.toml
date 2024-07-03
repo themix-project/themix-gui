@@ -78,7 +78,6 @@ select = [
     "SLF",
     "SLOT",
     "TD",
-    "TRIO",
 ]
 ignore = [
     # enable back later:
