@@ -542,6 +542,7 @@ def _generate_themes_from_oomox_callback(
     if colorscheme["TERMINAL_THEME_MODE"] != "manual":
         colorscheme["TERMINAL_BACKGROUND"] = term_colorscheme["background"]
         colorscheme["TERMINAL_FOREGROUND"] = term_colorscheme["foreground"]
+        colorscheme["TERMINAL_CURSOR"] = term_colorscheme["cursorColor"]
     result_callback(colorscheme)
 
 
