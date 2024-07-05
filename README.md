@@ -182,9 +182,6 @@ After exporting a theme select the generated theme (oomox-YOUR-THEME-NAME) in yo
 
 ### CLI
 
-If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugins/`. For `xresources` and `random` themes in CLI use palettes from `/opt/oomox/scripted_colors/` directory. Using scripted palettes enables you to use bash to write simple generators for dynamic themes (as alternative to plugins in oomox-gui). GUI is not attempting to execute any scripted palettes with bash because downloading such scripted themes from random places could lead to unexpected result so you can use them only with CLI, when you really know what you're doing.
-
-
 
 #### Multi-Export CLI
 
@@ -201,6 +198,20 @@ or
 
 Example multi-export config file could be found in `./export_config_examples` directory of this git repository.
 
+When using Multi-Export from GUI your multi-export layout would be automatically save to `~/.config/oomox/export_config/multi_export_*.json` files.
+
+
+#### Theme/Icon Plugins CLI
+
+If your prefer CLI interface, refer to `change_color.sh` scripts inside `./plugins/`. For `xresources` and `random` themes in CLI use palettes from `/opt/oomox/scripted_colors/` directory. Using scripted palettes enables you to use bash to write simple generators for dynamic themes (as alternative to plugins in oomox-gui). GUI is not attempting to execute any scripted palettes with bash because downloading such scripted themes from random places could lead to unexpected result so you can use them only with CLI, when you really know what you're doing.
+
+
+#### Base16 export CLI
+
+In the directory with Base16 plugin you could run the CLI as well:
+```
+python cli.py --help
+```
 
 
 #### Spotify:
