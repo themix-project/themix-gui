@@ -258,6 +258,16 @@ Create/append to `~/.config/gtk-3.0/gtk.css`:
 }
 ```
 
+### Wiki
+
+[https://github.com/themix-project/themix-gui/wiki](https://github.com/themix-project/themix-gui/wiki)
+
+Direct file editing:
+
+```
+git clone git@github.com:themix-project/themix-gui.wiki.git
+```
+
 
 ### Review articles and videos
 
