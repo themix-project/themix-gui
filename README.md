@@ -198,7 +198,7 @@ or
 
 Example multi-export config file could be found in `./export_config_examples` directory of this git repository.
 
-When using Multi-Export from GUI your multi-export layout would be automatically save to `~/.config/oomox/export_config/multi_export_*.json` files.
+When using Multi-Export from GUI your multi-export layout would be automatically saved to `~/.config/oomox/export_config/multi_export_*.json` files.
 
 
 #### Theme/Icon Plugins CLI
