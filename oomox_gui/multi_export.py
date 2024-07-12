@@ -269,7 +269,8 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
                 )[0].split(
                     CONFIG_FILE_PREFIX, maxsplit=1,
                 )[1]
-                if preset_name not in self.presets:
+                print(f"{preset_name=}")
+                if preset_name and (preset_name not in self.presets):
                     self.presets.append(preset_name)
         self.options_store.clear()
         for preset in self.presets:
