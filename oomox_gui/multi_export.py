@@ -220,6 +220,10 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             self.on_preset_changed,
         )
 
+        save_button = ImageButton(
+            "document-save-symbolic", translate("Save current export layout"),
+        )
+        save_button.connect("clicked", self._on_save_all)
         save_as_button = ImageButton(
             "document-save-as-symbolic", translate("Save export layout as…"),
         )
@@ -241,6 +245,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.headerbar.pack_start(add_export_target_button)  # type: ignore[arg-type]
         self.headerbar.pack_end(self.remove_button)  # type: ignore[arg-type]
         self.headerbar.pack_end(save_as_button)  # type: ignore[arg-type]
+        self.headerbar.pack_end(save_button)  # type: ignore[arg-type]
         self.headerbar.pack_end(self.presets_dropdown)  # type: ignore[arg-type]
         self.set_titlebar(self.headerbar)
 
@@ -381,6 +386,11 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
     def export_all(self) -> None:
         for _idx, export in enumerate(self.added_plugins):
             export.export_dialog.do_export()
+
+    def _on_save_all(self, _button: Gtk.Button) -> None:
+        for _idx, export in enumerate(self.added_plugins):
+            export.export_dialog.remove_preset_name_from_path_config()
+        self.save_preset_layout_to_config()
 
     def _on_export_all(self, _button: Gtk.Button) -> None:
         self.export_all()
