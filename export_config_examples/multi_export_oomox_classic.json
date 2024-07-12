@@ -1,0 +1,50 @@
+{
+  "0": {
+    "name": "theme",
+    "config": {
+      "gtk2_hidpi": true,
+      "self.OPTIONS.GTK3_CURRENT_VERSION_ONLY": true,
+      "self.OPTIONS.EXPORT_CINNAMON_THEME": false,
+      "default_path": "/home/lie/.themes/<THEME_NAME>"
+    }
+  },
+  "1": {
+    "name": "icons",
+    "config": {
+      "default_path": "~/.icons/<THEME_NAME>"
+    }
+  },
+  "2": {
+    "name": "base16",
+    "config": {
+      "default_path": "~/.themes/<THEME_NAME>/gtk-4.0/gtk.css",
+      "last_variant": "gtk",
+      "last_app": "gtk4-oodwaita",
+      "default_path_gtk4-oodwaita": "~/.themes/<THEME_NAME>/gtk-4.0"
+    }
+  },
+  "3": {
+    "name": "base16",
+    "config": {
+      "default_path": "~/.config/qt5ct/colors/<THEME_NAME>.conf",
+      "last_variant": "breeze",
+      "last_app": "qt5ct",
+      "default_path_qt5ct": "~"
+    }
+  },
+  "4": {
+    "name": "base16",
+    "config": {
+      "default_path": "~/.config/qt6ct/colors/<THEME_NAME>.conf",
+      "last_variant": "breeze",
+      "last_app": "qt6ct",
+      "default_path_qt6ct": "~"
+    }
+  },
+  "5": {
+    "name": "export_xresources",
+    "config": {
+      "default_path": "~/.Xcolours/<THEME_NAME>"
+    }
+  }
+}
