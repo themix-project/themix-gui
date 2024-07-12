@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 from gi.repository import Gio, Gtk
 
-from .config import USER_EXPORT_CONFIG_DIR
+from .config import BUILTIN_EXPORT_CONFIG_DIR, USER_EXPORT_CONFIG_DIR
 from .export_common import DialogWithExportPath
 from .gtk_helpers import (
     EntryDialog,
@@ -262,7 +262,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.presets = [
             "default",
         ]
-        for filename in sorted(os.listdir(USER_EXPORT_CONFIG_DIR)):
+        for filename in sorted(os.listdir(USER_EXPORT_CONFIG_DIR) + os.listdir(BUILTIN_EXPORT_CONFIG_DIR)):
             if filename.startswith(CONFIG_FILE_PREFIX):
                 preset_name = filename.rsplit(
                     ".json", maxsplit=1,
@@ -317,6 +317,12 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
             force_reload=True,
         )
+        if not self.config.config:
+            self.config = CommonOomoxConfig(
+                config_dir=BUILTIN_EXPORT_CONFIG_DIR,
+                config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
+                force_reload=True,
+            )
         for data in self.config.config.values():
             plugin_name = data.get("name")
             plugin_config = data.get("config")
@@ -372,6 +378,12 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.add_export_target(export_plugin_name)
 
     def save_preset_layout_to_config(self) -> None:
+        self.config = CommonOomoxConfig(
+            config_dir=USER_EXPORT_CONFIG_DIR,
+            config_name=self.config.name,
+            force_reload=False,
+            default_config={},
+        )
         self.config.config = {}
         for idx, export in enumerate(self.added_plugins):
             export.export_dialog.remove_preset_name_from_path_config()

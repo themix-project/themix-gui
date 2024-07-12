@@ -22,6 +22,7 @@ install_gui: install_import_random
 		po \
 		po.mk \
 		terminal_templates \
+		export_config_examples \
 			$(DEST_APPDIR)/
 
 	cp -prf \

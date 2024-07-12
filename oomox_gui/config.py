@@ -46,3 +46,6 @@ USER_PALETTE_PATH: "Final" = os.path.join(
 USER_EXPORT_CONFIG_DIR: "Final" = os.path.join(
     USER_CONFIG_DIR, "export_config/",
 )
+BUILTIN_EXPORT_CONFIG_DIR: "Final" = os.path.join(
+    OOMOX_ROOT_DIR, "export_config_examples/",
+)
