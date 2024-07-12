@@ -308,7 +308,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
         def ui_error() -> None:
             self.show_error()
 
-        def do_export() -> None:
+        def do_export_thread() -> None:
             if self.done:
                 print("Export already done")
                 return
@@ -332,7 +332,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
                 else:
                     GLib.idle_add(ui_error)
 
-        thread = Thread(target=do_export)
+        thread = Thread(target=do_export_thread)
         thread.daemon = True
         thread.start()
 
