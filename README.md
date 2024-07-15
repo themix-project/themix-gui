@@ -66,7 +66,7 @@ themix-gui
 ##### deb-based releases are currently abandoned, this way works for installing older versions of Themix
 see also: https://github.com/themix-project/oomox/issues/144
 
-[Old instructions for Deb-like disros](https://github.com/themix-project/themix-gui/blob/master/docs_markdown/Ubuntu_Old.md)
+[Old instructions for Deb-like distros](https://github.com/themix-project/themix-gui/blob/master/docs_markdown/Ubuntu_Old.md)
 
 
 
