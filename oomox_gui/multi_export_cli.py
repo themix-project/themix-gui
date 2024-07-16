@@ -20,8 +20,8 @@ def print_help() -> None:
     print(f"Usage: {sys.argv[0]} EXPORT_LAYOUT_PATH THEMIX_THEME_PATH")
     print()
     print(
-        f"\tEXPORT_LAYOUT_PATH:\tpath to config file with"
-        f" `{CONFIG_FILE_PREFIX}` prefix inside `{USER_EXPORT_CONFIG_DIR}`",
+        f"\tEXPORT_LAYOUT_PATH:\tpath to export layout config file with,"
+        f" or a name with `{CONFIG_FILE_PREFIX}` prefix inside `{USER_EXPORT_CONFIG_DIR}`",
     )
     print(
         f"\tTHEMIX_THEME_PATH:\tpath to theme file,"
@@ -38,6 +38,7 @@ def main() -> None:
         sys.exit(1)
 
     export_layout_path = sys.argv[1]
+    export_layout_path = os.path.realpath(os.path.expanduser(export_layout_path))
     export_layout_name = os.path.basename(export_layout_path).rsplit(
         ".json", maxsplit=1,
     )[0].split(
@@ -58,7 +59,9 @@ def main() -> None:
             transient_for=app.window,  # type: ignore[arg-type]
             colorscheme=theme,
             theme_name=themix_theme_name,
-            export_layout=export_layout_name,
+            export_layout=export_layout_name if not export_layout_path.startswith("/") else None,
+            export_layout_path=export_layout_path if export_layout_path.startswith("/") else None,
+            readonly=True,
             export_callback=export_callback,
         )
         Gdk.threads_add_idle(GLib.PRIORITY_LOW, multi_export.export_all)

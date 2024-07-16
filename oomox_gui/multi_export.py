@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from gi.repository import Gio, Gtk
@@ -121,13 +122,17 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
             theme_name: str,
+            *,
             width: int = 600,
             height: int = 600,
             export_layout: str | None = None,
+            export_layout_path: str | None = None,
             export_callback: "Callable[[MultiExportDialog], None] | None" = None,
+            readonly: bool = False,
     ) -> None:
         BaseClass.__init__(self, Gtk.WindowType.TOPLEVEL)  # type: ignore[arg-type]
         self.transient_for = transient_for
+        self.readonly = readonly
         self.added_plugins = []
         self.colorscheme = colorscheme
         self.colorscheme_name = theme_name
@@ -249,12 +254,17 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.headerbar.pack_end(self.presets_dropdown)  # type: ignore[arg-type]
         self.set_titlebar(self.headerbar)
 
-        last_preset_idx = 0
-        last_preset = export_layout or self.meta_config.config.get(LAST_PRESET)
-        if last_preset and last_preset in self.presets:
-            last_preset_idx = self.presets.index(last_preset)
-
-        self.set_preset(last_preset_idx)
+        if export_layout_path:
+            self.load_preset_from_path(
+                config_dir=os.path.dirname(export_layout_path),
+                config_name=Path(export_layout_path).stem,
+            )
+        else:
+            last_preset_idx = 0
+            last_preset = export_layout or self.meta_config.config.get(LAST_PRESET)
+            if last_preset and last_preset in self.presets:
+                last_preset_idx = self.presets.index(last_preset)
+            self.set_preset(last_preset_idx)
 
         self.show_all()
 
@@ -307,20 +317,17 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.load_presets()
         self.set_preset(0)
 
-    def on_preset_changed(self, widget: Gtk.ComboBox) -> None:
-        self.remove_all_export_targets()
-        preset_idx = widget.get_active()
-        self.current_preset = self.presets[preset_idx]
-        self.remove_button.set_sensitive(self.current_preset != "default")
+    def load_preset_from_path(self, config_dir: str, config_name: str) -> None:
+        print(f":: Loading export layout {config_name}.json from {config_dir}/ ...")
         self.config = CommonOomoxConfig(
-            config_dir=USER_EXPORT_CONFIG_DIR,
-            config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
+            config_dir=config_dir,
+            config_name=config_name,
             force_reload=True,
         )
         if not self.config.config:
             self.config = CommonOomoxConfig(
-                config_dir=BUILTIN_EXPORT_CONFIG_DIR,
-                config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
+                config_dir=config_dir,
+                config_name=config_name,
                 force_reload=True,
             )
         for data in self.config.config.values():
@@ -328,6 +335,16 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
             plugin_config = data.get("config")
             if plugin_name and plugin_config:
                 self.add_export_target(plugin_name, plugin_config)
+
+    def on_preset_changed(self, widget: Gtk.ComboBox) -> None:
+        self.remove_all_export_targets()
+        preset_idx = widget.get_active()
+        self.current_preset = self.presets[preset_idx]
+        self.remove_button.set_sensitive(self.current_preset != "default")
+        self.load_preset_from_path(
+            config_dir=USER_EXPORT_CONFIG_DIR,
+            config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
+        )
 
     def remove_all_export_targets(self) -> None:
         for export in self.added_plugins[:]:
@@ -378,6 +395,8 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         self.add_export_target(export_plugin_name)
 
     def save_preset_layout_to_config(self) -> None:
+        if self.readonly:
+            return
         self.config = CommonOomoxConfig(
             config_dir=USER_EXPORT_CONFIG_DIR,
             config_name=self.config.name,
@@ -397,6 +416,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
 
     def export_all(self) -> None:
         for _idx, export in enumerate(self.added_plugins):
+            print(f"  :: {export.name}...")
             export.export_dialog.do_export()
 
     def _on_save_all(self, _button: Gtk.Button) -> None:
