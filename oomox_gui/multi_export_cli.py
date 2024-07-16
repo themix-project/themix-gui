@@ -38,16 +38,40 @@ def main() -> None:
         sys.exit(1)
 
     export_layout_path = sys.argv[1]
-    export_layout_path = os.path.realpath(os.path.expanduser(export_layout_path))
+    export_layout_path = os.path.expanduser(export_layout_path)
+    if os.path.exists(
+            os.path.join(
+                USER_EXPORT_CONFIG_DIR, export_layout_path,
+            ),
+    ):
+        export_layout_path = os.path.join(
+            USER_EXPORT_CONFIG_DIR, export_layout_path,
+        )
+    else:
+        export_layout_path = os.path.realpath(export_layout_path)
+    if not os.path.exists(export_layout_path):
+        print(f"{export_layout_path} not exists")
+        sys.exit(1)
     export_layout_name = os.path.basename(export_layout_path).rsplit(
         ".json", maxsplit=1,
     )[0].split(
         CONFIG_FILE_PREFIX, maxsplit=1,
     )[1]
+    print(f":: Found export layout '{export_layout_name}' at {export_layout_path}")
+
     themix_theme_path = sys.argv[2]
     themix_theme_name = os.path.basename(themix_theme_path).rsplit(
         ".themix", maxsplit=1,
     )[0]
+    themix_theme_path = os.path.realpath(
+        os.path.expanduser(
+            themix_theme_path,
+        ),
+    )
+    if not os.path.exists(themix_theme_path):
+        print(f"{themix_theme_path} not exists")
+        sys.exit(1)
+    print(f":: Found Themix theme '{themix_theme_name}' at {themix_theme_path}")
 
     def callback(theme: "ThemeT") -> None:
         app = OomoxGtkApplication(show_window=False)
@@ -68,6 +92,7 @@ def main() -> None:
         app.run([])
 
     read_colorscheme_from_path(themix_theme_path, callback=callback)
+    print(":: DONE 👌😸")
 
 
 if __name__ == "__main__":
