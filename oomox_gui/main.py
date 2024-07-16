@@ -142,7 +142,7 @@ class WindowActions(ActionsEnum):
     show_about = ActionProperty(_target, "show_about")
 
 
-class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes,too-many-public-methods
+class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes
 
     colorscheme_name: str
     colorscheme_path: str

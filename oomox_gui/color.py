@@ -74,9 +74,9 @@ RGB_CHANNELS: "Final[list[str]]" = ["r", "g", "b"]
 
 
 class ColorDiff:
-    r: int  # pylint: disable=invalid-name
-    g: int  # pylint: disable=invalid-name
-    b: int  # pylint: disable=invalid-name
+    r: int
+    g: int
+    b: int
 
     @property
     def color_list(self) -> "IntColor":

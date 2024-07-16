@@ -8,6 +8,26 @@ max_line_length = 120
 ignore = ""
 aggressive = 1
 
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_any_unimported = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+#disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+no_implicit_reexport = true
+show_error_codes = true
+extra_checks = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+mypy_path = './maintenance_scripts/mypy_stubs'
+
 [tool.ruff]
 line-length = 120
 unsafe-fixes = true
@@ -136,8 +156,119 @@ ignore = [
     "T201",
 ]
 "maintenance_scripts/pikaman.py" = [
-    "ARG002",
+  "ARG002",
+  "PLR6301",
+  "PLR0904",
 ]
 "maintenance_scripts/vulture_whitelist.py" = [
-    "B018",
+  "B018",
+  "SLF001",
 ]
+
+[tool.pylint.MASTER]
+#jobs = '0'  # multi-proc pylint doesn't work with gi/gtk stuff
+jobs = '1'
+extension-pkg-whitelist = 'pyalpm'
+ignore = 'CVS,ignoreme.py'
+ignore-patterns = ''
+persistent = 'yes'
+unsafe-load-any-extension = 'no'
+load-plugins = 'pylint.extensions.docparams,'
+
+[tool.pylint.PARAMETER_DOCUMENTATION]
+accept-no-param-doc = 'no'
+accept-no-raise-doc = 'no'
+accept-no-return-doc = 'no'
+accept-no-yields-doc = 'no'
+
+[tool.pylint.'MESSAGES CONTROL']
+confidence = ''
+disable = 'too-few-public-methods,missing-docstring,duplicate-code,missing-return-doc,missing-param-doc,missing-yield-doc,missing-raises-doc,,too-many-nested-blocks,too-many-public-methods,too-many-arguments,too-many-locals'
+enable = 'useless-suppression'
+
+[tool.pylint.REPORTS]
+evaluation = '10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)'
+output-format = 'text'
+reports = 'no'
+score = 'yes'
+
+[tool.pylint.REFACTORING]
+max-nested-blocks = '5'
+
+[tool.pylint.FORMAT]
+expected-line-ending-format = 'LF'
+ignore-long-lines = '^\s*(# )?<?https?://\S+>?$'
+indent-after-paren = '4'
+indent-string = '    '
+max-line-length = '120'
+max-module-lines = '1000'
+single-line-if-stmt = 'no'
+
+[tool.pylint.TYPECHECK]
+contextmanager-decorators = 'contextlib.contextmanager'
+generated-members = 'self.props'
+ignored-classes = 'optparse.Values,thread._local,_thread._local'
+ignored-modules = ''
+missing-member-hint = 'yes'
+missing-member-hint-distance = '1'
+missing-member-max-choices = '1'
+
+[tool.pylint.SIMILARITIES]
+ignore-comments = 'yes'
+ignore-docstrings = 'yes'
+ignore-imports = 'no'
+min-similarity-lines = '4'
+
+[tool.pylint.LOGGING]
+logging-modules = 'logging'
+logging-format-style = 'new'
+
+[tool.pylint.VARIABLES]
+additional-builtins = '_'
+allow-global-unused-variables = 'yes'
+callbacks = 'cb_,_cb'
+dummy-variables-rgx = '_+$|(_[a-zA-Z0-9_]*[a-zA-Z0-9]+?$)|dummy'
+ignored-argument-names = '_.*'
+init-import = 'no'
+redefining-builtins-modules = 'six.moves,future.builtins'
+
+[tool.pylint.MISCELLANEOUS]
+notes = 'FIXME,XXX'
+
+[tool.pylint.BASIC]
+argument-rgx = '(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*))$'
+attr-rgx = '(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*))$'
+bad-names = 'foo,bar,baz,toto,tutu,tata'
+class-attribute-rgx = '([A-Za-z_][A-Za-z0-9_]{2,40}|(__.*__)|r|g|b)$'
+class-rgx = '[A-Z_][a-zA-Z0-9]+$'
+const-rgx = '(([A-Z_][A-Z0-9_]*)|(__.*__))$'
+docstring-min-length = '-1'
+function-rgx = '(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*))$'
+good-names = 'i,j,k,ex,Run,_'
+include-naming-hint = 'no'
+inlinevar-rgx = '[A-Za-z_][A-Za-z0-9_]*$'
+method-rgx = '(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*))$'
+module-rgx = '(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$'
+name-group = ''
+no-docstring-rgx = '^_'
+property-classes = 'abc.abstractproperty'
+variable-rgx = '(([a-z][a-z0-9_]{2,40})|(_[a-z0-9_]*)|r|g|b)$'
+
+[tool.pylint.CLASSES]
+defining-attr-methods = '__init__,__new__,setUp,__enter__'
+exclude-protected = '_asdict,_fields,_replace,_source,_make'
+
+[tool.pylint.DESIGN]
+max-args = '5'
+max-attributes = '20'
+max-bool-expr = '6'
+max-branches = '12'
+max-locals = '15'
+max-parents = '7'
+max-public-methods = '20'
+max-returns = '6'
+max-statements = '50'
+min-public-methods = '2'
+
+[tool.pylint.EXCEPTIONS]
+overgeneral-exceptions = ''
