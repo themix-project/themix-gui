@@ -117,7 +117,7 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
     current_preset: str
     config: CommonOomoxConfig
 
-    def __init__(  # pylint: disable=too-many-locals,too-many-statements
+    def __init__(  # pylint: disable=too-many-locals,too-many-statements,too-many-arguments
             self,
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
