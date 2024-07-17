@@ -24,8 +24,22 @@ if TYPE_CHECKING:
 
 PLUGIN_PATH_PREFIX: "Final" = "__plugin__"
 
+PLUGIN_API_VER = 1.0
+
 
 class OomoxPlugin(ABC):
+
+    supported_plugin_api_min = 0.0
+    supported_plugin_api_max = 1.1
+
+    def __init__(self) -> None:
+        if not (self.supported_plugin_api_min <= PLUGIN_API_VER < self.supported_plugin_api_max):
+            message = (
+                f"Plugin require API ver from {self.supported_plugin_api_min}"
+                f" until {self.supported_plugin_api_max},"
+                f" while current API ver is {PLUGIN_API_VER}",
+            )
+            raise RuntimeError(message)
 
     @property
     @abstractmethod
