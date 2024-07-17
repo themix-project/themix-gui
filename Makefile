@@ -34,6 +34,7 @@ install_gui: install_import_random
 	install -d $(DEST_PREFIX)/bin/
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/oomox-gui" "$(DEST_PREFIX)/bin/"
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-gui" "$(DEST_PREFIX)/bin/"
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-multi-export" "$(DEST_PREFIX)/bin/"
 
 	install -d $(DEST_PREFIX)/share/applications/
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" "$(DEST_PREFIX)/share/applications/"
