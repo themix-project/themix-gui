@@ -20,7 +20,7 @@ def print_help() -> None:
     print(f"Usage: {sys.argv[0]} EXPORT_LAYOUT_PATH THEMIX_THEME_PATH")
     print()
     print(
-        f"\tEXPORT_LAYOUT_PATH:\tpath to export layout config file with,"
+        f"\tEXPORT_LAYOUT_PATH:\tpath to export layout config file,"
         f" or a name with `{CONFIG_FILE_PREFIX}` prefix inside `{USER_EXPORT_CONFIG_DIR}`",
     )
     print(
