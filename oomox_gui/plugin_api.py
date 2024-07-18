@@ -24,13 +24,13 @@ if TYPE_CHECKING:
 
 PLUGIN_PATH_PREFIX: "Final" = "__plugin__"
 
-PLUGIN_API_VER = 1.0
+PLUGIN_API_VER: "Final[float]" = 1.1
 
 
 class OomoxPlugin(ABC):
 
-    supported_plugin_api_min = 0.0
-    supported_plugin_api_max = 1.1
+    supported_plugin_api_min: float = 1.0
+    supported_plugin_api_max: float = 1.2
 
     def __init__(self) -> None:
         if not (self.supported_plugin_api_min <= PLUGIN_API_VER < self.supported_plugin_api_max):
