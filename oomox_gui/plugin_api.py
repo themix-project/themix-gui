@@ -33,7 +33,7 @@ class OomoxPlugin(ABC):
     supported_plugin_api_max: float = 1.2
 
     def __init__(self) -> None:
-        if not (self.supported_plugin_api_min <= PLUGIN_API_VER < self.supported_plugin_api_max):
+        if not self.supported_plugin_api_min <= PLUGIN_API_VER < self.supported_plugin_api_max:
             message = (
                 f"Plugin require API ver from {self.supported_plugin_api_min}"
                 f" until {self.supported_plugin_api_max},"
