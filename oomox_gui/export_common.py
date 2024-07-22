@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable
     from typing import Any
 
+    from .plugin_api import OomoxPlugin
     from .theme_file import ThemeT
 
 
@@ -165,7 +166,8 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
 
     colorscheme: "ThemeT"
     theme_name: str
-    command: str
+    plugin: "OomoxPlugin"
+    command: str  # deprecated from plugin API 1.1
     timeout = 300
     done: bool = False
 
@@ -213,6 +215,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
             theme_name: str,
+            plugin: "OomoxPlugin",
             headline: str | None = None,
             width: int = 150,
             height: int = 80,
@@ -226,6 +229,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
         # @TODO: make sure it doesn't break things:
         self.colorscheme = colorscheme
         self.callback = callback
+        self.plugin = plugin
         # from .terminal import generate_terminal_colors_for_oomox
         # self.colorscheme = generate_terminal_colors_for_oomox(colorscheme)
 

@@ -500,6 +500,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme,
+            plugin=self.plugin_theme,
         )
 
     def _on_export_icontheme(self, _action: Gio.SimpleAction, _param: "Any" = None) -> None:
@@ -510,6 +511,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme,
+            plugin=self.plugin_icons,
         )
 
     def _on_export_plugin(self, action: Gio.SimpleAction, _param: "Any" = None) -> None:
@@ -520,6 +522,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             transient_for=self,
             theme_name=self.colorscheme_name,
             colorscheme=self.colorscheme,
+            plugin=plugin,
         )
 
     def _before_quit(self) -> None:
