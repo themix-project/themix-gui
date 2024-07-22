@@ -489,7 +489,6 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             #     transient_for=self,
             #     theme_name=self.colorscheme_name,
             #     colorscheme=self.colorscheme,
-            #     base_class=Gtk.Box,
             # ),
         )
 
