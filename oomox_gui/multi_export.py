@@ -341,9 +341,19 @@ class MultiExportDialog(BaseClass):  # pylint: disable=too-many-instance-attribu
         preset_idx = widget.get_active()
         self.current_preset = self.presets[preset_idx]
         self.remove_button.set_sensitive(self.current_preset != "default")
+        config_name = f"{CONFIG_FILE_PREFIX}{self.current_preset}"
+        if os.path.exists(
+            os.path.join(
+                USER_EXPORT_CONFIG_DIR,
+                f"{config_name}.json",
+            ),
+        ):
+            config_dir = USER_EXPORT_CONFIG_DIR
+        else:
+            config_dir = BUILTIN_EXPORT_CONFIG_DIR
         self.load_preset_from_path(
-            config_dir=USER_EXPORT_CONFIG_DIR,
-            config_name=f"{CONFIG_FILE_PREFIX}{self.current_preset}",
+            config_dir=config_dir,
+            config_name=config_name,
         )
 
     def remove_all_export_targets(self) -> None:
