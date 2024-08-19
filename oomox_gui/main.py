@@ -169,7 +169,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     spinner_revealer: Gtk.Revealer
     paned_box: Gtk.Paned
 
-    _currently_focused_widget = Gtk.Widget | None
+    _currently_focused_widget: Gtk.Widget | None = None
     _inhibit_id: int | None = None
 
     def _unset_save_needed(self) -> None:
@@ -442,7 +442,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
             self.spinner_revealer.set_reveal_child(False)
             self.preset_list.set_sensitive(True)
             self.theme_edit.set_sensitive(True)
-            self.set_focus(self._currently_focused_widget)  # type: ignore[arg-type]
+            self.set_focus(self._currently_focused_widget)
             self.spinner.stop()
 
         GLib.idle_add(enable_ui_callback, priority=GLib.PRIORITY_LOW)
