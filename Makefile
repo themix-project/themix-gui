@@ -7,9 +7,9 @@ DEST_PLUGIN_DIR = $(DESTDIR)$(APPDIR)/plugins
 DEST_PREFIX = $(DESTDIR)$(PREFIX)
 
 SHELL := bash
-PYTHON := $(shell which python)
+PYTHON := $(shell which python3)
 ifeq (,$(PYTHON))
-$(error Can't find Python)
+$(error Can't find `python3`)
 endif
 
 # lint:
