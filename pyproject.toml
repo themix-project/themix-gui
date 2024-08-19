@@ -84,6 +84,7 @@ select = [
     "ASYNC",
     #"CPY",  # @TODO: add copyrights
     #"DJ",  # django
+    #"FAST",  # fastapi
     "FA",
     "FIX",
     "FLY",
@@ -98,6 +99,7 @@ select = [
     "SLF",
     "SLOT",
     "TD",
+    #"DOC", pydoclint
 ]
 ignore = [
     # enable back later:
