@@ -195,7 +195,7 @@ def shellcheck_maketarget(
         shellcheck_args = [
             "shellcheck",
             fobj.name,
-            f"--shell={args.shell or make_shell or DEFALT_SHELL}",
+            f"--shell={args.shell or make_shell or DEFAULT_SHELL}",
             "--color=always",
         ]
         shellcheck_args.extend([
