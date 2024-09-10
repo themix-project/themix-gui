@@ -12,9 +12,8 @@ SKIP_TARGETS_WITH_CHARS: Final = ("%", )
 PHONY: Final = ".PHONY"
 PRECIOUS: Final = ".PRECIOUS"
 SKIP_TARGETS: Final = [PHONY, PRECIOUS]
-
-
 _ALL: Final = "all"
+DEFAULT_SHELL: Final = "sh"
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,7 +42,6 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--shell",
-        default="sh",
         help="make shell",
     )
     parser.add_argument(
@@ -197,7 +195,7 @@ def shellcheck_maketarget(
         shellcheck_args = [
             "shellcheck",
             fobj.name,
-            f"--shell={args.shell or make_shell or args.shell}",
+            f"--shell={args.shell or make_shell or DEFALT_SHELL}",
             "--color=always",
         ]
         shellcheck_args.extend([
