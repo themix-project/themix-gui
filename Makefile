@@ -66,22 +66,14 @@ install_gui: install_import_random
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
 	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 
-	install -d $(DEST_PREFIX)/bin/
-	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/oomox-gui" "$(DEST_PREFIX)/bin/"
-	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-gui" "$(DEST_PREFIX)/bin/"
-	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-multi-export" "$(DEST_PREFIX)/bin/"
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/oomox-gui" -t "$(DEST_PREFIX)/bin/"
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-gui" -t "$(DEST_PREFIX)/bin/"
+	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-multi-export" -t "$(DEST_PREFIX)/bin/"
 
-	install -d $(DEST_PREFIX)/share/applications/
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" "$(DEST_PREFIX)/share/applications/"
-
-	install -d $(DEST_PREFIX)/share/appdata/
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.appdata.xml" "$(DEST_PREFIX)/share/appdata/"
-
-	install -d $(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" "$(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
-
-	install -d $(DEST_PREFIX)/share/icons/hicolor/scalable/apps/
-	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.svg" "$(DEST_PREFIX)/share/icons/hicolor/scalable/apps/com.github.themix_project.Oomox.svg"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.desktop" -t "$(DEST_PREFIX)/share/applications/"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.appdata.xml" -t "$(DEST_PREFIX)/share/metainfo/"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" -t "$(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
+	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.svg" -t "$(DEST_PREFIX)/share/icons/hicolor/scalable/apps/com.github.themix_project.Oomox.svg"
 
 	$(RM) -r $(PACKAGING_TMP_DIR)
 
