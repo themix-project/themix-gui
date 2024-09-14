@@ -6,7 +6,7 @@ Themix GUI designer
 Graphical application for designing themes and exporting them using plugins, for example:
   * [Oomox](https://github.com/themix-project/oomox-gtk-theme/) and [Materia](https://github.com/nana-4/materia-theme/) themes (GTK2, GTK3, Cinnamon, GNOME, Openbox, Xfwm). Have a hack for HiDPI in gtk2.
   * Icons ([Archdroid](https://github.com/GreenRaccoon23/archdroid-icon-theme), [Gnome-Colors](https://www.gnome-look.org/p/1012497), [Numix](https://github.com/numixproject/numix-folders), [Papirus](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme), [Suru++](https://github.com/gusbemacbe/suru-plus) and [Suru++ Asprómauros](https://github.com/gusbemacbe/suru-plus-aspromauros)).
-  * Base16 plugin, which  also allows a lot of app themes support like Alacritty, Emacs, GTK4, KDE, VIM and [many](https://github.com/chriskempson/base16-templates-source) more.
+  * Base16 plugin, which  also allows a lot of app themes support like Alacritty, Emacs, GTK4, KDE, Qt5ct, Qt6ct, VIM and [many](https://github.com/chriskempson/base16-templates-source) more.
 
 Import plugins also available, such as:
   * generating color palettes from image;
