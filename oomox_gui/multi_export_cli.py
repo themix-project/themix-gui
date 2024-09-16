@@ -1,10 +1,14 @@
+import argparse
+import json
 import os
 import sys
-from typing import TYPE_CHECKING, Final
+from pathlib import Path
+from typing import TYPE_CHECKING, Any
 
 from gi.repository import Gdk, GLib
 
-from oomox_gui.config import COLORS_DIR, USER_COLORS_DIR, USER_EXPORT_CONFIG_DIR
+from oomox_gui.config import COLORS_DIR, DEFAULT_ENCODING, USER_COLORS_DIR, USER_EXPORT_CONFIG_DIR
+from oomox_gui.i18n import translate
 from oomox_gui.main import OomoxGtkApplication
 from oomox_gui.multi_export import CONFIG_FILE_PREFIX, MultiExportDialog
 from oomox_gui.theme_file_parser import read_colorscheme_from_path
@@ -13,31 +17,42 @@ if TYPE_CHECKING:
     from .theme_file import ThemeT
 
 
-NUM_ARGS: Final = 2
+def strip_multi_export_json(input_path: str | Path) -> Any:
+    home_str = Path.home().as_posix()
+    with Path(input_path).open(encoding=DEFAULT_ENCODING) as fobj:
+        data = json.load(fobj)
+    if not isinstance(data, dict):
+        return data
+    result = {}
+    for plugin_idx, plugin_config in data.items():
+        result_config = {}
+        if not isinstance(plugin_config, dict):
+            result[plugin_idx] = plugin_config
+            continue
+        for key, value in plugin_config.items():
+            if (key != "config") or (not isinstance(value, dict)):
+                result_config[key] = value
+            else:
+                last_app = value.get("last_app")
+                result_config[key] = {
+                    config_key: (
+                        config_value.replace(home_str, "~")
+                        if isinstance(config_value, str) and config_value.startswith(home_str)
+                        else config_value
+                    )
+                    for config_key, config_value in value.items()
+                    if (
+                        (not last_app)
+                        or (not config_key.startswith("default_path_"))
+                        or (config_key == f"default_path_{last_app}")
+                    )
+                }
+        result[plugin_idx] = result_config
+    return result
 
 
-def print_help() -> None:
-    print(f"Usage: {sys.argv[0]} EXPORT_LAYOUT_PATH THEMIX_THEME_PATH")
-    print()
-    print(
-        f"\tEXPORT_LAYOUT_PATH:\tpath to export layout config file,"
-        f" or a name with `{CONFIG_FILE_PREFIX}` prefix inside `{USER_EXPORT_CONFIG_DIR}`",
-    )
-    print(
-        f"\tTHEMIX_THEME_PATH:\tpath to theme file,"
-        f" for example inside `{COLORS_DIR}` or `{USER_COLORS_DIR}`",
-    )
-
-
-def main() -> None:
-    if (
-        ((len(sys.argv) >= (1 + 1)) and sys.argv[1] in {"-h", "--help"})
-        or (len(sys.argv) < (NUM_ARGS + 1))
-    ):
-        print_help()
-        sys.exit(1)
-
-    export_layout_path = sys.argv[1]
+def do_multi_export(args: argparse.Namespace) -> None:
+    export_layout_path = args.export_layout_path
     export_layout_path = os.path.expanduser(export_layout_path)
     if os.path.exists(
             os.path.join(
@@ -59,7 +74,7 @@ def main() -> None:
     )[1]
     print(f":: Found export layout '{export_layout_name}' at {export_layout_path}")
 
-    themix_theme_path = sys.argv[2]
+    themix_theme_path = args.themix_theme_path
     themix_theme_name = os.path.basename(themix_theme_path).rsplit(
         ".themix", maxsplit=1,
     )[0]
@@ -93,6 +108,59 @@ def main() -> None:
 
     read_colorscheme_from_path(themix_theme_path, callback=callback)
     print(":: DONE 👌😸")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Makefile shellcheck",
+    )
+    parser.add_argument(
+        "export_layout_path",
+        help=(
+            "path to export layout config file,"
+            f" or a name with `{CONFIG_FILE_PREFIX}` prefix inside `{USER_EXPORT_CONFIG_DIR}`"
+        ),
+    )
+    parser.add_argument(
+        "themix_theme_path",
+        nargs="?",
+        help=(
+            "path to theme file,"
+            f" for example inside `{COLORS_DIR}` or `{USER_COLORS_DIR}`"
+        ),
+    )
+    parser.add_argument(
+        "--strip",
+        action="store_true",
+        help=(
+            "instead of doing export"
+            ", strip extra metadata from export layout config, for uploading it or using in manual scripts"
+        ),
+    )
+    args = parser.parse_args()
+
+    if args.strip:
+        print(
+            json.dumps(
+                strip_multi_export_json(
+                    input_path=args.export_layout_path,
+                ), indent=2,
+            ),
+        )
+        return
+
+    if not args.themix_theme_path:
+        print("".join((
+            "\n",
+            translate("Error:"),
+            " ",
+            translate("{arg} is required").format(arg="themix_theme_path"),
+            "\n",
+        )))
+        parser.print_help()
+        return
+
+    do_multi_export(args)
 
 
 if __name__ == "__main__":
