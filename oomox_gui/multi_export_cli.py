@@ -111,8 +111,30 @@ def do_multi_export(args: argparse.Namespace) -> None:
 
 
 def main() -> None:
+    my_name = Path(sys.argv[0]).name
     parser = argparse.ArgumentParser(
-        description="Makefile shellcheck",
+        description="Themix Multi-Export CLI",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=f"""
+------------------------
+
+When using Multi-Export from GUI your multi-export layout would be automatically \
+saved to `~/.config/oomox/export_config/multi_export_*.json` files.
+
+------------------------
+
+Examples:
+
+Export `oodwaita` multi-export config using `Gigavolt` colortheme:
+
+    $ {my_name} ./export_config_examples/multi_export_oodwaita.json ./colors/Featured/Gigavolt
+
+Strip multi-export config from the extra metadata, to either share it \
+or use in the scripts etc:
+
+    $ {my_name} --strip ~/.config/oomox/export_config/multi_export_default.json
+
+""",
     )
     parser.add_argument(
         "export_layout_path",
