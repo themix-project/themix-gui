@@ -152,7 +152,7 @@ or use in the scripts etc:
         ),
     )
     parser.add_argument(
-        "--strip",
+        "-s", "--strip",
         action="store_true",
         help=(
             "instead of doing export"
