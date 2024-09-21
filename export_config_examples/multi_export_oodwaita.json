@@ -36,7 +36,7 @@
     "name": "base16",
     "config": {
       "default_path": "~",
-      "last_variant": "gtk",
+      "last_variant": "gtk4-libadwaita1.6.0",
       "last_app": "gtk4-oodwaita",
       "default_path_gtk4-oodwaita": "~"
     }
