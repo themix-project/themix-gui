@@ -11,6 +11,7 @@ from oomox_gui.config import COLORS_DIR, DEFAULT_ENCODING, USER_COLORS_DIR, USER
 from oomox_gui.i18n import translate
 from oomox_gui.main import OomoxGtkApplication
 from oomox_gui.multi_export import CONFIG_FILE_PREFIX, MultiExportDialog
+from oomox_gui.terminal import generate_terminal_colors_for_oomox
 from oomox_gui.theme_file_parser import read_colorscheme_from_path
 
 if TYPE_CHECKING:
@@ -88,12 +89,16 @@ def do_multi_export(args: argparse.Namespace) -> None:
         sys.exit(1)
     print(f":: Found Themix theme '{themix_theme_name}' at {themix_theme_path}")
 
-    def callback(theme: "ThemeT") -> None:
-        app = OomoxGtkApplication(show_window=False)
+    app = OomoxGtkApplication(show_window=False)
 
-        def export_callback(_me: MultiExportDialog) -> None:
-            app.quit()
+    def callback1(theme: "ThemeT") -> None:
+        generate_terminal_colors_for_oomox(
+            colorscheme=theme,
+            app=app,
+            result_callback=callback2,
+        )
 
+    def callback2(theme: "ThemeT") -> None:
         multi_export = MultiExportDialog(
             transient_for=app.window,  # type: ignore[arg-type]
             colorscheme=theme,
@@ -101,12 +106,15 @@ def do_multi_export(args: argparse.Namespace) -> None:
             export_layout=export_layout_name if not export_layout_path.startswith("/") else None,
             export_layout_path=export_layout_path if export_layout_path.startswith("/") else None,
             readonly=True,
-            export_callback=export_callback,
+            export_callback=callback3,
         )
         Gdk.threads_add_idle(GLib.PRIORITY_LOW, multi_export.export_all)
         app.run([])
 
-    read_colorscheme_from_path(themix_theme_path, callback=callback)
+    def callback3(_me: MultiExportDialog) -> None:
+        app.quit()
+
+    read_colorscheme_from_path(themix_theme_path, callback=callback1)
     print(":: DONE 👌😸")
 
 
