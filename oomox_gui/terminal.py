@@ -391,12 +391,12 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
         theme_bg: str,
         theme_fg: str,
         template_path: str,
-        app: "OomoxApplicationWindow",
         result_callback: "Callable[[TerminalThemeT], None]",
         *,
         auto_swap_colors: bool = True,
         accuracy: int | None = None,
         extend_palette: bool = False,
+        window: "OomoxApplicationWindow | None" = None,
         **kwargs: "Any",
 ) -> None:
 
@@ -437,18 +437,19 @@ def generate_theme_from_full_palette(  # pylint: disable=too-many-arguments,too-
             )
         # from time import time
         # before = time()
-        app.disable(translate("Generating terminal palette…"))
-        app.schedule_task(
-            lambda: _generate_theme_from_full_palette(
-                _callback,
-                reference_colors,
-                all_colors,
-                theme_bg,
-                accuracy,
-                extend_palette=extend_palette,
-            ),
-        )
-        app.enable()
+        if window:
+            window.disable(translate("Generating terminal palette…"))
+            window.schedule_task(
+                lambda: _generate_theme_from_full_palette(
+                    _callback,
+                    reference_colors,
+                    all_colors,
+                    theme_bg,
+                    accuracy,
+                    extend_palette=extend_palette,
+                ),
+            )
+            window.enable()
         # print(time() - before)
 
 
@@ -471,8 +472,8 @@ def _generate_theme_from_full_palette_callback(
 
 def _generate_themes_from_oomox(
         original_colorscheme: "ThemeT",
-        app: "OomoxApplicationWindow",
         result_callback: "Callable[[ThemeT], None]",
+        window: "OomoxApplicationWindow | None" = None,
 ) -> None:
     colorscheme = {}
     colorscheme.update(original_colorscheme)
@@ -512,7 +513,7 @@ def _generate_themes_from_oomox(
             auto_swap_colors=terminal_theme_auto_bgfg,
             extend_palette=terminal_theme_extend_palette,
             accuracy=255 + 8 - terminal_theme_accuracy,
-            app=app,
+            window=window,
             result_callback=_callback,
         )
         return
@@ -566,12 +567,12 @@ def generate_xrdb_theme_from_oomox(colorscheme: "ThemeT") -> TerminalThemeT:
 
 def generate_terminal_colors_for_oomox(
         colorscheme: "ThemeT",
-        app: "OomoxApplicationWindow",
         result_callback: "Callable[[ThemeT], None]",
+        window: "OomoxApplicationWindow | None" = None,
 ) -> None:
     _generate_themes_from_oomox(
         colorscheme,
-        app=app,
+        window=window,
         result_callback=result_callback,
     )
 

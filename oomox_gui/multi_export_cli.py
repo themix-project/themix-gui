@@ -94,7 +94,7 @@ def do_multi_export(args: argparse.Namespace) -> None:
     def callback1(theme: "ThemeT") -> None:
         generate_terminal_colors_for_oomox(
             colorscheme=theme,
-            app=app.window,
+            window=app.window,
             result_callback=callback2,
         )
 

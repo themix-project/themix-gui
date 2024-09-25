@@ -410,7 +410,7 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
 
         generate_terminal_colors_for_oomox(
             self.colorscheme,
-            app=self,
+            window=self,
             result_callback=_generate_terminal_colors,
         )
 
