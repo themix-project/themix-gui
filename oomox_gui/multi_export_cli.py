@@ -119,6 +119,7 @@ def do_multi_export(args: argparse.Namespace) -> None:
 
 
 def main() -> None:
+    # print(sys.orig_argv)  # @TODO: it will be needed later
     my_name = Path(sys.argv[0]).name
     parser = argparse.ArgumentParser(
         description="Themix Multi-Export CLI",
