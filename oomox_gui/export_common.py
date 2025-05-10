@@ -101,7 +101,7 @@ class ExportWrapper(Generic[ExportBaseClassT]):
         result.base_class = base_class  # type: ignore[assignment]
         return result
 
-    def __init__(  # type: ignore[misc]
+    def __init__(  # type: ignore[misc]  # noqa: PYI019
             self: ExportBaseClassT,
             title: str,
             transient_for: Gtk.Window,
@@ -120,22 +120,22 @@ class ExportWrapper(Generic[ExportBaseClassT]):
         else:
             raise NotImplementedError
 
-    def get_content_area(self: ExportBaseClassT) -> ExportBoxT | Gtk.Box:  # type: ignore[misc]
+    def get_content_area(self: ExportBaseClassT) -> ExportBoxT | Gtk.Box:  # type: ignore[misc]  # noqa: PYI019
         if self.base_class is Gtk.Dialog:
             return super().get_content_area()  # type: ignore[misc]  # pylint: disable=no-member
         if self.base_class is Gtk.Box:
             return self  # type: ignore[return-value]
         raise NotImplementedError
 
-    def set_default_size(self: ExportBaseClassT, width: int, height: int) -> None:  # type: ignore[misc]
+    def set_default_size(self: ExportBaseClassT, width: int, height: int) -> None:  # type: ignore[misc]  # noqa: PYI019
         if self.base_class is Gtk.Dialog:
             super().set_default_size(width, height)  # type: ignore[misc]  # pylint: disable=no-member
 
-    def set_title(self: ExportBaseClassT, title: str) -> None:  # type: ignore[misc]
+    def set_title(self: ExportBaseClassT, title: str) -> None:  # type: ignore[misc]  # noqa: PYI019
         if self.base_class is Gtk.Dialog:
             super().set_title(title)  # type: ignore[misc]  # pylint: disable=no-member
 
-    def dialog_done(self: ExportBaseClassT) -> None:  # type: ignore[misc]
+    def dialog_done(self: ExportBaseClassT) -> None:  # type: ignore[misc]  # noqa: PYI019
         # pylint: disable=no-member
         if self.base_class is Gtk.Dialog:
             self.destroy()
@@ -216,6 +216,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
             colorscheme: "ThemeT",
             theme_name: str,
             plugin: "OomoxPlugin",
+            *,
             headline: str | None = None,
             width: int = 150,
             height: int = 80,
@@ -425,6 +426,7 @@ class ExportDialogWithOptions(FileBasedExportDialog):
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
             theme_name: str,
+            *,
             export_options: "dict[str, Any] | None" = None,
             override_options: dict[str, "Any"] | None = None,
             override_config: dict[str, "Any"] | None = None,
@@ -485,6 +487,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
             theme_name: str,
+            *,
             add_options: dict[str, "Any"] | None = None,
             override_options: dict[str, "Any"] | None = None,
             export_options: dict[str, "Any"] | None = None,
@@ -558,6 +561,7 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
             theme_name: str,
+            *,
             add_options: dict[str, "Any"] | None = None,
             override_options: dict[str, "Any"] | None = None,
             **kwargs: "Any",
@@ -593,6 +597,7 @@ class CommonIconThemeExportDialog(DialogWithExportPath):
             transient_for: Gtk.Window,
             colorscheme: "ThemeT",
             theme_name: str,
+            *,
             add_options: dict[str, "Any"] | None = None,
             override_options: dict[str, "Any"] | None = None,
             **kwargs: "Any",

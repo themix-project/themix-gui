@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from gi.repository import Pango
 
 
-class ActionProperty(str):
+class ActionProperty(str):  # noqa: FURB189
 
     __slots__ = ("name", "target")
 

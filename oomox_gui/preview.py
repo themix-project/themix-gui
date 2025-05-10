@@ -247,7 +247,7 @@ class ThemePreview(Gtk.Grid):
             widget: Gtk.Widget,
             value: str,
             color: "Gdk.RGBA",
-            state: Gtk.StateFlags = Gtk.StateFlags.NORMAL,
+            state: Gtk.StateFlags = Gtk.StateFlags.NORMAL,  # pylint: disable=no-member
     ) -> None:
         if value == self.BG:
             widget.override_background_color(state, color)  # type: ignore[arg-type]
@@ -259,7 +259,9 @@ class ThemePreview(Gtk.Grid):
 
     def update_preview_carets(self, colorscheme: "ThemeT") -> None:
         self.css_providers.caret.load_from_data((
-            ((Gtk.get_minor_version() >= GTK_320_POSTFIX and """
+            (((
+                Gtk.get_minor_version() >= GTK_320_POSTFIX  # pylint: disable=no-value-for-parameter
+            ) and """
             * {{
                 caret-color: #{primary_caret_color};
                 -gtk-secondary-caret-color: #{secondary_caret_color};
@@ -538,8 +540,12 @@ class ThemePreview(Gtk.Grid):
     def get_theme_css_provider(self, theme_plugin: "OomoxThemePlugin") -> Gtk.CssProvider:
         css_dir = theme_plugin.gtk_preview_dir
 
-        _css_postfix = f"{GTK_320_POSTFIX}" if Gtk.get_minor_version() >= GTK_320_POSTFIX else ""
-        css_name = f"theme{_css_postfix}.css"
+        css_postfix = (
+            f"{GTK_320_POSTFIX}"
+            if Gtk.get_minor_version() >= GTK_320_POSTFIX  # pylint: disable=no-value-for-parameter
+            else ""
+        )
+        css_name = f"theme{css_postfix}.css"
         css_path = os.path.join(css_dir, css_name)
         if not os.path.exists(css_path):
             css_path = os.path.join(css_dir, "theme.css")

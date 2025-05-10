@@ -76,7 +76,7 @@ select = [
     "COM",
     "INP",
     "EXE",
-    "TCH",
+    "TC",
     "TRY",
     #"PTH", # @TODO: refactor os.path to pathlib.Path
     "RUF",
@@ -117,8 +117,6 @@ ignore = [
     # bandit stuff:
     "S404",
 
-    "ANN101",  # annotate self
-    "ANN102",  # annotate cls
     "ANN401",  # disable Any
 
     "BLE001",  # disallow catching Exception

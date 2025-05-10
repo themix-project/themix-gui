@@ -853,7 +853,7 @@ class OomoxGtkApplication(Gtk.Application):
         quit_action.connect("activate", self._on_quit)
         self.add_action(quit_action)
 
-        _shortcuts = {}
+        shortcuts = {}
 
         def set_accels_for_action(
                 action: ActionProperty | None,
@@ -865,10 +865,10 @@ class OomoxGtkApplication(Gtk.Application):
                 raise TypeError(required_props_error)
             action_id = action_id or action.get_id()  # type: ignore[union-attr]
             for accel in accels:
-                if accel in _shortcuts:
+                if accel in shortcuts:
                     shortcut_already_set = f'Shortcut "{accel}" is already set.'
                     raise RuntimeError(shortcut_already_set)
-                _shortcuts[accel] = action_id
+                shortcuts[accel] = action_id
             self.set_accels_for_action(action_id, accels)
 
         set_accels_for_action(AppActions.quit_action, ["<Primary>Q"])
@@ -885,7 +885,7 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
 
-        _plugin_shortcuts: dict[str, str] = {}
+        plugin_shortcuts: dict[str, str] = {}
         import_and_export_plugins: Sequence[
             tuple[Mapping[str, OomoxImportPlugin | OomoxExportPlugin], str]
         ] = (
@@ -896,8 +896,8 @@ class OomoxGtkApplication(Gtk.Application):
             for plugin_name, plugin in plugin_list.items():
                 if not plugin.shortcut:
                     continue
-                if plugin.shortcut in _shortcuts:
-                    _is_plugin_shortcut = plugin.shortcut in _plugin_shortcuts
+                if plugin.shortcut in shortcuts:
+                    is_plugin_shortcut = plugin.shortcut in plugin_shortcuts
                     error_dialog = Gtk.MessageDialog(
                         text=translate('Error while loading plugin "{plugin_name}"').format(
                             plugin_name=plugin_name,
@@ -909,13 +909,13 @@ class OomoxGtkApplication(Gtk.Application):
                                 shortcut=plugin.shortcut,
                                 action_type=translate(
                                     "plugin"
-                                    if _is_plugin_shortcut else
+                                    if is_plugin_shortcut else
                                     "action",
                                 ),
                                 name=(
-                                    _plugin_shortcuts[plugin.shortcut]
-                                    if _is_plugin_shortcut
-                                    else _shortcuts[plugin.shortcut]
+                                    plugin_shortcuts[plugin.shortcut]
+                                    if is_plugin_shortcut
+                                    else shortcuts[plugin.shortcut]
                                 ),
                             ),
                             translate(
@@ -935,7 +935,7 @@ class OomoxGtkApplication(Gtk.Application):
                     accels=[plugin.shortcut],
                     action_id=f"win.{action_name}",
                 )
-                _plugin_shortcuts[plugin.shortcut] = plugin_name
+                plugin_shortcuts[plugin.shortcut] = plugin_name
 
     def do_activate(self) -> None:  # pylint: disable=arguments-differ
         if not self.window:

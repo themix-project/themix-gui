@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 def generate_xresources(terminal_colorscheme: "dict[str, HexColor]") -> str:
     color_keys = terminal_colorscheme.keys()
-    color_regex = re.compile("color[0-9]")
+    color_regex = re.compile(r"color[0-9]")
     return "\n".join([
         f"*{key}:  #{terminal_colorscheme[key]}"
         for key in (

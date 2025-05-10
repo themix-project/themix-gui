@@ -429,11 +429,11 @@ class Plugin(OomoxImportPluginAsync):
                 (image_path, use_whole_palette, 48, quality_per_plugin[0]),
             ))
             from functools import partial
-            _opener = partial(open, image_path, "rb")
+            opener = partial(open, image_path, "rb")
             colorz_future = pool.apply_async(delayed_partial, (
                 colorz,
                 (
-                    (_opener, ()),
+                    (opener, ()),
                 ),
                 (quality_per_plugin[1], 50, 200),
             ))
@@ -529,8 +529,8 @@ class Plugin(OomoxImportPluginAsync):
             result_callback: "Callable[[dict[str, str]], None]",
     ) -> None:
         start_time = time()
-        _id = cls._generate_palette_id(image_path, quality, use_whole_palette=use_whole_palette)
-        hex_palette = cls._palette_cache.get(_id)
+        id_ = cls._generate_palette_id(image_path, quality, use_whole_palette=use_whole_palette)
+        hex_palette = cls._palette_cache.get(id_)
         if hex_palette:
             cls._generate_terminal_palette_callback(
                 hex_palette, template_path,
@@ -547,10 +547,10 @@ class Plugin(OomoxImportPluginAsync):
                     result_callback=result_callback,
                 )
             try:
-                _app = OomoxApplicationWindow.get_instance()
-                _app.disable(translate("Extracting palette from image…"))
-                _app.schedule_task(generate_terminal_palette_task)
-                _app.enable()
+                app = OomoxApplicationWindow.get_instance()
+                app.disable(translate("Extracting palette from image…"))
+                app.schedule_task(generate_terminal_palette_task)
+                app.enable()
             except NoWindowError:
                 generate_terminal_palette_task()
 
@@ -573,10 +573,10 @@ class Plugin(OomoxImportPluginAsync):
         elif quality == "haishoku":
             hex_palette = cls._get_haishoku_palette(image_path)
         elif quality.startswith("all_"):
-            _quality = quality.split("_")[1]
-            if _quality == "low":
+            quality_ = quality.split("_")[1]
+            if quality_ == "low":
                 quality_per_plugin = [100, 16, 16]
-            elif _quality == "medium":
+            elif quality_ == "medium":
                 quality_per_plugin = [200, 32, 32]
             else:
                 raise NotImplementedError
@@ -591,8 +591,8 @@ class Plugin(OomoxImportPluginAsync):
         print(
             f"{quality} quality, {len(hex_palette)} colors found, took {time() - start_time:.8f}s",
         )
-        _id = cls._generate_palette_id(image_path, quality, use_whole_palette=use_whole_palette)
-        cls._palette_cache[_id] = hex_palette
+        id_ = cls._generate_palette_id(image_path, quality, use_whole_palette=use_whole_palette)
+        cls._palette_cache[id_] = hex_palette
         cls._generate_terminal_palette_callback(
             hex_palette, template_path,
             inverse_palette=inverse_palette,
@@ -667,15 +667,15 @@ class Plugin(OomoxImportPluginAsync):
         inverse_palette = bool(
             get_first_theme_option("_PIL_PALETTE_INVERSE", {}).get("fallback_value"),
         )
-        _id = template_path + image_path + str(quality) + str(use_whole_palette) + str(inverse_palette)
+        id_ = template_path + image_path + str(quality) + str(use_whole_palette) + str(inverse_palette)
 
         def _result_callback(generated_palette: dict[str, str]) -> None:
-            cls._terminal_palette_cache[_id] = generated_palette
+            cls._terminal_palette_cache[id_] = generated_palette
             palette: ThemeT = {}
-            palette.update(cls._terminal_palette_cache[_id])
+            palette.update(cls._terminal_palette_cache[id_])
             result_callback(palette)
 
-        if not cls._terminal_palette_cache.get(_id):
+        if not cls._terminal_palette_cache.get(id_):
             def generate_terminal_palette_task() -> None:
                 cls._generate_terminal_palette(
                     template_path=template_path,
@@ -686,11 +686,11 @@ class Plugin(OomoxImportPluginAsync):
                     result_callback=_result_callback,
                 )
             try:
-                _app = OomoxApplicationWindow.get_instance()
-                _app.disable(translate("Generating terminal palette…"))
-                _app.schedule_task(generate_terminal_palette_task)
-                _app.enable()
+                app = OomoxApplicationWindow.get_instance()
+                app.disable(translate("Generating terminal palette…"))
+                app.schedule_task(generate_terminal_palette_task)
+                app.enable()
             except NoWindowError:
                 generate_terminal_palette_task()
         else:
-            _result_callback(cls._terminal_palette_cache[_id])
+            _result_callback(cls._terminal_palette_cache[id_])

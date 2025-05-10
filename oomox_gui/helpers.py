@@ -44,7 +44,7 @@ def natural_sort(list_to_sort: "list[SortableT]") -> "Iterable[SortableT]":
         return int(text) if text.isdigit() else text.lower()
 
     def alphanum_key(key: str) -> tuple[str | int, ...]:
-        return tuple(convert(c) for c in re.split("([0-9]+)", key))
+        return tuple(convert(c) for c in re.split(r"([0-9]+)", key))
 
     return sorted(list_to_sort, key=alphanum_key)
 

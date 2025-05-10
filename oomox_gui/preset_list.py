@@ -269,6 +269,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             self,
             dirname: str,
             preset_list: "list[PresetFile]",
+            *,
             plugin_name: str | None = None,
             parent: Gtk.TreeIter | None = None,
             subdir_path: str | None = None,

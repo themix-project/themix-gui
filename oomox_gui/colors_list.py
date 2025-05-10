@@ -70,6 +70,7 @@ class OomoxListBoxRow(Gtk.ListBoxRow, metaclass=GObjectABCMeta):
             self,
             display_name: str,
             key: str,
+            *,
             callback: "Callable[[str, ThemeValueT], None]",
             value_widget: Gtk.Widget,
             colors_list: "ThemeColorsList",
@@ -144,6 +145,7 @@ class NumericListBoxRow(OomoxListBoxRow):
             self,
             display_name: str,
             key: str,
+            *,
             callback: "Callable[[str, ThemeValueT], None]",
             colors_list: "ThemeColorsList",
             init_value: float,
@@ -188,6 +190,7 @@ class FloatListBoxRow(NumericListBoxRow):
             self,
             display_name: str,
             key: str,
+            *,
             callback: "Callable[[str, ThemeValueT], None]",
             colors_list: "ThemeColorsList",
             min_value: float | None = None,
@@ -220,6 +223,7 @@ class IntListBoxRow(NumericListBoxRow):
             self,
             display_name: str,
             key: str,
+            *,
             callback: "Callable[[str, ThemeValueT], None]",
             colors_list: "ThemeColorsList",
             min_value: int | None = None,
@@ -302,6 +306,7 @@ class OptionsListBoxRow(OomoxListBoxRow):
             self,
             display_name: str,
             key: str,
+            *,
             options: "list[Option]",
             callback: "Callable[[str, ThemeValueT], None]",
             colors_list: "ThemeColorsList",
@@ -356,7 +361,7 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
 
         self.props.color_selection.set_current_rgba(self.gtk_color)  # type: ignore[attr-defined]
 
-        settings = Gtk.Settings.get_default()
+        settings = Gtk.Settings.get_default()  # pylint: disable=no-value-for-parameter
         if not settings:
             cant_load_palette_settings = "Can't load Gtk Palette settings"
             raise RuntimeError(cant_load_palette_settings)
@@ -401,7 +406,7 @@ class OomoxColorButton(Gtk.Button):
 
         self.callback = callback
         Gtk.Button.__init__(self)
-        self.gtk_color_button = Gtk.ColorButton.new()
+        self.gtk_color_button = Gtk.ColorButton.new()  # pylint: disable=no-value-for-parameter
         self.color_image = self.gtk_color_button.get_child()
         self.set_image(self.color_image)
         self.connect("clicked", self.on_click)
@@ -486,6 +491,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             self,
             display_name: str,
             key: str,
+            *,
             callback: "Callable[[str, ThemeValueT], None]",
             transient_for: Gtk.Window,
             colors_list: "ThemeColorsList",

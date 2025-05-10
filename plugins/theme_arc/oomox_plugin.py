@@ -81,9 +81,9 @@ class ArcThemeExportDialog(ExportDialogWithOptions):
 
 
 def _monkeypatch_update_preview_borders(preview_object: "ThemePreview") -> None:
-    _monkeypatch_id = "_arc_borders_monkeypatched"
+    monkeypatch_id = "_arc_borders_monkeypatched"
 
-    if getattr(preview_object, _monkeypatch_id, None):
+    if getattr(preview_object, monkeypatch_id, None):
         return
 
     old_update_preview_borders = preview_object.update_preview_borders
@@ -131,7 +131,7 @@ def _monkeypatch_update_preview_borders(preview_object: "ThemePreview") -> None:
                 )
 
     preview_object.update_preview_borders = _update_preview_borders
-    setattr(preview_object, _monkeypatch_id, True)
+    setattr(preview_object, monkeypatch_id, True)
 
 
 class Plugin(OomoxThemePlugin):

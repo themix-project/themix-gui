@@ -556,9 +556,9 @@ def get_theme_model_uncached() -> "ThemeModel":
         },
     ]
 
-    _theme_export_plugins = merge_theme_model_with_plugins("extra")
+    theme_export_plugins = merge_theme_model_with_plugins("extra")
     theme_model["export"] = merge_model_with_plugins(
-        base_theme_model=_theme_export_plugins,
+        base_theme_model=theme_export_plugins,
         theme_model_name="extra",
         plugins=PluginLoader.get_export_plugins(),
     )

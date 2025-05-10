@@ -55,9 +55,9 @@ class MateriaThemeExportDialog(CommonGtkThemeExportDialog):
 
 
 def _monkeypatch_update_preview_colors(preview_object: "ThemePreview") -> None:
-    _monkeypatch_id = "_materia_update_colors_monkeypatched"
+    monkeypatch_id = "_materia_update_colors_monkeypatched"
 
-    if getattr(preview_object, _monkeypatch_id, None):
+    if getattr(preview_object, monkeypatch_id, None):
         return
 
     old_update_preview_colors = preview_object.update_preview_colors
@@ -87,7 +87,7 @@ def _monkeypatch_update_preview_colors(preview_object: "ThemePreview") -> None:
             )
 
     preview_object.update_preview_colors = _update_preview_colors
-    setattr(preview_object, _monkeypatch_id, True)
+    setattr(preview_object, monkeypatch_id, True)
 
 
 class Plugin(OomoxThemePlugin):

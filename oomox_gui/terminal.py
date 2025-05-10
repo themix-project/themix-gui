@@ -277,10 +277,10 @@ def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks
     prev_biggest_number_of_similar: float | None = None
     best_result = None
 
-    _debug_iteration_counter = 0
+    # debug_iteration_counter = 0
 
     while accuracy > 0:
-        _debug_iteration_counter += 1
+        # debug_iteration_counter += 1
         # print()
         # print(('ITERATION', _debug_iteration_counter))
         progress = ProgressBar(
