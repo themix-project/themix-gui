@@ -1,6 +1,6 @@
 import sys
 
-from PIL import Image
+from PIL import Image as Joint
 
 SMOKE, WEED, EVERYDAY = 0, 1, 2
 
@@ -149,7 +149,7 @@ def get_hex_palette(
         image_path: str, use_whole_palette: bool = False,
         accuracy: int = 48, quality: int = 400,
 ) -> list[HexColor]:
-    smeargle = Image.open(image_path)
+    smeargle = Joint.open(image_path)
     whirlipede = jolteon(smeargle, quality)
     if not use_whole_palette:
         whirlipede = wobbuffet(mewtwo(
