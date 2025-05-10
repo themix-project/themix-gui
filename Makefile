@@ -365,7 +365,7 @@ shellcheck_makefile:
 	# Running shellcheck on Makefile...
 	( \
 	    cd $(APP_DIR) || exit ; \
-	    $(PYTHON) ./maintenance_scripts/makefile_shellcheck.py \
+		shellcheck_makefile \
 			--skip lint \
 			--skip lint_ubuntu_310 \
 		; \
