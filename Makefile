@@ -45,7 +45,7 @@ all: install
 install_gui: install_import_random
 	$(eval PACKAGING_TMP_DIR := $(shell mktemp -d))
 
-	mkdir -p $(DEST_APPDIR)
+	mkdir -p "$(DEST_APPDIR)"
 	cp -prf \
 		CREDITS \
 		LICENSE \
@@ -58,13 +58,12 @@ install_gui: install_import_random
 		po.mk \
 		terminal_templates \
 		export_config_examples \
-			$(DEST_APPDIR)/
+			"$(DEST_APPDIR)/"
 
 	cp -prf \
 		packaging/ \
-			$(PACKAGING_TMP_DIR)/
-	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
+			"$(PACKAGING_TMP_DIR)/"
+	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/oomox-gui" -t "$(DEST_PREFIX)/bin/"
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/themix-gui" -t "$(DEST_PREFIX)/bin/"
@@ -75,11 +74,11 @@ install_gui: install_import_random
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox-symbolic.svg" -t "$(DEST_PREFIX)/share/icons/hicolor/symbolic/apps/com.github.themix_project.Oomox-symbolic.svg"
 	install -Dp -m 644 "$(PACKAGING_TMP_DIR)/packaging/com.github.themix_project.Oomox.svg" -t "$(DEST_PREFIX)/share/icons/hicolor/scalable/apps/com.github.themix_project.Oomox.svg"
 
-	$(RM) -r $(PACKAGING_TMP_DIR)
+	$(RM) -r "$(PACKAGING_TMP_DIR)"
 
 	# will update ./po and produce ./locale dir:
-	make -C $(DEST_APPDIR) -f po.mk install
-	rm $(DEST_APPDIR)/po.mk
+	make -C "$(DEST_APPDIR)" -f po.mk install
+	rm "$(DEST_APPDIR)/po.mk"
 
 
 install_theme_arc:
@@ -106,9 +105,9 @@ install_theme_materia:
 		packaging/ \
 			$(PACKAGING_TMP_DIR)/
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 	install -d $(DEST_PREFIX)/bin/
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+	$(RM) -r "$(PACKAGING_TMP_DIR)"
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -172,9 +171,9 @@ install_icons_archdroid:
 		packaging/ \
 			$(PACKAGING_TMP_DIR)/
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 	install -d $(DEST_PREFIX)/bin/
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+	$(RM) -r "$(PACKAGING_TMP_DIR)"
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
@@ -192,9 +191,9 @@ install_icons_gnomecolors:
 		packaging/ \
 			$(PACKAGING_TMP_DIR)/
 	sed -i -e 's|/opt/oomox/|$(APPDIR)/|g' $(PACKAGING_TMP_DIR)/packaging/bin/*
-	chmod a+x "$(PACKAGING_TMP_DIR)/packaging/bin/"*
 	install -d $(DEST_PREFIX)/bin/
 	install -Dp -m 755 "$(PACKAGING_TMP_DIR)/packaging/bin/$(CLI_NAME)" "$(DEST_PREFIX)/bin/"
+	$(RM) -r "$(PACKAGING_TMP_DIR)"
 
 	mkdir -p $(DEST_PLUGIN_DIR)
 	cp -prf \
