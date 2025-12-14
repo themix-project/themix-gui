@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from .plugin_api import OomoxImportPlugin
 
 
-ThemeValueT = str | bool | int | float | Exception
+ThemeValueT = str | bool | int | float | Exception  # pylint: disable=invalid-name
 ThemeT = dict[str, ThemeValueT]
 
 
