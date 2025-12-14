@@ -32,8 +32,8 @@ def check_value_filter(
         colorscheme: "ThemeT",
 ) -> bool:
     filter_results = []
-    for key, _values in value_filter_data.items():
-        values = [_values] if not isinstance(_values, list) else _values
+    for key, raw_values in value_filter_data.items():
+        values = [raw_values] if not isinstance(raw_values, list) else raw_values
         value_found = False
         for value in values:
             if colorscheme.get(key) == value:

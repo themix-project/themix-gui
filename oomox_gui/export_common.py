@@ -225,7 +225,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
             **_kwargs: "Any",
     ) -> None:
         headline = headline or translate("Export Theme")
-        self.theme_name = "oomox-" + theme_name.split("/")[-1]
+        self.theme_name = "oomox-" + theme_name.rsplit("/", maxsplit=1)[-1]
 
         # @TODO: make sure it doesn't break things:
         self.colorscheme = colorscheme

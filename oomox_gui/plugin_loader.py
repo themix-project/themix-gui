@@ -77,11 +77,11 @@ class PluginLoader:
             return
         cls._init_done = True
         all_plugin_paths = {}
-        for _plugins_dir in (PLUGINS_DIR, USER_PLUGINS_DIR):
-            if not os.path.exists(_plugins_dir):
+        for plugin_dir in (PLUGINS_DIR, USER_PLUGINS_DIR):
+            if not os.path.exists(plugin_dir):
                 continue
-            for plugin_name in os.listdir(_plugins_dir):
-                all_plugin_paths[plugin_name] = os.path.join(_plugins_dir, plugin_name)
+            for plugin_name in os.listdir(plugin_dir):
+                all_plugin_paths[plugin_name] = os.path.join(plugin_dir, plugin_name)
         for plugin_name, plugin_path in all_plugin_paths.items():
             try:
                 cls.load_plugin(plugin_name, plugin_path)
