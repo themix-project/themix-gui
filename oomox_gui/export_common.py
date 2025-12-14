@@ -479,7 +479,7 @@ class DialogWithExportPath(ExportDialogWithOptions):
         pass
 
     @g_abstractproperty  # type: ignore[no-redef]
-    def config_name(self) -> None:  # type: ignore[override]
+    def config_name(self) -> None:
         pass
 
     def __init__(
@@ -553,7 +553,7 @@ class CommonGtkThemeExportDialog(DialogWithExportPath):
     config_name: str
 
     @g_abstractproperty  # type: ignore[no-redef]
-    def config_name(self) -> None:  # type: ignore[override]
+    def config_name(self) -> None:
         pass
 
     def __init__(
@@ -589,7 +589,7 @@ class CommonIconThemeExportDialog(DialogWithExportPath):
     config_name: str
 
     @g_abstractproperty  # type: ignore[no-redef]
-    def config_name(self) -> None:  # type: ignore[override]
+    def config_name(self) -> None:
         pass
 
     def __init__(
