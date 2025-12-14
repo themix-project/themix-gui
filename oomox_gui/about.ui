@@ -213,6 +213,7 @@
         <property name="can-focus">False</property>
         <property name="halign">center</property>
         <property name="has-subtitle">False</property>
+        <property name="show-close-button">True</property>
         <child>
           <object class="GtkStackSwitcher">
             <property name="visible">True</property>
