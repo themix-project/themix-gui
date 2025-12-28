@@ -37,7 +37,7 @@ class OomoxPlugin(ABC):
             message = (
                 f"Plugin require API ver from {self.supported_plugin_api_min}"
                 f" until {self.supported_plugin_api_max},"
-                f" while current API ver is {PLUGIN_API_VER}",
+                f" while current API ver is {PLUGIN_API_VER}"
             )
             raise RuntimeError(message)
 

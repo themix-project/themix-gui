@@ -645,7 +645,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 if not display_name:
                     no_display_name = (
                         f"build_theme_model_rows: ERROR:"
-                        f" theme value {theme_value} doesn't have a `display_name`",
+                        f" theme value {theme_value} doesn't have a `display_name`"
                     )
                     raise RuntimeError(no_display_name)
                 row: OomoxListBoxRow | SectionHeader | None = None
@@ -753,7 +753,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                 if not display_name:
                     no_display_name = (
                         f"build_theme_model_rows: ERROR:"
-                        f" theme value {theme_value} doesn't have a `display_name`",
+                        f" theme value {theme_value} doesn't have a `display_name`"
                     )
                     raise RuntimeError(no_display_name)
                 if isinstance(theme.get(key or display_name), Exception):
@@ -783,7 +783,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                     if not isinstance(row, OomoxListBoxRow):
                         wrong_row_type = (
                             f"Row is of type {theme_value['type']}"
-                            f" is not OomoxListBoxRow",
+                            f" is not OomoxListBoxRow"
                         )
                         raise TypeError(wrong_row_type)
                     row.set_value(theme[key])  # type: ignore[call-arg]

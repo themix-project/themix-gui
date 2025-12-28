@@ -282,7 +282,7 @@ class GObjectABCMeta(GObjectMeta, type):
             if missing_methods:
                 missing_methods_error = (
                     f"Can't instantiate abstract class {cls.__name__}"
-                    f" without abstract methods {','.join(set(missing_methods))}",
+                    f" without abstract methods {','.join(set(missing_methods))}"
                 )
                 raise TypeError(missing_methods_error)
 
@@ -303,7 +303,7 @@ def nongobject_check_class_for_gobject_metas(cls: type) -> None:
     if missing_methods:
         missing_methods_error = (
             f"Can't instantiate abstract class {cls.__name__}"
-            f" without abstract methods {','.join(set(missing_methods))}",
+            f" without abstract methods {','.join(set(missing_methods))}"
         )
         raise TypeError(missing_methods_error)
 
