@@ -140,6 +140,8 @@ ignore = [
 
     #"Q000",  # force double-quotes
     "FBT003",  # conflicts with GTK/gi
+
+    "RUF067",  # allow code in __init__.py
 ]
 
 [tool.ruff.lint.per-file-ignores]

@@ -14,6 +14,17 @@ if TYPE_CHECKING:
 PRESET_LIST_MIN_SIZE: "Final" = 150
 
 
+@lru_cache
+def _public_members(self_class: type) -> list[str]:
+    print(f" :: Computing for {self_class.__name__}")
+    annotations = {}
+    for klass in reversed(self_class.__mro__):
+        annotations.update(
+            inspect.get_annotations(klass),
+        )
+    return list(set(dir(self_class) + list(annotations.keys())))
+
+
 class CommonOomoxConfig:
 
     name: str
@@ -88,14 +99,8 @@ class CommonOomoxConfig:
         self.config[item] = value
 
     @property
-    @lru_cache
     def _public_members(self) -> list[str]:
-        annotations = {}
-        for klass in reversed(self.__class__.__mro__):
-            annotations.update(
-                inspect.get_annotations(klass),
-            )
-        return list(set(dir(self) + list(annotations.keys())))
+        return _public_members(self.__class__)
 
     def __getattr__(self, item: str) -> "Any":
         if item in self._public_members:
