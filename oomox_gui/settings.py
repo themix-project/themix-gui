@@ -1,3 +1,4 @@
+import inspect
 import json
 import os
 from typing import TYPE_CHECKING
@@ -87,7 +88,12 @@ class CommonOomoxConfig:
 
     @property
     def _public_members(self) -> list[str]:
-        return dir(self) + list(self.__annotations__.keys())
+        annotations = {}
+        for klass in reversed(self.__class__.__mro__):
+            annotations.update(
+                inspect.get_annotations(klass),
+            )
+        return list(set(dir(self) + list(annotations.keys())))
 
     def __getattr__(self, item: str) -> "Any":
         if item in self._public_members:
