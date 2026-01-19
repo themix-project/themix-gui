@@ -1,6 +1,7 @@
 import inspect
 import json
 import os
+from functools import lru_cache
 from typing import TYPE_CHECKING
 
 from .config import DEFAULT_ENCODING, USER_CONFIG_DIR
@@ -87,6 +88,7 @@ class CommonOomoxConfig:
         self.config[item] = value
 
     @property
+    @lru_cache
     def _public_members(self) -> list[str]:
         annotations = {}
         for klass in reversed(self.__class__.__mro__):
