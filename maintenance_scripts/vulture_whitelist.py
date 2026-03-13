@@ -25,6 +25,7 @@ whitelist.typing.TextIO
 whitelist.typing.TracebackType
 whitelist.typing.Tuple
 whitelist.typing.Type
+whitelist.typing_extensions.Self
 whitelist.color.HexColor
 whitelist.color.IntColor
 whitelist.theme_model.ThemeModel
