@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from typing import Any
 
     from gi.repository import Pango
+    from typing_extensions import Self
 
 
 class ActionProperty(str):  # noqa: FURB189
@@ -20,7 +21,7 @@ class ActionProperty(str):  # noqa: FURB189
     target: str
     name: str
 
-    def __new__(cls, target: str, name: str) -> "ActionProperty":
+    def __new__(cls, target: str, name: str) -> "Self":
         obj = str.__new__(cls, name)
         obj.name = name
         obj.target = target
