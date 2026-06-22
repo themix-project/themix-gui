@@ -45,7 +45,7 @@ class Plugin(OomoxIconsPlugin):
     about_links = [
         {
             "name": translate("Homepage"),
-            "url": "https://github.com/gusbemacbe/suru-plus",
+            "url": "https://github.com/suru-plus/suru-plus",
         },
     ]
 
