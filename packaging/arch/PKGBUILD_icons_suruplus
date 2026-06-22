@@ -4,8 +4,8 @@
 _pkgname=themix-icons-suru-plus
 _reponame=suru-plus
 pkgname="${_pkgname}-git"
-pkgver=30.0.r2.g9bd895f32
-pkgrel=2
+pkgver=30.0.r2.g09336add7
+pkgrel=1
 pkgdesc="Suru++ icons plugin for Themix GUI designer"
 arch=('x86_64' 'i686')
 url="https://github.com/suru-plus/suru-plus"
