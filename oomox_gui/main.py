@@ -140,6 +140,8 @@ class WindowActions(ActionsEnum):
     save = ActionProperty(_target, "save")
     show_help = ActionProperty(_target, "show_help")
     show_about = ActionProperty(_target, "show_about")
+    undo = ActionProperty(_target, "undo")
+    redo = ActionProperty(_target, "redo")
 
 
 class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-instance-attributes
@@ -545,6 +547,12 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
     def _on_show_about(self, _action: "Any", _param: "Any" = None) -> None:
         show_about(self)
 
+    def _on_undo(self, _action: "Any", _param: "Any" = None) -> None:
+        self.theme_edit.undo()
+
+    def _on_redo(self, _action: "Any", _param: "Any" = None) -> None:
+        self.theme_edit.redo()
+
     def _on_pane_resize(self, _action: "Any", _param: "Any" = None) -> None:
         position = self.paned_box.get_position()
         self.ui_settings.preset_list_width = position
@@ -758,6 +766,8 @@ class OomoxApplicationWindow(WindowWithActions):  # pylint: disable=too-many-ins
         self.add_simple_action(WindowActions.export_icons, self._on_export_icontheme)
         self.add_simple_action(WindowActions.show_help, self._on_show_help)
         self.add_simple_action(WindowActions.show_about, self._on_show_about)
+        self.add_simple_action(WindowActions.undo, self._on_undo)
+        self.add_simple_action(WindowActions.redo, self._on_redo)
         for plugin_name in PluginLoader.get_export_plugins():
             self.add_simple_action(
                 f"export_plugin_{plugin_name}", self._on_export_plugin,
@@ -884,6 +894,8 @@ class OomoxGtkApplication(Gtk.Application):
         set_accels_for_action(WindowActions.export_menu, ["<Primary>O"])
         set_accels_for_action(WindowActions.menu, ["F10"])
         set_accels_for_action(WindowActions.show_help, ["<Primary>question"])
+        set_accels_for_action(WindowActions.undo, ["<Primary>z"])
+        set_accels_for_action(WindowActions.redo, ["<Primary>y", "<Shift><Primary>z"])
 
         plugin_shortcuts: dict[str, str] = {}
         import_and_export_plugins: Sequence[
