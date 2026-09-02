@@ -252,7 +252,7 @@ class BoolListBoxRow(OomoxListBoxRow):
     def connect_changed_signal(self) -> None:
         self.changed_signal = self.value_widget.connect("notify::active", self.on_switch_activated)
 
-    def set_value(self, value: bool) -> None:  # type: ignore[override]  # noqa: FBT001
+    def set_value(self, value: bool) -> None:  # type: ignore[override]  # ruff: ignore[boolean-type-hint-positional-argument]
         self.disconnect_changed_signal()
         self.value = value
         self.value_widget.set_active(value)
@@ -361,7 +361,7 @@ class OomoxColorSelectionDialog(Gtk.ColorSelectionDialog):
 
         self.props.color_selection.set_current_rgba(self.gtk_color)  # type: ignore[attr-defined]
 
-        settings = Gtk.Settings.get_default()  # pylint: disable=no-value-for-parameter
+        settings = Gtk.Settings.get_default()
         if not settings:
             cant_load_palette_settings = "Can't load Gtk Palette settings"
             raise RuntimeError(cant_load_palette_settings)
@@ -406,7 +406,7 @@ class OomoxColorButton(Gtk.Button):
 
         self.callback = callback
         Gtk.Button.__init__(self)
-        self.gtk_color_button = Gtk.ColorButton.new()  # pylint: disable=no-value-for-parameter
+        self.gtk_color_button = Gtk.ColorButton.new()
         self.color_image = self.gtk_color_button.get_child()
         self.set_image(self.color_image)
         self.connect("clicked", self.on_click)
@@ -582,7 +582,7 @@ class SectionListBox(Gtk.Box):
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
-        def update_listbox_header(row: Gtk.ListBoxRow, before: bool) -> None:  # noqa: FBT001
+        def update_listbox_header(row: Gtk.ListBoxRow, before: bool) -> None:  # ruff: ignore[boolean-type-hint-positional-argument]
             if before and not row.get_header():
                 row.set_header(
                     Gtk.Separator(  # type: ignore[call-arg]
@@ -663,8 +663,8 @@ class ThemeColorsList(Gtk.ScrolledWindow):
                         "TERMINAL_THEME_AUTO_BGFG", "TERMINAL_FG", "TERMINAL_BG",
                 }:
                     def _callback(  # pylint:disable=unused-argument
-                            key: str,  # noqa: ARG001
-                            value: "ThemeValueT",  # noqa: ARG001
+                            key: str,  # ruff: ignore[unused-function-argument]
+                            value: "ThemeValueT",  # ruff: ignore[unused-function-argument]
                     ) -> None:
                         self.open_theme(self.theme)
                     callbacks += [_callback]

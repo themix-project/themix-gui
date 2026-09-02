@@ -202,7 +202,8 @@ expected-line-ending-format = 'LF'
 ignore-long-lines = '^\s*(# )?<?https?://\S+>?$'
 indent-after-paren = '4'
 indent-string = '    '
-max-line-length = '120'
+#max-line-length = '120'
+max-line-length = '999'  # moved to ruff
 max-module-lines = '1000'
 single-line-if-stmt = 'no'
 

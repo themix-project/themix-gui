@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
 
-class ActionProperty(str):  # noqa: FURB189
+class ActionProperty(str):  # ruff: ignore[subclass-builtin]
 
     __slots__ = ("name", "target")
 

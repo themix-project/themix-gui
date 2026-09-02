@@ -172,7 +172,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
             try:
                 self.treestore.get_iter(treepath)
                 path_found = True
-            except ValueError:  # noqa: PERF203
+            except ValueError:  # ruff: ignore[try-except-in-loop]
                 treepath.prev()
         self.treeview.expand_to_path(treepath)  # type: ignore[arg-type]
         self.treeview.set_cursor(treepath)
@@ -295,7 +295,7 @@ class ThemePresetList(Gtk.ScrolledWindow):
         last_subdir = None
         last_subdir_iter = None
         for preset in sorted_preset_list[1:]:
-            if len(preset.name.split("/")) > 2:  # noqa: PLR2004
+            if len(preset.name.split("/")) > 2:  # ruff: ignore[magic-value-comparison]
                 preset_subdir = os.path.dirname(preset.path)
                 if preset_subdir != last_subdir:
                     last_subdir = preset_subdir

@@ -1,4 +1,4 @@
 [flake8]
-max-line-length = 120
 ; already checked in ruff:
-ignore = F811,W503,W504
+; max-line-length = 120
+ignore = F811,W503,W504,,E501,E722

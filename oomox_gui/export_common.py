@@ -95,13 +95,13 @@ class ExportWrapper(Generic[ExportBaseClassT]):
         ):
             new_class = type(cls.__name__, tuple(new_mro), dict(cls.__dict__))
         nongobject_check_class_for_gobject_metas(new_class)
-        result: ExportBaseClassT = super(  # type: ignore[arg-type]  # pylint: disable=bad-super-call,no-value-for-parameter  # noqa: E501,RUF100
+        result: ExportBaseClassT = super(  # type: ignore[arg-type]  # pylint: disable=bad-super-call,no-value-for-parameter
             base_class, new_class,
         ).__new__(new_class)
         result.base_class = base_class  # type: ignore[assignment]
         return result
 
-    def __init__(  # type: ignore[misc]  # noqa: PYI019
+    def __init__(  # type: ignore[misc]  # ruff: ignore[custom-type-var-for-self]
             self: ExportBaseClassT,
             title: str,
             transient_for: Gtk.Window,
@@ -120,22 +120,22 @@ class ExportWrapper(Generic[ExportBaseClassT]):
         else:
             raise NotImplementedError
 
-    def get_content_area(self: ExportBaseClassT) -> ExportBoxT | Gtk.Box:  # type: ignore[misc]  # noqa: PYI019
+    def get_content_area(self: ExportBaseClassT) -> ExportBoxT | Gtk.Box:  # type: ignore[misc]  # ruff: ignore[custom-type-var-for-self]
         if self.base_class is Gtk.Dialog:
             return super().get_content_area()  # type: ignore[misc]  # pylint: disable=no-member
         if self.base_class is Gtk.Box:
             return self  # type: ignore[return-value]
         raise NotImplementedError
 
-    def set_default_size(self: ExportBaseClassT, width: int, height: int) -> None:  # type: ignore[misc]  # noqa: PYI019
+    def set_default_size(self: ExportBaseClassT, width: int, height: int) -> None:  # type: ignore[misc]  # ruff: ignore[custom-type-var-for-self]
         if self.base_class is Gtk.Dialog:
             super().set_default_size(width, height)  # type: ignore[misc]  # pylint: disable=no-member
 
-    def set_title(self: ExportBaseClassT, title: str) -> None:  # type: ignore[misc]  # noqa: PYI019
+    def set_title(self: ExportBaseClassT, title: str) -> None:  # type: ignore[misc]  # ruff: ignore[custom-type-var-for-self]
         if self.base_class is Gtk.Dialog:
             super().set_title(title)  # type: ignore[misc]  # pylint: disable=no-member
 
-    def dialog_done(self: ExportBaseClassT) -> None:  # type: ignore[misc]  # noqa: PYI019
+    def dialog_done(self: ExportBaseClassT) -> None:  # type: ignore[misc]  # ruff: ignore[custom-type-var-for-self]
         # pylint: disable=no-member
         if self.base_class is Gtk.Dialog:
             self.destroy()
@@ -320,7 +320,7 @@ class ExportDialog(ExportWrapper):  # type: ignore[type-arg]
             self.label.set_text(translate("Please wait while\nnew colorscheme will be created."))
             self.label.show()
             captured_log = ""
-            with subprocess.Popen(  # noqa: S603
+            with subprocess.Popen(  # ruff: ignore[subprocess-without-shell-equals-true]
                 self.command,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,

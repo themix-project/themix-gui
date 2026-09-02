@@ -22,7 +22,7 @@ class XrdbCache:
         command = ["xrdb", "-query"]
 
         result = {}
-        with subprocess.Popen(  # noqa: S603
+        with subprocess.Popen(  # ruff: ignore[subprocess-without-shell-equals-true]
             command,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,

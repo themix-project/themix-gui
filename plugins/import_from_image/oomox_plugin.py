@@ -327,7 +327,7 @@ class Plugin(OomoxImportPluginAsync):
             "value": "colorz64",
             "display_name": translate("colorz lib: high quality"),
         }]
-    except:  # noqa: E722 pylint: disable=bare-except
+    except:  # ruff: ignore[bare-except] pylint: disable=bare-except
         print(
             translate(
                 "Import Colors From Image plugin:"
@@ -344,7 +344,7 @@ class Plugin(OomoxImportPluginAsync):
             "value": "colorthief32",
             "display_name": translate("colorthief lib: doublepass"),
         }]
-    except:  # noqa: E722  pylint: disable=bare-except
+    except:  # ruff: ignore[bare-except]  pylint: disable=bare-except
         print(
             translate(
                 "Import Colors From Image plugin:"
@@ -359,7 +359,7 @@ class Plugin(OomoxImportPluginAsync):
             "value": "haishoku",
             "display_name": translate("haishoku lib"),
         })
-    except:  # noqa: E722  pylint: disable=bare-except
+    except:  # ruff: ignore[bare-except]  pylint: disable=bare-except
         print(
             translate(
                 "Import Colors From Image plugin:"
@@ -379,7 +379,7 @@ class Plugin(OomoxImportPluginAsync):
             "value": "all_medium",
             "display_name": translate("all available: medium quality"),
         }]
-    except:  # noqa: E722  pylint: disable=bare-except
+    except:  # ruff: ignore[bare-except]  pylint: disable=bare-except
         print(
             translate(
                 "Import Colors From Image plugin:"

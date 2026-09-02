@@ -53,7 +53,7 @@ class PaletteCache:
 
     @classmethod
     def add_color(cls, gtk_color: "Gdk.RGBA") -> None:
-        gtk_color_converted = gtk_color.to_color().to_string()  # type: ignore[func-returns-value]
+        gtk_color_converted = gtk_color.to_color().to_string()  # type: ignore[func-returns-value,attr-defined]
         palette_cache_list = [
             string for string in cls.get()  # pylint: disable=not-an-iterable
             if string

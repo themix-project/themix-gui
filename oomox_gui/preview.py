@@ -260,7 +260,7 @@ class ThemePreview(Gtk.Grid):
     def update_preview_carets(self, colorscheme: "ThemeT") -> None:
         self.css_providers.caret.load_from_data((
             (((
-                Gtk.get_minor_version() >= GTK_320_POSTFIX  # pylint: disable=no-value-for-parameter
+                Gtk.get_minor_version() >= GTK_320_POSTFIX
             ) and """
             * {{
                 caret-color: #{primary_caret_color};
@@ -542,7 +542,7 @@ class ThemePreview(Gtk.Grid):
 
         css_postfix = (
             f"{GTK_320_POSTFIX}"
-            if Gtk.get_minor_version() >= GTK_320_POSTFIX  # pylint: disable=no-value-for-parameter
+            if Gtk.get_minor_version() >= GTK_320_POSTFIX
             else ""
         )
         css_name = f"theme{css_postfix}.css"

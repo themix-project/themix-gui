@@ -80,7 +80,7 @@ def import_xcolors(path: str) -> dict[str, str]:
         if line.strip().startswith("!"):
             continue
         pair = [s.strip() for s in line.split(":")]
-        if len(pair) < 2:  # noqa: PLR2004
+        if len(pair) < 2:  # ruff: ignore[magic-value-comparison]
             continue
         key, value = pair
         key = key.replace("*", "")
@@ -153,7 +153,7 @@ def get_all_colors_from_oomox_colorscheme(palette: "ThemeT") -> list[str]:
     return all_colors
 
 
-class ContinueNext(Exception):  # noqa: N818
+class ContinueNext(Exception):  # ruff: ignore[error-suffix-on-exception-name]
     pass
 
 
@@ -221,7 +221,7 @@ COLOR_DIFF_MARGIN: "Final" = 60
 COLOR_SIMILARITY_IMPORTANCE: "Final" = 2.5
 
 
-def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches  # noqa: E501,RUF100
+def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks,too-many-locals,too-many-statements,too-many-branches
         result_callback: "Callable[[TerminalThemeT], None]",
         reference_colors: dict[str, str],
         all_colors: list[str],
@@ -292,7 +292,8 @@ def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks
             while green < color_end[GREEN] + accuracy:
                 blue = color_start[BLUE]
                 while blue < color_end[BLUE] + accuracy:
-                    try:
+                    # @TODO: rewrite it more adequately:
+                    try:  # ruff: ignore[too-many-statements-in-try-clause]
 
                         color_list = [red, green, blue]
                         modified_colors = {}
@@ -312,7 +313,7 @@ def _generate_theme_from_full_palette(  # pylint: disable=too-many-nested-blocks
                                     (key not in {"color0", "color7", "color8", "color15"})
                                     and (not min_lightness <= sum(new_value) <= max_lightness)
                             ):
-                                raise ContinueNext  # noqa: TRY301
+                                raise ContinueNext  # ruff: ignore[raise-within-try]
                             modified_colors[key] = new_value
 
                         num_of_similar = 0.0
