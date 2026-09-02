@@ -7,6 +7,7 @@ from .color import (
     convert_gdk_to_theme_color,
     convert_theme_color_to_gdk,
 )
+from .color_history import ColorHistoryStack, GlobalThemeHistory
 from .config import FALLBACK_COLOR
 from .gtk_helpers import GObjectABCMeta, ScaledImage, g_abstractproperty
 from .i18n import translate
@@ -416,20 +417,39 @@ class ColorDropdown(Gtk.MenuButton):
 
     colorbox: "ColorListBoxRow"
     drop_down: Gtk.Menu | None = None
+    item_undo: Gtk.MenuItem | None = None
+    item_redo: Gtk.MenuItem | None = None
 
     def build_dropdown_menu(self) -> Gtk.Menu:
         self.drop_down = Gtk.Menu()
-        menu_items: list[tuple[Gtk.MenuItem, Callable[[Gtk.MenuItem], None]]] = []
-        menu_items.append((
-            Gtk.MenuItem(label=translate("Replace all instances")), self.replace_all_instances,
-        ))
+        self.item_undo = Gtk.MenuItem(label=translate("Undo color"))
+        self.item_redo = Gtk.MenuItem(label=translate("Redo color"))
+        item_replace = Gtk.MenuItem(label=translate("Replace all instances"))
 
-        for item in menu_items:
-            self.drop_down.append(item[0])
-            item[0].connect("activate", item[1])
+        self.item_undo.connect("activate", self.on_undo_activate)
+        self.item_redo.connect("activate", self.on_redo_activate)
+        item_replace.connect("activate", self.replace_all_instances)
 
+        self.drop_down.append(self.item_undo)
+        self.drop_down.append(self.item_redo)
+        self.drop_down.append(Gtk.SeparatorMenuItem())
+        self.drop_down.append(item_replace)
+
+        self.drop_down.connect("show", self.on_menu_show)
         self.drop_down.show_all()
         return self.drop_down
+
+    def on_menu_show(self, _menu: Gtk.Menu) -> None:
+        if self.item_undo:
+            self.item_undo.set_sensitive(self.colorbox.history_stack.can_undo())
+        if self.item_redo:
+            self.item_redo.set_sensitive(self.colorbox.history_stack.can_redo())
+
+    def on_undo_activate(self, _menu_item: "Any") -> None:
+        self.colorbox.undo_color()
+
+    def on_redo_activate(self, _menu_item: "Any") -> None:
+        self.colorbox.redo_color()
 
     def replace_all_instances(self, _menu_item: "Any") -> None:
 
@@ -456,6 +476,7 @@ class ColorListBoxRow(OomoxListBoxRow):
     color_button: OomoxColorButton
     color_entry: Gtk.Entry
     menu_button: ColorDropdown
+    history_stack: ColorHistoryStack
 
     def connect_changed_signal(self) -> None:
         self.changed_signal = self.color_entry.connect("changed", self.on_color_input)
@@ -464,16 +485,44 @@ class ColorListBoxRow(OomoxListBoxRow):
         if self.changed_signal:
             self.color_entry.disconnect(self.changed_signal)
 
+    def record_history(self, new_val: str | None) -> None:
+        old_val = str(self.value) if self.value is not None else None
+        if new_val and old_val and old_val != new_val:
+            self.history_stack.record_change(old_val, new_val)
+            self.colors_list.global_history.push(self.key, old_val, new_val)
+
+    def undo_color(self) -> None:
+        current_val = str(self.value) if self.value is not None else FALLBACK_COLOR
+        prev_val = self.history_stack.undo(current_val)
+        if prev_val is not None:
+            self.colors_list.global_history.push(self.key, current_val, prev_val)
+            self.set_value(prev_val)
+            GLib.idle_add(self.callback, self.key, prev_val)
+
+    def redo_color(self) -> None:
+        current_val = str(self.value) if self.value is not None else FALLBACK_COLOR
+        next_val = self.history_stack.redo(current_val)
+        if next_val is not None:
+            self.colors_list.global_history.push(self.key, current_val, next_val)
+            self.set_value(next_val)
+            GLib.idle_add(self.callback, self.key, next_val)
+
     def on_color_input(self, widget: Gtk.Entry, value: str | None = None) -> None:
-        self.value = value or widget.get_text()
-        if not self.value:
-            self.value = None
-        if self.value:
+        raw_val: str | None = value or widget.get_text()
+        if not raw_val:
+            raw_val = None
+        if raw_val:
+            self.record_history(raw_val)
+            self.value = raw_val
             self.color_button.set_rgba(convert_theme_color_to_gdk(self.value))
+        else:
+            self.value = None
         GLib.idle_add(self.callback, self.key, self.value)
 
     def on_color_set(self, gtk_value: "Gdk.RGBA") -> None:
-        self.value = convert_gdk_to_theme_color(gtk_value)
+        new_val = convert_gdk_to_theme_color(gtk_value)
+        self.record_history(new_val)
+        self.value = new_val
         self.color_entry.set_text(self.value)
 
     def set_value(self, value: str) -> None:  # type: ignore[override]
@@ -496,6 +545,7 @@ class ColorListBoxRow(OomoxListBoxRow):
             transient_for: Gtk.Window,
             colors_list: "ThemeColorsList",
     ) -> None:
+        self.history_stack = ColorHistoryStack()
         self.color_button = OomoxColorButton(
             transient_for=transient_for,
             callback=self.on_color_set,
@@ -729,10 +779,46 @@ class ThemeColorsList(Gtk.ScrolledWindow):
 
             self.mainbox.add(section_box)
 
+    global_history: GlobalThemeHistory
+
+    def get_row_by_key(self, key: str) -> OomoxListBoxRow | None:
+        for section_rows in self._all_rows.values():
+            for row in section_rows.values():
+                if isinstance(row, OomoxListBoxRow) and row.key == key:
+                    return row
+        return None
+
+    def undo(self) -> None:
+        item = self.global_history.undo()
+        if item:
+            self._apply_history_item(item.key, item.old_value)
+
+    def redo(self) -> None:
+        item = self.global_history.redo()
+        if item:
+            self._apply_history_item(item.key, item.new_value)
+
+    def _apply_history_item(self, key: str, value: "ThemeValueT") -> None:
+        row = self.get_row_by_key(key)
+        if row:
+            self.global_history.enabled = False
+            try:
+                row.set_value(value)  # type: ignore[call-arg]
+                if isinstance(row, ColorListBoxRow) and isinstance(value, str):
+                    row.history_stack.push(value)
+                row.callback(key, value)
+            finally:
+                self.global_history.enabled = True
+
     def open_theme(  # pylint: disable=too-many-branches,too-many-locals
             self, theme: "ThemeT",
     ) -> None:
         self.theme = theme
+        self.global_history.clear()
+        for section_rows in self._all_rows.values():
+            for color_row in section_rows.values():
+                if isinstance(color_row, ColorListBoxRow):
+                    color_row.history_stack.clear()
         error_messages = []
         if "NOGUI" in theme:
             error_messages.append(translate("Can't Be Edited in GUI"))
@@ -827,6 +913,7 @@ class ThemeColorsList(Gtk.ScrolledWindow):
         self.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.color_edited_callback = color_edited_callback
         self.theme_reload_callback = theme_reload_callback
+        self.global_history = GlobalThemeHistory()
 
         self.mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.build_theme_model_rows()
