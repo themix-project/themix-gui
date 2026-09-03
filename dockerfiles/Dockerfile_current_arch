@@ -3,14 +3,14 @@ WORKDIR /opt/oomox-build/
 
 # App and test (xvfb, pylint) deps
 RUN pacman -Syu --noconfirm && \
-    pacman -S --needed --noconfirm gtk3 python-gobject python-yaml ruff flake8 python-pylint xorg-server-xvfb mypy python-typing_extensions shellcheck python-validate-pyproject && \
+    pacman -S --needed --noconfirm gtk3 python-gobject python-yaml ruff flake8 python-pylint xorg-server-xvfb mypy python-typing_extensions shellcheck python-validate-pyproject python-pygobject-stubs && \
     pacman -S --needed --noconfirm git base-devel && \
     (useradd -m user && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers || true) && \
     (which pikaur || sudo -u user bash -c "\
         git clone https://aur.archlinux.org/pikaur /home/user/pikaur && \
         cd /home/user/pikaur && \
         makepkg --install --syncdeps --noconfirm") && \
-    sudo -u user pikaur -S --needed --noconfirm python-pystache vulture shellcheck_makefile-git # python-pygobject-stubs
+    sudo -u user pikaur -S --needed --noconfirm python-pystache vulture shellcheck_makefile-git python-types-pyyaml
 
 COPY . /opt/oomox-build/
 
