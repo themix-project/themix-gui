@@ -42,6 +42,7 @@ from .theme_file import (
     save_colorscheme,
 )
 from .theme_file_parser import read_colorscheme_from_path
+from .welcome_dialog import WelcomeDialog
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Mapping, Sequence
@@ -953,6 +954,8 @@ class OomoxGtkApplication(Gtk.Application):
         if not self.window:
             self.window = OomoxApplicationWindow(application=self, show_window=self.show_window)
         self.window.present()
+        if UISettings().show_welcome_dialog:
+            WelcomeDialog(transient_for=self.window).show()
 
     def do_command_line(self, _command_line: None) -> int:  # pylint: disable=arguments-differ
         # options = command_line.get_options_dict()

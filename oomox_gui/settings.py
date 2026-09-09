@@ -134,6 +134,7 @@ class UISettings(OomoxSettings):
                 "preset_list_minimal_width": PRESET_LIST_MIN_SIZE,
                 "preset_list_width": PRESET_LIST_MIN_SIZE,
                 "preset_list_sections_expanded": {},
+                "show_welcome_dialog": True,
             },
         )
 
