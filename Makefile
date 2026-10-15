@@ -341,46 +341,37 @@ vulture:
 shellcheck:
 	# shellcheck disable=SC2046
 	# Running shellcheck:
-	( \
-		cd $(APP_DIR) || exit ; \
-		shellcheck $$(find . \
-			-name '*.sh' \
-			-not -path './plugins/icons_archdroid/archdroid-icon-theme/*' \
-			-not -path './plugins/icons_gnomecolors/gnome-colors-icon-theme/*' \
-			-not -path './plugins/icons_papirus/papirus-icon-theme/*' \
-			-not -path './plugins/icons_suruplus/suru-plus/*' \
-			-not -path './plugins/icons_suruplus_aspromauros/suru-plus-aspromauros/*' \
-			-not -path './plugins/base16/*.tmp/*' \
-			-not -path './plugins/oomoxify/*' \
-			-not -path './plugins/theme_arc/arc-theme/*' \
-			-not -path './plugins/theme_materia/materia-theme/*' \
-			-not -path './plugins/theme_oomox/gtk-theme/*' \
-			-or -path './packaging/bin/*' \
-		) \
+	shellcheck $$(find . \
+		-name '*.sh' \
+		-not -path './plugins/icons_archdroid/archdroid-icon-theme/*' \
+		-not -path './plugins/icons_gnomecolors/gnome-colors-icon-theme/*' \
+		-not -path './plugins/icons_papirus/papirus-icon-theme/*' \
+		-not -path './plugins/icons_suruplus/suru-plus/*' \
+		-not -path './plugins/icons_suruplus_aspromauros/suru-plus-aspromauros/*' \
+		-not -path './plugins/base16/*.tmp/*' \
+		-not -path './plugins/oomoxify/*' \
+		-not -path './plugins/theme_arc/arc-theme/*' \
+		-not -path './plugins/theme_materia/materia-theme/*' \
+		-not -path './plugins/theme_oomox/gtk-theme/*' \
+		-or -path './packaging/bin/*' \
 	)
 	# :: shellcheck passed ::
 
 shellcheck_makefile:
 	# Running shellcheck on Makefile...
-	( \
-	    cd $(APP_DIR) || exit ; \
-		shellcheck_makefile \
-			--skip lint \
-			--skip lint_ubuntu_310 \
-		; \
-	)
+	shellcheck_makefile \
+		--skip lint \
+		--skip lint_ubuntu_310 \
 	# :: shellcheck makefile passed ::
 
 validate_pyproject:
 	# Validate pyproject file...
-	( \
-		exit_code=0 ; \
+	exit_code=0 ; \
 		result=$$(validate-pyproject pyproject.toml 2>&1) || exit_code=$$? ; \
 		if [[ $$exit_code -gt 0 ]] ; then \
 			echo "$$result" ; \
 			exit "$$exit_code" ; \
-		fi \
-	)
+		fi
 	# :: pyproject validation passed ::
 
 .PHONY: lint compile_all python_import non_final_globals unreasonable_globals ruff flake8 pylint mypy vulture shellcheck shellcheck_makefile validate_pyproject
