@@ -144,9 +144,15 @@ done
 
 if [ -n "${ICONS_SYMBOLIC_ACTION:-}" ]; then
 	echo ":: Replacing symbolic actions colors..."
-	find "$tmp_dir"/Papirus/{16x16,22x22,24x24}/actions \
-		"$tmp_dir"/Papirus/16x16/{devices,places} \
-		"$tmp_dir"/Papirus/symbolic \
+	paths=(
+		"$tmp_dir"/Papirus/{16x16,22x22,24x24}/actions
+		"$tmp_dir"/Papirus/16x16/{devices,places}
+	)
+	deprecated_path_symbolic="$tmp_dir"/Papirus/symbolic
+	if [[ -e "$deprecated_path_symbolic" ]] ; then
+		paths+=("$deprecated_path_symbolic")
+	fi
+	find "${paths[@]}" \
 		-type f -name '*.svg' \
 		-exec sed -i'' -e "s/444444/$ICONS_SYMBOLIC_ACTION/g" '{}' \;
 fi
